@@ -10,13 +10,17 @@ Offline-first time tracking app (SvelteKit PWA).
 
 ## Start a new Cascade session
 
-**Step 1:** Start the development environment:
+**Step 1:** Open two integrated terminals and run:
+
+Terminal 1 - Dev Server:
 ```
-powershell -File scripts/start-session.ps1
+npm run dev
 ```
-This opens two windows:
-- Dev server (`npm run dev`)
-- Cascade watcher (enables autonomous command execution)
+
+Terminal 2 - Cascade Watcher:
+```
+powershell -File scripts/cascade-watcher.ps1
+```
 
 **Step 2:** Start a new chat with:
 ```
@@ -29,7 +33,6 @@ This opens two windows:
 
 | Script | Purpose |
 |--------|---------|
-| `scripts/start-session.ps1` | Start dev server + watcher (run before each session) |
 | `scripts/cascade-watcher.ps1` | Watches for commands from Cascade |
 | `scripts/verify-code.ps1` | Runs format, check, lint (called by `npm run verify`) |
 

@@ -4,13 +4,19 @@ description: Continue work on TimeTracker - reads all context and finds next tas
 
 ## User Setup (before starting)
 
-Run this single command to start both dev server and watcher:
+Open two integrated terminals and run:
 
+**Terminal 1 - Dev Server:**
 ```
-powershell -File scripts/start-session.ps1
+npm run dev
 ```
 
-This opens two windows automatically. Then tell Cascade "done" to begin.
+**Terminal 2 - Cascade Watcher:**
+```
+powershell -File scripts/cascade-watcher.ps1
+```
+
+Then tell Cascade "done" to begin.
 
 ---
 
