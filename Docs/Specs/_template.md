@@ -1,30 +1,39 @@
-﻿# <feature-slug> â€” Spec
+﻿# <feature-slug> — Spec
 
-## Problem
-(1â€“3 sentences)
+## 1) Goal / Problem
+(1–3 sentences)
 
-## Users / Journeys
-- Who uses this?
-- What are they trying to accomplish?
-
-## Scope (in / out)
+## 2) Scope
 ### In scope
-- 
+- ...
 
 ### Out of scope
-- 
+- ...
 
-## Acceptance criteria
-- [ ] 
-- [ ] 
+## 3) Functional Requirements (FR)
+- **TT-FR-001**: ...
+- **TT-FR-002**: ...
 
-## Edge cases
-- 
+## 4) Implementation Guarantees (IG)
+- **TT-IG-001**: ...
+- **TT-IG-002**: ...
 
-## Data & privacy
+## 5) Design Decisions (DD) (optional)
+- **TT-DD-001**: ...
+
+## 6) Edge cases
+- ...
+
+## 7) Data & privacy
 - What is stored?
 - Where?
 - Retention?
+- Export/delete expectations?
 
-## Non-goals
-- What we are NOT building
+## 8) Acceptance checks (testable)
+- [ ] AC-001: ...
+- [ ] AC-002: ...
+
+## 9) Change log
+- YYYY-MM-DD: Created
+- YYYY-MM-DD: ...

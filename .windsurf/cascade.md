@@ -1,5 +1,7 @@
 # TimeTracker — Cascade Project Instructions
 
+Before doing anything: run workflows rules-read-all and read-core-docs-and-code and paste the one-line outputs.
+
 ## CRITICAL: Read This First (Every Chat Session)
 
 This project uses **Spec-Driven Development**. You MUST follow this process strictly.

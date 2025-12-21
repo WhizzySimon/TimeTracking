@@ -3,6 +3,13 @@
 This repo uses Spec-Driven Development: we write/maintain specs that drive implementation.
 Primary rule: DO NOT start implementing until the spec + plan + tasks are explicit and internally consistent.
 
+## Start-of-session workflows (if present)
+Before doing anything else, run these workflows if they exist in .windsurf/workflows:
+- rules-read-all
+- read-core-docs-and-code
+
+Paste the one-line outputs from each workflow.
+
 ## Mandatory doc loading (non-negotiable)
 Before planning or coding, ALWAYS:
 1) Read: Docs/INDEX.md
@@ -11,11 +18,8 @@ Before planning or coding, ALWAYS:
 If required info is missing, STOP and propose an update to the relevant doc (spec/plan/tasks) before coding.
 
 ## Source of truth
-- If multiple sources conflict, follow this priority:
-  1) Docs/INDEX.md (explicit priority order)
-  2) The newest approved spec for the feature in Docs/Specs/
-  3) Project principles + process rules (this file)
-  4) Existing code behavior (only when docs/specs are silent)
+- If multiple sources conflict, follow Docs/INDEX.md (explicit priority order).
+- If Docs/INDEX.md does not cover something, STOP and propose updating the relevant doc/spec instead of guessing.
 
 ## Process (must follow in order)
 We work in 4 phases. Each phase has a checkpoint and must be updated before moving on.
@@ -26,24 +30,28 @@ For any non-trivial change, create/update a spec file:
 
 - Docs/Specs/<feature-slug>.md
 
+Use the spec template in Docs/Specs/_template.md and follow Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md.
 
 Each spec MUST contain:
 - Problem statement (1–3 sentences)
-- Users + main user journeys
 - Explicit scope (in scope / out of scope)
-- Acceptance criteria (testable statements)
+- Functional Requirements (FR) — user-observable behavior (TT-FR-001, TT-FR-002, ...)
+- Implementation Guarantees (IG) — constraints/outcomes that must hold (TT-IG-001, TT-IG-002, ...)
+- Design Decisions (DD) — deliberate choices to lock in (TT-DD-001, TT-DD-002, ...) (optional)
 - Edge cases + failure states
 - Data & privacy notes (what is stored, where, retention)
-- Non-goals (what we are not building)
+- Acceptance checks (testable, mapped to FR/IG/DD)
+- Change log
 
 Checkpoint to proceed:
 - No ambiguous terms remain (e.g., "fast", "simple", "works offline") without a measurable definition.
+- All FR/IG/DD are numbered and testable.
 
 ### Phase 2 — PLAN (how)
 Goal: choose architecture/approach and write it down before code.
 Create/update:
 
-- docs/plans/<feature-slug>.md
+- Docs/Plans/<feature-slug>.md
 
 Each plan MUST contain:
 - A minimal architecture sketch (components/modules + responsibilities)
@@ -60,7 +68,7 @@ Checkpoint to proceed:
 Goal: break plan into reviewable, independently testable units.
 Create/update:
 
-- docs/tasks/<feature-slug>.md
+- Docs/Tasks/<feature-slug>.md
 
 Rules:
 - Tasks MUST be small (ideally 0.5–2h human-sized).
@@ -107,7 +115,7 @@ When reporting completion:
 
 ## Where to put long-lived knowledge
 - Project-wide rules: keep in this AGENTS.md (short, stable).
-- Feature detail: docs/specs + docs/plans + docs/tasks.
+- Feature detail: Docs/Specs/ + Docs/Plans/ + Docs/Tasks/.
 - If instructions get long, split into additional docs and reference them from the spec/plan (do not bloat AGENTS.md).
 
 ## Communication style for Cascade output
