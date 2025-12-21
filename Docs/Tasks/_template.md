@@ -1,23 +1,23 @@
-﻿# <feature-slug> â€” Tasks
+﻿# <feature-slug> - Tasks
 
-## Task 1 â€” [Brief description]
-- **Files:** 
+## Task 1 - [Brief description]
+- **Files:**
   - `path/to/file.ts`
-- **Done when:** 
+- **Done when:**
   - Specific completion criteria
-- **Verify:** 
+- **Verify:**
   - `npm run check`
   - `npm run test`
-- **Guardrails:** 
+- **Guardrails:**
   - Must not change X
   - Must preserve Y
 
-## Task 2 â€” [Brief description]
-- **Files:** 
+## Task 2 - [Brief description]
+- **Files:**
   - `path/to/file.ts`
-- **Done when:** 
+- **Done when:**
   - Specific completion criteria
-- **Verify:** 
+- **Verify:**
   - `npm run check`
-- **Guardrails:** 
+- **Guardrails:**
   - Must not change X

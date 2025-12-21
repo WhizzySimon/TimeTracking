@@ -1,56 +1,66 @@
 # Implementation Specification Rules (TimeTracker)
 
-These rules exist because "rules alone” are often ignored. Start every session by running workflows:
-- .windsurf/workflows/rules-read-all.md
-- .windsurf/workflows/read-core-docs-and-code.md
+This file is a bootstrap rule set for Cascade. The authoritative source of truth is defined in Docs/INDEX.md.
 
-## Non-negotiables
-- Do not implement anything unless the relevant requirements exist in an authoritative doc/spec.
-- When something is unclear, update the spec first. No guessing.
+## Start of session (mandatory)
+Start every session by running:
+- /project-start
 
-## How to write requirements (3 buckets)
+Follow its instructions and paste the requested one-line outputs.
 
-### A) Functional Requirements (FR) — "what the user can do / see”
+## Source of truth (no guessing)
+- If multiple sources conflict, follow Docs/INDEX.md (explicit priority order).
+- Do not invent requirements. If something is missing or unclear, propose a doc/spec update first.
+
+## How to write requirements (FR/IG/DD)
+Authoritative format:
+- Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/Specs/_template.md
+
+Minimum bar for any feature change:
+- FR/IG/DD are numbered, testable, and unambiguous.
+- Acceptance checks exist and map to the numbered requirements.
+
+### A) Functional Requirements (FR) - "what the user can do / see"
 Write FR as user-observable behavior.
 
 Good:
-- "User can create a time entry with start/end, activity, and category.”
-Bad:
-- "Use store X and component Y.”
+- "User can create a time entry with start/end, category, and note."
+- "User can delete a user-defined category, but cannot delete system categories."
 
-### B) Implementation Guarantees (IG) — "must be true regardless of implementation”
-Write IG as constraints/outcomes, not as design.
+Bad:
+- "Use store X and component Y."
+
+### B) Implementation Guarantees (IG) - "must always be true"
+Write IG as constraints/outcomes that must hold regardless of implementation details.
 
 Good:
-- "All changes are persisted locally and survive refresh/offline.”
-- "Month navigation does not lose unsaved edits; user is warned or changes are autosaved.”
+- "System categories always exist and are non-editable and non-deletable."
+- "Local persistence is offline-first; data remains available after reload."
+
 Bad:
-- "Use IndexedDB library Z.”
+- "Use localStorage directly in component Z."
 
-### C) Design Decisions (DD) — "we choose this on purpose”
-Use DD for deliberate choices that you want stable:
-- naming conventions
-- UI conventions (button order, labels)
-- data model constraints
-- file layout rules
+### C) Design Decisions (DD) - "deliberate choices"
+Write DD to capture intentional choices that could be implemented multiple ways.
 
-## Rule of thumb
-If you want freedom: put it in IG.
-If you want it exactly: put it in DD.
+Good:
+- "Default user categories are seeded from static/default-categories.de.json on first run only."
+- "Commands are executed via generated PowerShell scripts; do not assume terminal execution."
 
-## Required format for new/updated specs
-Any spec for a feature MUST contain:
-1) Problem / Goal
-2) Scope (in/out)
-3) FR (numbered)
-4) IG (numbered)
-5) DD (numbered, optional)
-6) Acceptance checks (numbered, testable)
-7) Change log (date + summary)
+Bad:
+- "Because I felt like it."
 
 ## Verification loop (mandatory)
 After implementing:
-1) Verify against FR/IG/DD and list each requirement with PASS/FAIL.
-2) If FAIL:
-   - If spec was clear → fix code.
-   - If spec allowed multiple interpretations → tighten spec, then fix code.
+1) List each relevant FR/IG/DD requirement and mark PASS/FAIL.
+2) If any FAIL:
+   - If the spec was clear: fix code/tests.
+   - If the spec allowed multiple interpretations: tighten the spec first, then fix code/tests.
+
+## Terminal/verification commands
+If terminal commands are required:
+- Create a PowerShell script under scripts/ (e.g., scripts/milestone_1.ps1 or scripts/verify_<task>.ps1).
+- Tell the user the exact one-line command to run it.
+- The user runs it and pastes the output back.
+- Do not claim you executed commands unless you actually did.

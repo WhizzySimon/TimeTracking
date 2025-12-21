@@ -2,7 +2,7 @@
 
 ## Start-of-session workflow (mandatory)
 Before doing anything else, run:
-- project-start
+- /project-start
 Follow its instructions and paste the requested one-line outputs.
 If anything is missing/fails, STOP and fix that first.
 

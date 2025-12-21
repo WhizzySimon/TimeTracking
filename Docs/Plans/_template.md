@@ -1,4 +1,4 @@
-﻿# <feature-slug> â€” Plan
+﻿# <feature-slug> - Plan
 
 ## Architecture / modules
 - Component/module responsibilities
