@@ -21,6 +21,29 @@ Read all:
 - src/**/*.js
 - src/**/*.svelte
 - src/**/*.css
+- src/**/*.html
+
+Read:
+- package.json
+- svelte.config.*
+- vite.config.*
+- playwright.config.*
+- .npmrc (if exists)
+- pnpm-lock.yaml (if exists)
+- package-lock.json (if exists)
+
+Read all:
+- e2e/**/*.ts
+- e2e/**/*.js
+- e2e/**/*.spec.ts
+- e2e/**/*.spec.js
+
+Read:
+- static/sw.js
+- static/manifest.webmanifest
+- static/robots.txt
+
+Do NOT read node_modules or build outputs.
 
 Return only a single line:
 "Read core docs + [x] code files, [z]k context tokens"
