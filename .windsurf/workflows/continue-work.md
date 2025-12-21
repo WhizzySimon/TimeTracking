@@ -7,11 +7,13 @@ description: Continue work on TimeTracker - reads all context and finds next tas
 Open two integrated terminals and run:
 
 **Terminal 1 - Dev Server:**
+
 ```
 npm run dev
 ```
 
 **Terminal 2 - Cascade Watcher:**
+
 ```
 powershell -File scripts/cascade-watcher.ps1
 ```

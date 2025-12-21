@@ -329,6 +329,7 @@ When user runs `/continue-work`:
 Cascade commits changes automatically via the watcher after verification passes.
 
 **Workflow:**
+
 1. Cascade completes task and verification passes
 2. Cascade runs `git status --porcelain` to see changed files
 3. Cascade runs `git add -A; git commit -m "message"` with descriptive commit message
@@ -344,6 +345,7 @@ feat: short description
 - Task X.X: what was done
 
 **Types:**
+
 - `feat:` - New feature
 - `fix:` - Bug fix
 - `refactor:` - Code refactoring
