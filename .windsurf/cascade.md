@@ -1,6 +1,11 @@
 # TimeTracker — Cascade Project Instructions
 
-Before doing anything: run workflows rules-read-all and read-core-docs-and-code and paste the one-line outputs.
+## Start-of-session workflows (mandatory)
+Before doing anything else, run these workflows:
+- rules-read-all
+- read-core-docs-and-code
+
+Paste the one-line outputs from each workflow.
 
 ## CRITICAL: Read This First (Every Chat Session)
 
@@ -70,13 +75,12 @@ Do NOT start coding until you have:
 
 ---
 
-## Source of Truth Priority
+## Conflicts / source of truth
 
-When conflicts exist, follow this order:
-1. `Docs/INDEX.md` (explicit priority order)
-2. Newest approved spec in `Docs/Specs/`
-3. `AGENTS.md` (process rules)
-4. Existing code (only when docs silent)
+If multiple sources conflict, follow **Docs/INDEX.md** (explicit priority order).
+
+No other priority list in this repo is authoritative.  
+If Docs/INDEX.md does not cover the situation, STOP and propose updating the relevant doc/spec instead of guessing.
 
 ---
 
