@@ -1,38 +1,23 @@
-# sv
+# TimeTracker
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Offline-first time tracking app (SvelteKit PWA).
 
-## Creating a project
+## Entry points
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Human onboarding: `START_HERE.md`
+- Single source of truth + priority order: `Docs/INDEX.md`
+- Agent/process rules: `AGENTS.md`
 
-```sh
-# create a new project in the current directory
-npx sv create
+## Start a new Cascade session
 
-# create a new project in my-app
-npx sv create my-app
-```
+1) Run:
+- /project-start
 
-## Developing
+2) Paste the one-line outputs from the workflows.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+3) Then give the first implementation instruction (e.g. "Complete Task 0, then start Task 1.1.").
 
-```sh
-npm run dev
+## When commands are needed
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Cascade must create a PowerShell script under `scripts/`.
+You run it locally and paste the output back into Cascade.
