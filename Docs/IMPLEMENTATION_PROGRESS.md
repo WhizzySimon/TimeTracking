@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 15 / 60  
-**Estimated Progress:** 25%
+**Tasks Completed:** 16 / 60  
+**Estimated Progress:** 27%
 
 ---
 
@@ -140,11 +140,11 @@
   - Deviations: None
   - Notes: Displays Ist/Soll/Saldo with German formatting. Positive saldo green, negative red.
 
-- [ ] **Task 2.6** — Implement Day tab UI structure
+- [x] **Task 2.6** — Implement Day tab UI structure
   - Files: `src/routes/day/+page.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Added date navigation, day type selector (placeholder), InlineSummary with dummy data, add task button, empty task list. All elements in spec order.
 
 - [ ] **Task 2.7** — Implement date navigation logic
   - Files: `src/routes/day/+page.svelte`

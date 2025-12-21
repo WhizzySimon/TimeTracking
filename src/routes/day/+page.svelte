@@ -14,7 +14,7 @@
 	import { onMount } from 'svelte';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { currentDate } from '$lib/stores';
-	import { formatDate, isToday } from '$lib/utils/date';
+	import { formatDate, isToday, addDays } from '$lib/utils/date';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 
 	let loading = $state(true);
@@ -26,6 +26,19 @@
 
 	// Reactive date display
 	let dateDisplay = $derived(isToday($currentDate) ? 'Heute' : formatDate($currentDate, 'DE'));
+
+	// Date navigation functions
+	function goToPreviousDay() {
+		currentDate.set(addDays($currentDate, -1));
+	}
+
+	function goToNextDay() {
+		currentDate.set(addDays($currentDate, 1));
+	}
+
+	function goToToday() {
+		currentDate.set(new Date());
+	}
 
 	onMount(async () => {
 		await initializeCategories();
@@ -41,9 +54,9 @@
 	{:else}
 		<!-- Date Navigation -->
 		<header class="date-nav">
-			<button class="nav-btn" aria-label="Vorheriger Tag">←</button>
-			<h1 class="date-title">{dateDisplay}</h1>
-			<button class="nav-btn" aria-label="Nächster Tag">→</button>
+			<button class="nav-btn" onclick={goToPreviousDay} aria-label="Vorheriger Tag">←</button>
+			<button class="date-title" onclick={goToToday}>{dateDisplay}</button>
+			<button class="nav-btn" onclick={goToNextDay} aria-label="Nächster Tag">→</button>
 		</header>
 
 		<!-- Day Type Selector (placeholder) -->
@@ -124,6 +137,15 @@
 		font-weight: 600;
 		text-align: center;
 		flex: 1;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+		border-radius: 8px;
+	}
+
+	.date-title:hover {
+		background: #f5f5f5;
 	}
 
 	/* Day Type Selector */
