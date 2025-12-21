@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 22 / 60  
-**Estimated Progress:** 37%
+**Tasks Completed:** 24 / 60  
+**Estimated Progress:** 40%
 
 ---
 
@@ -182,17 +182,17 @@
   - Deviations: None
   - Notes: Shows "⚠ Aufgabe läuft noch (keine Endzeit)" when any entry has null endTime. Appears above date nav per spec.
 
-- [ ] **Task 2.13** — Calculate real Ist from time entries
+- [x] **Task 2.13** — Calculate real Ist from time entries
   - Files: `src/routes/day/+page.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Uses calculateIst() with dayEntries and categories. Only counts completed tasks with countsAsWorkTime=true.
 
-- [ ] **Task 2.14** — Implement edit task functionality
-  - Files: `src/lib/components/AddTaskModal.svelte`, `src/lib/components/TaskItem.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 2.14** — Implement edit task functionality
+  - Files: `src/lib/components/AddTaskModal.svelte`, `src/lib/components/TaskItem.svelte`, `src/routes/day/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Already implemented in Task 2.11. Clicking TaskItem opens AddTaskModal with entry data pre-filled.
 
 - [ ] **Task 2.15** — Implement delete task functionality
   - Files: `src/lib/components/TaskItem.svelte`

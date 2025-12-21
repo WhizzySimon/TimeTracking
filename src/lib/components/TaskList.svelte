@@ -14,9 +14,10 @@
 	interface Props {
 		entries: TimeEntry[];
 		onselect?: (entry: TimeEntry) => void;
+		ondelete?: (entry: TimeEntry) => void;
 	}
 
-	let { entries, onselect }: Props = $props();
+	let { entries, onselect, ondelete }: Props = $props();
 
 	// Sort entries newest first (by startTime descending)
 	let sortedEntries = $derived([...entries].sort((a, b) => b.startTime.localeCompare(a.startTime)));
@@ -34,6 +35,7 @@
 				{entry}
 				category={categoryMap.get(entry.categoryId)}
 				onclick={() => onselect?.(entry)}
+				ondelete={() => ondelete?.(entry)}
 			/>
 		{/each}
 	{/if}

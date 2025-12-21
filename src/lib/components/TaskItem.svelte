@@ -16,9 +16,15 @@
 		entry: TimeEntry;
 		category: Category | undefined;
 		onclick?: () => void;
+		ondelete?: () => void;
 	}
 
-	let { entry, category, onclick }: Props = $props();
+	let { entry, category, onclick, ondelete }: Props = $props();
+
+	function handleDelete(event: MouseEvent) {
+		event.stopPropagation();
+		ondelete?.();
+	}
 
 	let timeDisplay = $derived(
 		entry.endTime ? `${entry.startTime} – ${entry.endTime}` : `${entry.startTime} – laufend`
@@ -28,10 +34,14 @@
 	let countsAsWork = $derived(category?.countsAsWorkTime ?? false);
 </script>
 
-<button class="task-item" class:running={isRunning} {onclick}>
-	<div class="task-main">
-		<span class="task-time">{timeDisplay}</span>
-		<span class="task-category">{category?.name ?? 'Unbekannt'}</span>
+<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+<div class="task-item" class:running={isRunning} {onclick}>
+	<div class="task-header">
+		<div class="task-main">
+			<span class="task-time">{timeDisplay}</span>
+			<span class="task-category">{category?.name ?? 'Unbekannt'}</span>
+		</div>
+		<button class="delete-btn" onclick={handleDelete} aria-label="Löschen">×</button>
 	</div>
 	<div class="task-meta">
 		{#if countsAsWork}
@@ -43,7 +53,7 @@
 	{#if entry.description}
 		<div class="task-description">{entry.description}</div>
 	{/if}
-</button>
+</div>
 
 <style>
 	.task-item {
@@ -70,11 +80,38 @@
 		background: #fffbeb;
 	}
 
-	.task-main {
+	.task-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		gap: 0.5rem;
+	}
+
+	.task-main {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex: 1;
+	}
+
+	.delete-btn {
+		width: 28px;
+		height: 28px;
+		border: none;
+		background: transparent;
+		color: #999;
+		font-size: 1.25rem;
+		cursor: pointer;
+		border-radius: 4px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.delete-btn:hover {
+		background: #fee2e2;
+		color: #dc2626;
 	}
 
 	.task-time {
