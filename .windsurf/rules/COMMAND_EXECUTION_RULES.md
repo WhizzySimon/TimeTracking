@@ -229,6 +229,7 @@ This file should be read at the start of every session via the `/rules-read-all`
 ### MCP Playwright Testing
 
 After code verification passes, Cascade uses:
+
 - `mcp0_browser_navigate` - Go to page
 - `mcp0_browser_snapshot` - Get page structure
 - `mcp0_browser_click` - Interact with elements
@@ -236,7 +237,6 @@ After code verification passes, Cascade uses:
 - `mcp0_browser_console_messages` - Check for errors
 
 **Requirement:** Dev server must be running (`npm run dev`)
-
 
 ---
 

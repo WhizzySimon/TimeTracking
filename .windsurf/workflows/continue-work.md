@@ -15,6 +15,7 @@ Then:
 6. Start implementing the next task following the Automated Task Workflow from COMMAND_EXECUTION_RULES.md
 
 Report:
+
 - Current phase
 - Next task to implement
 - Begin implementation immediately
