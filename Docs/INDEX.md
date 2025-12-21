@@ -1,10 +1,10 @@
-# TimeTracker Docs Index (Authoritative)
+﻿# TimeTracker Docs Index (Authoritative)
 
 ## Rule
 Cascade MUST read this file first. Cascade MUST only treat docs listed here as authoritative.
 
 ## Priority order (when conflicts exist)
-1) Docs/DevelopmentSpecs/AGENTS.md (principles + process)
+1) AGENTS.md (repo root) (principles + process)
 2) UI & logic specification (product truth)
 3) Technical guideline (architecture truth)
 4) PWA/SvelteKit addendum (platform constraints)
@@ -13,11 +13,11 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 
 ## Authoritative documents
 ### Development process (how we work)
-- Docs/DevelopmentSpecs/AGENTS.md  
+- AGENTS.md (repo root)  
   Purpose: spec-driven process, how to plan tasks, how to verify.
 
 ### Product spec (what we build)
-- Docs/Guidelines/UI & Logik Spezifikation v1.md  
+- Docs/Guidelines/ui-logic-spec-v1.md  
   Purpose: screens, flows, rules, acceptance criteria for the app.
 
 ### Architecture & implementation rules
