@@ -7,6 +7,7 @@ Make sure you have no duplicates in your read list.
 
 Step A (docs):
 Read:
+
 - Docs/INDEX.md
 - AGENTS.md
 - Docs/Guidelines/ui-logic-spec-v1.md
@@ -17,28 +18,32 @@ Read:
 
 Step B (code):
 Read all:
-- src/**/*.ts
-- src/**/*.js
-- src/**/*.svelte
-- src/**/*.css
-- src/**/*.html
+
+- src/\*_/_.ts
+- src/\*_/_.js
+- src/\*_/_.svelte
+- src/\*_/_.css
+- src/\*_/_.html
 
 Read:
+
 - package.json
-- svelte.config.*
-- vite.config.*
-- playwright.config.*
+- svelte.config.\*
+- vite.config.\*
+- playwright.config.\*
 - .npmrc (if exists)
 - pnpm-lock.yaml (if exists)
 - package-lock.json (if exists)
 
 Read all:
-- e2e/**/*.ts
-- e2e/**/*.js
-- e2e/**/*.spec.ts
-- e2e/**/*.spec.js
+
+- e2e/\*_/_.ts
+- e2e/\*_/_.js
+- e2e/\*_/_.spec.ts
+- e2e/\*_/_.spec.js
 
 Read:
+
 - static/sw.js
 - static/manifest.webmanifest
 - static/robots.txt

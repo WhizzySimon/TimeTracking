@@ -10,6 +10,7 @@
 ## How to Use This File
 
 **Cascade MUST update this file after completing each task:**
+
 1. Mark task as ✅ Done
 2. Update "Last Updated" timestamp
 3. Update "Tasks Completed" counter
@@ -17,6 +18,7 @@
 5. Note any deviations from plan
 
 **Format for each task:**
+
 ```
 - [x] Task X.Y — Brief description
   - Verified: npm run check ✅, npm run lint ✅
@@ -35,65 +37,65 @@
 
 - [ ] **Task 1.1** — Configure SvelteKit for SPA mode
   - Files: `src/routes/+layout.js`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 1.2** — Create PWA manifest
   - Files: `static/manifest.webmanifest`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 1.3** — Create placeholder PWA icons
   - Files: `static/icons/icon-192.png`, `static/icons/icon-512.png`, `static/apple-touch-icon.png`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 1.4** — Update app.html with PWA meta tags
   - Files: `src/app.html`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 1.5** — Implement basic service worker
   - Files: `static/sw.js`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 1.6** — Register service worker in layout
   - Files: `src/routes/+layout.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 ### IndexedDB Setup
 
 - [ ] **Task 1.7** — Create IndexedDB wrapper module
   - Files: `src/lib/db/index.ts`, `src/lib/db/schema.ts`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 1.8** — Create IndexedDB CRUD helpers
   - Files: `src/lib/db/operations.ts`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 1.9** — Seed system categories
   - Files: `src/lib/db/seed.ts`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 1.10** — Create Svelte stores for global state
   - Files: `src/lib/stores/index.ts`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 ---
 
@@ -106,97 +108,97 @@
 
 - [ ] **Task 2.1** — Create tab navigation component
   - Files: `src/lib/components/TabNavigation.svelte`, `src/routes/+layout.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.2** — Create placeholder routes for all tabs
   - Files: `src/routes/+page.svelte`, `src/routes/day/+page.svelte`, `src/routes/week/+page.svelte`, `src/routes/analysis/+page.svelte`, `src/routes/settings/+page.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 ### Utilities
 
 - [ ] **Task 2.3** — Create date utility functions
   - Files: `src/lib/utils/date.ts`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.4** — Create calculation utility functions
   - Files: `src/lib/utils/calculations.ts`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 ### Day Tab Components
 
 - [ ] **Task 2.5** — Create InlineSummary component
   - Files: `src/lib/components/InlineSummary.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.6** — Implement Day tab UI structure
   - Files: `src/routes/day/+page.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.7** — Implement date navigation logic
   - Files: `src/routes/day/+page.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.8** — Create DayTypeSelector component
   - Files: `src/lib/components/DayTypeSelector.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.9** — Load day type and work time model for current date
   - Files: `src/routes/day/+page.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.10** — Create AddTaskModal component
   - Files: `src/lib/components/AddTaskModal.svelte`, `src/lib/components/Modal.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.11** — Create TaskList and TaskItem components
   - Files: `src/lib/components/TaskList.svelte`, `src/lib/components/TaskItem.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.12** — Implement running task warning banner
   - Files: `src/lib/components/WarningBanner.svelte`, `src/routes/day/+page.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.13** — Calculate real Ist from time entries
   - Files: `src/routes/day/+page.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.14** — Implement edit task functionality
   - Files: `src/lib/components/AddTaskModal.svelte`, `src/lib/components/TaskItem.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 - [ ] **Task 2.15** — Implement delete task functionality
   - Files: `src/lib/components/TaskItem.svelte`
-  - Verified: 
-  - Deviations: 
-  - Notes: 
+  - Verified:
+  - Deviations:
+  - Notes:
 
 ---
 
@@ -268,21 +270,25 @@
 After each phase, verify against specs:
 
 ### Phase 1 Verification
+
 - [ ] IndexedDB schema matches `technical-guideline-v1.md` Section 3.1
 - [ ] PWA manifest meets `SVELTEKIT_PWA_ADDENDUM.md` requirements
 - [ ] Service worker caches app shell correctly
 
 ### Phase 2 Verification
+
 - [ ] Day tab order matches `ui-logic-spec-v1.md` Section 3
 - [ ] Calculation logic matches `ui-logic-spec-v1.md` Section 10
 - [ ] Warning banner behavior matches Section 3.1
 
 ### Phase 3 Verification
+
 - [ ] Week tab matches `ui-logic-spec-v1.md` Section 4
 - [ ] Analysis tab matches Section 5
 - [ ] Settings tab matches Sections 7, 8, 9
 
 ### Phase 4 Verification
+
 - [ ] Sync follows `technical-guideline-v1.md` Section 4
 - [ ] All PWA requirements from `DEVELOPMENT_GUIDELINES.md` met
 - [ ] Deployment checklist from `PROJECT_SCAFFOLD_CHECKLIST.md` complete
@@ -294,8 +300,8 @@ After each phase, verify against specs:
 **Purpose:** Track any deviations from original plan/specs with justification
 
 | Task | Deviation | Reason | Approved By |
-|------|-----------|--------|-------------|
-| - | - | - | - |
+| ---- | --------- | ------ | ----------- |
+| -    | -         | -      | -           |
 
 ---
 
@@ -304,8 +310,8 @@ After each phase, verify against specs:
 **Purpose:** Track any blockers that prevent progress
 
 | Task | Issue | Status | Resolution |
-|------|-------|--------|------------|
-| - | - | - | - |
+| ---- | ----- | ------ | ---------- |
+| -    | -     | -      | -          |
 
 ---
 

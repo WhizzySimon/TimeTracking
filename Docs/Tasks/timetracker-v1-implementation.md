@@ -9,6 +9,7 @@
 ## Phase 1: Foundation (PWA + Data Layer)
 
 ### Task 1.1 — Configure SvelteKit for SPA mode
+
 - **Files:**
   - `src/routes/+layout.js` (create)
 - **Done when:**
@@ -23,6 +24,7 @@
 ---
 
 ### Task 1.2 — Create PWA manifest
+
 - **Files:**
   - `static/manifest.webmanifest` (create)
 - **Done when:**
@@ -40,6 +42,7 @@
 ---
 
 ### Task 1.3 — Create placeholder PWA icons
+
 - **Files:**
   - `static/icons/icon-192.png` (create)
   - `static/icons/icon-512.png` (create)
@@ -57,6 +60,7 @@
 ---
 
 ### Task 1.4 — Update app.html with PWA meta tags
+
 - **Files:**
   - `src/app.html` (modify)
 - **Done when:**
@@ -73,10 +77,11 @@
 ---
 
 ### Task 1.5 — Implement basic service worker
+
 - **Files:**
   - `static/sw.js` (create)
 - **Done when:**
-  - SW caches app shell on install (/, /_app/*, /icons/*, /manifest.webmanifest)
+  - SW caches app shell on install (/, /\_app/_, /icons/_, /manifest.webmanifest)
   - SW serves from cache-first for cached resources
   - SW uses network-only for uncached resources
   - Cache name includes version (e.g., `timetracker-v1`)
@@ -92,6 +97,7 @@
 ---
 
 ### Task 1.6 — Register service worker in layout
+
 - **Files:**
   - `src/routes/+layout.svelte` (modify)
 - **Done when:**
@@ -108,6 +114,7 @@
 ---
 
 ### Task 1.7 — Create IndexedDB wrapper module
+
 - **Files:**
   - `src/lib/db/index.ts` (create)
   - `src/lib/db/schema.ts` (create)
@@ -126,6 +133,7 @@
 ---
 
 ### Task 1.8 — Create IndexedDB CRUD helpers
+
 - **Files:**
   - `src/lib/db/operations.ts` (create)
 - **Done when:**
@@ -142,6 +150,7 @@
 ---
 
 ### Task 1.9 — Seed system categories
+
 - **Files:**
   - `src/lib/db/seed.ts` (create)
 - **Done when:**
@@ -160,6 +169,7 @@
 ---
 
 ### Task 1.10 — Create Svelte stores for global state
+
 - **Files:**
   - `src/lib/stores/index.ts` (create)
 - **Done when:**
@@ -178,6 +188,7 @@
 ## Phase 2: Core UI (Day Tab)
 
 ### Task 2.1 — Create tab navigation component
+
 - **Files:**
   - `src/lib/components/TabNavigation.svelte` (create)
   - `src/routes/+layout.svelte` (modify)
@@ -197,6 +208,7 @@
 ---
 
 ### Task 2.2 — Create placeholder routes for all tabs
+
 - **Files:**
   - `src/routes/+page.svelte` (modify - redirect to /day)
   - `src/routes/day/+page.svelte` (create)
@@ -218,6 +230,7 @@
 ---
 
 ### Task 2.3 — Create date utility functions
+
 - **Files:**
   - `src/lib/utils/date.ts` (create)
 - **Done when:**
@@ -237,6 +250,7 @@
 ---
 
 ### Task 2.4 — Create calculation utility functions
+
 - **Files:**
   - `src/lib/utils/calculations.ts` (create)
 - **Done when:**
@@ -255,11 +269,12 @@
 ---
 
 ### Task 2.5 — Create InlineSummary component
+
 - **Files:**
   - `src/lib/components/InlineSummary.svelte` (create)
 - **Done when:**
   - Accepts props: `ist`, `soll`, `saldo` (numbers)
-  - Renders: "Ist: X,X Std    Soll: X,X Std    Saldo: ±X,X Std"
+  - Renders: "Ist: X,X Std Soll: X,X Std Saldo: ±X,X Std"
   - Negative saldo shows minus sign
   - Mobile-friendly, single line (wraps on very small screens)
 - **Verify:**
@@ -273,6 +288,7 @@
 ---
 
 ### Task 2.6 — Implement Day tab UI structure
+
 - **Files:**
   - `src/routes/day/+page.svelte` (modify)
 - **Done when:**
@@ -292,6 +308,7 @@
 ---
 
 ### Task 2.7 — Implement date navigation logic
+
 - **Files:**
   - `src/routes/day/+page.svelte` (modify)
 - **Done when:**
@@ -310,6 +327,7 @@
 ---
 
 ### Task 2.8 — Create DayTypeSelector component
+
 - **Files:**
   - `src/lib/components/DayTypeSelector.svelte` (create)
 - **Done when:**
@@ -328,6 +346,7 @@
 ---
 
 ### Task 2.9 — Load day type and work time model for current date
+
 - **Files:**
   - `src/routes/day/+page.svelte` (modify)
 - **Done when:**
@@ -347,6 +366,7 @@
 ---
 
 ### Task 2.10 — Create AddTaskModal component
+
 - **Files:**
   - `src/lib/components/AddTaskModal.svelte` (create)
   - `src/lib/components/Modal.svelte` (create - reusable wrapper)
@@ -371,6 +391,7 @@
 ---
 
 ### Task 2.11 — Create TaskList and TaskItem components
+
 - **Files:**
   - `src/lib/components/TaskList.svelte` (create)
   - `src/lib/components/TaskItem.svelte` (create)
@@ -392,6 +413,7 @@
 ---
 
 ### Task 2.12 — Implement running task warning banner
+
 - **Files:**
   - `src/lib/components/WarningBanner.svelte` (create)
   - `src/routes/day/+page.svelte` (modify)
@@ -412,6 +434,7 @@
 ---
 
 ### Task 2.13 — Calculate real Ist from time entries
+
 - **Files:**
   - `src/routes/day/+page.svelte` (modify)
 - **Done when:**
@@ -431,6 +454,7 @@
 ---
 
 ### Task 2.14 — Implement edit task functionality
+
 - **Files:**
   - `src/lib/components/AddTaskModal.svelte` (modify - rename to TaskModal)
   - `src/lib/components/TaskItem.svelte` (modify)
@@ -450,6 +474,7 @@
 ---
 
 ### Task 2.15 — Implement delete task functionality
+
 - **Files:**
   - `src/lib/components/TaskItem.svelte` (modify)
 - **Done when:**
@@ -471,6 +496,7 @@
 ## Phase 3: Additional Tabs
 
 ### Task 3.1 — Implement Week tab UI structure
+
 - **Files:**
   - `src/routes/week/+page.svelte` (modify)
 - **Done when:**
@@ -489,6 +515,7 @@
 ---
 
 ### Task 3.2 — Implement week navigation logic
+
 - **Files:**
   - `src/routes/week/+page.svelte` (modify)
 - **Done when:**
@@ -507,6 +534,7 @@
 ---
 
 ### Task 3.3 — Implement week type selector
+
 - **Files:**
   - `src/lib/components/WeekTypeSelector.svelte` (create)
 - **Done when:**
@@ -524,6 +552,7 @@
 ---
 
 ### Task 3.4 — Calculate week Ist/Soll/Saldo
+
 - **Files:**
   - `src/routes/week/+page.svelte` (modify)
 - **Done when:**
@@ -544,6 +573,7 @@
 ---
 
 ### Task 3.5 — Render week day list
+
 - **Files:**
   - `src/lib/components/WeekDayList.svelte` (create)
   - `src/lib/components/WeekDayItem.svelte` (create)
@@ -551,7 +581,7 @@
   - Lists all 7 days of week
   - Filters out days not active in work time model (where model[dayOfWeek] === null)
   - Each item shows: date, day type, Ist/Soll
-  - Format: "Mo 18.03 – Arbeitstag   Ist 4,0 / Soll 8,0"
+  - Format: "Mo 18.03 – Arbeitstag Ist 4,0 / Soll 8,0"
 - **Verify:**
   - `npm run dev` → `/week`
   - Create work time model with some days inactive (e.g., Sat/Sun = null)
@@ -564,6 +594,7 @@
 ---
 
 ### Task 3.6 — Implement Analysis tab UI structure
+
 - **Files:**
   - `src/routes/analysis/+page.svelte` (modify)
 - **Done when:**
@@ -581,6 +612,7 @@
 ---
 
 ### Task 3.7 — Create DateRangeSelector component
+
 - **Files:**
   - `src/lib/components/DateRangeSelector.svelte` (create)
 - **Done when:**
@@ -601,6 +633,7 @@
 ---
 
 ### Task 3.8 — Calculate analysis totals
+
 - **Files:**
   - `src/routes/analysis/+page.svelte` (modify)
 - **Done when:**
@@ -619,6 +652,7 @@
 ---
 
 ### Task 3.9 — Implement period grouping logic
+
 - **Files:**
   - `src/lib/utils/analysis.ts` (create)
 - **Done when:**
@@ -636,13 +670,14 @@
 ---
 
 ### Task 3.10 — Render period list
+
 - **Files:**
   - `src/lib/components/PeriodList.svelte` (create)
   - `src/lib/components/PeriodItem.svelte` (create)
 - **Done when:**
   - Lists all periods from `groupByPeriod()`
   - Each item shows: period label (KW X or Month name), Ist/Soll
-  - Format: "KW 12 – Arbeitswoche   Ist 38 / Soll 51"
+  - Format: "KW 12 – Arbeitswoche Ist 38 / Soll 51"
   - Current incomplete period clearly marked
 - **Verify:**
   - `npm run dev` → `/analysis`
@@ -655,6 +690,7 @@
 ---
 
 ### Task 3.11 — Implement Settings tab UI structure
+
 - **Files:**
   - `src/routes/settings/+page.svelte` (modify)
 - **Done when:**
@@ -671,6 +707,7 @@
 ---
 
 ### Task 3.12 — Implement category list
+
 - **Files:**
   - `src/lib/components/CategoryList.svelte` (create)
   - `src/lib/components/CategoryItem.svelte` (create)
@@ -689,6 +726,7 @@
 ---
 
 ### Task 3.13 — Implement add category modal
+
 - **Files:**
   - `src/lib/components/AddCategoryModal.svelte` (create)
 - **Done when:**
@@ -707,6 +745,7 @@
 ---
 
 ### Task 3.14 — Implement delete category
+
 - **Files:**
   - `src/lib/components/CategoryItem.svelte` (modify)
 - **Done when:**
@@ -725,6 +764,7 @@
 ---
 
 ### Task 3.15 — Implement work time model list
+
 - **Files:**
   - `src/lib/components/WorkTimeModelList.svelte` (create)
   - `src/lib/components/WorkTimeModelItem.svelte` (create)
@@ -743,6 +783,7 @@
 ---
 
 ### Task 3.16 — Implement add work time model modal
+
 - **Files:**
   - `src/lib/components/AddWorkTimeModelModal.svelte` (create)
 - **Done when:**
@@ -768,6 +809,7 @@
 ## Phase 4: Sync & Polish
 
 ### Task 4.1 — Implement outbox queue operations
+
 - **Files:**
   - `src/lib/sync/outbox.ts` (create)
 - **Done when:**
@@ -785,6 +827,7 @@
 ---
 
 ### Task 4.2 — Integrate outbox with data operations
+
 - **Files:**
   - `src/lib/db/operations.ts` (modify)
 - **Done when:**
@@ -802,6 +845,7 @@
 ---
 
 ### Task 4.3 — Create sync engine module
+
 - **Files:**
   - `src/lib/sync/engine.ts` (create)
 - **Done when:**
@@ -822,6 +866,7 @@
 ---
 
 ### Task 4.4 — Implement sync triggers
+
 - **Files:**
   - `src/routes/+layout.svelte` (modify)
 - **Done when:**
@@ -840,6 +885,7 @@
 ---
 
 ### Task 4.5 — Create sync status indicator component
+
 - **Files:**
   - `src/lib/components/SyncIndicator.svelte` (create)
   - `src/routes/+layout.svelte` (modify)
@@ -859,6 +905,7 @@
 ---
 
 ### Task 4.6 — Implement online/offline detection
+
 - **Files:**
   - `src/routes/+layout.svelte` (modify)
 - **Done when:**
@@ -876,6 +923,7 @@
 ---
 
 ### Task 4.7 — Add loading states to all async operations
+
 - **Files:**
   - All components with async operations (modify)
 - **Done when:**
@@ -893,6 +941,7 @@
 ---
 
 ### Task 4.8 — Implement basic error boundaries
+
 - **Files:**
   - `src/routes/+error.svelte` (create)
 - **Done when:**
@@ -911,6 +960,7 @@
 ---
 
 ### Task 4.9 — Add input validation to all forms
+
 - **Files:**
   - All modal/form components (modify)
 - **Done when:**
@@ -931,6 +981,7 @@
 ---
 
 ### Task 4.10 — Optimize IndexedDB queries
+
 - **Files:**
   - `src/lib/db/operations.ts` (modify)
 - **Done when:**
@@ -949,6 +1000,7 @@
 ---
 
 ### Task 4.11 — Add basic accessibility features
+
 - **Files:**
   - All components (modify)
 - **Done when:**
@@ -968,6 +1020,7 @@
 ---
 
 ### Task 4.12 — Implement responsive design
+
 - **Files:**
   - All components (modify)
   - `src/app.css` or component styles (modify)
@@ -988,6 +1041,7 @@
 ---
 
 ### Task 4.13 — Test PWA installation flow
+
 - **Files:**
   - None (testing task)
 - **Done when:**
@@ -1007,6 +1061,7 @@
 ---
 
 ### Task 4.14 — Write basic E2E test
+
 - **Files:**
   - `e2e/timetracker.test.ts` (create)
 - **Done when:**
@@ -1025,6 +1080,7 @@
 ---
 
 ### Task 4.15 — Final polish and deployment prep
+
 - **Files:**
   - Various (cleanup)
 - **Done when:**
@@ -1048,6 +1104,7 @@
 **END OF TASKS**
 
 ## Summary
+
 - **Total tasks:** 60
 - **Estimated time:** 40-50 hours
 - **Phases:** 4 (Foundation → Core UI → Additional Tabs → Sync & Polish)
@@ -1055,6 +1112,7 @@
 - **Guardrails:** Each task has constraints to prevent common mistakes
 
 ## Next Steps After Approval
+
 1. Review plan + tasks with user
 2. Get approval or incorporate feedback
 3. Begin implementation starting with Task 1.1

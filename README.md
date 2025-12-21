@@ -10,12 +10,13 @@ Offline-first time tracking app (SvelteKit PWA).
 
 ## Start a new Cascade session
 
-1) Run:
+1. Run:
+
 - /project-start
 
-2) Paste the one-line outputs from the workflows.
+2. Paste the one-line outputs from the workflows.
 
-3) Then give the first implementation instruction (e.g. "Complete Task 0, then start Task 1.1.").
+3. Then give the first implementation instruction (e.g. "Complete Task 0, then start Task 1.1.").
 
 ## When commands are needed
 

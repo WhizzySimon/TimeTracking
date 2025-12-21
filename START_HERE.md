@@ -7,6 +7,7 @@ This file is for humans only. The source of truth is Docs/INDEX.md. Follow AGENT
 ## Start a new implementation chat
 
 1. **Run the project start workflow:**
+
    ```
    /project-start
    ```
@@ -27,6 +28,7 @@ Expected: Cascade should load docs and start with a "Doc Inventory" section list
 Cascade must create PowerShell scripts in `scripts/*.ps1` when verification commands are needed. You run the script and paste the output back. Cascade cannot execute terminal commands directly.
 
 Example verification commands you may need to run:
+
 - `npm run check` (TypeScript)
 - `npm run lint` (ESLint + Prettier)
 - `npm run test:unit` (Vitest)

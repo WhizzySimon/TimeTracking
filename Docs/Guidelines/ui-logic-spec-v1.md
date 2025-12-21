@@ -1,4 +1,3 @@
-
 ---
 
 # Arbeitszeit-App – UI & Logik Spezifikation (v1)
@@ -12,11 +11,11 @@
 
 ## 1. Grundprinzipien
 
-* **Ein Screen = eine klare Verantwortung**
-* **Keine versteckten Automatiken**
-* **Alles, was zählt, ist sichtbar**
-* **Tippen UND Klicken immer möglich**
-* **Excel-Logik wird nicht "verbessert", nur sauber umgesetzt**
+- **Ein Screen = eine klare Verantwortung**
+- **Keine versteckten Automatiken**
+- **Alles, was zählt, ist sichtbar**
+- **Tippen UND Klicken immer möglich**
+- **Excel-Logik wird nicht "verbessert", nur sauber umgesetzt**
 
 ---
 
@@ -24,23 +23,22 @@
 
 ### Haupttabs (fix)
 
-* **Tag**
-* **Woche**
-* **Auswertung**
-* **Einstellungen**
+- **Tag**
+- **Woche**
+- **Auswertung**
+- **Einstellungen**
 
 ### Navigation
 
-* **Tag / Woche**
+- **Tag / Woche**
+  - ← / → Buttons
 
-  * ← / → Buttons
-* **Tag**
+- **Tag**
+  - Wenn Datum = heute → Titel zeigt **"Heute"**
 
-  * Wenn Datum = heute → Titel zeigt **"Heute"**
-* **Woche**
-
-  * Wenn Woche = aktuelle KW → Titel zeigt **"Aktuelle KW 12"**
-  * Sonst **"KW 12"**
+- **Woche**
+  - Wenn Woche = aktuelle KW → Titel zeigt **"Aktuelle KW 12"**
+  - Sonst **"KW 12"**
 
 ---
 
@@ -64,9 +62,9 @@ Es existiert eine Aufgabe mit Startzeit, aber **keine Endzeit**.
 
 > ⚠ Aufgabe läuft noch (keine Endzeit)
 
-* Kein Modal
-* Kein Toast
-* Banner verschwindet sofort, wenn Endzeit gesetzt wird
+- Kein Modal
+- Kein Toast
+- Banner verschwindet sofort, wenn Endzeit gesetzt wird
 
 ---
 
@@ -74,14 +72,14 @@ Es existiert eine Aufgabe mit Startzeit, aber **keine Endzeit**.
 
 Dropdown (genau eine Auswahl):
 
-* Arbeitstag
-* Urlaub
-* Krank
-* Feiertag
+- Arbeitstag
+- Urlaub
+- Krank
+- Feiertag
 
 **Regel:**
 
-* Tagesart beeinflusst **nur Soll**, niemals Ist
+- Tagesart beeinflusst **nur Soll**, niemals Ist
 
 ---
 
@@ -97,15 +95,14 @@ Ist: 4,0 Std    Soll: 8,0 Std    Saldo: −4,0 Std
 
 ### 3.4 Aufgabenliste
 
-* Sortierung: **neueste zuerst**
-* Laufende Aufgabe:
+- Sortierung: **neueste zuerst**
+- Laufende Aufgabe:
+  - Endzeit = "laufend"
 
-  * Endzeit = "laufend"
-* Pro Aufgabe anzeigen:
-
-  * Zeitspanne
-  * Kategorie
-  * Hinweis "zählt als Arbeitszeit" / "zählt nicht"
+- Pro Aufgabe anzeigen:
+  - Zeitspanne
+  - Kategorie
+  - Hinweis "zählt als Arbeitszeit" / "zählt nicht"
 
 ---
 
@@ -123,15 +120,15 @@ Ist: 4,0 Std    Soll: 8,0 Std    Saldo: −4,0 Std
 
 Dropdown:
 
-* Arbeitswoche
-* Urlaub
-* Krank
-* Feiertag
+- Arbeitswoche
+- Urlaub
+- Krank
+- Feiertag
 
 **Aktion:**
 
-* Setzt die **Tagesart aller Tage dieser Woche**
-* Tage können danach einzeln angepasst werden
+- Setzt die **Tagesart aller Tage dieser Woche**
+- Tage können danach einzeln angepasst werden
 
 ---
 
@@ -145,12 +142,11 @@ Ist: 34,0 Std    Soll: 51,0 Std    Saldo: −17,0 Std
 
 ### 4.3 Tagesliste
 
-* Zeige **nur Tage**, die im aktiven Arbeitszeitmodell aktiv sind
-* Pro Tag:
-
-  * Datum
-  * Tagesart
-  * Ist / Soll
+- Zeige **nur Tage**, die im aktiven Arbeitszeitmodell aktiv sind
+- Pro Tag:
+  - Datum
+  - Tagesart
+  - Ist / Soll
 
 Beispiel:
 
@@ -165,7 +161,7 @@ Di 19.03 – Urlaub       Ist 0,0 / Soll 0,0
 
 ### 5.1 Standard-Zeitraum
 
-* **01.01.aktuelles Jahr – Heute**
+- **01.01.aktuelles Jahr – Heute**
 
 ### 5.2 Zeitraum-Selector
 
@@ -173,16 +169,16 @@ Beim Klick auf "Zeitraum":
 
 #### Schnellwahl
 
-* **Aktuelles Jahr**
+- **Aktuelles Jahr**
 
 #### Manuell
 
-* Zwei Felder:
+- Zwei Felder:
+  - Von (TT.MM.JJJJ)
+  - Bis (TT.MM.JJJJ)
 
-  * Von (TT.MM.JJJJ)
-  * Bis (TT.MM.JJJJ)
-* **Kalender + Texteingabe möglich**
-* Letzter Zeitraum wird **persistiert**
+- **Kalender + Texteingabe möglich**
+- Letzter Zeitraum wird **persistiert**
 
 ---
 
@@ -196,9 +192,9 @@ Gesamt Ist: 142 Std    Gesamt Soll: 168 Std    Saldo: −26 Std
 
 ### 5.4 Gruppierung (automatisch)
 
-* Zeitraum ≈ 1 Monat → **Kalenderwochen**
-* Zeitraum > 2 Monate → **Monate**
-* Aktuelle (unvollständige) Periode immer anzeigen
+- Zeitraum ≈ 1 Monat → **Kalenderwochen**
+- Zeitraum > 2 Monate → **Monate**
+- Aktuelle (unvollständige) Periode immer anzeigen
 
 Pro Gruppe:
 
@@ -212,17 +208,16 @@ KW 12 – Arbeitswoche   Ist 38 / Soll 51
 
 ### Felder
 
-* **Kategorie** (filterbar, Tipp-Suche)
-* **Startzeit** (vorbelegt)
-* **Endzeit** (optional)
-* **Beschreibung** (optional)
+- **Kategorie** (filterbar, Tipp-Suche)
+- **Startzeit** (vorbelegt)
+- **Endzeit** (optional)
+- **Beschreibung** (optional)
 
 ### Verhalten
 
-* Wenn Aufgabe läuft:
-
-  * Banner bleibt im Tag-Screen sichtbar
-  * Keine automatische Beendigung
+- Wenn Aufgabe läuft:
+  - Banner bleibt im Tag-Screen sichtbar
+  - Keine automatische Beendigung
 
 ---
 
@@ -230,19 +225,18 @@ KW 12 – Arbeitswoche   Ist 38 / Soll 51
 
 ### Systemkategorien (fix, nicht löschbar)
 
-* Pause
-* Urlaub
-* Krank
-* Feiertag
+- Pause
+- Urlaub
+- Krank
+- Feiertag
 
 Systemkategorien haben fest: **"Zählt als Arbeitszeit" = false** (nicht änderbar).
 
 ### Eigene Kategorien
 
-* Frei benennbar
-* Flag:
-
-  * **"Zählt als Arbeitszeit"** (Checkbox)
+- Frei benennbar
+- Flag:
+  - **"Zählt als Arbeitszeit"** (Checkbox)
 
 ### Default-Tätigkeiten (Initialwerte)
 
@@ -250,13 +244,14 @@ Beim ersten Start werden benutzerdefinierte Tätigkeiten aus `static/default-cat
 Die Defaults werden nur angelegt, wenn noch keine benutzerdefinierten Tätigkeiten existieren.
 
 Format der Datei:
+
 - JSON mit `categories[]` Einträgen: `{ "name": string, "countsAsWorkTime": boolean }`
 
 ### UI
 
-* ➕ Button immer sichtbar
-* 🗑️ Button pro Kategorie (nicht bei Systemkategorien)
-* Kein "Edit-Mode"
+- ➕ Button immer sichtbar
+- 🗑️ Button pro Kategorie (nicht bei Systemkategorien)
+- Kein "Edit-Mode"
 
 ---
 
@@ -264,9 +259,9 @@ Format der Datei:
 
 ### Konzept
 
-* Beliebig viele Modelle
-* Jedes Modell gilt **ab einem Datum**
-* Kein Enddatum (nächstes Modell beendet das vorige)
+- Beliebig viele Modelle
+- Jedes Modell gilt **ab einem Datum**
+- Kein Enddatum (nächstes Modell beendet das vorige)
 
 ---
 
@@ -274,13 +269,12 @@ Format der Datei:
 
 ### 9.1 Gültig ab
 
-* **Textfeld**
-* Format: `TT.MM.JJJJ`
-* Validierung:
-
-  * echtes Datum
-  * kein Duplikat
-  * zeitlich konsistent
+- **Textfeld**
+- Format: `TT.MM.JJJJ`
+- Validierung:
+  - echtes Datum
+  - kein Duplikat
+  - zeitlich konsistent
 
 ---
 
@@ -302,20 +296,19 @@ Format:
 
 #### Regeln
 
-* Stundenfeld **immer sichtbar**
-* Disabled, wenn Checkbox aus
-* Wert bleibt erhalten beim Deaktivieren
-* Komma **und** Punkt erlauben (DE/EN)
+- Stundenfeld **immer sichtbar**
+- Disabled, wenn Checkbox aus
+- Wert bleibt erhalten beim Deaktivieren
+- Komma **und** Punkt erlauben (DE/EN)
 
 ---
 
 ### 9.3 Wöchentliche Sollzeit
 
-* Read-only
-* Unter allen Tagen
-* Berechnung:
-
-  * Summe aller **aktivierten** Tage
+- Read-only
+- Unter allen Tagen
+- Berechnung:
+  - Summe aller **aktivierten** Tage
 
 Beispiel:
 
@@ -354,22 +347,20 @@ Saldo = Ist − Soll
 
 ## 11. Dinge, die es bewusst NICHT gibt
 
-* ❌ Manuelle Tages- oder Wochen-Overrides
-* ❌ Edit-Modus für Kategorien
-* ❌ Zwangs-Picker ohne Texteingabe
-* ❌ Automatische Task-Beendigung
+- ❌ Manuelle Tages- oder Wochen-Overrides
+- ❌ Edit-Modus für Kategorien
+- ❌ Zwangs-Picker ohne Texteingabe
+- ❌ Automatische Task-Beendigung
 
 ---
 
 ## 12. Implementierungs-Hinweise (für Cascade)
 
-* Mobile-first
-* Keine nativen `<input type="date">` ohne Text-Fallback
-* Persistenz lokal (JSON / IndexedDB / localStorage)
-* Validierungen klar, aber nicht aggressiv
+- Mobile-first
+- Keine nativen `<input type="date">` ohne Text-Fallback
+- Persistenz lokal (JSON / IndexedDB / localStorage)
+- Validierungen klar, aber nicht aggressiv
 
 ---
 
 **Ende der Spezifikation.**
-
-

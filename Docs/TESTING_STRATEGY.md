@@ -7,16 +7,19 @@
 ## Test Layers
 
 ### 1. Unit Tests (Business Logic)
+
 **What:** Pure functions with no UI dependencies  
 **Tool:** Vitest (fast, Vite-native)  
 **Coverage:** Calculations, date utilities, validation logic
 
 ### 2. Integration Tests (IndexedDB)
+
 **What:** Database operations  
 **Tool:** Vitest with fake-indexeddb  
 **Coverage:** CRUD operations, schema migrations, queries
 
 ### 3. E2E Tests (Full App)
+
 **What:** User workflows  
 **Tool:** Playwright (already installed)  
 **Coverage:** Critical paths, PWA installation, offline behavior
@@ -26,9 +29,11 @@
 ## Unit Test Targets (Priority Order)
 
 ### High Priority (Must Have)
+
 These are pure business logic from `ui-logic-spec-v1.md` Section 10:
 
 #### 1. Calculation Logic (`src/lib/utils/calculations.ts`)
+
 ```typescript
 // Test: calculateDuration(startTime, endTime)
 ✓ "08:00" to "12:00" = 4.0
@@ -56,6 +61,7 @@ These are pure business logic from `ui-logic-spec-v1.md` Section 10:
 ```
 
 #### 2. Date Utilities (`src/lib/utils/date.ts`)
+
 ```typescript
 // Test: formatDate(date, format)
 ✓ Date to "DD.MM.YYYY"
@@ -87,6 +93,7 @@ These are pure business logic from `ui-logic-spec-v1.md` Section 10:
 ```
 
 #### 3. Validation Logic (`src/lib/utils/validation.ts`)
+
 ```typescript
 // Test: validateDate(str)
 ✓ Valid DD.MM.YYYY = true
@@ -113,6 +120,7 @@ These are pure business logic from `ui-logic-spec-v1.md` Section 10:
 ### Medium Priority (Should Have)
 
 #### 4. Analysis Grouping (`src/lib/utils/analysis.ts`)
+
 ```typescript
 // Test: groupByPeriod(entries, dayTypes, range)
 ✓ Range ≤ 60 days = group by week
@@ -124,6 +132,7 @@ These are pure business logic from `ui-logic-spec-v1.md` Section 10:
 ### Low Priority (Nice to Have)
 
 #### 5. IndexedDB Operations (`src/lib/db/operations.ts`)
+
 ```typescript
 // Test with fake-indexeddb
 ✓ getAll() returns all records
@@ -138,34 +147,37 @@ These are pure business logic from `ui-logic-spec-v1.md` Section 10:
 ## Test Setup
 
 ### Install Vitest
+
 ```bash
 npm install -D vitest @vitest/ui
 ```
 
 ### Update package.json
+
 ```json
 {
-  "scripts": {
-    "test:unit": "vitest",
-    "test:unit:ui": "vitest --ui",
-    "test:unit:run": "vitest run",
-    "test": "npm run test:unit:run && npm run test:e2e"
-  }
+	"scripts": {
+		"test:unit": "vitest",
+		"test:unit:ui": "vitest --ui",
+		"test:unit:run": "vitest run",
+		"test": "npm run test:unit:run && npm run test:e2e"
+	}
 }
 ```
 
 ### Create vitest.config.ts
+
 ```typescript
 import { defineConfig } from 'vitest/config';
 import { sveltekit } from '@sveltejs/kit/vite';
 
 export default defineConfig({
-  plugins: [sveltekit()],
-  test: {
-    include: ['src/**/*.{test,spec}.{js,ts}'],
-    globals: true,
-    environment: 'jsdom'
-  }
+	plugins: [sveltekit()],
+	test: {
+		include: ['src/**/*.{test,spec}.{js,ts}'],
+		globals: true,
+		environment: 'jsdom'
+	}
 });
 ```
 
@@ -194,72 +206,71 @@ src/
 ## Example Test File
 
 **`src/lib/utils/calculations.test.ts`:**
+
 ```typescript
 import { describe, it, expect } from 'vitest';
 import { calculateDuration, calculateIst, calculateSoll, calculateSaldo } from './calculations';
 
 describe('calculateDuration', () => {
-  it('should calculate hours between two times', () => {
-    expect(calculateDuration('08:00', '12:00')).toBe(4.0);
-    expect(calculateDuration('08:30', '12:45')).toBe(4.25);
-  });
+	it('should calculate hours between two times', () => {
+		expect(calculateDuration('08:00', '12:00')).toBe(4.0);
+		expect(calculateDuration('08:30', '12:45')).toBe(4.25);
+	});
 
-  it('should handle midnight crossing', () => {
-    expect(calculateDuration('23:00', '01:00')).toBe(2.0);
-  });
+	it('should handle midnight crossing', () => {
+		expect(calculateDuration('23:00', '01:00')).toBe(2.0);
+	});
 
-  it('should return 0 for null endTime', () => {
-    expect(calculateDuration('08:00', null)).toBe(0);
-  });
+	it('should return 0 for null endTime', () => {
+		expect(calculateDuration('08:00', null)).toBe(0);
+	});
 });
 
 describe('calculateIst', () => {
-  it('should sum only work time entries', () => {
-    const entries = [
-      { id: '1', startTime: '08:00', endTime: '12:00', categoryId: 'work' },
-      { id: '2', startTime: '12:00', endTime: '12:30', categoryId: 'pause' }
-    ];
-    const categories = [
-      { id: 'work', countsAsWorkTime: true },
-      { id: 'pause', countsAsWorkTime: false }
-    ];
-    expect(calculateIst(entries, categories)).toBe(4.0);
-  });
+	it('should sum only work time entries', () => {
+		const entries = [
+			{ id: '1', startTime: '08:00', endTime: '12:00', categoryId: 'work' },
+			{ id: '2', startTime: '12:00', endTime: '12:30', categoryId: 'pause' }
+		];
+		const categories = [
+			{ id: 'work', countsAsWorkTime: true },
+			{ id: 'pause', countsAsWorkTime: false }
+		];
+		expect(calculateIst(entries, categories)).toBe(4.0);
+	});
 
-  it('should exclude running tasks', () => {
-    const entries = [
-      { id: '1', startTime: '08:00', endTime: '12:00', categoryId: 'work' },
-      { id: '2', startTime: '13:00', endTime: null, categoryId: 'work' }
-    ];
-    const categories = [
-      { id: 'work', countsAsWorkTime: true }
-    ];
-    expect(calculateIst(entries, categories)).toBe(4.0);
-  });
+	it('should exclude running tasks', () => {
+		const entries = [
+			{ id: '1', startTime: '08:00', endTime: '12:00', categoryId: 'work' },
+			{ id: '2', startTime: '13:00', endTime: null, categoryId: 'work' }
+		];
+		const categories = [{ id: 'work', countsAsWorkTime: true }];
+		expect(calculateIst(entries, categories)).toBe(4.0);
+	});
 });
 
 describe('calculateSoll', () => {
-  it('should return model hours for Arbeitstag', () => {
-    const date = new Date('2025-12-22'); // Monday
-    const dayType = { type: 'arbeitstag' };
-    const model = { monday: 8.0, tuesday: 8.0, /* ... */ };
-    expect(calculateSoll(date, dayType, model)).toBe(8.0);
-  });
+	it('should return model hours for Arbeitstag', () => {
+		const date = new Date('2025-12-22'); // Monday
+		const dayType = { type: 'arbeitstag' };
+		const model = { monday: 8.0, tuesday: 8.0 /* ... */ };
+		expect(calculateSoll(date, dayType, model)).toBe(8.0);
+	});
 
-  it('should return 0 for Urlaub', () => {
-    const date = new Date('2025-12-22');
-    const dayType = { type: 'urlaub' };
-    const model = { monday: 8.0, /* ... */ };
-    expect(calculateSoll(date, dayType, model)).toBe(0);
-  });
+	it('should return 0 for Urlaub', () => {
+		const date = new Date('2025-12-22');
+		const dayType = { type: 'urlaub' };
+		const model = { monday: 8.0 /* ... */ };
+		expect(calculateSoll(date, dayType, model)).toBe(0);
+	});
 });
 
 describe('calculateSaldo', () => {
-  it('should calculate balance correctly', () => {
-    expect(calculateSaldo(8.0, 8.0)).toBe(0);
-    expect(calculateSaldo(10.0, 8.0)).toBe(2.0);
-    expect(calculateSaldo(6.0, 8.0)).toBe(-2.0);
-  });
+	it('should calculate balance correctly', () => {
+		expect(calculateSaldo(8.0, 8.0)).toBe(0);
+		expect(calculateSaldo(10.0, 8.0)).toBe(2.0);
+		expect(calculateSaldo(6.0, 8.0)).toBe(-2.0);
+	});
 });
 ```
 
@@ -294,6 +305,7 @@ All must pass ✅
 ### Create Spec Verification Script
 
 **`scripts/verify-spec-compliance.ts`:**
+
 ```typescript
 // Automated checks against ui-logic-spec-v1.md
 // Example: Verify calculation formulas match spec Section 10
@@ -302,26 +314,26 @@ import { calculateIst, calculateSoll, calculateSaldo } from '../src/lib/utils/ca
 
 // Test cases from spec
 const specTests = [
-  {
-    name: 'Ist calculation matches spec §10',
-    test: () => {
-      // Spec: "Summe aller Aufgaben mit Kategorie.zähltAlsArbeitszeit === true"
-      // Test implementation matches this exactly
-    }
-  },
-  {
-    name: 'Soll calculation matches spec §10',
-    test: () => {
-      // Spec: "wenn Tagesart === Arbeitstag: Soll = Arbeitszeitmodell[Wochentag]"
-      // Test implementation matches this exactly
-    }
-  }
+	{
+		name: 'Ist calculation matches spec §10',
+		test: () => {
+			// Spec: "Summe aller Aufgaben mit Kategorie.zähltAlsArbeitszeit === true"
+			// Test implementation matches this exactly
+		}
+	},
+	{
+		name: 'Soll calculation matches spec §10',
+		test: () => {
+			// Spec: "wenn Tagesart === Arbeitstag: Soll = Arbeitszeitmodell[Wochentag]"
+			// Test implementation matches this exactly
+		}
+	}
 ];
 
 // Run all spec compliance tests
-specTests.forEach(test => {
-  console.log(`Testing: ${test.name}`);
-  test.test();
+specTests.forEach((test) => {
+	console.log(`Testing: ${test.name}`);
+	test.test();
 });
 ```
 
@@ -332,13 +344,16 @@ specTests.forEach(test => {
 ### Updated Task Requirements
 
 Every task that creates business logic MUST include:
+
 1. Implementation
 2. Unit tests
 3. Verification: `npm run test:unit` passes
 
 **Example:**
+
 ```markdown
 ### Task 2.4 — Create calculation utility functions
+
 - **Files:**
   - `src/lib/utils/calculations.ts` (implementation)
   - `src/lib/utils/calculations.test.ts` (tests)
@@ -359,7 +374,7 @@ Every task that creates business logic MUST include:
 ✅ **Regression prevention:** Changes don't break existing logic  
 ✅ **Documentation:** Tests show how functions should behave  
 ✅ **Confidence:** Can refactor safely  
-✅ **Fast feedback:** Unit tests run in milliseconds  
+✅ **Fast feedback:** Unit tests run in milliseconds
 
 ---
 

@@ -1,17 +1,21 @@
 # TimeTracker — Cascade Project Instructions
 
 ## Start-of-session workflow (mandatory)
+
 Before doing anything else, run:
+
 - /project-start
-Follow its instructions and paste the requested one-line outputs.
-If anything is missing/fails, STOP and fix that first.
+  Follow its instructions and paste the requested one-line outputs.
+  If anything is missing/fails, STOP and fix that first.
 
 ## CRITICAL: Read This First (Every Chat Session)
 
 This project uses **Spec-Driven Development**. You MUST follow this process strictly.
 
 ### Step 1: Load Documentation Index
+
 **Before doing ANYTHING else, read:**
+
 ```
 Docs/INDEX.md
 ```
@@ -19,7 +23,9 @@ Docs/INDEX.md
 This file lists all authoritative documents and their priority order.
 
 ### Step 2: Load Process Rules
+
 **Then read:**
+
 ```
 AGENTS.md
 ```
@@ -27,7 +33,9 @@ AGENTS.md
 This defines the 4-phase development process you must follow.
 
 ### Step 3: Follow the Process
+
 Do NOT start coding until you have:
+
 1. ✅ Read `Docs/INDEX.md`
 2. ✅ Read `AGENTS.md`
 3. ✅ Read relevant docs from INDEX.md for the current task
@@ -35,10 +43,14 @@ Do NOT start coding until you have:
 5. ✅ Listed what you read in a "Doc Inventory" section at the top of your response
 
 ### Step 4: Start Every Response With Doc Inventory
+
 **Format:**
+
 ```markdown
 # Doc Inventory
+
 **Docs Read:**
+
 - Docs/INDEX.md
 - AGENTS.md
 - Docs/Guidelines/ui-logic-spec-v1.md (sections X, Y)
@@ -53,21 +65,25 @@ Do NOT start coding until you have:
 ## Development Process (4 Phases)
 
 ### Phase 1 — SPEC (what/why)
+
 - Location: `Docs/Specs/<feature-slug>.md`
 - Must contain: Problem, Users, Scope, Acceptance criteria, Edge cases, Data/privacy, Non-goals
 - Checkpoint: No ambiguous terms remain
 
 ### Phase 2 — PLAN (how)
+
 - Location: `Docs/Plans/<feature-slug>.md`
 - Must contain: Architecture, Data model, UI state, Error handling, Testing strategy
 - Checkpoint: Can be executed as tasks without new decisions
 
 ### Phase 3 — TASKS (small steps)
+
 - Location: `Docs/Tasks/<feature-slug>.md`
 - Each task: 0.5-2h, files touched, done criteria, verification steps, guardrails
 - Checkpoint: No task depends on "figure it out while coding"
 
 ### Phase 4 — IMPLEMENT (one task at a time)
+
 - Implement tasks in order
 - Verify each task using commands from `package.json`
 - Update docs if reality differs from plan
@@ -86,12 +102,14 @@ If Docs/INDEX.md does not cover the situation, STOP and propose updating the rel
 ## Verification Rules
 
 Before marking any task complete:
+
 - Run actual scripts from `package.json` (do not invent commands)
 - Run fastest checks first: `npm run check`, `npm run lint`, `npm run test:unit`, then `npm run test:e2e`
 - State exactly what you ran and what passed
 - If you cannot run something, state why
 
 ### Testing Requirements
+
 - **Unit tests required** for all business logic (calculations, date utils, validation)
 - Write tests in same directory as implementation: `file.ts` → `file.test.ts`
 - Use Vitest for unit tests (fast, Vite-native)
@@ -113,6 +131,7 @@ Before marking any task complete:
 ## Communication Style
 
 Structure every response:
+
 1. Doc Inventory (what you read)
 2. What you understood (bullets)
 3. What you will change (files + bullets)
@@ -125,6 +144,7 @@ Structure every response:
 ## Critical Reminders
 
 ❌ **DO NOT:**
+
 - Start coding without reading Docs/INDEX.md + AGENTS.md
 - Skip the Doc Inventory section
 - Implement without a plan + tasks document
@@ -132,6 +152,7 @@ Structure every response:
 - Invent verification commands (use package.json scripts)
 
 ✅ **DO:**
+
 - Read INDEX.md first, every time
 - List what you read in Doc Inventory
 - Follow the 4-phase process strictly
@@ -143,6 +164,7 @@ Structure every response:
 ## Quick Reference
 
 **Key Files:**
+
 - `Docs/INDEX.md` — Doc index (read first)
 - `AGENTS.md` — Process rules (read second)
 - `Docs/Guidelines/ui-logic-spec-v1.md` — Product spec (what to build)

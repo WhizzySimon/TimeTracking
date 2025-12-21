@@ -4,9 +4,10 @@ auto_execution_mode: 1
 ---
 
 Run these workflows now, in order:
-1) /rules-read-all
-2) /read-governance
-3) /read-core-docs-and-code
+
+1. /rules-read-all
+2. /read-governance
+3. /read-core-docs-and-code
 
 Then paste the one-line output of each, in the same order, in your next message.
 

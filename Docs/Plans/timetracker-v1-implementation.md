@@ -22,6 +22,7 @@ TimeTracker (SPA)
 ### 1.2 Module Responsibilities
 
 **Core Modules:**
+
 - **`/lib/db/`** - IndexedDB wrapper, schema, migrations
 - **`/lib/stores/`** - Svelte stores for reactive state
 - **`/lib/sync/`** - Outbox queue, sync engine
@@ -30,6 +31,7 @@ TimeTracker (SPA)
 - **`/lib/components/`** - Reusable UI components
 
 **Route Structure:**
+
 - **`/routes/+layout.svelte`** - App shell, tab navigation, SW registration
 - **`/routes/+layout.js`** - SSR/CSR config (ssr=false, csr=true)
 - **`/routes/+page.svelte`** - Redirect to /day (default tab)
@@ -43,24 +45,28 @@ TimeTracker (SPA)
 ## 2. Data Model (IndexedDB)
 
 ### 2.1 Database Name
+
 `timetracker-v1`
 
 ### 2.2 Object Stores (Tables)
 
 #### **categories**
+
 ```typescript
 {
-  id: string (UUID)
-  name: string
-  countsAsWorkTime: boolean
-  isSystem: boolean // true for Pause, Urlaub, Krank, Feiertag
-  createdAt: number (timestamp)
-  updatedAt: number (timestamp)
+	id: string(UUID);
+	name: string;
+	countsAsWorkTime: boolean;
+	isSystem: boolean; // true for Pause, Urlaub, Krank, Feiertag
+	createdAt: number(timestamp);
+	updatedAt: number(timestamp);
 }
 ```
+
 **Indexes:** `name`, `isSystem`
 
 #### **timeEntries**
+
 ```typescript
 {
   id: string (UUID)
@@ -73,19 +79,23 @@ TimeTracker (SPA)
   updatedAt: number (timestamp)
 }
 ```
+
 **Indexes:** `date`, `categoryId`, `[date+startTime]` (compound)
 
 #### **dayTypes**
+
 ```typescript
 {
-  date: string (YYYY-MM-DD) // PK
-  type: 'arbeitstag' | 'urlaub' | 'krank' | 'feiertag'
-  updatedAt: number (timestamp)
+	date: string(YYYY - MM - DD); // PK
+	type: 'arbeitstag' | 'urlaub' | 'krank' | 'feiertag';
+	updatedAt: number(timestamp);
 }
 ```
+
 **Indexes:** `date` (primary key)
 
 #### **workTimeModels**
+
 ```typescript
 {
   id: string (UUID)
@@ -101,41 +111,52 @@ TimeTracker (SPA)
   updatedAt: number (timestamp)
 }
 ```
+
 **Indexes:** `validFrom`
 
 #### **outbox**
+
 ```typescript
 {
-  id: string (UUID)
-  createdAt: number (timestamp)
-  type: 'category_upsert' | 'category_delete' | 'entry_upsert' | 'entry_delete' | 'dayType_upsert' | 'model_upsert'
-  payload: object (JSON)
-  status: 'pending' | 'sending' | 'acked'
-  retryCount: number
-  lastError: string | null
+	id: string(UUID);
+	createdAt: number(timestamp);
+	type: 'category_upsert' |
+		'category_delete' |
+		'entry_upsert' |
+		'entry_delete' |
+		'dayType_upsert' |
+		'model_upsert';
+	payload: object(JSON);
+	status: 'pending' | 'sending' | 'acked';
+	retryCount: number;
+	lastError: string | null;
 }
 ```
+
 **Indexes:** `status`, `createdAt`
 
 #### **appState**
+
 ```typescript
 {
-  key: string (PK) // e.g., 'lastSelectedTab', 'analysisDateRange'
-  value: any (JSON)
-  updatedAt: number (timestamp)
+	key: string(PK); // e.g., 'lastSelectedTab', 'analysisDateRange'
+	value: any(JSON);
+	updatedAt: number(timestamp);
 }
 ```
+
 **Indexes:** `key` (primary key)
 
 #### **authSession** (optional for v1)
+
 ```typescript
 {
-  id: 'session' (singleton)
-  token: string | null
-  userId: string | null
-  email: string | null
-  expiresAt: number | null (timestamp)
-  updatedAt: number (timestamp)
+	id: 'session'(singleton);
+	token: string | null;
+	userId: string | null;
+	email: string | null;
+	expiresAt: number | null(timestamp);
+	updatedAt: number(timestamp);
 }
 ```
 
@@ -146,6 +167,7 @@ TimeTracker (SPA)
 ### 3.1 Svelte Stores (Reactive State)
 
 **Global Stores:**
+
 - **`currentDate`** - Writable<Date> - Selected date for Day tab
 - **`currentWeek`** - Derived<{start: Date, end: Date}> - Selected week for Week tab
 - **`categories`** - Writable<Category[]> - All categories
@@ -155,12 +177,14 @@ TimeTracker (SPA)
 - **`isOnline`** - Writable<boolean> - Network status
 
 **Derived Stores:**
+
 - **`activeDayEntries`** - Derived from timeEntries + currentDate
 - **`activeWeekEntries`** - Derived from timeEntries + currentWeek
 - **`runningEntry`** - Derived from timeEntries (entry with endTime === null)
 - **`activeWorkTimeModel`** - Derived from workTimeModels + currentDate
 
 ### 3.2 Component-Local State
+
 - Form inputs (controlled components)
 - Modal/dialog open states
 - Dropdown selections
@@ -170,6 +194,7 @@ TimeTracker (SPA)
 ## 4. Component Hierarchy
 
 ### 4.1 Layout Components
+
 ```
 +layout.svelte
 ├── TabNavigation (Tag | Woche | Auswertung | Einstellungen)
@@ -180,6 +205,7 @@ TimeTracker (SPA)
 ### 4.2 Page Components
 
 **Day Tab (`/routes/day/+page.svelte`):**
+
 ```
 DayView
 ├── WarningBanner (if running entry exists)
@@ -191,6 +217,7 @@ DayView
 ```
 
 **Week Tab (`/routes/week/+page.svelte`):**
+
 ```
 WeekView
 ├── WeekTypeSelector (dropdown, sets all days)
@@ -200,6 +227,7 @@ WeekView
 ```
 
 **Analysis Tab (`/routes/analysis/+page.svelte`):**
+
 ```
 AnalysisView
 ├── DateRangeSelector (Schnellwahl + Manual)
@@ -209,6 +237,7 @@ AnalysisView
 ```
 
 **Settings Tab (`/routes/settings/+page.svelte`):**
+
 ```
 SettingsView
 ├── CategoriesSection
@@ -222,6 +251,7 @@ SettingsView
 ```
 
 ### 4.3 Reusable Components
+
 - **`Button.svelte`** - Primary/secondary variants
 - **`Dropdown.svelte`** - Accessible select
 - **`TextField.svelte`** - Text input with validation
@@ -236,31 +266,34 @@ SettingsView
 ## 5. Calculation Logic
 
 ### 5.1 Ist (Actual Hours)
+
 ```typescript
 function calculateIst(entries: TimeEntry[], categories: Category[]): number {
-  return entries
-    .filter(e => e.endTime !== null) // exclude running
-    .filter(e => {
-      const cat = categories.find(c => c.id === e.categoryId);
-      return cat?.countsAsWorkTime === true;
-    })
-    .reduce((sum, e) => sum + calculateDuration(e.startTime, e.endTime!), 0);
+	return entries
+		.filter((e) => e.endTime !== null) // exclude running
+		.filter((e) => {
+			const cat = categories.find((c) => c.id === e.categoryId);
+			return cat?.countsAsWorkTime === true;
+		})
+		.reduce((sum, e) => sum + calculateDuration(e.startTime, e.endTime!), 0);
 }
 ```
 
 ### 5.2 Soll (Target Hours)
+
 ```typescript
 function calculateSoll(date: Date, dayType: DayType, model: WorkTimeModel): number {
-  if (dayType.type !== 'arbeitstag') return 0;
-  const dayOfWeek = getDayOfWeek(date); // 'monday' | 'tuesday' | ...
-  return model[dayOfWeek] ?? 0;
+	if (dayType.type !== 'arbeitstag') return 0;
+	const dayOfWeek = getDayOfWeek(date); // 'monday' | 'tuesday' | ...
+	return model[dayOfWeek] ?? 0;
 }
 ```
 
 ### 5.3 Saldo (Balance)
+
 ```typescript
 function calculateSaldo(ist: number, soll: number): number {
-  return ist - soll;
+	return ist - soll;
 }
 ```
 
@@ -269,22 +302,26 @@ function calculateSaldo(ist: number, soll: number): number {
 ## 6. Error Handling Strategy
 
 ### 6.1 IndexedDB Errors
+
 - **On open failure:** Show error banner, offer "Retry" or "Clear data"
 - **On transaction failure:** Log to console, show user-friendly message
 - **On quota exceeded:** Prompt user to free space or sync to cloud
 
 ### 6.2 Sync Errors
+
 - **Network timeout:** Retry with exponential backoff (max 3 retries)
 - **Auth failure (401):** Clear session, redirect to login
 - **Server error (5xx):** Mark outbox item as failed, retry on next trigger
 - **Conflict (409):** Log conflict, require manual resolution (future)
 
 ### 6.3 Validation Errors
+
 - **Invalid date:** Show inline error, prevent save
 - **Duplicate work time model date:** Show error, prevent save
 - **Running entry exists:** Show warning banner (not blocking)
 
 ### 6.4 Offline Handling
+
 - **No network:** Show offline indicator, allow all local operations
 - **Sync disabled:** Queue changes in outbox, show "Not backed up" warning
 
@@ -293,6 +330,7 @@ function calculateSaldo(ist: number, soll: number): number {
 ## 7. PWA Implementation
 
 ### 7.1 Required Files
+
 - **`static/manifest.webmanifest`** - PWA manifest
 - **`static/icons/icon-192.png`** - App icon 192×192
 - **`static/icons/icon-512.png`** - App icon 512×512
@@ -300,25 +338,31 @@ function calculateSaldo(ist: number, soll: number): number {
 - **`static/sw.js`** - Service worker (app shell caching)
 
 ### 7.2 Service Worker Strategy
+
 **Cache-first for:**
+
 - `/` (app shell HTML)
 - `/_app/**` (built JS/CSS)
 - `/icons/**`
 - `/manifest.webmanifest`
 
 **Network-only for:**
+
 - API calls (`/api/**` or external backend)
 
 **Fallback:**
+
 - If offline and resource not cached, serve cached app shell
 
 ### 7.3 Registration
+
 In `+layout.svelte`:
+
 ```typescript
 onMount(() => {
-  if (!dev && 'serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js');
-  }
+	if (!dev && 'serviceWorker' in navigator) {
+		navigator.serviceWorker.register('/sw.js');
+	}
 });
 ```
 
@@ -327,21 +371,25 @@ onMount(() => {
 ## 8. Performance & UX Constraints
 
 ### 8.1 Mobile-First Design
+
 - Touch targets ≥ 44×44px
 - No hover-only interactions
 - Responsive breakpoints: 320px (min), 768px (tablet), 1024px (desktop)
 
 ### 8.2 Offline UX
+
 - Clear sync status indicator always visible
 - Optimistic UI updates (save locally first, sync later)
 - No blocking spinners for network operations
 
 ### 8.3 iOS Safari Constraints
+
 - Avoid `100vh` (use `100dvh` or safe-area-inset)
 - No background timers (sync only when app open)
 - Test in standalone mode (installed PWA)
 
 ### 8.4 Performance Targets
+
 - First paint < 1s
 - Time to interactive < 2s
 - IndexedDB queries < 50ms (for typical dataset: 1000 entries)
@@ -351,21 +399,25 @@ onMount(() => {
 ## 9. Testing Strategy
 
 ### 9.1 Unit Tests (Optional for v1)
+
 - Calculation logic (Ist/Soll/Saldo)
 - Date utilities
 - Validation functions
 
 ### 9.2 Integration Tests (Manual)
+
 - IndexedDB CRUD operations
 - Outbox queue behavior
 - Sync flow (mock backend)
 
 ### 9.3 E2E Tests (Playwright - Minimal)
+
 - **Critical path:** Add task → View summary → Navigate tabs
 - **Offline:** Load app offline, verify cached shell
 - **PWA install:** Verify manifest, icons, service worker
 
 ### 9.4 Manual Testing Checklist
+
 - [ ] Day tab: Add/edit/delete tasks
 - [ ] Week tab: Set week type, view summary
 - [ ] Analysis tab: Change date range, view grouping
@@ -379,16 +431,20 @@ onMount(() => {
 ## 10. Risks & Constraints
 
 ### 10.1 Technical Risks
+
 - **iOS storage eviction:** Mitigated by aggressive sync + user warnings
 - **IndexedDB quota limits:** Mitigated by data cleanup (future)
 - **Service worker cache invalidation:** Mitigated by versioned cache names
 
 ### 10.2 UX Risks
+
 - **Running task forgotten:** Mitigated by persistent warning banner
 - **Unsynced data loss:** Mitigated by sync indicator + frequent sync triggers
 
 ### 10.3 Scope Constraints
+
 **v1 does NOT include:**
+
 - Backend implementation (API stub only)
 - Multi-device sync (push-only backup)
 - Conflict resolution
@@ -400,9 +456,11 @@ onMount(() => {
 ## 11. Dependencies
 
 ### 11.1 Production Dependencies
+
 - **None** (vanilla Svelte 5 + SvelteKit)
 
 ### 11.2 Dev Dependencies (Already Installed)
+
 - `@sveltejs/kit`
 - `@sveltejs/adapter-static`
 - `svelte`
@@ -411,6 +469,7 @@ onMount(() => {
 - `@playwright/test` (E2E)
 
 ### 11.3 New Dependencies (If Needed)
+
 - **UUID generation:** Use `crypto.randomUUID()` (native)
 - **Date handling:** Native `Date` + custom utils (no library)
 - **IndexedDB:** Native API + thin wrapper (no library)
@@ -420,17 +479,20 @@ onMount(() => {
 ## 12. Deployment Plan
 
 ### 12.1 Build Process
+
 ```bash
 npm run build
 # Output: build/ (static files)
 ```
 
 ### 12.2 Hosting Options
+
 - **Netlify** (recommended: free, HTTPS, easy deploy)
 - **Vercel** (alternative)
 - **GitHub Pages** (requires custom domain for HTTPS)
 
 ### 12.3 Deployment Checklist
+
 - [ ] Build succeeds (`npm run build`)
 - [ ] Preview works (`npm run preview`)
 - [ ] Service worker registers in prod build
@@ -446,22 +508,26 @@ npm run build
 ## 13. Implementation Phases
 
 ### Phase 1: Foundation (PWA + Data Layer)
+
 - SSR config, PWA manifest, service worker
 - IndexedDB schema + wrapper
 - Basic stores setup
 
 ### Phase 2: Core UI (Day Tab)
+
 - Tab navigation shell
 - Day tab with task list
 - Add/edit/delete tasks
 - Calculation logic (Ist/Soll/Saldo)
 
 ### Phase 3: Additional Tabs
+
 - Week tab
 - Analysis tab
 - Settings tab (categories + models)
 
 ### Phase 4: Sync & Polish
+
 - Outbox queue implementation
 - Sync engine (mock backend)
 - Offline indicators

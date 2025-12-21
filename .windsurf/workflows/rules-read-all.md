@@ -6,8 +6,9 @@ auto_execution_mode: 1
 Make sure you have no duplicates in your read list.
 
 Find all .md files in:
+
 - [workspace]/.windsurf/rules
-including all subfolders.
+  including all subfolders.
 
 Read these files.
 

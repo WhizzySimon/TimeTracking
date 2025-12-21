@@ -1,4 +1,3 @@
-
 ---
 
 # TimeTracker v1 – Technical Guideline
@@ -15,19 +14,19 @@ Build a **true offline-installable PWA** for daily time tracking (tasks + time e
 
 ### Target Use
 
-* Initially: personal use (my brother)
-* Should support future multi-user use without changing fundamentals
+- Initially: personal use (my brother)
+- Should support future multi-user use without changing fundamentals
 
 ### Core Requirements
 
-* Works offline after installation
-* Data is saved locally immediately
-* Automatic cloud backup when online **and app is open**
-* Very low user friction (login once, then invisible)
-* Password recovery supported
-* Simple deployment, no SSR
-* Encryption "like most companies do" (TLS + server-side at-rest encryption)
-* **No end-to-end encryption**
+- Works offline after installation
+- Data is saved locally immediately
+- Automatic cloud backup when online **and app is open**
+- Very low user friction (login once, then invisible)
+- Password recovery supported
+- Simple deployment, no SSR
+- Encryption "like most companies do" (TLS + server-side at-rest encryption)
+- **No end-to-end encryption**
 
 ### Accepted Limitation
 
@@ -41,40 +40,41 @@ This risk is accepted and mitigated via sync indicators and aggressive syncing w
 
 ### Rendering Model
 
-* **SPA (Single-Page Application)**
-* Client-side routing only
+- **SPA (Single-Page Application)**
+- Client-side routing only
 
 ### SvelteKit Configuration
 
-* **SSR disabled globally**
+- **SSR disabled globally**
+  - Create `src/routes/+layout.js`
+  - Put this inside:
+    - export const ssr = false;
+    - export const csr = true;
 
-  * Create `src/routes/+layout.js`
-  * Put this inside:
-
-    * export const ssr = false;
-    * export const csr = true;
-* Use **adapter-static**
-
-  * Output: static HTML/CSS/JS
-  * No Node server required for frontend hosting
+- Use **adapter-static**
+  - Output: static HTML/CSS/JS
+  - No Node server required for frontend hosting
 
 ### Route vs Component Architecture
 
 **Routes** (SvelteKit pages in `src/routes/`):
-* Top-level navigation destinations (tabs from UI spec)
-* Each route corresponds to a main tab: Tag, Woche, Auswertung, Einstellungen
-* Route paths: `/day`, `/week`, `/analysis`, `/settings`
-* One route per screen in UI specification
+
+- Top-level navigation destinations (tabs from UI spec)
+- Each route corresponds to a main tab: Tag, Woche, Auswertung, Einstellungen
+- Route paths: `/day`, `/week`, `/analysis`, `/settings`
+- One route per screen in UI specification
 
 **Components** (Svelte files in `src/lib/components/`):
-* Reusable UI elements used across multiple routes or within a single route
-* Modals, forms, lists, buttons, input fields
-* Examples: TaskModal, InlineSummary, DatePicker, CategoryList
+
+- Reusable UI elements used across multiple routes or within a single route
+- Modals, forms, lists, buttons, input fields
+- Examples: TaskModal, InlineSummary, DatePicker, CategoryList
 
 **Decision Rule:**
-* If it's a main tab in the UI spec → Route
-* If it's a reusable UI element → Component
-* If it's a section within a tab → Component (not a nested route)
+
+- If it's a main tab in the UI spec → Route
+- If it's a reusable UI element → Component
+- If it's a section within a tab → Component (not a nested route)
 
 ---
 
@@ -82,21 +82,21 @@ This risk is accepted and mitigated via sync indicators and aggressive syncing w
 
 ### Install Model
 
-* User visits URL once (online)
-* Browser offers "Install"
-* After install, app works offline (app shell cached)
+- User visits URL once (online)
+- Browser offers "Install"
+- After install, app works offline (app shell cached)
 
 ### Service Worker Role
 
-* Cache application shell (HTML, JS, CSS, icons, manifest)
-* Enable offline startup
-* Not responsible for app UI logic or business logic
+- Cache application shell (HTML, JS, CSS, icons, manifest)
+- Enable offline startup
+- Not responsible for app UI logic or business logic
 
 ### Caching Strategy (v1)
 
-* App shell: cache-first (to ensure offline start)
-* API calls (sync): network-only or network-first (never rely on cache for authoritative sync)
-* Keep rules simple and predictable
+- App shell: cache-first (to ensure offline start)
+- API calls (sync): network-only or network-first (never rely on cache for authoritative sync)
+- Keep rules simple and predictable
 
 ---
 
@@ -108,35 +108,35 @@ Different storages exist for different purposes.
 
 Store:
 
-* Tasks
-* Time entries
-* Metadata needed for UI
-* Sync outbox queue (pending uploads)
+- Tasks
+- Time entries
+- Metadata needed for UI
+- Sync outbox queue (pending uploads)
 
 Reason:
 
-* Async
-* Structured
-* Scales well
-* Best durability available in web platform storage
+- Async
+- Structured
+- Scales well
+- Best durability available in web platform storage
 
 ### 3.2 Cache Storage (Service Worker Cache)
 
 Store:
 
-* App shell assets (JS/CSS/icons/manifest) to enable offline app startup
+- App shell assets (JS/CSS/icons/manifest) to enable offline app startup
 
 ### 3.3 localStorage (Minimal Use)
 
 Use only for:
 
-* Tiny UI preferences (e.g. last selected tab)
+- Tiny UI preferences (e.g. last selected tab)
 
 Never store:
 
-* Passwords
-* Session tokens (prefer IndexedDB)
-* Sensitive user data
+- Passwords
+- Session tokens (prefer IndexedDB)
+- Sensitive user data
 
 ---
 
@@ -144,9 +144,9 @@ Never store:
 
 ### 4.1 Principles
 
-* Local-first writes: never block the user on network
-* Eventual backup: upload when online and app open
-* No assumption of background sync when app is closed (especially on iOS)
+- Local-first writes: never block the user on network
+- Eventual backup: upload when online and app open
+- No assumption of background sync when app is closed (especially on iOS)
 
 ### 4.2 Outbox Queue Pattern
 
@@ -159,22 +159,22 @@ On every local change:
 
 Outbox record example fields:
 
-* id (UUID)
-* createdAt
-* type (task_upsert, entry_upsert, task_delete, entry_delete, etc.)
-* payload (minimal JSON needed to reproduce change)
-* status (pending, sending, acked)
-* optional retryCount, lastError
+- id (UUID)
+- createdAt
+- type (task_upsert, entry_upsert, task_delete, entry_delete, etc.)
+- payload (minimal JSON needed to reproduce change)
+- status (pending, sending, acked)
+- optional retryCount, lastError
 
 ### 4.3 Sync Triggers (Client-Side Only)
 
 Sync runs when:
 
-* App starts / opens
-* After each save if online
-* Connectivity returns (online event)
-* App returns to foreground (visibility change to visible)
-* Optional: retry timer while app is open and outbox not empty (e.g., every 30–60 seconds)
+- App starts / opens
+- After each save if online
+- Connectivity returns (online event)
+- App returns to foreground (visibility change to visible)
+- Optional: retry timer while app is open and outbox not empty (e.g., every 30–60 seconds)
 
 ### 4.4 Sync Algorithm (Simple and Reliable)
 
@@ -189,25 +189,25 @@ Sync runs when:
 
 Auth:
 
-* POST /auth/signup (email, password)
-* POST /auth/login
-* POST /auth/forgot
-* POST /auth/reset
+- POST /auth/signup (email, password)
+- POST /auth/login
+- POST /auth/forgot
+- POST /auth/reset
 
 Sync:
 
-* POST /sync/push (batched outbox events)
-* GET /sync/pull (optional for later restore and multi-device support)
+- POST /sync/push (batched outbox events)
+- GET /sync/pull (optional for later restore and multi-device support)
 
 v1 focus: push-only cloud backup is sufficient. Pull/merge can come later.
 
 ### 4.6 Planned UI Feedback (Not in scope now, but must be supported)
 
-* Clear status indicator:
+- Clear status indicator:
+  - Synced ✅ (no pending outbox)
+  - Not backed up ⚠️ (outbox pending)
 
-  * Synced ✅ (no pending outbox)
-  * Not backed up ⚠️ (outbox pending)
-* Avoid silent risk during offline periods
+- Avoid silent risk during offline periods
 
 ---
 
@@ -217,11 +217,11 @@ v1 focus: push-only cloud backup is sufficient. Pull/merge can come later.
 
 Standard web auth (Design 1):
 
-* Email as username
-* Password
-* Password reset via email
-* Server stores password hash only (no raw password)
-* Client uses a session token (JWT or opaque)
+- Email as username
+- Password
+- Password reset via email
+- Server stores password hash only (no raw password)
+- Client uses a session token (JWT or opaque)
 
 No end-to-end encryption and no recovery keys.
 
@@ -229,20 +229,20 @@ No end-to-end encryption and no recovery keys.
 
 To encourage auto-save / auto-fill:
 
-* Use a real login form
-* Set autocomplete:
+- Use a real login form
+- Set autocomplete:
+  - username field: autocomplete=username
+  - login password: autocomplete=current-password
+  - signup password: autocomplete=new-password
 
-  * username field: autocomplete=username
-  * login password: autocomplete=current-password
-  * signup password: autocomplete=new-password
-* Do not disable autocomplete
+- Do not disable autocomplete
 
 Goal: user enters password once; OS/browser password manager handles the rest.
 
 ### 5.2 Session Token Storage
 
-* Prefer storing token in IndexedDB (or in memory plus refresh flow if implemented)
-* Avoid localStorage for tokens
+- Prefer storing token in IndexedDB (or in memory plus refresh flow if implemented)
+- Avoid localStorage for tokens
 
 ---
 
@@ -250,20 +250,20 @@ Goal: user enters password once; OS/browser password manager handles the rest.
 
 ### What We Do
 
-* TLS/HTTPS for all communication (mandatory)
-* Encryption at rest on the server (server-managed keys)
-* Password reset supported (account recoverable)
+- TLS/HTTPS for all communication (mandatory)
+- Encryption at rest on the server (server-managed keys)
+- Password reset supported (account recoverable)
 
 ### What This Protects Against
 
-* Leaked database backups or snapshots
-* Disk theft
-* Accidental exposure of raw DB dumps
+- Leaked database backups or snapshots
+- Disk theft
+- Accidental exposure of raw DB dumps
 
 ### What This Does Not Protect Against
 
-* Full server compromise where attacker gets app secrets or keys
-* Malicious admin with key access
+- Full server compromise where attacker gets app secrets or keys
+- Malicious admin with key access
 
 This trade-off is accepted for v1.
 
@@ -273,52 +273,52 @@ This trade-off is accepted for v1.
 
 ### Frontend
 
-* Static hosting (adapter-static)
-* HTTPS required (PWA and service worker)
+- Static hosting (adapter-static)
+- HTTPS required (PWA and service worker)
 
 ### Backend
 
-* Separate API service
-* Handles auth, sync, password reset emails
-* Must support CORS if hosted on a different domain than frontend
+- Separate API service
+- Handles auth, sync, password reset emails
+- Must support CORS if hosted on a different domain than frontend
 
 ---
 
 ## 8) Explicit Non-Goals for v1
 
-* No SSR
-* No end-to-end encryption
-* No recovery key
-* No guaranteed background sync while app is closed
-* No multi-device conflict resolution or merges (push-only backup first)
-* No manual export/import as primary backup (optional emergency later)
+- No SSR
+- No end-to-end encryption
+- No recovery key
+- No guaranteed background sync while app is closed
+- No multi-device conflict resolution or merges (push-only backup first)
+- No manual export/import as primary backup (optional emergency later)
 
 ---
 
 ## 9) v1 Acceptance Criteria
 
-* Installable PWA on phone
-* Fully functional offline:
+- Installable PWA on phone
+- Fully functional offline:
+  - create/edit tasks and entries offline
+  - data persists locally
 
-  * create/edit tasks and entries offline
-  * data persists locally
-* Automatic backup when online and app open:
+- Automatic backup when online and app open:
+  - outbox uploads successfully
+  - visible sync status supported
 
-  * outbox uploads successfully
-  * visible sync status supported
-* Login once, then frictionless via password manager
-* Password reset via email works
-* Server reliably stores backed-up data
+- Login once, then frictionless via password manager
+- Password reset via email works
+- Server reliably stores backed-up data
 
 ---
 
 ## 10) Future (Not v1)
 
-* Restore from cloud flow (download and rehydrate local DB)
-* Multi-device sync
-* Conflict resolution strategy (versioning/merging)
-* Optional export/import as emergency fallback
-* Optional best-effort request for persistent storage (to reduce eviction risk)
+- Restore from cloud flow (download and rehydrate local DB)
+- Multi-device sync
+- Conflict resolution strategy (versioning/merging)
+- Optional export/import as emergency fallback
+- Optional best-effort request for persistent storage (to reduce eviction risk)
 
 ---
 

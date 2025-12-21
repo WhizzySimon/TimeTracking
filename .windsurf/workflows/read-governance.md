@@ -4,6 +4,7 @@ auto_execution_mode: 1
 ---
 
 Read:
+
 - Docs/INDEX.md
 - AGENTS.md
 - .windsurf/cascade.md

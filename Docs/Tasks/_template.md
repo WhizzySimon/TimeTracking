@@ -1,6 +1,7 @@
 ﻿# <feature-slug> - Tasks
 
 ## Task 1 - [Brief description]
+
 - **Files:**
   - `path/to/file.ts`
 - **Done when:**
@@ -13,6 +14,7 @@
   - Must preserve Y
 
 ## Task 2 - [Brief description]
+
 - **Files:**
   - `path/to/file.ts`
 - **Done when:**
