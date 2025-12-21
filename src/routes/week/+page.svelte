@@ -35,6 +35,7 @@
 	import { calculateIst, calculateSoll, calculateSaldo } from '$lib/utils/calculations';
 	import type { Category, DayType, DayTypeValue, TimeEntry, WorkTimeModel } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
+	import WeekTypeSelector from '$lib/components/WeekTypeSelector.svelte';
 
 	let loading = $state(true);
 
@@ -178,17 +179,8 @@
 			<button class="nav-btn" onclick={goToNextWeek} aria-label="Nächste Woche">→</button>
 		</header>
 
-		<!-- Week Type Selector (placeholder for Task 3.3) -->
-		<div class="week-type-section">
-			<label for="week-type">Wochenart:</label>
-			<select id="week-type" class="week-type-select" disabled>
-				<option value="arbeitswoche">Arbeitswoche</option>
-				<option value="urlaub">Urlaub</option>
-				<option value="krank">Krank</option>
-				<option value="feiertag">Feiertag</option>
-			</select>
-			<span class="placeholder-hint">(wird in Task 3.3 implementiert)</span>
-		</div>
+		<!-- Week Type Selector -->
+		<WeekTypeSelector weekDate={$currentDate} onchange={() => loadWeekDayTypes(weekDates)} />
 
 		<!-- Inline Summary -->
 		<InlineSummary ist={weekIst} soll={weekSoll()} saldo={weekSaldo} />
@@ -279,39 +271,6 @@
 
 	.week-title:hover {
 		background: #f5f5f5;
-	}
-
-	/* Week Type Selector */
-	.week-type-section {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-	}
-
-	.week-type-section label {
-		font-weight: 500;
-		color: #333;
-	}
-
-	.week-type-select {
-		padding: 0.5rem 1rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		font-size: 1rem;
-		background: white;
-		min-width: 150px;
-	}
-
-	.week-type-select:disabled {
-		background: #f5f5f5;
-		color: #999;
-	}
-
-	.placeholder-hint {
-		font-size: 0.75rem;
-		color: #999;
-		font-style: italic;
 	}
 
 	/* Day List */

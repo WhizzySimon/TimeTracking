@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 3 - Additional Tabs  
-**Tasks Completed:** 29 / 60  
-**Estimated Progress:** 48%
+**Tasks Completed:** 30 / 60  
+**Estimated Progress:** 50%
 
 ---
 
@@ -205,7 +205,7 @@
 ## Phase 3: Additional Tabs
 
 **Target:** 16 tasks, ~12-15 hours  
-**Status:** In Progress (4/16 tasks)
+**Status:** In Progress (5/16 tasks)
 
 ### Week Tab
 
@@ -221,7 +221,11 @@
   - Deviations: Implemented as part of Task 3.1
   - Notes: ← decrements by 7 days, → increments by 7 days, clicking title goes to current week. Shows "Aktuelle KW X" for current week, "KW X" otherwise.
 
-- [ ] **Task 3.3** — Implement week type selector
+- [x] **Task 3.3** — Implement week type selector
+  - Files: `src/lib/components/WeekTypeSelector.svelte`, `src/routes/week/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Dropdown with 4 options (Arbeitswoche, Urlaub, Krank, Feiertag). On change, shows confirmation dialog and sets day type for all 7 days in IndexedDB. Resets to default after action.
 
 - [x] **Task 3.4** — Calculate week Ist/Soll/Saldo
   - Files: `src/routes/week/+page.svelte`
