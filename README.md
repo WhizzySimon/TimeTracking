@@ -10,15 +10,35 @@ Offline-first time tracking app (SvelteKit PWA).
 
 ## Start a new Cascade session
 
-1. Run:
+**Step 1:** Start the development environment:
+```
+.\scripts\start-session.ps1
+```
+This opens two windows:
+- Dev server (`npm run dev`)
+- Cascade watcher (enables autonomous command execution)
 
-- /project-start
+**Step 2:** Start a new chat with:
+```
+/continue-work
+```
 
-2. Paste the one-line outputs from the workflows.
+**Step 3:** Say "done" when Cascade asks, then it continues automatically.
 
-3. Then give the first implementation instruction (e.g. "Complete Task 0, then start Task 1.1.").
+## Scripts
 
-## When commands are needed
+| Script | Purpose |
+|--------|---------|
+| `scripts/start-session.ps1` | Start dev server + watcher (run before each session) |
+| `scripts/cascade-watcher.ps1` | Watches for commands from Cascade |
+| `scripts/verify-code.ps1` | Runs format, check, lint (called by `npm run verify`) |
 
-Cascade must create a PowerShell script under `scripts/`.
-You run it locally and paste the output back into Cascade.
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run verify` | Run format + TypeScript check + lint |
+| `npm run test:unit` | Run unit tests (Vitest) |
+| `npm run test:e2e` | Run E2E tests (Playwright) |
+| `npm run build` | Build for production |
