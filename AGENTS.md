@@ -8,7 +8,8 @@ Before doing anything else, run these workflows in .windsurf/workflows:
 - rules-read-all
 - read-core-docs-and-code
 Paste the one-line outputs from each workflow.
-If a workflow is missing or fails, STOP and fix that first.
+If a workflow is missing or fails, STOP and restore/fix the workflow files before continuing.
+
 
 ## Mandatory doc loading (non-negotiable)
 Before planning or coding, ALWAYS:
