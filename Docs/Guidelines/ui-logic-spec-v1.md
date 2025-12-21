@@ -235,6 +235,8 @@ KW 12 – Arbeitswoche   Ist 38 / Soll 51
 * Krank
 * Feiertag
 
+Systemkategorien haben fest: **„Zählt als Arbeitszeit" = false** (nicht änderbar)
+
 ### Eigene Kategorien
 
 * Frei benennbar
