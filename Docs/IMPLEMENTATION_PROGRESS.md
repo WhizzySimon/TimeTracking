@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 21 / 60  
-**Estimated Progress:** 35%
+**Tasks Completed:** 22 / 60  
+**Estimated Progress:** 37%
 
 ---
 
@@ -176,11 +176,11 @@
   - Deviations: None
   - Notes: TaskItem shows time span, category, work indicator. TaskList sorts newest first. Integrated with Day page including modal for add/edit.
 
-- [ ] **Task 2.12** — Implement running task warning banner
+- [x] **Task 2.12** — Implement running task warning banner
   - Files: `src/lib/components/WarningBanner.svelte`, `src/routes/day/+page.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Shows "⚠ Aufgabe läuft noch (keine Endzeit)" when any entry has null endTime. Appears above date nav per spec.
 
 - [ ] **Task 2.13** — Calculate real Ist from time entries
   - Files: `src/routes/day/+page.svelte`

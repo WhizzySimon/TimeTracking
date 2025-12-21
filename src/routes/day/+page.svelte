@@ -13,9 +13,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { currentDate, activeWorkTimeModel, timeEntries } from '$lib/stores';
+	import { currentDate, activeWorkTimeModel, timeEntries, categories } from '$lib/stores';
 	import { formatDate, isToday, addDays } from '$lib/utils/date';
-	import { calculateSoll, calculateSaldo } from '$lib/utils/calculations';
+	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
 	import { getByKey, getAll } from '$lib/storage/db';
 	import type { DayType, DayTypeValue, TimeEntry } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
@@ -39,8 +39,8 @@
 	// Check if there's a running task (no end time)
 	let runningEntry = $derived($timeEntries.find((e) => e.endTime === null) ?? null);
 
-	// Ist is 0 for now (Task 2.13 will calculate from time entries)
-	let ist = $state(0);
+	// Calculate Ist from day entries (only completed tasks with countsAsWorkTime categories)
+	let ist = $derived(calculateIst(dayEntries, $categories));
 
 	// Soll calculated from day type and work time model
 	let soll = $derived(calculateSoll($currentDate, dayType, $activeWorkTimeModel));
