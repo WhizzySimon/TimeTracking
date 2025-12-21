@@ -17,7 +17,7 @@
 	import { formatDate, isToday, addDays } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
 	import { getByKey, getAll, deleteByKey } from '$lib/storage/db';
-	import type { DayType, DayTypeValue, TimeEntry } from '$lib/types';
+	import type { Category, DayType, DayTypeValue, TimeEntry } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import DayTypeSelector from '$lib/components/DayTypeSelector.svelte';
 	import TaskList from '$lib/components/TaskList.svelte';
@@ -112,6 +112,9 @@
 
 	onMount(async () => {
 		await initializeCategories();
+		// Load categories into store
+		const allCategories = await getAll<Category>('categories');
+		categories.set(allCategories);
 		// Load all time entries
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
