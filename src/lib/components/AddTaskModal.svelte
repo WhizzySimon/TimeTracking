@@ -26,11 +26,21 @@
 
 	let { date, entry = null, onclose, onsave }: Props = $props();
 
-	// Form state
-	let categoryId = $state(entry?.categoryId ?? '');
-	let startTime = $state(entry?.startTime ?? formatTime(new Date()));
-	let endTime = $state(entry?.endTime ?? '');
-	let description = $state(entry?.description ?? '');
+	// Form state - initialize from entry prop via function to avoid Svelte warning
+	function getInitialValues() {
+		return {
+			categoryId: entry?.categoryId ?? '',
+			startTime: entry?.startTime ?? formatTime(new Date()),
+			endTime: entry?.endTime ?? '',
+			description: entry?.description ?? ''
+		};
+	}
+	const initial = getInitialValues();
+
+	let categoryId = $state(initial.categoryId);
+	let startTime = $state(initial.startTime);
+	let endTime = $state(initial.endTime);
+	let description = $state(initial.description);
 	let saving = $state(false);
 	let error = $state('');
 

@@ -38,8 +38,13 @@
 	});
 </script>
 
-<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-<div class="modal-backdrop" onclick={handleBackdropClick}>
+<div
+	class="modal-backdrop"
+	role="button"
+	tabindex="-1"
+	onclick={handleBackdropClick}
+	onkeydown={(e) => e.key === 'Enter' && handleBackdropClick(e as unknown as MouseEvent)}
+>
 	<div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
 		<header class="modal-header">
 			<h2 id="modal-title">{title}</h2>
