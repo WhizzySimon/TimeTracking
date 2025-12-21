@@ -24,8 +24,10 @@
 	} from '$lib/utils/calculations';
 	import type { Category, DayType, DayTypeValue, TimeEntry, WorkTimeModel } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
+	import DateRangeSelector from '$lib/components/DateRangeSelector.svelte';
 
 	let loading = $state(true);
+	let showRangeSelector = $state(false);
 
 	// Date range state - default: 01.01.current year to today
 	// Store as ISO strings to avoid mutable Date issues
@@ -235,13 +237,12 @@
 			<p>Laden...</p>
 		</div>
 	{:else}
-		<!-- Date Range Selector (placeholder button for Task 3.7) -->
+		<!-- Date Range Selector -->
 		<div class="range-section">
 			<span class="range-label">Zeitraum:</span>
-			<button class="range-button" disabled>
+			<button class="range-button" onclick={() => (showRangeSelector = true)}>
 				{rangeDisplay}
 			</button>
-			<span class="placeholder-hint">(Auswahl in Task 3.7)</span>
 		</div>
 
 		<!-- Inline Summary -->
@@ -266,6 +267,20 @@
 		</div>
 	{/if}
 </div>
+
+<!-- Date Range Selector Modal -->
+{#if showRangeSelector}
+	<DateRangeSelector
+		startDate={rangeStartStr}
+		endDate={rangeEndStr}
+		onsave={(start, end) => {
+			rangeStartStr = start;
+			rangeEndStr = end;
+			showRangeSelector = false;
+		}}
+		onclose={() => (showRangeSelector = false)}
+	/>
+{/if}
 
 <style>
 	.analysis-page {
@@ -306,16 +321,9 @@
 		cursor: pointer;
 	}
 
-	.range-button:disabled {
+	.range-button:hover {
 		background: #f5f5f5;
-		color: #666;
-		cursor: not-allowed;
-	}
-
-	.placeholder-hint {
-		font-size: 0.75rem;
-		color: #999;
-		font-style: italic;
+		border-color: #999;
 	}
 
 	/* Period List */

@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 3 - Additional Tabs  
-**Tasks Completed:** 34 / 60  
-**Estimated Progress:** 57%
+**Tasks Completed:** 35 / 60  
+**Estimated Progress:** 58%
 
 ---
 
@@ -247,7 +247,11 @@
   - Deviations: None
   - Notes: Date range display (placeholder for selector), InlineSummary, period list. Default range: 01.01.current year to today.
 
-- [ ] **Task 3.7** — Create DateRangeSelector component
+- [x] **Task 3.7** — Create DateRangeSelector component
+  - Files: `src/lib/components/DateRangeSelector.svelte`, `src/routes/analysis/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅, Browser test ✅
+  - Deviations: None
+  - Notes: Modal with Schnellwahl (Aktuelles Jahr) and manual date inputs (Von/Bis). Validates dates and updates analysis range. Period grouping switches to weeks when range ≤60 days.
 
 - [x] **Task 3.8** — Calculate analysis totals
   - Files: `src/routes/analysis/+page.svelte`

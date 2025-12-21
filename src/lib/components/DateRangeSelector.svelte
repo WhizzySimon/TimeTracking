@@ -1,0 +1,238 @@
+<!--
+  DateRangeSelector component - modal for selecting date range
+  
+  Spec refs:
+  - ui-logic-spec-v1.md Section 5.2 (Zeitraum-Selector)
+  
+  Features:
+  - Schnellwahl: "Aktuelles Jahr" button
+  - Manuell: Two date fields (Von, Bis) with DD.MM.YYYY format
+  - Validation: Von <= Bis
+-->
+<script lang="ts">
+	import { formatDate, parseDate } from '$lib/utils/date';
+	import Modal from './Modal.svelte';
+
+	interface Props {
+		/** Current start date (ISO format YYYY-MM-DD) */
+		startDate: string;
+		/** Current end date (ISO format YYYY-MM-DD) */
+		endDate: string;
+		/** Callback when range is saved */
+		onsave?: (start: string, end: string) => void;
+		/** Callback when modal is closed */
+		onclose?: () => void;
+	}
+
+	let { startDate, endDate, onsave, onclose }: Props = $props();
+
+	// Local state for editing
+	let startInput = $state('');
+	let endInput = $state('');
+	let error = $state('');
+
+	// Initialize inputs from props
+	$effect(() => {
+		const start = parseDate(startDate);
+		const end = parseDate(endDate);
+		if (start) startInput = formatDate(start, 'DE');
+		if (end) endInput = formatDate(end, 'DE');
+	});
+
+	// Quick select: current year
+	function selectCurrentYear() {
+		const now = new Date();
+		const yearStart = new Date(now.getFullYear(), 0, 1);
+		startInput = formatDate(yearStart, 'DE');
+		endInput = formatDate(now, 'DE');
+		error = '';
+	}
+
+	// Validate and save
+	function handleSave() {
+		const start = parseDate(startInput);
+		const end = parseDate(endInput);
+
+		if (!start) {
+			error = 'Ungültiges Startdatum (Format: TT.MM.JJJJ)';
+			return;
+		}
+
+		if (!end) {
+			error = 'Ungültiges Enddatum (Format: TT.MM.JJJJ)';
+			return;
+		}
+
+		if (start > end) {
+			error = 'Startdatum muss vor Enddatum liegen';
+			return;
+		}
+
+		error = '';
+		onsave?.(formatDate(start, 'ISO'), formatDate(end, 'ISO'));
+	}
+
+	function handleClose() {
+		onclose?.();
+	}
+</script>
+
+<Modal title="Zeitraum wählen" onclose={handleClose}>
+	<div class="range-selector">
+		<!-- Quick Select -->
+		<div class="section">
+			<h3 class="section-title">Schnellwahl</h3>
+			<button type="button" class="quick-btn" onclick={selectCurrentYear}> Aktuelles Jahr </button>
+		</div>
+
+		<!-- Manual Input -->
+		<div class="section">
+			<h3 class="section-title">Manuell</h3>
+			<div class="date-fields">
+				<div class="field">
+					<label for="range-start">Von:</label>
+					<input
+						type="text"
+						id="range-start"
+						bind:value={startInput}
+						placeholder="TT.MM.JJJJ"
+						class="date-input"
+					/>
+				</div>
+				<div class="field">
+					<label for="range-end">Bis:</label>
+					<input
+						type="text"
+						id="range-end"
+						bind:value={endInput}
+						placeholder="TT.MM.JJJJ"
+						class="date-input"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<!-- Error Message -->
+		{#if error}
+			<p class="error">{error}</p>
+		{/if}
+
+		<!-- Actions -->
+		<div class="actions">
+			<button type="button" class="btn-secondary" onclick={handleClose}> Abbrechen </button>
+			<button type="button" class="btn-primary" onclick={handleSave}> Übernehmen </button>
+		</div>
+	</div>
+</Modal>
+
+<style>
+	.range-selector {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.section-title {
+		margin: 0;
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: #666;
+	}
+
+	.quick-btn {
+		padding: 0.75rem 1rem;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		background: white;
+		font-size: 1rem;
+		cursor: pointer;
+		text-align: left;
+	}
+
+	.quick-btn:hover {
+		background: #f5f5f5;
+		border-color: #3b82f6;
+	}
+
+	.date-fields {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.field label {
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: #333;
+	}
+
+	.date-input {
+		padding: 0.75rem;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		font-size: 1rem;
+	}
+
+	.date-input:focus {
+		outline: none;
+		border-color: #3b82f6;
+		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+	}
+
+	.error {
+		margin: 0;
+		padding: 0.5rem;
+		background: #fef2f2;
+		border: 1px solid #fecaca;
+		border-radius: 4px;
+		color: #dc2626;
+		font-size: 0.9rem;
+	}
+
+	.actions {
+		display: flex;
+		gap: 0.75rem;
+		justify-content: flex-end;
+		padding-top: 0.5rem;
+		border-top: 1px solid #eee;
+	}
+
+	.btn-secondary {
+		padding: 0.75rem 1.5rem;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		background: white;
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	.btn-secondary:hover {
+		background: #f5f5f5;
+	}
+
+	.btn-primary {
+		padding: 0.75rem 1.5rem;
+		border: none;
+		border-radius: 8px;
+		background: #3b82f6;
+		color: white;
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	.btn-primary:hover {
+		background: #2563eb;
+	}
+</style>
