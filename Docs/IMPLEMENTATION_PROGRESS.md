@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 17 / 60  
-**Estimated Progress:** 28%
+**Tasks Completed:** 18 / 60  
+**Estimated Progress:** 30%
 
 ---
 
@@ -152,11 +152,11 @@
   - Deviations: None
   - Notes: ← decrements day, → increments day, clicking date title goes to today. Shows "Heute" for today.
 
-- [ ] **Task 2.8** — Create DayTypeSelector component
-  - Files: `src/lib/components/DayTypeSelector.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 2.8** — Create DayTypeSelector component
+  - Files: `src/lib/components/DayTypeSelector.svelte`, `src/lib/storage/db.ts`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: Added dayTypes store to IndexedDB (bumped DB_VERSION to 2)
+  - Notes: Dropdown with 4 options, saves to IndexedDB on change, loads persisted value on date change.
 
 - [ ] **Task 2.9** — Load day type and work time model for current date
   - Files: `src/routes/day/+page.svelte`

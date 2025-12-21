@@ -13,20 +13,46 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { currentDate } from '$lib/stores';
+	import { currentDate, activeWorkTimeModel } from '$lib/stores';
 	import { formatDate, isToday, addDays } from '$lib/utils/date';
+	import { calculateSoll, calculateSaldo } from '$lib/utils/calculations';
+	import { getByKey } from '$lib/storage/db';
+	import type { DayType, DayTypeValue } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import DayTypeSelector from '$lib/components/DayTypeSelector.svelte';
 
 	let loading = $state(true);
 
-	// Dummy data for now (Task 2.9+ will load real data)
+	// Day type for current date (loaded from IndexedDB)
+	let dayType: DayTypeValue = $state('arbeitstag');
+
+	// Ist is 0 for now (Task 2.13 will calculate from time entries)
 	let ist = $state(0);
-	let soll = $state(8);
-	let saldo = $state(-8);
+
+	// Soll calculated from day type and work time model
+	let soll = $derived(calculateSoll($currentDate, dayType, $activeWorkTimeModel));
+
+	// Saldo = Ist - Soll
+	let saldo = $derived(calculateSaldo(ist, soll));
 
 	// Reactive date display
 	let dateDisplay = $derived(isToday($currentDate) ? 'Heute' : formatDate($currentDate, 'DE'));
+
+	// Load day type when date changes
+	$effect(() => {
+		loadDayType($currentDate);
+	});
+
+	async function loadDayType(date: Date) {
+		const dateKey = formatDate(date, 'ISO');
+		const record = await getByKey<DayType>('dayTypes', dateKey);
+		dayType = record?.type ?? 'arbeitstag';
+	}
+
+	// Handle day type change from selector
+	function handleDayTypeChange(newType: DayTypeValue) {
+		dayType = newType;
+	}
 
 	// Date navigation functions
 	function goToPreviousDay() {
@@ -61,7 +87,7 @@
 		</header>
 
 		<!-- Day Type Selector -->
-		<DayTypeSelector date={$currentDate} />
+		<DayTypeSelector date={$currentDate} onchange={handleDayTypeChange} />
 
 		<!-- Inline Summary -->
 		<InlineSummary {ist} {soll} {saldo} />
