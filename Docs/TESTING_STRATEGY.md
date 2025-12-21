@@ -276,6 +276,8 @@ describe('calculateSaldo', () => {
 
 ### Before Marking Task Complete:
 
+**Note:** Cascade creates verification scripts under `scripts/`. User runs them and pastes output.
+
 ```bash
 npm run check        # TypeScript
 npm run lint         # Code style

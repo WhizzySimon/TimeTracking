@@ -152,7 +152,9 @@ Structure every response:
 - `Docs/IMPLEMENTATION_PROGRESS.md` — Progress tracker (update after each task)
 - `Docs/TESTING_STRATEGY.md` — Unit testing requirements
 
-**Verification Commands:**
+**Verification Commands (User-Executed):**
+Cascade creates PowerShell scripts under `scripts/`. User runs them and pastes output back.
+
 - `npm run check` — TypeScript type check
 - `npm run lint` — ESLint + Prettier check
 - `npm run format` — Auto-format code
