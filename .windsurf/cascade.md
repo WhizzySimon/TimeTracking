@@ -1,11 +1,10 @@
 # TimeTracker — Cascade Project Instructions
 
-## Start-of-session workflows (mandatory)
-Before doing anything else, run these workflows:
-- rules-read-all
-- read-core-docs-and-code
-
-Paste the one-line outputs from each workflow.
+## Start-of-session workflow (mandatory)
+Before doing anything else, run:
+- project-start
+Follow its instructions and paste the requested one-line outputs.
+If anything is missing/fails, STOP and fix that first.
 
 ## CRITICAL: Read This First (Every Chat Session)
 

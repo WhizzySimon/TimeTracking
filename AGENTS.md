@@ -3,12 +3,11 @@
 This repo uses Spec-Driven Development: we write/maintain specs that drive implementation.
 Primary rule: DO NOT start implementing until the spec + plan + tasks are explicit and internally consistent.
 
-## Start-of-session workflows (mandatory)
-Before doing anything else, run these workflows in .windsurf/workflows:
-- rules-read-all
-- read-core-docs-and-code
-Paste the one-line outputs from each workflow.
-If a workflow is missing or fails, STOP and restore/fix the workflow files before continuing.
+## Start-of-session workflow (mandatory)
+Before doing anything else, run:
+- project-start
+Follow its instructions and paste the requested one-line outputs.
+If anything is missing/fails, STOP and fix that first.
 
 
 ## Mandatory doc loading (non-negotiable)
