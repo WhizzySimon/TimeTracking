@@ -16,6 +16,7 @@
 	import { currentDate } from '$lib/stores';
 	import { formatDate, isToday, addDays } from '$lib/utils/date';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
+	import DayTypeSelector from '$lib/components/DayTypeSelector.svelte';
 
 	let loading = $state(true);
 
@@ -59,16 +60,8 @@
 			<button class="nav-btn" onclick={goToNextDay} aria-label="Nächster Tag">→</button>
 		</header>
 
-		<!-- Day Type Selector (placeholder) -->
-		<div class="day-type-section">
-			<label for="day-type">Tagesart:</label>
-			<select id="day-type" class="day-type-select">
-				<option value="arbeitstag">Arbeitstag</option>
-				<option value="urlaub">Urlaub</option>
-				<option value="krank">Krank</option>
-				<option value="feiertag">Feiertag</option>
-			</select>
-		</div>
+		<!-- Day Type Selector -->
+		<DayTypeSelector date={$currentDate} />
 
 		<!-- Inline Summary -->
 		<InlineSummary {ist} {soll} {saldo} />
@@ -146,34 +139,6 @@
 
 	.date-title:hover {
 		background: #f5f5f5;
-	}
-
-	/* Day Type Selector */
-	.day-type-section {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-	}
-
-	.day-type-section label {
-		font-weight: 500;
-		color: #666;
-	}
-
-	.day-type-select {
-		flex: 1;
-		padding: 0.5rem 0.75rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		font-size: 1rem;
-		background: white;
-		cursor: pointer;
-	}
-
-	.day-type-select:focus {
-		outline: none;
-		border-color: #3b82f6;
-		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 	}
 
 	/* Add Task Button */

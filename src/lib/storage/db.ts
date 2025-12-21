@@ -5,7 +5,7 @@
  */
 
 const DB_NAME = 'timetracker';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 let dbInstance: IDBDatabase | null = null;
 
@@ -31,6 +31,11 @@ export async function openDB(): Promise<IDBDatabase> {
 			// Meta store for flags like "seeded"
 			if (!db.objectStoreNames.contains('meta')) {
 				db.createObjectStore('meta', { keyPath: 'key' });
+			}
+
+			// Day types store (keyed by date YYYY-MM-DD)
+			if (!db.objectStoreNames.contains('dayTypes')) {
+				db.createObjectStore('dayTypes', { keyPath: 'date' });
 			}
 		};
 
