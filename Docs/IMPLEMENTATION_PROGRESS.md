@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 13 / 60  
-**Estimated Progress:** 22%
+**Tasks Completed:** 14 / 60  
+**Estimated Progress:** 23%
 
 ---
 
@@ -126,11 +126,11 @@
   - Deviations: None
   - Notes: Added formatDate, parseDate, getWeekBounds, getDayOfWeek, isToday, isCurrentWeek, getWeekNumber, addDays, getWeekDates, formatShortDate, startOfDay, endOfDay, isSameDay, formatTime, parseTime. Also set up Vitest with vite.config.ts.
 
-- [ ] **Task 2.4** — Create calculation utility functions
-  - Files: `src/lib/utils/calculations.ts`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 2.4** — Create calculation utility functions
+  - Files: `src/lib/utils/calculations.ts`, `src/lib/utils/calculations.test.ts`
+  - Verified: npm run check ✅, npm run lint ✅, npm run test:unit ✅ (28 tests)
+  - Deviations: None
+  - Notes: Added calculateDuration, calculateIst, calculateSoll, calculateSaldo, formatHours, calculateWeeklyTotal. All functions follow ui-logic-spec-v1.md Section 10.
 
 ### Day Tab Components
 
