@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 3 - Additional Tabs  
-**Tasks Completed:** 35 / 60  
+**Tasks Completed:** 37 / 60  
 **Estimated Progress:** 58%
 
 ---
@@ -273,8 +273,18 @@
 
 ### Settings Tab
 
-- [ ] **Task 3.11** — Implement Settings tab UI structure
-- [ ] **Task 3.12** — Implement category list
+- [x] **Task 3.11** — Implement Settings tab UI structure
+  - Files: `src/routes/settings/+page.svelte`, `src/lib/types.ts`
+  - Verified: npm run check ✅, npm run lint ✅, Browser test ✅
+  - Deviations: Added `name` property to WorkTimeModel type
+  - Notes: Two sections (Kategorien, Arbeitszeitmodelle), each with heading and add button. Category list shows badges for work time status, delete buttons only for non-system categories.
+
+- [x] **Task 3.12** — Implement category list
+  - Files: `src/routes/settings/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅, Browser test ✅
+  - Deviations: Implemented inline in settings page instead of separate components
+  - Notes: Shows all categories with name, work time badge, delete button (user categories only).
+
 - [ ] **Task 3.13** — Implement add category modal
 - [ ] **Task 3.14** — Implement delete category
 - [ ] **Task 3.15** — Implement work time model list

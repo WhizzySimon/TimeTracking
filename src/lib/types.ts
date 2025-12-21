@@ -60,6 +60,7 @@ export interface TimeEntry {
  */
 export interface WorkTimeModel {
 	id: string;
+	name: string; // User-friendly name for the model
 	validFrom: string; // YYYY-MM-DD
 	monday: number | null; // hours, null if day inactive
 	tuesday: number | null;

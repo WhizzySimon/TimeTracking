@@ -172,6 +172,7 @@ describe('calculateIst', () => {
 describe('calculateSoll', () => {
 	const model: WorkTimeModel = {
 		id: 'model-1',
+		name: 'Standard 40h',
 		validFrom: '2025-01-01',
 		monday: 8,
 		tuesday: 8,
@@ -219,6 +220,7 @@ describe('calculateSoll', () => {
 	it('handles part-time model', () => {
 		const partTimeModel: WorkTimeModel = {
 			id: 'model-2',
+			name: 'Part-time 12h',
 			validFrom: '2025-01-01',
 			monday: 4,
 			tuesday: 4,
@@ -287,6 +289,7 @@ describe('calculateWeeklyTotal', () => {
 	it('sums all active days', () => {
 		const model: WorkTimeModel = {
 			id: 'model-1',
+			name: 'Standard 40h',
 			validFrom: '2025-01-01',
 			monday: 8,
 			tuesday: 8,
@@ -305,6 +308,7 @@ describe('calculateWeeklyTotal', () => {
 	it('handles part-time models', () => {
 		const model: WorkTimeModel = {
 			id: 'model-2',
+			name: 'Part-time 12h',
 			validFrom: '2025-01-01',
 			monday: 4,
 			tuesday: 4,
@@ -323,6 +327,7 @@ describe('calculateWeeklyTotal', () => {
 	it('handles model with all days inactive', () => {
 		const model: WorkTimeModel = {
 			id: 'model-3',
+			name: 'All inactive',
 			validFrom: '2025-01-01',
 			monday: null,
 			tuesday: null,
@@ -341,6 +346,7 @@ describe('calculateWeeklyTotal', () => {
 	it('handles weekend work', () => {
 		const model: WorkTimeModel = {
 			id: 'model-4',
+			name: 'Weekend 48h',
 			validFrom: '2025-01-01',
 			monday: 8,
 			tuesday: 8,
