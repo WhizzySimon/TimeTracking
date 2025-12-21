@@ -21,7 +21,7 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
   Purpose: screens, flows, rules, acceptance criteria for the app.
 
 ### Architecture & implementation rules
-- Docs/Guidelines/Technical_Guideline_v1.md  
+- Docs/Guidelines/technical-guideline-v1.md  
   Purpose: project structure, module boundaries, data model, decisions.
 - Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md  
   Purpose: SvelteKit + PWA constraints (offline-first, Safari behavior, etc.)
