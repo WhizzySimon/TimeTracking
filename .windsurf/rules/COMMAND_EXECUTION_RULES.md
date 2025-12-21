@@ -196,39 +196,79 @@ This file should be read at the start of every session via the `/rules-read-all`
 
 ---
 
-## 🔄 Automated Task Workflow
+## 🔄 Cascade Watcher System (Preferred)
 
-### Standard Task Loop
+### Overview
 
-1. **Cascade writes code** for the task
-2. **Cascade says:** "Ready. Please run: `npm run verify`"
-3. **User runs command** and pastes output (or says "all passed")
-4. **If errors exist:**
-   - Cascade analyzes and fixes automatically
-   - Cascade says: "Fixed. Please run: `npm run verify`"
-   - Repeat until all checks pass
-5. **If all checks pass:**
-   - Cascade performs UI testing using MCP Playwright tools
-   - Cascade navigates to relevant pages, interacts, verifies behavior
-   - If UI issues found: fix and return to step 2
-6. **Task complete** - Cascade updates progress tracker
+The Cascade Watcher enables **autonomous command execution** without user intervention for each command.
+
+**User starts watcher once per session:**
+
+powershell -File scripts/cascade-watcher.ps1
+
+**Then Cascade can execute commands autonomously by:**
+
+1. Writing command to `scripts/cascade-command.txt`
+2. Watcher detects and executes it
+3. Output written to `scripts/cascade-output.txt`
+4. Status written to `scripts/cascade-status.txt`
+5. Cascade reads output and continues
+
+### Files
+
+| File                                                                                                                      | Purpose                                       |
+| ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| [scripts/cascade-watcher.ps1](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-watcher.ps1:0:0-0:0) | Watcher script (user starts once)             |
+| `scripts/cascade-command.txt`                                                                                             | Cascade writes commands here                  |
+| `scripts/cascade-output.txt`                                                                                              | Command output (Cascade reads)                |
+| `scripts/cascade-status.txt`                                                                                              | Status: IDLE/RUNNING/DONE:SUCCESS/DONE:FAILED |
+
+### Workflow with Watcher Running
+
+1. **Cascade writes code**
+2. **Cascade writes** command to `scripts/cascade-command.txt`
+3. **Watcher executes** command automatically
+4. **Cascade polls** `scripts/cascade-status.txt` until DONE
+5. **Cascade reads** `scripts/cascade-output.txt`
+6. **If errors:** Cascade fixes and repeats from step 2
+7. **If success:** Cascade continues to next task
 
 ### User's Role (Minimal)
 
-- Run commands when Cascade asks
-- Paste output or confirm "all passed"
-- Start dev server when needed for UI testing (`npm run dev`)
+- Start watcher once per session
+- Start dev server when needed: `npm run dev`
+- That's it - Cascade handles the rest
 
-### Cascade's Role (Autonomous)
+---
 
-- Write all code
-- Analyze errors and fix them
-- Perform UI testing with MCP Playwright
-- Update documentation and progress tracker
+## 🔄 Fallback Workflow (Without Watcher)
 
-### MCP Playwright Testing
+If watcher is not running, fall back to manual workflow:
 
-After code verification passes, Cascade uses:
+1. **Cascade writes code**
+2. **Cascade says:** "Please run: `npm run verify`"
+3. **User runs command** and says "done"
+4. **Cascade reads** `scripts/verify-code-output.txt`
+5. **If errors:** Cascade fixes and repeats
+6. **If success:** Cascade continues
+
+---
+
+## 📦 Code Verification Script
+
+**`npm run verify`** runs [scripts/verify-code.ps1](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/verify-code.ps1:0:0-0:0) which:
+
+1. Runs `npm run format` (auto-fix formatting)
+2. Runs `npm run check` (TypeScript)
+3. Runs `npm run lint` (Prettier + ESLint)
+4. Writes all output to `scripts/verify-code-output.txt`
+5. Returns exit code 0 (all passed) or 1 (failed)
+
+---
+
+## 🎭 MCP Playwright Testing
+
+After code verification passes, Cascade uses MCP browser tools:
 
 - `mcp0_browser_navigate` - Go to page
 - `mcp0_browser_snapshot` - Get page structure
@@ -236,9 +276,7 @@ After code verification passes, Cascade uses:
 - `mcp0_browser_type` - Enter text
 - `mcp0_browser_console_messages` - Check for errors
 
-**Requirement:** Dev server must be running (`npm run dev`)
-
----
+## **Requirement:** Dev server must be running (`npm run dev`)
 
 ## 📊 Progress Tracking & Session Management
 

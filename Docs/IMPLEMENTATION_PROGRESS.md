@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 10 / 60  
-**Estimated Progress:** 17%
+**Tasks Completed:** 13 / 60  
+**Estimated Progress:** 22%
 
 ---
 
@@ -102,29 +102,29 @@
 ## Phase 2: Core UI (Day Tab)
 
 **Target:** 15 tasks, ~15-18 hours  
-**Status:** Not started
+**Status:** In Progress (3/15 tasks)
 
 ### Navigation & Structure
 
-- [ ] **Task 2.1** — Create tab navigation component
+- [x] **Task 2.1** — Create tab navigation component
   - Files: `src/lib/components/TabNavigation.svelte`, `src/routes/+layout.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Fixed bottom nav with 4 tabs, uses resolve() from $app/paths for navigation
 
-- [ ] **Task 2.2** — Create placeholder routes for all tabs
+- [x] **Task 2.2** — Create placeholder routes for all tabs
   - Files: `src/routes/+page.svelte`, `src/routes/day/+page.svelte`, `src/routes/week/+page.svelte`, `src/routes/analysis/+page.svelte`, `src/routes/settings/+page.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Root page redirects to /day, all tab routes have placeholder content
 
 ### Utilities
 
-- [ ] **Task 2.3** — Create date utility functions
-  - Files: `src/lib/utils/date.ts`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 2.3** — Create date utility functions
+  - Files: `src/lib/utils/date.ts`, `src/lib/utils/date.test.ts`
+  - Verified: npm run check ✅, npm run lint ✅, npm run test:unit ✅ (29 tests)
+  - Deviations: None
+  - Notes: Added formatDate, parseDate, getWeekBounds, getDayOfWeek, isToday, isCurrentWeek, getWeekNumber, addDays, getWeekDates, formatShortDate, startOfDay, endOfDay, isSameDay, formatTime, parseTime. Also set up Vitest with vite.config.ts.
 
 - [ ] **Task 2.4** — Create calculation utility functions
   - Files: `src/lib/utils/calculations.ts`

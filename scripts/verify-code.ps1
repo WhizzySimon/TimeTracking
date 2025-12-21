@@ -1,13 +1,20 @@
-# Verification script that writes output to a file for Cascade to read
+# Code Verification Script
+# Runs format, TypeScript check, and lint, writing output to a file for Cascade to read.
+#
 # Called by: npm run verify
+# Output: scripts/verify-code-output.txt
 
-$outputFile = "scripts/verify-output.txt"
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$projectRoot = Split-Path -Parent $scriptDir
+Set-Location $projectRoot
+
+$outputFile = Join-Path $projectRoot "scripts/verify-code-output.txt"
 
 # Clear previous output
 "" | Out-File -FilePath $outputFile -Encoding utf8
 
 # Header
-"=== TimeTracker Verification ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
+"=== TimeTracker Code Verification ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
 "Timestamp: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" | Out-File -FilePath $outputFile -Append -Encoding utf8
 "" | Out-File -FilePath $outputFile -Append -Encoding utf8
 
@@ -41,6 +48,6 @@ if ($allPassed) {
     exit 0
 } else {
     "STATUS: FAILED" | Out-File -FilePath $outputFile -Append -Encoding utf8
-    Write-Host "Verification complete: FAILED (see scripts/verify-output.txt)"
+    Write-Host "Verification complete: FAILED (see scripts/verify-code-output.txt)"
     exit 1
 }
