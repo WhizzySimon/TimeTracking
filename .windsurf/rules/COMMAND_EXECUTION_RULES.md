@@ -236,3 +236,48 @@ After code verification passes, Cascade uses:
 - `mcp0_browser_console_messages` - Check for errors
 
 **Requirement:** Dev server must be running (`npm run dev`)
+
+
+---
+
+## 📊 Progress Tracking & Session Management
+
+### After Each Task Completion
+
+Cascade MUST:
+
+1. **Update [Docs/IMPLEMENTATION_PROGRESS.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/IMPLEMENTATION_PROGRESS.md:0:0-0:0):**
+   - Mark task as `[x]` (done)
+   - Add verification results
+   - Note any deviations
+   - Update "Tasks Completed" counter
+   - Update "Last Updated" date
+
+2. **Check if more tasks remain in current phase:**
+   - If YES: Immediately start next task
+   - If NO (phase complete): See "End of Phase" below
+
+### End of Phase
+
+When all tasks in a phase are complete:
+
+1. Update phase status to "COMPLETE" in progress tracker
+2. Update "Current Phase" to next phase
+3. Tell user: "Phase X complete. Start new chat with `/continue-work` for Phase Y."
+
+### End of Session (Context Limit)
+
+If approaching context limit mid-task:
+
+1. Save current progress in [Docs/IMPLEMENTATION_PROGRESS.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/IMPLEMENTATION_PROGRESS.md:0:0-0:0)
+2. Note exactly where work stopped
+3. Tell user: "Context limit reached. Start new chat with `/continue-work` to resume."
+
+### New Chat Startup
+
+When user runs `/continue-work`:
+
+1. Read all rules and docs via workflows
+2. Read [Docs/IMPLEMENTATION_PROGRESS.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/IMPLEMENTATION_PROGRESS.md:0:0-0:0) to find current state
+3. Read [Docs/Tasks/timetracker-v1-implementation.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Tasks/timetracker-v1-implementation.md:0:0-0:0) for task details
+4. Resume from next incomplete task automatically
