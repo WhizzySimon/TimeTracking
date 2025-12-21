@@ -8,6 +8,7 @@ node_modules
 .wrangler
 /.svelte-kit
 /build
+/.pw-chrome-profile
 
 # OS
 .DS_Store
