@@ -7,7 +7,7 @@ description: Continue work on TimeTracker - reads all context and finds next tas
 Run this single command to start both dev server and watcher:
 
 ```
-.\scripts\start-session.ps1
+powershell -File scripts/start-session.ps1
 ```
 
 This opens two windows automatically. Then tell Cascade "done" to begin.

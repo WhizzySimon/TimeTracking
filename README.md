@@ -12,7 +12,7 @@ Offline-first time tracking app (SvelteKit PWA).
 
 **Step 1:** Start the development environment:
 ```
-.\scripts\start-session.ps1
+powershell -File scripts/start-session.ps1
 ```
 This opens two windows:
 - Dev server (`npm run dev`)
