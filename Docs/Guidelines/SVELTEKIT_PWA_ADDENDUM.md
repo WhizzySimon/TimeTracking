@@ -115,7 +115,7 @@ Create:
 - `static/sw.js`
 
 Why:
-- It’s stable, obvious, and independent of SvelteKit internals.
+- It's stable, obvious, and independent of SvelteKit internals.
 - It works with static and node adapters.
 
 **Important:** SvelteKit does not automatically build/bundle your custom SW in `static/`. You ship it as-is.
@@ -140,7 +140,7 @@ Implementation approach:
 
 ## Dev vs Prod Rules (Critical)
 ### Never aggressively cache during dev
-- In dev, caching can cause "why didn’t my changes show up?" loops.
+- In dev, caching can cause "why didn't my changes show up?" loops.
 
 Rules:
 - Only register SW when `!dev`.
@@ -163,7 +163,7 @@ Otherwise keep it:
 - Prefer same-origin calls if hosted together.
 - If backend is different origin:
   - configure CORS properly
-  - be explicit about caching (don’t cache sensitive responses)
+  - be explicit about caching (don't cache sensitive responses)
 
 ---
 

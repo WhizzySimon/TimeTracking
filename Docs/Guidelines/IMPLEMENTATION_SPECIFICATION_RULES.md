@@ -58,6 +58,6 @@ Every implementation must end with:
 - If anything is unclear or ambiguous, the spec must be tightened before changing code.
 
 ## Avoiding "spec drift"
-If code behavior changes, but the spec didn’t:
+If code behavior changes, but the spec didn't:
 - Update the spec in the same change.
 - Add a change log entry with date and summary.

@@ -95,7 +95,7 @@ Definition of done for a task:
 
 ## Verification (no guessing)
 Before marking any task complete:
-- Use the repo’s actual scripts from package.json (do not invent commands).
+- Use the repo's actual scripts from package.json (do not invent commands).
 - Run the fastest relevant checks first (format/lint/typecheck), then tests.
 - If e2e exists (e.g., Playwright), run only the impacted suite when possible.
 
@@ -110,7 +110,7 @@ When reporting completion:
 - Avoid hidden coupling: pass data explicitly; document invariants.
 
 ## PWA / platform constraints
-- Follow the repo’s PWA/SvelteKit/platform rules exactly as documented in the project docs.
+- Follow the repo's PWA/SvelteKit/platform rules exactly as documented in the project docs.
 - If a requirement conflicts with browser constraints, document the constraint in the spec and propose the smallest viable alternative.
 
 ## Where to put long-lived knowledge
