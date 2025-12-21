@@ -1,6 +1,6 @@
 # Implementation Specification Rules (TimeTracker)
 
-These rules exist because “rules alone” are often ignored. Start every session by running workflows:
+These rules exist because "rules alone” are often ignored. Start every session by running workflows:
 - .windsurf/workflows/rules-read-all.md
 - .windsurf/workflows/read-core-docs-and-code.md
 
@@ -10,24 +10,24 @@ These rules exist because “rules alone” are often ignored. Start every sessi
 
 ## How to write requirements (3 buckets)
 
-### A) Functional Requirements (FR) — “what the user can do / see”
+### A) Functional Requirements (FR) — "what the user can do / see”
 Write FR as user-observable behavior.
 
 Good:
-- “User can create a time entry with start/end, activity, and category.”
+- "User can create a time entry with start/end, activity, and category.”
 Bad:
-- “Use store X and component Y.”
+- "Use store X and component Y.”
 
-### B) Implementation Guarantees (IG) — “must be true regardless of implementation”
+### B) Implementation Guarantees (IG) — "must be true regardless of implementation”
 Write IG as constraints/outcomes, not as design.
 
 Good:
-- “All changes are persisted locally and survive refresh/offline.”
-- “Month navigation does not lose unsaved edits; user is warned or changes are autosaved.”
+- "All changes are persisted locally and survive refresh/offline.”
+- "Month navigation does not lose unsaved edits; user is warned or changes are autosaved.”
 Bad:
-- “Use IndexedDB library Z.”
+- "Use IndexedDB library Z.”
 
-### C) Design Decisions (DD) — “we choose this on purpose”
+### C) Design Decisions (DD) — "we choose this on purpose”
 Use DD for deliberate choices that you want stable:
 - naming conventions
 - UI conventions (button order, labels)

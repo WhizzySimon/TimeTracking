@@ -37,7 +37,7 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 - Docs/Guidelines/PROJECT_SCAFFOLD_CHECKLIST.md  
   Purpose: ensure project skeleton and tooling are complete.
 
-## Required “Doc Inventory” in every Cascade answer
+## Required "Doc Inventory” in every Cascade answer
 At the top of every response, Cascade must list:
 - Docs read (exact paths)
 - Any conflicts found + which doc won by priority

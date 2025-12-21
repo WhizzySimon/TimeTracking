@@ -16,7 +16,7 @@
 * **Keine versteckten Automatiken**
 * **Alles, was zählt, ist sichtbar**
 * **Tippen UND Klicken immer möglich**
-* **Excel-Logik wird nicht „verbessert“, nur sauber umgesetzt**
+* **Excel-Logik wird nicht "verbessert", nur sauber umgesetzt**
 
 ---
 
@@ -36,11 +36,11 @@
   * ← / → Buttons
 * **Tag**
 
-  * Wenn Datum = heute → Titel zeigt **„Heute“**
+  * Wenn Datum = heute → Titel zeigt **"Heute"**
 * **Woche**
 
-  * Wenn Woche = aktuelle KW → Titel zeigt **„Aktuelle KW 12“**
-  * Sonst **„KW 12“**
+  * Wenn Woche = aktuelle KW → Titel zeigt **"Aktuelle KW 12"**
+  * Sonst **"KW 12"**
 
 ---
 
@@ -100,12 +100,12 @@ Ist: 4,0 Std    Soll: 8,0 Std    Saldo: −4,0 Std
 * Sortierung: **neueste zuerst**
 * Laufende Aufgabe:
 
-  * Endzeit = „laufend“
+  * Endzeit = "laufend"
 * Pro Aufgabe anzeigen:
 
   * Zeitspanne
   * Kategorie
-  * Hinweis „zählt als Arbeitszeit“ / „zählt nicht“
+  * Hinweis "zählt als Arbeitszeit" / "zählt nicht"
 
 ---
 
@@ -169,7 +169,7 @@ Di 19.03 – Urlaub       Ist 0,0 / Soll 0,0
 
 ### 5.2 Zeitraum-Selector
 
-Beim Klick auf „Zeitraum“:
+Beim Klick auf "Zeitraum":
 
 #### Schnellwahl
 
@@ -235,20 +235,28 @@ KW 12 – Arbeitswoche   Ist 38 / Soll 51
 * Krank
 * Feiertag
 
-Systemkategorien haben fest: **„Zählt als Arbeitszeit" = false** (nicht änderbar)
+Systemkategorien haben fest: **"Zählt als Arbeitszeit" = false** (nicht änderbar)
 
 ### Eigene Kategorien
 
 * Frei benennbar
 * Flag:
 
-  * **„Zählt als Arbeitszeit“** (Checkbox)
+  * **"Zählt als Arbeitszeit"** (Checkbox)
+
+### Default-Tätigkeiten (Initialwerte)
+
+Beim ersten Start werden benutzerdefinierte Tätigkeiten aus `static/default-categories.de.json` angelegt (editierbar).  
+Die Defaults werden nur angelegt, wenn noch keine benutzerdefinierten Tätigkeiten existieren.
+
+Format der Datei:
+- JSON mit `categories[]` Einträgen: `{ name: string, countsAsWorkTime: boolean }`
 
 ### UI
 
 * ➕ Button immer sichtbar
 * 🗑️ Button pro Kategorie (nicht bei Systemkategorien)
-* Kein „Edit-Mode“
+* Kein "Edit-Mode"
 
 ---
 
