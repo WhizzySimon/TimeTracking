@@ -16,9 +16,11 @@
 	import { getAll, deleteByKey } from '$lib/storage/db';
 	import type { Category, WorkTimeModel } from '$lib/types';
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
+	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
 
 	let loading = $state(true);
 	let showAddCategory = $state(false);
+	let showAddWorkTimeModel = $state(false);
 
 	async function handleDeleteCategory(category: Category) {
 		if (category.type === 'system') return;
@@ -33,10 +35,6 @@
 			console.error('Failed to delete category:', e);
 			alert('Fehler beim Löschen der Kategorie');
 		}
-	}
-
-	function handleAddWorkTimeModel() {
-		alert('Arbeitszeitmodell hinzufügen wird in Task 3.16 implementiert');
 	}
 
 	onMount(async () => {
@@ -92,7 +90,7 @@
 		<section class="section">
 			<div class="section-header">
 				<h2>Arbeitszeitmodelle</h2>
-				<button class="add-btn" onclick={handleAddWorkTimeModel}> + Modell </button>
+				<button class="add-btn" onclick={() => (showAddWorkTimeModel = true)}> + Modell </button>
 			</div>
 			<div class="list">
 				{#if $workTimeModels.length === 0}
@@ -117,6 +115,14 @@
 	<AddCategoryModal
 		onsave={() => (showAddCategory = false)}
 		onclose={() => (showAddCategory = false)}
+	/>
+{/if}
+
+<!-- Add Work Time Model Modal -->
+{#if showAddWorkTimeModel}
+	<AddWorkTimeModelModal
+		onsave={() => (showAddWorkTimeModel = false)}
+		onclose={() => (showAddWorkTimeModel = false)}
 	/>
 {/if}
 

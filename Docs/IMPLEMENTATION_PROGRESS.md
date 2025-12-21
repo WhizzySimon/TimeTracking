@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 3 - Additional Tabs  
-**Tasks Completed:** 40 / 60  
+**Tasks Completed:** 41 / 60  
 **Estimated Progress:** 58%
 
 ---
@@ -303,7 +303,11 @@
   - Deviations: Implemented as part of Task 3.11
   - Notes: Shows model name and validFrom date. Empty state when no models exist.
 
-- [ ] **Task 3.16** — Implement add work time model modal
+- [x] **Task 3.16** — Implement add work time model modal
+  - Files: `src/lib/components/AddWorkTimeModelModal.svelte`, `src/routes/settings/+page.svelte`
+  - Verified: npm run verify ✅, Browser test ✅
+  - Deviations: None
+  - Notes: Modal with name, validFrom date, and hours per weekday (7 inputs). Default: 8h Mon-Fri, empty Sat-Sun. Saves to IndexedDB and updates store.
 
 ---
 
