@@ -22,6 +22,7 @@
 	import DayTypeSelector from '$lib/components/DayTypeSelector.svelte';
 	import TaskList from '$lib/components/TaskList.svelte';
 	import AddTaskModal from '$lib/components/AddTaskModal.svelte';
+	import WarningBanner from '$lib/components/WarningBanner.svelte';
 
 	let loading = $state(true);
 
@@ -34,6 +35,9 @@
 
 	// Filter entries for current date
 	let dayEntries = $derived($timeEntries.filter((e) => e.date === formatDate($currentDate, 'ISO')));
+
+	// Check if there's a running task (no end time)
+	let runningEntry = $derived($timeEntries.find((e) => e.endTime === null) ?? null);
 
 	// Ist is 0 for now (Task 2.13 will calculate from time entries)
 	let ist = $state(0);
@@ -113,6 +117,11 @@
 			<p>Laden...</p>
 		</div>
 	{:else}
+		<!-- Warning Banner (if running task exists) -->
+		{#if runningEntry}
+			<WarningBanner message="Aufgabe läuft noch (keine Endzeit)" />
+		{/if}
+
 		<!-- Date Navigation -->
 		<header class="date-nav">
 			<button class="nav-btn" onclick={goToPreviousDay} aria-label="Vorheriger Tag">←</button>

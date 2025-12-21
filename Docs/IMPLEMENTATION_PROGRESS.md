@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 20 / 60  
-**Estimated Progress:** 33%
+**Tasks Completed:** 21 / 60  
+**Estimated Progress:** 35%
 
 ---
 
@@ -170,11 +170,11 @@
   - Deviations: Added timeEntries store to IndexedDB (bumped DB_VERSION to 3)
   - Notes: Modal wrapper with escape/backdrop close. Form with category, start/end time, description. Saves to IndexedDB.
 
-- [ ] **Task 2.11** — Create TaskList and TaskItem components
-  - Files: `src/lib/components/TaskList.svelte`, `src/lib/components/TaskItem.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 2.11** — Create TaskList and TaskItem components
+  - Files: `src/lib/components/TaskList.svelte`, `src/lib/components/TaskItem.svelte`, `src/routes/day/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: TaskItem shows time span, category, work indicator. TaskList sorts newest first. Integrated with Day page including modal for add/edit.
 
 - [ ] **Task 2.12** — Implement running task warning banner
   - Files: `src/lib/components/WarningBanner.svelte`, `src/routes/day/+page.svelte`
