@@ -9,10 +9,12 @@
 **⚠️ PREREQUISITES:**
 
 1. **Install dependencies** (one-time setup):
+
    ```bash
    npm install
    npx playwright install
    ```
+
    This installs `playwright`, `@playwright/test`, `tsx`, and browser binaries.
 
 2. **Restart Windsurf** if MCP browser tools are not available:
@@ -23,6 +25,7 @@
 The MCP Playwright server is loaded when Windsurf starts.
 
 Cascade has access to the `mcp-playwright` MCP server, which can:
+
 - ✅ Take screenshots
 - ✅ Read page snapshots
 - ✅ **Read console messages**
@@ -37,27 +40,29 @@ Cascade has access to the `mcp-playwright` MCP server, which can:
 **Purpose:** Returns all console messages from the browser
 
 **Usage:**
+
 ```typescript
 // Get all console messages
-mcp0_browser_console_messages()
+mcp0_browser_console_messages();
 
 // Get only errors
-mcp0_browser_console_messages({ onlyErrors: true })
+mcp0_browser_console_messages({ onlyErrors: true });
 ```
 
 **Returns:**
+
 ```json
 [
-  {
-    "type": "log",
-    "text": "🔍 [Viewer] Action: sp.getList",
-    "location": "GptContentBlock.tsx:76"
-  },
-  {
-    "type": "error",
-    "text": "❌ [Hook] Validation failed: Missing required parameter: list",
-    "location": "useContentBlockLogic.ts:368"
-  }
+	{
+		"type": "log",
+		"text": "🔍 [Viewer] Action: sp.getList",
+		"location": "GptContentBlock.tsx:76"
+	},
+	{
+		"type": "error",
+		"text": "❌ [Hook] Validation failed: Missing required parameter: list",
+		"location": "useContentBlockLogic.ts:368"
+	}
 ]
 ```
 
@@ -68,8 +73,9 @@ mcp0_browser_console_messages({ onlyErrors: true })
 **Purpose:** Capture accessibility snapshot of the current page (better than screenshot for debugging)
 
 **Usage:**
+
 ```typescript
-mcp0_browser_snapshot()
+mcp0_browser_snapshot();
 ```
 
 **Returns:** Text representation of the page structure
@@ -81,19 +87,21 @@ mcp0_browser_snapshot()
 **Purpose:** Returns all network requests since loading the page
 
 **Usage:**
+
 ```typescript
-mcp0_browser_network_requests()
+mcp0_browser_network_requests();
 ```
 
 **Returns:**
+
 ```json
 [
-  {
-    "url": "https://graph.microsoft.com/v1.0/...",
-    "method": "GET",
-    "status": 200,
-    "statusText": "OK"
-  }
+	{
+		"url": "https://graph.microsoft.com/v1.0/...",
+		"method": "GET",
+		"status": 200,
+		"statusText": "OK"
+	}
 ]
 ```
 
@@ -110,8 +118,9 @@ When debugging, simply ask Cascade:
 ```
 
 Cascade will call:
+
 ```typescript
-mcp0_browser_console_messages({ onlyErrors: true })
+mcp0_browser_console_messages({ onlyErrors: true });
 ```
 
 ---
@@ -122,29 +131,29 @@ We can modify `devBrowser.ts` to automatically capture console on errors:
 
 ```typescript
 // devBrowser.ts
-page.on('console', msg => {
-  const text = msg.text();
-  console.log(`[BROWSER ${msg.type()}] ${text}`);
-  
-  // If error, capture full console state
-  if (msg.type() === 'error') {
-    captureConsoleSnapshot();
-  }
+page.on('console', (msg) => {
+	const text = msg.text();
+	console.log(`[BROWSER ${msg.type()}] ${text}`);
+
+	// If error, capture full console state
+	if (msg.type() === 'error') {
+		captureConsoleSnapshot();
+	}
 });
 
 async function captureConsoleSnapshot() {
-  // Save console messages to a file that Cascade can read
-  const messages = await page.evaluate(() => {
-    // Get all console messages from window.__console_history
-    return window.__console_history || [];
-  });
-  
-  fs.writeFileSync(
-    path.join(process.cwd(), 'console-snapshot.json'),
-    JSON.stringify(messages, null, 2)
-  );
-  
-  console.log('📸 Console snapshot saved to console-snapshot.json');
+	// Save console messages to a file that Cascade can read
+	const messages = await page.evaluate(() => {
+		// Get all console messages from window.__console_history
+		return window.__console_history || [];
+	});
+
+	fs.writeFileSync(
+		path.join(process.cwd(), 'console-snapshot.json'),
+		JSON.stringify(messages, null, 2)
+	);
+
+	console.log('📸 Console snapshot saved to console-snapshot.json');
 }
 ```
 
@@ -157,49 +166,49 @@ Modify the browser to track console history:
 ```typescript
 // devBrowser.ts - Add after page creation
 await page.addInitScript(() => {
-  // Intercept console methods to build history
-  window.__console_history = [];
-  
-  const originalLog = console.log;
-  const originalError = console.error;
-  const originalWarn = console.warn;
-  
-  console.log = (...args) => {
-    window.__console_history.push({
-      type: 'log',
-      text: args.join(' '),
-      timestamp: new Date().toISOString()
-    });
-    originalLog.apply(console, args);
-  };
-  
-  console.error = (...args) => {
-    window.__console_history.push({
-      type: 'error',
-      text: args.join(' '),
-      timestamp: new Date().toISOString()
-    });
-    originalError.apply(console, args);
-  };
-  
-  console.warn = (...args) => {
-    window.__console_history.push({
-      type: 'warn',
-      text: args.join(' '),
-      timestamp: new Date().toISOString()
-    });
-    originalWarn.apply(console, args);
-  };
+	// Intercept console methods to build history
+	window.__console_history = [];
+
+	const originalLog = console.log;
+	const originalError = console.error;
+	const originalWarn = console.warn;
+
+	console.log = (...args) => {
+		window.__console_history.push({
+			type: 'log',
+			text: args.join(' '),
+			timestamp: new Date().toISOString()
+		});
+		originalLog.apply(console, args);
+	};
+
+	console.error = (...args) => {
+		window.__console_history.push({
+			type: 'error',
+			text: args.join(' '),
+			timestamp: new Date().toISOString()
+		});
+		originalError.apply(console, args);
+	};
+
+	console.warn = (...args) => {
+		window.__console_history.push({
+			type: 'warn',
+			text: args.join(' '),
+			timestamp: new Date().toISOString()
+		});
+		originalWarn.apply(console, args);
+	};
 });
 
 // Add command to dump console history
 page.exposeFunction('dumpConsole', async () => {
-  const history = await page.evaluate(() => window.__console_history);
-  fs.writeFileSync(
-    path.join(process.cwd(), 'console-history.json'),
-    JSON.stringify(history, null, 2)
-  );
-  console.log('📋 Console history dumped to console-history.json');
+	const history = await page.evaluate(() => window.__console_history);
+	fs.writeFileSync(
+		path.join(process.cwd(), 'console-history.json'),
+		JSON.stringify(history, null, 2)
+	);
+	console.log('📋 Console history dumped to console-history.json');
 });
 ```
 
@@ -229,99 +238,102 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 (async () => {
-  const userDataDir = '.pw-chrome-profile';
-  const serveConfigPath = path.join(process.cwd(), 'config', 'serve.json');
-  const serveConfig = JSON.parse(fs.readFileSync(serveConfigPath, 'utf-8'));
-  const url = serveConfig.initialPage;
+	const userDataDir = '.pw-chrome-profile';
+	const serveConfigPath = path.join(process.cwd(), 'config', 'serve.json');
+	const serveConfig = JSON.parse(fs.readFileSync(serveConfigPath, 'utf-8'));
+	const url = serveConfig.initialPage;
 
-  console.log(`📁 Using persistent profile: ${path.resolve(userDataDir)}`);
-  console.log(`🌐 Opening: ${url}`);
+	console.log(`📁 Using persistent profile: ${path.resolve(userDataDir)}`);
+	console.log(`🌐 Opening: ${url}`);
 
-  const context = await chromium.launchPersistentContext(userDataDir, {
-    headless: false,
-    channel: 'chrome',
-    args: ['--start-maximized'],
-    viewport: null
-  });
+	const context = await chromium.launchPersistentContext(userDataDir, {
+		headless: false,
+		channel: 'chrome',
+		args: ['--start-maximized'],
+		viewport: null
+	});
 
-  const page = await context.newPage();
+	const page = await context.newPage();
 
-  // ✅ Capture console messages to file
-  const consoleMessages: any[] = [];
-  
-  page.on('console', msg => {
-    const message = {
-      type: msg.type(),
-      text: msg.text(),
-      location: msg.location(),
-      timestamp: new Date().toISOString()
-    };
-    
-    consoleMessages.push(message);
-    console.log(`[BROWSER ${msg.type()}] ${msg.text()}`);
-    
-    // Auto-save on errors
-    if (msg.type() === 'error') {
-      saveConsoleSnapshot();
-    }
-  });
+	// ✅ Capture console messages to file
+	const consoleMessages: any[] = [];
 
-  function saveConsoleSnapshot() {
-    const snapshotPath = path.join(process.cwd(), 'console-snapshot.json');
-    fs.writeFileSync(snapshotPath, JSON.stringify(consoleMessages, null, 2));
-    console.log(`📸 Console snapshot saved: ${snapshotPath}`);
-  }
+	page.on('console', (msg) => {
+		const message = {
+			type: msg.type(),
+			text: msg.text(),
+			location: msg.location(),
+			timestamp: new Date().toISOString()
+		};
 
-  // 🔥 Helpful debugging streams
-  page.on('pageerror', err => {
-    console.error('[PAGEERROR]', err);
-    consoleMessages.push({
-      type: 'pageerror',
-      text: err.message,
-      stack: err.stack,
-      timestamp: new Date().toISOString()
-    });
-    saveConsoleSnapshot();
-  });
+		consoleMessages.push(message);
+		console.log(`[BROWSER ${msg.type()}] ${msg.text()}`);
 
-  page.on('requestfailed', req => {
-    console.warn('[REQUESTFAILED]', req.url());
-    consoleMessages.push({
-      type: 'requestfailed',
-      text: req.url(),
-      timestamp: new Date().toISOString()
-    });
-  });
+		// Auto-save on errors
+		if (msg.type() === 'error') {
+			saveConsoleSnapshot();
+		}
+	});
 
-  // 🔁 Retry navigation logic
-  const maxRetries = 3;
-  let lastError: Error | undefined;
+	function saveConsoleSnapshot() {
+		const snapshotPath = path.join(process.cwd(), 'console-snapshot.json');
+		fs.writeFileSync(snapshotPath, JSON.stringify(consoleMessages, null, 2));
+		console.log(`📸 Console snapshot saved: ${snapshotPath}`);
+	}
 
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      console.log(`🔄 Attempt ${attempt}/${maxRetries} to load page...`);
-      await page.goto(url, { timeout: 30000, waitUntil: 'domcontentloaded' });
-      console.log('✅ Page loaded successfully');
-      
-      // Save initial console state
-      saveConsoleSnapshot();
-      
-      return;
-    } catch (error) {
-      lastError = error as Error;
-      console.error(`❌ Attempt ${attempt} failed:`, error instanceof Error ? error.message : error);
+	// 🔥 Helpful debugging streams
+	page.on('pageerror', (err) => {
+		console.error('[PAGEERROR]', err);
+		consoleMessages.push({
+			type: 'pageerror',
+			text: err.message,
+			stack: err.stack,
+			timestamp: new Date().toISOString()
+		});
+		saveConsoleSnapshot();
+	});
 
-      if (attempt < maxRetries) {
-        const delay = Math.pow(2, attempt) * 1000;
-        console.log(`⏳ Waiting ${delay / 1000}s before retry...`);
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
-    }
-  }
+	page.on('requestfailed', (req) => {
+		console.warn('[REQUESTFAILED]', req.url());
+		consoleMessages.push({
+			type: 'requestfailed',
+			text: req.url(),
+			timestamp: new Date().toISOString()
+		});
+	});
 
-  console.error(`\n❌ Failed after ${maxRetries} attempts. Last error:`, lastError);
-  saveConsoleSnapshot();
-  process.exit(1);
+	// 🔁 Retry navigation logic
+	const maxRetries = 3;
+	let lastError: Error | undefined;
+
+	for (let attempt = 1; attempt <= maxRetries; attempt++) {
+		try {
+			console.log(`🔄 Attempt ${attempt}/${maxRetries} to load page...`);
+			await page.goto(url, { timeout: 30000, waitUntil: 'domcontentloaded' });
+			console.log('✅ Page loaded successfully');
+
+			// Save initial console state
+			saveConsoleSnapshot();
+
+			return;
+		} catch (error) {
+			lastError = error as Error;
+			console.error(
+				`❌ Attempt ${attempt} failed:`,
+				error instanceof Error ? error.message : error
+			);
+
+			if (attempt < maxRetries) {
+				const delay = Math.pow(2, attempt) * 1000;
+				console.log(`⏳ Waiting ${delay / 1000}s before retry...`);
+				await new Promise((resolve) => setTimeout(resolve, delay));
+			}
+		}
+	}
+
+	console.error(`\n❌ Failed after ${maxRetries} attempts. Last error:`, lastError);
+	saveConsoleSnapshot();
+	process.exit(1);
 })();
 ```
 
@@ -337,11 +349,11 @@ import * as path from 'path';
 
 ```typescript
 // Read console
-const messages = await mcp0_browser_console_messages({ onlyErrors: true })
+const messages = await mcp0_browser_console_messages({ onlyErrors: true });
 
 // Analyze errors
-const errors = messages.filter((m) => m.type === 'error')
-console.log('Found errors:', errors)
+const errors = messages.filter((m) => m.type === 'error');
+console.log('Found errors:', errors);
 ```
 
 ---
@@ -353,9 +365,9 @@ console.log('Found errors:', errors)
 **Cascade:**
 
 ```typescript
-const messages = await mcp0_browser_console_messages()
-const dbMessages = messages.filter((m) => m.text.includes('IndexedDB'))
-console.log('IndexedDB operations:', dbMessages)
+const messages = await mcp0_browser_console_messages();
+const dbMessages = messages.filter((m) => m.text.includes('IndexedDB'));
+console.log('IndexedDB operations:', dbMessages);
 ```
 
 ---
@@ -365,9 +377,10 @@ console.log('IndexedDB operations:', dbMessages)
 **User:** "What does the page look like?"
 
 **Cascade:**
+
 ```typescript
-await mcp0_browser_take_screenshot({ 
-  filename: 'contentblock-error.png' 
+await mcp0_browser_take_screenshot({
+	filename: 'contentblock-error.png'
 });
 ```
 
@@ -417,6 +430,7 @@ When debugging, simply ask:
 **Simplest approach (no code changes):**
 
 Just ask Cascade:
+
 ```
 "Use mcp0_browser_console_messages to read the browser console"
 ```
@@ -424,6 +438,7 @@ Just ask Cascade:
 **Enhanced approach (5 min setup):**
 
 Replace `devBrowser.ts` with the enhanced version above, then:
+
 ```
 "Read console-snapshot.json and analyze the errors"
 ```

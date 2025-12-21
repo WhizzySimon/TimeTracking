@@ -1,9 +1,9 @@
 # TimeTracker v1 — Implementation Progress
 
 **Last Updated:** 2025-12-21  
-**Current Phase:** Phase 1 - Foundation (In Progress)  
-**Tasks Completed:** 9 / 60  
-**Estimated Progress:** 15%
+**Current Phase:** Phase 2 - Core UI (Day Tab)  
+**Tasks Completed:** 10 / 60  
+**Estimated Progress:** 17%
 
 ---
 
@@ -28,10 +28,10 @@
 
 ---
 
-## Phase 1: Foundation (PWA + Data Layer)
+## Phase 1: Foundation (PWA + Data Layer) ✅
 
 **Target:** 10 tasks, ~8-10 hours  
-**Status:** 9/10 tasks complete (90%)
+**Status:** COMPLETE (10/10 tasks)
 
 ### Configuration & PWA Setup
 
@@ -91,11 +91,11 @@
   - Deviations: Seeding logic in categories module instead of separate seed.ts; also seeds default user categories from JSON
   - Notes: 4 system categories + default user categories from `static/default-categories.de.json`
 
-- [ ] **Task 1.10** — Create Svelte stores for global state
-  - Files: `src/lib/stores/index.ts`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 1.10** — Create Svelte stores for global state
+  - Files: `src/lib/stores/index.ts`, `src/lib/types.ts` (extended)
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Added types (TimeEntry, DayType, WorkTimeModel, SyncStatus, WeekBounds); created writable stores (categories, timeEntries, workTimeModels, syncStatus, isOnline, currentDate) and derived stores (currentWeek, runningEntry, activeDayEntries, activeWeekEntries, activeWorkTimeModel)
 
 ---
 
