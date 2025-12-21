@@ -193,3 +193,46 @@ console.log('Results written to script-output.json');
 ## 📝 Integration with Workflows
 
 This file should be read at the start of every session via the `/rules-read-all` workflow to ensure Cascade remembers these limitations.
+
+---
+
+## 🔄 Automated Task Workflow
+
+### Standard Task Loop
+
+1. **Cascade writes code** for the task
+2. **Cascade says:** "Ready. Please run: `npm run verify`"
+3. **User runs command** and pastes output (or says "all passed")
+4. **If errors exist:**
+   - Cascade analyzes and fixes automatically
+   - Cascade says: "Fixed. Please run: `npm run verify`"
+   - Repeat until all checks pass
+5. **If all checks pass:**
+   - Cascade performs UI testing using MCP Playwright tools
+   - Cascade navigates to relevant pages, interacts, verifies behavior
+   - If UI issues found: fix and return to step 2
+6. **Task complete** - Cascade updates progress tracker
+
+### User's Role (Minimal)
+
+- Run commands when Cascade asks
+- Paste output or confirm "all passed"
+- Start dev server when needed for UI testing (`npm run dev`)
+
+### Cascade's Role (Autonomous)
+
+- Write all code
+- Analyze errors and fix them
+- Perform UI testing with MCP Playwright
+- Update documentation and progress tracker
+
+### MCP Playwright Testing
+
+After code verification passes, Cascade uses:
+- `mcp0_browser_navigate` - Go to page
+- `mcp0_browser_snapshot` - Get page structure
+- `mcp0_browser_click` - Interact with elements
+- `mcp0_browser_type` - Enter text
+- `mcp0_browser_console_messages` - Check for errors
+
+**Requirement:** Dev server must be running (`npm run dev`)
