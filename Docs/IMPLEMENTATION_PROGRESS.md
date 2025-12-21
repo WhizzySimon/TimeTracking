@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 19 / 60  
-**Estimated Progress:** 32%
+**Tasks Completed:** 20 / 60  
+**Estimated Progress:** 33%
 
 ---
 
@@ -164,11 +164,11 @@
   - Deviations: None
   - Notes: Loads day type from IndexedDB, uses activeWorkTimeModel store, calculates real Soll/Saldo. Ist still 0 (Task 2.13).
 
-- [ ] **Task 2.10** — Create AddTaskModal component
-  - Files: `src/lib/components/AddTaskModal.svelte`, `src/lib/components/Modal.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 2.10** — Create AddTaskModal component
+  - Files: `src/lib/components/AddTaskModal.svelte`, `src/lib/components/Modal.svelte`, `src/lib/storage/db.ts`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: Added timeEntries store to IndexedDB (bumped DB_VERSION to 3)
+  - Notes: Modal wrapper with escape/backdrop close. Form with category, start/end time, description. Saves to IndexedDB.
 
 - [ ] **Task 2.11** — Create TaskList and TaskItem components
   - Files: `src/lib/components/TaskList.svelte`, `src/lib/components/TaskItem.svelte`

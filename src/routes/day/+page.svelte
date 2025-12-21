@@ -13,18 +13,27 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { currentDate, activeWorkTimeModel } from '$lib/stores';
+	import { currentDate, activeWorkTimeModel, timeEntries } from '$lib/stores';
 	import { formatDate, isToday, addDays } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo } from '$lib/utils/calculations';
-	import { getByKey } from '$lib/storage/db';
-	import type { DayType, DayTypeValue } from '$lib/types';
+	import { getByKey, getAll } from '$lib/storage/db';
+	import type { DayType, DayTypeValue, TimeEntry } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import DayTypeSelector from '$lib/components/DayTypeSelector.svelte';
+	import TaskList from '$lib/components/TaskList.svelte';
+	import AddTaskModal from '$lib/components/AddTaskModal.svelte';
 
 	let loading = $state(true);
 
 	// Day type for current date (loaded from IndexedDB)
 	let dayType: DayTypeValue = $state('arbeitstag');
+
+	// Modal state
+	let showAddModal = $state(false);
+	let editingEntry: TimeEntry | null = $state(null);
+
+	// Filter entries for current date
+	let dayEntries = $derived($timeEntries.filter((e) => e.date === formatDate($currentDate, 'ISO')));
 
 	// Ist is 0 for now (Task 2.13 will calculate from time entries)
 	let ist = $state(0);
@@ -67,8 +76,33 @@
 		currentDate.set(new Date());
 	}
 
+	// Modal handlers
+	function openAddModal() {
+		editingEntry = null;
+		showAddModal = true;
+	}
+
+	function openEditModal(entry: TimeEntry) {
+		editingEntry = entry;
+		showAddModal = true;
+	}
+
+	function closeModal() {
+		showAddModal = false;
+		editingEntry = null;
+	}
+
+	async function handleSaveEntry() {
+		// Reload all entries from IndexedDB
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
+	}
+
 	onMount(async () => {
 		await initializeCategories();
+		// Load all time entries
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
 		loading = false;
 	});
 </script>
@@ -94,15 +128,23 @@
 
 		<!-- Add Task Button -->
 		<div class="add-task-section">
-			<button class="add-task-btn">+ Aufgabe hinzufügen</button>
+			<button class="add-task-btn" onclick={openAddModal}>+ Aufgabe hinzufügen</button>
 		</div>
 
-		<!-- Task List (empty for now) -->
-		<div class="task-list">
-			<p class="empty-state">Keine Aufgaben für diesen Tag</p>
-		</div>
+		<!-- Task List -->
+		<TaskList entries={dayEntries} onselect={openEditModal} />
 	{/if}
 </div>
+
+<!-- Add/Edit Task Modal -->
+{#if showAddModal}
+	<AddTaskModal
+		date={$currentDate}
+		entry={editingEntry}
+		onclose={closeModal}
+		onsave={handleSaveEntry}
+	/>
+{/if}
 
 <style>
 	.day-page {
@@ -188,17 +230,5 @@
 		border-color: #3b82f6;
 		color: #3b82f6;
 		background: rgba(59, 130, 246, 0.05);
-	}
-
-	/* Task List */
-	.task-list {
-		min-height: 100px;
-	}
-
-	.empty-state {
-		text-align: center;
-		color: #888;
-		padding: 2rem;
-		font-style: italic;
 	}
 </style>
