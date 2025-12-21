@@ -78,7 +78,7 @@ Rules:
   - Any guardrails (must not change X, must preserve Y)
 
 Checkpoint to proceed:
-- No task depends on "figure it out while coding”.
+- No task depends on "figure it out while coding".
 
 ### Phase 4 — IMPLEMENT (one task at a time)
 Rules for implementation:

@@ -24,7 +24,7 @@ The app targets **Safari (iOS / WebKit)** and **Chrome (Android / Blink)** compa
 
 3. **Offline is explicit**
    - Offline behavior exists **only where explicitly defined**
-   - No assumptions that "the browser will handle it”
+   - No assumptions that "the browser will handle it"
 
 4. **Predictability over cleverness**
    - Simple, explicit behavior beats advanced tricks
@@ -87,7 +87,7 @@ Offline **write support is optional and must be explicitly decided**.
 ### If Offline Writes Are Added (Optional)
 All of the following must be implemented:
 - Local persistence using IndexedDB
-- Explicit "pending sync” state
+- Explicit "pending sync" state
 - Manual or foreground-triggered sync
 - Conflict-safe behavior
 
@@ -204,7 +204,7 @@ Mandatory:
 - Desktop Chrome
 - Desktop Safari (responsive mode)
 
-Before declaring "done”:
+Before declaring "done":
 - App loads
 - App installs
 - App opens offline
@@ -216,10 +216,10 @@ Before declaring "done”:
 ## Installation Flow (User Experience)
 
 ### Android
-- Browser shows "Install app” prompt
+- Browser shows "Install app" prompt
 
 ### iPhone
-- Safari → Share → "Add to Home Screen”
+- Safari → Share → "Add to Home Screen"
 - App launches fullscreen
 - No browser UI visible
 

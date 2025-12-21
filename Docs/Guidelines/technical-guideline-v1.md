@@ -26,7 +26,7 @@ Build a **true offline-installable PWA** for daily time tracking (tasks + time e
 * Very low user friction (login once, then invisible)
 * Password recovery supported
 * Simple deployment, no SSR
-* Encryption "like most companies do” (TLS + server-side at-rest encryption)
+* Encryption "like most companies do" (TLS + server-side at-rest encryption)
 * **No end-to-end encryption**
 
 ### Accepted Limitation
@@ -83,7 +83,7 @@ This risk is accepted and mitigated via sync indicators and aggressive syncing w
 ### Install Model
 
 * User visits URL once (online)
-* Browser offers "Install”
+* Browser offers "Install"
 * After install, app works offline (app shell cached)
 
 ### Service Worker Role

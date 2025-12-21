@@ -24,7 +24,7 @@ Use `@sveltejs/adapter-static` if:
 - Your backend is separate (or you use external APIs)
 - You want simplest hosting
 
-Static is the least moving parts and ideal for "app for my brother”.
+Static is the least moving parts and ideal for "app for my brother".
 
 ### Use Node adapter only if needed
 Use `@sveltejs/adapter-node` if:
@@ -140,11 +140,11 @@ Implementation approach:
 
 ## Dev vs Prod Rules (Critical)
 ### Never aggressively cache during dev
-- In dev, caching can cause "why didn’t my changes show up?” loops.
+- In dev, caching can cause "why didn’t my changes show up?" loops.
 
 Rules:
 - Only register SW when `!dev`.
-- Provide a manual "reset cache” dev helper if needed (optional).
+- Provide a manual "reset cache" dev helper if needed (optional).
 
 ---
 
@@ -185,10 +185,10 @@ Deploy the generated output (adapter-dependent) to HTTPS hosting.
 
 ---
 
-## Definition of "PWA implemented”
+## Definition of "PWA implemented"
 A SvelteKit PWA implementation is considered done when:
 - Manifest is served at `/manifest.webmanifest`
 - App is installable on Android
-- iOS "Add to Home Screen” works
+- iOS "Add to Home Screen" works
 - Service worker is registered in production
 - Offline app shell works in production build

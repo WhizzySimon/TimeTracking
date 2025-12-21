@@ -57,7 +57,7 @@ In `src/app.html`:
 
 ## G) Installation Tests
 ### Android (Chrome)
-- [ ] "Install app” available
+- [ ] "Install app" available
 - [ ] Installed app opens in standalone mode
 - [ ] Reload works (no redirect loops)
 - [ ] Offline app shell works after first load

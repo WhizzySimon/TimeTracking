@@ -8,7 +8,7 @@ We separate requirements into:
 - IG: non-negotiable outcomes/constraints
 - DD: deliberate choices we want stable
 
-This avoids "telling the model how” and instead forces "what must be true”.
+This avoids "telling the model how" and instead forces "what must be true".
 
 ## FR — Functional Requirements
 Write FR as observable behavior.
@@ -27,7 +27,7 @@ Format:
 Typical TimeTracker IG examples:
 - offline-first behavior
 - persistence guarantees
-- "no data loss” constraints
+- "no data loss" constraints
 - performance constraints (cold start, navigation)
 - accessibility constraints
 
@@ -39,7 +39,7 @@ Format:
 - **TT-DD-002**: ...
 
 Typical TimeTracker DD examples:
-- terminology ("Tätigkeit”, "Kategorie”, etc.)
+- terminology ("Tätigkeit", "Kategorie", etc.)
 - UI conventions (primary action placement, labels)
 - file naming conventions
 - module boundaries
@@ -57,7 +57,7 @@ Every implementation must end with:
 - A checklist mapping each referenced TT-FR/IG/DD item → PASS/FAIL and where it is implemented.
 - If anything is unclear or ambiguous, the spec must be tightened before changing code.
 
-## Avoiding "spec drift”
+## Avoiding "spec drift"
 If code behavior changes, but the spec didn’t:
 - Update the spec in the same change.
 - Add a change log entry with date and summary.
