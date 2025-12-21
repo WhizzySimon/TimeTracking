@@ -1,9 +1,9 @@
 # TimeTracker v1 — Implementation Progress
 
 **Last Updated:** 2025-12-21  
-**Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 25 / 60  
-**Estimated Progress:** 42%
+**Current Phase:** Phase 3 - Additional Tabs  
+**Tasks Completed:** 29 / 60  
+**Estimated Progress:** 48%
 
 ---
 
@@ -102,7 +102,7 @@
 ## Phase 2: Core UI (Day Tab)
 
 **Target:** 15 tasks, ~15-18 hours  
-**Status:** In Progress (3/15 tasks)
+**Status:** COMPLETE (15/15 tasks)
 
 ### Navigation & Structure
 
@@ -205,15 +205,35 @@
 ## Phase 3: Additional Tabs
 
 **Target:** 16 tasks, ~12-15 hours  
-**Status:** Not started
+**Status:** In Progress (4/16 tasks)
 
 ### Week Tab
 
-- [ ] **Task 3.1** — Implement Week tab UI structure
-- [ ] **Task 3.2** — Implement week navigation logic
+- [x] **Task 3.1** — Implement Week tab UI structure
+  - Files: `src/routes/week/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Week navigation (← KW X →), week type selector (placeholder for Task 3.3), InlineSummary, day list filtered by active days in model. Uses SvelteMap for reactive day types.
+
+- [x] **Task 3.2** — Implement week navigation logic
+  - Files: `src/routes/week/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: Implemented as part of Task 3.1
+  - Notes: ← decrements by 7 days, → increments by 7 days, clicking title goes to current week. Shows "Aktuelle KW X" for current week, "KW X" otherwise.
+
 - [ ] **Task 3.3** — Implement week type selector
-- [ ] **Task 3.4** — Calculate week Ist/Soll/Saldo
-- [ ] **Task 3.5** — Render week day list
+
+- [x] **Task 3.4** — Calculate week Ist/Soll/Saldo
+  - Files: `src/routes/week/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: Implemented as part of Task 3.1
+  - Notes: Loads entries for week, loads day types, calculates weekIst/weekSoll/weekSaldo reactively.
+
+- [x] **Task 3.5** — Render week day list
+  - Files: `src/routes/week/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: Implemented inline in week page instead of separate components (WeekDayList/WeekDayItem)
+  - Notes: Lists active days, shows date, day type, Ist/Soll per day. Filters by active days in work time model.
 
 ### Analysis Tab
 
