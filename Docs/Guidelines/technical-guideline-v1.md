@@ -58,6 +58,24 @@ This risk is accepted and mitigated via sync indicators and aggressive syncing w
   * Output: static HTML/CSS/JS
   * No Node server required for frontend hosting
 
+### Route vs Component Architecture
+
+**Routes** (SvelteKit pages in `src/routes/`):
+* Top-level navigation destinations (tabs from UI spec)
+* Each route corresponds to a main tab: Tag, Woche, Auswertung, Einstellungen
+* Route paths: `/day`, `/week`, `/analysis`, `/settings`
+* One route per screen in UI specification
+
+**Components** (Svelte files in `src/lib/components/`):
+* Reusable UI elements used across multiple routes or within a single route
+* Modals, forms, lists, buttons, input fields
+* Examples: TaskModal, InlineSummary, DatePicker, CategoryList
+
+**Decision Rule:**
+* If it's a main tab in the UI spec → Route
+* If it's a reusable UI element → Component
+* If it's a section within a tab → Component (not a nested route)
+
 ---
 
 ## 2) PWA (Offline & Installable)
