@@ -2,6 +2,20 @@
 description: Continue work on TimeTracker - reads all context and finds next task automatically
 ---
 
+## User Setup (before starting)
+
+Run this single command to start both dev server and watcher:
+
+```
+.\scripts\start-session.ps1
+```
+
+This opens two windows automatically. Then tell Cascade "done" to begin.
+
+---
+
+## Cascade Workflow
+
 Run these workflows first:
 
 1. /rules-read-all

@@ -319,3 +319,39 @@ When user runs `/continue-work`:
 2. Read [Docs/IMPLEMENTATION_PROGRESS.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/IMPLEMENTATION_PROGRESS.md:0:0-0:0) to find current state
 3. Read [Docs/Tasks/timetracker-v1-implementation.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Tasks/timetracker-v1-implementation.md:0:0-0:0) for task details
 4. Resume from next incomplete task automatically
+
+---
+
+## 🔀 Git Commit Workflow
+
+### After Each Task Completion
+
+Cascade commits changes automatically via the watcher after verification passes.
+
+**Workflow:**
+1. Cascade completes task and verification passes
+2. Cascade runs `git status --porcelain` to see changed files
+3. Cascade runs `git add -A; git commit -m "message"` with descriptive commit message
+4. Cascade confirms commit succeeded via output
+
+### Commit Message Format
+
+Use conventional commits:
+
+feat: short description
+
+- Detail 1
+- Task X.X: what was done
+
+**Types:**
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `refactor:` - Code refactoring
+- `docs:` - Documentation changes
+- `test:` - Adding/updating tests
+- `chore:` - Maintenance tasks
+
+### Important Rules
+
+- ✅ Cascade CAN commit locally via watcher
+- ❌ Cascade MUST NEVER push to remote (per user preference)
