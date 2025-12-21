@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 2 - Core UI (Day Tab)  
-**Tasks Completed:** 24 / 60  
-**Estimated Progress:** 40%
+**Tasks Completed:** 25 / 60  
+**Estimated Progress:** 42%
 
 ---
 
@@ -194,11 +194,11 @@
   - Deviations: None
   - Notes: Already implemented in Task 2.11. Clicking TaskItem opens AddTaskModal with entry data pre-filled.
 
-- [ ] **Task 2.15** — Implement delete task functionality
-  - Files: `src/lib/components/TaskItem.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 2.15** — Implement delete task functionality
+  - Files: `src/lib/components/TaskItem.svelte`, `src/lib/components/TaskList.svelte`, `src/routes/day/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Delete button on each TaskItem with confirmation dialog. Removes from IndexedDB and refreshes store.
 
 ---
 
