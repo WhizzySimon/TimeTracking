@@ -1,9 +1,9 @@
 # TimeTracker v1 — Implementation Progress
 
-**Last Updated:** Not started  
-**Current Phase:** Phase 1 - Foundation  
-**Tasks Completed:** 0 / 60  
-**Estimated Progress:** 0%
+**Last Updated:** 2025-12-21  
+**Current Phase:** Phase 1 - Foundation (In Progress)  
+**Tasks Completed:** 9 / 60  
+**Estimated Progress:** 15%
 
 ---
 
@@ -31,65 +31,65 @@
 ## Phase 1: Foundation (PWA + Data Layer)
 
 **Target:** 10 tasks, ~8-10 hours  
-**Status:** Not started
+**Status:** 9/10 tasks complete (90%)
 
 ### Configuration & PWA Setup
 
-- [ ] **Task 1.1** — Configure SvelteKit for SPA mode
-  - Files: `src/routes/+layout.js`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 1.1** — Configure SvelteKit for SPA mode
+  - Files: `src/routes/+layout.ts`
+  - Verified: File exports `ssr = false` and `csr = true` ✅
+  - Deviations: Used `.ts` extension instead of `.js` (TypeScript project)
+  - Notes: SSR disabled globally per technical-guideline-v1
 
-- [ ] **Task 1.2** — Create PWA manifest
+- [x] **Task 1.2** — Create PWA manifest
   - Files: `static/manifest.webmanifest`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: Manifest contains all required fields ✅
+  - Deviations: None
+  - Notes: Icons reference `/icons/icon-192.png` and `/icons/icon-512.png`
 
-- [ ] **Task 1.3** — Create placeholder PWA icons
+- [x] **Task 1.3** — Create placeholder PWA icons
   - Files: `static/icons/icon-192.png`, `static/icons/icon-512.png`, `static/apple-touch-icon.png`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: Icons exist (need visual verification by user)
+  - Deviations: None
+  - Notes: Placeholder icons created
 
-- [ ] **Task 1.4** — Update app.html with PWA meta tags
+- [x] **Task 1.4** — Update app.html with PWA meta tags
   - Files: `src/app.html`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: Manifest link, apple-touch-icon, theme-color meta present ✅
+  - Deviations: None
+  - Notes: All PWA meta tags in place
 
-- [ ] **Task 1.5** — Implement basic service worker
+- [x] **Task 1.5** — Implement basic service worker
   - Files: `static/sw.js`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: SW caches app shell, cache-first strategy ✅
+  - Deviations: None
+  - Notes: Cache name `timetracker-v1`
 
-- [ ] **Task 1.6** — Register service worker in layout
+- [x] **Task 1.6** — Register service worker in layout
   - Files: `src/routes/+layout.svelte`
-  - Verified:
-  - Deviations:
-  - Notes:
+  - Verified: SW registration in onMount with `!dev` guard ✅
+  - Deviations: None
+  - Notes: Only registers in production
 
 ### IndexedDB Setup
 
-- [ ] **Task 1.7** — Create IndexedDB wrapper module
-  - Files: `src/lib/db/index.ts`, `src/lib/db/schema.ts`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 1.7** — Create IndexedDB wrapper module
+  - Files: `src/lib/storage/db.ts` (schema inline)
+  - Verified: DB opens, creates stores with indexes ✅
+  - Deviations: Combined schema and wrapper in single file; only `categories` and `meta` stores created (others deferred to when needed)
+  - Notes: DB_NAME='timetracker', DB_VERSION=1
 
-- [ ] **Task 1.8** — Create IndexedDB CRUD helpers
-  - Files: `src/lib/db/operations.ts`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 1.8** — Create IndexedDB CRUD helpers
+  - Files: `src/lib/storage/db.ts`
+  - Verified: Generic CRUD functions (getByKey, getAll, put, deleteByKey) ✅
+  - Deviations: Functions in same file as wrapper
+  - Notes: All functions return Promises, proper transaction handling
 
-- [ ] **Task 1.9** — Seed system categories
-  - Files: `src/lib/db/seed.ts`
-  - Verified:
-  - Deviations:
-  - Notes:
+- [x] **Task 1.9** — Seed system categories
+  - Files: `src/lib/storage/categories.ts`
+  - Verified: E2E test passes - system categories exist, protected, countsAsWorkTime=false ✅
+  - Deviations: Seeding logic in categories module instead of separate seed.ts; also seeds default user categories from JSON
+  - Notes: 4 system categories + default user categories from `static/default-categories.de.json`
 
 - [ ] **Task 1.10** — Create Svelte stores for global state
   - Files: `src/lib/stores/index.ts`
