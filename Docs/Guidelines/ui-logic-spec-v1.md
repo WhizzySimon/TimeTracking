@@ -235,7 +235,7 @@ KW 12 – Arbeitswoche   Ist 38 / Soll 51
 * Krank
 * Feiertag
 
-Systemkategorien haben fest: **"Zählt als Arbeitszeit" = false** (nicht änderbar)
+Systemkategorien haben fest: **"Zählt als Arbeitszeit" = false** (nicht änderbar).
 
 ### Eigene Kategorien
 
@@ -250,7 +250,7 @@ Beim ersten Start werden benutzerdefinierte Tätigkeiten aus `static/default-cat
 Die Defaults werden nur angelegt, wenn noch keine benutzerdefinierten Tätigkeiten existieren.
 
 Format der Datei:
-- JSON mit `categories[]` Einträgen: `{ name: string, countsAsWorkTime: boolean }`
+- JSON mit `categories[]` Einträgen: `{ "name": string, "countsAsWorkTime": boolean }`
 
 ### UI
 

@@ -9,7 +9,7 @@
     { "name": "Ausschuss Finanzen", "countsAsWorkTime": true },
     { "name": "Ausschuss Gemeindeaufbau", "countsAsWorkTime": true },
     { "name": "Ausschuss sonstiges", "countsAsWorkTime": true },
-    { "name": "Aussschuss Verwaltung", "countsAsWorkTime": true },
+    { "name": "Ausschuss Verwaltung", "countsAsWorkTime": true },
     { "name": "Bauberatung", "countsAsWorkTime": true },
     { "name": "Beerdigung", "countsAsWorkTime": true },
     { "name": "Beerdigung Vorbereitung", "countsAsWorkTime": true },
