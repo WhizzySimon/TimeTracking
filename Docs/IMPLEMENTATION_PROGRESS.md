@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 3 - Additional Tabs  
-**Tasks Completed:** 37 / 60  
+**Tasks Completed:** 40 / 60  
 **Estimated Progress:** 58%
 
 ---
@@ -285,9 +285,24 @@
   - Deviations: Implemented inline in settings page instead of separate components
   - Notes: Shows all categories with name, work time badge, delete button (user categories only).
 
-- [ ] **Task 3.13** — Implement add category modal
-- [ ] **Task 3.14** — Implement delete category
-- [ ] **Task 3.15** — Implement work time model list
+- [x] **Task 3.13** — Implement add category modal
+  - Files: `src/lib/components/AddCategoryModal.svelte`, `src/routes/settings/+page.svelte`
+  - Verified: npm run lint ✅, Browser test ✅
+  - Deviations: None
+  - Notes: Modal with name input and "Zählt als Arbeitszeit" checkbox. Validates name required and no duplicates. Saves to IndexedDB and updates store.
+
+- [x] **Task 3.14** — Implement delete category
+  - Files: `src/routes/settings/+page.svelte`
+  - Verified: npm run lint ✅, Browser test ✅
+  - Deviations: None
+  - Notes: Delete button with native confirm() dialog. Removes from IndexedDB and store. Only available for non-system categories.
+
+- [x] **Task 3.15** — Implement work time model list
+  - Files: `src/routes/settings/+page.svelte`
+  - Verified: npm run lint ✅, Browser test ✅
+  - Deviations: Implemented as part of Task 3.11
+  - Notes: Shows model name and validFrom date. Empty state when no models exist.
+
 - [ ] **Task 3.16** — Implement add work time model modal
 
 ---

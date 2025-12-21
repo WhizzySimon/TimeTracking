@@ -13,14 +13,26 @@
 	import { onMount } from 'svelte';
 	import { categories, workTimeModels } from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { getAll } from '$lib/storage/db';
+	import { getAll, deleteByKey } from '$lib/storage/db';
 	import type { Category, WorkTimeModel } from '$lib/types';
+	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 
 	let loading = $state(true);
+	let showAddCategory = $state(false);
 
-	// Placeholder handlers until modals are implemented (Tasks 3.13, 3.16)
-	function handleAddCategory() {
-		alert('Kategorie hinzufügen wird in Task 3.13 implementiert');
+	async function handleDeleteCategory(category: Category) {
+		if (category.type === 'system') return;
+
+		const confirmed = confirm(`Kategorie "${category.name}" wirklich löschen?`);
+		if (!confirmed) return;
+
+		try {
+			await deleteByKey('categories', category.id);
+			categories.update((cats) => cats.filter((c) => c.id !== category.id));
+		} catch (e) {
+			console.error('Failed to delete category:', e);
+			alert('Fehler beim Löschen der Kategorie');
+		}
 	}
 
 	function handleAddWorkTimeModel() {
@@ -47,7 +59,7 @@
 		<section class="section">
 			<div class="section-header">
 				<h2>Kategorien</h2>
-				<button class="add-btn" onclick={handleAddCategory}> + Kategorie </button>
+				<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
 			</div>
 			<div class="list">
 				{#if $categories.length === 0}
@@ -64,7 +76,11 @@
 								{/if}
 							</div>
 							{#if category.type !== 'system'}
-								<button class="delete-btn" aria-label="Löschen">×</button>
+								<button
+									class="delete-btn"
+									aria-label="Löschen"
+									onclick={() => handleDeleteCategory(category)}>×</button
+								>
 							{/if}
 						</div>
 					{/each}
@@ -95,6 +111,14 @@
 		</section>
 	{/if}
 </div>
+
+<!-- Add Category Modal -->
+{#if showAddCategory}
+	<AddCategoryModal
+		onsave={() => (showAddCategory = false)}
+		onclose={() => (showAddCategory = false)}
+	/>
+{/if}
 
 <style>
 	.settings-page {

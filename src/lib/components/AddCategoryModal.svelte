@@ -1,0 +1,229 @@
+<!--
+  AddCategoryModal component - modal for adding new categories
+  
+  Spec refs:
+  - ui-logic-spec-v1.md Section 7 (Kategorien)
+  
+  Features:
+  - Name input (required)
+  - "Zählt als Arbeitszeit" checkbox
+  - Validation: name required, no duplicates
+-->
+<script lang="ts">
+	import { put } from '$lib/storage/db';
+	import { categories } from '$lib/stores';
+	import type { Category } from '$lib/types';
+	import Modal from './Modal.svelte';
+
+	interface Props {
+		/** Callback when category is saved */
+		onsave?: (category: Category) => void;
+		/** Callback when modal is closed */
+		onclose?: () => void;
+	}
+
+	let { onsave, onclose }: Props = $props();
+
+	// Form state
+	let name = $state('');
+	let countsAsWorkTime = $state(true);
+	let error = $state('');
+	let saving = $state(false);
+
+	// Validate and save
+	async function handleSave() {
+		// Trim name
+		const trimmedName = name.trim();
+
+		// Validate: name required
+		if (!trimmedName) {
+			error = 'Name ist erforderlich';
+			return;
+		}
+
+		// Validate: no duplicates
+		const existingNames = $categories.map((c) => c.name.toLowerCase());
+		if (existingNames.includes(trimmedName.toLowerCase())) {
+			error = 'Eine Kategorie mit diesem Namen existiert bereits';
+			return;
+		}
+
+		error = '';
+		saving = true;
+
+		try {
+			const newCategory: Category = {
+				id: crypto.randomUUID(),
+				name: trimmedName,
+				type: 'user',
+				countsAsWorkTime,
+				createdAt: Date.now()
+			};
+
+			await put('categories', newCategory);
+
+			// Update store
+			categories.update((cats) => [...cats, newCategory]);
+
+			onsave?.(newCategory);
+		} catch (e) {
+			error = 'Fehler beim Speichern';
+			console.error('Failed to save category:', e);
+		} finally {
+			saving = false;
+		}
+	}
+
+	function handleClose() {
+		onclose?.();
+	}
+</script>
+
+<Modal title="Neue Kategorie" onclose={handleClose}>
+	<div class="add-category-form">
+		<div class="field">
+			<label for="category-name">Name:</label>
+			<input
+				type="text"
+				id="category-name"
+				bind:value={name}
+				placeholder="z.B. Meeting"
+				class="text-input"
+				disabled={saving}
+			/>
+		</div>
+
+		<div class="field checkbox-field">
+			<label>
+				<input type="checkbox" bind:checked={countsAsWorkTime} disabled={saving} />
+				Zählt als Arbeitszeit
+			</label>
+		</div>
+
+		<!-- Error Message -->
+		{#if error}
+			<p class="error">{error}</p>
+		{/if}
+
+		<!-- Actions -->
+		<div class="actions">
+			<button type="button" class="btn-secondary" onclick={handleClose} disabled={saving}>
+				Abbrechen
+			</button>
+			<button type="button" class="btn-primary" onclick={handleSave} disabled={saving}>
+				{saving ? 'Speichern...' : 'Speichern'}
+			</button>
+		</div>
+	</div>
+</Modal>
+
+<style>
+	.add-category-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.field label {
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: #333;
+	}
+
+	.text-input {
+		padding: 0.75rem;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		font-size: 1rem;
+	}
+
+	.text-input:focus {
+		outline: none;
+		border-color: #3b82f6;
+		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+	}
+
+	.text-input:disabled {
+		background: #f5f5f5;
+		color: #666;
+	}
+
+	.checkbox-field {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.checkbox-field label {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		cursor: pointer;
+	}
+
+	.checkbox-field input[type='checkbox'] {
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+	}
+
+	.error {
+		margin: 0;
+		padding: 0.5rem;
+		background: #fef2f2;
+		border: 1px solid #fecaca;
+		border-radius: 4px;
+		color: #dc2626;
+		font-size: 0.9rem;
+	}
+
+	.actions {
+		display: flex;
+		gap: 0.75rem;
+		justify-content: flex-end;
+		padding-top: 0.5rem;
+		border-top: 1px solid #eee;
+	}
+
+	.btn-secondary {
+		padding: 0.75rem 1.5rem;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		background: white;
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	.btn-secondary:hover:not(:disabled) {
+		background: #f5f5f5;
+	}
+
+	.btn-secondary:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.btn-primary {
+		padding: 0.75rem 1.5rem;
+		border: none;
+		border-radius: 8px;
+		background: #3b82f6;
+		color: white;
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	.btn-primary:hover:not(:disabled) {
+		background: #2563eb;
+	}
+
+	.btn-primary:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+</style>
