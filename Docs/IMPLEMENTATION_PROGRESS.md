@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-21  
 **Current Phase:** Phase 3 - Additional Tabs  
-**Tasks Completed:** 30 / 60  
-**Estimated Progress:** 50%
+**Tasks Completed:** 34 / 60  
+**Estimated Progress:** 57%
 
 ---
 
@@ -241,11 +241,31 @@
 
 ### Analysis Tab
 
-- [ ] **Task 3.6** — Implement Analysis tab UI structure
+- [x] **Task 3.6** — Implement Analysis tab UI structure
+  - Files: `src/routes/analysis/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: None
+  - Notes: Date range display (placeholder for selector), InlineSummary, period list. Default range: 01.01.current year to today.
+
 - [ ] **Task 3.7** — Create DateRangeSelector component
-- [ ] **Task 3.8** — Calculate analysis totals
-- [ ] **Task 3.9** — Implement period grouping logic
-- [ ] **Task 3.10** — Render period list
+
+- [x] **Task 3.8** — Calculate analysis totals
+  - Files: `src/routes/analysis/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: Implemented as part of Task 3.6
+  - Notes: Calculates totalIst, totalSoll, totalSaldo for entire date range.
+
+- [x] **Task 3.9** — Implement period grouping logic
+  - Files: `src/routes/analysis/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: Implemented as part of Task 3.6
+  - Notes: Groups by week if range ≤60 days, by month otherwise. Uses helper functions getPeriodKey/getPeriodLabel.
+
+- [x] **Task 3.10** — Render period list
+  - Files: `src/routes/analysis/+page.svelte`
+  - Verified: npm run check ✅, npm run lint ✅
+  - Deviations: Implemented inline in analysis page instead of separate components
+  - Notes: Lists periods with label, Ist, Soll. German month names for monthly grouping.
 
 ### Settings Tab
 
