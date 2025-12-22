@@ -8,29 +8,31 @@
   - Dropdown with 4 options: Arbeitswoche, Urlaub, Krank, Feiertag
   - On change, sets day type for all 7 days of week in IndexedDB
   - Shows confirmation dialog before applying
+  - Prevents changing to non-work type if hours already logged
 -->
 <script lang="ts">
 	import { saveDayType } from '$lib/storage/operations';
 	import { formatDate, getWeekDates } from '$lib/utils/date';
-	import type { DayType, DayTypeValue } from '$lib/types';
+	import { getAll } from '$lib/storage/db';
+	import { calculateIst } from '$lib/utils/calculations';
+	import { categories } from '$lib/stores';
+	import type { DayType, DayTypeValue, TimeEntry } from '$lib/types';
 	import ConfirmDialog from './ConfirmDialog.svelte';
 
 	interface Props {
-		/** The reference date for the week (any date within the week) */
 		weekDate: Date;
-		/** Callback when week type changes (to reload day types) */
 		onchange?: () => void;
 	}
 
 	let { weekDate, onchange }: Props = $props();
 
-	// Dialog state
-	let showConfirm = $state(false);
-	let pendingWeekType: WeekTypeValue | null = $state(null);
-	let selectElement: HTMLSelectElement | null = $state(null);
-
-	// Map week type to day type
 	type WeekTypeValue = 'arbeitswoche' | 'urlaub' | 'krank' | 'feiertag';
+
+	let showConfirm = $state(false);
+	let showWarning = $state(false);
+	let warningMessage = $state('');
+	let pendingWeekType: WeekTypeValue | null = $state(null);
+	let selectedValue: WeekTypeValue = $state('arbeitswoche');
 
 	function weekTypeToDayType(weekType: WeekTypeValue): DayTypeValue {
 		switch (weekType) {
@@ -45,10 +47,37 @@
 		}
 	}
 
-	function handleChange(event: Event) {
+	async function handleChange(event: Event) {
 		const select = event.target as HTMLSelectElement;
-		selectElement = select;
-		pendingWeekType = select.value as WeekTypeValue;
+		const newValue = select.value as WeekTypeValue;
+		pendingWeekType = newValue;
+
+		// If changing to non-work type, check for existing hours
+		if (newValue !== 'arbeitswoche') {
+			const weekDates = getWeekDates(weekDate);
+			const allEntries = await getAll<TimeEntry>('timeEntries');
+
+			// Check each day for logged hours
+			const daysWithHours: string[] = [];
+			for (const date of weekDates) {
+				const dateKey = formatDate(date, 'ISO');
+				const dayEntries = allEntries.filter((e) => e.date === dateKey);
+				const dayIst = calculateIst(dayEntries, $categories);
+				if (dayIst > 0) {
+					daysWithHours.push(formatDate(date, 'DE'));
+				}
+			}
+
+			if (daysWithHours.length > 0) {
+				warningMessage = `Folgende Tage haben bereits erfasste Arbeitszeit: ${daysWithHours.join(', ')}. Bitte zuerst die Einträge löschen.`;
+				showWarning = true;
+				// Reset dropdown to current value
+				select.value = selectedValue;
+				pendingWeekType = null;
+				return;
+			}
+		}
+
 		showConfirm = true;
 	}
 
@@ -58,7 +87,6 @@
 		const dayType = weekTypeToDayType(pendingWeekType);
 		const weekDates = getWeekDates(weekDate);
 
-		// Update all 7 days in IndexedDB
 		for (const date of weekDates) {
 			const dateKey = formatDate(date, 'ISO');
 			const record: DayType = {
@@ -69,27 +97,35 @@
 			await saveDayType(record);
 		}
 
-		// Reset select to default (it's a one-time action)
-		if (selectElement) selectElement.value = 'arbeitswoche';
-
+		// Keep the selected value (don't reset to arbeitswoche)
+		selectedValue = pendingWeekType;
 		showConfirm = false;
 		pendingWeekType = null;
 
-		// Notify parent to reload day types
 		onchange?.();
 	}
 
 	function cancelChange() {
-		// Reset select to default
-		if (selectElement) selectElement.value = 'arbeitswoche';
+		// Reset dropdown to previous value
+		selectedValue = selectedValue;
 		showConfirm = false;
 		pendingWeekType = null;
+	}
+
+	function dismissWarning() {
+		showWarning = false;
+		warningMessage = '';
 	}
 </script>
 
 <div class="week-type-section">
 	<label for="week-type">Wochenart:</label>
-	<select id="week-type" class="week-type-select" onchange={handleChange}>
+	<select
+		id="week-type"
+		class="week-type-select"
+		bind:value={selectedValue}
+		onchange={handleChange}
+	>
 		<option value="arbeitswoche">Arbeitswoche</option>
 		<option value="urlaub">Urlaub</option>
 		<option value="krank">Krank</option>
@@ -104,6 +140,16 @@
 		confirmLabel="Fortfahren"
 		onconfirm={confirmChange}
 		oncancel={cancelChange}
+	/>
+{/if}
+
+{#if showWarning}
+	<ConfirmDialog
+		title="Nicht möglich"
+		message={warningMessage}
+		confirmLabel="OK"
+		onconfirm={dismissWarning}
+		oncancel={dismissWarning}
 	/>
 {/if}
 
