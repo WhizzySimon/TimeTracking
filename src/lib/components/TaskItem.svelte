@@ -49,13 +49,11 @@
 		</div>
 		<button class="delete-btn" onclick={handleDelete} aria-label="Löschen">×</button>
 	</div>
-	<div class="task-meta">
-		{#if countsAsWork}
-			<span class="work-indicator work">Arbeitszeit</span>
-		{:else}
+	{#if !countsAsWork}
+		<div class="task-meta">
 			<span class="work-indicator no-work">Keine Arbeitszeit</span>
-		{/if}
-	</div>
+		</div>
+	{/if}
 	{#if entry.description}
 		<div class="task-description">{entry.description}</div>
 	{/if}
@@ -140,11 +138,6 @@
 		font-size: 0.75rem;
 		padding: 0.125rem 0.5rem;
 		border-radius: 4px;
-	}
-
-	.work-indicator.work {
-		background: #dcfce7;
-		color: #166534;
 	}
 
 	.work-indicator.no-work {
