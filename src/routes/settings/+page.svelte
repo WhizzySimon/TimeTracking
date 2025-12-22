@@ -84,6 +84,14 @@
 	let backupInProgress = $state(false);
 	let lastBackupAt = $state<string | null>(null);
 	let backupError = $state<string | null>(null);
+	let showCategoryMenu = $state(false);
+
+	function closeCategoryMenu(event: MouseEvent) {
+		const target = event.target as HTMLElement;
+		if (!target.closest('.menu-container')) {
+			showCategoryMenu = false;
+		}
+	}
 
 	function handleEditModel(model: WorkTimeModel) {
 		modelToEdit = model;
@@ -247,6 +255,8 @@
 	}
 </script>
 
+<svelte:window onclick={closeCategoryMenu} />
+
 <div class="settings-page">
 	{#if loading}
 		<div class="loading">
@@ -321,12 +331,37 @@
 			<div class="section-header">
 				<h2>Arbeitskategorien</h2>
 				<div class="header-buttons">
-					<button class="secondary-btn" onclick={() => downloadCategoriesFile($categories)}>
-						Exportieren
-					</button>
-					<button class="secondary-btn" onclick={() => (showImportCategories = true)}>
-						Importieren
-					</button>
+					<div class="menu-container">
+						<button
+							class="menu-btn"
+							onclick={() => (showCategoryMenu = !showCategoryMenu)}
+							aria-label="Menü"
+						>
+							⋮
+						</button>
+						{#if showCategoryMenu}
+							<div class="dropdown-menu">
+								<button
+									class="dropdown-item"
+									onclick={() => {
+										downloadCategoriesFile($categories);
+										showCategoryMenu = false;
+									}}
+								>
+									Exportieren
+								</button>
+								<button
+									class="dropdown-item"
+									onclick={() => {
+										showImportCategories = true;
+										showCategoryMenu = false;
+									}}
+								>
+									Importieren
+								</button>
+							</div>
+						{/if}
+					</div>
 					<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
 				</div>
 			</div>
@@ -523,18 +558,60 @@
 		background: #eff6ff;
 	}
 
-	.secondary-btn {
-		padding: 0.5rem 1rem;
+	.menu-container {
+		position: relative;
+	}
+
+	.menu-btn {
+		width: 36px;
+		height: 36px;
 		border: 1px solid #9ca3af;
 		border-radius: 8px;
 		background: white;
 		color: #6b7280;
+		font-size: 1.25rem;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.menu-btn:hover {
+		background: #f3f4f6;
+	}
+
+	.dropdown-menu {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		margin-top: 0.25rem;
+		background: white;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		z-index: 100;
+		min-width: 140px;
+		overflow: hidden;
+	}
+
+	.dropdown-item {
+		display: block;
+		width: 100%;
+		padding: 0.75rem 1rem;
+		border: none;
+		background: white;
+		color: #333;
 		font-size: 0.9rem;
+		text-align: left;
 		cursor: pointer;
 	}
 
-	.secondary-btn:hover {
+	.dropdown-item:hover {
 		background: #f3f4f6;
+	}
+
+	.dropdown-item:not(:last-child) {
+		border-bottom: 1px solid #eee;
 	}
 
 	.list {

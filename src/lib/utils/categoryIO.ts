@@ -6,14 +6,14 @@
 import type { Category } from '$lib/types';
 
 /**
- * Export user categories to a comma-separated string.
+ * Export user categories to a newline-separated string.
  * Only exports user categories (not system categories).
  * @param categories All categories
- * @returns Comma-separated string of category names
+ * @returns Newline-separated string of category names (one per line)
  */
 export function exportCategoriesToString(categories: Category[]): string {
 	const userCategories = categories.filter((c) => c.type === 'user');
-	return userCategories.map((c) => c.name).join(', ');
+	return userCategories.map((c) => c.name).join('\n');
 }
 
 /**
@@ -43,14 +43,16 @@ export function downloadCategoriesFile(categories: Category[], filename = 'kateg
 }
 
 /**
- * Parse comma-separated category names from string.
+ * Parse category names from string.
+ * Accepts commas, newlines (\n, \r, \r\n), or any combination as separators.
  * Trims whitespace and filters empty entries.
- * @param input Comma-separated string
+ * @param input String with category names separated by commas and/or newlines
  * @returns Array of category names
  */
 export function parseCategoriesFromString(input: string): string[] {
+	// Split by any combination of commas and newlines (\r\n, \n, \r, or comma)
 	return input
-		.split(',')
+		.split(/[,\r\n]+/)
 		.map((name) => name.trim())
 		.filter((name) => name.length > 0);
 }
