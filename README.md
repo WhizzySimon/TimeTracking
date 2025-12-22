@@ -64,11 +64,13 @@ npm run test:e2e     # Browser tests (9 tests, ~30s)
 ### What Each Test Suite Covers
 
 **Unit tests** (`npm run test:unit`):
+
 - Calculation logic: Ist, Soll, Saldo, formatHours
 - Date utilities: formatDate, parseDate, getWeekNumber, addDays
 - Files: `src/lib/utils/calculations.test.ts`, `src/lib/utils/date.test.ts`
 
 **E2E tests** (`npm run test:e2e`):
+
 - App load and navigation
 - Add/edit tasks
 - Category management (system vs user categories)

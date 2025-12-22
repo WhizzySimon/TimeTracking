@@ -16,6 +16,7 @@
 	import { saveTimeEntry } from '$lib/storage/operations';
 	import type { TimeEntry } from '$lib/types';
 	import Modal from './Modal.svelte';
+	import TimePicker from './TimePicker.svelte';
 
 	interface Props {
 		date: Date;
@@ -27,10 +28,27 @@
 	let { date, entry = null, onclose, onsave }: Props = $props();
 
 	// Form state - initialize from entry prop via function to avoid Svelte warning
+	function roundToFiveMinutes(time: string): string {
+		const [hours, minutes] = time.split(':').map(Number);
+		const roundedMinutes = Math.round(minutes / 5) * 5;
+		const adjustedMinutes = roundedMinutes === 60 ? 0 : roundedMinutes;
+		const adjustedHours = roundedMinutes === 60 ? (hours + 1) % 24 : hours;
+		return `${String(adjustedHours).padStart(2, '0')}:${String(adjustedMinutes).padStart(2, '0')}`;
+	}
+
+	function addMinutes(time: string, minutesToAdd: number): string {
+		const [hours, minutes] = time.split(':').map(Number);
+		const totalMinutes = hours * 60 + minutes + minutesToAdd;
+		const newHours = Math.floor(totalMinutes / 60) % 24;
+		const newMinutes = totalMinutes % 60;
+		return `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
+	}
+
 	function getInitialValues() {
+		const currentTime = roundToFiveMinutes(formatTime(new Date()));
 		return {
 			categoryId: entry?.categoryId ?? '',
-			startTime: entry?.startTime ?? formatTime(new Date()),
+			startTime: entry?.startTime ?? currentTime,
 			endTime: entry?.endTime ?? '',
 			description: entry?.description ?? ''
 		};
@@ -43,6 +61,14 @@
 	let description = $state(initial.description);
 	let saving = $state(false);
 	let error = $state('');
+	let endTimeClicked = $state(false);
+
+	function handleEndTimeFocus() {
+		if (!endTimeClicked && !endTime && startTime) {
+			endTime = addMinutes(startTime, 30);
+			endTimeClicked = true;
+		}
+	}
 
 	// Filter categories to only show user-selectable ones
 	let selectableCategories = $derived(
@@ -140,12 +166,19 @@
 		<div class="form-row">
 			<div class="form-group">
 				<label for="startTime">Startzeit</label>
-				<input type="time" id="startTime" bind:value={startTime} required />
+				<TimePicker id="startTime" value={startTime} onchange={(v) => (startTime = v)} required />
 			</div>
 
 			<div class="form-group">
 				<label for="endTime">Endzeit (optional)</label>
-				<input type="time" id="endTime" bind:value={endTime} />
+				<div onfocusin={handleEndTimeFocus}>
+					<TimePicker
+						id="endTime"
+						value={endTime}
+						onchange={(v) => (endTime = v)}
+						placeholder="--:--"
+					/>
+				</div>
 			</div>
 		</div>
 

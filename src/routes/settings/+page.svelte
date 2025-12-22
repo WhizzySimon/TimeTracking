@@ -94,12 +94,10 @@
 						>
 							<div class="item-info">
 								<span class="item-name" data-testid="category-name">{category.name}</span>
-								{#if category.countsAsWorkTime}
-									<span class="badge work">Arbeitszeit</span>
-								{:else}
-									<span class="badge no-work">Keine Arbeitszeit</span>
-								{/if}
 							</div>
+							{#if !category.countsAsWorkTime}
+								<span class="badge no-work">Keine Arbeitszeit</span>
+							{/if}
 							{#if category.type !== 'system'}
 								<button
 									class="delete-btn"
@@ -242,6 +240,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
+		flex: 1;
 	}
 
 	.item-name {
@@ -261,14 +260,10 @@
 		width: fit-content;
 	}
 
-	.badge.work {
-		background: #dcfce7;
-		color: #166534;
-	}
-
 	.badge.no-work {
 		background: #f3f4f6;
 		color: #6b7280;
+		margin-right: 0.5rem;
 	}
 
 	.delete-btn {
