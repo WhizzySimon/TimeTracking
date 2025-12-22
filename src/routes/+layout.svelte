@@ -11,6 +11,7 @@
 	import { isOnline } from '$lib/stores';
 	import { loadSession, isAuthenticated, clearSession } from '$lib/stores/auth';
 	import { saveToCloud, getBackupMeta } from '$lib/backup/cloud';
+	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
 
 	let { children } = $props();
 
@@ -24,6 +25,7 @@
 	let backupInProgress = $state(false);
 	let lastBackupAt = $state<string | null>(null);
 	let backupError = $state<string | null>(null);
+	let canInstall = $state(false);
 
 	// Pages that don't require authentication
 	const publicPaths = ['/login', '/signup', '/forgot-password', '/reset-password'];
@@ -93,6 +95,12 @@
 		if (!dev && 'serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/sw.js');
 		}
+
+		// Setup PWA install prompt
+		setupInstallPrompt();
+		installState.subscribe((state) => {
+			canInstall = state.canInstall && !state.isInstalled;
+		});
 
 		// Check authentication status
 		if (browser) {
@@ -219,6 +227,11 @@
 				</button>
 			</div>
 		</header>
+		{#if canInstall}
+			<div class="install-banner">
+				<button class="install-btn" onclick={triggerInstall}> App installieren </button>
+			</div>
+		{/if}
 		<main class="main-content">
 			{@render children()}
 		</main>
@@ -391,5 +404,29 @@
 	.main-content {
 		flex: 1;
 		padding-bottom: 70px;
+	}
+
+	.install-banner {
+		background: #1e3a8a;
+		padding: 8px 12px;
+		display: flex;
+		justify-content: center;
+	}
+
+	.install-btn {
+		background: #22c55e;
+		color: white;
+		border: none;
+		border-radius: 6px;
+		padding: 8px 24px;
+		font-size: 0.9rem;
+		font-weight: 600;
+		cursor: pointer;
+		width: 100%;
+		max-width: 300px;
+	}
+
+	.install-btn:hover {
+		background: #16a34a;
 	}
 </style>
