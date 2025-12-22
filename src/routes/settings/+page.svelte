@@ -81,14 +81,19 @@
 				<h2>Kategorien</h2>
 				<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
 			</div>
-			<div class="list">
+			<div class="list" data-testid="category-list">
 				{#if $categories.length === 0}
 					<p class="empty">Keine Kategorien vorhanden</p>
 				{:else}
 					{#each $categories as category (category.id)}
-						<div class="list-item">
+						<div
+							class="list-item"
+							data-testid="category-item"
+							data-category-type={category.type}
+							data-counts-as-work={String(category.countsAsWorkTime)}
+						>
 							<div class="item-info">
-								<span class="item-name">{category.name}</span>
+								<span class="item-name" data-testid="category-name">{category.name}</span>
 								{#if category.countsAsWorkTime}
 									<span class="badge work">Arbeitszeit</span>
 								{:else}
@@ -99,6 +104,7 @@
 								<button
 									class="delete-btn"
 									aria-label="Löschen"
+									data-testid="delete-category-btn"
 									onclick={() => handleDeleteCategory(category)}>×</button
 								>
 							{/if}

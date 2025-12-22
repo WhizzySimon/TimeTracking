@@ -26,7 +26,7 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 	test('system categories exist, are protected, and have countsAsWorkTime=false', async ({
 		page
 	}) => {
-		await page.goto('/');
+		await page.goto('/settings');
 		await page.waitForSelector('[data-testid="category-list"]');
 
 		for (const sysName of SYSTEM_CATEGORIES) {
@@ -49,7 +49,7 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 	});
 
 	test('default categories are seeded on first run', async ({ page }) => {
-		await page.goto('/');
+		await page.goto('/settings');
 		await page.waitForSelector('[data-testid="category-list"]');
 
 		// Check that at least one known default category exists
@@ -63,11 +63,15 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 	});
 
 	test('user category persists across reload and defaults are not duplicated', async ({ page }) => {
-		await page.goto('/');
+		await page.goto('/settings');
 		await page.waitForSelector('[data-testid="category-list"]');
 
 		// Count total categories before adding
 		const initialCount = await page.locator('[data-testid="category-item"]').count();
+
+		// Open add category modal
+		await page.getByRole('button', { name: '+ Kategorie' }).click();
+		await page.waitForSelector('[data-testid="new-category-name"]');
 
 		// Add a new user category
 		const testCategoryName = `Test-${Date.now()}`;
@@ -101,7 +105,7 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 	});
 
 	test('cannot delete system categories (protection check)', async ({ page }) => {
-		await page.goto('/');
+		await page.goto('/settings');
 		await page.waitForSelector('[data-testid="category-list"]');
 
 		// Verify system categories have no delete button

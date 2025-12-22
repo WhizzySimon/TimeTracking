@@ -86,6 +86,7 @@
 			<input
 				type="text"
 				id="category-name"
+				data-testid="new-category-name"
 				bind:value={name}
 				placeholder="z.B. Meeting"
 				class="text-input"
@@ -110,7 +111,13 @@
 			<button type="button" class="btn-secondary" onclick={handleClose} disabled={saving}>
 				Abbrechen
 			</button>
-			<button type="button" class="btn-primary" onclick={handleSave} disabled={saving}>
+			<button
+				type="button"
+				class="btn-primary"
+				data-testid="add-category-btn"
+				onclick={handleSave}
+				disabled={saving}
+			>
 				{saving ? 'Speichern...' : 'Speichern'}
 			</button>
 		</div>
