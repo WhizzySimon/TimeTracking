@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 5 - Extended Features  
-**Tasks Completed:** 63 / 70  
-**Estimated Progress:** 86%
+**Tasks Completed:** 70 / 70  
+**Estimated Progress:** 100%
 
 ---
 
@@ -433,7 +433,7 @@
 ## Phase 5: Extended Features
 
 **Target:** 10 tasks, ~10-12 hours  
-**Status:** In Progress (3/10 tasks)
+**Status:** Complete (10/10 tasks)
 
 ### Default Work Time Model & Category Changes
 
@@ -459,47 +459,47 @@
 
 ### Authentication
 
-- [ ] **Task 5.4** — Create auth store and types
+- [x] **Task 5.4** — Create auth store and types
   - Files: `src/lib/types.ts`, `src/lib/stores/auth.ts`, `src/lib/storage/db.ts`
-  - Verified: (pending)
-  - Deviations: (pending)
-  - Notes: AuthSession type, auth store, session persistence
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Added AuthSession type, created auth.ts store with loadSession/saveSession/clearSession, added authSession store to IndexedDB (DB_VERSION=6)
 
-- [ ] **Task 5.5** — Create login page
+- [x] **Task 5.5** — Create login page
   - Files: `src/routes/login/+page.svelte`
-  - Verified: (pending)
-  - Deviations: (pending)
-  - Notes: Email/password form with autocomplete
+  - Verified: npm run verify ✅ (ALL PASSED), Browser test ✅
+  - Deviations: None
+  - Notes: Email/password form with autocomplete, links to signup and forgot-password, mock login saves session
 
-- [ ] **Task 5.6** — Create signup page
+- [x] **Task 5.6** — Create signup page
   - Files: `src/routes/signup/+page.svelte`
-  - Verified: (pending)
-  - Deviations: (pending)
-  - Notes: Registration form with password confirmation
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Registration form with password confirmation (min 8 chars), auto-login after signup
 
-- [ ] **Task 5.7** — Create forgot password page
+- [x] **Task 5.7** — Create forgot password page
   - Files: `src/routes/forgot-password/+page.svelte`
-  - Verified: (pending)
-  - Deviations: (pending)
-  - Notes: Email form, generic success message
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Email form, generic success message (security: never reveals if email exists)
 
-- [ ] **Task 5.8** — Implement auth guard and routing
+- [x] **Task 5.8** — Implement auth guard and routing
   - Files: `src/routes/+layout.svelte`
-  - Verified: (pending)
-  - Deviations: (pending)
-  - Notes: Redirect to login if no session
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Auth guard checks session on mount, redirects to /login if not authenticated. Public paths (login/signup/forgot-password) bypass auth. Loading screen while checking.
 
-- [ ] **Task 5.9** — Add logout button to settings
+- [x] **Task 5.9** — Add logout button to settings
   - Files: `src/routes/settings/+page.svelte`
-  - Verified: (pending)
-  - Deviations: (pending)
-  - Notes: Logout with confirmation, keep local data
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: "Abmelden" button at bottom of settings with confirmation dialog. Clears session and redirects to login. Local data preserved.
 
-- [ ] **Task 5.10** — Create auth API service (mock)
+- [x] **Task 5.10** — Create auth API service (mock)
   - Files: `src/lib/api/auth.ts`
-  - Verified: (pending)
-  - Deviations: (pending)
-  - Notes: Mock implementation for v1, easy to replace with real API
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Mock implementation with login/signup/forgotPassword/validateToken/logout. TODO comments for real API replacement.
 
 ---
 

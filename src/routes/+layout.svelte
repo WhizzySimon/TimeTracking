@@ -1,21 +1,52 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { dev, browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import favicon from '$lib/assets/favicon.svg';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import SyncIndicator from '$lib/components/SyncIndicator.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline } from '$lib/stores';
+	import { loadSession, isAuthenticated } from '$lib/stores/auth';
 
 	let { children } = $props();
 
 	let visibilityHandler: (() => void) | null = null;
 	let onlineHandler: (() => void) | null = null;
 	let offlineHandler: (() => void) | null = null;
+	let authChecked = $state(false);
 
-	onMount(() => {
+	// Pages that don't require authentication
+	const publicPaths = ['/login', '/signup', '/forgot-password'];
+
+	function isPublicPath(pathname: string): boolean {
+		return publicPaths.some((p) => pathname.startsWith(p));
+	}
+
+	// Auth guard: redirect to login if not authenticated on protected routes
+	$effect(() => {
+		if (!browser || !authChecked) return;
+
+		const pathname = $page.url.pathname;
+		const authenticated = $isAuthenticated;
+
+		if (!authenticated && !isPublicPath(pathname)) {
+			// Not authenticated and trying to access protected route
+			goto(resolve('/login'));
+		}
+	});
+
+	onMount(async () => {
 		if (!dev && 'serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/sw.js');
+		}
+
+		// Check authentication status
+		if (browser) {
+			await loadSession();
+			authChecked = true;
 		}
 
 		// Check sync status on startup
@@ -73,17 +104,42 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="app-container">
-	<header class="app-header">
-		<SyncIndicator />
-	</header>
-	<main class="main-content">
+{#if !authChecked}
+	<div class="loading-screen">
+		<p>Laden...</p>
+	</div>
+{:else if isPublicPath($page.url.pathname)}
+	<!-- Auth pages: no header/nav -->
+	<main class="auth-content">
 		{@render children()}
 	</main>
-	<TabNavigation />
-</div>
+{:else}
+	<!-- App pages: full chrome -->
+	<div class="app-container">
+		<header class="app-header">
+			<SyncIndicator />
+		</header>
+		<main class="main-content">
+			{@render children()}
+		</main>
+		<TabNavigation />
+	</div>
+{/if}
 
 <style>
+	.loading-screen {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #f5f5f5;
+		color: #666;
+	}
+
+	.auth-content {
+		min-height: 100vh;
+	}
+
 	:global(html, body) {
 		margin: 0;
 		padding: 0;

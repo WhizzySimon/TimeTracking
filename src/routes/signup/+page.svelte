@@ -1,0 +1,288 @@
+<!--
+  Signup Page
+  Spec ref: ui-logic-spec-v1.md Section 13.2
+-->
+<script lang="ts">
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
+
+	let email = $state('');
+	let password = $state('');
+	let confirmPassword = $state('');
+	let error = $state('');
+	let loading = $state(false);
+
+	async function handleSubmit(event: Event) {
+		event.preventDefault();
+		error = '';
+
+		if (!email.trim()) {
+			error = 'E-Mail ist erforderlich';
+			return;
+		}
+
+		if (!password) {
+			error = 'Passwort ist erforderlich';
+			return;
+		}
+
+		if (password.length < 8) {
+			error = 'Passwort muss mindestens 8 Zeichen haben';
+			return;
+		}
+
+		if (password !== confirmPassword) {
+			error = 'Passwörter stimmen nicht überein';
+			return;
+		}
+
+		loading = true;
+
+		try {
+			// TODO: Replace with real API call
+			console.log('[Signup] Attempting registration for:', email);
+
+			// Mock successful signup - simulate API delay
+			await new Promise((r) => setTimeout(r, 500));
+
+			// Mock: Create session and save (auto-login after signup)
+			const { saveSession } = await import('$lib/stores/auth');
+			const mockSession = {
+				token: `mock-token-${Date.now()}`,
+				email: email,
+				expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+				createdAt: Date.now()
+			};
+			await saveSession(mockSession);
+
+			// Redirect to app
+			goto(resolve('/day'));
+		} catch (e) {
+			console.error('[Signup] Failed:', e);
+			error = 'Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.';
+		} finally {
+			loading = false;
+		}
+	}
+</script>
+
+<div class="signup-page">
+	<div class="signup-card">
+		<h1>TimeTracker</h1>
+		<h2>Registrieren</h2>
+
+		<form onsubmit={handleSubmit}>
+			<div class="field">
+				<label for="email">E-Mail</label>
+				<input
+					type="email"
+					id="email"
+					name="email"
+					autocomplete="username"
+					bind:value={email}
+					disabled={loading}
+					placeholder="ihre@email.de"
+				/>
+			</div>
+
+			<div class="field">
+				<label for="password">Passwort</label>
+				<input
+					type="password"
+					id="password"
+					name="password"
+					autocomplete="new-password"
+					bind:value={password}
+					disabled={loading}
+				/>
+				<span class="hint">Mindestens 8 Zeichen</span>
+			</div>
+
+			<div class="field">
+				<label for="confirmPassword">Passwort bestätigen</label>
+				<input
+					type="password"
+					id="confirmPassword"
+					name="confirmPassword"
+					autocomplete="new-password"
+					bind:value={confirmPassword}
+					disabled={loading}
+				/>
+			</div>
+
+			{#if error}
+				<div class="error">{error}</div>
+			{/if}
+
+			<button type="submit" class="submit-btn" disabled={loading}>
+				{loading ? 'Registrieren...' : 'Registrieren'}
+			</button>
+		</form>
+
+		<div class="links">
+			<a href={resolve('/login')}>Bereits registriert? Anmelden</a>
+		</div>
+	</div>
+</div>
+
+<style>
+	.signup-page {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+		background: #f5f5f5;
+	}
+
+	.signup-card {
+		width: 100%;
+		max-width: 400px;
+		background: white;
+		border-radius: 12px;
+		padding: 2rem;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	h1 {
+		margin: 0 0 0.5rem;
+		font-size: 1.75rem;
+		text-align: center;
+		color: #3b82f6;
+	}
+
+	h2 {
+		margin: 0 0 1.5rem;
+		font-size: 1.25rem;
+		text-align: center;
+		color: #333;
+		font-weight: 500;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.field label {
+		font-size: 0.9rem;
+		color: #333;
+		font-weight: 500;
+	}
+
+	.field input {
+		padding: 0.75rem;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		font-size: 1rem;
+	}
+
+	.field input:focus {
+		outline: none;
+		border-color: #3b82f6;
+	}
+
+	.field input:disabled {
+		background: #f5f5f5;
+	}
+
+	.hint {
+		font-size: 0.8rem;
+		color: #666;
+	}
+
+	.error {
+		color: #dc2626;
+		font-size: 0.9rem;
+		padding: 0.75rem;
+		background: #fef2f2;
+		border-radius: 6px;
+		text-align: center;
+	}
+
+	.submit-btn {
+		padding: 0.875rem;
+		background: #3b82f6;
+		color: white;
+		border: none;
+		border-radius: 8px;
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+		margin-top: 0.5rem;
+	}
+
+	.submit-btn:hover:not(:disabled) {
+		background: #2563eb;
+	}
+
+	.submit-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.links {
+		display: flex;
+		justify-content: center;
+		margin-top: 1.5rem;
+		padding-top: 1rem;
+		border-top: 1px solid #eee;
+	}
+
+	.links a {
+		color: #3b82f6;
+		text-decoration: none;
+		font-size: 0.9rem;
+	}
+
+	.links a:hover {
+		text-decoration: underline;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.signup-page {
+			background: #1a1a1a;
+		}
+
+		.signup-card {
+			background: #2a2a2a;
+		}
+
+		h2 {
+			color: #eee;
+		}
+
+		.field label {
+			color: #ddd;
+		}
+
+		.field input {
+			background: #333;
+			border-color: #444;
+			color: #eee;
+		}
+
+		.field input:focus {
+			border-color: #3b82f6;
+		}
+
+		.field input:disabled {
+			background: #2a2a2a;
+		}
+
+		.hint {
+			color: #999;
+		}
+
+		.links {
+			border-top-color: #444;
+		}
+	}
+</style>

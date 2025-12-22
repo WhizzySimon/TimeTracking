@@ -12,7 +12,10 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { categories, workTimeModels } from '$lib/stores';
+	import { clearSession } from '$lib/stores/auth';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
 	import { deleteUserCategoryWithSync, deleteWorkTimeModel } from '$lib/storage/operations';
@@ -72,6 +75,7 @@
 	let showImportCategories = $state(false);
 	let showDeleteConfirm = $state(false);
 	let showDeleteModelConfirm = $state(false);
+	let showLogoutConfirm = $state(false);
 	let categoryToDelete: Category | null = $state(null);
 	let modelToDelete: WorkTimeModel | null = $state(null);
 	let modelToEdit: WorkTimeModel | null = $state(null);
@@ -186,6 +190,11 @@
 
 	function reloadApp() {
 		window.location.reload();
+	}
+
+	async function handleLogout() {
+		await clearSession();
+		goto(resolve('/login'));
 	}
 </script>
 
@@ -315,6 +324,11 @@
 				</div>
 			{/if}
 		</section>
+
+		<!-- Logout Section -->
+		<section class="section logout-section">
+			<button class="logout-btn" onclick={() => (showLogoutConfirm = true)}> Abmelden </button>
+		</section>
 	{/if}
 </div>
 
@@ -360,6 +374,18 @@
 		confirmStyle="danger"
 		onconfirm={confirmDeleteModel}
 		oncancel={cancelDeleteModel}
+	/>
+{/if}
+
+<!-- Logout Confirmation -->
+{#if showLogoutConfirm}
+	<ConfirmDialog
+		title="Abmelden"
+		message="Möchten Sie sich wirklich abmelden? Ihre lokalen Daten bleiben erhalten."
+		confirmLabel="Abmelden"
+		confirmStyle="danger"
+		onconfirm={handleLogout}
+		oncancel={() => (showLogoutConfirm = false)}
 	/>
 {/if}
 
@@ -551,5 +577,27 @@
 
 	.update-btn:hover {
 		background: #d97706;
+	}
+
+	.logout-section {
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid #eee;
+	}
+
+	.logout-btn {
+		width: 100%;
+		padding: 0.875rem;
+		background: white;
+		color: #dc2626;
+		border: 1px solid #dc2626;
+		border-radius: 8px;
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+	}
+
+	.logout-btn:hover {
+		background: #fef2f2;
 	}
 </style>
