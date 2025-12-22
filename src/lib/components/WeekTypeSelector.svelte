@@ -6,9 +6,9 @@
   
   Behavior:
   - Dropdown with 4 options: Arbeitswoche, Urlaub, Krank, Feiertag
-  - On change, sets day type for all 7 days of week in IndexedDB
-  - Shows confirmation dialog before applying
-  - Prevents changing to non-work type if hours already logged
+  - On change to non-work type: only changes days WITHOUT tasks
+  - Days WITH tasks remain as Arbeitstag
+  - If any day has tasks, dropdown shows Arbeitswoche (mixed week)
 -->
 <script lang="ts">
 	import { saveDayType } from '$lib/storage/operations';
@@ -29,10 +29,12 @@
 	type WeekTypeValue = 'arbeitswoche' | 'urlaub' | 'krank' | 'feiertag';
 
 	let showConfirm = $state(false);
-	let showWarning = $state(false);
-	let warningMessage = $state('');
+	let showNotification = $state(false);
+	let notificationMessage = $state('');
 	let pendingWeekType: WeekTypeValue | null = $state(null);
 	let selectedValue: WeekTypeValue = $state('arbeitswoche');
+	let daysToChange: Date[] = $state([]);
+	let hasMixedWeek = $state(false);
 
 	function weekTypeToDayType(weekType: WeekTypeValue): DayTypeValue {
 		switch (weekType) {
@@ -52,42 +54,71 @@
 		const newValue = select.value as WeekTypeValue;
 		pendingWeekType = newValue;
 
-		// If changing to non-work type, check for existing hours
-		if (newValue !== 'arbeitswoche') {
-			const weekDates = getWeekDates(weekDate);
-			const allEntries = await getAll<TimeEntry>('timeEntries');
+		const weekDates = getWeekDates(weekDate);
+		const allEntries = await getAll<TimeEntry>('timeEntries');
 
-			// Check each day for logged hours
-			const daysWithHours: string[] = [];
-			for (const date of weekDates) {
-				const dateKey = formatDate(date, 'ISO');
-				const dayEntries = allEntries.filter((e) => e.date === dateKey);
-				const dayIst = calculateIst(dayEntries, $categories);
-				if (dayIst > 0) {
-					daysWithHours.push(formatDate(date, 'DE'));
-				}
-			}
+		// Check each day for logged hours
+		const daysWithHours: string[] = [];
+		const daysWithoutHours: Date[] = [];
 
-			if (daysWithHours.length > 0) {
-				warningMessage = `Folgende Tage haben bereits erfasste Arbeitszeit: ${daysWithHours.join(', ')}. Bitte zuerst die Einträge löschen.`;
-				showWarning = true;
-				// Reset dropdown to current value
-				select.value = selectedValue;
-				pendingWeekType = null;
-				return;
+		for (const date of weekDates) {
+			const dateKey = formatDate(date, 'ISO');
+			const dayEntries = allEntries.filter((e) => e.date === dateKey);
+			const dayIst = calculateIst(dayEntries, $categories);
+			if (dayIst > 0) {
+				daysWithHours.push(formatDate(date, 'DE'));
+			} else {
+				daysWithoutHours.push(date);
 			}
 		}
 
+		daysToChange = daysWithoutHours;
+		hasMixedWeek = daysWithHours.length > 0;
+
+		// If changing to non-work type and some days have hours, show notification
+		if (newValue !== 'arbeitswoche' && daysWithHours.length > 0) {
+			notificationMessage = `Folgende Tage haben bereits Arbeitszeit und bleiben Arbeitstag: ${daysWithHours.join(', ')}. Die restlichen Tage werden auf "${getWeekTypeLabel(newValue)}" gesetzt.`;
+			showNotification = true;
+		} else {
+			// All days can be changed, or changing to Arbeitswoche
+			daysToChange = weekDates;
+			showConfirm = true;
+		}
+	}
+
+	function getWeekTypeLabel(weekType: WeekTypeValue): string {
+		switch (weekType) {
+			case 'arbeitswoche':
+				return 'Arbeitswoche';
+			case 'urlaub':
+				return 'Urlaub';
+			case 'krank':
+				return 'Krank';
+			case 'feiertag':
+				return 'Feiertag';
+		}
+	}
+
+	async function confirmNotification() {
+		showNotification = false;
 		showConfirm = true;
+	}
+
+	function cancelNotification() {
+		showNotification = false;
+		notificationMessage = '';
+		pendingWeekType = null;
+		daysToChange = [];
+		hasMixedWeek = false;
 	}
 
 	async function confirmChange() {
 		if (!pendingWeekType) return;
 
 		const dayType = weekTypeToDayType(pendingWeekType);
-		const weekDates = getWeekDates(weekDate);
 
-		for (const date of weekDates) {
+		// Only change the days that don't have tasks
+		for (const date of daysToChange) {
 			const dateKey = formatDate(date, 'ISO');
 			const record: DayType = {
 				date: dateKey,
@@ -97,24 +128,23 @@
 			await saveDayType(record);
 		}
 
-		// Keep the selected value (don't reset to arbeitswoche)
-		selectedValue = pendingWeekType;
+		// If mixed week (some days have tasks), dropdown stays on Arbeitswoche
+		// Otherwise, show the selected type
+		selectedValue = hasMixedWeek ? 'arbeitswoche' : pendingWeekType;
+
 		showConfirm = false;
 		pendingWeekType = null;
+		daysToChange = [];
+		hasMixedWeek = false;
 
 		onchange?.();
 	}
 
 	function cancelChange() {
-		// Reset dropdown to previous value
-		selectedValue = selectedValue;
 		showConfirm = false;
 		pendingWeekType = null;
-	}
-
-	function dismissWarning() {
-		showWarning = false;
-		warningMessage = '';
+		daysToChange = [];
+		hasMixedWeek = false;
 	}
 </script>
 
@@ -133,23 +163,25 @@
 	</select>
 </div>
 
-{#if showConfirm}
+{#if showNotification}
 	<ConfirmDialog
-		title="Wochenart ändern"
-		message="Dies setzt die Tagesart für alle 7 Tage dieser Woche. Fortfahren?"
-		confirmLabel="Fortfahren"
-		onconfirm={confirmChange}
-		oncancel={cancelChange}
+		title="Hinweis"
+		message={notificationMessage}
+		confirmLabel="OK"
+		onconfirm={confirmNotification}
+		oncancel={cancelNotification}
 	/>
 {/if}
 
-{#if showWarning}
+{#if showConfirm}
 	<ConfirmDialog
-		title="Nicht möglich"
-		message={warningMessage}
-		confirmLabel="OK"
-		onconfirm={dismissWarning}
-		oncancel={dismissWarning}
+		title="Wochenart ändern"
+		message={daysToChange.length === 7
+			? 'Dies setzt die Tagesart für alle 7 Tage dieser Woche. Fortfahren?'
+			: `Dies setzt die Tagesart für ${daysToChange.length} Tage ohne Arbeitszeit. Fortfahren?`}
+		confirmLabel="Fortfahren"
+		onconfirm={confirmChange}
+		oncancel={cancelChange}
 	/>
 {/if}
 
