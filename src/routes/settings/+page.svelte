@@ -24,7 +24,6 @@
 	let showAddCategory = $state(false);
 	let showAddWorkTimeModel = $state(false);
 	let showDeleteConfirm = $state(false);
-	let showErrorAlert = $state(false);
 	let categoryToDelete: Category | null = $state(null);
 
 	function handleDeleteCategory(category: Category) {
@@ -33,17 +32,26 @@
 		showDeleteConfirm = true;
 	}
 
-	async function confirmDeleteCategory() {
+	async function confirmDeleteCategory(retryCount = 0) {
 		if (!categoryToDelete) return;
+		const maxRetries = 3;
+		const catId = categoryToDelete.id;
+
 		try {
-			await deleteUserCategoryWithSync(categoryToDelete.id);
-			categories.update((cats) => cats.filter((c) => c.id !== categoryToDelete!.id));
+			await deleteUserCategoryWithSync(catId);
+			categories.update((cats) => cats.filter((c) => c.id !== catId));
+			showDeleteConfirm = false;
+			categoryToDelete = null;
 		} catch (e) {
-			console.error('Failed to delete category:', e);
-			showErrorAlert = true;
+			console.error(`Failed to delete category (attempt ${retryCount + 1}/${maxRetries}):`, e);
+			if (retryCount < maxRetries - 1) {
+				await new Promise((r) => setTimeout(r, 500));
+				return confirmDeleteCategory(retryCount + 1);
+			}
+			console.error('Delete failed after all retries - user can try again manually');
+			showDeleteConfirm = false;
+			categoryToDelete = null;
 		}
-		showDeleteConfirm = false;
-		categoryToDelete = null;
 	}
 
 	function cancelDeleteCategory() {
@@ -149,16 +157,6 @@
 		confirmStyle="danger"
 		onconfirm={confirmDeleteCategory}
 		oncancel={cancelDeleteCategory}
-	/>
-{/if}
-
-<!-- Error Alert -->
-{#if showErrorAlert}
-	<ConfirmDialog
-		type="alert"
-		title="Fehler"
-		message="Fehler beim Löschen der Kategorie"
-		onconfirm={() => (showErrorAlert = false)}
 	/>
 {/if}
 
