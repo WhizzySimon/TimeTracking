@@ -338,6 +338,10 @@
   - Verified: npm run verify ✅ (ALL PASSED), Playwright UI test ✅
   - Deviations: None
   - Notes: Added triggerSync() after each data operation, startup sync (1s delay), visibility change sync trigger
+- [x] **Ad-hoc** — ConfirmDialog component (replaces browser confirm/alert)
+  - Files: `src/lib/components/ConfirmDialog.svelte`, `src/routes/day/+page.svelte`, `src/routes/settings/+page.svelte`, `src/lib/components/WeekTypeSelector.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED), Playwright UI test ✅
+  - Notes: Created styled ConfirmDialog component with confirm/alert modes, danger button variant. Replaced all browser confirm() and alert() calls.
 - [ ] **Task 4.5** — Create sync status indicator component
 - [ ] **Task 4.6** — Implement online/offline detection
 
