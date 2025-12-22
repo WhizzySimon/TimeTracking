@@ -29,7 +29,7 @@
 		<span class="value">{formatHours(soll)}</span>
 	</span>
 	<span class="summary-item">
-		<span class="label">Saldo:</span>
+		<span class="label">Haben:</span>
 		<span class="value" class:positive={saldo > 0} class:negative={saldo < 0}>
 			{formatHours(saldo, true)}
 		</span>

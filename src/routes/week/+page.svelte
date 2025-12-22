@@ -208,7 +208,7 @@
 								class:positive={dayIst - daySoll >= 0}
 								class:negative={dayIst - daySoll < 0}
 							>
-								Saldo {dayIst - daySoll >= 0 ? '+' : ''}{(dayIst - daySoll)
+								Haben {dayIst - daySoll >= 0 ? '+' : ''}{(dayIst - daySoll)
 									.toFixed(1)
 									.replace('.', ',')}
 							</span>

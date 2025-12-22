@@ -263,7 +263,7 @@
 							<span class="soll">Soll {formatHours(period.soll)}</span>
 							<span class="separator">/</span>
 							<span class="saldo">
-								Saldo <span
+								Haben <span
 									class="saldo-value"
 									class:positive={periodSaldo >= 0}
 									class:negative={periodSaldo < 0}
