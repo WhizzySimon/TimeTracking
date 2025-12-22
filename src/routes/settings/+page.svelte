@@ -81,6 +81,11 @@
 	let modelToEdit: WorkTimeModel | null = $state(null);
 	let showCategoryMenu = $state(false);
 	let showDeleteAccountConfirm = $state(false);
+	let expandedSections = $state({
+		workTimeModels: true,
+		abwesenheit: true,
+		arbeit: true
+	});
 	let deleteAccountInProgress = $state(false);
 	let deleteAccountError = $state<string | null>(null);
 
@@ -230,70 +235,100 @@
 		<!-- Arbeitszeitmodelle Section (first - shorter list) -->
 		<section class="section">
 			<div class="section-header">
-				<h2>Arbeitszeitmodelle</h2>
-				<button class="add-btn" onclick={() => (showAddWorkTimeModel = true)}> + Modell </button>
+				<button
+					class="section-toggle"
+					onclick={() => (expandedSections.workTimeModels = !expandedSections.workTimeModels)}
+					aria-expanded={expandedSections.workTimeModels}
+				>
+					<span class="toggle-icon" class:expanded={expandedSections.workTimeModels}>▶</span>
+					<h2>Arbeitszeitmodelle</h2>
+				</button>
+				<button
+					class="icon-btn"
+					onclick={() => (showAddWorkTimeModel = true)}
+					aria-label="Modell hinzufügen"
+					title="Modell hinzufügen">+</button
+				>
 			</div>
-			<div class="list">
-				{#if $workTimeModels.length === 0}
-					<p class="empty">Keine Arbeitszeitmodelle vorhanden</p>
-				{:else}
-					{#each $workTimeModels as model (model.id)}
-						<div
-							class="list-item clickable"
-							role="button"
-							tabindex="0"
-							onclick={() => handleEditModel(model)}
-							onkeydown={(e) => e.key === 'Enter' && handleEditModel(model)}
-						>
-							<div class="item-info">
-								<span class="item-name">{model.name}</span>
-								<span class="item-detail">
-									{calculateModelTotalHours(model)}h/Woche • {countModelWorkdays(model)} Tage • ab {model.validFrom}
-								</span>
-							</div>
-							<button
-								class="delete-btn"
-								aria-label="Löschen"
-								onclick={(e) => {
-									e.stopPropagation();
-									handleDeleteModel(model);
-								}}>×</button
+			{#if expandedSections.workTimeModels}
+				<div class="list">
+					{#if $workTimeModels.length === 0}
+						<p class="empty">Keine Arbeitszeitmodelle vorhanden</p>
+					{:else}
+						{#each $workTimeModels as model (model.id)}
+							<div
+								class="list-item clickable"
+								role="button"
+								tabindex="0"
+								onclick={() => handleEditModel(model)}
+								onkeydown={(e) => e.key === 'Enter' && handleEditModel(model)}
 							>
-						</div>
-					{/each}
-				{/if}
-			</div>
+								<div class="item-info">
+									<span class="item-name">{model.name}</span>
+									<span class="item-detail">
+										{calculateModelTotalHours(model)}h/Woche • {countModelWorkdays(model)} Tage • ab {model.validFrom}
+									</span>
+								</div>
+								<button
+									class="delete-btn"
+									aria-label="Löschen"
+									onclick={(e) => {
+										e.stopPropagation();
+										handleDeleteModel(model);
+									}}>×</button
+								>
+							</div>
+						{/each}
+					{/if}
+				</div>
+			{/if}
 		</section>
 
 		<!-- Abwesenheitskategorien Section -->
 		<section class="section">
 			<div class="section-header">
-				<h2>Abwesenheitskategorien</h2>
+				<button
+					class="section-toggle"
+					onclick={() => (expandedSections.abwesenheit = !expandedSections.abwesenheit)}
+					aria-expanded={expandedSections.abwesenheit}
+				>
+					<span class="toggle-icon" class:expanded={expandedSections.abwesenheit}>▶</span>
+					<h2>Abwesenheitskategorien</h2>
+				</button>
 			</div>
-			<div class="list">
-				{#if abwesenheitskategorien().length === 0}
-					<p class="empty">Keine Abwesenheitskategorien vorhanden</p>
-				{:else}
-					{#each abwesenheitskategorien() as category (category.id)}
-						<div
-							class="list-item"
-							data-testid="category-item"
-							data-category-type={category.type}
-							data-counts-as-work="false"
-						>
-							<div class="item-info">
-								<span class="item-name" data-testid="category-name">{category.name}</span>
+			{#if expandedSections.abwesenheit}
+				<div class="list">
+					{#if abwesenheitskategorien().length === 0}
+						<p class="empty">Keine Abwesenheitskategorien vorhanden</p>
+					{:else}
+						{#each abwesenheitskategorien() as category (category.id)}
+							<div
+								class="list-item"
+								data-testid="category-item"
+								data-category-type={category.type}
+								data-counts-as-work="false"
+							>
+								<div class="item-info">
+									<span class="item-name" data-testid="category-name">{category.name}</span>
+								</div>
 							</div>
-						</div>
-					{/each}
-				{/if}
-			</div>
+						{/each}
+					{/if}
+				</div>
+			{/if}
 		</section>
 
 		<!-- Arbeitskategorien Section -->
 		<section class="section">
 			<div class="section-header">
-				<h2>Arbeitskategorien</h2>
+				<button
+					class="section-toggle"
+					onclick={() => (expandedSections.arbeit = !expandedSections.arbeit)}
+					aria-expanded={expandedSections.arbeit}
+				>
+					<span class="toggle-icon" class:expanded={expandedSections.arbeit}>▶</span>
+					<h2>Arbeitskategorien</h2>
+				</button>
 				<div class="header-buttons">
 					<div class="menu-container">
 						<button
@@ -340,32 +375,34 @@
 					</div>
 				</div>
 			</div>
-			<div class="list" data-testid="category-list">
-				{#if arbeitskategorien().length === 0}
-					<p class="empty">Keine Arbeitskategorien vorhanden</p>
-				{:else}
-					{#each arbeitskategorien() as category (category.id)}
-						<div
-							class="list-item"
-							data-testid="category-item"
-							data-category-type={category.type}
-							data-counts-as-work="true"
-						>
-							<div class="item-info">
-								<span class="item-name" data-testid="category-name">{category.name}</span>
+			{#if expandedSections.arbeit}
+				<div class="list" data-testid="category-list">
+					{#if arbeitskategorien().length === 0}
+						<p class="empty">Keine Arbeitskategorien vorhanden</p>
+					{:else}
+						{#each arbeitskategorien() as category (category.id)}
+							<div
+								class="list-item"
+								data-testid="category-item"
+								data-category-type={category.type}
+								data-counts-as-work="true"
+							>
+								<div class="item-info">
+									<span class="item-name" data-testid="category-name">{category.name}</span>
+								</div>
+								{#if category.type !== 'system'}
+									<button
+										class="delete-btn"
+										aria-label="Löschen"
+										data-testid="delete-category-btn"
+										onclick={() => handleDeleteCategory(category)}>×</button
+									>
+								{/if}
 							</div>
-							{#if category.type !== 'system'}
-								<button
-									class="delete-btn"
-									aria-label="Löschen"
-									data-testid="delete-category-btn"
-									onclick={() => handleDeleteCategory(category)}>×</button
-								>
-							{/if}
-						</div>
-					{/each}
-				{/if}
-			</div>
+						{/each}
+					{/if}
+				</div>
+			{/if}
 		</section>
 
 		<!-- Version Section -->
@@ -492,22 +529,52 @@
 		font-weight: 600;
 	}
 
+	.section-toggle {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: transparent;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		text-align: left;
+	}
+
+	.section-toggle:hover h2 {
+		color: #3b82f6;
+	}
+
+	.toggle-icon {
+		font-size: 0.75rem;
+		color: #6b7280;
+		transition: transform 0.2s ease;
+	}
+
+	.toggle-icon.expanded {
+		transform: rotate(90deg);
+	}
+
 	.header-buttons {
 		display: flex;
 		gap: 0.5rem;
 	}
 
-	.add-btn {
-		padding: 0.5rem 1rem;
-		border: 1px solid #3b82f6;
-		border-radius: 8px;
-		background: white;
+	.icon-btn {
+		width: 32px;
+		height: 32px;
+		border: none;
+		border-radius: 4px;
+		background: transparent;
 		color: #3b82f6;
-		font-size: 0.9rem;
+		font-size: 1.5rem;
+		font-weight: 300;
 		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
-	.add-btn:hover {
+	.icon-btn:hover {
 		background: #eff6ff;
 	}
 
