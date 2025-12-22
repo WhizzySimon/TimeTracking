@@ -139,8 +139,9 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 		// Count total categories before adding
 		const initialCount = await page.locator('[data-testid="category-item"]').count();
 
-		// Open add category modal
-		await page.getByRole('button', { name: '+ Kategorie' }).click();
+		// Open add category modal via menu
+		await page.getByTestId('category-menu-btn').click();
+		await page.getByTestId('add-category-menu-item').click();
 		await page.waitForSelector('[data-testid="new-category-name"]');
 
 		// Add a new user category
@@ -188,7 +189,8 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 		}
 
 		// Add a user category to verify it gets a delete button
-		await page.getByRole('button', { name: '+ Kategorie' }).click();
+		await page.getByTestId('category-menu-btn').click();
+		await page.getByTestId('add-category-menu-item').click();
 		await page.waitForSelector('[data-testid="new-category-name"]');
 		const testCategoryName = `DeleteTest-${Date.now()}`;
 		await page.fill('[data-testid="new-category-name"]', testCategoryName);

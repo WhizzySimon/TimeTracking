@@ -345,6 +345,7 @@
 					<div class="menu-container">
 						<button
 							class="menu-btn"
+							data-testid="category-menu-btn"
 							onclick={() => (showCategoryMenu = !showCategoryMenu)}
 							aria-label="Menü"
 						>
@@ -354,6 +355,7 @@
 							<div class="dropdown-menu">
 								<button
 									class="dropdown-item"
+									data-testid="add-category-menu-item"
 									onclick={() => {
 										showAddCategory = true;
 										showCategoryMenu = false;

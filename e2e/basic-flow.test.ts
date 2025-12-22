@@ -89,7 +89,7 @@ test.describe('Basic App Flow', () => {
 		await expect(page).toHaveURL(/\/day/);
 
 		// Sync indicator should be visible
-		await expect(page.locator('text=Gesichert')).toBeVisible();
+		await expect(page.getByTestId('sync-indicator')).toBeVisible();
 
 		// Day navigation should be visible
 		await expect(page.getByRole('button', { name: 'Heute' })).toBeVisible();

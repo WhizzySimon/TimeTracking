@@ -48,6 +48,21 @@
 3. **Test expectations outdated** - Tests expected default user categories from JSON
    - Fix: Updated tests to expect only 4 system categories on first run
 
+4. **E2E test selectors brittle (2025-12-22)** - 9 tests failed due to UI changes
+   - **Root cause:** Tests used text-based selectors (`text=Gesichert`, `getByRole('button', { name: '+ Kategorie' })`) that broke when UI text/buttons changed
+   - **Fix:** Added stable `data-testid` attributes and updated tests to use `getByTestId()`
+   - **New test IDs added:**
+     - `sync-indicator` - Sync status indicator in header
+     - `data-sync-status` - Attribute with current sync state (synced/pending/syncing/error)
+     - `category-menu-btn` - 3-dot menu button for categories
+     - `add-category-menu-item` - "Hinzufügen" menu item in category dropdown
+   - **Files changed:**
+     - `src/lib/components/SyncIndicator.svelte` - Added data-testid
+     - `src/routes/settings/+page.svelte` - Added data-testid to menu elements
+     - `src/routes/+layout.svelte` - Added SyncIndicator component to header
+     - `e2e/basic-flow.test.ts` - Updated to use getByTestId
+     - `e2e/milestone1.test.ts` - Updated to use getByTestId
+
 4. **Strict mode violation** - `getByText('Kategorien')` matched multiple elements
    - Fix: Changed to more specific selector `getByRole('heading', { name: 'Abwesenheitskategorien' })`
 
@@ -885,7 +900,7 @@ After each phase, verify against specs:
 - **Pass:** Page loads correctly (login form, register form, etc.)
 - **Fail:** Netlify 404 "Page not found" error
 
-### Test Date: ____________________
+### Test Date: **\*\*\*\***\_\_\_\_**\*\*\*\***
 
 ---
 

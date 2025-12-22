@@ -53,6 +53,8 @@
 	title={config.label}
 	role="status"
 	aria-label={config.label}
+	data-testid="sync-indicator"
+	data-sync-status={$syncStatus}
 >
 	<span class="icon" class:spinning={$syncStatus === 'syncing'}>{config.icon}</span>
 	<span class="label">{config.label}</span>
