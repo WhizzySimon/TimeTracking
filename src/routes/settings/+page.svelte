@@ -290,7 +290,8 @@
 										showCategoryMenu = false;
 									}}
 								>
-									+ Hinzufügen
+									<span class="dropdown-icon">+</span>
+									<span>Hinzufügen</span>
 								</button>
 								<button
 									class="dropdown-item"
@@ -299,7 +300,8 @@
 										showCategoryMenu = false;
 									}}
 								>
-									→ Exportieren
+									<span class="dropdown-icon">→</span>
+									<span>Exportieren</span>
 								</button>
 								<button
 									class="dropdown-item"
@@ -308,7 +310,8 @@
 										showCategoryMenu = false;
 									}}
 								>
-									← Importieren
+									<span class="dropdown-icon">←</span>
+									<span>Importieren</span>
 								</button>
 							</div>
 						{/if}
@@ -465,11 +468,11 @@
 	}
 
 	.menu-btn {
-		width: 36px;
-		height: 36px;
-		border: 1px solid #9ca3af;
-		border-radius: 8px;
-		background: white;
+		width: 32px;
+		height: 32px;
+		border: none;
+		border-radius: 4px;
+		background: transparent;
 		color: #6b7280;
 		font-size: 1.25rem;
 		cursor: pointer;
@@ -480,6 +483,7 @@
 
 	.menu-btn:hover {
 		background: #f3f4f6;
+		color: #333;
 	}
 
 	.dropdown-menu {
@@ -497,7 +501,9 @@
 	}
 
 	.dropdown-item {
-		display: block;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 		width: 100%;
 		padding: 0.75rem 1rem;
 		border: none;
@@ -506,6 +512,12 @@
 		font-size: 0.9rem;
 		text-align: left;
 		cursor: pointer;
+	}
+
+	.dropdown-icon {
+		width: 1rem;
+		text-align: center;
+		flex-shrink: 0;
 	}
 
 	.dropdown-item:hover {

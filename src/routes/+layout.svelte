@@ -194,7 +194,7 @@
 				{/if}
 			</div>
 			<div class="header-right">
-				<a href={resolve('/settings')} class="header-btn settings-btn" title="Einstellungen"> ⚙ </a>
+				<a href={resolve('/settings')} class="header-btn settings-btn" title="Einstellungen">☰</a>
 				<button
 					class="header-btn logout-btn"
 					onclick={() => (showLogoutConfirm = true)}
