@@ -136,8 +136,34 @@
 	interface CategoryBreakdown {
 		name: string;
 		hours: number;
+		averagePerWeek: number;
 		countsAsWorkTime: boolean;
 	}
+
+	// Count work days in range (excluding Urlaub, Feiertag, Krank)
+	function countWorkDaysInRange(): number {
+		let workDays = 0;
+		let current = parseDate(rangeStartStr);
+		const end = parseDate(rangeEndStr);
+		if (!current || !end) return 0;
+
+		while (current <= end) {
+			const dateKey = formatDate(current, 'ISO');
+			const dayType = dayTypesCache.get(dateKey) ?? 'arbeitstag';
+			// Only count actual work days (arbeitstag)
+			// Exclude: urlaub, feiertag, krank
+			if (dayType === 'arbeitstag') {
+				workDays++;
+			}
+			current = addDays(current, 1);
+		}
+		return workDays;
+	}
+
+	// Calculate number of "effective weeks" based on work days
+	// (work days / 7) gives us the equivalent weeks
+	let workDaysInRange = $derived(countWorkDaysInRange());
+	let effectiveWeeks = $derived(workDaysInRange / 7);
 
 	function calculateCategoryBreakdown(): CategoryBreakdown[] {
 		// Group entries by category and sum hours
@@ -160,14 +186,17 @@
 			}
 		}
 
-		// Build result with category names
+		// Build result with category names and weekly average
 		const result: CategoryBreakdown[] = [];
+		const weeks = effectiveWeeks > 0 ? effectiveWeeks : 1; // Avoid division by zero
+
 		for (const [categoryId, hours] of categoryHours) {
 			const category = $categories.find((c) => c.id === categoryId);
 			if (category) {
 				result.push({
 					name: category.name,
 					hours,
+					averagePerWeek: hours / weeks,
 					countsAsWorkTime: category.countsAsWorkTime
 				});
 			}
@@ -299,7 +328,13 @@
 		<!-- Category Breakdown -->
 		{#if categoryBreakdown.length > 0}
 			<div class="category-breakdown">
-				<h3 class="section-title">Tätigkeiten</h3>
+				<div class="section-header-row">
+					<h3 class="section-title">Tätigkeiten</h3>
+					<div class="column-headers">
+						<span class="header-label">Gesamt</span>
+						<span class="header-label">Ø/Woche</span>
+					</div>
+				</div>
 				{#each categoryBreakdown as cat (cat.name)}
 					<div class="category-item">
 						<span class="category-name">
@@ -308,7 +343,10 @@
 								<span class="no-work-badge">Keine Arbeitszeit</span>
 							{/if}
 						</span>
-						<span class="category-hours">{formatHours(cat.hours)}</span>
+						<div class="category-values">
+							<span class="category-hours">{formatHours(cat.hours)}</span>
+							<span class="category-average">{formatHours(cat.averagePerWeek)}</span>
+						</div>
 					</div>
 				{/each}
 			</div>
@@ -496,8 +534,40 @@
 		border-radius: 4px;
 	}
 
+	.section-header-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.column-headers {
+		display: flex;
+		gap: 1rem;
+	}
+
+	.header-label {
+		font-size: 0.75rem;
+		color: #666;
+		min-width: 60px;
+		text-align: right;
+	}
+
+	.category-values {
+		display: flex;
+		gap: 1rem;
+	}
+
 	.category-hours {
 		font-weight: 600;
 		color: #333;
+		min-width: 60px;
+		text-align: right;
+	}
+
+	.category-average {
+		font-weight: 500;
+		color: #666;
+		min-width: 60px;
+		text-align: right;
 	}
 </style>
