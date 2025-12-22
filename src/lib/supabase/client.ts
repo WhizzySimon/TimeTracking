@@ -6,29 +6,28 @@
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { browser } from '$app/environment';
-
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL as string;
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string;
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 
 let supabaseInstance: SupabaseClient | null = null;
 
 /**
  * Get or create the Supabase client instance.
  * Only creates client in browser environment.
+ * Throws if Supabase env vars are not configured.
  */
 export function getSupabase(): SupabaseClient {
 	if (!browser) {
 		throw new Error('Supabase client can only be used in browser');
 	}
 
-	if (!supabaseUrl || !supabaseAnonKey) {
+	if (!PUBLIC_SUPABASE_URL || !PUBLIC_SUPABASE_ANON_KEY) {
 		throw new Error(
-			'Missing Supabase environment variables. Set PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_ANON_KEY in .env'
+			'Supabase ist nicht konfiguriert. Bitte setzen Sie PUBLIC_SUPABASE_URL und PUBLIC_SUPABASE_ANON_KEY in .env'
 		);
 	}
 
 	if (!supabaseInstance) {
-		supabaseInstance = createClient(supabaseUrl, supabaseAnonKey, {
+		supabaseInstance = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
 			auth: {
 				persistSession: true,
 				autoRefreshToken: true,
@@ -42,7 +41,22 @@ export function getSupabase(): SupabaseClient {
 
 /**
  * Check if Supabase is configured (env vars present).
+ * Returns true only if both URL and anon key are set.
  */
 export function isSupabaseConfigured(): boolean {
-	return Boolean(supabaseUrl && supabaseAnonKey);
+	return Boolean(PUBLIC_SUPABASE_URL && PUBLIC_SUPABASE_ANON_KEY);
+}
+
+/**
+ * Get the configuration error message if Supabase is not configured.
+ * Returns null if configured properly.
+ */
+export function getSupabaseConfigError(): string | null {
+	if (!PUBLIC_SUPABASE_URL) {
+		return 'PUBLIC_SUPABASE_URL ist nicht gesetzt';
+	}
+	if (!PUBLIC_SUPABASE_ANON_KEY) {
+		return 'PUBLIC_SUPABASE_ANON_KEY ist nicht gesetzt';
+	}
+	return null;
 }

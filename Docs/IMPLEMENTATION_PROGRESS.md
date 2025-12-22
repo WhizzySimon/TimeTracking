@@ -682,29 +682,93 @@ Backup:
 
 ### E2E Test Results (Post-Fix)
 
-| Browser                   | Tests | Status  |
-| ------------------------- | ----- | ------- |
-| Chromium                  | 9     | ✅ PASS |
-| WebKit                    | 9     | ✅ PASS |
-| Mobile Safari             | 9     | ✅ PASS |
-| **Total**                 | 27    | ✅ ALL PASSED |
+| Browser       | Tests | Status        |
+| ------------- | ----- | ------------- |
+| Chromium      | 9     | ✅ PASS       |
+| WebKit        | 9     | ✅ PASS       |
+| Mobile Safari | 9     | ✅ PASS       |
+| **Total**     | 27    | ✅ ALL PASSED |
 
 ### Confirmation Email Behavior (Documentation)
 
 **Current behavior:**
+
 - Supabase Auth is configured with "Confirm email" setting
 - If ON: Users must confirm email before first sign-in (unless bypassed in Supabase dashboard)
 - If OFF: Users can sign in immediately after signup
 
 **Expected behavior for production:**
+
 - "Confirm email" should be ON for security
 - Email templates should be configured in Supabase dashboard
 - SMTP settings may need configuration for reliable delivery
 
 **Note:** If confirmation emails are not received:
+
 1. Check Supabase Auth settings → Email Templates
 2. Check spam/junk folder
 3. Consider configuring custom SMTP in Supabase for production
+
+---
+
+## Phase 6.2: Remove Mock Auth, Wire Real Supabase
+
+**Target:** Remove all mock fallbacks, require real Supabase  
+**Status:** Complete
+**Date:** 2025-12-22
+
+### Problem Report (Pre-Fix)
+
+- Auth was NOT calling Supabase (Network tab showed zero requests on login)
+- `src/lib/supabase/client.ts` used `import.meta.env` instead of `$env/static/public`
+- `src/lib/api/auth.ts` had mock fallbacks that always succeeded when Supabase not configured
+- `isSupabaseConfigured()` silently allowed mock auth instead of blocking
+
+### Changes Made
+
+- [x] **Fix 6.2.1** — Use correct SvelteKit env imports
+  - Files: `src/lib/supabase/client.ts`
+  - Changed: `import.meta.env.PUBLIC_*` → `import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public'`
+  - Added: `getSupabaseConfigError()` helper for user-friendly error messages
+
+- [x] **Fix 6.2.2** — Remove all mock fallbacks from auth.ts
+  - Files: `src/lib/api/auth.ts`
+  - Removed: `mockLogin()` function entirely
+  - Added: `requireSupabase()` helper that throws if not configured
+  - Changed: `login()`, `signup()`, `forgotPassword()`, `updatePassword()` now throw error if Supabase not configured
+  - Changed: `validateSession()`, `getCurrentUserId()`, `logout()` handle missing config gracefully (return false/null/skip)
+
+### Verification Results
+
+| Check | Result |
+|-------|--------|
+| npm run verify | ✅ ALL PASSED |
+| E2E Chromium | 9/9 ✅ |
+| E2E WebKit | 9/9 ✅ |
+| E2E Mobile Safari | 9/9 ✅ |
+| **Total** | **27 tests passed** |
+
+### Manual Verification Checklist
+
+To verify Supabase integration is working:
+
+1. **Network tab verification:**
+   - Open DevTools → Network tab
+   - Attempt login/signup
+   - Should see requests to `https://<project>.supabase.co/auth/v1/...`
+
+2. **Supabase Dashboard verification:**
+   - Go to Supabase Dashboard → Authentication → Users
+   - After signup, user should appear in the list
+
+3. **Cloud backup verification:**
+   - Click "Save to cloud" while authenticated
+   - Check Supabase Dashboard → Table Editor → `user_backups`
+   - Should see UPSERT row with user_id, snapshot, schema_version, updated_at
+
+4. **Error handling verification:**
+   - Remove `.env` file or clear env vars
+   - Attempt login → Should show error: "PUBLIC_SUPABASE_URL ist nicht gesetzt"
 
 ---
 

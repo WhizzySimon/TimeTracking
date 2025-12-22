@@ -1,9 +1,12 @@
 /**
  * Authentication API service using Supabase Auth.
  * Spec refs: technical-guideline-v1 section 5, cloud-backup-and-auth.md
+ *
+ * NO MOCK FALLBACKS: All auth operations require Supabase to be configured.
+ * If env vars are missing, operations will throw with a user-friendly error.
  */
 
-import { getSupabase, isSupabaseConfigured } from '$lib/supabase/client';
+import { getSupabase, isSupabaseConfigured, getSupabaseConfigError } from '$lib/supabase/client';
 
 export interface LoginResponse {
 	token: string;
@@ -18,6 +21,19 @@ export interface SignupResponse {
 }
 
 /**
+ * Ensure Supabase is configured before any auth operation.
+ * Throws a user-friendly error if not configured.
+ */
+function requireSupabase(): void {
+	if (!isSupabaseConfigured()) {
+		const configError = getSupabaseConfigError();
+		throw new Error(
+			configError ?? 'Supabase ist nicht konfiguriert. Bitte kontaktieren Sie den Administrator.'
+		);
+	}
+}
+
+/**
  * Login with email and password using Supabase Auth.
  * @param email User email
  * @param password User password
@@ -26,10 +42,7 @@ export interface SignupResponse {
 export async function login(email: string, password: string): Promise<LoginResponse> {
 	console.log('[AuthAPI] Login request:', { email });
 
-	if (!isSupabaseConfigured()) {
-		console.warn('[AuthAPI] Supabase not configured, using mock auth');
-		return mockLogin(email);
-	}
+	requireSupabase();
 
 	const supabase = getSupabase();
 	const { data, error } = await supabase.auth.signInWithPassword({
@@ -62,10 +75,7 @@ export async function login(email: string, password: string): Promise<LoginRespo
 export async function signup(email: string, password: string): Promise<SignupResponse> {
 	console.log('[AuthAPI] Signup request:', { email });
 
-	if (!isSupabaseConfigured()) {
-		console.warn('[AuthAPI] Supabase not configured, using mock auth');
-		return mockLogin(email);
-	}
+	requireSupabase();
 
 	const supabase = getSupabase();
 	const { data, error } = await supabase.auth.signUp({
@@ -98,11 +108,7 @@ export async function signup(email: string, password: string): Promise<SignupRes
 export async function forgotPassword(email: string): Promise<void> {
 	console.log('[AuthAPI] Forgot password request:', { email });
 
-	if (!isSupabaseConfigured()) {
-		console.warn('[AuthAPI] Supabase not configured, mock forgot password');
-		await new Promise((r) => setTimeout(r, 300));
-		return;
-	}
+	requireSupabase();
 
 	const supabase = getSupabase();
 	const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -121,11 +127,7 @@ export async function forgotPassword(email: string): Promise<void> {
 export async function updatePassword(newPassword: string): Promise<void> {
 	console.log('[AuthAPI] Update password request');
 
-	if (!isSupabaseConfigured()) {
-		console.warn('[AuthAPI] Supabase not configured, mock update password');
-		await new Promise((r) => setTimeout(r, 300));
-		return;
-	}
+	requireSupabase();
 
 	const supabase = getSupabase();
 	const { error } = await supabase.auth.updateUser({
@@ -149,12 +151,16 @@ export async function validateSession(): Promise<boolean> {
 		return false;
 	}
 
-	const supabase = getSupabase();
-	const {
-		data: { session }
-	} = await supabase.auth.getSession();
+	try {
+		const supabase = getSupabase();
+		const {
+			data: { session }
+		} = await supabase.auth.getSession();
 
-	return session !== null;
+		return session !== null;
+	} catch {
+		return false;
+	}
 }
 
 /**
@@ -166,12 +172,16 @@ export async function getCurrentUserId(): Promise<string | null> {
 		return null;
 	}
 
-	const supabase = getSupabase();
-	const {
-		data: { user }
-	} = await supabase.auth.getUser();
+	try {
+		const supabase = getSupabase();
+		const {
+			data: { user }
+		} = await supabase.auth.getUser();
 
-	return user?.id ?? null;
+		return user?.id ?? null;
+	} catch {
+		return null;
+	}
 }
 
 /**
@@ -181,27 +191,20 @@ export async function logout(): Promise<void> {
 	console.log('[AuthAPI] Logout request');
 
 	if (!isSupabaseConfigured()) {
-		console.log('[AuthAPI] Session invalidated (mock)');
+		console.log('[AuthAPI] Supabase not configured, skipping signOut');
 		return;
 	}
 
-	const supabase = getSupabase();
-	const { error } = await supabase.auth.signOut();
+	try {
+		const supabase = getSupabase();
+		const { error } = await supabase.auth.signOut();
 
-	if (error) {
-		console.error('[AuthAPI] Logout failed:', error.message);
+		if (error) {
+			console.error('[AuthAPI] Logout failed:', error.message);
+		}
+
+		console.log('[AuthAPI] Session invalidated');
+	} catch (e) {
+		console.error('[AuthAPI] Logout error:', e);
 	}
-
-	console.log('[AuthAPI] Session invalidated');
-}
-
-/**
- * Mock login for development without Supabase.
- */
-function mockLogin(email: string): LoginResponse {
-	return {
-		token: `mock-token-${Date.now()}-${Math.random().toString(36).substring(7)}`,
-		email,
-		expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000
-	};
 }
