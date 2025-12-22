@@ -54,12 +54,11 @@
 	// Saldo = Ist - Soll
 	let saldo = $derived(calculateSaldo(ist, soll));
 
-	// Reactive date display (with year)
-	let dateYear = $derived($currentDate.getFullYear());
+	// Reactive date display (with year already included in formatDate)
 	let dateDisplay = $derived(
 		isToday($currentDate)
 			? `Heute, ${formatDate($currentDate, 'DE')}`
-			: `${formatDate($currentDate, 'DE')} ${dateYear}`
+			: formatDate($currentDate, 'DE')
 	);
 
 	// Load day type when date changes

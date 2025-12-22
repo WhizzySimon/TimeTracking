@@ -12,6 +12,8 @@
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { SvelteMap } from 'svelte/reactivity';
 	import {
 		currentDate,
@@ -135,6 +137,12 @@
 		showWeekPicker = false;
 	}
 
+	// Navigate to day tab with selected date
+	function navigateToDay(date: Date) {
+		currentDate.set(date);
+		goto(resolve('/day'));
+	}
+
 	// Get entries for a specific day
 	function getDayEntries(date: Date): TimeEntry[] {
 		const dateKey = formatDate(date, 'ISO');
@@ -223,7 +231,7 @@
 				{#each activeDays as date (formatDate(date, 'ISO'))}
 					{@const dayIst = getDayIst(date)}
 					{@const daySoll = getDaySoll(date)}
-					<div class="day-item">
+					<button class="day-item" type="button" onclick={() => navigateToDay(date)}>
 						<div class="day-info">
 							<span class="day-date">{formatShortDate(date)}</span>
 							<span class="day-type">{getDayTypeLabel(date)}</span>
@@ -242,7 +250,7 @@
 								{dayIst - daySoll >= 0 ? '+' : ''}{(dayIst - daySoll).toFixed(1).replace('.', ',')}
 							</span>
 						</div>
-					</div>
+					</button>
 				{/each}
 			{/if}
 		</div>
@@ -343,6 +351,20 @@
 		background: white;
 		border: 1px solid #eee;
 		border-radius: 8px;
+		width: 100%;
+		text-align: left;
+		cursor: pointer;
+		font-family: inherit;
+		font-size: inherit;
+	}
+
+	.day-item:hover {
+		background: #f8fafc;
+		border-color: #3b82f6;
+	}
+
+	.day-item:active {
+		background: #eff6ff;
 	}
 
 	.day-info {
