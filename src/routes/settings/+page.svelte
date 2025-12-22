@@ -15,11 +15,37 @@
 	import { categories, workTimeModels } from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
-	import { deleteUserCategoryWithSync } from '$lib/storage/operations';
+	import { deleteUserCategoryWithSync, deleteWorkTimeModel } from '$lib/storage/operations';
 	import type { Category, WorkTimeModel } from '$lib/types';
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+
+	function calculateModelTotalHours(model: WorkTimeModel): number {
+		const days = [
+			model.monday,
+			model.tuesday,
+			model.wednesday,
+			model.thursday,
+			model.friday,
+			model.saturday,
+			model.sunday
+		];
+		return days.reduce((sum: number, h) => sum + (h ?? 0), 0);
+	}
+
+	function countModelWorkdays(model: WorkTimeModel): number {
+		const days = [
+			model.monday,
+			model.tuesday,
+			model.wednesday,
+			model.thursday,
+			model.friday,
+			model.saturday,
+			model.sunday
+		];
+		return days.filter((h) => h !== null && h > 0).length;
+	}
 
 	let loading = $state(true);
 	let appVersion = $state('');
@@ -29,7 +55,9 @@
 	let showAddCategory = $state(false);
 	let showAddWorkTimeModel = $state(false);
 	let showDeleteConfirm = $state(false);
+	let showDeleteModelConfirm = $state(false);
 	let categoryToDelete: Category | null = $state(null);
+	let modelToDelete: WorkTimeModel | null = $state(null);
 
 	function handleDeleteCategory(category: Category) {
 		if (category.type === 'system') return;
@@ -62,6 +90,32 @@
 	function cancelDeleteCategory() {
 		showDeleteConfirm = false;
 		categoryToDelete = null;
+	}
+
+	function handleDeleteModel(model: WorkTimeModel) {
+		modelToDelete = model;
+		showDeleteModelConfirm = true;
+	}
+
+	async function confirmDeleteModel() {
+		if (!modelToDelete) return;
+		const modelId = modelToDelete.id;
+
+		try {
+			await deleteWorkTimeModel(modelId);
+			workTimeModels.update((models) => models.filter((m) => m.id !== modelId));
+			showDeleteModelConfirm = false;
+			modelToDelete = null;
+		} catch (e) {
+			console.error('Failed to delete work time model:', e);
+			showDeleteModelConfirm = false;
+			modelToDelete = null;
+		}
+	}
+
+	function cancelDeleteModel() {
+		showDeleteModelConfirm = false;
+		modelToDelete = null;
 	}
 
 	let swMessageHandler: ((event: MessageEvent) => void) | null = null;
@@ -165,8 +219,15 @@
 						<div class="list-item">
 							<div class="item-info">
 								<span class="item-name">{model.name}</span>
-								<span class="item-detail">Gültig ab {model.validFrom}</span>
+								<span class="item-detail">
+									{calculateModelTotalHours(model)}h/Woche • {countModelWorkdays(model)} Tage • ab {model.validFrom}
+								</span>
 							</div>
+							<button
+								class="delete-btn"
+								aria-label="Löschen"
+								onclick={() => handleDeleteModel(model)}>×</button
+							>
 						</div>
 					{/each}
 				{/if}
@@ -216,6 +277,18 @@
 		confirmStyle="danger"
 		onconfirm={confirmDeleteCategory}
 		oncancel={cancelDeleteCategory}
+	/>
+{/if}
+
+<!-- Delete Work Time Model Confirmation -->
+{#if showDeleteModelConfirm && modelToDelete}
+	<ConfirmDialog
+		title="Arbeitszeitmodell löschen"
+		message={`Arbeitszeitmodell "${modelToDelete.name}" wirklich löschen?`}
+		confirmLabel="Löschen"
+		confirmStyle="danger"
+		onconfirm={confirmDeleteModel}
+		oncancel={cancelDeleteModel}
 	/>
 {/if}
 

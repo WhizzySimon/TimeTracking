@@ -38,6 +38,28 @@
 	let error = $state('');
 	let saving = $state(false);
 
+	// Calculate total hours
+	let totalHours = $derived(() => {
+		const values = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+		let total = 0;
+		for (const v of values) {
+			const parsed = parseFloat(v.trim().replace(',', '.'));
+			if (!isNaN(parsed)) total += parsed;
+		}
+		return total;
+	});
+
+	// Count active workdays
+	let activeWorkdays = $derived(() => {
+		const values = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+		let count = 0;
+		for (const v of values) {
+			const trimmed = v.trim();
+			if (trimmed && parseFloat(trimmed.replace(',', '.')) > 0) count++;
+		}
+		return count;
+	});
+
 	// Parse hours input (empty = null/inactive)
 	function parseHours(value: string): number | null {
 		const trimmed = value.trim();
@@ -150,6 +172,15 @@
 				class="text-input"
 				disabled={saving}
 			/>
+		</div>
+
+		<!-- Total Summary -->
+		<div class="total-summary">
+			<span class="total-label">Wochenstunden:</span>
+			<span class="total-value">{totalHours().toFixed(1)}h</span>
+			<span class="total-separator">|</span>
+			<span class="total-label">Arbeitstage:</span>
+			<span class="total-value">{activeWorkdays()}</span>
 		</div>
 
 		<!-- Weekday Hours -->
@@ -281,6 +312,31 @@
 	.text-input:disabled {
 		background: #f5f5f5;
 		color: #666;
+	}
+
+	.total-summary {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem;
+		background: #f0f9ff;
+		border: 1px solid #bae6fd;
+		border-radius: 8px;
+	}
+
+	.total-label {
+		font-size: 0.9rem;
+		color: #666;
+	}
+
+	.total-value {
+		font-size: 1rem;
+		font-weight: 600;
+		color: #0369a1;
+	}
+
+	.total-separator {
+		color: #cbd5e1;
 	}
 
 	.weekdays {
