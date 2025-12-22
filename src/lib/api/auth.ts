@@ -208,3 +208,31 @@ export async function logout(): Promise<void> {
 		console.error('[AuthAPI] Logout error:', e);
 	}
 }
+
+/**
+ * Delete user account using Supabase Admin API via Edge Function.
+ * Note: Supabase client-side SDK cannot delete users directly.
+ * This requires a server-side Edge Function with service_role key.
+ *
+ * For now, we use the RPC approach which requires a Postgres function.
+ */
+export async function deleteAccount(): Promise<void> {
+	console.log('[AuthAPI] Delete account request');
+
+	requireSupabase();
+
+	const supabase = getSupabase();
+
+	// Call the delete_user RPC function (must be created in Supabase)
+	const { error } = await supabase.rpc('delete_user');
+
+	if (error) {
+		console.error('[AuthAPI] Delete account failed:', error.message);
+		throw new Error(error.message);
+	}
+
+	// Sign out after deletion
+	await supabase.auth.signOut();
+
+	console.log('[AuthAPI] Account deleted successfully');
+}

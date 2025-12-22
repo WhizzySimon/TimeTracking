@@ -12,11 +12,15 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { categories, workTimeModels } from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
 	import { deleteUserCategoryWithSync, deleteWorkTimeModel } from '$lib/storage/operations';
 	import { downloadCategoriesFile } from '$lib/utils/categoryIO';
+	import { deleteAccount } from '$lib/api/auth';
+	import { clearSession } from '$lib/stores/auth';
 	import type { Category, WorkTimeModel } from '$lib/types';
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
@@ -76,6 +80,9 @@
 	let modelToDelete: WorkTimeModel | null = $state(null);
 	let modelToEdit: WorkTimeModel | null = $state(null);
 	let showCategoryMenu = $state(false);
+	let showDeleteAccountConfirm = $state(false);
+	let deleteAccountInProgress = $state(false);
+	let deleteAccountError = $state<string | null>(null);
 
 	function closeCategoryMenu(event: MouseEvent) {
 		const target = event.target as HTMLElement;
@@ -194,6 +201,21 @@
 
 	function reloadApp() {
 		window.location.reload();
+	}
+
+	async function handleDeleteAccount() {
+		deleteAccountError = null;
+		deleteAccountInProgress = true;
+
+		try {
+			await deleteAccount();
+			await clearSession();
+			goto(resolve('/login'));
+		} catch (e) {
+			console.error('[Settings] Delete account failed:', e);
+			deleteAccountError = e instanceof Error ? e.message : 'Konto konnte nicht gelöscht werden';
+			deleteAccountInProgress = false;
+		}
 	}
 </script>
 
@@ -361,6 +383,20 @@
 				</div>
 			{/if}
 		</section>
+
+		<!-- Delete Account Section -->
+		<section class="section delete-account-section">
+			<button
+				class="delete-account-btn"
+				onclick={() => (showDeleteAccountConfirm = true)}
+				disabled={deleteAccountInProgress}
+			>
+				{deleteAccountInProgress ? 'Wird gelöscht...' : 'Konto löschen'}
+			</button>
+			{#if deleteAccountError}
+				<span class="delete-account-error">{deleteAccountError}</span>
+			{/if}
+		</section>
 	{/if}
 </div>
 
@@ -406,6 +442,18 @@
 		confirmStyle="danger"
 		onconfirm={confirmDeleteModel}
 		oncancel={cancelDeleteModel}
+	/>
+{/if}
+
+<!-- Delete Account Confirmation -->
+{#if showDeleteAccountConfirm}
+	<ConfirmDialog
+		title="Konto löschen"
+		message="Möchten Sie Ihr Konto wirklich unwiderruflich löschen? Alle Ihre Daten werden gelöscht und können nicht wiederhergestellt werden."
+		confirmLabel="Konto löschen"
+		confirmStyle="danger"
+		onconfirm={handleDeleteAccount}
+		oncancel={() => (showDeleteAccountConfirm = false)}
 	/>
 {/if}
 
@@ -648,5 +696,40 @@
 
 	.update-btn:hover {
 		background: #d97706;
+	}
+
+	.delete-account-section {
+		margin-top: 2rem;
+		padding-top: 1rem;
+		border-top: 1px solid #eee;
+	}
+
+	.delete-account-btn {
+		width: 100%;
+		padding: 0.875rem;
+		background: #dc2626;
+		color: white;
+		border: none;
+		border-radius: 8px;
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+	}
+
+	.delete-account-btn:hover:not(:disabled) {
+		background: #b91c1c;
+	}
+
+	.delete-account-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.delete-account-error {
+		display: block;
+		margin-top: 0.5rem;
+		font-size: 0.85rem;
+		color: #dc2626;
+		text-align: center;
 	}
 </style>
