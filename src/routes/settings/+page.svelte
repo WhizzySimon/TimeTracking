@@ -16,6 +16,7 @@
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
 	import { deleteUserCategoryWithSync, deleteWorkTimeModel } from '$lib/storage/operations';
+	import { downloadCategoriesFile } from '$lib/utils/categoryIO';
 	import type { Category, WorkTimeModel } from '$lib/types';
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
@@ -259,7 +260,12 @@
 		<section class="section">
 			<div class="section-header">
 				<h2>Arbeitskategorien</h2>
-				<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
+				<div class="header-buttons">
+					<button class="secondary-btn" onclick={() => downloadCategoriesFile($categories)}>
+						Exportieren
+					</button>
+					<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
+				</div>
 			</div>
 			<div class="list" data-testid="category-list">
 				{#if arbeitskategorien().length === 0}
@@ -379,6 +385,11 @@
 		font-weight: 600;
 	}
 
+	.header-buttons {
+		display: flex;
+		gap: 0.5rem;
+	}
+
 	.add-btn {
 		padding: 0.5rem 1rem;
 		border: 1px solid #3b82f6;
@@ -391,6 +402,20 @@
 
 	.add-btn:hover {
 		background: #eff6ff;
+	}
+
+	.secondary-btn {
+		padding: 0.5rem 1rem;
+		border: 1px solid #9ca3af;
+		border-radius: 8px;
+		background: white;
+		color: #6b7280;
+		font-size: 0.9rem;
+		cursor: pointer;
+	}
+
+	.secondary-btn:hover {
+		background: #f3f4f6;
 	}
 
 	.list {
