@@ -46,6 +46,16 @@
 		return isNaN(num) ? null : num;
 	}
 
+	// Validate hours input (must be 0-24 if provided)
+	function validateHours(value: string, dayName: string): string | null {
+		const trimmed = value.trim();
+		if (!trimmed) return null; // Empty is valid (inactive day)
+		const num = parseFloat(trimmed.replace(',', '.'));
+		if (isNaN(num)) return `${dayName}: Ungültige Zahl`;
+		if (num < 0 || num > 24) return `${dayName}: Stunden müssen zwischen 0 und 24 liegen`;
+		return null;
+	}
+
 	// Validate and save
 	async function handleSave() {
 		const trimmedName = name.trim();
@@ -58,6 +68,21 @@
 		const parsedDate = parseDate(validFrom);
 		if (!parsedDate) {
 			error = 'Ungültiges Datum (Format: TT.MM.JJJJ)';
+			return;
+		}
+
+		// Validate hours
+		const hoursValidation =
+			validateHours(monday, 'Mo') ||
+			validateHours(tuesday, 'Di') ||
+			validateHours(wednesday, 'Mi') ||
+			validateHours(thursday, 'Do') ||
+			validateHours(friday, 'Fr') ||
+			validateHours(saturday, 'Sa') ||
+			validateHours(sunday, 'So');
+
+		if (hoursValidation) {
+			error = hoursValidation;
 			return;
 		}
 
