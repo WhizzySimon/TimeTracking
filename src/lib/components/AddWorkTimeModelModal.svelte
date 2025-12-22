@@ -28,6 +28,9 @@
 
 	let { model = null, onsave, onclose }: Props = $props();
 
+	// Capture initial values from model prop (intentionally not reactive)
+	const initialModel = model;
+
 	// Helper to format hours for display
 	function formatHoursForInput(hours: number | null): string {
 		if (hours === null) return '';
@@ -35,21 +38,23 @@
 	}
 
 	// Form state - initialize from model if editing
-	let name = $state(model?.name ?? '');
+	let name = $state(initialModel?.name ?? '');
 	let validFrom = $state(
-		model?.validFrom ? formatDate(parseDate(model.validFrom)!, 'DE') : formatDate(new Date(), 'DE')
+		initialModel?.validFrom
+			? formatDate(parseDate(initialModel.validFrom)!, 'DE')
+			: formatDate(new Date(), 'DE')
 	);
-	let monday = $state(formatHoursForInput(model?.monday ?? 8));
-	let tuesday = $state(formatHoursForInput(model?.tuesday ?? 8));
-	let wednesday = $state(formatHoursForInput(model?.wednesday ?? 8));
-	let thursday = $state(formatHoursForInput(model?.thursday ?? 8));
-	let friday = $state(formatHoursForInput(model?.friday ?? 8));
-	let saturday = $state(formatHoursForInput(model?.saturday ?? null));
-	let sunday = $state(formatHoursForInput(model?.sunday ?? null));
+	let monday = $state(formatHoursForInput(initialModel?.monday ?? 8));
+	let tuesday = $state(formatHoursForInput(initialModel?.tuesday ?? 8));
+	let wednesday = $state(formatHoursForInput(initialModel?.wednesday ?? 8));
+	let thursday = $state(formatHoursForInput(initialModel?.thursday ?? 8));
+	let friday = $state(formatHoursForInput(initialModel?.friday ?? 8));
+	let saturday = $state(formatHoursForInput(initialModel?.saturday ?? null));
+	let sunday = $state(formatHoursForInput(initialModel?.sunday ?? null));
 	let error = $state('');
 	let saving = $state(false);
 
-	let isEditMode = $derived(model !== null);
+	let isEditMode = initialModel !== null;
 
 	// Calculate total hours
 	let totalHours = $derived(() => {
@@ -126,7 +131,7 @@
 
 		try {
 			const savedModel: WorkTimeModel = {
-				id: model?.id ?? crypto.randomUUID(),
+				id: initialModel?.id ?? crypto.randomUUID(),
 				name: trimmedName,
 				validFrom: formatDate(parsedDate, 'ISO'),
 				monday: parseHours(monday),
@@ -136,14 +141,14 @@
 				friday: parseHours(friday),
 				saturday: parseHours(saturday),
 				sunday: parseHours(sunday),
-				createdAt: model?.createdAt ?? Date.now(),
+				createdAt: initialModel?.createdAt ?? Date.now(),
 				updatedAt: Date.now()
 			};
 
 			await saveWorkTimeModel(savedModel);
 
 			// Update store
-			if (model) {
+			if (isEditMode) {
 				// Edit mode - replace existing
 				workTimeModels.update((models) =>
 					models.map((m) => (m.id === savedModel.id ? savedModel : m))
