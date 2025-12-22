@@ -772,6 +772,47 @@ To verify Supabase integration is working:
 
 ---
 
+## Phase 6.3: Snapshot Meta Improvements (Timezone + Timestamp Consistency)
+
+**Target:** Add timezone info and consistent timestamps to snapshot meta  
+**Status:** Complete
+**Date:** 2025-12-22
+
+### Changes Made
+
+- [x] **Add timezone info to snapshot meta**
+  - `meta.tz`: IANA timezone string (e.g., "Europe/Berlin") using `Intl.DateTimeFormat().resolvedOptions().timeZone`
+  - `meta.tzOffsetMinutes`: Numeric offset using `Date.getTimezoneOffset()` (minutes behind UTC; e.g., -60 for UTC+1)
+
+- [x] **Add epoch ms timestamp for consistency**
+  - `meta.exportedAt`: ISO 8601 string (human-readable, e.g., "2025-12-22T12:30:00.000Z")
+  - `meta.exportedAtMs`: Epoch milliseconds (programmatic use, e.g., 1734869400000)
+
+### Snapshot Meta Schema (v1)
+
+```typescript
+interface SnapshotMeta {
+  schemaVersion: number;           // Always 1 for now
+  exportedAt: string;              // ISO 8601 timestamp
+  exportedAtMs: number;            // Epoch milliseconds
+  appVersion: string;              // App version from version.json
+  tz?: string;                     // IANA timezone (optional, may be undefined)
+  tzOffsetMinutes: number;         // Minutes behind UTC (Date.getTimezoneOffset())
+}
+```
+
+### Backward Compatibility
+
+- `tz` is optional (may be undefined if Intl API unavailable)
+- Restore/import accepts snapshots missing `tz`/`tzOffsetMinutes` (older backups)
+- No changes to domain records (categories, timeEntries, etc.)
+
+### Files Changed
+
+- `src/lib/backup/snapshot.ts`: Updated `SnapshotMeta` interface and `exportSnapshot()` function
+
+---
+
 ## Spec Compliance Verification
 
 After each phase, verify against specs:
