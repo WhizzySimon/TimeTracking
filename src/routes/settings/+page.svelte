@@ -521,6 +521,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding-right: 1rem;
 	}
 
 	.section-header h2 {

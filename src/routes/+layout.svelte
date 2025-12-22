@@ -297,6 +297,10 @@
 		top: 0;
 		z-index: 50;
 		gap: 8px;
+		max-width: 600px;
+		margin: 0 auto;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
 	.header-left,
