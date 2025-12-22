@@ -322,4 +322,45 @@ This trade-off is accepted for v1.
 
 ---
 
+## 11) v2 Features (Planned)
+
+### 11.1 Category Import/Export
+
+**First run behavior:**
+- App starts with empty user categories (only system categories present)
+- No prompt to import - user adds categories manually or imports
+
+**System categories (always present, not importable/exportable):**
+- Pause
+- Urlaub
+- Krank
+- Feiertag
+
+**Export:**
+- Settings → "Kategorien exportieren" button
+- Exports user categories only (not system categories)
+- Simple format: comma-separated list in a text file
+- Example: `Allg. Orga, Mails, Andachten, Gottesdienst, Seelsorge`
+
+**Import:**
+- Settings → "Kategorien importieren" button
+- Accepts comma-separated text file
+- All imported categories default to `countsAsWorkTime: true`
+- Duplicates are skipped
+- Merges with existing (does not replace)
+
+**UI hint:**
+- Import button shows expected format: "Komma-getrennte Liste (z.B. Meeting, Projekt A, Verwaltung)"
+
+### 11.2 Default Work Time Model
+
+**Simplification:**
+- Remove bundled default categories JSON
+- Provide one default work time model on first run: "Vollzeit 40h"
+  - Monday-Friday: 8.0 hours each
+  - Saturday-Sunday: 0.0 hours
+- User can edit or create additional models
+
+---
+
 END OF DOCUMENT — TimeTracker v1 Technical Guideline
