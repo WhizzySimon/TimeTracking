@@ -9,7 +9,7 @@
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline } from '$lib/stores';
-	import { loadSession, isAuthenticated, clearSession } from '$lib/stores/auth';
+	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
 	import { saveToCloud, getBackupMeta } from '$lib/backup/cloud';
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
 	import { setupUpdateDetection, updateAvailable, applyUpdate } from '$lib/pwa/update';
@@ -23,6 +23,7 @@
 
 	let showLogoutConfirm = $state(false);
 	let showOfflineDialog = $state(false);
+	let showProfileMenu = $state(false);
 	let backupInProgress = $state(false);
 	let lastBackupAt = $state<string | null>(null);
 	let backupError = $state<string | null>(null);
@@ -209,30 +210,87 @@
 				{/if}
 			</div>
 			<div class="header-right">
-				<a href={resolve('/settings')} class="header-btn settings-btn" title="Einstellungen">
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+				<div class="profile-menu-container">
+					<button
+						class="header-btn profile-btn"
+						onclick={() => (showProfileMenu = !showProfileMenu)}
+						title="Profil"
 					>
-						<circle cx="12" cy="12" r="3"></circle>
-						<path
-							d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-						></path>
-					</svg>
-				</a>
-				<button
-					class="header-btn logout-btn"
-					onclick={() => (showLogoutConfirm = true)}
-					title="Abmelden"
-				>
-					Log out
-				</button>
+						<svg
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<circle cx="12" cy="8" r="4"></circle>
+							<path d="M20 21a8 8 0 1 0-16 0"></path>
+						</svg>
+					</button>
+					{#if showProfileMenu}
+						<div class="profile-menu" role="menu">
+							<div class="profile-email">
+								{$authSession?.email ?? 'Nicht angemeldet'}
+							</div>
+							<div class="menu-divider"></div>
+							<a
+								href={resolve('/settings')}
+								class="menu-item"
+								role="menuitem"
+								onclick={() => (showProfileMenu = false)}
+							>
+								<svg
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<circle cx="12" cy="12" r="3"></circle>
+									<path
+										d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+									></path>
+								</svg>
+								Einstellungen
+							</a>
+							<button
+								class="menu-item logout"
+								role="menuitem"
+								onclick={() => {
+									showProfileMenu = false;
+									showLogoutConfirm = true;
+								}}
+							>
+								<svg
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+									<polyline points="16 17 21 12 16 7"></polyline>
+									<line x1="21" y1="12" x2="9" y2="12"></line>
+								</svg>
+								Abmelden
+							</button>
+						</div>
+						<button
+							class="profile-menu-backdrop"
+							onclick={() => (showProfileMenu = false)}
+							aria-label="Menü schließen"
+						></button>
+					{/if}
+				</div>
 			</div>
 		</header>
 		{#if hasUpdate}
@@ -360,31 +418,92 @@
 		cursor: not-allowed;
 	}
 
-	.settings-btn {
-		background: transparent;
-		color: #bfdbfe;
-		border: none;
-		text-decoration: none;
-		font-size: 1.2rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 6px;
+	.profile-menu-container {
+		position: relative;
 	}
 
-	.settings-btn:hover {
-		color: #ffffff;
-	}
-
-	.logout-btn {
+	.profile-btn {
 		background: transparent;
 		color: #bfdbfe;
 		border: 1px solid #3b82f6;
+		border-radius: 50%;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
-	.logout-btn:hover {
+	.profile-btn:hover {
 		background: #2563eb;
 		color: #ffffff;
+	}
+
+	.profile-menu {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		margin-top: 8px;
+		background: white;
+		border-radius: 8px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		min-width: 200px;
+		z-index: 100;
+		overflow: hidden;
+	}
+
+	.profile-email {
+		padding: 12px 16px;
+		font-size: 0.85rem;
+		color: #666;
+		background: #f9fafb;
+		border-bottom: 1px solid #eee;
+		word-break: break-all;
+	}
+
+	.menu-divider {
+		height: 1px;
+		background: #eee;
+	}
+
+	.menu-item {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 12px 16px;
+		font-size: 0.9rem;
+		color: #333;
+		text-decoration: none;
+		background: none;
+		border: none;
+		width: 100%;
+		text-align: left;
+		cursor: pointer;
+	}
+
+	.menu-item:hover {
+		background: #f5f5f5;
+	}
+
+	.menu-item.logout {
+		color: #dc2626;
+	}
+
+	.menu-item.logout:hover {
+		background: #fef2f2;
+	}
+
+	.profile-menu-backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: transparent;
+		border: none;
+		z-index: 99;
+		cursor: default;
 	}
 
 	.backup-timestamp {

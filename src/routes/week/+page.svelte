@@ -52,8 +52,11 @@
 	// Is this the current week?
 	let isThisCurrentWeek = $derived(isCurrentWeek($currentDate));
 
-	// Week title display
-	let weekTitle = $derived(isThisCurrentWeek ? `Aktuelle KW ${weekNumber}` : `KW ${weekNumber}`);
+	// Week title display (with year)
+	let weekYear = $derived($currentDate.getFullYear());
+	let weekTitle = $derived(
+		isThisCurrentWeek ? `Aktuelle KW ${weekNumber}/${weekYear}` : `KW ${weekNumber}/${weekYear}`
+	);
 
 	// Filter entries for current week
 	let weekEntries = $derived(
@@ -250,6 +253,7 @@
 {#if showWeekPicker}
 	<WeekYearPicker
 		currentDate={$currentDate}
+		timeEntries={$timeEntries}
 		onselect={handleWeekSelect}
 		onclose={() => (showWeekPicker = false)}
 	/>

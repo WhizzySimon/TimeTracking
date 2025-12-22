@@ -25,6 +25,7 @@
 	import AddTaskModal from '$lib/components/AddTaskModal.svelte';
 	import WarningBanner from '$lib/components/WarningBanner.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+	import DayPicker from '$lib/components/DayPicker.svelte';
 
 	let loading = $state(true);
 
@@ -36,6 +37,7 @@
 	let editingEntry: TimeEntry | null = $state(null);
 	let showDeleteConfirm = $state(false);
 	let entryToDelete: TimeEntry | null = $state(null);
+	let showDayPicker = $state(false);
 
 	// Filter entries for current date
 	let dayEntries = $derived($timeEntries.filter((e) => e.date === formatDate($currentDate, 'ISO')));
@@ -52,8 +54,13 @@
 	// Saldo = Ist - Soll
 	let saldo = $derived(calculateSaldo(ist, soll));
 
-	// Reactive date display
-	let dateDisplay = $derived(isToday($currentDate) ? 'Heute' : formatDate($currentDate, 'DE'));
+	// Reactive date display (with year)
+	let dateYear = $derived($currentDate.getFullYear());
+	let dateDisplay = $derived(
+		isToday($currentDate)
+			? `Heute, ${formatDate($currentDate, 'DE')}`
+			: `${formatDate($currentDate, 'DE')} ${dateYear}`
+	);
 
 	// Load day type when date changes
 	$effect(() => {
@@ -80,8 +87,13 @@
 		currentDate.set(addDays($currentDate, 1));
 	}
 
-	function goToToday() {
-		currentDate.set(new Date());
+	function openDayPicker() {
+		showDayPicker = true;
+	}
+
+	function handleDaySelect(date: Date) {
+		currentDate.set(date);
+		showDayPicker = false;
 	}
 
 	// Modal handlers
@@ -152,7 +164,7 @@
 		<!-- Date Navigation -->
 		<header class="date-nav">
 			<button class="nav-btn" onclick={goToPreviousDay} aria-label="Vorheriger Tag">←</button>
-			<button class="date-title" onclick={goToToday}>{dateDisplay}</button>
+			<button class="date-title" onclick={openDayPicker}>{dateDisplay}</button>
 			<button class="nav-btn" onclick={goToNextDay} aria-label="Nächster Tag">→</button>
 		</header>
 
@@ -191,6 +203,16 @@
 		confirmStyle="danger"
 		onconfirm={confirmDeleteEntry}
 		oncancel={cancelDeleteEntry}
+	/>
+{/if}
+
+<!-- Day Picker Modal -->
+{#if showDayPicker}
+	<DayPicker
+		currentDate={$currentDate}
+		timeEntries={$timeEntries}
+		onselect={handleDaySelect}
+		onclose={() => (showDayPicker = false)}
 	/>
 {/if}
 

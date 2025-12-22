@@ -9,27 +9,55 @@
 <script lang="ts">
 	import { getWeekNumber } from '$lib/utils/date';
 	import Modal from './Modal.svelte';
+	import type { TimeEntry } from '$lib/types';
 
 	interface Props {
 		/** Current date to derive initial week/year */
 		currentDate: Date;
+		/** Time entries to determine available weeks */
+		timeEntries?: TimeEntry[];
 		/** Callback when week is selected */
 		onselect?: (date: Date) => void;
 		/** Callback when modal is closed */
 		onclose?: () => void;
 	}
 
-	let { currentDate, onselect, onclose }: Props = $props();
+	let { currentDate, timeEntries = [], onselect, onclose }: Props = $props();
 
 	// Initialize with current week/year from prop
-	const initialYear = currentDate.getFullYear();
-	const initialWeek = getWeekNumber(currentDate);
-	let selectedYear = $state(initialYear);
-	let selectedWeek = $state(initialWeek);
+	function getInitialYear() {
+		return currentDate.getFullYear();
+	}
+	function getInitialWeek() {
+		return getWeekNumber(currentDate);
+	}
+	let selectedYear = $state(getInitialYear());
+	let selectedWeek = $state(getInitialWeek());
 
-	// Generate year options (current year ± 10 years)
-	const currentYear = new Date().getFullYear();
-	const years = Array.from({ length: 21 }, (_, i) => currentYear - 10 + i);
+	// Calculate available weeks based on time entries + future until end of next month
+	const now = new Date();
+	const currentYear = now.getFullYear();
+	const currentMonth = now.getMonth();
+
+	// End of next month
+	const endOfNextMonth = new Date(currentYear, currentMonth + 2, 0);
+	const endWeek = getWeekNumber(endOfNextMonth);
+	const endYear = endOfNextMonth.getFullYear();
+
+	// Find earliest entry date
+	function getEarliestEntryDate(): Date {
+		if (timeEntries.length === 0) return now;
+		const dates = timeEntries.map((e) => new Date(e.date)).filter((d) => !isNaN(d.getTime()));
+		if (dates.length === 0) return now;
+		return dates.reduce((min, d) => (d < min ? d : min), dates[0]);
+	}
+
+	const earliestDate = getEarliestEntryDate();
+	const startYear = earliestDate.getFullYear();
+	const startWeek = getWeekNumber(earliestDate);
+
+	// Generate year options from earliest entry year to end of next month year
+	const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 
 	// Get number of weeks in a year (52 or 53)
 	function getWeeksInYear(year: number): number {
@@ -39,12 +67,30 @@
 		return jan1.getDay() === 4 || dec31.getDay() === 4 ? 53 : 52;
 	}
 
-	let weeksInYear = $derived(getWeeksInYear(selectedYear));
+	// Get valid week range for a given year
+	function getValidWeekRange(year: number): { min: number; max: number } {
+		const maxWeeks = getWeeksInYear(year);
+		let min = 1;
+		let max = maxWeeks;
+
+		if (year === startYear) {
+			min = startWeek;
+		}
+		if (year === endYear) {
+			max = Math.min(endWeek, maxWeeks);
+		}
+		return { min, max };
+	}
+
+	let validWeekRange = $derived(getValidWeekRange(selectedYear));
 
 	// Ensure selected week is valid for the year
 	$effect(() => {
-		if (selectedWeek > weeksInYear) {
-			selectedWeek = weeksInYear;
+		if (selectedWeek > validWeekRange.max) {
+			selectedWeek = validWeekRange.max;
+		}
+		if (selectedWeek < validWeekRange.min) {
+			selectedWeek = validWeekRange.min;
 		}
 	});
 
@@ -98,7 +144,7 @@
 		<div class="field">
 			<label for="week-select">Kalenderwoche:</label>
 			<select id="week-select" bind:value={selectedWeek} class="select-input">
-				{#each Array.from({ length: weeksInYear }, (_, i) => i + 1) as week (week)}
+				{#each Array.from({ length: validWeekRange.max - validWeekRange.min + 1 }, (_, i) => validWeekRange.min + i) as week (week)}
 					<option value={week}>KW {week}</option>
 				{/each}
 			</select>
