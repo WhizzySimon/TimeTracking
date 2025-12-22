@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 4 - Sync & Polish  
-**Tasks Completed:** 44 / 60  
+**Tasks Completed:** 45 / 60  
 **Estimated Progress:** 70%
 
 ---
@@ -333,7 +333,11 @@
   - Verified: npm run verify ✅ (ALL PASSED)
   - Deviations: None
   - Notes: Created syncNow() with debouncing (5s), checkSyncStatus(), getSyncStatusValue(). v1 logs to console and marks items as acked (no actual API). Updates syncStatus store during sync.
-- [ ] **Task 4.4** — Implement sync triggers
+- [x] **Task 4.4** — Implement sync triggers
+  - Files: `src/lib/storage/operations.ts`, `src/routes/+layout.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED), Playwright UI test ✅
+  - Deviations: None
+  - Notes: Added triggerSync() after each data operation, startup sync (1s delay), visibility change sync trigger
 - [ ] **Task 4.5** — Create sync status indicator component
 - [ ] **Task 4.6** — Implement online/offline detection
 
