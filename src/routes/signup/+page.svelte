@@ -10,6 +10,7 @@
 	let password = $state('');
 	let confirmPassword = $state('');
 	let error = $state('');
+	let success = $state('');
 	let loading = $state(false);
 
 	async function handleSubmit(event: Event) {
@@ -37,6 +38,7 @@
 		}
 
 		loading = true;
+		success = '';
 
 		try {
 			const { signup } = await import('$lib/api/auth');
@@ -55,10 +57,17 @@
 			goto(resolve('/day'));
 		} catch (e) {
 			console.error('[Signup] Failed:', e);
-			error =
+			const message =
 				e instanceof Error
 					? e.message
 					: 'Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.';
+
+			// Check if this is actually a success message (email confirmation required)
+			if (message.includes('erfolgreich')) {
+				success = message;
+			} else {
+				error = message;
+			}
 		} finally {
 			loading = false;
 		}
@@ -108,6 +117,10 @@
 					disabled={loading}
 				/>
 			</div>
+
+			{#if success}
+				<div class="success">{success}</div>
+			{/if}
 
 			{#if error}
 				<div class="error">{error}</div>
@@ -202,6 +215,15 @@
 		font-size: 0.9rem;
 		padding: 0.75rem;
 		background: #fef2f2;
+		border-radius: 6px;
+		text-align: center;
+	}
+
+	.success {
+		color: #16a34a;
+		font-size: 0.9rem;
+		padding: 0.75rem;
+		background: #dcfce7;
 		border-radius: 6px;
 		text-align: center;
 	}

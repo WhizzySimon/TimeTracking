@@ -740,13 +740,13 @@ Backup:
 
 ### Verification Results
 
-| Check | Result |
-|-------|--------|
-| npm run verify | ✅ ALL PASSED |
-| E2E Chromium | 9/9 ✅ |
-| E2E WebKit | 9/9 ✅ |
-| E2E Mobile Safari | 9/9 ✅ |
-| **Total** | **27 tests passed** |
+| Check             | Result              |
+| ----------------- | ------------------- |
+| npm run verify    | ✅ ALL PASSED       |
+| E2E Chromium      | 9/9 ✅              |
+| E2E WebKit        | 9/9 ✅              |
+| E2E Mobile Safari | 9/9 ✅              |
+| **Total**         | **27 tests passed** |
 
 ### Manual Verification Checklist
 
