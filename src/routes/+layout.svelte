@@ -6,7 +6,6 @@
 	import { resolve } from '$app/paths';
 	import favicon from '$lib/assets/favicon.svg';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
-	import SyncIndicator from '$lib/components/SyncIndicator.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline } from '$lib/stores';
@@ -195,7 +194,6 @@
 				{/if}
 			</div>
 			<div class="header-right">
-				<SyncIndicator />
 				<button
 					class="header-btn logout-btn"
 					onclick={() => (showLogoutConfirm = true)}
