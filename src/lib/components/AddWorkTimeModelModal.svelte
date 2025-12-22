@@ -29,7 +29,11 @@
 	let { model = null, onsave, onclose }: Props = $props();
 
 	// Capture initial values from model prop (intentionally not reactive)
-	const initialModel = model;
+	// Use function to avoid Svelte state_referenced_locally warning
+	function getInitialModel() {
+		return model;
+	}
+	const initialModel = getInitialModel();
 
 	// Helper to format hours for display
 	function formatHoursForInput(hours: number | null): string {
