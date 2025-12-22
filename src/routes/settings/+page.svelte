@@ -12,15 +12,11 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
-	import { resolve } from '$app/paths';
-	import { categories, workTimeModels, isOnline } from '$lib/stores';
-	import { clearSession } from '$lib/stores/auth';
+	import { categories, workTimeModels } from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
 	import { deleteUserCategoryWithSync, deleteWorkTimeModel } from '$lib/storage/operations';
 	import { downloadCategoriesFile } from '$lib/utils/categoryIO';
-	import { saveToCloud, getBackupMeta } from '$lib/backup/cloud';
 	import type { Category, WorkTimeModel } from '$lib/types';
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
@@ -76,14 +72,9 @@
 	let showImportCategories = $state(false);
 	let showDeleteConfirm = $state(false);
 	let showDeleteModelConfirm = $state(false);
-	let showLogoutConfirm = $state(false);
-	let showOfflineDialog = $state(false);
 	let categoryToDelete: Category | null = $state(null);
 	let modelToDelete: WorkTimeModel | null = $state(null);
 	let modelToEdit: WorkTimeModel | null = $state(null);
-	let backupInProgress = $state(false);
-	let lastBackupAt = $state<string | null>(null);
-	let backupError = $state<string | null>(null);
 	let showCategoryMenu = $state(false);
 
 	function closeCategoryMenu(event: MouseEvent) {
@@ -182,11 +173,6 @@
 				appVersion = 'unbekannt';
 			}
 
-			const backupMeta = await getBackupMeta();
-			if (backupMeta?.lastBackupAt) {
-				lastBackupAt = backupMeta.lastBackupAt;
-			}
-
 			if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
 				swMessageHandler = (event: MessageEvent) => {
 					if (event.data?.type === 'UPDATE_AVAILABLE') {
@@ -208,50 +194,6 @@
 
 	function reloadApp() {
 		window.location.reload();
-	}
-
-	async function handleLogout() {
-		await clearSession();
-		goto(resolve('/login'));
-	}
-
-	async function handleCloudBackup() {
-		backupError = null;
-
-		if (!$isOnline) {
-			showOfflineDialog = true;
-			return;
-		}
-
-		backupInProgress = true;
-
-		try {
-			const result = await saveToCloud();
-			if (result.success && result.timestamp) {
-				lastBackupAt = result.timestamp;
-			} else if (!result.success) {
-				backupError = result.error ?? 'Backup fehlgeschlagen';
-			}
-		} catch (e) {
-			console.error('[Settings] Backup failed:', e);
-			backupError = e instanceof Error ? e.message : 'Backup fehlgeschlagen';
-		} finally {
-			backupInProgress = false;
-		}
-	}
-
-	function formatBackupTime(isoString: string): string {
-		try {
-			return new Date(isoString).toLocaleString('de-DE', {
-				day: '2-digit',
-				month: '2-digit',
-				year: 'numeric',
-				hour: '2-digit',
-				minute: '2-digit'
-			});
-		} catch {
-			return isoString;
-		}
 	}
 </script>
 
@@ -348,7 +290,7 @@
 										showCategoryMenu = false;
 									}}
 								>
-									+ Kategorie
+									+ Hinzufügen
 								</button>
 								<button
 									class="dropdown-item"
@@ -357,7 +299,7 @@
 										showCategoryMenu = false;
 									}}
 								>
-									Exportieren
+									→ Exportieren
 								</button>
 								<button
 									class="dropdown-item"
@@ -366,7 +308,7 @@
 										showCategoryMenu = false;
 									}}
 								>
-									Importieren
+									← Importieren
 								</button>
 							</div>
 						{/if}
@@ -401,26 +343,6 @@
 			</div>
 		</section>
 
-		<!-- Cloud Backup Section -->
-		<section class="section backup-section">
-			<div class="section-header">
-				<h2>Cloud-Backup</h2>
-			</div>
-			<div class="backup-content">
-				<button class="backup-btn" onclick={handleCloudBackup} disabled={backupInProgress}>
-					{backupInProgress ? 'Speichern...' : 'In Cloud speichern'}
-				</button>
-				{#if lastBackupAt}
-					<span class="backup-time">Letztes Backup: {formatBackupTime(lastBackupAt)}</span>
-				{:else}
-					<span class="backup-time backup-never">Noch kein Backup erstellt</span>
-				{/if}
-				{#if backupError}
-					<span class="backup-error">{backupError}</span>
-				{/if}
-			</div>
-		</section>
-
 		<!-- Version Section -->
 		<section class="section version-section">
 			<div class="version-info">
@@ -435,11 +357,6 @@
 					<button class="update-btn" onclick={reloadApp}>Aktualisieren</button>
 				</div>
 			{/if}
-		</section>
-
-		<!-- Logout Section -->
-		<section class="section logout-section">
-			<button class="logout-btn" onclick={() => (showLogoutConfirm = true)}> Abmelden </button>
 		</section>
 	{/if}
 </div>
@@ -486,29 +403,6 @@
 		confirmStyle="danger"
 		onconfirm={confirmDeleteModel}
 		oncancel={cancelDeleteModel}
-	/>
-{/if}
-
-<!-- Logout Confirmation -->
-{#if showLogoutConfirm}
-	<ConfirmDialog
-		title="Abmelden"
-		message="Möchten Sie sich wirklich abmelden? Ihre lokalen Daten bleiben erhalten."
-		confirmLabel="Abmelden"
-		confirmStyle="danger"
-		onconfirm={handleLogout}
-		oncancel={() => (showLogoutConfirm = false)}
-	/>
-{/if}
-
-<!-- Offline Dialog -->
-{#if showOfflineDialog}
-	<ConfirmDialog
-		type="alert"
-		title="Offline"
-		message="Backup nicht möglich — Sie sind offline. Ihre Änderungen sind lokal gespeichert. Versuchen Sie es erneut, wenn Sie online sind."
-		confirmLabel="OK"
-		onconfirm={() => (showOfflineDialog = false)}
 	/>
 {/if}
 
@@ -689,56 +583,6 @@
 		background: #fef2f2;
 	}
 
-	.backup-section {
-		margin-top: 1rem;
-		padding-top: 1rem;
-		border-top: 1px solid #eee;
-	}
-
-	.backup-content {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.backup-btn {
-		padding: 0.75rem 1rem;
-		background: #3b82f6;
-		color: white;
-		border: none;
-		border-radius: 8px;
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.backup-btn:hover:not(:disabled) {
-		background: #2563eb;
-	}
-
-	.backup-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.backup-time {
-		font-size: 0.85rem;
-		color: #666;
-	}
-
-	.backup-never {
-		color: #999;
-		font-style: italic;
-	}
-
-	.backup-error {
-		font-size: 0.85rem;
-		color: #dc2626;
-		padding: 0.5rem;
-		background: #fef2f2;
-		border-radius: 4px;
-	}
-
 	.version-section {
 		margin-top: 1rem;
 		padding-top: 1rem;
@@ -792,27 +636,5 @@
 
 	.update-btn:hover {
 		background: #d97706;
-	}
-
-	.logout-section {
-		margin-top: 1rem;
-		padding-top: 1rem;
-		border-top: 1px solid #eee;
-	}
-
-	.logout-btn {
-		width: 100%;
-		padding: 0.875rem;
-		background: white;
-		color: #dc2626;
-		border: 1px solid #dc2626;
-		border-radius: 8px;
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.logout-btn:hover {
-		background: #fef2f2;
 	}
 </style>

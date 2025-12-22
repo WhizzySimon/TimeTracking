@@ -317,16 +317,16 @@
 	.settings-btn {
 		background: transparent;
 		color: #666;
-		border: 1px solid #ddd;
+		border: none;
 		text-decoration: none;
-		font-size: 1.1rem;
+		font-size: 1.2rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		padding: 6px;
 	}
 
 	.settings-btn:hover {
-		background: #f3f4f6;
 		color: #333;
 	}
 
