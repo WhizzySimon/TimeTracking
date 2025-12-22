@@ -81,10 +81,9 @@
 			const date = new Date(isoString);
 			const day = date.getDate().toString().padStart(2, '0');
 			const month = (date.getMonth() + 1).toString().padStart(2, '0');
-			const year = date.getFullYear().toString().slice(-2);
 			const hours = date.getHours().toString().padStart(2, '0');
 			const minutes = date.getMinutes().toString().padStart(2, '0');
-			return `Last: ${hours}:${minutes} ${day}.${month}.${year}`;
+			return `${hours}:${minutes} ${day}.${month}`;
 		} catch {
 			return isoString;
 		}
@@ -369,7 +368,7 @@
 		display: none;
 	}
 
-	@media (min-width: 480px) {
+	@media (min-width: 360px) {
 		.backup-timestamp {
 			display: inline;
 		}
