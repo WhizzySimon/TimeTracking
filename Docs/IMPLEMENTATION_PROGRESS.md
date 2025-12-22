@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 4 - Sync & Polish  
-**Tasks Completed:** 52 / 60  
+**Tasks Completed:** 53 / 60  
 **Estimated Progress:** 72%
 
 ---
@@ -380,7 +380,11 @@
   - Verified: npm run verify ✅ (ALL PASSED)
   - Deviations: None
   - Notes: Added focus management to Modal (focus on open, restore on close). Existing a11y: aria-labels on buttons, role="dialog", aria-modal, aria-labelledby, keyboard navigation (Escape to close), semantic HTML throughout.
-- [ ] **Task 4.12** — Implement responsive design
+- [x] **Task 4.12** — Implement responsive design
+  - Files: `src/lib/components/InlineSummary.svelte`, `src/lib/components/AddWorkTimeModelModal.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Added media queries for small screens (<360px, <400px). InlineSummary stacks vertically on tiny screens. Weekday grid adapts from 7 to 4 to 2 columns. Existing responsive: max-width containers, flexbox, 44px touch targets, rem units.
 
 ### Testing & Deployment
 

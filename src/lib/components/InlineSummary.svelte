@@ -70,4 +70,16 @@
 	.value.negative {
 		color: var(--error-color, #ef4444);
 	}
+
+	@media (max-width: 360px) {
+		.inline-summary {
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.summary-item {
+			justify-content: space-between;
+			width: 100%;
+		}
+	}
 </style>

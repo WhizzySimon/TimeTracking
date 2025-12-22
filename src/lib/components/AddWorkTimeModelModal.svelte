@@ -389,4 +389,16 @@
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
+
+	@media (max-width: 400px) {
+		.weekday-grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+
+	@media (max-width: 300px) {
+		.weekday-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
 </style>
