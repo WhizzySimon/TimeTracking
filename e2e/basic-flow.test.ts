@@ -19,7 +19,65 @@ test.describe('Basic App Flow', () => {
 				if (db.name) indexedDB.deleteDatabase(db.name);
 			}
 		});
-		// Reload to start fresh
+		// Create mock auth session so tests don't get redirected to login
+		await page.evaluate(async () => {
+			const DB_NAME = 'timetracker';
+			const DB_VERSION = 6;
+			return new Promise<void>((resolve, reject) => {
+				const request = indexedDB.open(DB_NAME, DB_VERSION);
+				request.onerror = () => reject(request.error);
+				request.onupgradeneeded = (event) => {
+					const db = (event.target as IDBOpenDBRequest).result;
+					// Create all required stores
+					if (!db.objectStoreNames.contains('categories')) {
+						db.createObjectStore('categories', { keyPath: 'id' });
+					}
+					if (!db.objectStoreNames.contains('timeEntries')) {
+						const store = db.createObjectStore('timeEntries', { keyPath: 'id' });
+						store.createIndex('date', 'date', { unique: false });
+						store.createIndex('categoryId', 'categoryId', { unique: false });
+					}
+					if (!db.objectStoreNames.contains('dayTypes')) {
+						db.createObjectStore('dayTypes', { keyPath: 'date' });
+					}
+					if (!db.objectStoreNames.contains('workTimeModels')) {
+						const store = db.createObjectStore('workTimeModels', { keyPath: 'id' });
+						store.createIndex('validFrom', 'validFrom', { unique: false });
+					}
+					if (!db.objectStoreNames.contains('meta')) {
+						db.createObjectStore('meta', { keyPath: 'key' });
+					}
+					if (!db.objectStoreNames.contains('outbox')) {
+						const store = db.createObjectStore('outbox', { keyPath: 'id' });
+						store.createIndex('status', 'status', { unique: false });
+						store.createIndex('createdAt', 'createdAt', { unique: false });
+					}
+					if (!db.objectStoreNames.contains('authSession')) {
+						db.createObjectStore('authSession', { keyPath: 'key' });
+					}
+				};
+				request.onsuccess = () => {
+					const db = request.result;
+					// Insert mock auth session
+					const tx = db.transaction('authSession', 'readwrite');
+					const store = tx.objectStore('authSession');
+					const mockSession = {
+						key: 'current',
+						userId: 'test-user-id',
+						email: 'test@example.com',
+						token: 'mock-token-for-testing',
+						expiresAt: Date.now() + 24 * 60 * 60 * 1000 // 24 hours from now
+					};
+					store.put(mockSession);
+					tx.oncomplete = () => {
+						db.close();
+						resolve();
+					};
+					tx.onerror = () => reject(tx.error);
+				};
+			});
+		});
+		// Reload to start fresh with auth session
 		await page.reload();
 		await page.waitForLoadState('networkidle');
 	});
@@ -51,12 +109,14 @@ test.describe('Basic App Flow', () => {
 		// Click Analysis tab
 		await page.getByRole('link', { name: 'Auswertung' }).click();
 		await expect(page).toHaveURL(/\/analysis/);
-		await expect(page.getByText('Zeitraum:')).toBeVisible();
+		// Wait for loading to complete, then check for Zeitraum label
+		await expect(page.getByText('Zeitraum:')).toBeVisible({ timeout: 10000 });
 
 		// Click Settings tab
 		await page.getByRole('link', { name: 'Einstellungen' }).click();
 		await expect(page).toHaveURL(/\/settings/);
-		await expect(page.getByText('Kategorien')).toBeVisible();
+		// Use more specific selector - look for the section heading
+		await expect(page.getByRole('heading', { name: 'Abwesenheitskategorien' })).toBeVisible();
 
 		// Click Day tab to go back
 		await page.getByRole('link', { name: 'Tag' }).click();

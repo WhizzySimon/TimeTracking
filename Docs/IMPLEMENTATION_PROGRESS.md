@@ -7,6 +7,29 @@
 
 ---
 
+## Safari-like Browser Testing Summary (2025-12-22)
+
+| Browser                   | Tests | Status  |
+| ------------------------- | ----- | ------- |
+| Desktop WebKit (Safari)   | 9/9   | ✅ PASS |
+| Mobile Safari (iPhone 13) | 9/9   | ✅ PASS |
+| Chromium (sanity check)   | 9/9   | ✅ PASS |
+
+**Issues Found & Fixed:**
+
+1. **Auth session cleared by tests** - Tests cleared IndexedDB including auth session, causing redirect to /login
+   - Fix: Added mock auth session creation in test beforeEach hooks
+2. **Test expectations outdated** - Tests expected default user categories from JSON (removed in Phase 5)
+   - Fix: Updated tests to expect only 4 system categories on first run
+3. **Strict mode violation** - `getByText('Kategorien')` matched multiple elements on Settings page
+   - Fix: Changed to more specific selector `getByRole('heading', { name: 'Abwesenheitskategorien' })`
+4. **Analysis page loading** - Test checked for 'Zeitraum:' before page finished loading
+   - Fix: Added timeout for loading state to complete
+
+**No WebKit/iOS-specific issues found.** All fixes were test infrastructure issues, not browser compatibility problems.
+
+---
+
 ## How to Use This File
 
 **Cascade MUST update this file after completing each task:**

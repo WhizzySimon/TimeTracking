@@ -2,14 +2,16 @@
  * Milestone 1 E2E Smoke Test
  * Verifies:
  * 1) System categories exist and are protected (countsAsWorkTime=false)
- * 2) Default categories seeded on first run
+ * 2) User categories can be added and persist
  * 3) Persistence across reload + no duplicate seeding
+ *
+ * Note: Per Phase 5, default user categories are no longer seeded from JSON.
+ * Only system categories (Pause, Urlaub, Krank, Feiertag) exist on first run.
  */
 
 import { expect, test } from '@playwright/test';
 
 const SYSTEM_CATEGORIES = ['Pause', 'Urlaub', 'Krank', 'Feiertag'];
-const KNOWN_DEFAULT_CATEGORY = 'Allg. Orga, Mails';
 
 test.describe('Milestone 1: Persistence + Categories', () => {
 	test.beforeEach(async ({ page }) => {
@@ -21,6 +23,67 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 				if (db.name) indexedDB.deleteDatabase(db.name);
 			}
 		});
+		// Create mock auth session so tests don't get redirected to login
+		await page.evaluate(async () => {
+			const DB_NAME = 'timetracker';
+			const DB_VERSION = 6;
+			return new Promise<void>((resolve, reject) => {
+				const request = indexedDB.open(DB_NAME, DB_VERSION);
+				request.onerror = () => reject(request.error);
+				request.onupgradeneeded = (event) => {
+					const db = (event.target as IDBOpenDBRequest).result;
+					// Create all required stores
+					if (!db.objectStoreNames.contains('categories')) {
+						db.createObjectStore('categories', { keyPath: 'id' });
+					}
+					if (!db.objectStoreNames.contains('timeEntries')) {
+						const store = db.createObjectStore('timeEntries', { keyPath: 'id' });
+						store.createIndex('date', 'date', { unique: false });
+						store.createIndex('categoryId', 'categoryId', { unique: false });
+					}
+					if (!db.objectStoreNames.contains('dayTypes')) {
+						db.createObjectStore('dayTypes', { keyPath: 'date' });
+					}
+					if (!db.objectStoreNames.contains('workTimeModels')) {
+						const store = db.createObjectStore('workTimeModels', { keyPath: 'id' });
+						store.createIndex('validFrom', 'validFrom', { unique: false });
+					}
+					if (!db.objectStoreNames.contains('meta')) {
+						db.createObjectStore('meta', { keyPath: 'key' });
+					}
+					if (!db.objectStoreNames.contains('outbox')) {
+						const store = db.createObjectStore('outbox', { keyPath: 'id' });
+						store.createIndex('status', 'status', { unique: false });
+						store.createIndex('createdAt', 'createdAt', { unique: false });
+					}
+					if (!db.objectStoreNames.contains('authSession')) {
+						db.createObjectStore('authSession', { keyPath: 'key' });
+					}
+				};
+				request.onsuccess = () => {
+					const db = request.result;
+					// Insert mock auth session
+					const tx = db.transaction('authSession', 'readwrite');
+					const store = tx.objectStore('authSession');
+					const mockSession = {
+						key: 'current',
+						userId: 'test-user-id',
+						email: 'test@example.com',
+						token: 'mock-token-for-testing',
+						expiresAt: Date.now() + 24 * 60 * 60 * 1000 // 24 hours from now
+					};
+					store.put(mockSession);
+					tx.oncomplete = () => {
+						db.close();
+						resolve();
+					};
+					tx.onerror = () => reject(tx.error);
+				};
+			});
+		});
+		// Reload to pick up auth session
+		await page.reload();
+		await page.waitForLoadState('networkidle');
 	});
 
 	test('system categories exist, are protected, and have countsAsWorkTime=false', async ({
@@ -48,18 +111,25 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 		}
 	});
 
-	test('default categories are seeded on first run', async ({ page }) => {
+	test('only system categories exist on first run (no default user categories)', async ({
+		page
+	}) => {
 		await page.goto('/settings');
 		await page.waitForSelector('[data-testid="category-list"]');
 
-		// Check that at least one known default category exists
-		const defaultItem = page.locator(`[data-testid="category-item"]`, {
-			has: page.locator(`[data-testid="category-name"]:has-text("${KNOWN_DEFAULT_CATEGORY}")`)
-		});
+		// Per Phase 5: only system categories should exist on first run
+		// No default user categories are seeded from JSON anymore
+		const allItems = page.locator('[data-testid="category-item"]');
+		const count = await allItems.count();
 
-		await expect(defaultItem).toBeVisible();
-		await expect(defaultItem).toHaveAttribute('data-category-type', 'user');
-		await expect(defaultItem).toHaveAttribute('data-counts-as-work', 'true');
+		// Should have exactly 4 system categories
+		expect(count).toBe(4);
+
+		// All should be system type
+		for (let i = 0; i < count; i++) {
+			const item = allItems.nth(i);
+			await expect(item).toHaveAttribute('data-category-type', 'system');
+		}
 	});
 
 	test('user category persists across reload and defaults are not duplicated', async ({ page }) => {
@@ -104,7 +174,7 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 		expect(countAfterReload).toBe(countAfterAdd);
 	});
 
-	test('cannot delete system categories (protection check)', async ({ page }) => {
+	test('cannot delete system categories but can delete user categories', async ({ page }) => {
 		await page.goto('/settings');
 		await page.waitForSelector('[data-testid="category-list"]');
 
@@ -117,11 +187,19 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 			await expect(deleteBtn).toHaveCount(0);
 		}
 
-		// Verify user categories DO have delete button
-		const defaultItem = page.locator(`[data-testid="category-item"]`, {
-			has: page.locator(`[data-testid="category-name"]:has-text("${KNOWN_DEFAULT_CATEGORY}")`)
+		// Add a user category to verify it gets a delete button
+		await page.getByRole('button', { name: '+ Kategorie' }).click();
+		await page.waitForSelector('[data-testid="new-category-name"]');
+		const testCategoryName = `DeleteTest-${Date.now()}`;
+		await page.fill('[data-testid="new-category-name"]', testCategoryName);
+		await page.click('[data-testid="add-category-btn"]');
+
+		// Verify user category has delete button
+		const userItem = page.locator(`[data-testid="category-item"]`, {
+			has: page.locator(`[data-testid="category-name"]:has-text("${testCategoryName}")`)
 		});
-		const userDeleteBtn = defaultItem.locator('[data-testid="delete-category-btn"]');
+		await expect(userItem).toBeVisible();
+		const userDeleteBtn = userItem.locator('[data-testid="delete-category-btn"]');
 		await expect(userDeleteBtn).toBeVisible();
 	});
 });
