@@ -782,7 +782,7 @@ To verify Supabase integration is working:
 
 - [x] **Add timezone info to snapshot meta**
   - `meta.tz`: IANA timezone string (e.g., "Europe/Berlin") using `Intl.DateTimeFormat().resolvedOptions().timeZone`
-  - `meta.tzOffsetMinutes`: Numeric offset using `Date.getTimezoneOffset()` (minutes behind UTC; e.g., -60 for UTC+1)
+  - `meta.tzOffsetMinutes`: Numeric offset using `Date.getTimezoneOffset()` (minutes behind UTC; positive in most of Europe, e.g., 60 for UTC+1, 120 for UTC+2)
 
 - [x] **Add epoch ms timestamp for consistency**
   - `meta.exportedAt`: ISO 8601 string (human-readable, e.g., "2025-12-22T12:30:00.000Z")
@@ -792,12 +792,12 @@ To verify Supabase integration is working:
 
 ```typescript
 interface SnapshotMeta {
-  schemaVersion: number;           // Always 1 for now
-  exportedAt: string;              // ISO 8601 timestamp
-  exportedAtMs: number;            // Epoch milliseconds
-  appVersion: string;              // App version from version.json
-  tz?: string;                     // IANA timezone (optional, may be undefined)
-  tzOffsetMinutes: number;         // Minutes behind UTC (Date.getTimezoneOffset())
+	schemaVersion: number; // Always 1 for now
+	exportedAt: string; // ISO 8601 timestamp
+	exportedAtMs: number; // Epoch milliseconds
+	appVersion: string; // App version from version.json
+	tz?: string; // IANA timezone (optional, may be undefined)
+	tzOffsetMinutes: number; // Minutes behind UTC (Date.getTimezoneOffset())
 }
 ```
 

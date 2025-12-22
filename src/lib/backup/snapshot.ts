@@ -15,7 +15,7 @@ export interface SnapshotMeta {
 	appVersion: string;
 	/** IANA timezone string (e.g., "Europe/Berlin") if available */
 	tz?: string;
-	/** Timezone offset in minutes behind UTC (e.g., -60 for UTC+1). Uses Date.getTimezoneOffset() convention. */
+	/** Timezone offset in minutes behind UTC (e.g., 60 for UTC+1, 120 for UTC+2). Uses Date.getTimezoneOffset() convention. */
 	tzOffsetMinutes: number;
 }
 
