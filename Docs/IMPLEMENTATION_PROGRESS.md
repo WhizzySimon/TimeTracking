@@ -7,7 +7,9 @@
 
 ---
 
-## Safari-like Browser Testing Summary (2025-12-22)
+## Cross-Browser Testing Summary (2025-12-22)
+
+### Automated E2E Tests (Playwright)
 
 | Browser                   | Tests | Status  |
 | ------------------------- | ----- | ------- |
@@ -15,18 +17,40 @@
 | Mobile Safari (iPhone 13) | 9/9   | ✅ PASS |
 | Chromium (sanity check)   | 9/9   | ✅ PASS |
 
-**Issues Found & Fixed:**
+### Interactive MCP Browser Testing
 
-1. **Auth session cleared by tests** - Tests cleared IndexedDB including auth session, causing redirect to /login
+| Browser/Device | Viewport | Pages Tested | Status |
+|----------------|----------|--------------|--------|
+| Desktop Safari (WebKit) | Standard | Login, Day, Analysis, Settings | ✅ PASS |
+| Desktop Chrome | Standard | All pages | ✅ PASS |
+| Mobile Safari (iPhone 15) | 393x852 | Day, Analysis | ✅ PASS |
+| Chrome 4K (32" monitor) | 3840x2160 | Login, Day, Analysis | ✅ PASS |
+| Android (Pixel 7) | 412x915 | Day, Analysis | ✅ PASS |
+
+### UI Issues Found & Fixed
+
+1. **Saldo label colored red** - The word "Saldo" was red along with the number
+   - Fix: Separated label from value, only number gets `.negative` class
+   - File: `src/routes/analysis/+page.svelte`
+
+2. **Auth session cleared by tests** - Tests cleared IndexedDB including auth session
    - Fix: Added mock auth session creation in test beforeEach hooks
-2. **Test expectations outdated** - Tests expected default user categories from JSON (removed in Phase 5)
-   - Fix: Updated tests to expect only 4 system categories on first run
-3. **Strict mode violation** - `getByText('Kategorien')` matched multiple elements on Settings page
-   - Fix: Changed to more specific selector `getByRole('heading', { name: 'Abwesenheitskategorien' })`
-4. **Analysis page loading** - Test checked for 'Zeitraum:' before page finished loading
-   - Fix: Added timeout for loading state to complete
 
-**No WebKit/iOS-specific issues found.** All fixes were test infrastructure issues, not browser compatibility problems.
+3. **Test expectations outdated** - Tests expected default user categories from JSON
+   - Fix: Updated tests to expect only 4 system categories on first run
+
+4. **Strict mode violation** - `getByText('Kategorien')` matched multiple elements
+   - Fix: Changed to more specific selector `getByRole('heading', { name: 'Abwesenheitskategorien' })`
+
+### Cross-Browser Verification Checklist
+
+- [x] Font rendering correct on all browsers (including German umlauts)
+- [x] Wide screen (4K): Content centered with max-width constraint
+- [x] Mobile: Navigation tabs fit, touch targets adequate
+- [x] Saldo numbers colored correctly (red for negative, green for positive)
+- [x] Forms usable on all viewport sizes
+
+**No browser-specific bugs found.** All issues were general UI/test infrastructure problems.
 
 ---
 
