@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 4 - Sync & Polish  
-**Tasks Completed:** 45 / 60  
-**Estimated Progress:** 70%
+**Tasks Completed:** 46 / 60  
+**Estimated Progress:** 72%
 
 ---
 
@@ -342,7 +342,11 @@
   - Files: `src/lib/components/ConfirmDialog.svelte`, `src/routes/day/+page.svelte`, `src/routes/settings/+page.svelte`, `src/lib/components/WeekTypeSelector.svelte`
   - Verified: npm run verify ✅ (ALL PASSED), Playwright UI test ✅
   - Notes: Created styled ConfirmDialog component with confirm/alert modes, danger button variant. Replaced all browser confirm() and alert() calls.
-- [ ] **Task 4.5** — Create sync status indicator component
+- [x] **Task 4.5** — Create sync status indicator component
+  - Files: `src/lib/components/SyncIndicator.svelte`, `src/routes/+layout.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED), Browser test ✅
+  - Deviations: None
+  - Notes: Component shows 4 states (synced/pending/syncing/error) with icons and German labels. Positioned in sticky header at top-right. Responsive (hides label on very small screens). Dark mode support.
 - [ ] **Task 4.6** — Implement online/offline detection
 
 ### Polish & Quality

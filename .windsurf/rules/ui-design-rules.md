@@ -80,23 +80,25 @@ These break the app design and look ugly. Instead:
 **Auto-retry before giving up. Never show error dialogs for recoverable failures.**
 
 ### Implementation:
+
 ```typescript
 async function doOperation(retryCount = 0) {
-  const maxRetries = 3;
-  try {
-    await operation();
-  } catch (e) {
-    console.error(`Failed (attempt ${retryCount + 1}/${maxRetries}):`, e);
-    if (retryCount < maxRetries - 1) {
-      await new Promise((r) => setTimeout(r, 500));
-      return doOperation(retryCount + 1);
-    }
-    console.error('Failed after all retries');
-  }
+	const maxRetries = 3;
+	try {
+		await operation();
+	} catch (e) {
+		console.error(`Failed (attempt ${retryCount + 1}/${maxRetries}):`, e);
+		if (retryCount < maxRetries - 1) {
+			await new Promise((r) => setTimeout(r, 500));
+			return doOperation(retryCount + 1);
+		}
+		console.error('Failed after all retries');
+	}
 }
 ```
 
 ### Rules:
+
 3 retries with 500ms delay between attempts
 Log to console for debugging, never show dialog
 User can retry manually by repeating the action if all retries fail
