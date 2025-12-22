@@ -390,6 +390,12 @@ When making multiple edits to the same file:
 - If file gets corrupted, delete it with `git checkout -- scripts/cascade-command.txt` and recreate
 - Always read the file first before editing to get exact content
 
+### PowerShell Syntax Rules
+
+- **NEVER use `&&`** to chain commands - PowerShell doesn't support it
+- **ALWAYS use `;`** (semicolon) to chain commands
+- Example: `git add -A; git commit -m "message"` (NOT `git add -A && git commit -m "message"`)
+
 ### Complete Task Workflow (updated)
 
 After each task:
