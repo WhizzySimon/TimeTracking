@@ -1,9 +1,9 @@
 # TimeTracker v1 — Implementation Progress
 
 **Last Updated:** 2025-12-22  
-**Current Phase:** Phase 4 - Sync & Polish  
-**Tasks Completed:** 57 / 60  
-**Estimated Progress:** 72%
+**Current Phase:** Phase 5 - Extended Features  
+**Tasks Completed:** 61 / 70  
+**Estimated Progress:** 86%
 
 ---
 
@@ -427,6 +427,79 @@
 - [ ] Test version checking on production build (`npm run build && npm run preview`)
 - [ ] Test PWA installation on Windows (localhost:4173)
 - [ ] Deploy to server and test PWA installation on phone
+
+---
+
+## Phase 5: Extended Features
+
+**Target:** 10 tasks, ~10-12 hours  
+**Status:** In Progress (1/10 tasks)
+
+### Default Work Time Model & Category Changes
+
+- [x] **Task 5.1** — Implement default work time model on first run
+  - Files: `src/lib/storage/categories.ts`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Replaced seedDefaultCategories() with seedDefaultWorkTimeModel(). New installs get "Vollzeit 40h" (Mon-Fri 8h, Sat-Sun 0h, validFrom 2020-01-01) and empty user categories.
+
+### Category Import/Export
+
+- [ ] **Task 5.2** — Implement category export
+  - Files: `src/routes/settings/+page.svelte`, `src/lib/utils/categoryIO.ts`
+  - Verified: (pending)
+  - Deviations: (pending)
+  - Notes: Export user categories as comma-separated text file
+
+- [ ] **Task 5.3** — Implement category import
+  - Files: `src/routes/settings/+page.svelte`, `src/lib/utils/categoryIO.ts`, `src/lib/components/ImportCategoriesModal.svelte`
+  - Verified: (pending)
+  - Deviations: (pending)
+  - Notes: Import from file or text input, merge with existing
+
+### Authentication
+
+- [ ] **Task 5.4** — Create auth store and types
+  - Files: `src/lib/types.ts`, `src/lib/stores/auth.ts`, `src/lib/storage/db.ts`
+  - Verified: (pending)
+  - Deviations: (pending)
+  - Notes: AuthSession type, auth store, session persistence
+
+- [ ] **Task 5.5** — Create login page
+  - Files: `src/routes/login/+page.svelte`
+  - Verified: (pending)
+  - Deviations: (pending)
+  - Notes: Email/password form with autocomplete
+
+- [ ] **Task 5.6** — Create signup page
+  - Files: `src/routes/signup/+page.svelte`
+  - Verified: (pending)
+  - Deviations: (pending)
+  - Notes: Registration form with password confirmation
+
+- [ ] **Task 5.7** — Create forgot password page
+  - Files: `src/routes/forgot-password/+page.svelte`
+  - Verified: (pending)
+  - Deviations: (pending)
+  - Notes: Email form, generic success message
+
+- [ ] **Task 5.8** — Implement auth guard and routing
+  - Files: `src/routes/+layout.svelte`
+  - Verified: (pending)
+  - Deviations: (pending)
+  - Notes: Redirect to login if no session
+
+- [ ] **Task 5.9** — Add logout button to settings
+  - Files: `src/routes/settings/+page.svelte`
+  - Verified: (pending)
+  - Deviations: (pending)
+  - Notes: Logout with confirmation, keep local data
+
+- [ ] **Task 5.10** — Create auth API service (mock)
+  - Files: `src/lib/api/auth.ts`
+  - Verified: (pending)
+  - Deviations: (pending)
+  - Notes: Mock implementation for v1, easy to replace with real API
 
 ---
 

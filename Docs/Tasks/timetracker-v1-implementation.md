@@ -1121,13 +1121,220 @@
 
 ---
 
+## Phase 5: Extended Features
+
+### Task 5.1 — Implement default work time model on first run
+
+- **Files:**
+  - `src/lib/storage/categories.ts` (modify)
+  - `src/lib/stores/index.ts` (modify)
+- **Done when:**
+  - On first run, if no work time models exist, create "Vollzeit 40h" model
+  - Model: Mon-Fri 8.0h, Sat-Sun 0.0h, validFrom: 01.01.2020
+  - Remove default categories seeding from JSON (keep only system categories)
+  - App starts with empty user categories
+- **Verify:**
+  - Clear IndexedDB, reload app
+  - Check workTimeModels store - "Vollzeit 40h" exists
+  - Check categories store - only 4 system categories, no user categories
+- **Guardrails:**
+  - Only seed if store is empty
+  - Do not overwrite existing models
+
+---
+
+### Task 5.2 — Implement category export
+
+- **Files:**
+  - `src/routes/settings/+page.svelte` (modify)
+  - `src/lib/utils/categoryIO.ts` (create)
+- **Done when:**
+  - "Kategorien exportieren" button in Settings
+  - Exports only user categories (isSystem: false)
+  - Format: comma-separated text file
+  - Downloads as `kategorien.txt`
+- **Verify:**
+  - Add some user categories
+  - Click export - file downloads
+  - Open file - contains comma-separated category names
+- **Guardrails:**
+  - Do not export system categories
+  - Handle empty list gracefully (export empty file or show message)
+
+---
+
+### Task 5.3 — Implement category import
+
+- **Files:**
+  - `src/routes/settings/+page.svelte` (modify)
+  - `src/lib/utils/categoryIO.ts` (modify)
+  - `src/lib/components/ImportCategoriesModal.svelte` (create)
+- **Done when:**
+  - "Kategorien importieren" button in Settings
+  - Modal with file upload or text input
+  - Hint text: "Komma-getrennte Liste (z.B. Meeting, Projekt A, Verwaltung)"
+  - All imported categories: countsAsWorkTime: true
+  - Duplicates skipped (case-insensitive match)
+  - Merges with existing (does not replace)
+- **Verify:**
+  - Import file with categories - they appear in list
+  - Import duplicate - not added again
+  - Import via text input - works same as file
+- **Guardrails:**
+  - Trim whitespace from category names
+  - Skip empty entries
+  - Show count of imported/skipped
+
+---
+
+### Task 5.4 — Create auth store and types
+
+- **Files:**
+  - `src/lib/types.ts` (modify)
+  - `src/lib/stores/auth.ts` (create)
+  - `src/lib/storage/db.ts` (modify - add authSession store if not exists)
+- **Done when:**
+  - AuthSession type: { token, email, expiresAt }
+  - authStore: writable with user session or null
+  - isAuthenticated derived store
+  - Functions: saveSession, loadSession, clearSession
+- **Verify:**
+  - npm run check - no TypeScript errors
+  - Manual test: save/load/clear session in console
+- **Guardrails:**
+  - Store token in IndexedDB (not localStorage)
+  - Handle expired tokens
+
+---
+
+### Task 5.5 — Create login page
+
+- **Files:**
+  - `src/routes/login/+page.svelte` (create)
+- **Done when:**
+  - Email field (autocomplete=username)
+  - Password field (autocomplete=current-password)
+  - "Anmelden" button
+  - "Registrieren" link to /signup
+  - "Passwort vergessen?" link to /forgot-password
+  - Form validation (email format, password required)
+  - On submit: call auth API (mock for now, log to console)
+- **Verify:**
+  - Navigate to /login - form displays
+  - Submit with valid data - logs to console
+  - Validation errors show for invalid input
+- **Guardrails:**
+  - Use proper form with autocomplete attributes
+  - Disable button during submit
+
+---
+
+### Task 5.6 — Create signup page
+
+- **Files:**
+  - `src/routes/signup/+page.svelte` (create)
+- **Done when:**
+  - Email field (autocomplete=username)
+  - Password field (autocomplete=new-password)
+  - Confirm password field
+  - "Registrieren" button
+  - Link back to login
+  - Validation: email format, password min length, passwords match
+  - On submit: call auth API (mock for now)
+- **Verify:**
+  - Navigate to /signup - form displays
+  - Passwords don't match - error shown
+  - Valid submit - logs to console
+- **Guardrails:**
+  - Password requirements: min 8 characters
+  - Show password strength indicator (optional)
+
+---
+
+### Task 5.7 — Create forgot password page
+
+- **Files:**
+  - `src/routes/forgot-password/+page.svelte` (create)
+- **Done when:**
+  - Email field
+  - "Link senden" button
+  - Success message: "Falls ein Konto existiert, wurde ein Link gesendet."
+  - Link back to login
+- **Verify:**
+  - Navigate to /forgot-password - form displays
+  - Submit - success message shows (always, for security)
+- **Guardrails:**
+  - Never reveal if email exists
+  - Rate limiting (optional for v1)
+
+---
+
+### Task 5.8 — Implement auth guard and routing
+
+- **Files:**
+  - `src/routes/+layout.svelte` (modify)
+- **Done when:**
+  - On app load, check for valid session
+  - If no session: redirect to /login
+  - If session expired: redirect to /login
+  - If valid session: show app normally
+  - Auth pages (/login, /signup, /forgot-password) accessible without session
+- **Verify:**
+  - Clear session, reload - redirects to /login
+  - Login (mock) - redirects to /day
+  - Direct access to /day without session - redirects to /login
+- **Guardrails:**
+  - Don't flash app content before redirect
+  - Handle loading state
+
+---
+
+### Task 5.9 — Add logout button to settings
+
+- **Files:**
+  - `src/routes/settings/+page.svelte` (modify)
+- **Done when:**
+  - "Abmelden" button at bottom of settings
+  - Click: clears session, redirects to /login
+  - Local data remains (offline-first principle)
+  - Confirmation dialog before logout
+- **Verify:**
+  - Click logout - confirmation appears
+  - Confirm - redirected to login
+  - Data still in IndexedDB
+- **Guardrails:**
+  - Use ConfirmDialog component
+  - Clear only auth data, not app data
+
+---
+
+### Task 5.10 — Create auth API service (mock)
+
+- **Files:**
+  - `src/lib/api/auth.ts` (create)
+- **Done when:**
+  - Functions: login(email, password), signup(email, password), forgotPassword(email)
+  - For v1: mock implementation that simulates success
+  - Returns mock token on login/signup
+  - Logs to console what would be sent to server
+  - Easy to replace with real API later
+- **Verify:**
+  - Call functions from console - return mock responses
+  - Login returns token
+  - Signup returns token
+- **Guardrails:**
+  - Structure matches real API contract from technical-guideline
+  - Add TODO comments for real implementation
+
+---
+
 **END OF TASKS**
 
 ## Summary
 
-- **Total tasks:** 60
-- **Estimated time:** 40-50 hours
-- **Phases:** 4 (Foundation → Core UI → Additional Tabs → Sync & Polish)
+- **Total tasks:** 70
+- **Estimated time:** 50-60 hours
+- **Phases:** 5 (Foundation → Core UI → Additional Tabs → Sync & Polish → Extended Features)
 - **Verification:** Each task has specific verification steps
 - **Guardrails:** Each task has constraints to prevent common mistakes
 

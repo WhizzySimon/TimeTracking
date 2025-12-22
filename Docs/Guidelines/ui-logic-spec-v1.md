@@ -345,7 +345,89 @@ Saldo = Ist − Soll
 
 ---
 
-## 11. Dinge, die es bewusst NICHT gibt
+## 11. Kategorie Import/Export (Einstellungen)
+
+### 11.1 Export
+
+- **Button:** "Kategorien exportieren" im Einstellungen-Tab
+- **Aktion:** Exportiert nur benutzerdefinierte Kategorien (nicht Systemkategorien)
+- **Format:** Komma-getrennte Textdatei (.txt)
+- **Beispiel:** `Allg. Orga, Mails, Andachten, Gottesdienst, Seelsorge`
+- **Download:** Browser-Download-Dialog
+
+### 11.2 Import
+
+- **Button:** "Kategorien importieren" im Einstellungen-Tab
+- **Hinweis unter Button:** "Komma-getrennte Liste (z.B. Meeting, Projekt A, Verwaltung)"
+- **Aktion:** Datei-Upload oder Texteingabe
+- **Verhalten:**
+  - Alle importierten Kategorien: `countsAsWorkTime: true`
+  - Duplikate werden übersprungen
+  - Merge mit bestehenden (kein Ersetzen)
+
+---
+
+## 12. Standard-Arbeitszeitmodell
+
+### Erststart-Verhalten
+
+- Wenn keine Arbeitszeitmodelle existieren → automatisch "Vollzeit 40h" anlegen
+- Modell:
+  - Montag–Freitag: 8,0 Std
+  - Samstag–Sonntag: 0,0 Std
+  - Gültig ab: 01.01.2020 (oder aktuelles Jahr)
+
+### Änderung gegenüber bisherigem Verhalten
+
+- Keine Default-Kategorien mehr aus JSON laden
+- App startet mit leeren Benutzerkategorien (nur Systemkategorien)
+- Benutzer kann manuell hinzufügen oder importieren
+
+---
+
+## 13. Authentifizierung
+
+### 13.1 Login-Screen
+
+- **Felder:**
+  - E-Mail (autocomplete=username)
+  - Passwort (autocomplete=current-password)
+- **Buttons:**
+  - "Anmelden"
+  - "Registrieren" (Link zu Signup)
+  - "Passwort vergessen?" (Link)
+
+### 13.2 Signup-Screen
+
+- **Felder:**
+  - E-Mail (autocomplete=username)
+  - Passwort (autocomplete=new-password)
+  - Passwort bestätigen
+- **Button:** "Registrieren"
+- **Nach Erfolg:** Automatisch einloggen, weiter zur App
+
+### 13.3 Passwort vergessen
+
+- **Feld:** E-Mail
+- **Button:** "Link senden"
+- **Feedback:** "Falls ein Konto existiert, wurde ein Link gesendet."
+
+### 13.4 Session-Verhalten
+
+- Nach Login: Token in IndexedDB speichern
+- App prüft Token beim Start
+- Wenn gültig: direkt zur App
+- Wenn ungültig/abgelaufen: Login-Screen
+
+### 13.5 Logout
+
+- **Button:** Im Einstellungen-Tab
+- **Aktion:** Token löschen, zurück zu Login
+- **Lokale Daten:** Bleiben erhalten (Offline-First)
+
+---
+
+## 14. Dinge, die es bewusst NICHT gibt
 
 - ❌ Manuelle Tages- oder Wochen-Overrides
 - ❌ Edit-Modus für Kategorien
@@ -354,7 +436,7 @@ Saldo = Ist − Soll
 
 ---
 
-## 12. Implementierungs-Hinweise (für Cascade)
+## 15. Implementierungs-Hinweise (für Cascade)
 
 - Mobile-first
 - Keine nativen `<input type="date">` ohne Text-Fallback

@@ -1,11 +1,11 @@
 /**
  * Category store for TimeTracker.
  * Handles system categories (fixed) and user categories (editable).
- * Seeds default user categories from static/default-categories.de.json on first run.
+ * Seeds default work time model on first run (no default user categories).
  * Spec refs: TT-FR (categories), TT-IG (system categories immutable)
  */
 
-import type { Category, DefaultCategoriesFile } from '$lib/types';
+import type { Category, WorkTimeModel } from '$lib/types';
 import { getAll, getByKey, put } from './db';
 import { saveUserCategory, deleteUserCategoryWithSync } from './operations';
 
@@ -22,7 +22,7 @@ export const SYSTEM_CATEGORIES: Category[] = [
 ];
 
 /**
- * Initialize categories: ensure system categories exist and seed defaults on first run.
+ * Initialize categories and work time model: ensure system categories exist and seed defaults on first run.
  */
 export async function initializeCategories(): Promise<void> {
 	// Always ensure system categories exist
@@ -39,52 +39,45 @@ export async function initializeCategories(): Promise<void> {
 		return;
 	}
 
-	// Seed default user categories from JSON
-	await seedDefaultCategories();
+	// Seed default work time model (no default user categories per spec)
+	await seedDefaultWorkTimeModel();
 
 	// Mark as seeded
 	await put(META_STORE, { key: SEEDED_KEY, value: true });
 }
 
 /**
- * Seed default user categories from static/default-categories.de.json.
- * Skips any category named "Pause" (system category).
- * Does not create duplicates.
+ * Seed default work time model "Vollzeit 40h" on first run.
+ * Mon-Fri: 8.0h, Sat-Sun: 0.0h
+ * Spec ref: ui-logic-spec-v1.md Section 12
  */
-async function seedDefaultCategories(): Promise<void> {
+async function seedDefaultWorkTimeModel(): Promise<void> {
 	try {
-		const response = await fetch('/default-categories.de.json');
-		if (!response.ok) {
-			console.warn('Failed to fetch default categories:', response.status);
+		const existingModels = await getAll<WorkTimeModel>('workTimeModels');
+		if (existingModels.length > 0) {
+			// Already has models, don't seed
 			return;
 		}
-		const data: DefaultCategoriesFile = await response.json();
 
-		const existingCategories = await getAll<Category>(CATEGORIES_STORE);
-		const existingNames = new Set(existingCategories.map((c) => c.name.toLowerCase()));
-
-		for (const cat of data.categories) {
-			// Skip system category names
-			if (SYSTEM_CATEGORIES.some((sc) => sc.name.toLowerCase() === cat.name.toLowerCase())) {
-				continue;
-			}
-			// Skip duplicates
-			if (existingNames.has(cat.name.toLowerCase())) {
-				continue;
-			}
-
-			const newCat: Category = {
-				id: `user-${crypto.randomUUID()}`,
-				name: cat.name,
-				type: 'user',
-				countsAsWorkTime: cat.countsAsWorkTime,
-				createdAt: Date.now()
-			};
-			await put(CATEGORIES_STORE, newCat);
-			existingNames.add(cat.name.toLowerCase());
-		}
+		const now = Date.now();
+		const defaultModel: WorkTimeModel = {
+			id: `model-${crypto.randomUUID()}`,
+			name: 'Vollzeit 40h',
+			validFrom: '2020-01-01',
+			monday: 8.0,
+			tuesday: 8.0,
+			wednesday: 8.0,
+			thursday: 8.0,
+			friday: 8.0,
+			saturday: 0.0,
+			sunday: 0.0,
+			createdAt: now,
+			updatedAt: now
+		};
+		await put('workTimeModels', defaultModel);
+		console.log('[Init] Seeded default work time model: Vollzeit 40h');
 	} catch (error) {
-		console.error('Error seeding default categories:', error);
+		console.error('Error seeding default work time model:', error);
 	}
 }
 
