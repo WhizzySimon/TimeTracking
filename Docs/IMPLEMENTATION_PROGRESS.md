@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 4 - Sync & Polish  
-**Tasks Completed:** 53 / 60  
+**Tasks Completed:** 55 / 60  
 **Estimated Progress:** 72%
 
 ---
@@ -388,8 +388,16 @@
 
 ### Testing & Deployment
 
-- [ ] **Task 4.13** — Test PWA installation flow
-- [ ] **Task 4.14** — Write basic E2E test
+- [x] **Task 4.13** — Test PWA installation flow
+  - Files: Verified existing `static/manifest.webmanifest`, `static/sw.js`, `src/app.html`
+  - Verified: Browser test ✅
+  - Deviations: None
+  - Notes: PWA config complete: manifest with icons, service worker with cache-first for assets and network-first for navigation, app.html with manifest link and meta tags. Minor icon size warning (cosmetic).
+- [x] **Task 4.14** — Write basic E2E test
+  - Files: `e2e/basic-flow.test.ts`
+  - Verified: npm run test:e2e ✅ (5 passed)
+  - Deviations: None
+  - Notes: Tests cover: app load, tab navigation, add task flow, task persistence after reload, day type selector. All tests passing.
 - [ ] **Task 4.15** — Final polish and deployment prep
 
 ---
