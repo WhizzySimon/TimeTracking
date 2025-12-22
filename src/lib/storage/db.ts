@@ -5,7 +5,7 @@
  */
 
 const DB_NAME = 'timetracker';
-const DB_VERSION = 5;
+const DB_VERSION = 6;
 
 let dbInstance: IDBDatabase | null = null;
 
@@ -56,6 +56,11 @@ export async function openDB(): Promise<IDBDatabase> {
 				const store = db.createObjectStore('outbox', { keyPath: 'id' });
 				store.createIndex('status', 'status', { unique: false });
 				store.createIndex('createdAt', 'createdAt', { unique: false });
+			}
+
+			// Auth session store (technical-guideline-v1 section 5)
+			if (!db.objectStoreNames.contains('authSession')) {
+				db.createObjectStore('authSession', { keyPath: 'key' });
 			}
 		};
 

@@ -108,3 +108,14 @@ export interface WeekBounds {
 	start: Date; // Monday
 	end: Date; // Sunday
 }
+
+/**
+ * Authentication session stored in IndexedDB.
+ * Spec refs: technical-guideline-v1 section 5
+ */
+export interface AuthSession {
+	token: string;
+	email: string;
+	expiresAt: number; // Unix timestamp
+	createdAt: number;
+}
