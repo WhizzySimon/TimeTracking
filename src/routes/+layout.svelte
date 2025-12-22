@@ -12,6 +12,7 @@
 	import { loadSession, isAuthenticated, clearSession } from '$lib/stores/auth';
 	import { saveToCloud, getBackupMeta } from '$lib/backup/cloud';
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
+	import { setupUpdateDetection, updateAvailable, applyUpdate } from '$lib/pwa/update';
 
 	let { children } = $props();
 
@@ -26,6 +27,7 @@
 	let lastBackupAt = $state<string | null>(null);
 	let backupError = $state<string | null>(null);
 	let canInstall = $state(false);
+	let hasUpdate = $state(false);
 
 	// Pages that don't require authentication
 	const publicPaths = ['/login', '/signup', '/forgot-password', '/reset-password'];
@@ -100,6 +102,12 @@
 		setupInstallPrompt();
 		installState.subscribe((state) => {
 			canInstall = state.canInstall && !state.isInstalled;
+		});
+
+		// Setup SW update detection
+		setupUpdateDetection();
+		updateAvailable.subscribe((available) => {
+			hasUpdate = available;
 		});
 
 		// Check authentication status
@@ -227,7 +235,11 @@
 				</button>
 			</div>
 		</header>
-		{#if canInstall}
+		{#if hasUpdate}
+			<div class="update-banner">
+				<button class="update-btn" onclick={applyUpdate}> Update verfügbar – neu laden </button>
+			</div>
+		{:else if canInstall}
 			<div class="install-banner">
 				<button class="install-btn" onclick={triggerInstall}> App installieren </button>
 			</div>
@@ -428,5 +440,29 @@
 
 	.install-btn:hover {
 		background: #16a34a;
+	}
+
+	.update-banner {
+		background: #1e3a8a;
+		padding: 8px 12px;
+		display: flex;
+		justify-content: center;
+	}
+
+	.update-btn {
+		background: #f59e0b;
+		color: white;
+		border: none;
+		border-radius: 6px;
+		padding: 8px 24px;
+		font-size: 0.9rem;
+		font-weight: 600;
+		cursor: pointer;
+		width: 100%;
+		max-width: 300px;
+	}
+
+	.update-btn:hover {
+		background: #d97706;
 	}
 </style>
