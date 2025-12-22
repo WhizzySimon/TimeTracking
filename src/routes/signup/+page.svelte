@@ -39,27 +39,26 @@
 		loading = true;
 
 		try {
-			// TODO: Replace with real API call
-			console.log('[Signup] Attempting registration for:', email);
-
-			// Mock successful signup - simulate API delay
-			await new Promise((r) => setTimeout(r, 500));
-
-			// Mock: Create session and save (auto-login after signup)
+			const { signup } = await import('$lib/api/auth');
 			const { saveSession } = await import('$lib/stores/auth');
-			const mockSession = {
-				token: `mock-token-${Date.now()}`,
-				email: email,
-				expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+
+			const response = await signup(email, password);
+
+			const session = {
+				token: response.token,
+				email: response.email,
+				expiresAt: response.expiresAt,
 				createdAt: Date.now()
 			};
-			await saveSession(mockSession);
+			await saveSession(session);
 
-			// Redirect to app
 			goto(resolve('/day'));
 		} catch (e) {
 			console.error('[Signup] Failed:', e);
-			error = 'Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.';
+			error =
+				e instanceof Error
+					? e.message
+					: 'Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.';
 		} finally {
 			loading = false;
 		}

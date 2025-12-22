@@ -28,27 +28,24 @@
 		loading = true;
 
 		try {
-			// TODO: Replace with real API call
-			console.log('[Login] Attempting login for:', email);
-
-			// Mock successful login - simulate API delay
-			await new Promise((r) => setTimeout(r, 500));
-
-			// Mock: Create session and save
+			const { login } = await import('$lib/api/auth');
 			const { saveSession } = await import('$lib/stores/auth');
-			const mockSession = {
-				token: `mock-token-${Date.now()}`,
-				email: email,
-				expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+
+			const response = await login(email, password);
+
+			const session = {
+				token: response.token,
+				email: response.email,
+				expiresAt: response.expiresAt,
 				createdAt: Date.now()
 			};
-			await saveSession(mockSession);
+			await saveSession(session);
 
-			// Redirect to app
 			goto(resolve('/day'));
 		} catch (e) {
 			console.error('[Login] Failed:', e);
-			error = 'Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.';
+			error =
+				e instanceof Error ? e.message : 'Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.';
 		} finally {
 			loading = false;
 		}

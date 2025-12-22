@@ -1,71 +1,113 @@
 <!--
-  Forgot Password Page
-  Spec ref: ui-logic-spec-v1.md Section 13.3
+  Reset Password Page
+  Handles password reset after clicking email link
+  Spec ref: cloud-backup-and-auth.md
 -->
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import { browser } from '$app/environment';
 
-	let email = $state('');
+	let password = $state('');
+	let confirmPassword = $state('');
 	let error = $state('');
 	let success = $state(false);
 	let loading = $state(false);
+	let validLink = $state(true);
+
+	onMount(() => {
+		if (browser) {
+			const hash = window.location.hash;
+			if (!hash || !hash.includes('access_token')) {
+				validLink = false;
+			}
+		}
+	});
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
 		error = '';
 
-		if (!email.trim()) {
-			error = 'E-Mail ist erforderlich';
+		if (!password) {
+			error = 'Passwort ist erforderlich';
+			return;
+		}
+
+		if (password.length < 8) {
+			error = 'Passwort muss mindestens 8 Zeichen haben';
+			return;
+		}
+
+		if (password !== confirmPassword) {
+			error = 'Passwörter stimmen nicht überein';
 			return;
 		}
 
 		loading = true;
 
 		try {
-			const { forgotPassword } = await import('$lib/api/auth');
-			await forgotPassword(email);
+			const { updatePassword } = await import('$lib/api/auth');
+			await updatePassword(password);
 			success = true;
+
+			setTimeout(() => {
+				goto(resolve('/login'));
+			}, 3000);
 		} catch (e) {
-			console.error('[ForgotPassword] Failed:', e);
-			error = 'Anfrage fehlgeschlagen. Bitte versuchen Sie es erneut.';
+			console.error('[ResetPassword] Failed:', e);
+			error =
+				e instanceof Error
+					? e.message
+					: 'Passwort konnte nicht geändert werden. Bitte versuchen Sie es erneut.';
 		} finally {
 			loading = false;
 		}
 	}
 </script>
 
-<div class="forgot-page">
-	<div class="forgot-card">
+<div class="reset-page">
+	<div class="reset-card">
 		<h1>TimeTracker</h1>
-		<h2>Passwort vergessen</h2>
+		<h2>Neues Passwort</h2>
 
-		{#if success}
-			<div class="success-message">
-				<p>
-					Falls ein Konto mit dieser E-Mail existiert, wurde ein Link zum Zurücksetzen gesendet.
-				</p>
-				<p class="check-hint">Bitte überprüfen Sie Ihren Posteingang.</p>
+		{#if !validLink}
+			<div class="error-message">
+				<p>Ungültiger oder abgelaufener Link.</p>
+				<p>Bitte fordern Sie einen neuen Link an.</p>
 			</div>
 			<div class="links">
-				<a href={resolve('/login')}>Zurück zur Anmeldung</a>
+				<a href={resolve('/forgot-password')}>Neuen Link anfordern</a>
+			</div>
+		{:else if success}
+			<div class="success-message">
+				<p>Passwort erfolgreich geändert!</p>
+				<p class="redirect-hint">Sie werden zur Anmeldung weitergeleitet...</p>
 			</div>
 		{:else}
-			<p class="description">
-				Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres
-				Passworts.
-			</p>
-
 			<form onsubmit={handleSubmit}>
 				<div class="field">
-					<label for="email">E-Mail</label>
+					<label for="password">Neues Passwort</label>
 					<input
-						type="email"
-						id="email"
-						name="email"
-						autocomplete="email"
-						bind:value={email}
+						type="password"
+						id="password"
+						name="password"
+						autocomplete="new-password"
+						bind:value={password}
 						disabled={loading}
-						placeholder="ihre@email.de"
+					/>
+					<span class="hint">Mindestens 8 Zeichen</span>
+				</div>
+
+				<div class="field">
+					<label for="confirmPassword">Passwort bestätigen</label>
+					<input
+						type="password"
+						id="confirmPassword"
+						name="confirmPassword"
+						autocomplete="new-password"
+						bind:value={confirmPassword}
+						disabled={loading}
 					/>
 				</div>
 
@@ -74,19 +116,15 @@
 				{/if}
 
 				<button type="submit" class="submit-btn" disabled={loading}>
-					{loading ? 'Senden...' : 'Link senden'}
+					{loading ? 'Speichern...' : 'Passwort ändern'}
 				</button>
 			</form>
-
-			<div class="links">
-				<a href={resolve('/login')}>Zurück zur Anmeldung</a>
-			</div>
 		{/if}
 	</div>
 </div>
 
 <style>
-	.forgot-page {
+	.reset-page {
 		min-height: 100vh;
 		display: flex;
 		align-items: center;
@@ -95,7 +133,7 @@
 		background: #f5f5f5;
 	}
 
-	.forgot-card {
+	.reset-card {
 		width: 100%;
 		max-width: 400px;
 		background: white;
@@ -112,19 +150,11 @@
 	}
 
 	h2 {
-		margin: 0 0 1rem;
+		margin: 0 0 1.5rem;
 		font-size: 1.25rem;
 		text-align: center;
 		color: #333;
 		font-weight: 500;
-	}
-
-	.description {
-		text-align: center;
-		color: #666;
-		font-size: 0.9rem;
-		margin: 0 0 1.5rem;
-		line-height: 1.5;
 	}
 
 	form {
@@ -161,6 +191,11 @@
 		background: #f5f5f5;
 	}
 
+	.hint {
+		font-size: 0.8rem;
+		color: #666;
+	}
+
 	.error {
 		color: #dc2626;
 		font-size: 0.9rem;
@@ -170,12 +205,25 @@
 		text-align: center;
 	}
 
+	.error-message {
+		text-align: center;
+		padding: 1.5rem;
+		background: #fef2f2;
+		border-radius: 8px;
+		margin-bottom: 1rem;
+	}
+
+	.error-message p {
+		margin: 0;
+		color: #dc2626;
+		line-height: 1.5;
+	}
+
 	.success-message {
 		text-align: center;
 		padding: 1.5rem;
 		background: #dcfce7;
 		border-radius: 8px;
-		margin-bottom: 1rem;
 	}
 
 	.success-message p {
@@ -184,7 +232,7 @@
 		line-height: 1.5;
 	}
 
-	.check-hint {
+	.redirect-hint {
 		margin-top: 0.5rem !important;
 		font-size: 0.9rem;
 	}
@@ -213,9 +261,7 @@
 	.links {
 		display: flex;
 		justify-content: center;
-		margin-top: 1.5rem;
-		padding-top: 1rem;
-		border-top: 1px solid #eee;
+		margin-top: 1rem;
 	}
 
 	.links a {
@@ -229,20 +275,16 @@
 	}
 
 	@media (prefers-color-scheme: dark) {
-		.forgot-page {
+		.reset-page {
 			background: #1a1a1a;
 		}
 
-		.forgot-card {
+		.reset-card {
 			background: #2a2a2a;
 		}
 
 		h2 {
 			color: #eee;
-		}
-
-		.description {
-			color: #999;
 		}
 
 		.field label {
@@ -263,8 +305,8 @@
 			background: #2a2a2a;
 		}
 
-		.links {
-			border-top-color: #444;
+		.hint {
+			color: #999;
 		}
 	}
 </style>

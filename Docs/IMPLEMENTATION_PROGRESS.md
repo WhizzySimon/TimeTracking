@@ -1,8 +1,8 @@
 # TimeTracker v1 — Implementation Progress
 
 **Last Updated:** 2025-12-22  
-**Current Phase:** Phase 5 - Extended Features  
-**Tasks Completed:** 70 / 70  
+**Current Phase:** Phase 6 - Cloud Auth & Backup  
+**Tasks Completed:** 76 / 76  
 **Estimated Progress:** 100%
 
 ---
@@ -19,13 +19,13 @@
 
 ### Interactive MCP Browser Testing
 
-| Browser/Device | Viewport | Pages Tested | Status |
-|----------------|----------|--------------|--------|
-| Desktop Safari (WebKit) | Standard | Login, Day, Analysis, Settings | ✅ PASS |
-| Desktop Chrome | Standard | All pages | ✅ PASS |
-| Mobile Safari (iPhone 15) | 393x852 | Day, Analysis | ✅ PASS |
-| Chrome 4K (32" monitor) | 3840x2160 | Login, Day, Analysis | ✅ PASS |
-| Android (Pixel 7) | 412x915 | Day, Analysis | ✅ PASS |
+| Browser/Device            | Viewport  | Pages Tested                   | Status  |
+| ------------------------- | --------- | ------------------------------ | ------- |
+| Desktop Safari (WebKit)   | Standard  | Login, Day, Analysis, Settings | ✅ PASS |
+| Desktop Chrome            | Standard  | All pages                      | ✅ PASS |
+| Mobile Safari (iPhone 15) | 393x852   | Day, Analysis                  | ✅ PASS |
+| Chrome 4K (32" monitor)   | 3840x2160 | Login, Day, Analysis           | ✅ PASS |
+| Android (Pixel 7)         | 412x915   | Day, Analysis                  | ✅ PASS |
 
 ### UI Issues Found & Fixed
 
@@ -547,6 +547,94 @@
   - Verified: npm run verify ✅ (ALL PASSED)
   - Deviations: None
   - Notes: Mock implementation with login/signup/forgotPassword/validateToken/logout. TODO comments for real API replacement.
+
+---
+
+## Phase 6: Cloud Auth & Backup (Supabase)
+
+**Target:** 6 tasks  
+**Status:** Complete (6/6 tasks)
+**Spec:** `Docs/Specs/cloud-backup-and-auth.md`
+
+### Supabase Integration
+
+- [x] **Task 6.1** — Add Supabase client + env configuration
+  - Files: `src/lib/supabase/client.ts`, `.env.example`, `package.json`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Added @supabase/supabase-js dependency. Client uses PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_ANON_KEY env vars. Falls back to mock auth if not configured.
+
+- [x] **Task 6.2** — Replace mock auth with real Supabase auth
+  - Files: `src/lib/api/auth.ts`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Implemented login, signup, forgotPassword, updatePassword, logout using Supabase Auth. Added getCurrentUserId and validateSession helpers. Mock fallback preserved for development without Supabase.
+
+- [x] **Task 6.3** — Update auth pages to use real API
+  - Files: `src/routes/login/+page.svelte`, `src/routes/signup/+page.svelte`, `src/routes/forgot-password/+page.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: All auth pages now call real Supabase auth functions. Error messages displayed to user.
+
+- [x] **Task 6.4** — Create password reset page
+  - Files: `src/routes/reset-password/+page.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Handles Supabase password reset flow. Validates link, allows new password entry, redirects to login on success.
+
+### Cloud Backup
+
+- [x] **Task 6.5** — Implement IndexedDB snapshot export
+  - Files: `src/lib/backup/snapshot.ts`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Exports all IndexedDB stores (categories, timeEntries, dayTypes, workTimeModels, outbox) with metadata (schemaVersion, exportedAt, appVersion).
+
+- [x] **Task 6.6** — Implement cloud backup with offline detection
+  - Files: `src/lib/backup/cloud.ts`, `src/routes/settings/+page.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: "In Cloud speichern" button in Settings. Shows offline modal if not online. UPSERTs to Supabase user_backups table. Displays "Letztes Backup" timestamp. Stores backup metadata locally.
+
+### Supabase SQL (for manual setup)
+
+```sql
+-- Create user_backups table
+CREATE TABLE public.user_backups (
+  user_id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  snapshot JSONB NOT NULL,
+  schema_version INT NOT NULL DEFAULT 1,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- Enable RLS
+ALTER TABLE public.user_backups ENABLE ROW LEVEL SECURITY;
+
+-- Policy: Users can only access their own backup
+CREATE POLICY "Users can view own backup" ON public.user_backups
+  FOR SELECT USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert own backup" ON public.user_backups
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own backup" ON public.user_backups
+  FOR UPDATE USING (auth.uid() = user_id);
+```
+
+### Verification Checklist
+
+Auth:
+- [ ] Sign up works and creates user
+- [ ] Login works
+- [ ] Logout works
+- [ ] Forgot password sends email and allows reset
+- [ ] Guards redirect correctly
+
+Backup:
+- [ ] Local saves always work offline (IndexedDB)
+- [ ] Clicking "Save to cloud" while offline shows modal and does NOT error
+- [ ] Clicking while online creates/updates snapshot row in Supabase
+- [ ] "Last cloud backup" updates
 
 ---
 
