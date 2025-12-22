@@ -38,13 +38,57 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+  
+  // Skip cross-origin requests (Supabase API, etc.)
+  if (url.origin !== self.location.origin) {
+    return;
+  }
+  
+  // Navigation requests: network-first with offline fallback
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => {
         return caches.match('/');
       })
     );
+    return;
   }
+  
+  // Static assets: cache-first strategy
+  if (
+    url.pathname.startsWith('/icons/') ||
+    url.pathname.startsWith('/_app/') ||
+    url.pathname === '/manifest.webmanifest' ||
+    url.pathname === '/favicon.png' ||
+    url.pathname === '/apple-touch-icon.png'
+  ) {
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        if (cached) {
+          return cached;
+        }
+        return fetch(event.request).then((response) => {
+          // Cache successful responses
+          if (response.ok) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return response;
+        });
+      })
+    );
+    return;
+  }
+  
+  // All other requests: network-first (don't cache API responses, etc.)
+  event.respondWith(
+    fetch(event.request).catch(() => {
+      return caches.match(event.request);
+    })
+  );
 });
 
 self.addEventListener('message', (event) => {

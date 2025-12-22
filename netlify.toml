@@ -1,0 +1,29 @@
+# Netlify configuration for TimeTracker PWA
+
+[build]
+  publish = "build"
+  command = "npm run build"
+
+# Headers for PWA installability
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Content-Type = "text/javascript"
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_app/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

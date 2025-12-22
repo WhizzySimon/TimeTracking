@@ -20,6 +20,7 @@
 		"test:webkit:ui": "playwright test --ui --project=webkit",
 		"test:ios:ui": "playwright test --ui --project=\"Mobile Safari\"",
 		"test": "npm run test:unit && npm run test:e2e",
+		"check:pwa": "node scripts/check-pwa.js",
 		"verify": "powershell -ExecutionPolicy Bypass -File scripts/verify-code.ps1",
 		"wb": "tsx devBrowser.ts"
 	},

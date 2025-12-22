@@ -63,7 +63,7 @@
      - `e2e/basic-flow.test.ts` - Updated to use getByTestId
      - `e2e/milestone1.test.ts` - Updated to use getByTestId
 
-4. **Strict mode violation** - `getByText('Kategorien')` matched multiple elements
+5. **Strict mode violation** - `getByText('Kategorien')` matched multiple elements
    - Fix: Changed to more specific selector `getByRole('heading', { name: 'Abwesenheitskategorien' })`
 
 ### Cross-Browser Verification Checklist
