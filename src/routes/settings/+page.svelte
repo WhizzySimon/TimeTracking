@@ -18,24 +18,37 @@
 	import type { Category, WorkTimeModel } from '$lib/types';
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
+	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 
 	let loading = $state(true);
 	let showAddCategory = $state(false);
 	let showAddWorkTimeModel = $state(false);
+	let showDeleteConfirm = $state(false);
+	let showErrorAlert = $state(false);
+	let categoryToDelete: Category | null = $state(null);
 
-	async function handleDeleteCategory(category: Category) {
+	function handleDeleteCategory(category: Category) {
 		if (category.type === 'system') return;
+		categoryToDelete = category;
+		showDeleteConfirm = true;
+	}
 
-		const confirmed = confirm(`Kategorie "${category.name}" wirklich löschen?`);
-		if (!confirmed) return;
-
+	async function confirmDeleteCategory() {
+		if (!categoryToDelete) return;
 		try {
-			await deleteUserCategoryWithSync(category.id);
-			categories.update((cats) => cats.filter((c) => c.id !== category.id));
+			await deleteUserCategoryWithSync(categoryToDelete.id);
+			categories.update((cats) => cats.filter((c) => c.id !== categoryToDelete!.id));
 		} catch (e) {
 			console.error('Failed to delete category:', e);
-			alert('Fehler beim Löschen der Kategorie');
+			showErrorAlert = true;
 		}
+		showDeleteConfirm = false;
+		categoryToDelete = null;
+	}
+
+	function cancelDeleteCategory() {
+		showDeleteConfirm = false;
+		categoryToDelete = null;
 	}
 
 	onMount(async () => {
@@ -124,6 +137,28 @@
 	<AddWorkTimeModelModal
 		onsave={() => (showAddWorkTimeModel = false)}
 		onclose={() => (showAddWorkTimeModel = false)}
+	/>
+{/if}
+
+<!-- Delete Category Confirmation -->
+{#if showDeleteConfirm && categoryToDelete}
+	<ConfirmDialog
+		title="Kategorie löschen"
+		message={`Kategorie "${categoryToDelete.name}" wirklich löschen?`}
+		confirmLabel="Löschen"
+		confirmStyle="danger"
+		onconfirm={confirmDeleteCategory}
+		oncancel={cancelDeleteCategory}
+	/>
+{/if}
+
+<!-- Error Alert -->
+{#if showErrorAlert}
+	<ConfirmDialog
+		type="alert"
+		title="Fehler"
+		message="Fehler beim Löschen der Kategorie"
+		onconfirm={() => (showErrorAlert = false)}
 	/>
 {/if}
 

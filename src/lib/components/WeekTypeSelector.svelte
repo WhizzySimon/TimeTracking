@@ -13,6 +13,7 @@
 	import { saveDayType } from '$lib/storage/operations';
 	import { formatDate, getWeekDates } from '$lib/utils/date';
 	import type { DayType, DayTypeValue } from '$lib/types';
+	import ConfirmDialog from './ConfirmDialog.svelte';
 
 	interface Props {
 		/** The reference date for the week (any date within the week) */
@@ -22,6 +23,11 @@
 	}
 
 	let { weekDate, onchange }: Props = $props();
+
+	// Dialog state
+	let showConfirm = $state(false);
+	let pendingWeekType: WeekTypeValue | null = $state(null);
+	let selectElement: HTMLSelectElement | null = $state(null);
 
 	// Map week type to day type
 	type WeekTypeValue = 'arbeitswoche' | 'urlaub' | 'krank' | 'feiertag';
@@ -39,20 +45,17 @@
 		}
 	}
 
-	async function handleChange(event: Event) {
+	function handleChange(event: Event) {
 		const select = event.target as HTMLSelectElement;
-		const weekType = select.value as WeekTypeValue;
+		selectElement = select;
+		pendingWeekType = select.value as WeekTypeValue;
+		showConfirm = true;
+	}
 
-		// Confirmation dialog
-		const confirmed = confirm('Dies setzt die Tagesart für alle 7 Tage dieser Woche. Fortfahren?');
+	async function confirmChange() {
+		if (!pendingWeekType) return;
 
-		if (!confirmed) {
-			// Reset select to default
-			select.value = 'arbeitswoche';
-			return;
-		}
-
-		const dayType = weekTypeToDayType(weekType);
+		const dayType = weekTypeToDayType(pendingWeekType);
 		const weekDates = getWeekDates(weekDate);
 
 		// Update all 7 days in IndexedDB
@@ -67,10 +70,20 @@
 		}
 
 		// Reset select to default (it's a one-time action)
-		select.value = 'arbeitswoche';
+		if (selectElement) selectElement.value = 'arbeitswoche';
+
+		showConfirm = false;
+		pendingWeekType = null;
 
 		// Notify parent to reload day types
 		onchange?.();
+	}
+
+	function cancelChange() {
+		// Reset select to default
+		if (selectElement) selectElement.value = 'arbeitswoche';
+		showConfirm = false;
+		pendingWeekType = null;
 	}
 </script>
 
@@ -83,6 +96,16 @@
 		<option value="feiertag">Feiertag</option>
 	</select>
 </div>
+
+{#if showConfirm}
+	<ConfirmDialog
+		title="Wochenart ändern"
+		message="Dies setzt die Tagesart für alle 7 Tage dieser Woche. Fortfahren?"
+		confirmLabel="Fortfahren"
+		onconfirm={confirmChange}
+		oncancel={cancelChange}
+	/>
+{/if}
 
 <style>
 	.week-type-section {

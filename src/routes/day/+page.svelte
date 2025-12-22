@@ -24,6 +24,7 @@
 	import TaskList from '$lib/components/TaskList.svelte';
 	import AddTaskModal from '$lib/components/AddTaskModal.svelte';
 	import WarningBanner from '$lib/components/WarningBanner.svelte';
+	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 
 	let loading = $state(true);
 
@@ -33,6 +34,8 @@
 	// Modal state
 	let showAddModal = $state(false);
 	let editingEntry: TimeEntry | null = $state(null);
+	let showDeleteConfirm = $state(false);
+	let entryToDelete: TimeEntry | null = $state(null);
 
 	// Filter entries for current date
 	let dayEntries = $derived($timeEntries.filter((e) => e.date === formatDate($currentDate, 'ISO')));
@@ -103,12 +106,24 @@
 		timeEntries.set(allEntries);
 	}
 
-	async function handleDeleteEntry(entry: TimeEntry) {
-		if (!confirm('Aufgabe wirklich löschen?')) return;
-		await deleteTimeEntry(entry.id);
+	function handleDeleteEntry(entry: TimeEntry) {
+		entryToDelete = entry;
+		showDeleteConfirm = true;
+	}
+
+	async function confirmDeleteEntry() {
+		if (!entryToDelete) return;
+		await deleteTimeEntry(entryToDelete.id);
 		// Reload all entries from IndexedDB
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
+		showDeleteConfirm = false;
+		entryToDelete = null;
+	}
+
+	function cancelDeleteEntry() {
+		showDeleteConfirm = false;
+		entryToDelete = null;
 	}
 
 	onMount(async () => {
@@ -164,6 +179,18 @@
 		entry={editingEntry}
 		onclose={closeModal}
 		onsave={handleSaveEntry}
+	/>
+{/if}
+
+<!-- Delete Confirmation Dialog -->
+{#if showDeleteConfirm}
+	<ConfirmDialog
+		title="Aufgabe löschen"
+		message="Aufgabe wirklich löschen?"
+		confirmLabel="Löschen"
+		confirmStyle="danger"
+		onconfirm={confirmDeleteEntry}
+		oncancel={cancelDeleteEntry}
 	/>
 {/if}
 

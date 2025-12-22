@@ -373,3 +373,29 @@ feat: short description
 
 - ✅ Cascade CAN commit locally via watcher
 - ❌ Cascade MUST NEVER push to remote (per user preference)
+
+## 🔧 Efficient Editing Rules
+
+### Use multi_edit for batch changes
+
+When making multiple edits to the same file:
+
+- **NEVER** make 8 separate edits adding one line each
+- **ALWAYS** use `multi_edit` tool to batch all changes in one operation
+- This is faster, less error-prone, and easier to review
+
+### Cascade-command.txt handling
+
+- If file content needs to be completely replaced, use edit with the exact current content
+- If file gets corrupted, delete it with `git checkout -- scripts/cascade-command.txt` and recreate
+- Always read the file first before editing to get exact content
+
+### Complete Task Workflow (updated)
+
+After each task:
+
+1. Run `npm run verify` via cascade watcher
+2. Test UI with MCP Playwright browser
+3. Update progress tracker
+4. **Commit ALL changes including progress tracker** via cascade watcher
+5. Move to next task
