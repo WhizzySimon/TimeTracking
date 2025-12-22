@@ -44,16 +44,33 @@ export interface ImportResult {
 export type CategoryMap = Map<string, Category>;
 
 /**
- * Parse time string "HH:mm" or "H:mm" to minutes since midnight
+ * Parse time value to minutes since midnight
+ * Handles both Excel decimal (0.333... = 8:00) and string "HH:mm" formats
  */
-function parseTimeToMinutes(timeStr: string): number | null {
-	if (!timeStr || typeof timeStr !== 'string') return null;
-	const match = timeStr.trim().match(/^(\d{1,2}):(\d{2})$/);
-	if (!match) return null;
-	const hours = parseInt(match[1], 10);
-	const minutes = parseInt(match[2], 10);
-	if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return null;
-	return hours * 60 + minutes;
+function parseTimeToMinutes(timeValue: unknown): number | null {
+	if (timeValue === null || timeValue === undefined || timeValue === '') return null;
+
+	// Excel stores time as fraction of day (0.5 = 12:00, 0.333... = 8:00)
+	if (typeof timeValue === 'number') {
+		if (timeValue >= 0 && timeValue < 1) {
+			// Convert fraction of day to minutes
+			return Math.round(timeValue * 24 * 60);
+		}
+		// If >= 1, might be minutes already or invalid
+		return null;
+	}
+
+	// String format "HH:mm" or "H:mm"
+	if (typeof timeValue === 'string') {
+		const match = timeValue.trim().match(/^(\d{1,2}):(\d{2})$/);
+		if (!match) return null;
+		const hours = parseInt(match[1], 10);
+		const minutes = parseInt(match[2], 10);
+		if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return null;
+		return hours * 60 + minutes;
+	}
+
+	return null;
 }
 
 /**
@@ -87,40 +104,58 @@ export function extractYearFromFilename(filename: string): number | null {
 }
 
 /**
- * Parse duration cell - can be number (Excel decimal hours/minutes) or string
+ * Parse duration cell - Excel stores duration as fraction of day
+ * e.g., 0.02083... = 30 minutes (0.5 hours / 24 = 0.02083)
  */
 function parseDuration(value: unknown): number | null {
 	if (value === null || value === undefined || value === '') return null;
 
 	if (typeof value === 'number') {
-		// Excel stores time as fraction of day (0.5 = 12 hours)
-		// If value < 1, it's likely a time fraction
+		// Excel stores duration as fraction of day
+		// 0.02083... = 30 minutes, 0.04166... = 1 hour
 		if (value > 0 && value < 1) {
 			return Math.round(value * 24 * 60); // Convert to minutes
 		}
-		// If value >= 1, assume it's already minutes
-		return Math.round(value);
+		// If value >= 1, could be minutes already (unlikely for duration)
+		if (value >= 1 && value < 1440) {
+			return Math.round(value);
+		}
+		return null;
 	}
 
 	if (typeof value === 'string') {
 		const trimmed = value.trim();
-		// Try parsing as "HH:mm" format
+		if (trimmed === '') return null;
+
+		// Try parsing as "H:mm" format (duration like "0:30" = 30 min)
 		const timeMatch = trimmed.match(/^(\d{1,2}):(\d{2})$/);
 		if (timeMatch) {
 			return parseInt(timeMatch[1], 10) * 60 + parseInt(timeMatch[2], 10);
 		}
 		// Try parsing as decimal number
 		const num = parseFloat(trimmed.replace(',', '.'));
-		if (!isNaN(num)) {
-			if (num > 0 && num < 24) {
-				// Likely hours, convert to minutes
-				return Math.round(num * 60);
+		if (!isNaN(num) && num > 0) {
+			if (num < 1) {
+				// Fraction of day
+				return Math.round(num * 24 * 60);
 			}
 			return Math.round(num);
 		}
 	}
 
 	return null;
+}
+
+/**
+ * Convert column index to Excel column letter(s)
+ */
+function colIndexToLetter(col: number): string {
+	let letter = '';
+	while (col >= 0) {
+		letter = String.fromCharCode((col % 26) + 65) + letter;
+		col = Math.floor(col / 26) - 1;
+	}
+	return letter;
 }
 
 /**
@@ -143,12 +178,14 @@ function parseKWSheet(
 
 	// Get sheet range
 	const range = sheet['!ref'];
-	if (!range) return rows;
+	if (!range) {
+		return rows;
+	}
 
 	// Helper to get cell value
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const getCell = (row: number, col: number): any => {
-		const colLetter = String.fromCharCode(65 + col); // A=0, B=1, etc.
+		const colLetter = colIndexToLetter(col);
 		const cellRef = `${colLetter}${row + 1}`;
 		const cell = sheet[cellRef];
 		return cell ? cell.v : null;
@@ -196,7 +233,8 @@ function parseKWSheet(
 			}
 
 			const activity = String(taetigkeitValue).trim();
-			const timeMinutes = parseTimeToMinutes(String(zeitValue || ''));
+			// Pass raw value - parseTimeToMinutes handles both Excel decimals and strings
+			const timeMinutes = parseTimeToMinutes(zeitValue);
 
 			// Get duration: prefer Dauer column, fallback to time difference
 			let durationMinutes = parseDuration(dauerValue);
