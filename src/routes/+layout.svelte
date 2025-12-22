@@ -278,6 +278,7 @@
 			'Segoe UI',
 			Roboto,
 			sans-serif;
+		background-color: #f3f4f6;
 	}
 
 	.app-container {
@@ -291,8 +292,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 8px 12px;
-		background: #ffffff;
-		border-bottom: 1px solid #e0e0e0;
+		background: #374151;
+		border-bottom: 1px solid #4b5563;
 		position: sticky;
 		top: 0;
 		z-index: 50;
@@ -336,7 +337,7 @@
 
 	.settings-btn {
 		background: transparent;
-		color: #666;
+		color: #d1d5db;
 		border: none;
 		text-decoration: none;
 		font-size: 1.2rem;
@@ -347,23 +348,23 @@
 	}
 
 	.settings-btn:hover {
-		color: #333;
+		color: #ffffff;
 	}
 
 	.logout-btn {
 		background: transparent;
-		color: #666;
-		border: 1px solid #ddd;
+		color: #d1d5db;
+		border: 1px solid #6b7280;
 	}
 
 	.logout-btn:hover {
-		background: #f5f5f5;
-		color: #333;
+		background: #4b5563;
+		color: #ffffff;
 	}
 
 	.backup-timestamp {
 		font-size: 0.75rem;
-		color: #888;
+		color: #9ca3af;
 		display: none;
 	}
 
@@ -390,26 +391,5 @@
 	.main-content {
 		flex: 1;
 		padding-bottom: 70px;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.app-header {
-			background: #1f1f1f;
-			border-bottom-color: #333333;
-		}
-
-		.logout-btn {
-			color: #aaa;
-			border-color: #444;
-		}
-
-		.logout-btn:hover {
-			background: #333;
-			color: #eee;
-		}
-
-		.backup-timestamp {
-			color: #888;
-		}
 	}
 </style>

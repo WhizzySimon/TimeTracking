@@ -50,8 +50,8 @@
 		transform: translateX(-50%);
 		width: 100%;
 		max-width: 600px;
-		background: #ffffff;
-		border-top: 1px solid #e0e0e0;
+		background: #374151;
+		border-top: 1px solid #4b5563;
 		padding: 0;
 		z-index: 100;
 	}
@@ -64,7 +64,7 @@
 		min-height: 50px;
 		padding: 10px 8px;
 		text-decoration: none;
-		color: #666666;
+		color: #9ca3af;
 		font-size: 0.875rem;
 		font-weight: 500;
 		white-space: nowrap;
@@ -74,31 +74,12 @@
 	}
 
 	.tab:hover {
-		background-color: #f5f5f5;
+		background-color: #4b5563;
+		color: #d1d5db;
 	}
 
 	.tab.active {
-		color: #2563eb;
-		background-color: #eff6ff;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.tab-navigation {
-			background: #1f1f1f;
-			border-top-color: #333333;
-		}
-
-		.tab {
-			color: #a0a0a0;
-		}
-
-		.tab:hover {
-			background-color: #2a2a2a;
-		}
-
-		.tab.active {
-			color: #60a5fa;
-			background-color: #1e3a5f;
-		}
+		color: #60a5fa;
+		background-color: #1e3a5f;
 	}
 </style>
