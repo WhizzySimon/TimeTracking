@@ -6,7 +6,15 @@
 
 import { put, deleteByKey } from './db';
 import { addToOutbox } from '$lib/sync/outbox';
+import { syncNow } from '$lib/sync/engine';
 import type { TimeEntry, DayType, WorkTimeModel, Category } from '$lib/types';
+
+/**
+ * Trigger sync after operation (fire-and-forget, non-blocking).
+ */
+function triggerSync(): void {
+	syncNow().catch((err) => console.error('[Operations] Sync failed:', err));
+}
 
 /**
  * Save a time entry and add to outbox.
@@ -14,6 +22,7 @@ import type { TimeEntry, DayType, WorkTimeModel, Category } from '$lib/types';
 export async function saveTimeEntry(entry: TimeEntry): Promise<void> {
 	await put('timeEntries', entry);
 	await addToOutbox('entry_upsert', entry);
+	triggerSync();
 }
 
 /**
@@ -22,6 +31,7 @@ export async function saveTimeEntry(entry: TimeEntry): Promise<void> {
 export async function deleteTimeEntry(id: string): Promise<void> {
 	await deleteByKey('timeEntries', id);
 	await addToOutbox('entry_delete', { id });
+	triggerSync();
 }
 
 /**
@@ -30,6 +40,7 @@ export async function deleteTimeEntry(id: string): Promise<void> {
 export async function saveDayType(dayType: DayType): Promise<void> {
 	await put('dayTypes', dayType);
 	await addToOutbox('dayType_upsert', dayType);
+	triggerSync();
 }
 
 /**
@@ -38,6 +49,7 @@ export async function saveDayType(dayType: DayType): Promise<void> {
 export async function saveWorkTimeModel(model: WorkTimeModel): Promise<void> {
 	await put('workTimeModels', model);
 	await addToOutbox('workTimeModel_upsert', model);
+	triggerSync();
 }
 
 /**
@@ -46,6 +58,7 @@ export async function saveWorkTimeModel(model: WorkTimeModel): Promise<void> {
 export async function deleteWorkTimeModel(id: string): Promise<void> {
 	await deleteByKey('workTimeModels', id);
 	await addToOutbox('workTimeModel_delete', { id });
+	triggerSync();
 }
 
 /**
@@ -56,6 +69,7 @@ export async function saveUserCategory(category: Category): Promise<void> {
 	await put('categories', category);
 	if (category.type === 'user') {
 		await addToOutbox('category_upsert', category);
+		triggerSync();
 	}
 }
 
@@ -65,4 +79,5 @@ export async function saveUserCategory(category: Category): Promise<void> {
 export async function deleteUserCategoryWithSync(id: string): Promise<void> {
 	await deleteByKey('categories', id);
 	await addToOutbox('category_delete', { id });
+	triggerSync();
 }

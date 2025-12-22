@@ -1,14 +1,41 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { dev } from '$app/environment';
+	import { onMount, onDestroy } from 'svelte';
+	import { dev, browser } from '$app/environment';
 	import favicon from '$lib/assets/favicon.svg';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
+	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 
 	let { children } = $props();
+
+	let visibilityHandler: (() => void) | null = null;
 
 	onMount(() => {
 		if (!dev && 'serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/sw.js');
+		}
+
+		// Check sync status on startup
+		checkSyncStatus();
+
+		// Trigger sync on startup (after a short delay to let app initialize)
+		setTimeout(() => {
+			syncNow().catch((err) => console.error('[Layout] Startup sync failed:', err));
+		}, 1000);
+
+		// Trigger sync when user returns to tab
+		if (browser) {
+			visibilityHandler = () => {
+				if (document.visibilityState === 'visible') {
+					syncNow().catch((err) => console.error('[Layout] Visibility sync failed:', err));
+				}
+			};
+			document.addEventListener('visibilitychange', visibilityHandler);
+		}
+	});
+
+	onDestroy(() => {
+		if (browser && visibilityHandler) {
+			document.removeEventListener('visibilitychange', visibilityHandler);
 		}
 	});
 </script>
