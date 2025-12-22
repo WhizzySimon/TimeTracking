@@ -4,54 +4,106 @@
 		onchange: (value: string) => void;
 		id?: string;
 		required?: boolean;
-		placeholder?: string;
 	}
 
-	let { value, onchange, id = '', required = false, placeholder = 'HH:mm' }: Props = $props();
+	let { value, onchange, id = '', required = false }: Props = $props();
 
-	function formatTimeValue(hours: number, minutes: number): string {
-		return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+	// Parse current value into hour and minute
+	function parseValue(val: string): { hour: string; minute: string } {
+		if (!val) return { hour: '', minute: '' };
+		const match = val.match(/^(\d{1,2}):(\d{2})$/);
+		if (!match) return { hour: '', minute: '' };
+		return { hour: match[1].padStart(2, '0'), minute: match[2] };
 	}
 
-	function generateTimeOptions(): string[] {
-		const options: string[] = [];
-		for (let h = 0; h < 24; h++) {
-			for (let m = 0; m < 60; m += 5) {
-				options.push(formatTimeValue(h, m));
-			}
-		}
-		return options;
+	let parsed = $derived(parseValue(value));
+
+	// Generate hour options (00-23)
+	const hours: string[] = [];
+	for (let h = 0; h < 24; h++) {
+		hours.push(String(h).padStart(2, '0'));
 	}
 
-	const timeOptions = generateTimeOptions();
+	// Generate minute options (00, 05, 10, ..., 55)
+	const minutes: string[] = [];
+	for (let m = 0; m < 60; m += 5) {
+		minutes.push(String(m).padStart(2, '0'));
+	}
 
-	function handleSelectChange(event: Event) {
+	function handleHourChange(event: Event) {
 		const select = event.target as HTMLSelectElement;
-		onchange(select.value);
+		const newHour = select.value;
+		if (newHour) {
+			const newMinute = parsed.minute || '00';
+			onchange(`${newHour}:${newMinute}`);
+		}
+	}
+
+	function handleMinuteChange(event: Event) {
+		const select = event.target as HTMLSelectElement;
+		const newMinute = select.value;
+		if (newMinute) {
+			const newHour = parsed.hour || '00';
+			onchange(`${newHour}:${newMinute}`);
+		}
 	}
 </script>
 
-<select {id} class="time-picker" value={value || ''} onchange={handleSelectChange} {required}>
-	<option value="" disabled>{placeholder}</option>
-	{#each timeOptions as time (time)}
-		<option value={time}>{time}</option>
-	{/each}
-</select>
+<div class="time-picker-container" {id}>
+	<select
+		class="time-select hour-select"
+		value={parsed.hour}
+		onchange={handleHourChange}
+		{required}
+		aria-label="Stunde"
+	>
+		<option value="" disabled>--</option>
+		{#each hours as hour (hour)}
+			<option value={hour}>{hour}</option>
+		{/each}
+	</select>
+	<span class="separator">:</span>
+	<select
+		class="time-select minute-select"
+		value={parsed.minute}
+		onchange={handleMinuteChange}
+		{required}
+		aria-label="Minute"
+	>
+		<option value="" disabled>--</option>
+		{#each minutes as minute (minute)}
+			<option value={minute}>{minute}</option>
+		{/each}
+	</select>
+</div>
 
 <style>
-	.time-picker {
-		padding: 0.5rem 0.75rem;
+	.time-picker-container {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.time-select {
+		padding: 0.5rem 0.5rem;
 		border: 1px solid #ddd;
 		border-radius: 8px;
 		font-size: 1rem;
 		background: white;
 		cursor: pointer;
-		min-width: 100px;
+		min-width: 60px;
+		text-align: center;
 	}
 
-	.time-picker:focus {
+	.time-select:focus {
 		outline: none;
 		border-color: #3b82f6;
 		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+	}
+
+	.separator {
+		font-size: 1.25rem;
+		font-weight: 500;
+		color: #333;
 	}
 </style>

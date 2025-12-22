@@ -172,12 +172,7 @@
 			<div class="form-group">
 				<label for="endTime">Endzeit (optional)</label>
 				<div onfocusin={handleEndTimeFocus}>
-					<TimePicker
-						id="endTime"
-						value={endTime}
-						onchange={(v) => (endTime = v)}
-						placeholder="--:--"
-					/>
+					<TimePicker id="endTime" value={endTime} onchange={(v) => (endTime = v)} />
 				</div>
 			</div>
 		</div>
