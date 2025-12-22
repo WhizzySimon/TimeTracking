@@ -1,6 +1,6 @@
-# Safari-like Testing with Playwright WebKit
+# Cross-Browser Testing with Playwright
 
-This document describes how to run Safari/WebKit-based tests using Playwright in this repo.
+This document describes how to run cross-browser tests using Playwright in this repo, including Safari/WebKit, Chrome, and mobile device emulation.
 
 ## Two Testing Modes
 
@@ -99,28 +99,44 @@ Cascade can use the MCP Playwright tools to interactively test the app in WebKit
 
 Location: `C:\Users\<USERNAME>\.codeium\windsurf\mcp_config.json`
 
-**For WebKit (Desktop Safari):**
+**Full Multi-Browser Configuration (recommended):**
 
 ```json
 {
 	"mcpServers": {
-		"mcp-playwright": {
+		"playwright-webkit": {
 			"args": ["-y", "@playwright/mcp@latest", "--browser", "webkit"],
 			"command": "npx",
 			"disabled": false,
 			"env": {}
-		}
-	}
-}
-```
-
-**For Mobile Safari (iPhone emulation):**
-
-```json
-{
-	"mcpServers": {
-		"mcp-playwright": {
+		},
+		"playwright-chrome": {
+			"args": ["-y", "@playwright/mcp@latest", "--browser", "chrome"],
+			"command": "npx",
+			"disabled": false,
+			"env": {}
+		},
+		"playwright-mobile-safari": {
 			"args": ["-y", "@playwright/mcp@latest", "--browser", "webkit", "--device", "iPhone 15"],
+			"command": "npx",
+			"disabled": false,
+			"env": {}
+		},
+		"playwright-chrome-4k": {
+			"args": [
+				"-y",
+				"@playwright/mcp@latest",
+				"--browser",
+				"chrome",
+				"--viewport-size",
+				"3840x2160"
+			],
+			"command": "npx",
+			"disabled": false,
+			"env": {}
+		},
+		"playwright-android": {
+			"args": ["-y", "@playwright/mcp@latest", "--browser", "chrome", "--device", "Pixel 7"],
 			"command": "npx",
 			"disabled": false,
 			"env": {}
@@ -128,6 +144,20 @@ Location: `C:\Users\<USERNAME>\.codeium\windsurf\mcp_config.json`
 	}
 }
 ```
+
+### MCP Tool Mapping
+
+When multiple Playwright MCP servers are configured, Windsurf maps them to prefixed tool names:
+
+| MCP Server                 | Tool Prefix      | Description               |
+| -------------------------- | ---------------- | ------------------------- |
+| `playwright-webkit`        | `mcp0_browser_*` | Desktop Safari (WebKit)   |
+| `playwright-chrome`        | `mcp1_browser_*` | Desktop Chrome            |
+| `playwright-mobile-safari` | `mcp2_browser_*` | iPhone 15 (Mobile Safari) |
+| `playwright-chrome-4k`     | `mcp3_browser_*` | Chrome 4K (3840x2160)     |
+| `playwright-android`       | `mcp4_browser_*` | Pixel 7 (Android Chrome)  |
+
+**Note:** The "duplicate tool name" warning is expected and can be ignored.
 
 ### Troubleshooting
 
@@ -157,6 +187,37 @@ Once configured, Cascade can use MCP browser tools (`browser_navigate`, `browser
 - `--browser firefox` - Firefox
 - `--browser chrome` - Chrome (default)
 - `--device "iPhone 15"` - Mobile device emulation (combine with `--browser webkit`)
+
+## Cross-Browser UI Test Checklist
+
+When testing across different browsers and viewports, verify these aspects:
+
+### Font Rendering
+
+- [ ] Text is readable and properly anti-aliased
+- [ ] German umlauts (ä, ö, ü) display correctly
+- [ ] Numbers align properly in tables/summaries
+
+### Wide Screen (4K / Large Monitors)
+
+- [ ] Content is centered and not stretched edge-to-edge
+- [ ] Max-width constraints are respected (600px for main content)
+- [ ] Navigation stays accessible
+- [ ] No excessive whitespace that looks broken
+
+### Mobile Responsiveness
+
+- [ ] Navigation tabs fit and are tappable
+- [ ] Forms are usable (inputs not too small)
+- [ ] Dialogs/modals fit within viewport
+- [ ] Text doesn't overflow containers
+- [ ] Touch targets are adequately sized (44px minimum)
+
+### Browser-Specific Issues
+
+- [ ] WebKit: Check date inputs, flexbox layouts
+- [ ] Chrome: Check scrollbar styling
+- [ ] Mobile: Check viewport meta, zoom behavior
 
 ## Verification
 
