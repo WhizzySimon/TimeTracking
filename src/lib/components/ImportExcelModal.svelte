@@ -1,0 +1,407 @@
+<!--
+  ImportExcelModal - Modal for importing time entries from Excel files
+  
+  Features:
+  - File upload (.xlsx, .xlsm)
+  - Preview of import data (records, dates, total hours)
+  - Shows unknown activities that need to be created first
+  - Import button to save entries
+-->
+<script lang="ts">
+	import { categories, timeEntries } from '$lib/stores';
+	import { saveTimeEntry } from '$lib/storage/operations';
+	import {
+		parseExcelWorkbook,
+		buildCategoryMap,
+		findUnknownActivities,
+		convertToTimeEntries,
+		type ImportPreview
+	} from '$lib/import/excelImport';
+	import Modal from './Modal.svelte';
+
+	interface Props {
+		onclose?: () => void;
+	}
+
+	let { onclose }: Props = $props();
+
+	let fileInput: HTMLInputElement | null = $state(null);
+	let selectedFile: File | null = $state(null);
+	let preview: ImportPreview | null = $state(null);
+	let unknownActivities: string[] = $state([]);
+	let importing = $state(false);
+	let importResult: { success: boolean; count: number; errors: string[] } | null = $state(null);
+	let parseError: string | null = $state(null);
+
+	function handleFileSelect(event: Event) {
+		const input = event.target as HTMLInputElement;
+		const file = input.files?.[0];
+		if (file) {
+			selectedFile = file;
+			preview = null;
+			importResult = null;
+			parseError = null;
+			unknownActivities = [];
+			parseFile(file);
+		}
+	}
+
+	async function parseFile(file: File) {
+		try {
+			parseError = null;
+			preview = await parseExcelWorkbook(file);
+
+			// Check for unknown activities
+			const categoryMap = buildCategoryMap($categories);
+			unknownActivities = findUnknownActivities(preview.records, categoryMap);
+		} catch (e) {
+			parseError = e instanceof Error ? e.message : 'Fehler beim Parsen der Datei';
+			preview = null;
+		}
+	}
+
+	async function handleImport() {
+		if (!preview || unknownActivities.length > 0) return;
+
+		importing = true;
+		importResult = null;
+
+		try {
+			const categoryMap = buildCategoryMap($categories);
+			const { entries, skipped } = convertToTimeEntries(preview.records, categoryMap);
+
+			// Save all entries
+			for (const entry of entries) {
+				await saveTimeEntry(entry);
+			}
+
+			// Update store
+			timeEntries.update((current) => [...current, ...entries]);
+
+			importResult = {
+				success: true,
+				count: entries.length,
+				errors: skipped.length > 0 ? [`${skipped.length} Einträge übersprungen`] : []
+			};
+		} catch (e) {
+			importResult = {
+				success: false,
+				count: 0,
+				errors: [e instanceof Error ? e.message : 'Import fehlgeschlagen']
+			};
+		} finally {
+			importing = false;
+		}
+	}
+
+	function formatMinutes(minutes: number): string {
+		const hours = Math.floor(minutes / 60);
+		const mins = minutes % 60;
+		return `${hours}h ${mins}m`;
+	}
+
+	function handleClose() {
+		onclose?.();
+	}
+</script>
+
+<Modal title="Excel-Import" onclose={handleClose}>
+	<div class="import-modal">
+		<!-- File Upload -->
+		<div class="upload-section">
+			<label class="upload-label">
+				<input
+					bind:this={fileInput}
+					type="file"
+					accept=".xlsx,.xlsm"
+					onchange={handleFileSelect}
+					class="file-input"
+				/>
+				<span class="upload-btn">
+					{selectedFile ? selectedFile.name : 'Excel-Datei auswählen (.xlsx, .xlsm)'}
+				</span>
+			</label>
+		</div>
+
+		<!-- Parse Error -->
+		{#if parseError}
+			<div class="error-box">
+				<p>{parseError}</p>
+			</div>
+		{/if}
+
+		<!-- Preview -->
+		{#if preview}
+			<div class="preview-section">
+				<h3>Vorschau</h3>
+
+				<!-- Stats -->
+				<div class="stats">
+					<div class="stat">
+						<span class="stat-value">{preview.records.length}</span>
+						<span class="stat-label">Einträge</span>
+					</div>
+					<div class="stat">
+						<span class="stat-value">{preview.uniqueDates}</span>
+						<span class="stat-label">Tage</span>
+					</div>
+					<div class="stat">
+						<span class="stat-value">{formatMinutes(preview.totalMinutes)}</span>
+						<span class="stat-label">Gesamt</span>
+					</div>
+				</div>
+
+				<!-- Parse Errors -->
+				{#if preview.errors.length > 0}
+					<div class="warning-box">
+						<p class="warning-title">Warnungen:</p>
+						<ul>
+							{#each preview.errors.slice(0, 5) as error, i (i)}
+								<li>{error}</li>
+							{/each}
+							{#if preview.errors.length > 5}
+								<li>... und {preview.errors.length - 5} weitere</li>
+							{/if}
+						</ul>
+					</div>
+				{/if}
+
+				<!-- Unknown Activities -->
+				{#if unknownActivities.length > 0}
+					<div class="error-box">
+						<p class="error-title">Unbekannte Tätigkeiten:</p>
+						<p class="error-hint">
+							Diese Tätigkeiten existieren nicht. Bitte zuerst in den Einstellungen anlegen:
+						</p>
+						<ul>
+							{#each unknownActivities as activity (activity)}
+								<li>{activity}</li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
+			</div>
+		{/if}
+
+		<!-- Import Result -->
+		{#if importResult}
+			<div class={importResult.success ? 'success-box' : 'error-box'}>
+				{#if importResult.success}
+					<p>✓ {importResult.count} Einträge erfolgreich importiert!</p>
+				{:else}
+					<p>Import fehlgeschlagen:</p>
+					<ul>
+						{#each importResult.errors as error, i (i)}
+							<li>{error}</li>
+						{/each}
+					</ul>
+				{/if}
+			</div>
+		{/if}
+
+		<!-- Actions -->
+		<div class="actions">
+			<button type="button" class="btn-secondary" onclick={handleClose}>
+				{importResult?.success ? 'Schließen' : 'Abbrechen'}
+			</button>
+			{#if preview && !importResult?.success}
+				<button
+					type="button"
+					class="btn-primary"
+					onclick={handleImport}
+					disabled={importing || unknownActivities.length > 0}
+				>
+					{#if importing}
+						Importiere...
+					{:else if unknownActivities.length > 0}
+						Tätigkeiten fehlen
+					{:else}
+						Import starten ({preview.records.length} Einträge)
+					{/if}
+				</button>
+			{/if}
+		</div>
+	</div>
+</Modal>
+
+<style>
+	.import-modal {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.upload-section {
+		display: flex;
+		justify-content: center;
+	}
+
+	.upload-label {
+		cursor: pointer;
+	}
+
+	.file-input {
+		display: none;
+	}
+
+	.upload-btn {
+		display: inline-block;
+		padding: 0.75rem 1.5rem;
+		background: #f3f4f6;
+		border: 2px dashed #d1d5db;
+		border-radius: 8px;
+		color: #374151;
+		font-size: 0.9rem;
+		transition: all 0.2s;
+	}
+
+	.upload-btn:hover {
+		background: #e5e7eb;
+		border-color: #9ca3af;
+	}
+
+	.preview-section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.preview-section h3 {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 600;
+		color: #333;
+	}
+
+	.stats {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+	}
+
+	.stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0.75rem 1rem;
+		background: #f0f9ff;
+		border: 1px solid #bae6fd;
+		border-radius: 8px;
+		min-width: 80px;
+	}
+
+	.stat-value {
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #0369a1;
+	}
+
+	.stat-label {
+		font-size: 0.75rem;
+		color: #666;
+	}
+
+	.warning-box {
+		padding: 0.75rem;
+		background: #fef3c7;
+		border: 1px solid #f59e0b;
+		border-radius: 8px;
+	}
+
+	.warning-title {
+		margin: 0 0 0.5rem 0;
+		font-weight: 600;
+		color: #92400e;
+	}
+
+	.warning-box ul {
+		margin: 0;
+		padding-left: 1.25rem;
+		font-size: 0.85rem;
+		color: #92400e;
+	}
+
+	.error-box {
+		padding: 0.75rem;
+		background: #fef2f2;
+		border: 1px solid #fecaca;
+		border-radius: 8px;
+	}
+
+	.error-title {
+		margin: 0 0 0.25rem 0;
+		font-weight: 600;
+		color: #dc2626;
+	}
+
+	.error-hint {
+		margin: 0 0 0.5rem 0;
+		font-size: 0.85rem;
+		color: #991b1b;
+	}
+
+	.error-box ul {
+		margin: 0;
+		padding-left: 1.25rem;
+		font-size: 0.85rem;
+		color: #dc2626;
+	}
+
+	.error-box p {
+		margin: 0;
+		color: #dc2626;
+	}
+
+	.success-box {
+		padding: 0.75rem;
+		background: #f0fdf4;
+		border: 1px solid #86efac;
+		border-radius: 8px;
+	}
+
+	.success-box p {
+		margin: 0;
+		color: #16a34a;
+		font-weight: 500;
+	}
+
+	.actions {
+		display: flex;
+		gap: 0.75rem;
+		justify-content: flex-end;
+		padding-top: 0.5rem;
+		border-top: 1px solid #eee;
+	}
+
+	.btn-secondary {
+		padding: 0.75rem 1.5rem;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		background: white;
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	.btn-secondary:hover {
+		background: #f5f5f5;
+	}
+
+	.btn-primary {
+		padding: 0.75rem 1.5rem;
+		border: none;
+		border-radius: 8px;
+		background: #3b82f6;
+		color: white;
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	.btn-primary:hover:not(:disabled) {
+		background: #2563eb;
+	}
+
+	.btn-primary:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+</style>

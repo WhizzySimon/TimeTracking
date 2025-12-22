@@ -25,6 +25,7 @@
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
 	import ImportCategoriesModal from '$lib/components/ImportCategoriesModal.svelte';
+	import ImportExcelModal from '$lib/components/ImportExcelModal.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
@@ -74,6 +75,7 @@
 	let showAddCategory = $state(false);
 	let showAddWorkTimeModel = $state(false);
 	let showImportCategories = $state(false);
+	let showImportExcel = $state(false);
 	let showDeleteConfirm = $state(false);
 	let showDeleteModelConfirm = $state(false);
 	let categoryToDelete: Category | null = $state(null);
@@ -419,6 +421,18 @@
 			{/if}
 		</section>
 
+		<!-- Excel Import Section -->
+		<section class="section">
+			<div class="section-header">
+				<h2>Daten-Import</h2>
+			</div>
+			<div class="import-actions">
+				<button class="import-btn" onclick={() => (showImportExcel = true)}>
+					Excel-Datei importieren (.xlsx, .xlsm)
+				</button>
+			</div>
+		</section>
+
 		<!-- Version Section -->
 		<section class="section version-section">
 			<div class="version-info">
@@ -465,6 +479,11 @@
 		onsave={() => (showImportCategories = false)}
 		onclose={() => (showImportCategories = false)}
 	/>
+{/if}
+
+<!-- Import Excel Modal -->
+{#if showImportExcel}
+	<ImportExcelModal onclose={() => (showImportExcel = false)} />
 {/if}
 
 <!-- Add/Edit Work Time Model Modal -->
@@ -813,5 +832,27 @@
 		font-size: 0.85rem;
 		color: #dc2626;
 		text-align: center;
+	}
+
+	.import-actions {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.import-btn {
+		width: 100%;
+		padding: 0.875rem;
+		background: #3b82f6;
+		color: white;
+		border: none;
+		border-radius: 8px;
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+	}
+
+	.import-btn:hover {
+		background: #2563eb;
 	}
 </style>
