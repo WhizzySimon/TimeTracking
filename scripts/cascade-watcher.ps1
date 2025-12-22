@@ -32,7 +32,15 @@ Write-Host ""
 "IDLE" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
 "" | Out-File -FilePath $outputFile -Encoding utf8
 
+# Initialize lastCommand with existing content to avoid re-running stale commands on startup
 $lastCommand = ""
+if (Test-Path $requestFile) {
+    $existingCommand = Get-Content $requestFile -Raw -ErrorAction SilentlyContinue
+    if ($existingCommand) {
+        $lastCommand = $existingCommand.Trim()
+        Write-Host "Ignoring stale command from previous session" -ForegroundColor DarkGray
+    }
+}
 
 while ($true) {
     if (Test-Path $requestFile) {
