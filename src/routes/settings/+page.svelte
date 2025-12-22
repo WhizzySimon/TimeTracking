@@ -10,7 +10,7 @@
   2. Arbeitszeitmodelle section with list and add button
 -->
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
@@ -70,8 +70,6 @@
 	let loading = $state(true);
 	let appVersion = $state('');
 	let buildTime = $state('');
-	let updateAvailable = $state(false);
-	let newVersion = $state('');
 	let showAddCategory = $state(false);
 	let showAddWorkTimeModel = $state(false);
 	let showImportCategories = $state(false);
@@ -167,8 +165,6 @@
 		modelToDelete = null;
 	}
 
-	let swMessageHandler: ((event: MessageEvent) => void) | null = null;
-
 	onMount(async () => {
 		await initializeCategories();
 		const allCategories = await getAll<Category>('categories');
@@ -186,41 +182,8 @@
 			} catch {
 				appVersion = 'unbekannt';
 			}
-
-			if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-				swMessageHandler = (event: MessageEvent) => {
-					if (event.data?.type === 'UPDATE_AVAILABLE') {
-						updateAvailable = true;
-						newVersion = event.data.version;
-					}
-				};
-				navigator.serviceWorker.addEventListener('message', swMessageHandler);
-				navigator.serviceWorker.controller.postMessage('CHECK_UPDATE');
-			}
 		}
 	});
-
-	onDestroy(() => {
-		if (browser && swMessageHandler) {
-			navigator.serviceWorker.removeEventListener('message', swMessageHandler);
-		}
-	});
-
-	async function reloadApp() {
-		if ('serviceWorker' in navigator) {
-			const registration = await navigator.serviceWorker.getRegistration();
-			if (registration?.waiting) {
-				registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-				registration.waiting.addEventListener('statechange', (e) => {
-					if ((e.target as ServiceWorker).state === 'activated') {
-						window.location.reload();
-					}
-				});
-				return;
-			}
-		}
-		window.location.reload();
-	}
 
 	async function handleDeleteAccount() {
 		deleteAccountError = null;
@@ -441,12 +404,6 @@
 					<span class="build-time">Build: {buildTime}</span>
 				{/if}
 			</div>
-			{#if updateAvailable}
-				<div class="update-banner">
-					<span>Neue Version {newVersion} verfügbar!</span>
-					<button class="update-btn" onclick={reloadApp}>Aktualisieren</button>
-				</div>
-			{/if}
 		</section>
 
 		<!-- Delete Account Section -->
@@ -765,38 +722,6 @@
 	.build-time {
 		font-size: 0.75rem;
 		color: #999;
-	}
-
-	.update-banner {
-		margin-top: 0.75rem;
-		padding: 0.75rem;
-		background: #fef3c7;
-		border: 1px solid #f59e0b;
-		border-radius: 8px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-	}
-
-	.update-banner span {
-		color: #92400e;
-		font-weight: 500;
-	}
-
-	.update-btn {
-		padding: 0.5rem 1rem;
-		background: #f59e0b;
-		color: white;
-		border: none;
-		border-radius: 6px;
-		font-size: 0.9rem;
-		cursor: pointer;
-	}
-
-	.update-btn:hover {
-		background: #d97706;
 	}
 
 	.delete-account-section {
