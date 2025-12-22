@@ -199,18 +199,16 @@
 							<span class="day-type">{getDayTypeLabel(date)}</span>
 						</div>
 						<div class="day-hours">
-							<span class="ist">Ist {dayIst.toFixed(1).replace('.', ',')}</span>
+							<span class="ist">{dayIst.toFixed(1).replace('.', ',')}</span>
 							<span class="separator">/</span>
-							<span class="soll">Soll {daySoll.toFixed(1).replace('.', ',')}</span>
+							<span class="soll">{daySoll.toFixed(1).replace('.', ',')}</span>
 							<span class="separator">/</span>
 							<span
 								class="saldo"
 								class:positive={dayIst - daySoll >= 0}
 								class:negative={dayIst - daySoll < 0}
 							>
-								Haben {dayIst - daySoll >= 0 ? '+' : ''}{(dayIst - daySoll)
-									.toFixed(1)
-									.replace('.', ',')}
+								{dayIst - daySoll >= 0 ? '+' : ''}{(dayIst - daySoll).toFixed(1).replace('.', ',')}
 							</span>
 						</div>
 					</div>

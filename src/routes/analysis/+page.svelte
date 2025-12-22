@@ -258,17 +258,16 @@
 					<div class="period-item">
 						<span class="period-label">{period.label}</span>
 						<div class="period-hours">
-							<span class="ist">Ist {formatHours(period.ist)}</span>
+							<span class="ist">{formatHours(period.ist)}</span>
 							<span class="separator">/</span>
-							<span class="soll">Soll {formatHours(period.soll)}</span>
+							<span class="soll">{formatHours(period.soll)}</span>
 							<span class="separator">/</span>
-							<span class="saldo">
-								Haben <span
-									class="saldo-value"
-									class:positive={periodSaldo >= 0}
-									class:negative={periodSaldo < 0}
-									>{periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}</span
-								>
+							<span
+								class="saldo"
+								class:positive={periodSaldo >= 0}
+								class:negative={periodSaldo < 0}
+							>
+								{periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}
 							</span>
 						</div>
 					</div>
@@ -383,11 +382,11 @@
 		color: #666;
 	}
 
-	.period-hours .saldo-value.positive {
+	.period-hours .saldo.positive {
 		color: #16a34a;
 	}
 
-	.period-hours .saldo-value.negative {
+	.period-hours .saldo.negative {
 		color: #dc2626;
 	}
 </style>
