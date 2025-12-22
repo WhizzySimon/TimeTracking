@@ -17,6 +17,7 @@
 	import type { TimeEntry } from '$lib/types';
 	import Modal from './Modal.svelte';
 	import TimePicker from './TimePicker.svelte';
+	import CategorySelect from './CategorySelect.svelte';
 
 	interface Props {
 		date: Date;
@@ -156,11 +157,13 @@
 
 		<div class="form-group">
 			<label for="category">Kategorie</label>
-			<select id="category" bind:value={categoryId} required>
-				{#each selectableCategories as category (category.id)}
-					<option value={category.id}>{category.name}</option>
-				{/each}
-			</select>
+			<CategorySelect
+				id="category"
+				categories={selectableCategories}
+				value={categoryId}
+				onchange={(id) => (categoryId = id)}
+				required
+			/>
 		</div>
 
 		<div class="form-row">
@@ -234,16 +237,14 @@
 		color: #333;
 	}
 
-	input,
-	select {
+	input {
 		padding: 0.5rem 0.75rem;
 		border: 1px solid #ddd;
 		border-radius: 8px;
 		font-size: 1rem;
 	}
 
-	input:focus,
-	select:focus {
+	input:focus {
 		outline: none;
 		border-color: #3b82f6;
 		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
