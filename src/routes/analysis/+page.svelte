@@ -171,7 +171,54 @@
 		countsAsWorkTime: boolean;
 	}
 
-	// Count work days in range (excluding Urlaub, Feiertag, Krank)
+	// Get the weekday key for a Date (0=Sunday, 1=Monday, etc.)
+	function getWeekdayKey(date: Date): keyof WorkTimeModel {
+		const dayIndex = date.getDay();
+		const keys: (keyof WorkTimeModel)[] = [
+			'sunday',
+			'monday',
+			'tuesday',
+			'wednesday',
+			'thursday',
+			'friday',
+			'saturday'
+		];
+		return keys[dayIndex];
+	}
+
+	// Check if a weekday is active in a WorkTimeModel (hours > 0)
+	function isWeekdayActiveInModel(date: Date, model: WorkTimeModel | null): boolean {
+		if (!model) return false;
+		const key = getWeekdayKey(date);
+		const hours = model[key];
+		return typeof hours === 'number' && hours > 0;
+	}
+
+	// Count work days per week in a WorkTimeModel
+	function getWorkDaysPerWeekFromModel(model: WorkTimeModel | null): number {
+		if (!model) return 5; // Default fallback
+		let count = 0;
+		const days: (keyof WorkTimeModel)[] = [
+			'monday',
+			'tuesday',
+			'wednesday',
+			'thursday',
+			'friday',
+			'saturday',
+			'sunday'
+		];
+		for (const day of days) {
+			const hours = model[day];
+			if (typeof hours === 'number' && hours > 0) {
+				count++;
+			}
+		}
+		return count || 5; // Fallback to 5 if no days configured
+	}
+
+	// Count actual work days in range, considering:
+	// 1. WorkTimeModel (which weekdays are active)
+	// 2. DayTypes (urlaub, krank, feiertag exclude the day)
 	function countWorkDaysInRange(): number {
 		let workDays = 0;
 		let current = parseDate(rangeStartStr);
@@ -181,9 +228,15 @@
 		while (current <= end) {
 			const dateKey = formatDate(current, 'ISO');
 			const dayType = dayTypesCache.get(dateKey) ?? 'arbeitstag';
-			// Only count actual work days (arbeitstag)
-			// Exclude: urlaub, feiertag, krank
-			if (dayType === 'arbeitstag') {
+			const model = getActiveModelForDate(current);
+
+			// Only count if:
+			// 1. This weekday is active in the WorkTimeModel (has hours > 0)
+			// 2. The day is not marked as urlaub/krank/feiertag
+			const isActiveWeekday = isWeekdayActiveInModel(current, model);
+			const isWorkDay = dayType === 'arbeitstag';
+
+			if (isActiveWeekday && isWorkDay) {
 				workDays++;
 			}
 			current = addDays(current, 1);
@@ -191,10 +244,24 @@
 		return workDays;
 	}
 
-	// Calculate number of "effective weeks" based on work days
-	// (work days / 7) gives us the equivalent weeks
-	let workDaysInRange = $derived(countWorkDaysInRange());
-	let effectiveWeeks = $derived(workDaysInRange / 7);
+	// Calculate effective weeks based on work days and work days per week from model
+	// This handles multiple WorkTimeModels across the date range by using weighted average
+	function calculateEffectiveWeeks(): number {
+		const workDays = countWorkDaysInRange();
+		if (workDays === 0) return 0;
+
+		// Get the predominant model (model active for most days in range)
+		// For simplicity, use the model at range start - could be enhanced for multi-model ranges
+		const startDate = parseDate(rangeStartStr);
+		if (!startDate) return workDays / 5;
+
+		const model = getActiveModelForDate(startDate);
+		const daysPerWeek = getWorkDaysPerWeekFromModel(model);
+
+		return workDays / daysPerWeek;
+	}
+
+	let effectiveWeeks = $derived(calculateEffectiveWeeks());
 
 	function calculateCategoryBreakdown(): CategoryBreakdown[] {
 		// Group entries by category and sum hours
