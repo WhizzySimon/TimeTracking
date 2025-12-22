@@ -28,3 +28,14 @@ When encountering Svelte or TypeScript warnings:
 ```
 
 ---
+
+## Documentation Style (for .windsurf/rules/ files)
+
+**Keep it simple. These files are instructions for the LLM, not rendered documentation.**
+
+### Rules:
+- NO fenced code blocks (triple backticks) - they cause output formatting issues
+- Use inline code with single backticks for short snippets: `functionName()`
+- For longer code examples, use indentation (4 spaces) or describe in plain text
+- Use bullet points and headings for structure
+- Keep examples short and inline when possible
