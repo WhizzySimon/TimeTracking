@@ -127,6 +127,42 @@ export async function deleteByKey(storeName: string, key: string): Promise<void>
 }
 
 /**
+ * Get entries by date range using the date index.
+ * More efficient than getAll + filter for large datasets.
+ */
+export async function getEntriesByDateRange<T>(
+	storeName: string,
+	startDate: string,
+	endDate: string
+): Promise<T[]> {
+	const db = await openDB();
+	return new Promise((resolve, reject) => {
+		const tx = db.transaction(storeName, 'readonly');
+		const store = tx.objectStore(storeName);
+		const index = store.index('date');
+		const range = IDBKeyRange.bound(startDate, endDate);
+		const request = index.getAll(range);
+		request.onsuccess = () => resolve(request.result as T[]);
+		request.onerror = () => reject(request.error);
+	});
+}
+
+/**
+ * Get all entries for a specific date using the date index.
+ */
+export async function getEntriesByDate<T>(storeName: string, date: string): Promise<T[]> {
+	const db = await openDB();
+	return new Promise((resolve, reject) => {
+		const tx = db.transaction(storeName, 'readonly');
+		const store = tx.objectStore(storeName);
+		const index = store.index('date');
+		const request = index.getAll(date);
+		request.onsuccess = () => resolve(request.result as T[]);
+		request.onerror = () => reject(request.error);
+	});
+}
+
+/**
  * Clear entire database (for testing).
  */
 export async function clearDatabase(): Promise<void> {
