@@ -46,8 +46,10 @@
 		align-items: stretch;
 		position: fixed;
 		bottom: 0;
-		left: 0;
-		right: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 100%;
+		max-width: 600px;
 		background: #ffffff;
 		border-top: 1px solid #e0e0e0;
 		padding: 0;

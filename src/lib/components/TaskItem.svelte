@@ -65,6 +65,7 @@
 		cursor: pointer;
 		text-align: left;
 		width: 100%;
+		box-sizing: border-box;
 		transition: all 0.2s;
 	}
 
