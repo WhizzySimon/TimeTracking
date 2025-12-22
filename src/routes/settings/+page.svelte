@@ -47,13 +47,17 @@
 		return days.filter((h) => h !== null && h > 0).length;
 	}
 
-	// Sort categories: system categories first, then user categories alphabetically
-	let sortedCategories = $derived(() => {
-		const systemCats = $categories.filter((c) => c.type === 'system');
-		const userCats = $categories
-			.filter((c) => c.type === 'user')
+	// Split categories: absence (system + non-work) vs work categories
+	let abwesenheitskategorien = $derived(() => {
+		return $categories
+			.filter((c) => !c.countsAsWorkTime)
 			.sort((a, b) => a.name.localeCompare(b.name, 'de'));
-		return [...systemCats, ...userCats];
+	});
+
+	let arbeitskategorien = $derived(() => {
+		return $categories
+			.filter((c) => c.countsAsWorkTime)
+			.sort((a, b) => a.name.localeCompare(b.name, 'de'));
 	});
 
 	let loading = $state(true);
@@ -226,29 +230,51 @@
 			</div>
 		</section>
 
-		<!-- Kategorien Section (second - longer list, sorted: system first, then user alphabetically) -->
+		<!-- Abwesenheitskategorien Section -->
 		<section class="section">
 			<div class="section-header">
-				<h2>Kategorien</h2>
-				<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
+				<h2>Abwesenheitskategorien</h2>
 			</div>
-			<div class="list" data-testid="category-list">
-				{#if $categories.length === 0}
-					<p class="empty">Keine Kategorien vorhanden</p>
+			<div class="list">
+				{#if abwesenheitskategorien().length === 0}
+					<p class="empty">Keine Abwesenheitskategorien vorhanden</p>
 				{:else}
-					{#each sortedCategories() as category (category.id)}
+					{#each abwesenheitskategorien() as category (category.id)}
 						<div
 							class="list-item"
 							data-testid="category-item"
 							data-category-type={category.type}
-							data-counts-as-work={String(category.countsAsWorkTime)}
+							data-counts-as-work="false"
 						>
 							<div class="item-info">
 								<span class="item-name" data-testid="category-name">{category.name}</span>
 							</div>
-							{#if !category.countsAsWorkTime}
-								<span class="badge no-work">Keine Arbeitszeit</span>
-							{/if}
+						</div>
+					{/each}
+				{/if}
+			</div>
+		</section>
+
+		<!-- Arbeitskategorien Section -->
+		<section class="section">
+			<div class="section-header">
+				<h2>Arbeitskategorien</h2>
+				<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
+			</div>
+			<div class="list" data-testid="category-list">
+				{#if arbeitskategorien().length === 0}
+					<p class="empty">Keine Arbeitskategorien vorhanden</p>
+				{:else}
+					{#each arbeitskategorien() as category (category.id)}
+						<div
+							class="list-item"
+							data-testid="category-item"
+							data-category-type={category.type}
+							data-counts-as-work="true"
+						>
+							<div class="item-info">
+								<span class="item-name" data-testid="category-name">{category.name}</span>
+							</div>
 							{#if category.type !== 'system'}
 								<button
 									class="delete-btn"
@@ -414,19 +440,6 @@
 	.item-detail {
 		font-size: 0.85rem;
 		color: #666;
-	}
-
-	.badge {
-		font-size: 0.75rem;
-		padding: 0.125rem 0.5rem;
-		border-radius: 4px;
-		width: fit-content;
-	}
-
-	.badge.no-work {
-		background: #f3f4f6;
-		color: #6b7280;
-		margin-right: 0.5rem;
 	}
 
 	.delete-btn {
