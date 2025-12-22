@@ -47,6 +47,15 @@
 		return days.filter((h) => h !== null && h > 0).length;
 	}
 
+	// Sort categories: system categories first, then user categories alphabetically
+	let sortedCategories = $derived(() => {
+		const systemCats = $categories.filter((c) => c.type === 'system');
+		const userCats = $categories
+			.filter((c) => c.type === 'user')
+			.sort((a, b) => a.name.localeCompare(b.name, 'de'));
+		return [...systemCats, ...userCats];
+	});
+
 	let loading = $state(true);
 	let appVersion = $state('');
 	let buildTime = $state('');
@@ -168,44 +177,7 @@
 			<p>Laden...</p>
 		</div>
 	{:else}
-		<!-- Kategorien Section -->
-		<section class="section">
-			<div class="section-header">
-				<h2>Kategorien</h2>
-				<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
-			</div>
-			<div class="list" data-testid="category-list">
-				{#if $categories.length === 0}
-					<p class="empty">Keine Kategorien vorhanden</p>
-				{:else}
-					{#each $categories as category (category.id)}
-						<div
-							class="list-item"
-							data-testid="category-item"
-							data-category-type={category.type}
-							data-counts-as-work={String(category.countsAsWorkTime)}
-						>
-							<div class="item-info">
-								<span class="item-name" data-testid="category-name">{category.name}</span>
-							</div>
-							{#if !category.countsAsWorkTime}
-								<span class="badge no-work">Keine Arbeitszeit</span>
-							{/if}
-							{#if category.type !== 'system'}
-								<button
-									class="delete-btn"
-									aria-label="Löschen"
-									data-testid="delete-category-btn"
-									onclick={() => handleDeleteCategory(category)}>×</button
-								>
-							{/if}
-						</div>
-					{/each}
-				{/if}
-			</div>
-		</section>
-
-		<!-- Arbeitszeitmodelle Section -->
+		<!-- Arbeitszeitmodelle Section (first - shorter list) -->
 		<section class="section">
 			<div class="section-header">
 				<h2>Arbeitszeitmodelle</h2>
@@ -228,6 +200,43 @@
 								aria-label="Löschen"
 								onclick={() => handleDeleteModel(model)}>×</button
 							>
+						</div>
+					{/each}
+				{/if}
+			</div>
+		</section>
+
+		<!-- Kategorien Section (second - longer list, sorted: system first, then user alphabetically) -->
+		<section class="section">
+			<div class="section-header">
+				<h2>Kategorien</h2>
+				<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
+			</div>
+			<div class="list" data-testid="category-list">
+				{#if $categories.length === 0}
+					<p class="empty">Keine Kategorien vorhanden</p>
+				{:else}
+					{#each sortedCategories() as category (category.id)}
+						<div
+							class="list-item"
+							data-testid="category-item"
+							data-category-type={category.type}
+							data-counts-as-work={String(category.countsAsWorkTime)}
+						>
+							<div class="item-info">
+								<span class="item-name" data-testid="category-name">{category.name}</span>
+							</div>
+							{#if !category.countsAsWorkTime}
+								<span class="badge no-work">Keine Arbeitszeit</span>
+							{/if}
+							{#if category.type !== 'system'}
+								<button
+									class="delete-btn"
+									aria-label="Löschen"
+									data-testid="delete-category-btn"
+									onclick={() => handleDeleteCategory(category)}>×</button
+								>
+							{/if}
 						</div>
 					{/each}
 				{/if}
