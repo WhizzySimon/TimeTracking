@@ -11,6 +11,7 @@
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import { SvelteMap } from 'svelte/reactivity';
 	import { timeEntries, categories, workTimeModels } from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
@@ -26,13 +27,43 @@
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import DateRangeSelector from '$lib/components/DateRangeSelector.svelte';
 
+	const STORAGE_KEY = 'analysis-date-range';
+
 	let loading = $state(true);
 	let showRangeSelector = $state(false);
 
-	// Date range state - default: 01.01.current year to today
-	// Store as ISO strings to avoid mutable Date issues
-	let rangeStartStr = $state(formatDate(new Date(new Date().getFullYear(), 0, 1), 'ISO'));
-	let rangeEndStr = $state(formatDate(new Date(), 'ISO'));
+	// Load saved range from localStorage or use defaults
+	function getInitialRange(): { start: string; end: string } {
+		if (browser) {
+			const saved = localStorage.getItem(STORAGE_KEY);
+			if (saved) {
+				try {
+					const parsed = JSON.parse(saved);
+					if (parsed.start && parsed.end) {
+						return parsed;
+					}
+				} catch {
+					// Ignore parse errors
+				}
+			}
+		}
+		// Default: 01.01.current year to today
+		return {
+			start: formatDate(new Date(new Date().getFullYear(), 0, 1), 'ISO'),
+			end: formatDate(new Date(), 'ISO')
+		};
+	}
+
+	const initialRange = getInitialRange();
+	let rangeStartStr = $state(initialRange.start);
+	let rangeEndStr = $state(initialRange.end);
+
+	// Save range to localStorage when it changes
+	$effect(() => {
+		if (browser && rangeStartStr && rangeEndStr) {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify({ start: rangeStartStr, end: rangeEndStr }));
+		}
+	});
 
 	// Day types cache for the range
 	const dayTypesCache = new SvelteMap<string, DayTypeValue>();

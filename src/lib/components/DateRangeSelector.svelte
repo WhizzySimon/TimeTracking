@@ -48,6 +48,36 @@
 		error = '';
 	}
 
+	// Quick select: last year
+	function selectLastYear() {
+		const now = new Date();
+		const lastYear = now.getFullYear() - 1;
+		const yearStart = new Date(lastYear, 0, 1);
+		const yearEnd = new Date(lastYear, 11, 31);
+		startInput = formatDate(yearStart, 'DE');
+		endInput = formatDate(yearEnd, 'DE');
+		error = '';
+	}
+
+	// Quick select: current month (1st to today)
+	function selectCurrentMonth() {
+		const now = new Date();
+		const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+		startInput = formatDate(monthStart, 'DE');
+		endInput = formatDate(now, 'DE');
+		error = '';
+	}
+
+	// Quick select: last month (full month)
+	function selectLastMonth() {
+		const now = new Date();
+		const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0); // Last day of previous month
+		const lastMonthStart = new Date(lastMonthEnd.getFullYear(), lastMonthEnd.getMonth(), 1);
+		startInput = formatDate(lastMonthStart, 'DE');
+		endInput = formatDate(lastMonthEnd, 'DE');
+		error = '';
+	}
+
 	// Validate and save
 	function handleSave() {
 		const start = parseDate(startInput);
@@ -82,7 +112,12 @@
 		<!-- Quick Select -->
 		<div class="section">
 			<h3 class="section-title">Schnellwahl</h3>
-			<button type="button" class="quick-btn" onclick={selectCurrentYear}> Aktuelles Jahr </button>
+			<div class="quick-btns">
+				<button type="button" class="quick-btn" onclick={selectCurrentYear}>Aktuelles Jahr</button>
+				<button type="button" class="quick-btn" onclick={selectLastYear}>Letztes Jahr</button>
+				<button type="button" class="quick-btn" onclick={selectCurrentMonth}>Aktueller Monat</button>
+				<button type="button" class="quick-btn" onclick={selectLastMonth}>Letzter Monat</button>
+			</div>
 		</div>
 
 		<!-- Manual Input -->
@@ -145,14 +180,20 @@
 		color: #666;
 	}
 
+	.quick-btns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.5rem;
+	}
+
 	.quick-btn {
 		padding: 0.75rem 1rem;
 		border: 1px solid #ddd;
 		border-radius: 8px;
 		background: white;
-		font-size: 1rem;
+		font-size: 0.9rem;
 		cursor: pointer;
-		text-align: left;
+		text-align: center;
 	}
 
 	.quick-btn:hover {
