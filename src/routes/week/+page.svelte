@@ -38,8 +38,10 @@
 	import type { Category, DayType, DayTypeValue, TimeEntry, WorkTimeModel } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import WeekTypeSelector from '$lib/components/WeekTypeSelector.svelte';
+	import WeekYearPicker from '$lib/components/WeekYearPicker.svelte';
 
 	let loading = $state(true);
+	let showWeekPicker = $state(false);
 
 	// Week dates (Monday to Sunday)
 	let weekDates = $derived(getWeekDates($currentDate));
@@ -121,8 +123,13 @@
 		currentDate.set(addDays($currentDate, 7));
 	}
 
-	function goToCurrentWeek() {
-		currentDate.set(new Date());
+	function openWeekPicker() {
+		showWeekPicker = true;
+	}
+
+	function handleWeekSelect(date: Date) {
+		currentDate.set(date);
+		showWeekPicker = false;
 	}
 
 	// Get entries for a specific day
@@ -195,7 +202,7 @@
 		<!-- Week Navigation -->
 		<header class="week-nav">
 			<button class="nav-btn" onclick={goToPreviousWeek} aria-label="Vorherige Woche">←</button>
-			<button class="week-title" onclick={goToCurrentWeek}>{weekTitle}</button>
+			<button class="week-title" onclick={openWeekPicker}>{weekTitle}</button>
 			<button class="nav-btn" onclick={goToNextWeek} aria-label="Nächste Woche">→</button>
 		</header>
 
@@ -238,6 +245,15 @@
 		</div>
 	{/if}
 </div>
+
+<!-- Week Year Picker Modal -->
+{#if showWeekPicker}
+	<WeekYearPicker
+		currentDate={$currentDate}
+		onselect={handleWeekSelect}
+		onclose={() => (showWeekPicker = false)}
+	/>
+{/if}
 
 <style>
 	.week-page {

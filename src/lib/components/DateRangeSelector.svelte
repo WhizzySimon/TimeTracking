@@ -115,7 +115,8 @@
 			<div class="quick-btns">
 				<button type="button" class="quick-btn" onclick={selectCurrentYear}>Aktuelles Jahr</button>
 				<button type="button" class="quick-btn" onclick={selectLastYear}>Letztes Jahr</button>
-				<button type="button" class="quick-btn" onclick={selectCurrentMonth}>Aktueller Monat</button>
+				<button type="button" class="quick-btn" onclick={selectCurrentMonth}>Aktueller Monat</button
+				>
 				<button type="button" class="quick-btn" onclick={selectLastMonth}>Letzter Monat</button>
 			</div>
 		</div>
