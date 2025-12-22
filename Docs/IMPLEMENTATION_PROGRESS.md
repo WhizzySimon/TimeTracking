@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 4 - Sync & Polish  
-**Tasks Completed:** 47 / 60  
+**Tasks Completed:** 49 / 60  
 **Estimated Progress:** 72%
 
 ---
@@ -355,8 +355,16 @@
 
 ### Polish & Quality
 
-- [ ] **Task 4.7** — Add loading states to all async operations
-- [ ] **Task 4.8** — Implement basic error boundaries
+- [x] **Task 4.7** — Add loading states to all async operations
+  - Files: Already implemented in all pages and modals
+  - Verified: Code review ✅
+  - Deviations: None
+  - Notes: All pages have `loading` state with "Laden..." display. All modals have `saving` state with disabled buttons/inputs and "Speichern..." text. Already complete from previous tasks.
+- [x] **Task 4.8** — Implement basic error boundaries
+  - Files: `src/routes/+error.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Created error page with user-friendly German message, reload/home buttons, collapsible technical details. Dark mode support.
 - [ ] **Task 4.9** — Add input validation to all forms
 - [ ] **Task 4.10** — Optimize IndexedDB queries
 - [ ] **Task 4.11** — Add basic accessibility features
