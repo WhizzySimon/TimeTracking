@@ -116,7 +116,12 @@
 			style="cursor: {isDragging ? 'grabbing' : 'grab'};"
 		>
 			<h2 id="modal-title">{title}</h2>
-			<button class="close-btn" onclick={onclose} onmousedown={(e) => e.stopPropagation()} aria-label="Schließen">×</button>
+			<button
+				class="close-btn"
+				onclick={onclose}
+				onmousedown={(e) => e.stopPropagation()}
+				aria-label="Schließen">×</button
+			>
 		</header>
 		<div class="modal-body">
 			{@render children?.()}
