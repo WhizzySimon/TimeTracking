@@ -254,12 +254,21 @@
 				<p class="no-periods">Keine Daten im ausgewählten Zeitraum</p>
 			{:else}
 				{#each periodGroups as period (period.label)}
+					{@const periodSaldo = period.ist - period.soll}
 					<div class="period-item">
 						<span class="period-label">{period.label}</span>
 						<div class="period-hours">
 							<span class="ist">Ist {formatHours(period.ist)}</span>
 							<span class="separator">/</span>
 							<span class="soll">Soll {formatHours(period.soll)}</span>
+							<span class="separator">/</span>
+							<span
+								class="saldo"
+								class:positive={periodSaldo >= 0}
+								class:negative={periodSaldo < 0}
+							>
+								Saldo {periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}
+							</span>
 						</div>
 					</div>
 				{/each}
@@ -371,5 +380,13 @@
 
 	.period-hours .soll {
 		color: #666;
+	}
+
+	.period-hours .saldo.positive {
+		color: #16a34a;
+	}
+
+	.period-hours .saldo.negative {
+		color: #dc2626;
 	}
 </style>
