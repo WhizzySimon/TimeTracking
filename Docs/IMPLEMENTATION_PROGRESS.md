@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 5 - Extended Features  
-**Tasks Completed:** 61 / 70  
+**Tasks Completed:** 63 / 70  
 **Estimated Progress:** 86%
 
 ---
@@ -433,7 +433,7 @@
 ## Phase 5: Extended Features
 
 **Target:** 10 tasks, ~10-12 hours  
-**Status:** In Progress (1/10 tasks)
+**Status:** In Progress (3/10 tasks)
 
 ### Default Work Time Model & Category Changes
 
@@ -445,17 +445,17 @@
 
 ### Category Import/Export
 
-- [ ] **Task 5.2** — Implement category export
+- [x] **Task 5.2** — Implement category export
   - Files: `src/routes/settings/+page.svelte`, `src/lib/utils/categoryIO.ts`
-  - Verified: (pending)
-  - Deviations: (pending)
-  - Notes: Export user categories as comma-separated text file
+  - Verified: npm run verify ✅ (ALL PASSED), Browser test ✅
+  - Deviations: None
+  - Notes: Created categoryIO.ts with export/import utilities. Added "Exportieren" button to settings. Downloads kategorien.txt with comma-separated user category names.
 
-- [ ] **Task 5.3** — Implement category import
+- [x] **Task 5.3** — Implement category import
   - Files: `src/routes/settings/+page.svelte`, `src/lib/utils/categoryIO.ts`, `src/lib/components/ImportCategoriesModal.svelte`
-  - Verified: (pending)
-  - Deviations: (pending)
-  - Notes: Import from file or text input, merge with existing
+  - Verified: npm run verify ✅ (ALL PASSED), Browser test ✅
+  - Deviations: None
+  - Notes: Created ImportCategoriesModal with file upload and text input. Shows import count and skipped duplicates. Auto-closes on success.
 
 ### Authentication
 

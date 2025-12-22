@@ -20,6 +20,7 @@
 	import type { Category, WorkTimeModel } from '$lib/types';
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
+	import ImportCategoriesModal from '$lib/components/ImportCategoriesModal.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
@@ -68,6 +69,7 @@
 	let newVersion = $state('');
 	let showAddCategory = $state(false);
 	let showAddWorkTimeModel = $state(false);
+	let showImportCategories = $state(false);
 	let showDeleteConfirm = $state(false);
 	let showDeleteModelConfirm = $state(false);
 	let categoryToDelete: Category | null = $state(null);
@@ -264,6 +266,9 @@
 					<button class="secondary-btn" onclick={() => downloadCategoriesFile($categories)}>
 						Exportieren
 					</button>
+					<button class="secondary-btn" onclick={() => (showImportCategories = true)}>
+						Importieren
+					</button>
 					<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
 				</div>
 			</div>
@@ -318,6 +323,14 @@
 	<AddCategoryModal
 		onsave={() => (showAddCategory = false)}
 		onclose={() => (showAddCategory = false)}
+	/>
+{/if}
+
+<!-- Import Categories Modal -->
+{#if showImportCategories}
+	<ImportCategoriesModal
+		onsave={() => (showImportCategories = false)}
+		onclose={() => (showImportCategories = false)}
 	/>
 {/if}
 
