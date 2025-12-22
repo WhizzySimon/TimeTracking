@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 4 - Sync & Polish  
-**Tasks Completed:** 51 / 60  
+**Tasks Completed:** 52 / 60  
 **Estimated Progress:** 72%
 
 ---
@@ -375,7 +375,11 @@
   - Verified: npm run verify ✅ (ALL PASSED)
   - Deviations: None
   - Notes: Added getEntriesByDateRange() and getEntriesByDate() using indexes for efficient date-based queries. Existing optimizations: DB instance caching, indexes on date/categoryId/validFrom/status/createdAt.
-- [ ] **Task 4.11** — Add basic accessibility features
+- [x] **Task 4.11** — Add basic accessibility features
+  - Files: `src/lib/components/Modal.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Added focus management to Modal (focus on open, restore on close). Existing a11y: aria-labels on buttons, role="dialog", aria-modal, aria-labelledby, keyboard navigation (Escape to close), semantic HTML throughout.
 - [ ] **Task 4.12** — Implement responsive design
 
 ### Testing & Deployment

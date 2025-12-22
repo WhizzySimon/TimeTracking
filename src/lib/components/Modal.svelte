@@ -18,6 +18,9 @@
 
 	let { title, onclose, children }: Props = $props();
 
+	let modalElement: HTMLDivElement | undefined = $state(undefined);
+	let previousActiveElement: Element | null = null;
+
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
 			onclose();
@@ -31,9 +34,19 @@
 	}
 
 	onMount(() => {
+		// Store previously focused element
+		previousActiveElement = document.activeElement;
+
+		// Focus the modal content for screen readers
+		modalElement?.focus();
+
 		document.addEventListener('keydown', handleKeydown);
 		return () => {
 			document.removeEventListener('keydown', handleKeydown);
+			// Restore focus to previous element
+			if (previousActiveElement instanceof HTMLElement) {
+				previousActiveElement.focus();
+			}
 		};
 	});
 </script>
@@ -45,7 +58,14 @@
 	onclick={handleBackdropClick}
 	onkeydown={(e) => e.key === 'Enter' && handleBackdropClick(e as unknown as MouseEvent)}
 >
-	<div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+	<div
+		class="modal-content"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="modal-title"
+		bind:this={modalElement}
+		tabindex="-1"
+	>
 		<header class="modal-header">
 			<h2 id="modal-title">{title}</h2>
 			<button class="close-btn" onclick={onclose} aria-label="Schließen">×</button>
