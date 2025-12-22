@@ -863,4 +863,30 @@ After each phase, verify against specs:
 
 ---
 
+## Manual Test Checklist: Netlify SPA Routing
+
+**Purpose:** Verify direct URL access works after deploying `200.html` + `_redirects` fix.
+
+### Test URLs
+
+| Route              | timetracker24.netlify.app | timetracker.samuelgross.org |
+| ------------------ | ------------------------- | --------------------------- |
+| `/login`           | ☐ Direct open             | ☐ Direct open               |
+| `/login`           | ☐ Hard refresh (F5)       | ☐ Hard refresh (F5)         |
+| `/register`        | ☐ Direct open             | ☐ Direct open               |
+| `/register`        | ☐ Hard refresh (F5)       | ☐ Hard refresh (F5)         |
+| `/forgot-password` | ☐ Direct open             | ☐ Direct open               |
+| `/forgot-password` | ☐ Hard refresh (F5)       | ☐ Hard refresh (F5)         |
+| `/settings`        | ☐ Direct open             | ☐ Direct open               |
+| `/day`             | ☐ Direct open             | ☐ Direct open               |
+
+### Expected Behavior
+
+- **Pass:** Page loads correctly (login form, register form, etc.)
+- **Fail:** Netlify 404 "Page not found" error
+
+### Test Date: ____________________
+
+---
+
 **END OF PROGRESS TRACKER**
