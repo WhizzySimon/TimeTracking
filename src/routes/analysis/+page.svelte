@@ -240,8 +240,10 @@
 
 	let categoryBreakdown = $derived(calculateCategoryBreakdown());
 
-	// Calculate totals for all categories
-	let totalCategoryHours = $derived(categoryBreakdown.reduce((sum, cat) => sum + cat.hours, 0));
+	// Calculate totals for work-time categories only (excluding Pause, etc.)
+	let totalCategoryHours = $derived(
+		categoryBreakdown.filter((cat) => cat.countsAsWorkTime).reduce((sum, cat) => sum + cat.hours, 0)
+	);
 	let totalCategoryAverage = $derived(
 		effectiveWeeks > 0 ? totalCategoryHours / effectiveWeeks : totalCategoryHours
 	);
