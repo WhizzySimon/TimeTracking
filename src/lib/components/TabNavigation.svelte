@@ -41,8 +41,8 @@
 <style>
 	.tab-navigation {
 		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
+		flex-wrap: nowrap;
+		justify-content: stretch;
 		align-items: stretch;
 		position: fixed;
 		bottom: 0;
@@ -55,13 +55,12 @@
 	}
 
 	.tab {
-		flex: 1 1 auto;
-		min-width: fit-content;
+		flex: 1;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		min-height: 44px;
-		padding: 10px 12px;
+		min-height: 50px;
+		padding: 10px 8px;
 		text-decoration: none;
 		color: #666666;
 		font-size: 0.875rem;
