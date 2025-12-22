@@ -1101,6 +1101,26 @@
 
 ---
 
+### Task 4.16 — Write unit tests for core logic
+
+- **Files:**
+  - `src/lib/utils/calculations.test.ts` (create)
+  - `src/lib/utils/date.test.ts` (create)
+- **Done when:**
+  - Calculation tests: calculateIst, calculateSoll, calculateSaldo, formatHours
+  - Date utility tests: formatDate, parseDate, getWeekNumber, addDays, etc.
+  - All tests pass: `npm run test:unit`
+- **Verify:**
+  - `npm run test:unit` - all tests pass
+  - Change a calculation - test fails (proves tests work)
+  - Revert change - test passes again
+- **Guardrails:**
+  - Test edge cases (null, empty, negative values)
+  - Test boundary conditions (midnight, week boundaries)
+  - Keep tests fast (no async/DB operations)
+
+---
+
 **END OF TASKS**
 
 ## Summary

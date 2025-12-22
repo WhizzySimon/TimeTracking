@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 4 - Sync & Polish  
-**Tasks Completed:** 56 / 60  
+**Tasks Completed:** 57 / 60  
 **Estimated Progress:** 72%
 
 ---
@@ -403,6 +403,11 @@
   - Verified: npm run verify ✅ (ALL PASSED)
   - Deviations: None
   - Notes: Final verification passed. README up to date. All Phase 4 tasks complete.
+- [x] **Task 4.16** — Write unit tests for core logic
+  - Files: `src/lib/utils/calculations.test.ts`, `src/lib/utils/date.test.ts`
+  - Verified: npm run test:unit ✅ (57 tests passed)
+  - Deviations: None
+  - Notes: Already implemented. 28 calculation tests + 29 date tests. Run `npm run test:unit` before/after changes to catch regressions.
 
 ---
 
