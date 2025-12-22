@@ -3,6 +3,7 @@
 	import { dev, browser } from '$app/environment';
 	import favicon from '$lib/assets/favicon.svg';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
+	import SyncIndicator from '$lib/components/SyncIndicator.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 
 	let { children } = $props();
@@ -45,6 +46,9 @@
 </svelte:head>
 
 <div class="app-container">
+	<header class="app-header">
+		<SyncIndicator />
+	</header>
 	<main class="main-content">
 		{@render children()}
 	</main>
@@ -74,8 +78,27 @@
 		min-height: 100vh;
 	}
 
+	.app-header {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		padding: 8px 12px;
+		background: #ffffff;
+		border-bottom: 1px solid #e0e0e0;
+		position: sticky;
+		top: 0;
+		z-index: 50;
+	}
+
 	.main-content {
 		flex: 1;
 		padding-bottom: 60px;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.app-header {
+			background: #1f1f1f;
+			border-bottom-color: #333333;
+		}
 	}
 </style>
