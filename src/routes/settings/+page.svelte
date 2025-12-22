@@ -67,6 +67,17 @@
 	let showDeleteModelConfirm = $state(false);
 	let categoryToDelete: Category | null = $state(null);
 	let modelToDelete: WorkTimeModel | null = $state(null);
+	let modelToEdit: WorkTimeModel | null = $state(null);
+
+	function handleEditModel(model: WorkTimeModel) {
+		modelToEdit = model;
+		showAddWorkTimeModel = true;
+	}
+
+	function closeModelModal() {
+		showAddWorkTimeModel = false;
+		modelToEdit = null;
+	}
 
 	function handleDeleteCategory(category: Category) {
 		if (category.type === 'system') return;
@@ -188,7 +199,13 @@
 					<p class="empty">Keine Arbeitszeitmodelle vorhanden</p>
 				{:else}
 					{#each $workTimeModels as model (model.id)}
-						<div class="list-item">
+						<div
+							class="list-item clickable"
+							role="button"
+							tabindex="0"
+							onclick={() => handleEditModel(model)}
+							onkeydown={(e) => e.key === 'Enter' && handleEditModel(model)}
+						>
 							<div class="item-info">
 								<span class="item-name">{model.name}</span>
 								<span class="item-detail">
@@ -198,7 +215,10 @@
 							<button
 								class="delete-btn"
 								aria-label="Löschen"
-								onclick={() => handleDeleteModel(model)}>×</button
+								onclick={(e) => {
+									e.stopPropagation();
+									handleDeleteModel(model);
+								}}>×</button
 							>
 						</div>
 					{/each}
@@ -269,12 +289,9 @@
 	/>
 {/if}
 
-<!-- Add Work Time Model Modal -->
+<!-- Add/Edit Work Time Model Modal -->
 {#if showAddWorkTimeModel}
-	<AddWorkTimeModelModal
-		onsave={() => (showAddWorkTimeModel = false)}
-		onclose={() => (showAddWorkTimeModel = false)}
-	/>
+	<AddWorkTimeModelModal model={modelToEdit} onsave={closeModelModal} onclose={closeModelModal} />
 {/if}
 
 <!-- Delete Category Confirmation -->
@@ -371,6 +388,15 @@
 		background: white;
 		border: 1px solid #eee;
 		border-radius: 8px;
+	}
+
+	.list-item.clickable {
+		cursor: pointer;
+	}
+
+	.list-item.clickable:hover {
+		background: #f9fafb;
+		border-color: #ddd;
 	}
 
 	.item-info {

@@ -1,5 +1,5 @@
 <!--
-  AddWorkTimeModelModal component - modal for adding new work time models
+  AddWorkTimeModelModal component - modal for adding/editing work time models
   
   Spec refs:
   - ui-logic-spec-v1.md Section 8-9 (Arbeitszeitmodelle)
@@ -8,6 +8,7 @@
   - Name input (required)
   - Valid from date (required)
   - Hours per weekday (null = inactive day)
+  - Edit mode when model prop is provided
 -->
 <script lang="ts">
 	import { saveWorkTimeModel } from '$lib/storage/operations';
@@ -17,26 +18,38 @@
 	import Modal from './Modal.svelte';
 
 	interface Props {
+		/** Existing model to edit (null for new) */
+		model?: WorkTimeModel | null;
 		/** Callback when model is saved */
 		onsave?: (model: WorkTimeModel) => void;
 		/** Callback when modal is closed */
 		onclose?: () => void;
 	}
 
-	let { onsave, onclose }: Props = $props();
+	let { model = null, onsave, onclose }: Props = $props();
 
-	// Form state
-	let name = $state('');
-	let validFrom = $state(formatDate(new Date(), 'DE'));
-	let monday = $state('8');
-	let tuesday = $state('8');
-	let wednesday = $state('8');
-	let thursday = $state('8');
-	let friday = $state('8');
-	let saturday = $state('');
-	let sunday = $state('');
+	// Helper to format hours for display
+	function formatHoursForInput(hours: number | null): string {
+		if (hours === null) return '';
+		return String(hours);
+	}
+
+	// Form state - initialize from model if editing
+	let name = $state(model?.name ?? '');
+	let validFrom = $state(
+		model?.validFrom ? formatDate(parseDate(model.validFrom)!, 'DE') : formatDate(new Date(), 'DE')
+	);
+	let monday = $state(formatHoursForInput(model?.monday ?? 8));
+	let tuesday = $state(formatHoursForInput(model?.tuesday ?? 8));
+	let wednesday = $state(formatHoursForInput(model?.wednesday ?? 8));
+	let thursday = $state(formatHoursForInput(model?.thursday ?? 8));
+	let friday = $state(formatHoursForInput(model?.friday ?? 8));
+	let saturday = $state(formatHoursForInput(model?.saturday ?? null));
+	let sunday = $state(formatHoursForInput(model?.sunday ?? null));
 	let error = $state('');
 	let saving = $state(false);
+
+	let isEditMode = $derived(model !== null);
 
 	// Calculate total hours
 	let totalHours = $derived(() => {
@@ -112,8 +125,8 @@
 		saving = true;
 
 		try {
-			const newModel: WorkTimeModel = {
-				id: crypto.randomUUID(),
+			const savedModel: WorkTimeModel = {
+				id: model?.id ?? crypto.randomUUID(),
 				name: trimmedName,
 				validFrom: formatDate(parsedDate, 'ISO'),
 				monday: parseHours(monday),
@@ -123,16 +136,24 @@
 				friday: parseHours(friday),
 				saturday: parseHours(saturday),
 				sunday: parseHours(sunday),
-				createdAt: Date.now(),
+				createdAt: model?.createdAt ?? Date.now(),
 				updatedAt: Date.now()
 			};
 
-			await saveWorkTimeModel(newModel);
+			await saveWorkTimeModel(savedModel);
 
 			// Update store
-			workTimeModels.update((models) => [...models, newModel]);
+			if (model) {
+				// Edit mode - replace existing
+				workTimeModels.update((models) =>
+					models.map((m) => (m.id === savedModel.id ? savedModel : m))
+				);
+			} else {
+				// Add mode - append new
+				workTimeModels.update((models) => [...models, savedModel]);
+			}
 
-			onsave?.(newModel);
+			onsave?.(savedModel);
 		} catch (e) {
 			error = 'Fehler beim Speichern';
 			console.error('Failed to save work time model:', e);
@@ -146,7 +167,10 @@
 	}
 </script>
 
-<Modal title="Neues Arbeitszeitmodell" onclose={handleClose}>
+<Modal
+	title={isEditMode ? 'Arbeitszeitmodell bearbeiten' : 'Neues Arbeitszeitmodell'}
+	onclose={handleClose}
+>
 	<div class="add-model-form">
 		<!-- Name -->
 		<div class="field">
