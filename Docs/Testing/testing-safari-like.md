@@ -100,56 +100,49 @@ Cascade can use the MCP Playwright tools to interactively test the app in WebKit
 Location: `C:\Users\<USERNAME>\.codeium\windsurf\mcp_config.json`
 
 **For WebKit (Desktop Safari):**
+
 ```json
 {
-  "mcpServers": {
-    "mcp-playwright": {
-      "args": [
-        "-y",
-        "@playwright/mcp@latest",
-        "--browser",
-        "webkit"
-      ],
-      "command": "npx",
-      "disabled": false,
-      "env": {}
-    }
-  }
+	"mcpServers": {
+		"mcp-playwright": {
+			"args": ["-y", "@playwright/mcp@latest", "--browser", "webkit"],
+			"command": "npx",
+			"disabled": false,
+			"env": {}
+		}
+	}
 }
 ```
 
 **For Mobile Safari (iPhone emulation):**
+
 ```json
 {
-  "mcpServers": {
-    "mcp-playwright": {
-      "args": [
-        "-y",
-        "@playwright/mcp@latest",
-        "--browser",
-        "webkit",
-        "--device",
-        "iPhone 15"
-      ],
-      "command": "npx",
-      "disabled": false,
-      "env": {}
-    }
-  }
+	"mcpServers": {
+		"mcp-playwright": {
+			"args": ["-y", "@playwright/mcp@latest", "--browser", "webkit", "--device", "iPhone 15"],
+			"command": "npx",
+			"disabled": false,
+			"env": {}
+		}
+	}
 }
 ```
 
 ### Troubleshooting
 
 **"Invalid JSON in MCP config file" error:**
+
 - The config file may have encoding issues (BOM from PowerShell)
 - Solution: Delete the file, reinstall Playwright from MCP Marketplace, then manually edit
 
 **"Browser specified in your config is not installed" error:**
+
 - Cascade will automatically call `browser_install` to fix this
 - Or manually run: `npx playwright install webkit`
 
 **MCP tools not available after restart:**
+
 - Check MCP Marketplace shows "Playwright" under "Installed MCPs"
 - Verify the config file exists and has valid JSON
 - Try disabling and re-enabling the MCP server
@@ -159,6 +152,7 @@ Location: `C:\Users\<USERNAME>\.codeium\windsurf\mcp_config.json`
 Once configured, Cascade can use MCP browser tools (`browser_navigate`, `browser_click`, `browser_snapshot`, etc.) to interactively test the app in a real WebKit browser window.
 
 **Available browser arguments:**
+
 - `--browser webkit` - Desktop Safari
 - `--browser firefox` - Firefox
 - `--browser chrome` - Chrome (default)

@@ -262,12 +262,13 @@
 							<span class="separator">/</span>
 							<span class="soll">Soll {formatHours(period.soll)}</span>
 							<span class="separator">/</span>
-							<span
-								class="saldo"
-								class:positive={periodSaldo >= 0}
-								class:negative={periodSaldo < 0}
-							>
-								Saldo {periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}
+							<span class="saldo">
+								Saldo <span
+									class="saldo-value"
+									class:positive={periodSaldo >= 0}
+									class:negative={periodSaldo < 0}
+									>{periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}</span
+								>
 							</span>
 						</div>
 					</div>
@@ -382,11 +383,11 @@
 		color: #666;
 	}
 
-	.period-hours .saldo.positive {
+	.period-hours .saldo-value.positive {
 		color: #16a34a;
 	}
 
-	.period-hours .saldo.negative {
+	.period-hours .saldo-value.negative {
 		color: #dc2626;
 	}
 </style>
