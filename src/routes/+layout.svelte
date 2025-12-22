@@ -7,7 +7,6 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
-	import SyncIndicator from '$lib/components/SyncIndicator.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline } from '$lib/stores';
 	import { loadSession, isAuthenticated, clearSession } from '$lib/stores/auth';
@@ -176,7 +175,6 @@
 	<div class="app-container">
 		<header class="app-header">
 			<div class="header-left">
-				<SyncIndicator />
 				<button
 					class="header-btn backup-btn"
 					onclick={handleCloudBackup}

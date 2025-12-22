@@ -82,14 +82,11 @@ test.describe('Basic App Flow', () => {
 		await page.waitForLoadState('networkidle');
 	});
 
-	test('app loads and shows Day tab with sync indicator', async ({ page }) => {
+	test('app loads and shows Day tab', async ({ page }) => {
 		await page.goto('/');
 
 		// Should redirect to /day
 		await expect(page).toHaveURL(/\/day/);
-
-		// Sync indicator should be visible
-		await expect(page.getByTestId('sync-indicator')).toBeVisible();
 
 		// Day navigation should be visible
 		await expect(page.getByRole('button', { name: 'Heute' })).toBeVisible();

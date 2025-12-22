@@ -132,6 +132,54 @@
 		soll: number;
 	}
 
+	// Category breakdown: hours per category for the selected period
+	interface CategoryBreakdown {
+		name: string;
+		hours: number;
+		countsAsWorkTime: boolean;
+	}
+
+	function calculateCategoryBreakdown(): CategoryBreakdown[] {
+		// Group entries by category and sum hours
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local variable in non-reactive function
+		const categoryHours = new Map<string, number>();
+
+		for (const entry of rangeEntries) {
+			if (!entry.endTime) continue; // Skip running entries
+
+			// Calculate duration in hours
+			const [startH, startM] = entry.startTime.split(':').map(Number);
+			const [endH, endM] = entry.endTime.split(':').map(Number);
+			const startMinutes = startH * 60 + startM;
+			const endMinutes = endH * 60 + endM;
+			const durationHours = (endMinutes - startMinutes) / 60;
+
+			if (durationHours > 0) {
+				const current = categoryHours.get(entry.categoryId) ?? 0;
+				categoryHours.set(entry.categoryId, current + durationHours);
+			}
+		}
+
+		// Build result with category names
+		const result: CategoryBreakdown[] = [];
+		for (const [categoryId, hours] of categoryHours) {
+			const category = $categories.find((c) => c.id === categoryId);
+			if (category) {
+				result.push({
+					name: category.name,
+					hours,
+					countsAsWorkTime: category.countsAsWorkTime
+				});
+			}
+		}
+
+		// Sort by hours descending
+		result.sort((a, b) => b.hours - a.hours);
+		return result;
+	}
+
+	let categoryBreakdown = $derived(calculateCategoryBreakdown());
+
 	function calculatePeriodGroups(): PeriodGroup[] {
 		const byMonth = groupByMonth();
 		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local variable in non-reactive function
@@ -247,6 +295,24 @@
 
 		<!-- Inline Summary -->
 		<InlineSummary ist={totalIst} soll={totalSoll} saldo={totalSaldo} />
+
+		<!-- Category Breakdown -->
+		{#if categoryBreakdown.length > 0}
+			<div class="category-breakdown">
+				<h3 class="section-title">Tätigkeiten</h3>
+				{#each categoryBreakdown as cat (cat.name)}
+					<div class="category-item">
+						<span class="category-name">
+							{cat.name}
+							{#if !cat.countsAsWorkTime}
+								<span class="no-work-badge">Keine Arbeitszeit</span>
+							{/if}
+						</span>
+						<span class="category-hours">{formatHours(cat.hours)}</span>
+					</div>
+				{/each}
+			</div>
+		{/if}
 
 		<!-- Period List -->
 		<div class="period-list">
@@ -388,5 +454,50 @@
 
 	.period-hours .saldo.negative {
 		color: #dc2626;
+	}
+
+	/* Category Breakdown */
+	.category-breakdown {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: 0.5rem;
+	}
+
+	.section-title {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 600;
+		color: #333;
+	}
+
+	.category-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.5rem 0.75rem;
+		background: white;
+		border: 1px solid #eee;
+		border-radius: 6px;
+	}
+
+	.category-name {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: #333;
+	}
+
+	.no-work-badge {
+		font-size: 0.7rem;
+		padding: 2px 6px;
+		background: #f3f4f6;
+		color: #6b7280;
+		border-radius: 4px;
+	}
+
+	.category-hours {
+		font-weight: 600;
+		color: #333;
 	}
 </style>

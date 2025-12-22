@@ -23,6 +23,7 @@
 	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll, getByKey } from '$lib/storage/db';
+	import { parseDate } from '$lib/utils/date';
 	import {
 		getWeekNumber,
 		isCurrentWeek,
@@ -30,7 +31,8 @@
 		getWeekDates,
 		formatShortDate,
 		formatDate,
-		getDayOfWeek
+		getDayOfWeek,
+		startOfDay
 	} from '$lib/utils/date';
 	import { calculateIst, calculateSoll, calculateSaldo } from '$lib/utils/calculations';
 	import type { Category, DayType, DayTypeValue, TimeEntry, WorkTimeModel } from '$lib/types';
@@ -63,12 +65,30 @@
 	// Day types for the week (loaded from IndexedDB)
 	let dayTypes = new SvelteMap<string, DayTypeValue>();
 
-	// Calculate week totals
-	let weekIst = $derived(calculateIst(weekEntries, $categories));
+	// Today's date for comparison (start of day for accurate comparison)
+	let today = $derived(startOfDay(new Date()));
+
+	// Check if a date is in the future (after today)
+	function isFutureDay(date: Date): boolean {
+		return startOfDay(date) > today;
+	}
+
+	// Filter entries only up to today for Ist calculation
+	let weekEntriesUpToToday = $derived(
+		weekEntries.filter((e) => {
+			const entryDate = parseDate(e.date);
+			return entryDate && startOfDay(entryDate) <= today;
+		})
+	);
+
+	// Calculate week totals - only include days up to today
+	let weekIst = $derived(calculateIst(weekEntriesUpToToday, $categories));
 
 	let weekSoll = $derived(() => {
 		let total = 0;
 		for (const date of weekDates) {
+			// Only include days up to today in Soll calculation
+			if (isFutureDay(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
 			total += calculateSoll(date, dayType, $activeWorkTimeModel);
@@ -205,8 +225,9 @@
 							<span class="separator">/</span>
 							<span
 								class="saldo"
-								class:positive={dayIst - daySoll >= 0}
-								class:negative={dayIst - daySoll < 0}
+								class:positive={!isFutureDay(date) && dayIst - daySoll >= 0}
+								class:negative={!isFutureDay(date) && dayIst - daySoll < 0}
+								class:future={isFutureDay(date)}
 							>
 								{dayIst - daySoll >= 0 ? '+' : ''}{(dayIst - daySoll).toFixed(1).replace('.', ',')}
 							</span>
@@ -346,5 +367,9 @@
 
 	.day-hours .saldo.negative {
 		color: #dc2626;
+	}
+
+	.day-hours .saldo.future {
+		color: #9ca3af;
 	}
 </style>
