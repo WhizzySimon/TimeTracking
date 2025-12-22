@@ -344,6 +344,15 @@
 								<button
 									class="dropdown-item"
 									onclick={() => {
+										showAddCategory = true;
+										showCategoryMenu = false;
+									}}
+								>
+									+ Kategorie
+								</button>
+								<button
+									class="dropdown-item"
+									onclick={() => {
 										downloadCategoriesFile($categories);
 										showCategoryMenu = false;
 									}}
@@ -362,7 +371,6 @@
 							</div>
 						{/if}
 					</div>
-					<button class="add-btn" onclick={() => (showAddCategory = true)}> + Kategorie </button>
 				</div>
 			</div>
 			<div class="list" data-testid="category-list">

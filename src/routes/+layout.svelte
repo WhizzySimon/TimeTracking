@@ -194,6 +194,7 @@
 				{/if}
 			</div>
 			<div class="header-right">
+				<a href={resolve('/settings')} class="header-btn settings-btn" title="Einstellungen"> ⚙ </a>
 				<button
 					class="header-btn logout-btn"
 					onclick={() => (showLogoutConfirm = true)}
@@ -311,6 +312,22 @@
 	.backup-btn:disabled {
 		opacity: 0.6;
 		cursor: not-allowed;
+	}
+
+	.settings-btn {
+		background: transparent;
+		color: #666;
+		border: 1px solid #ddd;
+		text-decoration: none;
+		font-size: 1.1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.settings-btn:hover {
+		background: #f3f4f6;
+		color: #333;
 	}
 
 	.logout-btn {

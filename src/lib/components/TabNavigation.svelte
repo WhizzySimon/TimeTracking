@@ -14,8 +14,7 @@
 	const tabs = [
 		{ href: '/day', label: 'Tag' },
 		{ href: '/week', label: 'Woche' },
-		{ href: '/analysis', label: 'Auswertung' },
-		{ href: '/settings', label: 'Einstellungen' }
+		{ href: '/analysis', label: 'Auswertung' }
 	] as const;
 
 	function isActive(href: string, pathname: string): boolean {
