@@ -12,7 +12,8 @@
 <script lang="ts">
 	import type { DayType, DayTypeValue } from '$lib/types';
 	import { formatDate } from '$lib/utils/date';
-	import { getByKey, put } from '$lib/storage/db';
+	import { getByKey } from '$lib/storage/db';
+	import { saveDayType } from '$lib/storage/operations';
 
 	interface Props {
 		date: Date;
@@ -49,7 +50,7 @@
 			type: newValue,
 			updatedAt: Date.now()
 		};
-		await put('dayTypes', dayType);
+		await saveDayType(dayType);
 
 		// Notify parent
 		onchange?.(newValue);

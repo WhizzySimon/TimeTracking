@@ -16,7 +16,8 @@
 	import { currentDate, activeWorkTimeModel, timeEntries, categories } from '$lib/stores';
 	import { formatDate, isToday, addDays } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
-	import { getByKey, getAll, deleteByKey } from '$lib/storage/db';
+	import { getByKey, getAll } from '$lib/storage/db';
+	import { deleteTimeEntry } from '$lib/storage/operations';
 	import type { Category, DayType, DayTypeValue, TimeEntry } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import DayTypeSelector from '$lib/components/DayTypeSelector.svelte';
@@ -104,7 +105,7 @@
 
 	async function handleDeleteEntry(entry: TimeEntry) {
 		if (!confirm('Aufgabe wirklich löschen?')) return;
-		await deleteByKey('timeEntries', entry.id);
+		await deleteTimeEntry(entry.id);
 		// Reload all entries from IndexedDB
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);

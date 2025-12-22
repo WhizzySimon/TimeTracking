@@ -13,7 +13,7 @@
 <script lang="ts">
 	import { categories } from '$lib/stores';
 	import { formatDate, formatTime } from '$lib/utils/date';
-	import { put } from '$lib/storage/db';
+	import { saveTimeEntry } from '$lib/storage/operations';
 	import type { TimeEntry } from '$lib/types';
 	import Modal from './Modal.svelte';
 
@@ -103,7 +103,7 @@
 				updatedAt: now
 			};
 
-			await put('timeEntries', timeEntry);
+			await saveTimeEntry(timeEntry);
 			onsave(timeEntry);
 			onclose();
 		} catch (e) {

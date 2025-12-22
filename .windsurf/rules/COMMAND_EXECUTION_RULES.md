@@ -282,18 +282,34 @@ After code verification passes, Cascade uses MCP browser tools:
 
 ### After Each Task Completion
 
-Cascade MUST:
+Cascade MUST follow this complete workflow:
 
-1. **Update [Docs/IMPLEMENTATION_PROGRESS.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/IMPLEMENTATION_PROGRESS.md:0:0-0:0):**
-   - Mark task as `[x]` (done)
+1. **Run verification via Cascade Watcher:**
+   - Write `npm run verify` to [scripts/cascade-command.txt](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-command.txt:0:0-0:0)
+   - Poll [scripts/cascade-status.txt](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-status.txt:0:0-0:0) until `DONE:SUCCESS` or `DONE:FAILED`
+   - Read output from [scripts/cascade-output.txt](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-output.txt:0:0-0:0)
+   - Fix any errors and repeat until ALL PASSED
+
+2. **Test UI with MCP Playwright browser:**
+   - Use `mcp0_browser_navigate` to open `http://localhost:5173`
+   - Use `mcp0_browser_snapshot` to verify UI renders correctly
+   - Test the specific functionality that was implemented
+   - Check browser console for errors via `mcp0_browser_console_messages`
+
+3. **Commit changes via Cascade Watcher:**
+   - Write `git add -A; git commit -m "feat: description"` to [scripts/cascade-command.txt](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-command.txt:0:0-0:0)
+   - Poll until `DONE:SUCCESS`
+   - Confirm commit succeeded
+
+4. **Update progress tracker:**
+   - Mark task as `[x]` (done) in [Docs/IMPLEMENTATION_PROGRESS.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/IMPLEMENTATION_PROGRESS.md:0:0-0:0)
    - Add verification results
    - Note any deviations
    - Update "Tasks Completed" counter
-   - Update "Last Updated" date
 
-2. **Check if more tasks remain in current phase:**
-   - If YES: Immediately start next task
-   - If NO (phase complete): See "End of Phase" below
+5. **Move to next task:**
+   - If more tasks remain: Start next task
+   - If phase complete: Tell user to start new chat
 
 ### End of Phase
 

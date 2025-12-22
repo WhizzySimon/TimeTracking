@@ -13,7 +13,8 @@
 	import { onMount } from 'svelte';
 	import { categories, workTimeModels } from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { getAll, deleteByKey } from '$lib/storage/db';
+	import { getAll } from '$lib/storage/db';
+	import { deleteUserCategoryWithSync } from '$lib/storage/operations';
 	import type { Category, WorkTimeModel } from '$lib/types';
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
@@ -29,7 +30,7 @@
 		if (!confirmed) return;
 
 		try {
-			await deleteByKey('categories', category.id);
+			await deleteUserCategoryWithSync(category.id);
 			categories.update((cats) => cats.filter((c) => c.id !== category.id));
 		} catch (e) {
 			console.error('Failed to delete category:', e);

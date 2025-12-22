@@ -1,9 +1,9 @@
 # TimeTracker v1 — Implementation Progress
 
-**Last Updated:** 2025-12-21  
-**Current Phase:** Phase 3 - Additional Tabs  
-**Tasks Completed:** 41 / 60  
-**Estimated Progress:** 58%
+**Last Updated:** 2025-12-22  
+**Current Phase:** Phase 4 - Sync & Polish  
+**Tasks Completed:** 44 / 60  
+**Estimated Progress:** 70%
 
 ---
 
@@ -318,9 +318,21 @@
 
 ### Sync Engine
 
-- [ ] **Task 4.1** — Implement outbox queue operations
-- [ ] **Task 4.2** — Integrate outbox with data operations
-- [ ] **Task 4.3** — Create sync engine module
+- [x] **Task 4.1** — Implement outbox queue operations
+  - Files: `src/lib/sync/outbox.ts`, `src/lib/storage/db.ts`, `src/lib/types.ts`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Added outbox store to IndexedDB (DB_VERSION=5), OutboxItem type with status/retryCount/lastError, functions: addToOutbox, getOutboxItems, getOutboxCount, markAsSent, markAsFailed, removeFromOutbox, clearAckedItems
+- [x] **Task 4.2** — Integrate outbox with data operations
+  - Files: `src/lib/storage/operations.ts`, `src/lib/components/AddTaskModal.svelte`, `src/lib/components/DayTypeSelector.svelte`, `src/lib/components/AddWorkTimeModelModal.svelte`, `src/lib/components/WeekTypeSelector.svelte`, `src/lib/storage/categories.ts`, `src/routes/day/+page.svelte`, `src/routes/settings/+page.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Created operations.ts with wrapper functions (saveTimeEntry, deleteTimeEntry, saveDayType, saveWorkTimeModel, saveUserCategory, deleteUserCategoryWithSync) that call both db.put/delete AND addToOutbox. Updated all components to use these wrappers.
+- [x] **Task 4.3** — Create sync engine module
+  - Files: `src/lib/sync/engine.ts`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Deviations: None
+  - Notes: Created syncNow() with debouncing (5s), checkSyncStatus(), getSyncStatusValue(). v1 logs to console and marks items as acked (no actual API). Updates syncStatus store during sync.
 - [ ] **Task 4.4** — Implement sync triggers
 - [ ] **Task 4.5** — Create sync status indicator component
 - [ ] **Task 4.6** — Implement online/offline detection

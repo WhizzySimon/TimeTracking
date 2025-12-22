@@ -76,6 +76,33 @@ export interface WorkTimeModel {
 /** Sync status for outbox indicator */
 export type SyncStatus = 'synced' | 'pending' | 'syncing' | 'error';
 
+/** Outbox item status */
+export type OutboxStatus = 'pending' | 'sending' | 'acked' | 'failed';
+
+/** Outbox operation types (technical-guideline-v1 section 4.2) */
+export type OutboxOperationType =
+	| 'category_upsert'
+	| 'category_delete'
+	| 'entry_upsert'
+	| 'entry_delete'
+	| 'dayType_upsert'
+	| 'workTimeModel_upsert'
+	| 'workTimeModel_delete';
+
+/**
+ * Outbox item for sync queue.
+ * Spec refs: technical-guideline-v1 section 4.2
+ */
+export interface OutboxItem {
+	id: string;
+	createdAt: number;
+	type: OutboxOperationType;
+	payload: unknown;
+	status: OutboxStatus;
+	retryCount: number;
+	lastError: string | null;
+}
+
 /** Week bounds for week navigation */
 export interface WeekBounds {
 	start: Date; // Monday

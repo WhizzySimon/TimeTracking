@@ -6,7 +6,8 @@
  */
 
 import type { Category, DefaultCategoriesFile } from '$lib/types';
-import { getAll, getByKey, put, deleteByKey } from './db';
+import { getAll, getByKey, put } from './db';
+import { saveUserCategory, deleteUserCategoryWithSync } from './operations';
 
 const CATEGORIES_STORE = 'categories';
 const META_STORE = 'meta';
@@ -111,7 +112,7 @@ export async function addUserCategory(name: string, countsAsWorkTime: boolean): 
 		countsAsWorkTime,
 		createdAt: Date.now()
 	};
-	await put(CATEGORIES_STORE, newCat);
+	await saveUserCategory(newCat);
 	return newCat;
 }
 
@@ -127,7 +128,7 @@ export async function deleteUserCategory(id: string): Promise<void> {
 	if (cat.type === 'system') {
 		throw new Error('Cannot delete system category');
 	}
-	await deleteByKey(CATEGORIES_STORE, id);
+	await deleteUserCategoryWithSync(id);
 }
 
 /**

@@ -10,7 +10,7 @@
   - Hours per weekday (null = inactive day)
 -->
 <script lang="ts">
-	import { put } from '$lib/storage/db';
+	import { saveWorkTimeModel } from '$lib/storage/operations';
 	import { workTimeModels } from '$lib/stores';
 	import { formatDate, parseDate } from '$lib/utils/date';
 	import type { WorkTimeModel } from '$lib/types';
@@ -80,7 +80,7 @@
 				updatedAt: Date.now()
 			};
 
-			await put('workTimeModels', newModel);
+			await saveWorkTimeModel(newModel);
 
 			// Update store
 			workTimeModels.update((models) => [...models, newModel]);

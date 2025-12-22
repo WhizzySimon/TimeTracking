@@ -10,7 +10,7 @@
   - Shows confirmation dialog before applying
 -->
 <script lang="ts">
-	import { put } from '$lib/storage/db';
+	import { saveDayType } from '$lib/storage/operations';
 	import { formatDate, getWeekDates } from '$lib/utils/date';
 	import type { DayType, DayTypeValue } from '$lib/types';
 
@@ -63,7 +63,7 @@
 				type: dayType,
 				updatedAt: Date.now()
 			};
-			await put('dayTypes', record);
+			await saveDayType(record);
 		}
 
 		// Reset select to default (it's a one-time action)

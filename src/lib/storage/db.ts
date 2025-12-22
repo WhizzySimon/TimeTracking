@@ -5,7 +5,7 @@
  */
 
 const DB_NAME = 'timetracker';
-const DB_VERSION = 4;
+const DB_VERSION = 5;
 
 let dbInstance: IDBDatabase | null = null;
 
@@ -49,6 +49,13 @@ export async function openDB(): Promise<IDBDatabase> {
 			if (!db.objectStoreNames.contains('workTimeModels')) {
 				const store = db.createObjectStore('workTimeModels', { keyPath: 'id' });
 				store.createIndex('validFrom', 'validFrom', { unique: false });
+			}
+
+			// Outbox store for sync queue (technical-guideline-v1 section 4.2)
+			if (!db.objectStoreNames.contains('outbox')) {
+				const store = db.createObjectStore('outbox', { keyPath: 'id' });
+				store.createIndex('status', 'status', { unique: false });
+				store.createIndex('createdAt', 'createdAt', { unique: false });
 			}
 		};
 
