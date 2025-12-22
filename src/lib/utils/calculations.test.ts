@@ -262,26 +262,26 @@ describe('calculateSaldo', () => {
 
 describe('formatHours', () => {
 	it('formats hours with German decimal separator', () => {
-		expect(formatHours(8)).toBe('8,0 Std');
-		expect(formatHours(8.5)).toBe('8,5 Std');
-		expect(formatHours(0)).toBe('0,0 Std');
+		expect(formatHours(8)).toBe('8,0');
+		expect(formatHours(8.5)).toBe('8,5');
+		expect(formatHours(0)).toBe('0,0');
 	});
 
 	it('rounds to one decimal place', () => {
-		expect(formatHours(8.25)).toBe('8,3 Std');
-		expect(formatHours(8.24)).toBe('8,2 Std');
-		expect(formatHours(8.15)).toBe('8,2 Std');
+		expect(formatHours(8.25)).toBe('8,3');
+		expect(formatHours(8.24)).toBe('8,2');
+		expect(formatHours(8.15)).toBe('8,2');
 	});
 
 	it('formats negative values with proper minus sign', () => {
-		expect(formatHours(-4)).toBe('−4,0 Std');
-		expect(formatHours(-2.5)).toBe('−2,5 Std');
+		expect(formatHours(-4)).toBe('−4,0');
+		expect(formatHours(-2.5)).toBe('−2,5');
 	});
 
 	it('includes sign when requested', () => {
-		expect(formatHours(4, true)).toBe('+4,0 Std');
-		expect(formatHours(-4, true)).toBe('−4,0 Std');
-		expect(formatHours(0, true)).toBe('0,0 Std');
+		expect(formatHours(4, true)).toBe('+4,0');
+		expect(formatHours(-4, true)).toBe('−4,0');
+		expect(formatHours(0, true)).toBe('0,0');
 	});
 });
 

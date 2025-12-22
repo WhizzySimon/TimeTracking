@@ -156,11 +156,11 @@ export function calculateSaldo(ist: number, soll: number): number {
 
 /**
  * Format hours as German string with comma decimal separator
- * Example: 8.5 -> "8,5 Std"
+ * Example: 8.5 -> "8,5"
  *
  * @param hours - Hours as decimal number
  * @param includeSign - Whether to include + sign for positive values
- * @returns Formatted string like "8,5 Std" or "+8,5 Std" or "−8,5 Std"
+ * @returns Formatted string like "8,5" or "+8,5" or "−8,5"
  */
 export function formatHours(hours: number, includeSign: boolean = false): string {
 	// Round to 1 decimal place
@@ -172,19 +172,19 @@ export function formatHours(hours: number, includeSign: boolean = false): string
 	// Add sign if requested
 	if (includeSign) {
 		if (rounded > 0) {
-			return `+${formatted} Std`;
+			return `+${formatted}`;
 		} else if (rounded < 0) {
 			// Use proper minus sign (−) instead of hyphen (-)
-			return `−${Math.abs(rounded).toFixed(1).replace('.', ',')} Std`;
+			return `−${Math.abs(rounded).toFixed(1).replace('.', ',')}`;
 		}
 	}
 
 	// For negative numbers without explicit sign request, still use proper minus
 	if (rounded < 0) {
-		return `−${Math.abs(rounded).toFixed(1).replace('.', ',')} Std`;
+		return `−${Math.abs(rounded).toFixed(1).replace('.', ',')}`;
 	}
 
-	return `${formatted} Std`;
+	return formatted;
 }
 
 /**

@@ -5,7 +5,7 @@
   - ui-logic-spec-v1.md Section 3.3 (Day tab inline summary)
   - ui-logic-spec-v1.md Section 4.2 (Week tab inline summary)
   
-  Format: "Ist: X,X Std    Soll: X,X Std    Saldo: ±X,X Std"
+  Format: "Ist: X,X    Soll: X,X    Saldo: ±X,X"
 -->
 <script lang="ts">
 	import { formatHours } from '$lib/utils/calculations';
