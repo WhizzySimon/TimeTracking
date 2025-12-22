@@ -50,8 +50,8 @@
 		transform: translateX(-50%);
 		width: 100%;
 		max-width: 600px;
-		background: #374151;
-		border-top: 1px solid #4b5563;
+		background: #1e40af;
+		border-top: 1px solid #1e3a8a;
 		padding: 0;
 		z-index: 100;
 	}
@@ -64,7 +64,7 @@
 		min-height: 50px;
 		padding: 10px 8px;
 		text-decoration: none;
-		color: #9ca3af;
+		color: #93c5fd;
 		font-size: 0.875rem;
 		font-weight: 500;
 		white-space: nowrap;
@@ -74,12 +74,12 @@
 	}
 
 	.tab:hover {
-		background-color: #4b5563;
-		color: #d1d5db;
+		background-color: #2563eb;
+		color: #bfdbfe;
 	}
 
 	.tab.active {
-		color: #60a5fa;
-		background-color: #1e3a5f;
+		color: #ffffff;
+		background-color: #3b82f6;
 	}
 </style>
