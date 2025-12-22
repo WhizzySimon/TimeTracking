@@ -240,6 +240,12 @@
 
 	let categoryBreakdown = $derived(calculateCategoryBreakdown());
 
+	// Calculate totals for all categories
+	let totalCategoryHours = $derived(categoryBreakdown.reduce((sum, cat) => sum + cat.hours, 0));
+	let totalCategoryAverage = $derived(
+		effectiveWeeks > 0 ? totalCategoryHours / effectiveWeeks : totalCategoryHours
+	);
+
 	function calculatePeriodGroups(): PeriodGroup[] {
 		const byMonth = groupByMonth();
 		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local variable in non-reactive function
@@ -364,6 +370,14 @@
 					<div class="column-headers">
 						<span class="header-label">Gesamt</span>
 						<span class="header-label">Ø/Woche</span>
+					</div>
+				</div>
+				<!-- Total Sum Row -->
+				<div class="category-item total-row">
+					<span class="category-name total-label">Summe</span>
+					<div class="category-values">
+						<span class="category-hours total-value">{formatHours(totalCategoryHours)}</span>
+						<span class="category-average total-value">{formatHours(totalCategoryAverage)}</span>
 					</div>
 				</div>
 				{#each categoryBreakdown as cat (cat.name)}
@@ -600,5 +614,21 @@
 		color: #666;
 		min-width: 60px;
 		text-align: right;
+	}
+
+	.total-row {
+		background: #f0f9ff;
+		border-color: #3b82f6;
+		margin-bottom: 0.5rem;
+	}
+
+	.total-label {
+		font-weight: 700;
+		color: #1e40af;
+	}
+
+	.total-value {
+		font-weight: 700;
+		color: #1e40af;
 	}
 </style>
