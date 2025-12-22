@@ -411,6 +411,25 @@
 
 ---
 
+## Post-v1 Improvements
+
+### UI Improvements (2025-12-22)
+
+- [x] **Settings page** — Remove "Arbeitszeit" badge, move "Keine Arbeitszeit" to right
+- [x] **TimePicker** — Separate hour/minute dropdowns (24 items + 12 items instead of 288)
+- [x] **Version display** — Show version and build time in Settings
+- [x] **Update checking** — Service worker checks for new version, shows banner if available
+- [x] **Week tab fix** — Dropdown stays on selected value after confirm
+- [x] **Week tab fix** — Prevent non-work day type if hours already logged
+
+### Manual Testing Checklist
+
+- [ ] Test version checking on production build (`npm run build && npm run preview`)
+- [ ] Test PWA installation on Windows (localhost:4173)
+- [ ] Deploy to server and test PWA installation on phone
+
+---
+
 ## Spec Compliance Verification
 
 After each phase, verify against specs:
