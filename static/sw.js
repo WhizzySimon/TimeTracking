@@ -20,7 +20,6 @@ self.addEventListener('install', (event) => {
         return caches.open(CACHE_NAME);
       })
       .then((cache) => cache.addAll(ASSETS_TO_CACHE))
-      .then(() => self.skipWaiting())
   );
 });
 
@@ -63,5 +62,9 @@ self.addEventListener('message', (event) => {
         }
       })
       .catch(() => {});
+  }
+  
+  if (event.data?.type === 'SKIP_WAITING') {
+    self.skipWaiting();
   }
 });

@@ -204,7 +204,19 @@
 		}
 	});
 
-	function reloadApp() {
+	async function reloadApp() {
+		if ('serviceWorker' in navigator) {
+			const registration = await navigator.serviceWorker.getRegistration();
+			if (registration?.waiting) {
+				registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+				registration.waiting.addEventListener('statechange', (e) => {
+					if ((e.target as ServiceWorker).state === 'activated') {
+						window.location.reload();
+					}
+				});
+				return;
+			}
+		}
 		window.location.reload();
 	}
 
