@@ -202,6 +202,16 @@
 							<span class="ist">Ist {dayIst.toFixed(1).replace('.', ',')}</span>
 							<span class="separator">/</span>
 							<span class="soll">Soll {daySoll.toFixed(1).replace('.', ',')}</span>
+							<span class="separator">/</span>
+							<span
+								class="saldo"
+								class:positive={dayIst - daySoll >= 0}
+								class:negative={dayIst - daySoll < 0}
+							>
+								Saldo {dayIst - daySoll >= 0 ? '+' : ''}{(dayIst - daySoll)
+									.toFixed(1)
+									.replace('.', ',')}
+							</span>
 						</div>
 					</div>
 				{/each}
@@ -330,5 +340,13 @@
 
 	.day-hours .soll {
 		color: #666;
+	}
+
+	.day-hours .saldo.positive {
+		color: #16a34a;
+	}
+
+	.day-hours .saldo.negative {
+		color: #dc2626;
 	}
 </style>
