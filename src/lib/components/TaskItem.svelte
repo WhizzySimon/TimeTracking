@@ -46,14 +46,12 @@
 		<div class="task-main">
 			<span class="task-time">{timeDisplay}</span>
 			<span class="task-category">{category?.name ?? 'Unbekannt'}</span>
+			{#if !countsAsWork}
+				<span class="work-indicator no-work">Keine Arbeitszeit</span>
+			{/if}
 		</div>
 		<button class="delete-btn" onclick={handleDelete} aria-label="Löschen">×</button>
 	</div>
-	{#if !countsAsWork}
-		<div class="task-meta">
-			<span class="work-indicator no-work">Keine Arbeitszeit</span>
-		</div>
-	{/if}
 	{#if entry.description}
 		<div class="task-description">{entry.description}</div>
 	{/if}
@@ -127,11 +125,6 @@
 	.task-category {
 		font-size: 0.9rem;
 		color: #666;
-	}
-
-	.task-meta {
-		display: flex;
-		gap: 0.5rem;
 	}
 
 	.work-indicator {
