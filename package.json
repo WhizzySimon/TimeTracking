@@ -15,6 +15,10 @@
 		"test:unit": "vitest run",
 		"test:unit:watch": "vitest",
 		"test:e2e": "playwright test",
+		"test:webkit": "playwright test --project=webkit",
+		"test:ios": "playwright test --project=\"Mobile Safari\"",
+		"test:webkit:ui": "playwright test --ui --project=webkit",
+		"test:ios:ui": "playwright test --ui --project=\"Mobile Safari\"",
 		"test": "npm run test:unit && npm run test:e2e",
 		"verify": "powershell -ExecutionPolicy Bypass -File scripts/verify-code.ps1",
 		"wb": "tsx devBrowser.ts"
