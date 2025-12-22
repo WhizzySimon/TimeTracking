@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-12-22  
 **Current Phase:** Phase 4 - Sync & Polish  
-**Tasks Completed:** 46 / 60  
+**Tasks Completed:** 47 / 60  
 **Estimated Progress:** 72%
 
 ---
@@ -347,7 +347,11 @@
   - Verified: npm run verify ✅ (ALL PASSED), Browser test ✅
   - Deviations: None
   - Notes: Component shows 4 states (synced/pending/syncing/error) with icons and German labels. Positioned in sticky header at top-right. Responsive (hides label on very small screens). Dark mode support.
-- [ ] **Task 4.6** — Implement online/offline detection
+- [x] **Task 4.6** — Implement online/offline detection
+  - Files: `src/routes/+layout.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED), Browser test ✅
+  - Deviations: None
+  - Notes: Initialize isOnline store with navigator.onLine, listen to online/offline events, trigger sync when going online, clean up event listeners on destroy.
 
 ### Polish & Quality
 

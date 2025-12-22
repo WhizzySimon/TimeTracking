@@ -5,10 +5,13 @@
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import SyncIndicator from '$lib/components/SyncIndicator.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
+	import { isOnline } from '$lib/stores';
 
 	let { children } = $props();
 
 	let visibilityHandler: (() => void) | null = null;
+	let onlineHandler: (() => void) | null = null;
+	let offlineHandler: (() => void) | null = null;
 
 	onMount(() => {
 		if (!dev && 'serviceWorker' in navigator) {
@@ -31,12 +34,37 @@
 				}
 			};
 			document.addEventListener('visibilitychange', visibilityHandler);
+
+			// Initialize online status and listen for changes
+			isOnline.set(navigator.onLine);
+
+			onlineHandler = () => {
+				isOnline.set(true);
+				console.log('[Layout] Online - triggering sync');
+				syncNow().catch((err) => console.error('[Layout] Online sync failed:', err));
+			};
+
+			offlineHandler = () => {
+				isOnline.set(false);
+				console.log('[Layout] Offline');
+			};
+
+			window.addEventListener('online', onlineHandler);
+			window.addEventListener('offline', offlineHandler);
 		}
 	});
 
 	onDestroy(() => {
-		if (browser && visibilityHandler) {
-			document.removeEventListener('visibilitychange', visibilityHandler);
+		if (browser) {
+			if (visibilityHandler) {
+				document.removeEventListener('visibilitychange', visibilityHandler);
+			}
+			if (onlineHandler) {
+				window.removeEventListener('online', onlineHandler);
+			}
+			if (offlineHandler) {
+				window.removeEventListener('offline', offlineHandler);
+			}
 		}
 	});
 </script>
