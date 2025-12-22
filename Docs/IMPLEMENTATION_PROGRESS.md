@@ -11,12 +11,12 @@
 
 ### Automated E2E Tests (Playwright) - Post Phase 6
 
-| Browser                   | Tests | Status  |
-| ------------------------- | ----- | ------- |
-| Chromium                  | 9     | ✅ PASS |
-| WebKit                    | 9     | ✅ PASS |
-| Mobile Safari             | 9     | ✅ PASS |
-| **Total**                 | 27    | ✅ ALL PASSED |
+| Browser       | Tests | Status        |
+| ------------- | ----- | ------------- |
+| Chromium      | 9     | ✅ PASS       |
+| WebKit        | 9     | ✅ PASS       |
+| Mobile Safari | 9     | ✅ PASS       |
+| **Total**     | 27    | ✅ ALL PASSED |
 
 ### Previous E2E Tests (Playwright)
 
@@ -633,6 +633,7 @@ CREATE POLICY "Users can update own backup" ON public.user_backups
 ### Verification Checklist
 
 Auth:
+
 - [ ] Sign up works and creates user
 - [ ] Login works
 - [ ] Logout works
@@ -640,10 +641,70 @@ Auth:
 - [ ] Guards redirect correctly
 
 Backup:
+
 - [ ] Local saves always work offline (IndexedDB)
 - [ ] Clicking "Save to cloud" while offline shows modal and does NOT error
 - [ ] Clicking while online creates/updates snapshot row in Supabase
 - [ ] "Last cloud backup" updates
+
+---
+
+## Phase 6.1: Global UI Fixes (Logout + Save to Cloud + Forgot Password)
+
+**Target:** 3 fixes  
+**Status:** Complete (3/3)
+**Date:** 2025-12-22
+
+### Problem Report (Pre-Fix)
+
+- Signup + login worked
+- No logout UI existed in main app (only in Settings, not globally visible)
+- "Forgot password" link existed but user couldn't test full flow without logout
+- "Save to cloud" button was in Settings but not globally visible
+- Confirmation email not received (Supabase "Confirm email" setting related)
+
+### Fixes Implemented
+
+- [x] **Fix 6.1.1** — Add global Logout button in app header
+  - Files: `src/routes/+layout.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Notes: "Log out" button in top-right header, visible when authenticated. Shows confirmation dialog. Clears session and redirects to /login.
+
+- [x] **Fix 6.1.2** — Add global "Save to cloud" button + timestamp in header
+  - Files: `src/routes/+layout.svelte`
+  - Verified: npm run verify ✅ (ALL PASSED)
+  - Notes: "Save to cloud" button in top-left header, visible when authenticated. Shows offline modal if not online. Displays last backup timestamp on wider screens. Error indicator if backup fails.
+
+- [x] **Fix 6.1.3** — Verify Forgot Password link on /login
+  - Files: `src/routes/login/+page.svelte` (already had link at line 97)
+  - Verified: Link exists ✅
+  - Notes: "Passwort vergessen?" link already present. After reset request, shows success message and "Zurück zur Anmeldung" link.
+
+### E2E Test Results (Post-Fix)
+
+| Browser                   | Tests | Status  |
+| ------------------------- | ----- | ------- |
+| Chromium                  | 9     | ✅ PASS |
+| WebKit                    | 9     | ✅ PASS |
+| Mobile Safari             | 9     | ✅ PASS |
+| **Total**                 | 27    | ✅ ALL PASSED |
+
+### Confirmation Email Behavior (Documentation)
+
+**Current behavior:**
+- Supabase Auth is configured with "Confirm email" setting
+- If ON: Users must confirm email before first sign-in (unless bypassed in Supabase dashboard)
+- If OFF: Users can sign in immediately after signup
+
+**Expected behavior for production:**
+- "Confirm email" should be ON for security
+- Email templates should be configured in Supabase dashboard
+- SMTP settings may need configuration for reliable delivery
+
+**Note:** If confirmation emails are not received:
+1. Check Supabase Auth settings → Email Templates
+2. Check spam/junk folder
+3. Consider configuring custom SMTP in Supabase for production
 
 ---
 

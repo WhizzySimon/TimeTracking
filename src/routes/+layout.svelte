@@ -7,9 +7,11 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import SyncIndicator from '$lib/components/SyncIndicator.svelte';
+	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline } from '$lib/stores';
-	import { loadSession, isAuthenticated } from '$lib/stores/auth';
+	import { loadSession, isAuthenticated, clearSession } from '$lib/stores/auth';
+	import { saveToCloud, getBackupMeta } from '$lib/backup/cloud';
 
 	let { children } = $props();
 
@@ -18,8 +20,14 @@
 	let offlineHandler: (() => void) | null = null;
 	let authChecked = $state(false);
 
+	let showLogoutConfirm = $state(false);
+	let showOfflineDialog = $state(false);
+	let backupInProgress = $state(false);
+	let lastBackupAt = $state<string | null>(null);
+	let backupError = $state<string | null>(null);
+
 	// Pages that don't require authentication
-	const publicPaths = ['/login', '/signup', '/forgot-password'];
+	const publicPaths = ['/login', '/signup', '/forgot-password', '/reset-password'];
 
 	function isPublicPath(pathname: string): boolean {
 		return publicPaths.some((p) => pathname.startsWith(p));
@@ -38,6 +46,51 @@
 		}
 	});
 
+	async function handleLogout() {
+		await clearSession();
+		showLogoutConfirm = false;
+		goto(resolve('/login'));
+	}
+
+	async function handleCloudBackup() {
+		backupError = null;
+
+		if (!$isOnline) {
+			showOfflineDialog = true;
+			return;
+		}
+
+		backupInProgress = true;
+
+		try {
+			const result = await saveToCloud();
+			if (result.success && result.timestamp) {
+				lastBackupAt = result.timestamp;
+			} else if (!result.success) {
+				backupError = result.error ?? 'Backup fehlgeschlagen';
+			}
+		} catch (e) {
+			console.error('[Layout] Backup failed:', e);
+			backupError = e instanceof Error ? e.message : 'Backup fehlgeschlagen';
+		} finally {
+			backupInProgress = false;
+		}
+	}
+
+	function formatBackupTime(isoString: string): string {
+		try {
+			return new Date(isoString).toLocaleString('de-DE', {
+				day: '2-digit',
+				month: '2-digit',
+				year: 'numeric',
+				hour: '2-digit',
+				minute: '2-digit'
+			});
+		} catch {
+			return isoString;
+		}
+	}
+
 	onMount(async () => {
 		if (!dev && 'serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/sw.js');
@@ -47,6 +100,12 @@
 		if (browser) {
 			await loadSession();
 			authChecked = true;
+
+			// Load last backup timestamp
+			const backupMeta = await getBackupMeta();
+			if (backupMeta?.lastBackupAt) {
+				lastBackupAt = backupMeta.lastBackupAt;
+			}
 		}
 
 		// Check sync status on startup
@@ -117,13 +176,63 @@
 	<!-- App pages: full chrome -->
 	<div class="app-container">
 		<header class="app-header">
-			<SyncIndicator />
+			<div class="header-left">
+				<button
+					class="header-btn backup-btn"
+					onclick={handleCloudBackup}
+					disabled={backupInProgress}
+					title={lastBackupAt
+						? `Letztes Backup: ${formatBackupTime(lastBackupAt)}`
+						: 'Noch kein Backup'}
+				>
+					{backupInProgress ? '...' : 'Save to cloud'}
+				</button>
+				{#if lastBackupAt}
+					<span class="backup-timestamp">{formatBackupTime(lastBackupAt)}</span>
+				{/if}
+				{#if backupError}
+					<span class="backup-error-indicator" title={backupError}>!</span>
+				{/if}
+			</div>
+			<div class="header-right">
+				<SyncIndicator />
+				<button
+					class="header-btn logout-btn"
+					onclick={() => (showLogoutConfirm = true)}
+					title="Abmelden"
+				>
+					Log out
+				</button>
+			</div>
 		</header>
 		<main class="main-content">
 			{@render children()}
 		</main>
 		<TabNavigation />
 	</div>
+{/if}
+
+<!-- Logout Confirmation Dialog -->
+{#if showLogoutConfirm}
+	<ConfirmDialog
+		title="Abmelden"
+		message="Möchten Sie sich wirklich abmelden? Ihre lokalen Daten bleiben erhalten."
+		confirmLabel="Abmelden"
+		confirmStyle="danger"
+		onconfirm={handleLogout}
+		oncancel={() => (showLogoutConfirm = false)}
+	/>
+{/if}
+
+<!-- Offline Dialog -->
+{#if showOfflineDialog}
+	<ConfirmDialog
+		type="alert"
+		title="Offline"
+		message="Backup nicht möglich — Sie sind offline. Ihre Änderungen sind lokal gespeichert. Versuchen Sie es erneut, wenn Sie online sind."
+		confirmLabel="OK"
+		onconfirm={() => (showOfflineDialog = false)}
+	/>
 {/if}
 
 <style>
@@ -164,7 +273,7 @@
 
 	.app-header {
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
 		align-items: center;
 		padding: 8px 12px;
 		background: #ffffff;
@@ -172,6 +281,75 @@
 		position: sticky;
 		top: 0;
 		z-index: 50;
+		gap: 8px;
+	}
+
+	.header-left,
+	.header-right {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.header-btn {
+		padding: 6px 12px;
+		border: none;
+		border-radius: 6px;
+		font-size: 0.85rem;
+		font-weight: 500;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+
+	.backup-btn {
+		background: #3b82f6;
+		color: white;
+	}
+
+	.backup-btn:hover:not(:disabled) {
+		background: #2563eb;
+	}
+
+	.backup-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.logout-btn {
+		background: transparent;
+		color: #666;
+		border: 1px solid #ddd;
+	}
+
+	.logout-btn:hover {
+		background: #f5f5f5;
+		color: #333;
+	}
+
+	.backup-timestamp {
+		font-size: 0.75rem;
+		color: #888;
+		display: none;
+	}
+
+	@media (min-width: 480px) {
+		.backup-timestamp {
+			display: inline;
+		}
+	}
+
+	.backup-error-indicator {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 18px;
+		height: 18px;
+		background: #dc2626;
+		color: white;
+		border-radius: 50%;
+		font-size: 0.75rem;
+		font-weight: bold;
+		cursor: help;
 	}
 
 	.main-content {
@@ -183,6 +361,20 @@
 		.app-header {
 			background: #1f1f1f;
 			border-bottom-color: #333333;
+		}
+
+		.logout-btn {
+			color: #aaa;
+			border-color: #444;
+		}
+
+		.logout-btn:hover {
+			background: #333;
+			color: #eee;
+		}
+
+		.backup-timestamp {
+			color: #888;
 		}
 	}
 </style>
