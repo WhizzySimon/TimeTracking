@@ -31,7 +31,6 @@
 	);
 
 	let isRunning = $derived(entry.endTime === null);
-	let countsAsWork = $derived(category?.countsAsWorkTime ?? false);
 </script>
 
 <div
@@ -46,9 +45,6 @@
 		<div class="task-main">
 			<span class="task-time">{timeDisplay}</span>
 			<span class="task-category">{category?.name ?? 'Unbekannt'}</span>
-			{#if !countsAsWork}
-				<span class="work-indicator no-work">Keine Arbeitszeit</span>
-			{/if}
 		</div>
 		<button class="delete-btn" onclick={handleDelete} aria-label="Löschen">×</button>
 	</div>
@@ -125,17 +121,6 @@
 	.task-category {
 		font-size: 0.9rem;
 		color: #666;
-	}
-
-	.work-indicator {
-		font-size: 0.75rem;
-		padding: 0.125rem 0.5rem;
-		border-radius: 4px;
-	}
-
-	.work-indicator.no-work {
-		background: #f3f4f6;
-		color: #6b7280;
 	}
 
 	.task-description {
