@@ -8,7 +8,7 @@
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
-	import { isOnline } from '$lib/stores';
+	import { isOnline, backupNeeded as backupNeededStore } from '$lib/stores';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
 	import { saveToCloud, needsBackup as checkNeedsBackup } from '$lib/backup/cloud';
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
@@ -25,7 +25,6 @@
 	let showOfflineDialog = $state(false);
 	let showProfileMenu = $state(false);
 	let backupInProgress = $state(false);
-	let backupNeeded = $state(true);
 	let backupError = $state<string | null>(null);
 	let canInstall = $state(false);
 	let hasUpdate = $state(false);
@@ -69,7 +68,7 @@
 		try {
 			const result = await saveToCloud();
 			if (result.success) {
-				backupNeeded = false;
+				backupNeededStore.set(false);
 			} else {
 				backupError = result.error ?? 'Backup fehlgeschlagen';
 			}
@@ -103,8 +102,8 @@
 			await loadSession();
 			authChecked = true;
 
-			// Check if backup is needed
-			backupNeeded = await checkNeedsBackup();
+			// Check if backup is needed and update store
+			backupNeededStore.set(await checkNeedsBackup());
 		}
 
 		// Check sync status on startup
@@ -179,12 +178,12 @@
 				<button
 					class="header-btn backup-btn"
 					onclick={handleCloudBackup}
-					disabled={backupInProgress || !backupNeeded}
-					title={backupNeeded ? 'Änderungen in die Cloud sichern' : 'Alle Änderungen gesichert'}
+					disabled={backupInProgress || !$backupNeededStore}
+					title={$backupNeededStore ? 'Änderungen in die Cloud sichern' : 'Alle Änderungen in der Cloud gesichert'}
 				>
 					{#if backupInProgress}
 						...
-					{:else if backupNeeded}
+					{:else if $backupNeededStore}
 						Save to cloud
 					{:else}
 						Saved to cloud
@@ -400,7 +399,7 @@
 
 	.backup-btn:disabled {
 		opacity: 0.6;
-		cursor: not-allowed;
+		cursor: default;
 	}
 
 	.profile-menu-container {

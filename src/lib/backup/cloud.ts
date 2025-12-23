@@ -7,6 +7,7 @@ import { getSupabase, isSupabaseConfigured } from '$lib/supabase/client';
 import { getCurrentUserId } from '$lib/api/auth';
 import { exportSnapshot, type DatabaseSnapshot } from './snapshot';
 import { put, getByKey } from '$lib/storage/db';
+import { backupNeeded as backupNeededStore } from '$lib/stores';
 
 const BACKUP_META_KEY = 'cloudBackupMeta';
 
@@ -105,6 +106,7 @@ async function updateBackupMeta(timestamp: string | null, success: boolean): Pro
 /**
  * Mark that local data has changed (needs backup).
  * Called by operations.ts on any data write.
+ * Updates both IndexedDB meta and the reactive store.
  */
 export async function markLocalChanged(): Promise<void> {
 	try {
@@ -115,6 +117,8 @@ export async function markLocalChanged(): Promise<void> {
 			lastBackupSuccess: existing?.lastBackupSuccess ?? false,
 			localChangedAt: new Date().toISOString()
 		});
+		// Update reactive store so UI updates immediately
+		backupNeededStore.set(true);
 	} catch (e) {
 		console.error('[CloudBackup] Failed to mark local changed:', e);
 	}
