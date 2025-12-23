@@ -178,12 +178,19 @@ export async function markLocalChanged(): Promise<void> {
 }
 
 /**
- * Check if local data needs sync (has unsaved changes).
+ * Check if sync action is needed.
+ * Returns true if:
+ * - Never synced before (fresh install or cleared cache)
+ * - Local changes exist since last sync
  */
 export async function needsSync(): Promise<boolean> {
 	const meta = await getSyncMeta();
-	// Needs sync if localChangedAt is set (changes since last sync)
-	return meta?.localChangedAt != null;
+	// Never synced = needs sync (to check cloud state)
+	if (!meta?.lastSyncAt) {
+		return true;
+	}
+	// Has local changes since last sync
+	return meta.localChangedAt != null;
 }
 
 /**
