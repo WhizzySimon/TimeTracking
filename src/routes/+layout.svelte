@@ -10,7 +10,7 @@
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline, syncInProgress } from '$lib/stores';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
-	import { syncWithCloud, resolveConflict, type SyncResult } from '$lib/backup/cloud';
+	import { syncWithCloud, resolveConflict, needsSync, type SyncResult } from '$lib/backup/cloud';
 	import type { DatabaseSnapshot } from '$lib/backup/snapshot';
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
 	import { setupUpdateDetection, updateAvailable, applyUpdate } from '$lib/pwa/update';
@@ -26,10 +26,12 @@
 	let showLogoutConfirm = $state(false);
 	let showOfflineDialog = $state(false);
 	let showConflictDialog = $state(false);
+	let showSyncInfoDialog = $state(false);
 	let showProfileMenu = $state(false);
 	let syncError = $state<string | null>(null);
 	let canInstall = $state(false);
 	let hasUpdate = $state(false);
+	let syncNeeded = $state(true);
 
 	// Conflict resolution state
 	let pendingCloudSnapshot = $state<DatabaseSnapshot | null>(null);
@@ -61,6 +63,15 @@
 		goto(resolve('/login'));
 	}
 
+	async function handleSyncClick() {
+		// If already synced, show info dialog
+		if (!syncNeeded && !$syncInProgress) {
+			showSyncInfoDialog = true;
+			return;
+		}
+		await handleSync();
+	}
+
 	async function handleSync() {
 		syncError = null;
 
@@ -83,6 +94,10 @@
 				syncError = result.error ?? 'Synchronisierung fehlgeschlagen';
 			}
 			// On success (upload/restore/noop): nothing to show, it just worked
+		// Update sync needed state after successful sync
+			if (result.success || result.action === 'noop') {
+				syncNeeded = false;
+			}
 		} catch (e) {
 			console.error('[Layout] Sync failed:', e);
 			syncError = e instanceof Error ? e.message : 'Synchronisierung fehlgeschlagen';
@@ -134,6 +149,9 @@
 		if (browser) {
 			await loadSession();
 			authChecked = true;
+
+			// Check if sync is needed on startup
+			syncNeeded = await needsSync();
 		}
 
 		// Check sync status on startup
@@ -203,13 +221,14 @@
 			<div class="header-left">
 				<button
 					class="header-btn sync-btn"
-					onclick={handleSync}
-					disabled={$syncInProgress || !$isOnline}
+					class:synced={!syncNeeded && !$syncInProgress}
+					onclick={handleSyncClick}
+					disabled={$syncInProgress}
 				>
 					{#if $syncInProgress}
 						...
 					{:else}
-						Synchronisieren
+						Sync
 					{/if}
 				</button>
 				{#if syncError}
@@ -351,6 +370,17 @@
 	/>
 {/if}
 
+<!-- Sync Info Dialog -->
+{#if showSyncInfoDialog}
+	<ConfirmDialog
+		type="alert"
+		title="Daten synchronisiert"
+		message="Ihre Daten sind bereits mit der Cloud synchronisiert. Alle Änderungen werden automatisch lokal gespeichert — nichts geht verloren."
+		confirmLabel="OK"
+		onconfirm={() => (showSyncInfoDialog = false)}
+	/>
+{/if}
+
 <style>
 	.loading-screen {
 		min-height: 100vh;
@@ -430,6 +460,16 @@
 	.sync-btn:disabled {
 		opacity: 0.6;
 		cursor: default;
+	}
+
+	.sync-btn.synced {
+		opacity: 0.6;
+		cursor: pointer;
+	}
+
+	.sync-btn.synced:hover {
+		opacity: 0.7;
+		background: rgba(255, 255, 255, 0.25);
 	}
 
 	.profile-menu-container {

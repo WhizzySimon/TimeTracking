@@ -170,6 +170,15 @@ export async function markLocalChanged(): Promise<void> {
 }
 
 /**
+ * Check if local data needs sync (has unsaved changes).
+ */
+export async function needsSync(): Promise<boolean> {
+	const meta = await getSyncMeta();
+	// Needs sync if localChangedAt is set (changes since last sync)
+	return meta?.localChangedAt != null;
+}
+
+/**
  * Cloud snapshot with metadata.
  */
 export interface CloudSnapshotWithMeta {
