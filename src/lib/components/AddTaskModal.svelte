@@ -32,10 +32,8 @@
 	// Form state - initialize from entry prop via function to avoid Svelte warning
 	function roundToFiveMinutes(time: string): string {
 		const [hours, minutes] = time.split(':').map(Number);
-		const roundedMinutes = Math.round(minutes / 5) * 5;
-		const adjustedMinutes = roundedMinutes === 60 ? 0 : roundedMinutes;
-		const adjustedHours = roundedMinutes === 60 ? (hours + 1) % 24 : hours;
-		return `${String(adjustedHours).padStart(2, '0')}:${String(adjustedMinutes).padStart(2, '0')}`;
+		const roundedMinutes = Math.floor(minutes / 5) * 5;
+		return `${String(hours).padStart(2, '0')}:${String(roundedMinutes).padStart(2, '0')}`;
 	}
 
 	function addMinutes(time: string, minutesToAdd: number): string {

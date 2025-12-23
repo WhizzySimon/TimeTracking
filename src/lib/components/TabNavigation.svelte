@@ -97,23 +97,18 @@
 		border-radius: var(--r-pill);
 	}
 
-	/* Plus-Tab: prominent style - white text on nav background */
+	/* Plus-Tab base: smaller fixed width, larger font */
 	.tab.plus-tab {
 		flex: 0 0 auto;
-		min-width: 44px;
-		max-width: 44px;
-		font-size: 1.25rem;
-		font-weight: 600;
-		color: white;
+		min-width: 48px;
+		max-width: 48px;
+		font-size: 1.5rem;
+		font-weight: 700;
 	}
 
-	.tab.plus-tab:hover {
-		background-color: rgba(255, 255, 255, 0.25);
-		color: white;
-	}
-
+	/* Plus-Tab active: white background with accent text for clear visibility */
 	.tab.plus-tab.active {
-		background-color: rgba(255, 255, 255, 0.3);
-		color: white;
+		color: var(--accent);
+		background-color: white;
 	}
 </style>
