@@ -54,15 +54,16 @@ The sync is **bidirectional**: it automatically determines which side has newer/
 2. Read local meta: `localChangedAt`, `lastSyncAt`, `lastCloudUpdatedAt`
 3. Determine sync direction:
 
-| Local State | Cloud State | Action |
-|-------------|-------------|--------|
-| Empty (fresh install) | Has data | **Restore from cloud** |
-| Has data, no changes since last sync | Same as last sync | **Already synced** (no-op) |
-| Has data, changes since last sync | Same as last sync | **Upload to cloud** |
-| Has data, no changes since last sync | Newer than last sync | **Restore from cloud** |
-| Has data, changes since last sync | Newer than last sync | **Conflict** → user decides |
+| Local State                          | Cloud State          | Action                      |
+| ------------------------------------ | -------------------- | --------------------------- |
+| Empty (fresh install)                | Has data             | **Restore from cloud**      |
+| Has data, no changes since last sync | Same as last sync    | **Already synced** (no-op)  |
+| Has data, changes since last sync    | Same as last sync    | **Upload to cloud**         |
+| Has data, no changes since last sync | Newer than last sync | **Restore from cloud**      |
+| Has data, changes since last sync    | Newer than last sync | **Conflict** → user decides |
 
 **Critical edge case** (fresh install / cache cleared):
+
 - `localChangedAt` = null AND `lastSyncAt` = null → treat as "fresh install"
 - If cloud has data → **always restore from cloud** (never overwrite cloud with empty local)
 
@@ -71,6 +72,7 @@ The sync is **bidirectional**: it automatically determines which side has newer/
 **Button label**: "Synchronisieren" (single label, no state-dependent text)
 
 **Button behavior**:
+
 - Enabled when: online AND authenticated
 - Disabled when: offline OR syncing in progress OR not authenticated
 - On click: Execute sync algorithm silently, show error dialog only on failure
@@ -78,6 +80,7 @@ The sync is **bidirectional**: it automatically determines which side has newer/
 **No user-facing sync direction indicator**: The app always does the right thing automatically. User doesn't need to know if it's uploading or downloading.
 
 **Conflict handling** (both sides changed since last sync):
+
 - Show dialog: "Lokale und Cloud-Daten unterscheiden sich. Welche Version behalten?"
 - Options: "Lokal behalten" / "Cloud behalten"
 - Selected version overwrites the other
@@ -125,10 +128,10 @@ Also include:
 
 ```typescript
 interface CloudSyncMeta {
-  key: 'cloudSyncMeta';
-  lastSyncAt: string | null;           // When last successful sync completed
-  lastCloudUpdatedAt: string | null;   // Cloud's updated_at at last sync
-  localChangedAt: string | null;       // When local data last changed
+	key: 'cloudSyncMeta';
+	lastSyncAt: string | null; // When last successful sync completed
+	lastCloudUpdatedAt: string | null; // Cloud's updated_at at last sync
+	localChangedAt: string | null; // When local data last changed
 }
 ```
 

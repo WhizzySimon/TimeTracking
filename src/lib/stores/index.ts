@@ -45,8 +45,8 @@ export const syncStatus = writable<SyncStatus>('synced');
 /** Network connectivity status */
 export const isOnline = writable<boolean>(true);
 
-/** Cloud backup needed flag - true when local changes exist that haven't been backed up */
-export const backupNeeded = writable<boolean>(true);
+/** Cloud sync in progress flag */
+export const syncInProgress = writable<boolean>(false);
 
 /** Currently selected date for Day tab */
 export const currentDate = writable<Date>(new Date());

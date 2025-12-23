@@ -8,9 +8,10 @@
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
-	import { isOnline, backupNeeded as backupNeededStore } from '$lib/stores';
+	import { isOnline, syncInProgress } from '$lib/stores';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
-	import { saveToCloud, needsBackup as checkNeedsBackup } from '$lib/backup/cloud';
+	import { syncWithCloud, resolveConflict, type SyncResult } from '$lib/backup/cloud';
+	import type { DatabaseSnapshot } from '$lib/backup/snapshot';
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
 	import { setupUpdateDetection, updateAvailable, applyUpdate } from '$lib/pwa/update';
 	import { initTheme } from '$lib/stores/theme';
@@ -24,12 +25,15 @@
 
 	let showLogoutConfirm = $state(false);
 	let showOfflineDialog = $state(false);
-	let showBackupInfoDialog = $state(false);
+	let showConflictDialog = $state(false);
 	let showProfileMenu = $state(false);
-	let backupInProgress = $state(false);
-	let backupError = $state<string | null>(null);
+	let syncError = $state<string | null>(null);
 	let canInstall = $state(false);
 	let hasUpdate = $state(false);
+
+	// Conflict resolution state
+	let pendingCloudSnapshot = $state<DatabaseSnapshot | null>(null);
+	let pendingCloudUpdatedAt = $state<string | null>(null);
 
 	// Pages that don't require authentication
 	const publicPaths = ['/login', '/signup', '/forgot-password', '/reset-password'];
@@ -57,37 +61,52 @@
 		goto(resolve('/login'));
 	}
 
-	function handleBackupClick() {
-		// If already backed up, show info dialog instead of doing backup
-		if (!$backupNeededStore && !backupInProgress) {
-			showBackupInfoDialog = true;
-			return;
-		}
-		handleCloudBackup();
-	}
-
-	async function handleCloudBackup() {
-		backupError = null;
+	async function handleSync() {
+		syncError = null;
 
 		if (!$isOnline) {
 			showOfflineDialog = true;
 			return;
 		}
 
-		backupInProgress = true;
+		syncInProgress.set(true);
 
 		try {
-			const result = await saveToCloud();
-			if (result.success) {
-				backupNeededStore.set(false);
-			} else {
-				backupError = result.error ?? 'Backup fehlgeschlagen';
+			const result: SyncResult = await syncWithCloud();
+
+			if (result.needsConflictResolution) {
+				// Store conflict data and show dialog
+				pendingCloudSnapshot = result.cloudSnapshot ?? null;
+				pendingCloudUpdatedAt = result.cloudUpdatedAt ?? null;
+				showConflictDialog = true;
+			} else if (!result.success) {
+				syncError = result.error ?? 'Synchronisierung fehlgeschlagen';
+			}
+			// On success (upload/restore/noop): nothing to show, it just worked
+		} catch (e) {
+			console.error('[Layout] Sync failed:', e);
+			syncError = e instanceof Error ? e.message : 'Synchronisierung fehlgeschlagen';
+		} finally {
+			syncInProgress.set(false);
+		}
+	}
+
+	async function handleConflictChoice(choice: 'local' | 'cloud') {
+		showConflictDialog = false;
+		syncInProgress.set(true);
+
+		try {
+			const result = await resolveConflict(choice, pendingCloudSnapshot, pendingCloudUpdatedAt);
+			if (!result.success) {
+				syncError = result.error ?? 'Konfliktlösung fehlgeschlagen';
 			}
 		} catch (e) {
-			console.error('[Layout] Backup failed:', e);
-			backupError = e instanceof Error ? e.message : 'Backup fehlgeschlagen';
+			console.error('[Layout] Conflict resolution failed:', e);
+			syncError = e instanceof Error ? e.message : 'Konfliktlösung fehlgeschlagen';
 		} finally {
-			backupInProgress = false;
+			syncInProgress.set(false);
+			pendingCloudSnapshot = null;
+			pendingCloudUpdatedAt = null;
 		}
 	}
 
@@ -115,9 +134,6 @@
 		if (browser) {
 			await loadSession();
 			authChecked = true;
-
-			// Check if backup is needed and update store
-			backupNeededStore.set(await checkNeedsBackup());
 		}
 
 		// Check sync status on startup
@@ -186,21 +202,18 @@
 		<header class="app-header">
 			<div class="header-left">
 				<button
-					class="header-btn backup-btn"
-					class:synced={!$backupNeededStore && !backupInProgress}
-					onclick={handleBackupClick}
-					disabled={backupInProgress}
+					class="header-btn sync-btn"
+					onclick={handleSync}
+					disabled={$syncInProgress || !$isOnline}
 				>
-					{#if backupInProgress}
+					{#if $syncInProgress}
 						...
-					{:else if $backupNeededStore}
-						Save to cloud
 					{:else}
-						Saved to cloud
+						Synchronisieren
 					{/if}
 				</button>
-				{#if backupError}
-					<span class="backup-error-indicator">!</span>
+				{#if syncError}
+					<span class="sync-error-indicator" title={syncError}>!</span>
 				{/if}
 			</div>
 			<div class="header-right">
@@ -320,20 +333,21 @@
 	<ConfirmDialog
 		type="alert"
 		title="Offline"
-		message="Backup nicht möglich — Sie sind offline. Ihre Änderungen sind lokal gespeichert. Versuchen Sie es erneut, wenn Sie online sind."
+		message="Synchronisierung nicht möglich — Sie sind offline. Ihre Änderungen sind lokal gespeichert."
 		confirmLabel="OK"
 		onconfirm={() => (showOfflineDialog = false)}
 	/>
 {/if}
 
-<!-- Backup Info Dialog -->
-{#if showBackupInfoDialog}
+<!-- Conflict Dialog -->
+{#if showConflictDialog}
 	<ConfirmDialog
-		type="alert"
-		title="Daten gesichert"
-		message="Ihre Daten sind in der Cloud gespeichert und zusätzlich lokal auf diesem Gerät. Alle Änderungen werden automatisch lokal gespeichert — ein manuelles Speichern ist nicht nötig."
-		confirmLabel="OK"
-		onconfirm={() => (showBackupInfoDialog = false)}
+		title="Datenkonflikt"
+		message="Lokale und Cloud-Daten unterscheiden sich. Welche Version möchten Sie behalten?"
+		confirmLabel="Cloud behalten"
+		cancelLabel="Lokal behalten"
+		onconfirm={() => handleConflictChoice('cloud')}
+		oncancel={() => handleConflictChoice('local')}
 	/>
 {/if}
 
@@ -404,28 +418,18 @@
 		white-space: nowrap;
 	}
 
-	.backup-btn {
+	.sync-btn {
 		background: rgba(255, 255, 255, 0.2);
 		color: var(--header-text);
 	}
 
-	.backup-btn:hover:not(:disabled) {
+	.sync-btn:hover:not(:disabled) {
 		background: rgba(255, 255, 255, 0.3);
 	}
 
-	.backup-btn:disabled {
+	.sync-btn:disabled {
 		opacity: 0.6;
 		cursor: default;
-	}
-
-	.backup-btn.synced {
-		opacity: 0.6;
-		cursor: pointer;
-	}
-
-	.backup-btn.synced:hover {
-		opacity: 0.7;
-		background: rgba(255, 255, 255, 0.25);
 	}
 
 	.profile-menu-container {
@@ -516,7 +520,7 @@
 		cursor: default;
 	}
 
-	.backup-error-indicator {
+	.sync-error-indicator {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;

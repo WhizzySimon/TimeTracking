@@ -8,6 +8,7 @@
 **Files**: `src/lib/backup/cloud.ts`
 
 **Changes**:
+
 - Rename `CloudBackupMeta` → `CloudSyncMeta`
 - Add `lastCloudUpdatedAt: string | null` field
 - Rename `lastBackupAt` → `lastSyncAt`
@@ -15,6 +16,7 @@
 - Update `updateBackupMeta()` → `updateSyncMeta()`
 
 **Done when**:
+
 - Interface updated
 - Functions renamed
 - `npm run check` passes
@@ -28,12 +30,14 @@
 **Files**: `src/lib/backup/restore.ts` (NEW)
 
 **Changes**:
+
 - Create `importSnapshot(snapshot: DatabaseSnapshot): Promise<void>`
 - Clear existing data in each store before import
 - Import categories, timeEntries, dayTypes, workTimeModels
 - Do NOT import outbox (that's local-only pending sync queue)
 
 **Done when**:
+
 - Function created
 - Can import a snapshot exported by `exportSnapshot()`
 - `npm run check` passes
@@ -47,11 +51,13 @@
 **Files**: `src/lib/backup/cloud.ts`
 
 **Changes**:
+
 - Add `type SyncAction = 'upload' | 'restore' | 'conflict' | 'noop'`
 - Add `determineSyncAction(localMeta, cloudUpdatedAt, cloudHasData): SyncAction`
 - Implement decision table from spec
 
 **Done when**:
+
 - Function implemented
 - Unit test covers all 5 cases from spec table
 - `npm run check` passes
@@ -65,10 +71,12 @@
 **Files**: `src/lib/backup/cloud.ts`
 
 **Changes**:
+
 - Modify `getCloudSnapshot()` to also return `updated_at`
 - Return type: `{ snapshot: DatabaseSnapshot | null, updatedAt: string | null }`
 
 **Done when**:
+
 - Function returns both snapshot and timestamp
 - `npm run check` passes
 
@@ -79,12 +87,14 @@
 **Files**: `src/lib/backup/cloud.ts`
 
 **Changes**:
+
 - Create `syncWithCloud(): Promise<SyncResult>`
 - SyncResult: `{ success: boolean, action: SyncAction, error?: string, needsConflictResolution?: boolean }`
 - Orchestrate: fetch cloud → determine action → execute (except conflict)
 - For conflict: return `needsConflictResolution: true` without executing
 
 **Done when**:
+
 - Function implemented
 - Handles upload, restore, noop cases
 - Returns conflict flag for UI to handle
@@ -97,10 +107,12 @@
 **Files**: `src/lib/stores/index.ts`
 
 **Changes**:
+
 - Add `export const syncInProgress = writable<boolean>(false)`
 - Remove `backupNeeded` store (no longer needed)
 
 **Done when**:
+
 - Store added
 - Old store removed
 - `npm run check` passes (fix any import errors)
@@ -112,6 +124,7 @@
 **Files**: `src/routes/+layout.svelte`
 
 **Changes**:
+
 - Rename button label to "Synchronisieren"
 - Replace `saveToCloud` call with `syncWithCloud`
 - Add conflict dialog with "Lokal behalten" / "Cloud behalten" buttons
@@ -120,6 +133,7 @@
 - Remove `backupNeeded` store usage
 
 **Done when**:
+
 - Button shows "Synchronisieren"
 - Sync works for upload/restore/noop cases
 - Conflict dialog appears when needed
@@ -132,11 +146,13 @@
 **Files**: `src/lib/backup/cloud.ts`, `src/routes/+layout.svelte`
 
 **Changes**:
+
 - Add `resolveConflict(choice: 'local' | 'cloud'): Promise<SyncResult>`
 - In layout: call `resolveConflict` when user picks option
 - Upload or restore based on choice
 
 **Done when**:
+
 - Conflict dialog works end-to-end
 - User choice is applied correctly
 - `npm run check` passes
@@ -148,6 +164,7 @@
 **Files**: None (testing only)
 
 **Test scenarios**:
+
 1. Fresh install + cloud has data → restores
 2. Local changes + cloud unchanged → uploads
 3. Cloud changed + local unchanged → restores
@@ -156,6 +173,7 @@
 6. After sync → meta updated
 
 **Done when**:
+
 - All 6 scenarios pass manually
 - Document results in this file
 
@@ -166,11 +184,13 @@
 **Files**: Various
 
 **Changes**:
+
 - Remove any dead code from old backup implementation
 - Ensure all imports are clean
 - Run full verification
 
 **Done when**:
+
 - `npm run verify` passes
 - No console errors in browser
 - Commit changes
@@ -179,15 +199,15 @@
 
 ## Progress
 
-| Task | Status | Notes |
-|------|--------|-------|
-| 1 | pending | |
-| 2 | pending | |
-| 3 | pending | |
-| 4 | pending | |
-| 5 | pending | |
-| 6 | pending | |
-| 7 | pending | |
-| 8 | pending | |
-| 9 | pending | |
-| 10 | pending | |
+| Task | Status  | Notes |
+| ---- | ------- | ----- |
+| 1    | pending |       |
+| 2    | pending |       |
+| 3    | pending |       |
+| 4    | pending |       |
+| 5    | pending |       |
+| 6    | pending |       |
+| 7    | pending |       |
+| 8    | pending |       |
+| 9    | pending |       |
+| 10   | pending |       |

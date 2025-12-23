@@ -1,21 +1,69 @@
 /**
- * Cloud backup service using Supabase.
+ * Cloud sync service using Supabase (2-way sync).
  * Spec refs: cloud-backup-and-auth.md
  */
 
 import { getSupabase, isSupabaseConfigured } from '$lib/supabase/client';
 import { getCurrentUserId } from '$lib/api/auth';
 import { exportSnapshot, type DatabaseSnapshot } from './snapshot';
+import { importSnapshot } from './restore';
 import { put, getByKey } from '$lib/storage/db';
-import { backupNeeded as backupNeededStore } from '$lib/stores';
 
-const BACKUP_META_KEY = 'cloudBackupMeta';
+const SYNC_META_KEY = 'cloudSyncMeta';
 
-export interface CloudBackupMeta {
+/**
+ * Local metadata for cloud sync state.
+ * Stored in IndexedDB 'meta' store.
+ */
+export interface CloudSyncMeta {
 	key: string;
-	lastBackupAt: string | null;
-	lastBackupSuccess: boolean;
-	localChangedAt: string | null;
+	lastSyncAt: string | null; // When last successful sync completed
+	lastCloudUpdatedAt: string | null; // Cloud's updated_at at last sync
+	localChangedAt: string | null; // When local data last changed
+}
+
+/**
+ * Sync action determined by comparing local and cloud state.
+ */
+export type SyncAction = 'upload' | 'restore' | 'conflict' | 'noop';
+
+/**
+ * Determine what sync action to take based on local meta and cloud state.
+ * Implements decision table from spec.
+ */
+export function determineSyncAction(
+	localMeta: CloudSyncMeta | null,
+	cloudUpdatedAt: string | null,
+	cloudHasData: boolean
+): SyncAction {
+	const isFreshInstall = !localMeta?.lastSyncAt && !localMeta?.localChangedAt;
+
+	// Fresh install: always restore if cloud has data
+	if (isFreshInstall && cloudHasData) {
+		return 'restore';
+	}
+
+	// Never synced, no cloud data: upload local data
+	if (!cloudHasData) {
+		return 'upload';
+	}
+
+	const localChanged = localMeta?.localChangedAt != null;
+	const cloudChanged =
+		cloudUpdatedAt != null &&
+		(localMeta?.lastCloudUpdatedAt == null ||
+			new Date(cloudUpdatedAt) > new Date(localMeta.lastCloudUpdatedAt));
+
+	if (localChanged && cloudChanged) {
+		return 'conflict';
+	}
+	if (localChanged) {
+		return 'upload';
+	}
+	if (cloudChanged) {
+		return 'restore';
+	}
+	return 'noop';
 }
 
 /**
@@ -53,19 +101,17 @@ export async function saveToCloud(): Promise<{
 		);
 
 		if (error) {
-			console.error('[CloudBackup] Save failed:', error.message);
-			await updateBackupMeta(null, false);
+			console.error('[CloudSync] Upload failed:', error.message);
 			return { success: false, error: error.message };
 		}
 
 		const timestamp = new Date().toISOString();
-		await updateBackupMeta(timestamp, true);
+		await updateSyncMeta(timestamp, timestamp);
 
-		console.log('[CloudBackup] Saved successfully at:', timestamp);
+		console.log('[CloudSync] Uploaded successfully at:', timestamp);
 		return { success: true, timestamp };
 	} catch (e) {
-		console.error('[CloudBackup] Save failed:', e);
-		await updateBackupMeta(null, false);
+		console.error('[CloudSync] Upload failed:', e);
 		return {
 			success: false,
 			error: e instanceof Error ? e.message : 'Unbekannter Fehler'
@@ -74,11 +120,11 @@ export async function saveToCloud(): Promise<{
 }
 
 /**
- * Get last cloud backup metadata from local storage.
+ * Get cloud sync metadata from local storage.
  */
-export async function getBackupMeta(): Promise<CloudBackupMeta | null> {
+export async function getSyncMeta(): Promise<CloudSyncMeta | null> {
 	try {
-		const meta = await getByKey<CloudBackupMeta>('meta', BACKUP_META_KEY);
+		const meta = await getByKey<CloudSyncMeta>('meta', SYNC_META_KEY);
 		return meta ?? null;
 	} catch {
 		return null;
@@ -86,86 +132,214 @@ export async function getBackupMeta(): Promise<CloudBackupMeta | null> {
 }
 
 /**
- * Update local backup metadata.
- * On successful backup, clears localChangedAt to indicate sync.
+ * Update local sync metadata after successful sync.
+ * Clears localChangedAt to indicate data is synced.
  */
-async function updateBackupMeta(timestamp: string | null, success: boolean): Promise<void> {
+export async function updateSyncMeta(
+	lastSyncAt: string,
+	lastCloudUpdatedAt: string
+): Promise<void> {
 	try {
-		const existing = await getBackupMeta();
 		await put('meta', {
-			key: BACKUP_META_KEY,
-			lastBackupAt: timestamp ?? existing?.lastBackupAt ?? null,
-			lastBackupSuccess: success,
-			localChangedAt: success ? null : (existing?.localChangedAt ?? null)
+			key: SYNC_META_KEY,
+			lastSyncAt,
+			lastCloudUpdatedAt,
+			localChangedAt: null // Clear local changes flag after sync
 		});
 	} catch (e) {
-		console.error('[CloudBackup] Failed to update meta:', e);
+		console.error('[CloudSync] Failed to update meta:', e);
 	}
 }
 
 /**
- * Mark that local data has changed (needs backup).
+ * Mark that local data has changed (needs sync).
  * Called by operations.ts on any data write.
- * Updates both IndexedDB meta and the reactive store.
  */
 export async function markLocalChanged(): Promise<void> {
 	try {
-		const existing = await getBackupMeta();
+		const existing = await getSyncMeta();
 		await put('meta', {
-			key: BACKUP_META_KEY,
-			lastBackupAt: existing?.lastBackupAt ?? null,
-			lastBackupSuccess: existing?.lastBackupSuccess ?? false,
+			key: SYNC_META_KEY,
+			lastSyncAt: existing?.lastSyncAt ?? null,
+			lastCloudUpdatedAt: existing?.lastCloudUpdatedAt ?? null,
 			localChangedAt: new Date().toISOString()
 		});
-		// Update reactive store so UI updates immediately
-		backupNeededStore.set(true);
 	} catch (e) {
-		console.error('[CloudBackup] Failed to mark local changed:', e);
+		console.error('[CloudSync] Failed to mark local changed:', e);
 	}
 }
 
 /**
- * Check if local data needs backup.
- * Returns true if there are unsaved changes.
+ * Cloud snapshot with metadata.
  */
-export async function needsBackup(): Promise<boolean> {
-	const meta = await getBackupMeta();
-	if (!meta) return true; // Never backed up
-	if (!meta.lastBackupAt) return true; // Never backed up
-	if (!meta.localChangedAt) return false; // No changes since last backup
-	return new Date(meta.localChangedAt) > new Date(meta.lastBackupAt);
+export interface CloudSnapshotWithMeta {
+	snapshot: DatabaseSnapshot | null;
+	updatedAt: string | null;
+	hasData: boolean;
 }
 
 /**
- * Restore database from cloud backup.
- * @returns The snapshot if found, null otherwise
+ * Fetch cloud snapshot with updated_at timestamp.
+ * Used by syncWithCloud to determine sync action.
  */
-export async function getCloudSnapshot(): Promise<DatabaseSnapshot | null> {
+export async function getCloudSnapshotWithMeta(): Promise<CloudSnapshotWithMeta> {
 	if (!isSupabaseConfigured()) {
-		return null;
+		return { snapshot: null, updatedAt: null, hasData: false };
 	}
 
 	const userId = await getCurrentUserId();
 	if (!userId) {
-		return null;
+		return { snapshot: null, updatedAt: null, hasData: false };
 	}
 
 	try {
 		const supabase = getSupabase();
 		const { data, error } = await supabase
 			.from('user_backups')
-			.select('snapshot')
+			.select('snapshot, updated_at')
 			.eq('user_id', userId)
 			.single();
 
 		if (error) {
-			console.error('[CloudBackup] Fetch failed:', error.message);
-			return null;
+			// PGRST116 = no rows found (not an error for our purposes)
+			if (error.code === 'PGRST116') {
+				return { snapshot: null, updatedAt: null, hasData: false };
+			}
+			console.error('[CloudSync] Fetch failed:', error.message);
+			return { snapshot: null, updatedAt: null, hasData: false };
 		}
 
-		return data?.snapshot as DatabaseSnapshot | null;
+		return {
+			snapshot: data?.snapshot as DatabaseSnapshot | null,
+			updatedAt: data?.updated_at as string | null,
+			hasData: data?.snapshot != null
+		};
 	} catch (e) {
-		console.error('[CloudBackup] Fetch failed:', e);
-		return null;
+		console.error('[CloudSync] Fetch failed:', e);
+		return { snapshot: null, updatedAt: null, hasData: false };
+	}
+}
+
+/**
+ * Result of a sync operation.
+ */
+export interface SyncResult {
+	success: boolean;
+	action: SyncAction;
+	error?: string;
+	needsConflictResolution?: boolean;
+	cloudSnapshot?: DatabaseSnapshot | null;
+	cloudUpdatedAt?: string | null;
+}
+
+/**
+ * Main 2-way sync function.
+ * Determines sync direction and executes (except for conflicts).
+ */
+export async function syncWithCloud(): Promise<SyncResult> {
+	if (!isSupabaseConfigured()) {
+		return { success: false, action: 'noop', error: 'Supabase nicht konfiguriert' };
+	}
+
+	const userId = await getCurrentUserId();
+	if (!userId) {
+		return { success: false, action: 'noop', error: 'Nicht angemeldet' };
+	}
+
+	try {
+		// 1. Fetch cloud state
+		const cloudData = await getCloudSnapshotWithMeta();
+
+		// 2. Get local meta
+		const localMeta = await getSyncMeta();
+
+		// 3. Determine action
+		const action = determineSyncAction(localMeta, cloudData.updatedAt, cloudData.hasData);
+
+		console.log('[CloudSync] Action determined:', action, {
+			localMeta,
+			cloudUpdatedAt: cloudData.updatedAt,
+			cloudHasData: cloudData.hasData
+		});
+
+		// 4. Execute action
+		switch (action) {
+			case 'noop':
+				return { success: true, action: 'noop' };
+
+			case 'upload': {
+				const uploadResult = await saveToCloud();
+				return {
+					success: uploadResult.success,
+					action: 'upload',
+					error: uploadResult.error
+				};
+			}
+
+			case 'restore': {
+				if (!cloudData.snapshot) {
+					return { success: false, action: 'restore', error: 'Cloud-Snapshot nicht gefunden' };
+				}
+				await importSnapshot(cloudData.snapshot);
+				await updateSyncMeta(new Date().toISOString(), cloudData.updatedAt!);
+				console.log('[CloudSync] Restored from cloud');
+				return { success: true, action: 'restore' };
+			}
+
+			case 'conflict':
+				// Don't execute - return flag for UI to handle
+				return {
+					success: true,
+					action: 'conflict',
+					needsConflictResolution: true,
+					cloudSnapshot: cloudData.snapshot,
+					cloudUpdatedAt: cloudData.updatedAt
+				};
+		}
+	} catch (e) {
+		console.error('[CloudSync] Sync failed:', e);
+		return {
+			success: false,
+			action: 'noop',
+			error: e instanceof Error ? e.message : 'Unbekannter Fehler'
+		};
+	}
+}
+
+/**
+ * Resolve a sync conflict by user choice.
+ * @param choice 'local' to upload local data, 'cloud' to restore from cloud
+ * @param cloudSnapshot The cloud snapshot (passed from syncWithCloud result)
+ * @param cloudUpdatedAt The cloud updated_at timestamp
+ */
+export async function resolveConflict(
+	choice: 'local' | 'cloud',
+	cloudSnapshot: DatabaseSnapshot | null,
+	cloudUpdatedAt: string | null
+): Promise<SyncResult> {
+	try {
+		if (choice === 'local') {
+			const uploadResult = await saveToCloud();
+			return {
+				success: uploadResult.success,
+				action: 'upload',
+				error: uploadResult.error
+			};
+		} else {
+			if (!cloudSnapshot) {
+				return { success: false, action: 'restore', error: 'Cloud-Snapshot nicht gefunden' };
+			}
+			await importSnapshot(cloudSnapshot);
+			await updateSyncMeta(new Date().toISOString(), cloudUpdatedAt!);
+			console.log('[CloudSync] Conflict resolved: restored from cloud');
+			return { success: true, action: 'restore' };
+		}
+	} catch (e) {
+		console.error('[CloudSync] Conflict resolution failed:', e);
+		return {
+			success: false,
+			action: 'noop',
+			error: e instanceof Error ? e.message : 'Unbekannter Fehler'
+		};
 	}
 }
