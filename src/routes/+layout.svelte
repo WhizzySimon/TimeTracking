@@ -4,7 +4,6 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import favicon from '$lib/assets/favicon.svg';
 	import '$lib/styles/theme.css';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
@@ -171,10 +170,6 @@
 		}
 	});
 </script>
-
-<svelte:head>
-	<link rel="icon" href={favicon} />
-</svelte:head>
 
 {#if !authChecked}
 	<div class="loading-screen">
