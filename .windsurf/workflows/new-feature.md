@@ -7,6 +7,7 @@ description: Start a new feature - follows Spec-Driven Development (Spec → Pla
 Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren willst, das noch keine Spec/Plan/Tasks hat.
 
 **Nicht nutzen wenn:**
+
 - Tasks bereits existieren → nutze `/continue-work`
 - Nur eine kleine Änderung/Bugfix → nutze `/new-task`
 

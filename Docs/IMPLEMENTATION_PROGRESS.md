@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 7 - Quick-Start UX Improvements  
-**Tasks Completed:** 76 / 86  
-**Estimated Progress:** 88%
+**Tasks Completed:** 77 / 86  
+**Estimated Progress:** 90%
 
 ---
 
@@ -881,17 +881,18 @@ After each phase, verify against specs:
 ## Phase 7: Quick-Start UX Improvements
 
 **Target:** 10 tasks, ~8 hours  
-**Status:** Not started (0/10 tasks)  
+**Status:** In Progress (1/10 tasks)  
 **Spec:** `Docs/Specs/quick-start-ux.md`  
 **Plan:** `Docs/Plans/quick-start-ux.md`  
 **Tasks:** `Docs/Tasks/quick-start-ux.md`
 
 ### Quick-Start Buttons
 
-- [ ] **Task 7.1** — Frequency Utils erstellen
+- [x] **Task 7.1** — Frequency Utils erstellen
   - Files: `src/lib/utils/frequency.ts`, `src/lib/utils/frequency.test.ts`
-  - Verified: npm run verify ⬜, npm run test:unit ⬜
+  - Verified: npm run verify ✅, npm run test:unit ✅ (78 tests, 17 new)
   - Deviations: None
+  - Notes: Created getCategoryFrequency(), getTopCategories(), sortCategoriesByFrequency(). Excludes system categories, respects 30-day window, alphabetical tiebreaker.
 
 - [ ] **Task 7.2** — Quick-Start Buttons Komponente
   - Files: `src/lib/components/QuickStartButtons.svelte`, `src/routes/day/+page.svelte`

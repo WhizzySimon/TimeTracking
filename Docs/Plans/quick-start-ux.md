@@ -4,29 +4,29 @@
 
 ### Neue Komponenten
 
-| Komponente | Verantwortung |
-|------------|---------------|
+| Komponente                 | Verantwortung                            |
+| -------------------------- | ---------------------------------------- |
 | `QuickStartButtons.svelte` | Zeigt Top 5 Kategorien als 1-Tap-Buttons |
-| `TaskItemRunning.svelte` | Laufende Aufgabe mit "Beenden"-Button |
-| `TaskItemCompleted.svelte` | Beendete Aufgabe mit Resume-Button |
+| `TaskItemRunning.svelte`   | Laufende Aufgabe mit "Beenden"-Button    |
+| `TaskItemCompleted.svelte` | Beendete Aufgabe mit Resume-Button       |
 
 ### Bestehende Komponenten (zu ändern)
 
-| Komponente | Änderung |
-|------------|----------|
-| `src/routes/day/+page.svelte` | QuickStartButtons einbinden, Layout anpassen |
-| `src/lib/components/TaskList.svelte` | Unterscheidung laufend/beendet, Resume-Button |
-| `src/lib/components/TaskItem.svelte` | Refactor zu TaskItemRunning/TaskItemCompleted oder Conditional Rendering |
-| `src/lib/components/AddTaskModal.svelte` | Endzeit vorausfüllen bei laufender Aufgabe |
-| `src/lib/components/CategorySelect.svelte` | Häufigkeitssortierung, Auto-Scroll zu Position 6 |
-| `src/routes/settings/+page.svelte` | Toggle für Sortierung hinzufügen |
+| Komponente                                 | Änderung                                                                 |
+| ------------------------------------------ | ------------------------------------------------------------------------ |
+| `src/routes/day/+page.svelte`              | QuickStartButtons einbinden, Layout anpassen                             |
+| `src/lib/components/TaskList.svelte`       | Unterscheidung laufend/beendet, Resume-Button                            |
+| `src/lib/components/TaskItem.svelte`       | Refactor zu TaskItemRunning/TaskItemCompleted oder Conditional Rendering |
+| `src/lib/components/AddTaskModal.svelte`   | Endzeit vorausfüllen bei laufender Aufgabe                               |
+| `src/lib/components/CategorySelect.svelte` | Häufigkeitssortierung, Auto-Scroll zu Position 6                         |
+| `src/routes/settings/+page.svelte`         | Toggle für Sortierung hinzufügen                                         |
 
 ### Neue Utility-Funktionen
 
-| Funktion | Datei | Zweck |
-|----------|-------|-------|
+| Funktion                 | Datei                        | Zweck                                               |
+| ------------------------ | ---------------------------- | --------------------------------------------------- |
 | `getCategoryFrequency()` | `src/lib/utils/frequency.ts` | Berechnet Häufigkeit pro Kategorie (letzte 30 Tage) |
-| `getTopCategories(n)` | `src/lib/utils/frequency.ts` | Gibt Top N Kategorien nach Häufigkeit zurück |
+| `getTopCategories(n)`    | `src/lib/utils/frequency.ts` | Gibt Top N Kategorien nach Häufigkeit zurück        |
 
 ### Dependencies
 
@@ -52,8 +52,8 @@ Häufigkeit wird **berechnet**, nicht gespeichert.
 
 ```typescript
 interface CategoryFrequency {
-  categoryId: string;
-  count: number;
+	categoryId: string;
+	count: number;
 }
 
 // Berechnung:
@@ -109,11 +109,11 @@ User tappt Resume Button (▶)
 
 ## Error handling
 
-| Fehler | Handling |
-|--------|----------|
-| IndexedDB-Fehler beim Speichern | Console.error, keine UI-Meldung (Retry beim nächsten Sync) |
+| Fehler                            | Handling                                                           |
+| --------------------------------- | ------------------------------------------------------------------ |
+| IndexedDB-Fehler beim Speichern   | Console.error, keine UI-Meldung (Retry beim nächsten Sync)         |
 | Kategorie wurde gelöscht (Resume) | Resume-Button nicht anzeigen für Einträge mit ungültiger Kategorie |
-| Keine Kategorien vorhanden | Quick-Start Buttons nicht anzeigen |
+| Keine Kategorien vorhanden        | Quick-Start Buttons nicht anzeigen                                 |
 
 **Prinzip:** Fehler still behandeln, Korrektur ist einfach (Aufgabe bearbeiten).
 

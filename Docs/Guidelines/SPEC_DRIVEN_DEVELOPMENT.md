@@ -34,11 +34,11 @@ Neuer Chat starten
                          └─────────────┘  └─────────────┘
 ```
 
-| Workflow | Wann nutzen? |
-|----------|--------------|
-| `/continue-work` | Tasks sind offen → findet nächsten Task automatisch |
-| `/new-feature` | Neues Feature → führt durch Spec → Plan → Tasks → Implement |
-| `/new-task` | Kleine Änderung, Bugfix, Ad-hoc Aufgabe |
+| Workflow         | Wann nutzen?                                                |
+| ---------------- | ----------------------------------------------------------- |
+| `/continue-work` | Tasks sind offen → findet nächsten Task automatisch         |
+| `/new-feature`   | Neues Feature → führt durch Spec → Plan → Tasks → Implement |
+| `/new-task`      | Kleine Änderung, Bugfix, Ad-hoc Aufgabe                     |
 
 ---
 
@@ -65,17 +65,17 @@ Neuer Chat starten
 
 ### Pflichtinhalte
 
-| Abschnitt | Beschreibung |
-|-----------|--------------|
-| **Goal / Problem** | 1-3 Sätze: Was ist das Problem? |
-| **Scope** | In scope / Out of scope |
-| **Functional Requirements (FR)** | User-sichtbares Verhalten (TT-FR-001, TT-FR-002, ...) |
-| **Implementation Guarantees (IG)** | Constraints die immer gelten müssen (TT-IG-001, ...) |
-| **Design Decisions (DD)** | Bewusste Entscheidungen (TT-DD-001, ...) — optional |
-| **Edge cases** | Randfälle und Fehlerszenarien |
-| **Data & privacy** | Was wird gespeichert, wo, wie lange? |
-| **Acceptance checks** | Testbare Kriterien (AC-001, AC-002, ...) |
-| **Change log** | Änderungshistorie |
+| Abschnitt                          | Beschreibung                                          |
+| ---------------------------------- | ----------------------------------------------------- |
+| **Goal / Problem**                 | 1-3 Sätze: Was ist das Problem?                       |
+| **Scope**                          | In scope / Out of scope                               |
+| **Functional Requirements (FR)**   | User-sichtbares Verhalten (TT-FR-001, TT-FR-002, ...) |
+| **Implementation Guarantees (IG)** | Constraints die immer gelten müssen (TT-IG-001, ...)  |
+| **Design Decisions (DD)**          | Bewusste Entscheidungen (TT-DD-001, ...) — optional   |
+| **Edge cases**                     | Randfälle und Fehlerszenarien                         |
+| **Data & privacy**                 | Was wird gespeichert, wo, wie lange?                  |
+| **Acceptance checks**              | Testbare Kriterien (AC-001, AC-002, ...)              |
+| **Change log**                     | Änderungshistorie                                     |
 
 ### Checkpoint vor Phase 2
 
@@ -95,14 +95,14 @@ Neuer Chat starten
 
 ### Pflichtinhalte
 
-| Abschnitt | Beschreibung |
-|-----------|--------------|
+| Abschnitt                  | Beschreibung                                    |
+| -------------------------- | ----------------------------------------------- |
 | **Architecture / modules** | Komponenten, Verantwortlichkeiten, Dependencies |
-| **Data model** | Neue/geänderte Datenstrukturen |
-| **UI state model** | Welcher State existiert, wo lebt er? |
-| **Error handling** | Was kann schiefgehen, wie reagieren wir? |
-| **Testing strategy** | Unit/Integration/E2E — was ist automatisierbar? |
-| **Risks / constraints** | Performance, UX, Platform-Einschränkungen |
+| **Data model**             | Neue/geänderte Datenstrukturen                  |
+| **UI state model**         | Welcher State existiert, wo lebt er?            |
+| **Error handling**         | Was kann schiefgehen, wie reagieren wir?        |
+| **Testing strategy**       | Unit/Integration/E2E — was ist automatisierbar? |
+| **Risks / constraints**    | Performance, UX, Platform-Einschränkungen       |
 
 ### Checkpoint vor Phase 3
 
@@ -206,6 +206,7 @@ feat: kurze Beschreibung
 ```
 
 **Typen:**
+
 - `feat:` — Neues Feature
 - `fix:` — Bugfix
 - `refactor:` — Code-Refactoring
@@ -232,6 +233,7 @@ feat: kurze Beschreibung
 ### Header aktualisieren
 
 Nach jedem Task:
+
 - "Last Updated" Datum aktualisieren
 - "Tasks Completed" Zähler erhöhen
 - "Estimated Progress" Prozent anpassen
@@ -270,14 +272,14 @@ Bevor du mit der Implementierung beginnst:
 
 ## Quick Reference
 
-| Was | Wo |
-|-----|-----|
-| Spec Template | `Docs/Specs/_template.md` |
-| Plan Template | `Docs/Plans/_template.md` |
-| Tasks Template | `Docs/Tasks/_template.md` |
-| Progress Tracker | `Docs/IMPLEMENTATION_PROGRESS.md` |
-| FR/IG/DD Regeln | `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` |
-| Command Execution | `.windsurf/rules/COMMAND_EXECUTION_RULES.md` |
+| Was               | Wo                                                      |
+| ----------------- | ------------------------------------------------------- |
+| Spec Template     | `Docs/Specs/_template.md`                               |
+| Plan Template     | `Docs/Plans/_template.md`                               |
+| Tasks Template    | `Docs/Tasks/_template.md`                               |
+| Progress Tracker  | `Docs/IMPLEMENTATION_PROGRESS.md`                       |
+| FR/IG/DD Regeln   | `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` |
+| Command Execution | `.windsurf/rules/COMMAND_EXECUTION_RULES.md`            |
 
 ---
 
