@@ -179,7 +179,9 @@
 					class="header-btn backup-btn"
 					onclick={handleCloudBackup}
 					disabled={backupInProgress || !$backupNeededStore}
-					title={$backupNeededStore ? 'Änderungen in die Cloud sichern' : 'Alle Änderungen in der Cloud gesichert'}
+					title={$backupNeededStore
+						? 'Änderungen in die Cloud sichern'
+						: 'Alle Änderungen in der Cloud gesichert'}
 				>
 					{#if backupInProgress}
 						...
