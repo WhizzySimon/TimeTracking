@@ -2,23 +2,28 @@
   TabNavigation.svelte
   
   Bottom tab navigation for the TimeTracker app.
-  Renders 4 tabs: Tag, Woche, Auswertung, Einstellungen
+  Renders 5 tabs: + (Plus-Tab), Tag, Woche, Monat, Auswertung
   
   Spec refs:
   - ui-logic-spec-v1.md Section 2 (Tabs & Navigation)
+  - Phase 8: Plus-Tab as first tab
 -->
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { resolve } from '$app/paths';
 
 	const tabs = [
-		{ href: '/day', label: 'Tag' },
-		{ href: '/week', label: 'Woche' },
-		{ href: '/month', label: 'Monat' },
-		{ href: '/analysis', label: 'Auswertung' }
+		{ href: '/add', label: '+', isPlus: true },
+		{ href: '/day', label: 'Tag', isPlus: false },
+		{ href: '/week', label: 'Woche', isPlus: false },
+		{ href: '/month', label: 'Monat', isPlus: false },
+		{ href: '/analysis', label: 'Auswertung', isPlus: false }
 	] as const;
 
 	function isActive(href: string, pathname: string): boolean {
+		if (href === '/add') {
+			return pathname === '/add';
+		}
 		if (href === '/day') {
 			return pathname === '/' || pathname === '/day' || pathname.startsWith('/day/');
 		}
@@ -32,7 +37,9 @@
 			href={resolve(tab.href)}
 			class="tab"
 			class:active={isActive(tab.href, $page.url.pathname)}
+			class:plus-tab={tab.isPlus}
 			aria-current={isActive(tab.href, $page.url.pathname) ? 'page' : undefined}
+			aria-label={tab.isPlus ? 'Aufgabe hinzufügen' : undefined}
 		>
 			{tab.label}
 		</a>
@@ -88,5 +95,25 @@
 		color: var(--nav-text-active);
 		background-color: var(--nav-active-bg);
 		border-radius: var(--r-pill);
+	}
+
+	/* Plus-Tab: prominent accent style */
+	.tab.plus-tab {
+		flex: 0 0 auto;
+		min-width: 44px;
+		max-width: 44px;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: var(--accent);
+	}
+
+	.tab.plus-tab:hover {
+		background-color: var(--accent-light);
+		color: var(--accent);
+	}
+
+	.tab.plus-tab.active {
+		background-color: var(--accent);
+		color: white;
 	}
 </style>
