@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 8 - Plus-Tab (Ein-Klick-Workflow)  
-**Tasks Completed:** 87 / 94  
-**Estimated Progress:** 93%
+**Tasks Completed:** 88 / 94  
+**Estimated Progress:** 94%
 
 ---
 
@@ -959,7 +959,7 @@ After each phase, verify against specs:
 ## Phase 8: Plus-Tab (Ein-Klick-Workflow + Smart Suggestions)
 
 **Target:** 9 tasks, ~5 hours  
-**Status:** In Progress (1/9 tasks)  
+**Status:** In Progress (2/9 tasks)  
 **Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Smart Suggestions)  
 **Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Algorithmus-Details)  
 **Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md` (Phase 8 Tasks 8.1-8.9)
@@ -972,11 +972,11 @@ After each phase, verify against specs:
   - Deviations: None
   - Notes: Route `/add` created with placeholder content. Shows "Aufgabe starten" heading.
 
-- [ ] **Task 8.2** — Smart Suggestions Algorithmus implementieren
+- [x] **Task 8.2** — Smart Suggestions Algorithmus implementieren
   - Files: `src/lib/utils/frequency.ts`, `src/lib/utils/frequency.test.ts`
-  - Verified: ⬜
+  - Verified: npm run verify ✅, npm run test:unit ✅ (88 tests, 10 new)
   - Deviations: None
-  - Notes: Kontextbewusste Top 5 basierend auf Wochentag + 2h-Zeitslot. Kontext-First-Scoring (×1000), Fallback auf Gesamthäufigkeit.
+  - Notes: Implemented `getSmartTopCategories()` and `getTimeSlot()`. Context-first scoring (×1000 multiplier), 2h time slots, weekday matching, alphabetical tiebreaker.
 
 - [ ] **Task 8.3** — CategoryList Komponente
   - Files: `src/lib/components/CategoryList.svelte`, `src/routes/add/+page.svelte`
