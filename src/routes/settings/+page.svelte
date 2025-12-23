@@ -18,13 +18,10 @@
 	import {
 		theme,
 		shape,
-		categorySort,
 		setTheme,
 		setShape,
-		setCategorySort,
 		type ThemeValue,
-		type ShapeValue,
-		type CategorySortValue
+		type ShapeValue
 	} from '$lib/stores/theme';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
@@ -100,9 +97,8 @@
 	});
 	let currentTheme = $state<ThemeValue>('cool');
 	let currentShape = $state<ShapeValue>('soft');
-	let currentCategorySort = $state<CategorySortValue>('frequency');
 
-	// Subscribe to theme, shape, and categorySort stores
+	// Subscribe to theme and shape stores
 	$effect(() => {
 		const unsubTheme = theme.subscribe((value) => {
 			currentTheme = value;
@@ -110,13 +106,9 @@
 		const unsubShape = shape.subscribe((value) => {
 			currentShape = value;
 		});
-		const unsubCategorySort = categorySort.subscribe((value) => {
-			currentCategorySort = value;
-		});
 		return () => {
 			unsubTheme();
 			unsubShape();
-			unsubCategorySort();
 		};
 	});
 
@@ -128,9 +120,6 @@
 		setShape(newShape);
 	}
 
-	function handleCategorySortChange(newSort: CategorySortValue) {
-		setCategorySort(newSort);
-	}
 	let deleteAccountInProgress = $state(false);
 	let deleteAccountError = $state<string | null>(null);
 
@@ -294,25 +283,6 @@
 						onclick={() => handleShapeChange('soft')}
 					>
 						Rund
-					</button>
-				</div>
-			</div>
-			<div class="theme-selector">
-				<span class="theme-label">Kategorie-Sortierung</span>
-				<div class="theme-toggle">
-					<button
-						class="theme-option"
-						class:active={currentCategorySort === 'frequency'}
-						onclick={() => handleCategorySortChange('frequency')}
-					>
-						Häufigkeit
-					</button>
-					<button
-						class="theme-option"
-						class:active={currentCategorySort === 'alphabetical'}
-						onclick={() => handleCategorySortChange('alphabetical')}
-					>
-						A-Z
 					</button>
 				</div>
 			</div>
