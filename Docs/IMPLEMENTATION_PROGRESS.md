@@ -1,9 +1,9 @@
 # TimeTracker v1 — Implementation Progress
 
 **Last Updated:** 2025-12-23  
-**Current Phase:** Phase 7 - Quick-Start UX Improvements  
-**Tasks Completed:** 86 / 86  
-**Estimated Progress:** 100%
+**Current Phase:** Phase 8 - Plus-Tab (Ein-Klick-Workflow)  
+**Tasks Completed:** 86 / 94  
+**Estimated Progress:** 91%
 
 ---
 
@@ -953,6 +953,64 @@ After each phase, verify against specs:
   - Verified: npm run test:e2e ✅ (6 tests, all passing)
   - Deviations: None
   - Notes: Tests cover Quick-Start buttons, Beenden/Resume buttons, auto-end running task, and settings toggle. Used exact: true for button selectors to avoid matching task item containers.
+
+---
+
+## Phase 8: Plus-Tab (Ein-Klick-Workflow)
+
+**Target:** 8 tasks, ~4 hours  
+**Status:** Not Started (0/8 tasks)  
+**Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt)  
+**Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt)  
+**Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md` (Phase 8 Tasks)
+
+### Plus-Tab Route & Komponenten
+
+- [ ] **Task 8.1** — Plus-Tab Route erstellen
+  - Files: `src/routes/add/+page.svelte`
+  - Verified: ⬜
+  - Deviations: None
+
+- [ ] **Task 8.2** — CategoryList Komponente
+  - Files: `src/lib/components/CategoryList.svelte`, `src/routes/add/+page.svelte`
+  - Verified: ⬜
+  - Deviations: None
+
+- [ ] **Task 8.3** — Ein-Klick-Start Logik
+  - Files: `src/routes/add/+page.svelte`
+  - Verified: ⬜
+  - Deviations: None
+
+### Navigation & Default-Tab
+
+- [ ] **Task 8.4** — Navigation anpassen (Plus-Tab erster Tab)
+  - Files: `src/lib/components/Navigation.svelte`
+  - Verified: ⬜
+  - Deviations: None
+
+- [ ] **Task 8.5** — Default-Tab-Logik
+  - Files: `src/routes/+page.svelte`
+  - Verified: ⬜
+  - Deviations: None
+
+### Cleanup
+
+- [ ] **Task 8.6** — Cleanup: Tag-Tab (Quick-Start + Add-Button entfernen)
+  - Files: `src/routes/day/+page.svelte`, `src/lib/components/QuickStartButtons.svelte`
+  - Verified: ⬜
+  - Deviations: None
+
+- [ ] **Task 8.7** — Cleanup: Settings (Sorting Toggle entfernen)
+  - Files: `src/routes/settings/+page.svelte`, `src/lib/stores/theme.ts`
+  - Verified: ⬜
+  - Deviations: None
+
+### Testing
+
+- [ ] **Task 8.8** — E2E Tests erweitern
+  - Files: `e2e/quick-start.test.ts`
+  - Verified: ⬜
+  - Deviations: None
 
 ---
 

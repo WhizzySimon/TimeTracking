@@ -169,18 +169,140 @@ After completing each task:
 - **Guardrails:**
   - Bestehende Logik für neue Aufgaben nicht ändern
 
-## Task 10 - E2E Tests
+## Task 10 - E2E Tests ✓
 
 - **Files:**
   - `e2e/quick-start.test.ts` (neu)
 - **Done when:**
-  - Test: Quick-Start Button erstellt Aufgabe
-  - Test: Beenden-Button setzt Endzeit
-  - Test: Resume erstellt neue Aufgabe
-  - Test: Automatisches Beenden bei Quick-Start/Resume
-  - Test: Toggle in Einstellungen funktioniert
+  - Test: Quick-Start Button erstellt Aufgabe ✓
+  - Test: Beenden-Button setzt Endzeit ✓
+  - Test: Resume erstellt neue Aufgabe ✓
+  - Test: Automatisches Beenden bei Quick-Start/Resume ✓
+  - Test: Toggle in Einstellungen funktioniert ✓
+  - Alle Tests bestehen ✓
+- **Verify:**
+  - `npm run test:e2e` ✓ (6 tests passing)
+- **Guardrails:**
+  - Bestehende E2E Tests nicht brechen ✓
+
+---
+
+# Phase 8: Plus-Tab Tasks
+
+## Task 8.1 - Plus-Tab Route erstellen
+
+- **Files:**
+  - `src/routes/add/+page.svelte` (neu)
+- **Done when:**
+  - Route `/add` existiert und ist erreichbar
+  - Zeigt Platzhalter-Inhalt
+- **Verify:**
+  - `npm run verify`
+  - Browser: Navigation zu `/add` funktioniert
+- **Guardrails:**
+  - Keine Änderungen an bestehenden Routes
+
+## Task 8.2 - CategoryList Komponente
+
+- **Files:**
+  - `src/lib/components/CategoryList.svelte` (neu)
+  - `src/routes/add/+page.svelte`
+- **Done when:**
+  - Komponente zeigt Top 5 Kategorien (visuell abgetrennt)
+  - Komponente zeigt Rest alphabetisch (ohne Duplikate)
+  - Systemkategorien sind ausgeschlossen
+  - Volle Bildschirmhöhe genutzt
+- **Verify:**
+  - `npm run verify`
+  - Browser: Liste korrekt sortiert, keine Duplikate
+- **Guardrails:**
+  - Nutzt bestehende `getTopCategories()` Funktion
+
+## Task 8.3 - Ein-Klick-Start Logik
+
+- **Files:**
+  - `src/routes/add/+page.svelte`
+- **Done when:**
+  - Klick auf Kategorie erstellt Aufgabe (startTime=jetzt, endTime=null)
+  - Laufende Aufgabe wird automatisch beendet
+  - Redirect zu `/day` nach Erstellung
+- **Verify:**
+  - `npm run verify`
+  - Browser: Klick → Aufgabe erstellt → Redirect zu /day
+- **Guardrails:**
+  - Nutzt bestehende `saveTimeEntry()` Funktion
+
+## Task 8.4 - Navigation anpassen
+
+- **Files:**
+  - `src/lib/components/Navigation.svelte`
+- **Done when:**
+  - Plus-Tab ist erster Tab (links von "Tag")
+  - Zeigt nur "+" Symbol (kein Text)
+  - Link zu `/add`
+- **Verify:**
+  - `npm run verify`
+  - Browser: Plus-Tab sichtbar und funktional
+- **Guardrails:**
+  - Bestehende Tab-Reihenfolge anpassen, nicht brechen
+
+## Task 8.5 - Default-Tab-Logik
+
+- **Files:**
+  - `src/routes/+page.svelte` oder `src/routes/+layout.svelte`
+- **Done when:**
+  - Navigation zu `/` prüft auf laufende Aufgabe
+  - Keine laufende Aufgabe → Redirect zu `/add`
+  - Laufende Aufgabe → Redirect zu `/day`
+- **Verify:**
+  - `npm run verify`
+  - Browser: App-Start ohne Aufgabe → /add, mit Aufgabe → /day
+- **Guardrails:**
+  - Nur Root-Route betroffen, andere Routes unverändert
+
+## Task 8.6 - Cleanup: Tag-Tab
+
+- **Files:**
+  - `src/routes/day/+page.svelte`
+  - `src/lib/components/QuickStartButtons.svelte` (löschen)
+- **Done when:**
+  - Quick-Start Buttons entfernt
+  - "+ Aufgabe hinzufügen" Button entfernt
+  - Tag-Tab zeigt nur: Navigation, Tagesart, Zusammenfassung, Aufgabenliste
+- **Verify:**
+  - `npm run verify`
+  - Browser: Tag-Tab ohne Quick-Start und Add-Button
+- **Guardrails:**
+  - Beenden/Resume Buttons bleiben erhalten
+
+## Task 8.7 - Cleanup: Settings
+
+- **Files:**
+  - `src/routes/settings/+page.svelte`
+  - `src/lib/stores/theme.ts`
+- **Done when:**
+  - Sorting Toggle aus Einstellungen entfernt
+  - `categorySort` Store entfernt
+  - localStorage-Key `timetracker-category-sort` nicht mehr verwendet
+- **Verify:**
+  - `npm run verify`
+  - Browser: Einstellungen ohne Sorting Toggle
+- **Guardrails:**
+  - Andere Einstellungen unverändert
+
+## Task 8.8 - E2E Tests erweitern
+
+- **Files:**
+  - `e2e/quick-start.test.ts`
+- **Done when:**
+  - Test: Plus-Tab unter `/add` erreichbar
+  - Test: Top 5 + A-Z Liste korrekt
+  - Test: Klick startet Aufgabe sofort
+  - Test: Redirect zu `/day` nach Start
+  - Test: Default-Tab-Logik funktioniert
+  - Test: Quick-Start Buttons nicht mehr auf Tag-Tab
   - Alle Tests bestehen
 - **Verify:**
   - `npm run test:e2e`
 - **Guardrails:**
-  - Bestehende E2E Tests nicht brechen
+  - Alte Tests anpassen (Quick-Start Buttons gibt es nicht mehr)
