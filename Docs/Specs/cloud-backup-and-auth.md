@@ -1,11 +1,12 @@
-# Cloud Auth + Cloud Backup Spec (Netlify + Supabase)
+# Cloud Auth + Cloud Sync Spec (Netlify + Supabase)
 
 ## Goal
 
-Make authentication real (email + password + password recovery email), and add a simple, reliable “cloud backup” feature for a single-user app:
+Make authentication real (email + password + password recovery email), and add a reliable **2-way cloud sync** feature for a single-user app:
 
 - Local data is always saved immediately to IndexedDB.
-- Cloud backup is manual via a button (no background sync requirement).
+- Cloud sync is manual via a button (no background sync requirement).
+- **2-way sync**: Automatically determines which side (local or cloud) has newer data and syncs accordingly.
 - Use Netlify for hosting the frontend.
 - Use Supabase for Auth + Database.
 
@@ -41,32 +42,47 @@ Implementation:
 - Replace the custom “session in IndexedDB” logic so it reflects the Supabase session.
   - We may keep local session caching for UX, but source of truth is Supabase.
 
-## Cloud backup requirements
+## Cloud Sync Requirements (2-Way)
+
+### Core Sync Logic
+
+The sync is **bidirectional**: it automatically determines which side has newer/valid data and acts accordingly.
+
+**Decision algorithm** (on sync button click):
+
+1. Fetch cloud snapshot with `updated_at` timestamp
+2. Read local meta: `localChangedAt`, `lastSyncAt`, `lastCloudUpdatedAt`
+3. Determine sync direction:
+
+| Local State | Cloud State | Action |
+|-------------|-------------|--------|
+| Empty (fresh install) | Has data | **Restore from cloud** |
+| Has data, no changes since last sync | Same as last sync | **Already synced** (no-op) |
+| Has data, changes since last sync | Same as last sync | **Upload to cloud** |
+| Has data, no changes since last sync | Newer than last sync | **Restore from cloud** |
+| Has data, changes since last sync | Newer than last sync | **Conflict** → user decides |
+
+**Critical edge case** (fresh install / cache cleared):
+- `localChangedAt` = null AND `lastSyncAt` = null → treat as "fresh install"
+- If cloud has data → **always restore from cloud** (never overwrite cloud with empty local)
 
 ### UX
 
-Button behavior (smart sync status):
+**Button label**: "Synchronisieren" (single label, no state-dependent text)
 
-- **Label**: "Save to cloud" when changes pending, "Saved to cloud" when synced
-- **State logic**:
-  - Track `localChangedAt` timestamp — updated on any IndexedDB write (entries, categories, settings)
-  - Compare `localChangedAt` vs `lastBackupAt` to determine sync status
-  - `needsBackup = localChangedAt !== null && (lastBackupAt === null || localChangedAt > lastBackupAt)`
-- **Button states**:
-  - **Synced** (no changes): Button disabled, label "Saved to cloud", standard button color (bluish)
-  - **Changes pending**: Button enabled, label "Save to cloud", standard button color
-  - **Never backed up**: Button enabled, label "Save to cloud"
-  - **Saving in progress**: Button disabled, label "..." (existing behavior)
-- **No timestamp display**: Remove the "Last cloud backup: timestamp" — button state is sufficient
-- **Offline handling**: On click when offline, show modal: "Offline — can't back up now. Your changes are saved locally. Try again when online."
+**Button behavior**:
+- Enabled when: online AND authenticated
+- Disabled when: offline OR syncing in progress OR not authenticated
+- On click: Execute sync algorithm silently, show error dialog only on failure
 
-Design rationale:
+**No user-facing sync direction indicator**: The app always does the right thing automatically. User doesn't need to know if it's uploading or downloading.
 
-- Local data is always safe (IndexedDB) — no urgency colors needed
-- Button state alone communicates sync status clearly
-- Timestamp was redundant and potentially confusing
+**Conflict handling** (both sides changed since last sync):
+- Show dialog: "Lokale und Cloud-Daten unterscheiden sich. Welche Version behalten?"
+- Options: "Lokal behalten" / "Cloud behalten"
+- Selected version overwrites the other
 
-- (Optional) In settings: "Restore from cloud" which overwrites local after confirmation.
+**Offline handling**: On click when offline, show modal: "Offline — Synchronisierung nicht möglich. Deine Änderungen sind lokal gespeichert."
 
 ### Data model (Supabase)
 
@@ -105,45 +121,32 @@ Also include:
 
 ### Client behavior
 
-- Export snapshot from IndexedDB in one operation.
-- Upload via Supabase client (recommended) using the logged-in user session.
-- On success:
-  - Store `lastCloudBackupAt` locally (for UI)
-- On error:
-  - Show a clear error dialog/toast with the reason.
+**Local metadata** (stored in IndexedDB `meta` store):
+
+```typescript
+interface CloudSyncMeta {
+  key: 'cloudSyncMeta';
+  lastSyncAt: string | null;           // When last successful sync completed
+  lastCloudUpdatedAt: string | null;   // Cloud's updated_at at last sync
+  localChangedAt: string | null;       // When local data last changed
+}
+```
+
+**Sync flow**:
+
+1. Fetch cloud row: `SELECT snapshot, updated_at FROM user_backups WHERE user_id = auth.uid()`
+2. Read local meta
+3. Determine action per decision table above
+4. Execute action:
+   - **Upload**: Export local snapshot → upsert to cloud → update local meta
+   - **Restore**: Import cloud snapshot to IndexedDB → update local meta
+   - **Conflict**: Show dialog → user picks → execute chosen action
+5. On success: Update `lastSyncAt`, `lastCloudUpdatedAt`, `schemaVersion`, `exportedAt`, and `appVersion` in local meta
+6. On error: Show error dialog with reason
 
 ## Work plan for Cascade
 
-1. Add Supabase client:
-   - Add dependency: `@supabase/supabase-js`
-   - Add `src/lib/supabase/client.ts` for creating the Supabase client.
-   - Add env vars:
-     - PUBLIC_SUPABASE_URL
-     - PUBLIC_SUPABASE_ANON_KEY
-
-2. Implement real auth:
-   - Update `src/lib/api/auth.ts` to call Supabase auth methods.
-   - Update auth store/guard logic to use Supabase session.
-   - Implement forgot password flow with Supabase.
-   - Remove/disable “always succeeds” mock behavior.
-
-3. Implement cloud backup:
-   - Create snapshot exporter from IndexedDB.
-   - Create `backup.ts` with `saveToCloud()` and (optional) `restoreFromCloud()`.
-   - Add global “Save to cloud” button and last-sync timestamp UI.
-   - Offline modal behavior.
-
-4. Supabase SQL + RLS:
-   - Provide a SQL migration file or documented SQL steps to:
-     - create `user_backups` table
-     - enable RLS
-     - create policies
-
-5. Testing + documentation updates:
-   - Update implementation progress tracking:
-     - Add a feature item: "Supabase auth real" + "Cloud backup snapshot"
-     - Record manual verification steps + results
-   - Check for any other planning/spec/task docs that track features; update them too.
+See `Docs/Plans/cloud-sync.md` and `Docs/Tasks/cloud-sync.md` for detailed implementation plan.
 
 ## Verification checklist
 
@@ -155,10 +158,16 @@ Auth:
 - Forgot password sends email and allows reset
 - Guards redirect correctly
 
-Backup:
+Sync:
 
 - Local saves always work offline (IndexedDB)
-- Clicking "Save to cloud" while offline shows modal and does NOT error
-- Clicking while online creates/updates snapshot row in Supabase
-- "Last cloud backup" updates
-- (Optional) Restore overwrites local only after confirmation
+- Clicking "Synchronisieren" while offline shows modal and does NOT error
+- Fresh install with cloud data → restores from cloud
+- Local changes + no cloud changes → uploads to cloud
+- No local changes + cloud newer → restores from cloud
+- Both changed → shows conflict dialog, user choice is applied
+- After sync, `lastSyncAt` and `lastCloudUpdatedAt` are updated
+
+## Change Log
+
+- **2025-12-23**: Evolved from 1-way backup to 2-way sync. Added conflict detection, fresh-install handling, renamed button to "Synchronisieren".
