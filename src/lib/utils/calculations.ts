@@ -24,7 +24,7 @@ export function calculateDuration(startTime: string, endTime: string | null): nu
 	}
 
 	const startMinutes = parseTimeToMinutes(startTime);
-	const endMinutes = parseTimeToMinutes(endTime);
+	const endMinutes = parseTimeToMinutes(endTime, { allow24End: true });
 
 	if (startMinutes === null || endMinutes === null) {
 		return 0;
@@ -41,14 +41,25 @@ export function calculateDuration(startTime: string, endTime: string | null): nu
 
 /**
  * Parse HH:mm time string to minutes since midnight
+ * @param timeStr - Time in HH:mm format
+ * @param options.allow24End - If true, accepts "24:00" as valid (1440 minutes, end of day)
  */
-function parseTimeToMinutes(timeStr: string): number | null {
+function parseTimeToMinutes(
+	timeStr: string,
+	options: { allow24End?: boolean } = {}
+): number | null {
 	const match = timeStr.match(/^(\d{1,2}):(\d{2})$/);
 	if (!match) return null;
 
 	const hours = parseInt(match[1]);
 	const minutes = parseInt(match[2]);
 
+	// Special case: "24:00" is valid only as end time (means end of day = 1440 minutes)
+	if (hours === 24 && minutes === 0 && options.allow24End) {
+		return 1440;
+	}
+
+	// Normal validation: 0-23 hours, 0-59 minutes
 	if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
 		return null;
 	}

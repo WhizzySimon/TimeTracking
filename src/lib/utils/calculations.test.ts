@@ -45,6 +45,24 @@ describe('calculateDuration', () => {
 	it('handles single-digit hours', () => {
 		expect(calculateDuration('8:00', '9:30')).toBe(1.5);
 	});
+
+	it('handles endTime "24:00" (end of day)', () => {
+		// 20:30 → 24:00 = 3.5 hours (the bug case from Supabase export)
+		expect(calculateDuration('20:30', '24:00')).toBe(3.5);
+		// 00:00 → 24:00 = 24 hours (full day)
+		expect(calculateDuration('00:00', '24:00')).toBe(24);
+		// 23:00 → 24:00 = 1 hour
+		expect(calculateDuration('23:00', '24:00')).toBe(1);
+	});
+
+	it('rejects "24:00" as startTime', () => {
+		expect(calculateDuration('24:00', '24:00')).toBe(0);
+	});
+
+	it('rejects "24:01" and other invalid 24:xx times', () => {
+		expect(calculateDuration('08:00', '24:01')).toBe(0);
+		expect(calculateDuration('08:00', '24:30')).toBe(0);
+	});
 });
 
 describe('calculateIst', () => {
@@ -166,6 +184,24 @@ describe('calculateIst', () => {
 		];
 
 		expect(calculateIst(entries, categories)).toBe(0);
+	});
+
+	it('includes entries with endTime "24:00"', () => {
+		const entries: TimeEntry[] = [
+			{
+				id: '1',
+				date: '2024-03-02',
+				categoryId: 'work-1',
+				startTime: '20:30',
+				endTime: '24:00',
+				description: null,
+				createdAt: Date.now(),
+				updatedAt: Date.now()
+			}
+		];
+
+		// 20:30 → 24:00 = 3.5 hours (the bug case from Supabase export)
+		expect(calculateIst(entries, categories)).toBe(3.5);
 	});
 });
 
