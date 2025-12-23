@@ -18,6 +18,7 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 ### In scope
 
 #### Phase 7 (implementiert, teilweise obsolet durch Phase 8)
+
 - ~~Quick-Start Buttons für die 5 häufigsten Tätigkeiten auf Tag-Tab~~ → ersetzt durch Plus-Tab
 - ~~Kategorie-Dropdown nach Häufigkeit sortiert~~ → nicht mehr benötigt
 - "Beenden"-Button für laufende Aufgaben (1-Klick-Ende) ✓
@@ -26,6 +27,7 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 - ~~Toggle in Einstellungen: Sortierung alphabetisch / Häufigkeit~~ → entfernen
 
 #### Phase 8 (neu: Plus-Tab) — AKTUELL
+
 - **Dedizierter Plus-Tab** (`/add`) als **erster Tab** (links von "Tag"), nur "+" Symbol
 - **Volle Tätigkeitsliste** ohne Modal — maximale Sichtbarkeit
 - **Dynamische Default-Tab-Logik**: App öffnet mit Plus-Tab (keine laufende Aufgabe) oder Tag-Tab (laufende Aufgabe)
@@ -148,6 +150,7 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 ## 6) Edge cases
 
 ### Phase 7
+
 - **Keine Einträge in den letzten 30 Tagen**: Keine Quick-Start Buttons anzeigen, nur "+ Aufgabe hinzufügen".
 - **Weniger als 5 Kategorien genutzt**: Nur so viele Quick-Start Buttons wie Kategorien vorhanden.
 - **Alle Kategorien sind Systemkategorien**: Keine Quick-Start Buttons (Systemkategorien ausgeschlossen).
@@ -156,12 +159,14 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 - **Gleichstand bei Häufigkeit**: Alphabetisch sortieren als Tiebreaker.
 
 ### Phase 8 (Plus-Tab)
+
 - **Weniger als 5 genutzte Kategorien**: Top-Bereich zeigt nur die vorhandenen.
 - **Keine Kategorien vorhanden**: Hinweis "Keine Kategorien" + Link zu Einstellungen.
 - **Laufende Aufgabe beim Klick auf Plus-Tab Tätigkeit**: Wird automatisch beendet, neue startet.
 - **Offline**: Plus-Tab funktioniert normal (IndexedDB).
 
 ### Phase 8 Smart Suggestions
+
 - **Keine Kontext-Matches für aktuellen Zeitslot/Wochentag**: Fallback auf Gesamthäufigkeit der letzten 30 Tage.
 - **Neuer Nutzer (keine Einträge)**: Alle Kategorien alphabetisch, kein Top-5-Bereich.
 - **Kategorie nur in anderem Kontext genutzt**: Erscheint nicht in Top 5, aber im A-Z-Bereich.

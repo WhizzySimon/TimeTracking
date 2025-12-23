@@ -331,16 +331,16 @@ After completing each task:
 
 ## Task-Übersicht Phase 8 (aktualisiert)
 
-| Task | Beschreibung | Status |
-|------|--------------|--------|
-| 8.1 | Plus-Tab Route erstellen | Not Started |
-| 8.2 | **Smart Suggestions Algorithmus** | Not Started |
-| 8.3 | CategoryList Komponente | Not Started |
-| 8.4 | Ein-Klick-Start Logik | Not Started |
-| 8.5 | Navigation anpassen | Not Started |
-| 8.6 | Default-Tab-Logik | Not Started |
-| 8.7 | Cleanup: Tag-Tab | Not Started |
-| 8.8 | Cleanup: Settings | Not Started |
-| 8.9 | E2E Tests erweitern | Not Started |
+| Task | Beschreibung                      | Status      |
+| ---- | --------------------------------- | ----------- |
+| 8.1  | Plus-Tab Route erstellen          | Not Started |
+| 8.2  | **Smart Suggestions Algorithmus** | Not Started |
+| 8.3  | CategoryList Komponente           | Not Started |
+| 8.4  | Ein-Klick-Start Logik             | Not Started |
+| 8.5  | Navigation anpassen               | Not Started |
+| 8.6  | Default-Tab-Logik                 | Not Started |
+| 8.7  | Cleanup: Tag-Tab                  | Not Started |
+| 8.8  | Cleanup: Settings                 | Not Started |
+| 8.9  | E2E Tests erweitern               | Not Started |
 
 **Neu hinzugefügt:** Task 8.2 (Smart Suggestions) — kontextbewusster Algorithmus basierend auf Analyse realer Nutzerdaten.

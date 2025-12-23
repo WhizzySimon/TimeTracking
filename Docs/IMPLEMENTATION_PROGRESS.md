@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 8 - Plus-Tab (Ein-Klick-Workflow)  
-**Tasks Completed:** 86 / 94  
-**Estimated Progress:** 91%
+**Tasks Completed:** 87 / 94  
+**Estimated Progress:** 93%
 
 ---
 
@@ -959,17 +959,18 @@ After each phase, verify against specs:
 ## Phase 8: Plus-Tab (Ein-Klick-Workflow + Smart Suggestions)
 
 **Target:** 9 tasks, ~5 hours  
-**Status:** Not Started (0/9 tasks)  
+**Status:** In Progress (1/9 tasks)  
 **Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Smart Suggestions)  
 **Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Algorithmus-Details)  
 **Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md` (Phase 8 Tasks 8.1-8.9)
 
 ### Plus-Tab Route & Smart Suggestions
 
-- [ ] **Task 8.1** — Plus-Tab Route erstellen
+- [x] **Task 8.1** — Plus-Tab Route erstellen
   - Files: `src/routes/add/+page.svelte`
-  - Verified: ⬜
+  - Verified: npm run verify ✅, Browser test ✅
   - Deviations: None
+  - Notes: Route `/add` created with placeholder content. Shows "Aufgabe starten" heading.
 
 - [ ] **Task 8.2** — Smart Suggestions Algorithmus implementieren
   - Files: `src/lib/utils/frequency.ts`, `src/lib/utils/frequency.test.ts`
