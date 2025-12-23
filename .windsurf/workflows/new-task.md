@@ -26,26 +26,21 @@ Proceed directly with the user's task. Use `code_search` or `grep_search` to fin
 
 ---
 
-## After task completion (mandatory)
+## After task completion (MANDATORY - DO NOT SKIP)
 
-Follow the verification workflow from `COMMAND_EXECUTION_RULES.md`:
+### 1. Verification
+Write `npm run verify` to `scripts/cascade-command.txt`, poll status, fix any errors until ALL PASSED.
 
-1. **Run verification via Cascade Watcher:**
-   - Write `npm run verify` to `scripts/cascade-command.txt`
-   - Poll `scripts/cascade-status.txt` until `DONE:SUCCESS` or `DONE:FAILED`
-   - Read output from `scripts/cascade-output.txt`
-   - Fix any errors and repeat until ALL PASSED
+### 2. UI Testing
+Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) to test the implemented functionality.
 
-2. **Test UI with MCP Playwright browser:**
-   - Use `mcp0_browser_navigate` to open `http://localhost:5173`
-   - Use `mcp0_browser_snapshot` to verify UI renders correctly
-   - Test the specific functionality that was implemented
-   - Check browser console for errors via `mcp0_browser_console_messages`
+### 3. Git Commit (REQUIRED - NEVER SKIP THIS)
+```
+git add -A; git commit -m "feat: description of changes"
+```
+Write this to `scripts/cascade-command.txt` and confirm success.
 
-3. **Commit changes via Cascade Watcher:**
-   - Write `git add -A; git commit -m "feat: description"` to `scripts/cascade-command.txt`
-   - Poll until `DONE:SUCCESS`
-   - Confirm commit succeeded
+**⚠️ CRITICAL: Never end a session without committing completed work. This is the most commonly forgotten step.**
 
 ---
 

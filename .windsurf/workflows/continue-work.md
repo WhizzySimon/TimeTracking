@@ -41,3 +41,21 @@ Report:
 - Current phase
 - Next task to implement
 - Begin implementation immediately
+
+---
+
+## After task completion (MANDATORY - DO NOT SKIP)
+
+### 1. Verification
+Write `npm run verify` to `scripts/cascade-command.txt`, poll status, fix any errors.
+
+### 2. UI Testing
+Use MCP Playwright browser to test the implemented functionality.
+
+### 3. Git Commit (REQUIRED)
+```
+git add -A; git commit -m "feat: description of changes"
+```
+Write this to `scripts/cascade-command.txt` and confirm success.
+
+**Never end a session without committing completed work.**
