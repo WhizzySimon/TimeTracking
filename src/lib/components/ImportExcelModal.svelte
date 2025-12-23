@@ -9,7 +9,8 @@
 -->
 <script lang="ts">
 	import { categories, timeEntries } from '$lib/stores';
-	import { saveTimeEntry } from '$lib/storage/operations';
+	import { saveTimeEntry, saveUserCategory } from '$lib/storage/operations';
+	import type { Category } from '$lib/types';
 	import {
 		parseExcelWorkbook,
 		buildCategoryMap,
@@ -30,7 +31,12 @@
 	let preview: ImportPreview | null = $state(null);
 	let unknownActivities: string[] = $state([]);
 	let importing = $state(false);
-	let importResult: { success: boolean; count: number; errors: string[] } | null = $state(null);
+	let importResult: {
+		success: boolean;
+		count: number;
+		errors: string[];
+		createdCategories: string[];
+	} | null = $state(null);
 	let parseError: string | null = $state(null);
 
 	function handleFileSelect(event: Event) {
@@ -61,13 +67,36 @@
 	}
 
 	async function handleImport() {
-		if (!preview || unknownActivities.length > 0) return;
+		if (!preview) return;
 
 		importing = true;
 		importResult = null;
 
 		try {
-			const categoryMap = buildCategoryMap($categories);
+			// Auto-create missing categories first
+			const createdCategories: string[] = [];
+			let currentCategories = $categories;
+
+			for (const activityName of unknownActivities) {
+				const newCategory: Category = {
+					id: crypto.randomUUID(),
+					name: activityName,
+					type: 'user',
+					countsAsWorkTime: true,
+					createdAt: Date.now()
+				};
+				await saveUserCategory(newCategory);
+				currentCategories = [...currentCategories, newCategory];
+				createdCategories.push(activityName);
+			}
+
+			// Update categories store if we created any
+			if (createdCategories.length > 0) {
+				categories.set(currentCategories);
+			}
+
+			// Now build category map with all categories (including newly created)
+			const categoryMap = buildCategoryMap(currentCategories);
 			const { entries, skipped } = convertToTimeEntries(preview.records, categoryMap);
 
 			// Save all entries
@@ -81,13 +110,15 @@
 			importResult = {
 				success: true,
 				count: entries.length,
-				errors: skipped.length > 0 ? [`${skipped.length} Einträge übersprungen`] : []
+				errors: skipped.length > 0 ? [`${skipped.length} Einträge übersprungen`] : [],
+				createdCategories
 			};
 		} catch (e) {
 			importResult = {
 				success: false,
 				count: 0,
-				errors: [e instanceof Error ? e.message : 'Import fehlgeschlagen']
+				errors: [e instanceof Error ? e.message : 'Import fehlgeschlagen'],
+				createdCategories: []
 			};
 		} finally {
 			importing = false;
@@ -166,13 +197,11 @@
 					</div>
 				{/if}
 
-				<!-- Unknown Activities -->
+				<!-- Unknown Activities (info, will be auto-created) -->
 				{#if unknownActivities.length > 0}
-					<div class="error-box">
-						<p class="error-title">Unbekannte Tätigkeiten:</p>
-						<p class="error-hint">
-							Diese Tätigkeiten existieren nicht. Bitte zuerst in den Einstellungen anlegen:
-						</p>
+					<div class="info-box">
+						<p class="info-title">Neue Tätigkeiten:</p>
+						<p class="info-hint">Diese Tätigkeiten werden beim Import automatisch angelegt:</p>
 						<ul>
 							{#each unknownActivities as activity (activity)}
 								<li>{activity}</li>
@@ -188,6 +217,11 @@
 			<div class={importResult.success ? 'success-box' : 'error-box'}>
 				{#if importResult.success}
 					<p>✓ {importResult.count} Einträge erfolgreich importiert!</p>
+					{#if importResult.createdCategories.length > 0}
+						<p class="created-categories">
+							Neue Tätigkeiten angelegt: {importResult.createdCategories.join(', ')}
+						</p>
+					{/if}
 				{:else}
 					<p>Import fehlgeschlagen:</p>
 					<ul>
@@ -205,16 +239,9 @@
 				{importResult?.success ? 'Schließen' : 'Abbrechen'}
 			</button>
 			{#if preview && !importResult?.success}
-				<button
-					type="button"
-					class="btn-primary"
-					onclick={handleImport}
-					disabled={importing || unknownActivities.length > 0}
-				>
+				<button type="button" class="btn-primary" onclick={handleImport} disabled={importing}>
 					{#if importing}
 						Importiere...
-					{:else if unknownActivities.length > 0}
-						Tätigkeiten fehlen
 					{:else}
 						Import starten ({preview.records.length} Einträge)
 					{/if}
@@ -328,16 +355,31 @@
 		border-radius: 8px;
 	}
 
-	.error-title {
-		margin: 0 0 0.25rem 0;
-		font-weight: 600;
-		color: #dc2626;
+	/* Info box for new categories */
+	.info-box {
+		padding: 0.75rem;
+		background: #eff6ff;
+		border: 1px solid #93c5fd;
+		border-radius: 8px;
 	}
 
-	.error-hint {
+	.info-title {
+		margin: 0 0 0.25rem 0;
+		font-weight: 600;
+		color: #1d4ed8;
+	}
+
+	.info-hint {
 		margin: 0 0 0.5rem 0;
 		font-size: 0.85rem;
-		color: #991b1b;
+		color: #1e40af;
+	}
+
+	.info-box ul {
+		margin: 0;
+		padding-left: 1.25rem;
+		font-size: 0.85rem;
+		color: #1d4ed8;
 	}
 
 	.error-box ul {
@@ -363,6 +405,12 @@
 		margin: 0;
 		color: #16a34a;
 		font-weight: 500;
+	}
+
+	.success-box .created-categories {
+		margin-top: 0.5rem;
+		font-weight: 400;
+		font-size: 0.9rem;
 	}
 
 	.actions {
