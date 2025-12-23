@@ -1,23 +1,40 @@
 <script lang="ts">
-	import type { Category } from '$lib/types';
+	import type { Category, TimeEntry } from '$lib/types';
+	import { sortCategoriesByFrequency } from '$lib/utils/frequency';
+
+	type SortOrder = 'alphabetical' | 'frequency';
 
 	interface Props {
 		categories: Category[];
+		entries: TimeEntry[];
 		value: string;
 		onchange: (categoryId: string) => void;
+		sortOrder?: SortOrder;
 		id?: string;
 		required?: boolean;
 	}
 
-	let { categories, value, onchange, id = '', required = false }: Props = $props();
+	let {
+		categories,
+		entries,
+		value,
+		onchange,
+		sortOrder = 'frequency',
+		id = '',
+		required = false
+	}: Props = $props();
 
 	let searchText = $state('');
 	let isOpen = $state(false);
 	let inputElement: HTMLInputElement | null = $state(null);
+	let dropdownElement: HTMLDivElement | null = $state(null);
 
-	// Sort categories alphabetically
+	// Sort categories based on sortOrder setting
+	// TT-FR-006: Sort by frequency when setting is active
 	let sortedCategories = $derived(
-		[...categories].sort((a, b) => a.name.localeCompare(b.name, 'de'))
+		sortOrder === 'frequency'
+			? sortCategoriesByFrequency(categories, entries, 30)
+			: [...categories].sort((a, b) => a.name.localeCompare(b.name, 'de'))
 	);
 
 	// Filter categories based on search text
@@ -34,6 +51,17 @@
 	function handleInputFocus() {
 		isOpen = true;
 		searchText = '';
+
+		// TT-FR-007: Auto-scroll to position 6 when opening (frequency mode)
+		// This keeps top 5 accessible by scrolling up, but focuses on position 6
+		if (sortOrder === 'frequency' && dropdownElement) {
+			setTimeout(() => {
+				if (dropdownElement && filteredCategories.length > 5) {
+					const optionHeight = 40; // Approximate height of each option
+					dropdownElement.scrollTop = 5 * optionHeight;
+				}
+			}, 10);
+		}
 	}
 
 	function handleInputBlur() {
@@ -85,7 +113,7 @@
 		autocomplete="off"
 	/>
 	{#if isOpen}
-		<div class="dropdown">
+		<div class="dropdown" bind:this={dropdownElement}>
 			{#if filteredCategories.length === 0}
 				<div class="no-results">Keine Kategorie gefunden</div>
 			{:else}

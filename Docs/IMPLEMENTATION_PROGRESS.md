@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 7 - Quick-Start UX Improvements  
-**Tasks Completed:** 82 / 86  
-**Estimated Progress:** 95%
+**Tasks Completed:** 83 / 86  
+**Estimated Progress:** 97%
 
 ---
 
@@ -881,7 +881,7 @@ After each phase, verify against specs:
 ## Phase 7: Quick-Start UX Improvements
 
 **Target:** 10 tasks, ~8 hours  
-**Status:** In Progress (6/10 tasks)  
+**Status:** In Progress (7/10 tasks)  
 **Spec:** `Docs/Specs/quick-start-ux.md`  
 **Plan:** `Docs/Plans/quick-start-ux.md`  
 **Tasks:** `Docs/Tasks/quick-start-ux.md`
@@ -928,10 +928,11 @@ After each phase, verify against specs:
 
 ### Dropdown & Einstellungen
 
-- [ ] **Task 7.7** — Kategorie-Dropdown Häufigkeitssortierung
-  - Files: `src/lib/components/CategorySelect.svelte`
-  - Verified: npm run verify ⬜, Browser test ⬜
+- [x] **Task 7.7** — Kategorie-Dropdown Häufigkeitssortierung
+  - Files: `src/lib/components/CategorySelect.svelte`, `src/lib/components/AddTaskModal.svelte`
+  - Verified: npm run verify ✅, Browser test ✅
   - Deviations: None
+  - Notes: CategorySelect now accepts entries prop and sortOrder prop. Uses sortCategoriesByFrequency() for frequency mode. Most-used categories appear first, system categories at end. Auto-scroll to position 6 implemented (TT-FR-007).
 
 - [ ] **Task 7.8** — Einstellungen Toggle für Sortierung
   - Files: `src/routes/settings/+page.svelte`

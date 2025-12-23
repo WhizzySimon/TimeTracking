@@ -11,7 +11,7 @@
   - Description (optional)
 -->
 <script lang="ts">
-	import { categories } from '$lib/stores';
+	import { categories, timeEntries } from '$lib/stores';
 	import { formatDate, formatTime } from '$lib/utils/date';
 	import { saveTimeEntry } from '$lib/storage/operations';
 	import type { TimeEntry } from '$lib/types';
@@ -160,6 +160,7 @@
 			<CategorySelect
 				id="category"
 				categories={selectableCategories}
+				entries={$timeEntries}
 				value={categoryId}
 				onchange={(id) => (categoryId = id)}
 				required
