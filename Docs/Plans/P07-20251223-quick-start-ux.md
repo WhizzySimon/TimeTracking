@@ -34,6 +34,8 @@
 | ------------------------ | ---------------------------- | --------------------------------------------------- |
 | `getCategoryFrequency()` | `src/lib/utils/frequency.ts` | Berechnet Häufigkeit pro Kategorie (letzte 30 Tage) |
 | `getTopCategories(n)`    | `src/lib/utils/frequency.ts` | Gibt Top N Kategorien nach Häufigkeit zurück        |
+| `getSmartTopCategories(n)` | `src/lib/utils/frequency.ts` | **NEU (Phase 8 Smart):** Kontextbewusste Top N basierend auf Wochentag + Zeitslot |
+| `calculateContextScore()` | `src/lib/utils/frequency.ts` | **NEU (Phase 8 Smart):** Berechnet Score für eine Kategorie im aktuellen Kontext |
 
 ### Dependencies
 
@@ -68,6 +70,32 @@ interface CategoryFrequency {
 // 2. Gruppiere nach categoryId
 // 3. Zähle Einträge pro Kategorie
 // 4. Sortiere absteigend nach count
+```
+
+### Kontextbewusste Score-Berechnung (Phase 8 Smart)
+
+```typescript
+// Konstanten
+const SLOT_HOURS = 2;        // 2-Stunden-Zeitslots
+const CONTEXT_MULTIPLIER = 1000;  // Kontext-Matches dominieren
+
+interface ContextScore {
+  categoryId: string;
+  score: number;           // contextMatches * 1000 + totalFrequency
+  contextMatches: number;  // Einträge im aktuellen Kontext
+  totalFrequency: number;  // Gesamteinträge (letzte 30 Tage)
+}
+
+// Berechnung:
+// 1. Aktuellen Kontext ermitteln:
+//    - weekday = new Date().getDay()  // 0=So, 1=Mo, ..., 6=Sa
+//    - slot = Math.floor(new Date().getHours() / SLOT_HOURS)  // 0-11
+// 2. Für jede Kategorie:
+//    a. totalFrequency = Anzahl Einträge der letzten 30 Tage
+//    b. contextMatches = Einträge mit gleichem Wochentag UND gleichem Zeitslot
+//    c. score = contextMatches * CONTEXT_MULTIPLIER + totalFrequency
+// 3. Sortiere absteigend nach score
+// 4. Bei Gleichstand: alphabetisch (deutsche Lokalisierung)
 ```
 
 ## UI state model
@@ -133,6 +161,15 @@ User tappt Resume Button (▶)
 - Filterung nach 30 Tagen
 - Ausschluss von Systemkategorien
 - Tiebreaker (alphabetisch bei Gleichstand)
+
+### Unit Tests für Smart Suggestions (`src/lib/utils/frequency.test.ts`)
+
+- `getSmartTopCategories()` mit Kontext-Matches
+- `getSmartTopCategories()` ohne Kontext-Matches (Fallback)
+- Zeitslot-Berechnung (0-11 für 2h-Slots)
+- Wochentag-Berechnung (0=So, 6=Sa)
+- Kontext-First-Scoring (Kontext-Match schlägt hohe Gesamthäufigkeit)
+- Alphabetischer Tiebreaker bei Gleichstand
 
 ### E2E Tests (`e2e/quick-start.test.ts`)
 
@@ -228,9 +265,9 @@ User tappt Resume Button (▶)
 ### Plus-Tab (`/add`)
 
 ```typescript
-// Kategorien für die Liste
-let topCategories = $derived(getTopCategories(5, $timeEntries, $categories));
-let allCategories = $derived($categories.filter(c => !c.isSystem));
+// Kategorien für die Liste (Phase 8 Smart: kontextbewusst)
+let topCategories = $derived(getSmartTopCategories(5, $timeEntries, $categories));
+let allCategories = $derived($categories.filter(c => c.type !== 'system'));
 let remainingCategories = $derived(
   allCategories
     .filter(c => !topCategories.some(t => t.id === c.id))
@@ -271,6 +308,7 @@ if (hasRunningTask) {
 - Klick startet Aufgabe sofort
 - Redirect zu `/day` nach Start
 - Default-Tab-Logik funktioniert
+- **Smart Suggestions:** Top 5 ändert sich basierend auf Wochentag/Uhrzeit (schwer zu testen, ggf. Mock)
 
 ### Manuelle Tests
 
@@ -288,3 +326,120 @@ if (hasRunningTask) {
 6. **Cleanup: Tag-Tab** — Quick-Start Buttons + Button entfernen
 7. **Cleanup: Settings** — Sorting Toggle entfernen
 8. **E2E Tests erweitern** — Phase 8 Acceptance Checks
+
+---
+
+## Phase 8 Smart Suggestions — Algorithmus-Details
+
+### Konstanten
+
+```typescript
+const SLOT_HOURS = 2;              // 2-Stunden-Zeitslots (12 pro Tag)
+const CONTEXT_MULTIPLIER = 1000;   // Kontext-Matches dominieren
+const LOOKBACK_DAYS = 30;          // Nur letzte 30 Tage berücksichtigen
+```
+
+### Zeitslot-Mapping
+
+| Slot | Zeitraum | Typische Aktivitäten (Beispiel) |
+|------|----------|--------------------------------|
+| 0 | 00:00-02:00 | — |
+| 1 | 02:00-04:00 | — |
+| 2 | 04:00-06:00 | — |
+| 3 | 06:00-08:00 | Frühe Vorbereitung |
+| 4 | 08:00-10:00 | Meetings, Orga, Mails |
+| 5 | 10:00-12:00 | Hausbesuche, Unterricht |
+| 6 | 12:00-14:00 | (Mittagspause) |
+| 7 | 14:00-16:00 | Unterricht, Verwaltung |
+| 8 | 16:00-18:00 | Gruppen, Kreise |
+| 9 | 18:00-20:00 | Ausschüsse, Abendtermine |
+| 10 | 20:00-22:00 | Kirchenvorstand, Vorbereitung |
+| 11 | 22:00-24:00 | Späte Vorbereitung |
+
+### Algorithmus-Implementierung
+
+```typescript
+function getSmartTopCategories(
+  n: number,
+  entries: TimeEntry[],
+  categories: Category[],
+  now: Date = new Date()
+): Category[] {
+  // 1. Letzte 30 Tage filtern
+  const cutoffDate = new Date(now);
+  cutoffDate.setDate(cutoffDate.getDate() - LOOKBACK_DAYS);
+  const recentEntries = entries.filter(e => new Date(e.date) >= cutoffDate);
+  
+  // 2. Aktuellen Kontext ermitteln
+  const currentWeekday = now.getDay();  // 0=So, 1=Mo, ..., 6=Sa
+  const currentSlot = Math.floor(now.getHours() / SLOT_HOURS);  // 0-11
+  
+  // 3. Scores berechnen
+  const scores = new Map<string, { score: number; name: string }>();
+  
+  for (const category of categories) {
+    if (category.type === 'system') continue;
+    
+    const categoryEntries = recentEntries.filter(e => e.categoryId === category.id);
+    const totalFrequency = categoryEntries.length;
+    
+    // Kontext-Matches: gleicher Wochentag + gleicher Zeitslot
+    const contextMatches = categoryEntries.filter(e => {
+      const entryDate = new Date(e.date);
+      const entryWeekday = entryDate.getDay();
+      const [hours] = e.startTime.split(':').map(Number);
+      const entrySlot = Math.floor(hours / SLOT_HOURS);
+      return entryWeekday === currentWeekday && entrySlot === currentSlot;
+    }).length;
+    
+    // Kontext-First Scoring
+    const score = contextMatches * CONTEXT_MULTIPLIER + totalFrequency;
+    
+    if (score > 0) {
+      scores.set(category.id, { score, name: category.name });
+    }
+  }
+  
+  // 4. Sortieren: Score absteigend, bei Gleichstand alphabetisch
+  const sortedIds = [...scores.entries()]
+    .sort((a, b) => {
+      const scoreDiff = b[1].score - a[1].score;
+      if (scoreDiff !== 0) return scoreDiff;
+      return a[1].name.localeCompare(b[1].name, 'de');
+    })
+    .slice(0, n)
+    .map(([id]) => id);
+  
+  // 5. Kategorien zurückgeben
+  return sortedIds
+    .map(id => categories.find(c => c.id === id))
+    .filter((c): c is Category => c !== undefined);
+}
+```
+
+### Beispiel-Szenarien
+
+**Szenario 1: Dienstag 09:15**
+- Kontext: Wochentag=2 (Di), Slot=4 (08:00-10:00)
+- "DB Gruna-Seidnitz": 3 Kontext-Matches, 4 gesamt → Score: 3004
+- "Allg. Orga": 2 Kontext-Matches, 25 gesamt → Score: 2025
+- **Ergebnis:** DB Gruna-Seidnitz erscheint vor Allg. Orga ✓
+
+**Szenario 2: Montag 14:00 (keine Daten)**
+- Kontext: Wochentag=1 (Mo), Slot=7 (14:00-16:00)
+- Keine Kontext-Matches für irgendeine Kategorie
+- **Fallback:** Sortierung nach Gesamthäufigkeit
+
+**Szenario 3: Sonntag 10:30**
+- Kontext: Wochentag=0 (So), Slot=5 (10:00-12:00)
+- "Gottesdienst/Predigt": 4 Kontext-Matches → Score: 4005
+- **Ergebnis:** Gottesdienst erscheint ganz oben ✓
+
+### Design-Entscheidungen (Begründung)
+
+| Entscheidung | Begründung |
+|--------------|------------|
+| 2h-Slots statt 1h | Analyse realer Daten: genug Granularität, aber ausreichend Datenpunkte pro Slot |
+| Wochentage separat | Sa ≠ So: unterschiedliche Aktivitätsmuster (Vorbereitung vs. Gottesdienst) |
+| ×1000 Multiplikator | Kontext-Matches sollen dominieren, nicht von hoher Gesamthäufigkeit überschrieben werden |
+| Fallback auf Gesamthäufigkeit | Neue Nutzer oder unbekannte Kontexte funktionieren trotzdem sinnvoll |

@@ -85,8 +85,19 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 - **TT-FR-021**: Die Tätigkeitsliste nutzt die volle Bildschirmhöhe für maximale Sichtbarkeit. Ziel: So viele Tätigkeiten wie möglich ohne Scrollen.
 - **TT-FR-028**: Der Plus-Tab ist der **erste Tab** in der Navigation (links von "Tag") und zeigt nur ein "+" Symbol (kein Text).
 - **TT-FR-022**: Die Tätigkeitsliste ist in zwei Bereiche unterteilt:
-  - **Top 5**: Die 5 häufigsten Tätigkeiten (nach Nutzungsfrequenz der letzten 30 Tage), visuell abgetrennt
+  - **Top 5**: Die 5 wahrscheinlichsten Tätigkeiten basierend auf **kontextbewusster Häufigkeit** (Wochentag + Uhrzeit, letzte 30 Tage), visuell abgetrennt
   - **Rest (A-Z)**: Alle anderen Tätigkeiten alphabetisch sortiert, **ohne die Top 5 zu wiederholen** (keine Duplikate)
+
+### Smart Suggestions (Phase 8 Erweiterung)
+
+- **TT-FR-033**: Die Top 5 werden durch einen **kontextbewussten Algorithmus** berechnet, der Wochentag und Uhrzeit berücksichtigt.
+- **TT-FR-034**: Der Algorithmus verwendet **2-Stunden-Zeitslots** (12 Slots pro Tag: 00:00-02:00, 02:00-04:00, ..., 22:00-24:00).
+- **TT-FR-035**: Jeder Wochentag wird **separat** behandelt (Mo, Di, Mi, Do, Fr, Sa, So — keine Gruppierung von Wochenenden).
+- **TT-FR-036**: Der Score einer Kategorie wird nach dem **Kontext-First-Prinzip** berechnet:
+  - Primär: Anzahl der Einträge im aktuellen Kontext (gleicher Wochentag + gleicher Zeitslot) × 1000
+  - Sekundär: Gesamthäufigkeit der letzten 30 Tage (als Tiebreaker)
+- **TT-FR-037**: Bei **keinen Kontext-Matches** für alle Kategorien fällt der Algorithmus auf die **Gesamthäufigkeit** zurück (Fallback).
+- **TT-FR-038**: Bei **Gleichstand** im Score wird **alphabetisch** sortiert (deutsche Lokalisierung).
 - **TT-FR-023**: Ein Klick auf eine Tätigkeit erstellt sofort eine neue Aufgabe (Startzeit = aktuelle Uhrzeit gerundet auf 5 Min, Endzeit = null). Kein Modal, keine weitere Eingabe.
 - **TT-FR-024**: Nach dem Starten einer Aufgabe erfolgt automatische Weiterleitung zum Tag-Tab (`/day`), wo die laufende Aufgabe mit Beenden-Button sichtbar ist.
 - **TT-FR-025**: Systemkategorien (Pause, Urlaub, Krank, Feiertag) erscheinen NICHT in der Plus-Tab-Liste.
@@ -115,6 +126,9 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 - **TT-IG-006** (Phase 8): Die Plus-Tab Tätigkeitsliste lädt in unter 100ms nach App-Start.
 - **TT-IG-007** (Phase 8): Der Plus-Tab funktioniert vollständig offline (alle Daten aus IndexedDB).
 - **TT-IG-008** (Phase 8): Die Default-Tab-Logik wird bei jedem App-Start/Navigation zu `/` ausgeführt.
+- **TT-IG-009** (Phase 8 Smart): Der kontextbewusste Algorithmus berechnet Scores in O(n) Zeit (n = Anzahl Einträge der letzten 30 Tage).
+- **TT-IG-010** (Phase 8 Smart): Der Zeitslot wird aus der `startTime` des Eintrags berechnet, nicht aus der Erstellungszeit.
+- **TT-IG-011** (Phase 8 Smart): Der Wochentag wird aus dem `date`-Feld des Eintrags berechnet (JavaScript `getDay()`: 0=So, 1=Mo, ..., 6=Sa).
 
 ## 5) Design Decisions (DD)
 
@@ -126,6 +140,10 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 - **TT-DD-006** (Phase 8): Top 5 visuell abgetrennt vom A-Z Bereich (z.B. Trennlinie, anderer Hintergrund).
 - **TT-DD-007** (Phase 8): Kein Suchfeld auf Plus-Tab — bei 20-30 Kategorien ist Scrollen akzeptabel, Top 5 decken 80% der Fälle.
 - **TT-DD-008** (Phase 8): Dynamische Default-Tab-Logik — User landet immer dort, wo die nächste Aktion stattfindet.
+- **TT-DD-009** (Phase 8 Smart): **2-Stunden-Zeitslots** statt 1h oder 3h — basierend auf Analyse realer Nutzerdaten: genug Granularität für Arbeitsmuster (Morgen vs. Vormittag), aber nicht zu fein (genug Datenpunkte pro Slot).
+- **TT-DD-010** (Phase 8 Smart): **Wochentage separat** (Sa ≠ So) — Analyse zeigt unterschiedliche Aktivitätsmuster (Sa: Vorbereitung, So: Gottesdienst).
+- **TT-DD-011** (Phase 8 Smart): **Kontext-First-Scoring** (×1000) statt linearer Gewichtung — Kontext-Matches sollen dominieren, Gesamthäufigkeit nur als Tiebreaker. Verhindert, dass sehr häufige Kategorien kontextspezifische verdrängen.
+- **TT-DD-012** (Phase 8 Smart): **Fallback auf Gesamthäufigkeit** — bei neuen Nutzern oder unbekannten Kontexten (z.B. erster Montag 09:00) funktioniert das System trotzdem sinnvoll.
 
 ## 6) Edge cases
 
@@ -142,6 +160,13 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 - **Keine Kategorien vorhanden**: Hinweis "Keine Kategorien" + Link zu Einstellungen.
 - **Laufende Aufgabe beim Klick auf Plus-Tab Tätigkeit**: Wird automatisch beendet, neue startet.
 - **Offline**: Plus-Tab funktioniert normal (IndexedDB).
+
+### Phase 8 Smart Suggestions
+- **Keine Kontext-Matches für aktuellen Zeitslot/Wochentag**: Fallback auf Gesamthäufigkeit der letzten 30 Tage.
+- **Neuer Nutzer (keine Einträge)**: Alle Kategorien alphabetisch, kein Top-5-Bereich.
+- **Kategorie nur in anderem Kontext genutzt**: Erscheint nicht in Top 5, aber im A-Z-Bereich.
+- **Mitternacht-Grenzfall**: Zeitslot 0 (00:00-02:00) wird korrekt erkannt.
+- **Zeitzonen**: Berechnung basiert auf lokaler Zeit des Nutzers (aus `date` und `startTime` Feldern).
 
 ## 7) Data & privacy
 
@@ -191,11 +216,19 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 ### Plus-Tab (Phase 8)
 
 - [ ] AC-019: Plus-Tab unter `/add` erreichbar, zeigt Tätigkeitsliste.
-- [ ] AC-020: Top 5 häufigste Kategorien erscheinen oben, visuell abgetrennt.
+- [ ] AC-020: Top 5 wahrscheinlichste Kategorien (kontextbewusst) erscheinen oben, visuell abgetrennt.
 - [ ] AC-021: Rest der Kategorien alphabetisch sortiert, ohne die Top 5 zu wiederholen.
 - [ ] AC-022: Klick auf Tätigkeit startet Aufgabe sofort (kein Modal).
 - [ ] AC-023: Nach Klick → Weiterleitung zu `/day`.
 - [ ] AC-024: Systemkategorien erscheinen nicht in der Liste.
+
+### Smart Suggestions (Phase 8)
+
+- [ ] AC-032: Top 5 berücksichtigt aktuellen Wochentag (Mo-So separat).
+- [ ] AC-033: Top 5 berücksichtigt aktuellen 2-Stunden-Zeitslot.
+- [ ] AC-034: Kategorie mit Kontext-Match erscheint vor Kategorie mit nur Gesamthäufigkeit.
+- [ ] AC-035: Bei keinen Kontext-Matches → Fallback auf Gesamthäufigkeit.
+- [ ] AC-036: Bei Gleichstand → alphabetische Sortierung.
 
 ### Default-Tab-Logik (Phase 8)
 
@@ -215,3 +248,4 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 - 2025-12-23: Created — Quick-Start UX Spec basierend auf Wettbewerbsanalyse
 - 2025-12-23: Updated — Phase 8 hinzugefügt: Plus-Tab mit Ein-Klick-Workflow und dynamischer Default-Tab-Logik
 - 2025-12-23: Updated — Plus-Tab als erster Tab (nur "+"), Entfernen von Quick-Start Buttons, "+ Aufgabe hinzufügen" Button und Sorting Toggle
+- 2025-12-23: Updated — **Smart Suggestions**: Kontextbewusster Algorithmus für Top 5 (FR-033 bis FR-038, IG-009 bis IG-011, DD-009 bis DD-012, AC-032 bis AC-036). Parameter basierend auf Analyse realer Nutzerdaten: 2h-Zeitslots, Wochentage separat, Kontext-First-Scoring.

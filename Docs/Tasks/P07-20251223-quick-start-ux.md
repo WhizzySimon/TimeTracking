@@ -1,12 +1,12 @@
 # Quick-Start UX - Tasks
 
-**Phase:** 7 (Quick-Start UX) + Phase 8 (Plus-Tab)  
+**Phase:** 7 (Quick-Start UX) + Phase 8 (Plus-Tab + Smart Suggestions)  
 **Created:** 2025-12-23  
 **Last Updated:** 2025-12-23  
 **Based on Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md`  
 **Based on Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md`  
-**Status:** Phase 7 Complete, Phase 8 Pending  
-**Estimated total:** ~8 hours (Phase 7) + ~4 hours (Phase 8)
+**Status:** Phase 7 Complete, Phase 8 Pending (9 Tasks)  
+**Estimated total:** ~8 hours (Phase 7) + ~5 hours (Phase 8, inkl. Smart Suggestions)
 
 ---
 
@@ -202,13 +202,33 @@ After completing each task:
 - **Guardrails:**
   - Keine Änderungen an bestehenden Routes
 
-## Task 8.2 - CategoryList Komponente
+## Task 8.2 - Smart Suggestions Algorithmus implementieren
+
+- **Files:**
+  - `src/lib/utils/frequency.ts` (erweitern)
+  - `src/lib/utils/frequency.test.ts` (erweitern)
+- **Done when:**
+  - `getSmartTopCategories(n, entries, categories, now?)` implementiert
+  - Verwendet 2-Stunden-Zeitslots (SLOT_HOURS = 2)
+  - Verwendet Kontext-First-Scoring (CONTEXT_MULTIPLIER = 1000)
+  - Wochentage werden separat behandelt (0=So, 1=Mo, ..., 6=Sa)
+  - Fallback auf Gesamthäufigkeit wenn keine Kontext-Matches
+  - Alphabetischer Tiebreaker bei Gleichstand
+  - Unit Tests für alle Szenarien bestehen
+- **Verify:**
+  - `npm run verify`
+  - `npm run test:unit` — Smart Suggestions Tests bestehen
+- **Guardrails:**
+  - Bestehende `getTopCategories()` Funktion nicht ändern (Fallback)
+  - Keine neuen Dependencies
+
+## Task 8.3 - CategoryList Komponente
 
 - **Files:**
   - `src/lib/components/CategoryList.svelte` (neu)
   - `src/routes/add/+page.svelte`
 - **Done when:**
-  - Komponente zeigt Top 5 Kategorien (visuell abgetrennt)
+  - Komponente zeigt Top 5 Kategorien (visuell abgetrennt) — **kontextbewusst**
   - Komponente zeigt Rest alphabetisch (ohne Duplikate)
   - Systemkategorien sind ausgeschlossen
   - Volle Bildschirmhöhe genutzt
@@ -216,9 +236,9 @@ After completing each task:
   - `npm run verify`
   - Browser: Liste korrekt sortiert, keine Duplikate
 - **Guardrails:**
-  - Nutzt bestehende `getTopCategories()` Funktion
+  - Nutzt neue `getSmartTopCategories()` Funktion
 
-## Task 8.3 - Ein-Klick-Start Logik
+## Task 8.4 - Ein-Klick-Start Logik
 
 - **Files:**
   - `src/routes/add/+page.svelte`
@@ -232,7 +252,7 @@ After completing each task:
 - **Guardrails:**
   - Nutzt bestehende `saveTimeEntry()` Funktion
 
-## Task 8.4 - Navigation anpassen
+## Task 8.5 - Navigation anpassen
 
 - **Files:**
   - `src/lib/components/Navigation.svelte`
@@ -246,7 +266,7 @@ After completing each task:
 - **Guardrails:**
   - Bestehende Tab-Reihenfolge anpassen, nicht brechen
 
-## Task 8.5 - Default-Tab-Logik
+## Task 8.6 - Default-Tab-Logik
 
 - **Files:**
   - `src/routes/+page.svelte` oder `src/routes/+layout.svelte`
@@ -260,7 +280,7 @@ After completing each task:
 - **Guardrails:**
   - Nur Root-Route betroffen, andere Routes unverändert
 
-## Task 8.6 - Cleanup: Tag-Tab
+## Task 8.7 - Cleanup: Tag-Tab
 
 - **Files:**
   - `src/routes/day/+page.svelte`
@@ -275,7 +295,7 @@ After completing each task:
 - **Guardrails:**
   - Beenden/Resume Buttons bleiben erhalten
 
-## Task 8.7 - Cleanup: Settings
+## Task 8.8 - Cleanup: Settings
 
 - **Files:**
   - `src/routes/settings/+page.svelte`
@@ -290,13 +310,13 @@ After completing each task:
 - **Guardrails:**
   - Andere Einstellungen unverändert
 
-## Task 8.8 - E2E Tests erweitern
+## Task 8.9 - E2E Tests erweitern
 
 - **Files:**
   - `e2e/quick-start.test.ts`
 - **Done when:**
   - Test: Plus-Tab unter `/add` erreichbar
-  - Test: Top 5 + A-Z Liste korrekt
+  - Test: Top 5 + A-Z Liste korrekt (kontextbewusst)
   - Test: Klick startet Aufgabe sofort
   - Test: Redirect zu `/day` nach Start
   - Test: Default-Tab-Logik funktioniert
@@ -306,3 +326,21 @@ After completing each task:
   - `npm run test:e2e`
 - **Guardrails:**
   - Alte Tests anpassen (Quick-Start Buttons gibt es nicht mehr)
+
+---
+
+## Task-Übersicht Phase 8 (aktualisiert)
+
+| Task | Beschreibung | Status |
+|------|--------------|--------|
+| 8.1 | Plus-Tab Route erstellen | Not Started |
+| 8.2 | **Smart Suggestions Algorithmus** | Not Started |
+| 8.3 | CategoryList Komponente | Not Started |
+| 8.4 | Ein-Klick-Start Logik | Not Started |
+| 8.5 | Navigation anpassen | Not Started |
+| 8.6 | Default-Tab-Logik | Not Started |
+| 8.7 | Cleanup: Tag-Tab | Not Started |
+| 8.8 | Cleanup: Settings | Not Started |
+| 8.9 | E2E Tests erweitern | Not Started |
+
+**Neu hinzugefügt:** Task 8.2 (Smart Suggestions) — kontextbewusster Algorithmus basierend auf Analyse realer Nutzerdaten.
