@@ -14,7 +14,7 @@
 	import { onMount } from 'svelte';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { currentDate, activeWorkTimeModel, timeEntries, categories } from '$lib/stores';
-	import { formatDate, formatShortDate, isToday, addDays } from '$lib/utils/date';
+	import { formatDate, isToday, addDays } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
 	import { getByKey, getAll } from '$lib/storage/db';
 	import { deleteTimeEntry } from '$lib/storage/operations';
