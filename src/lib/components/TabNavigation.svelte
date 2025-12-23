@@ -14,6 +14,7 @@
 	const tabs = [
 		{ href: '/day', label: 'Tag' },
 		{ href: '/week', label: 'Woche' },
+		{ href: '/month', label: 'Monat' },
 		{ href: '/analysis', label: 'Auswertung' }
 	] as const;
 
