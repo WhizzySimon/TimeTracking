@@ -94,7 +94,7 @@
 				syncError = result.error ?? 'Synchronisierung fehlgeschlagen';
 			}
 			// On success (upload/restore/noop): nothing to show, it just worked
-		// Update sync needed state after successful sync
+			// Update sync needed state after successful sync
 			if (result.success || result.action === 'noop') {
 				syncNeeded = false;
 			}
