@@ -32,6 +32,12 @@
 	let loading = $state(true);
 	let showRangeSelector = $state(false);
 
+	// Collapsible sections state
+	let expandedSections = $state({
+		zeiten: true,
+		taetigkeiten: true
+	});
+
 	// Load saved range from localStorage or use defaults
 	function getInitialRange(): { start: string; end: string } {
 		if (browser) {
@@ -431,17 +437,63 @@
 		<!-- Inline Summary -->
 		<InlineSummary ist={totalIst} soll={totalSoll} saldo={totalSaldo} />
 
-		<!-- Category Breakdown -->
+		<!-- Zeiten Section (Period List) -->
+		<section class="collapsible-section">
+			<button
+				class="section-toggle"
+				onclick={() => (expandedSections.zeiten = !expandedSections.zeiten)}
+				aria-expanded={expandedSections.zeiten}
+			>
+				<span class="toggle-icon" class:expanded={expandedSections.zeiten}>▶</span>
+				<h3 class="section-title">Zeiten</h3>
+			</button>
+			{#if expandedSections.zeiten}
+				<div class="period-list">
+					{#if periodGroups.length === 0}
+						<p class="no-periods">Keine Daten im ausgewählten Zeitraum</p>
+					{:else}
+						{#each periodGroups as period (period.label)}
+							{@const periodSaldo = period.ist - period.soll}
+							<div class="period-item">
+								<span class="period-label">{period.label}</span>
+								<div class="period-hours">
+									<span class="ist">{formatHours(period.ist)}</span>
+									<span class="separator">/</span>
+									<span class="soll">{formatHours(period.soll)}</span>
+									<span class="separator">/</span>
+									<span
+										class="saldo"
+										class:positive={periodSaldo >= 0}
+										class:negative={periodSaldo < 0}
+									>
+										{periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}
+									</span>
+								</div>
+							</div>
+						{/each}
+					{/if}
+				</div>
+			{/if}
+		</section>
+
+		<!-- Tätigkeiten Section (Category Breakdown) -->
 		{#if categoryBreakdown.length > 0}
-			<div class="category-breakdown">
+			<section class="collapsible-section">
 				<div class="section-header-row">
-					<h3 class="section-title">Tätigkeiten</h3>
+					<button
+						class="section-toggle"
+						onclick={() => (expandedSections.taetigkeiten = !expandedSections.taetigkeiten)}
+						aria-expanded={expandedSections.taetigkeiten}
+					>
+						<span class="toggle-icon" class:expanded={expandedSections.taetigkeiten}>▶</span>
+						<h3 class="section-title">Tätigkeiten</h3>
+					</button>
 					<div class="column-headers">
 						<span class="header-label">Gesamt</span>
 						<span class="header-label">Ø/Woche</span>
 					</div>
 				</div>
-				<!-- Total Sum Row -->
+				<!-- Total Sum Row - Always visible -->
 				<div class="category-item total-row">
 					<span class="category-name total-label">Summe</span>
 					<div class="category-values">
@@ -449,49 +501,25 @@
 						<span class="category-average total-value">{formatHours(totalCategoryAverage)}</span>
 					</div>
 				</div>
-				{#each categoryBreakdown as cat (cat.name)}
-					<div class="category-item">
-						<span class="category-name">
-							{cat.name}
-							{#if !cat.countsAsWorkTime}
-								<span class="no-work-badge">Keine Arbeitszeit</span>
-							{/if}
-						</span>
-						<div class="category-values">
-							<span class="category-hours">{formatHours(cat.hours)}</span>
-							<span class="category-average">{formatHours(cat.averagePerWeek)}</span>
-						</div>
-					</div>
-				{/each}
-			</div>
-		{/if}
-
-		<!-- Period List -->
-		<div class="period-list">
-			{#if periodGroups.length === 0}
-				<p class="no-periods">Keine Daten im ausgewählten Zeitraum</p>
-			{:else}
-				{#each periodGroups as period (period.label)}
-					{@const periodSaldo = period.ist - period.soll}
-					<div class="period-item">
-						<span class="period-label">{period.label}</span>
-						<div class="period-hours">
-							<span class="ist">{formatHours(period.ist)}</span>
-							<span class="separator">/</span>
-							<span class="soll">{formatHours(period.soll)}</span>
-							<span class="separator">/</span>
-							<span
-								class="saldo"
-								class:positive={periodSaldo >= 0}
-								class:negative={periodSaldo < 0}
-							>
-								{periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}
+				<!-- Category list - Collapsible -->
+				{#if expandedSections.taetigkeiten}
+					{#each categoryBreakdown as cat (cat.name)}
+						<div class="category-item">
+							<span class="category-name">
+								{cat.name}
+								{#if !cat.countsAsWorkTime}
+									<span class="no-work-badge">Keine Arbeitszeit</span>
+								{/if}
 							</span>
+							<div class="category-values">
+								<span class="category-hours">{formatHours(cat.hours)}</span>
+								<span class="category-average">{formatHours(cat.averagePerWeek)}</span>
+							</div>
 						</div>
-					</div>
-				{/each}
-			{/if}
-		</div>
+					{/each}
+				{/if}
+			</section>
+		{/if}
 	{/if}
 </div>
 
@@ -608,12 +636,33 @@
 		color: #dc2626;
 	}
 
-	/* Category Breakdown */
-	.category-breakdown {
+	/* Collapsible Sections */
+	.collapsible-section {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
-		margin-top: 0.5rem;
+	}
+
+	.section-toggle {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		text-align: left;
+	}
+
+	.toggle-icon {
+		display: inline-block;
+		font-size: 0.7rem;
+		color: #666;
+		transition: transform 0.2s ease;
+	}
+
+	.toggle-icon.expanded {
+		transform: rotate(90deg);
 	}
 
 	.section-title {
