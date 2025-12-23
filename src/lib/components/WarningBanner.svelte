@@ -27,10 +27,10 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.75rem 1rem;
-		background: #fef3c7;
-		border: 1px solid #f59e0b;
-		border-radius: 8px;
-		color: #92400e;
+		background: var(--warning-light);
+		border: 1px solid var(--warning);
+		border-radius: var(--r-banner);
+		color: var(--warning);
 	}
 
 	.warning-icon {

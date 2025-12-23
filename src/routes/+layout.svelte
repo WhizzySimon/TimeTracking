@@ -25,6 +25,7 @@
 
 	let showLogoutConfirm = $state(false);
 	let showOfflineDialog = $state(false);
+	let showBackupInfoDialog = $state(false);
 	let showProfileMenu = $state(false);
 	let backupInProgress = $state(false);
 	let backupError = $state<string | null>(null);
@@ -55,6 +56,15 @@
 		await clearSession();
 		showLogoutConfirm = false;
 		goto(resolve('/login'));
+	}
+
+	function handleBackupClick() {
+		// If already backed up, show info dialog instead of doing backup
+		if (!$backupNeededStore && !backupInProgress) {
+			showBackupInfoDialog = true;
+			return;
+		}
+		handleCloudBackup();
 	}
 
 	async function handleCloudBackup() {
@@ -182,8 +192,9 @@
 			<div class="header-left">
 				<button
 					class="header-btn backup-btn"
-					onclick={handleCloudBackup}
-					disabled={backupInProgress || !$backupNeededStore}
+					class:synced={!$backupNeededStore && !backupInProgress}
+					onclick={handleBackupClick}
+					disabled={backupInProgress}
 				>
 					{#if backupInProgress}
 						...
@@ -320,6 +331,17 @@
 	/>
 {/if}
 
+<!-- Backup Info Dialog -->
+{#if showBackupInfoDialog}
+	<ConfirmDialog
+		type="alert"
+		title="Daten gesichert"
+		message="Ihre Daten sind in der Cloud gespeichert und zusätzlich lokal auf diesem Gerät. Alle Änderungen werden automatisch lokal gespeichert — ein manuelles Speichern ist nicht nötig."
+		confirmLabel="OK"
+		onconfirm={() => (showBackupInfoDialog = false)}
+	/>
+{/if}
+
 <style>
 	.loading-screen {
 		min-height: 100vh;
@@ -380,7 +402,7 @@
 	.header-btn {
 		padding: 6px 12px;
 		border: none;
-		border-radius: 6px;
+		border-radius: var(--r-btn);
 		font-size: 0.85rem;
 		font-weight: 500;
 		cursor: pointer;
@@ -399,6 +421,16 @@
 	.backup-btn:disabled {
 		opacity: 0.6;
 		cursor: default;
+	}
+
+	.backup-btn.synced {
+		opacity: 0.6;
+		cursor: pointer;
+	}
+
+	.backup-btn.synced:hover {
+		opacity: 0.7;
+		background: rgba(255, 255, 255, 0.25);
 	}
 
 	.profile-menu-container {

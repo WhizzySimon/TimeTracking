@@ -149,10 +149,10 @@
 
 	.hint {
 		font-size: 0.9rem;
-		color: #666;
-		background: #f3f4f6;
+		color: var(--muted);
+		background: var(--surface-hover);
 		padding: 0.75rem;
-		border-radius: 6px;
+		border-radius: var(--r-input);
 	}
 
 	.file-upload {
@@ -171,16 +171,16 @@
 	.file-btn {
 		display: inline-block;
 		padding: 0.5rem 1rem;
-		border: 1px solid #3b82f6;
-		border-radius: 6px;
-		background: white;
-		color: #3b82f6;
+		border: 1px solid var(--accent);
+		border-radius: var(--r-btn);
+		background: var(--surface);
+		color: var(--accent);
 		font-size: 0.9rem;
 		cursor: pointer;
 	}
 
 	.file-btn:hover {
-		background: #eff6ff;
+		background: var(--accent-light);
 	}
 
 	.text-input {
@@ -191,46 +191,49 @@
 
 	.text-input label {
 		font-size: 0.9rem;
-		color: #333;
+		color: var(--text);
 	}
 
 	.text-input textarea {
 		padding: 0.75rem;
-		border: 1px solid #ddd;
-		border-radius: 6px;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
 		font-size: 1rem;
 		font-family: inherit;
 		resize: vertical;
+		background: var(--input-bg);
+		color: var(--input-text);
 	}
 
 	.text-input textarea:focus {
 		outline: none;
-		border-color: #3b82f6;
+		border-color: var(--input-focus-border);
 	}
 
 	.error {
-		color: #dc2626;
+		color: var(--neg);
 		font-size: 0.9rem;
 		padding: 0.5rem;
-		background: #fef2f2;
-		border-radius: 4px;
+		background: var(--neg-light);
+		border-radius: var(--r-input);
 	}
 
 	.result {
 		font-size: 0.9rem;
 		padding: 0.75rem;
-		background: #f3f4f6;
-		border-radius: 6px;
+		background: var(--surface-hover);
+		border-radius: var(--r-input);
 		text-align: center;
+		color: var(--text);
 	}
 
 	.result.success {
-		background: #dcfce7;
-		color: #166534;
+		background: var(--pos-light);
+		color: var(--pos);
 	}
 
 	.skipped {
-		color: #666;
+		color: var(--muted);
 		font-size: 0.85rem;
 	}
 
@@ -243,30 +246,30 @@
 
 	.cancel-btn {
 		padding: 0.75rem 1.5rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		background: white;
-		color: #333;
+		border: 1px solid var(--btn-secondary-border);
+		border-radius: var(--r-btn);
+		background: var(--btn-secondary-bg);
+		color: var(--btn-secondary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.cancel-btn:hover:not(:disabled) {
-		background: #f5f5f5;
+		background: var(--btn-secondary-hover);
 	}
 
 	.import-btn {
 		padding: 0.75rem 1.5rem;
 		border: none;
-		border-radius: 8px;
-		background: #3b82f6;
-		color: white;
+		border-radius: var(--r-btn);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.import-btn:hover:not(:disabled) {
-		background: #2563eb;
+		background: var(--btn-primary-hover);
 	}
 
 	.import-btn:disabled,

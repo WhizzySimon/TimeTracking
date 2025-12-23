@@ -57,16 +57,16 @@
 		align-items: center;
 		justify-content: center;
 		padding: 1rem;
-		background: #f9fafb;
+		background: var(--bg);
 	}
 
 	.error-content {
 		max-width: 400px;
 		text-align: center;
-		background: white;
+		background: var(--surface);
 		padding: 2rem;
-		border-radius: 12px;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		border-radius: var(--r-card);
+		box-shadow: var(--elev-2);
 	}
 
 	.error-icon {
@@ -77,12 +77,12 @@
 	h1 {
 		margin: 0 0 0.5rem;
 		font-size: 1.5rem;
-		color: #1f2937;
+		color: var(--text);
 	}
 
 	.error-message {
 		margin: 0 0 1.5rem;
-		color: #6b7280;
+		color: var(--muted);
 		line-height: 1.5;
 	}
 
@@ -95,31 +95,31 @@
 	.btn-primary {
 		padding: 0.75rem 1.5rem;
 		border: none;
-		border-radius: 8px;
-		background: #3b82f6;
-		color: white;
+		border-radius: var(--r-btn);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
 		font-size: 1rem;
 		cursor: pointer;
 		transition: background 0.2s;
 	}
 
 	.btn-primary:hover {
-		background: #2563eb;
+		background: var(--btn-primary-hover);
 	}
 
 	.btn-secondary {
 		padding: 0.75rem 1.5rem;
-		border: 1px solid #d1d5db;
-		border-radius: 8px;
-		background: white;
-		color: #374151;
+		border: 1px solid var(--btn-secondary-border);
+		border-radius: var(--r-btn);
+		background: var(--btn-secondary-bg);
+		color: var(--btn-secondary-text);
 		font-size: 1rem;
 		cursor: pointer;
 		transition: background 0.2s;
 	}
 
 	.btn-secondary:hover {
-		background: #f3f4f6;
+		background: var(--btn-secondary-hover);
 	}
 
 	.error-details {
@@ -129,54 +129,17 @@
 
 	.error-details summary {
 		cursor: pointer;
-		color: #6b7280;
+		color: var(--muted);
 		font-size: 0.875rem;
 	}
 
 	.error-details pre {
 		margin-top: 0.5rem;
 		padding: 0.75rem;
-		background: #f3f4f6;
-		border-radius: 4px;
+		background: var(--surface-hover);
+		border-radius: var(--r-input);
 		font-size: 0.75rem;
 		overflow-x: auto;
-		color: #dc2626;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.error-page {
-			background: #111827;
-		}
-
-		.error-content {
-			background: #1f2937;
-		}
-
-		h1 {
-			color: #f9fafb;
-		}
-
-		.error-message {
-			color: #9ca3af;
-		}
-
-		.btn-secondary {
-			background: #374151;
-			border-color: #4b5563;
-			color: #f9fafb;
-		}
-
-		.btn-secondary:hover {
-			background: #4b5563;
-		}
-
-		.error-details summary {
-			color: #9ca3af;
-		}
-
-		.error-details pre {
-			background: #374151;
-			color: #fca5a5;
-		}
+		color: var(--neg);
 	}
 </style>

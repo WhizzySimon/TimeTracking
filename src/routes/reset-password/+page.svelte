@@ -130,30 +130,30 @@
 		align-items: center;
 		justify-content: center;
 		padding: 1rem;
-		background: #f5f5f5;
+		background: var(--bg);
 	}
 
 	.reset-card {
 		width: 100%;
 		max-width: 400px;
-		background: white;
-		border-radius: 12px;
+		background: var(--surface);
+		border-radius: var(--r-card);
 		padding: 2rem;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		box-shadow: var(--elev-2);
 	}
 
 	h1 {
 		margin: 0 0 0.5rem;
 		font-size: 1.75rem;
 		text-align: center;
-		color: #3b82f6;
+		color: var(--accent);
 	}
 
 	h2 {
 		margin: 0 0 1.5rem;
 		font-size: 1.25rem;
 		text-align: center;
-		color: #333;
+		color: var(--text);
 		font-weight: 500;
 	}
 
@@ -171,64 +171,66 @@
 
 	.field label {
 		font-size: 0.9rem;
-		color: #333;
+		color: var(--text);
 		font-weight: 500;
 	}
 
 	.field input {
 		padding: 0.75rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
 		font-size: 1rem;
+		background: var(--input-bg);
+		color: var(--input-text);
 	}
 
 	.field input:focus {
 		outline: none;
-		border-color: #3b82f6;
+		border-color: var(--input-focus-border);
 	}
 
 	.field input:disabled {
-		background: #f5f5f5;
+		background: var(--surface-hover);
 	}
 
 	.hint {
 		font-size: 0.8rem;
-		color: #666;
+		color: var(--muted);
 	}
 
 	.error {
-		color: #dc2626;
+		color: var(--neg);
 		font-size: 0.9rem;
 		padding: 0.75rem;
-		background: #fef2f2;
-		border-radius: 6px;
+		background: var(--neg-light);
+		border-radius: var(--r-input);
 		text-align: center;
 	}
 
 	.error-message {
 		text-align: center;
 		padding: 1.5rem;
-		background: #fef2f2;
-		border-radius: 8px;
+		background: var(--neg-light);
+		border-radius: var(--r-card);
 		margin-bottom: 1rem;
 	}
 
 	.error-message p {
 		margin: 0;
-		color: #dc2626;
+		color: var(--neg);
 		line-height: 1.5;
 	}
 
 	.success-message {
 		text-align: center;
 		padding: 1.5rem;
-		background: #dcfce7;
-		border-radius: 8px;
+		background: var(--pos-light);
+		border-radius: var(--r-card);
 	}
 
 	.success-message p {
 		margin: 0;
-		color: #166534;
+		color: var(--pos);
 		line-height: 1.5;
 	}
 
@@ -239,10 +241,10 @@
 
 	.submit-btn {
 		padding: 0.875rem;
-		background: #3b82f6;
-		color: white;
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
 		border: none;
-		border-radius: 8px;
+		border-radius: var(--r-btn);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
@@ -250,7 +252,7 @@
 	}
 
 	.submit-btn:hover:not(:disabled) {
-		background: #2563eb;
+		background: var(--btn-primary-hover);
 	}
 
 	.submit-btn:disabled {

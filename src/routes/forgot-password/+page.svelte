@@ -172,7 +172,7 @@
 		font-size: 0.9rem;
 		padding: 0.75rem;
 		background: var(--neg-light);
-		border-radius: 6px;
+		border-radius: var(--r-input);
 		text-align: center;
 	}
 

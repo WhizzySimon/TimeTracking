@@ -162,22 +162,22 @@
 	.quick-btn {
 		width: 100%;
 		padding: 0.75rem;
-		background: white;
-		border: 2px solid #3b82f6;
-		border-radius: 8px;
-		color: #3b82f6;
+		background: var(--surface);
+		border: 2px solid var(--accent);
+		border-radius: var(--r-btn);
+		color: var(--accent);
 		font-weight: 600;
 		cursor: pointer;
 		font-size: 1rem;
 	}
 
 	.quick-btn:hover {
-		background: #eff6ff;
+		background: var(--accent-light);
 	}
 
 	.divider {
 		text-align: center;
-		color: #999;
+		color: var(--muted);
 		font-size: 0.9rem;
 	}
 
@@ -195,21 +195,22 @@
 
 	.selector-group label {
 		font-size: 0.85rem;
-		color: #666;
+		color: var(--muted);
 	}
 
 	.select-input {
 		padding: 0.5rem;
-		border: 1px solid #ddd;
-		border-radius: 6px;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
 		font-size: 1rem;
-		background: white;
+		background: var(--input-bg);
+		color: var(--input-text);
 	}
 
 	.select-input:focus {
 		outline: none;
-		border-color: #3b82f6;
-		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+		border-color: var(--input-focus-border);
+		box-shadow: 0 0 0 2px var(--accent-light);
 	}
 
 	.actions {
@@ -222,29 +223,29 @@
 	.btn-select {
 		flex: 1;
 		padding: 0.75rem;
-		border-radius: 8px;
+		border-radius: var(--r-btn);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.btn-cancel {
-		background: white;
-		border: 1px solid #ddd;
-		color: #666;
+		background: var(--btn-secondary-bg);
+		border: 1px solid var(--btn-secondary-border);
+		color: var(--btn-secondary-text);
 	}
 
 	.btn-cancel:hover {
-		background: #f5f5f5;
+		background: var(--btn-secondary-hover);
 	}
 
 	.btn-select {
-		background: #3b82f6;
+		background: var(--btn-primary-bg);
 		border: none;
-		color: white;
+		color: var(--btn-primary-text);
 		font-weight: 600;
 	}
 
 	.btn-select:hover {
-		background: #2563eb;
+		background: var(--btn-primary-hover);
 	}
 </style>

@@ -29,15 +29,19 @@ Proceed directly with the user's task. Use `code_search` or `grep_search` to fin
 ## After task completion (MANDATORY - DO NOT SKIP)
 
 ### 1. Verification
+
 Write `npm run verify` to `scripts/cascade-command.txt`, poll status, fix any errors until ALL PASSED.
 
 ### 2. UI Testing
+
 Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) to test the implemented functionality.
 
 ### 3. Git Commit (REQUIRED - NEVER SKIP THIS)
+
 ```
 git add -A; git commit -m "feat: description of changes"
 ```
+
 Write this to `scripts/cascade-command.txt` and confirm success.
 
 **⚠️ CRITICAL: Never end a session without committing completed work. This is the most commonly forgotten step.**

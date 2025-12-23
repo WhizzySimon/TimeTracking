@@ -204,26 +204,27 @@
 
 	.week-type-section label {
 		font-weight: 500;
-		color: #333;
+		color: var(--text);
 	}
 
 	.week-type-select {
 		padding: 0.5rem 1rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
 		font-size: 1rem;
-		background: white;
+		background: var(--input-bg);
+		color: var(--input-text);
 		min-width: 150px;
 		cursor: pointer;
 	}
 
 	.week-type-select:hover {
-		border-color: #999;
+		border-color: var(--border);
 	}
 
 	.week-type-select:focus {
 		outline: none;
-		border-color: #3b82f6;
-		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+		border-color: var(--input-focus-border);
+		box-shadow: 0 0 0 2px var(--accent-light);
 	}
 </style>

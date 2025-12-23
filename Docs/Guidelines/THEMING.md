@@ -7,10 +7,12 @@ This document explains how the theme system works and how to add new themes.
 The app uses CSS custom properties (design tokens) for consistent theming. Two independent settings are available:
 
 ### Color Themes
+
 - **Cool** (default) - Blue-based color scheme
 - **Warm** - Orange/brown-based color scheme
 
 ### Shape Styles
+
 - **Sharp** (Eckig) - Minimal rounding for a modern, angular look
 - **Soft** (Rund, default) - Generous rounding for a friendly, approachable look
 
@@ -20,12 +22,12 @@ Users can mix and match color themes with shape styles (e.g., Warm + Sharp, Cool
 
 ### Files
 
-| File                               | Purpose                                          |
-| ---------------------------------- | ------------------------------------------------ |
-| `src/lib/styles/theme.css`         | All CSS token definitions (colors + shapes)      |
-| `src/lib/stores/theme.ts`          | Theme & shape stores with localStorage           |
-| `src/routes/+layout.svelte`        | Theme/shape initialization on app startup        |
-| `src/routes/settings/+page.svelte` | Theme and shape selector UI                      |
+| File                               | Purpose                                     |
+| ---------------------------------- | ------------------------------------------- |
+| `src/lib/styles/theme.css`         | All CSS token definitions (colors + shapes) |
+| `src/lib/stores/theme.ts`          | Theme & shape stores with localStorage      |
+| `src/routes/+layout.svelte`        | Theme/shape initialization on app startup   |
+| `src/routes/settings/+page.svelte` | Theme and shape selector UI                 |
 
 ### How It Works
 
@@ -163,6 +165,7 @@ Add a new shape block in `src/lib/styles/theme.css`:
 ```
 
 Then update `src/lib/stores/theme.ts`:
+
 1. Add to `ShapeValue` type: `'sharp' | 'soft' | 'your-shape'`
 2. Update `loadShape()` to recognize the new value
 
@@ -170,15 +173,15 @@ Then update `src/lib/stores/theme.ts`:
 
 ### Shape Tokens (vary by data-shape)
 
-| Token        | Sharp | Soft  | Usage                    |
-| ------------ | ----- | ----- | ------------------------ |
-| `--r-card`   | 4px   | 18px  | Cards, sections          |
-| `--r-btn`    | 4px   | 22px  | Buttons                  |
-| `--r-pill`   | 4px   | 20px  | Pills, toggles           |
-| `--r-input`  | 4px   | 12px  | Input fields, selects    |
-| `--r-tab`    | 0     | 16px  | Tab navigation bar       |
-| `--r-modal`  | 8px   | 20px  | Modal dialogs            |
-| `--r-banner` | 4px   | 12px  | Install/update banners   |
+| Token        | Sharp | Soft | Usage                  |
+| ------------ | ----- | ---- | ---------------------- |
+| `--r-card`   | 4px   | 18px | Cards, sections        |
+| `--r-btn`    | 4px   | 22px | Buttons                |
+| `--r-pill`   | 4px   | 20px | Pills, toggles         |
+| `--r-input`  | 4px   | 12px | Input fields, selects  |
+| `--r-tab`    | 0     | 16px | Tab navigation bar     |
+| `--r-modal`  | 8px   | 20px | Modal dialogs          |
+| `--r-banner` | 4px   | 12px | Install/update banners |
 
 ### Elevation Tokens (shared)
 

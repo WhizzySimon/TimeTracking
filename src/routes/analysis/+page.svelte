@@ -600,21 +600,22 @@
 
 	.range-label {
 		font-weight: 500;
-		color: #333;
+		color: var(--text);
 	}
 
 	.range-button {
 		padding: 0.5rem 1rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		background: white;
+		border: 1px solid var(--border);
+		border-radius: var(--r-btn);
+		background: var(--surface);
 		font-size: 1rem;
 		cursor: pointer;
+		color: var(--text);
 	}
 
 	.range-button:hover {
-		background: #f5f5f5;
-		border-color: #999;
+		background: var(--surface-hover);
+		border-color: var(--border);
 	}
 
 	/* Period List */
@@ -626,7 +627,7 @@
 
 	.no-periods {
 		text-align: center;
-		color: #888;
+		color: var(--muted);
 		padding: 2rem;
 	}
 
@@ -635,9 +636,9 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.75rem 1rem;
-		background: white;
-		border: 1px solid #eee;
-		border-radius: 8px;
+		background: var(--surface);
+		border: 1px solid var(--border-light);
+		border-radius: var(--r-card);
 		width: 100%;
 		text-align: left;
 		font-size: inherit;
@@ -651,32 +652,32 @@
 	}
 
 	.period-item.clickable:hover {
-		background: #f8fafc;
-		border-color: #3b82f6;
+		background: var(--surface-hover);
+		border-color: var(--accent);
 	}
 
 	.period-item.clickable:active {
-		background: #eff6ff;
+		background: var(--accent-light);
 	}
 
 	.period-label {
 		font-weight: 600;
-		color: #333;
+		color: var(--text);
 	}
 
 	.period-hours {
 		display: flex;
 		gap: 0.25rem;
 		font-size: 0.9rem;
-		color: #666;
+		color: var(--muted);
 	}
 
 	.period-hours .ist {
-		color: #333;
+		color: var(--text);
 	}
 
 	.period-hours .separator {
-		color: #999;
+		color: var(--muted);
 	}
 
 	.period-hours .soll {
@@ -724,7 +725,7 @@
 		margin: 0;
 		font-size: 1rem;
 		font-weight: 600;
-		color: #333;
+		color: var(--text);
 	}
 
 	.category-item {
@@ -732,24 +733,24 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.5rem 0.75rem;
-		background: white;
-		border: 1px solid #eee;
-		border-radius: 6px;
+		background: var(--surface);
+		border: 1px solid var(--border-light);
+		border-radius: var(--r-input);
 	}
 
 	.category-name {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		color: #333;
+		color: var(--text);
 	}
 
 	.no-work-badge {
 		font-size: 0.7rem;
 		padding: 2px 6px;
-		background: #f3f4f6;
-		color: #6b7280;
-		border-radius: 4px;
+		background: var(--surface-hover);
+		color: var(--muted);
+		border-radius: var(--r-input);
 	}
 
 	.section-header-row {
@@ -765,7 +766,7 @@
 
 	.header-label {
 		font-size: 0.75rem;
-		color: #666;
+		color: var(--muted);
 		min-width: 60px;
 		text-align: right;
 	}
@@ -777,31 +778,31 @@
 
 	.category-hours {
 		font-weight: 600;
-		color: #333;
+		color: var(--text);
 		min-width: 60px;
 		text-align: right;
 	}
 
 	.category-average {
 		font-weight: 500;
-		color: #666;
+		color: var(--muted);
 		min-width: 60px;
 		text-align: right;
 	}
 
 	.total-row {
-		background: #f0f9ff;
-		border-color: #3b82f6;
+		background: var(--accent-light);
+		border-color: var(--accent);
 		margin-bottom: 0.5rem;
 	}
 
 	.total-label {
 		font-weight: 700;
-		color: #1e40af;
+		color: var(--accent);
 	}
 
 	.total-value {
 		font-weight: 700;
-		color: #1e40af;
+		color: var(--accent);
 	}
 </style>

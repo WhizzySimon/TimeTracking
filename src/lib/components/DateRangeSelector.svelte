@@ -178,7 +178,7 @@
 		margin: 0;
 		font-size: 0.9rem;
 		font-weight: 600;
-		color: #666;
+		color: var(--muted);
 	}
 
 	.quick-btns {
@@ -189,17 +189,18 @@
 
 	.quick-btn {
 		padding: 0.75rem 1rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		background: white;
+		border: 1px solid var(--border);
+		border-radius: var(--r-btn);
+		background: var(--surface);
+		color: var(--text);
 		font-size: 0.9rem;
 		cursor: pointer;
 		text-align: center;
 	}
 
 	.quick-btn:hover {
-		background: #f5f5f5;
-		border-color: #3b82f6;
+		background: var(--surface-hover);
+		border-color: var(--accent);
 	}
 
 	.date-fields {
@@ -217,29 +218,31 @@
 	.field label {
 		font-size: 0.9rem;
 		font-weight: 500;
-		color: #333;
+		color: var(--text);
 	}
 
 	.date-input {
 		padding: 0.75rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
 		font-size: 1rem;
+		background: var(--input-bg);
+		color: var(--input-text);
 	}
 
 	.date-input:focus {
 		outline: none;
-		border-color: #3b82f6;
-		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+		border-color: var(--input-focus-border);
+		box-shadow: 0 0 0 2px var(--accent-light);
 	}
 
 	.error {
 		margin: 0;
 		padding: 0.5rem;
-		background: #fef2f2;
-		border: 1px solid #fecaca;
-		border-radius: 4px;
-		color: #dc2626;
+		background: var(--neg-light);
+		border: 1px solid var(--neg);
+		border-radius: var(--r-input);
+		color: var(--neg);
 		font-size: 0.9rem;
 	}
 
@@ -248,33 +251,34 @@
 		gap: 0.75rem;
 		justify-content: flex-end;
 		padding-top: 0.5rem;
-		border-top: 1px solid #eee;
+		border-top: 1px solid var(--border-light);
 	}
 
 	.btn-secondary {
 		padding: 0.75rem 1.5rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		background: white;
+		border: 1px solid var(--btn-secondary-border);
+		border-radius: var(--r-btn);
+		background: var(--btn-secondary-bg);
+		color: var(--btn-secondary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.btn-secondary:hover {
-		background: #f5f5f5;
+		background: var(--btn-secondary-hover);
 	}
 
 	.btn-primary {
 		padding: 0.75rem 1.5rem;
 		border: none;
-		border-radius: 8px;
-		background: #3b82f6;
-		color: white;
+		border-radius: var(--r-btn);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.btn-primary:hover {
-		background: #2563eb;
+		background: var(--btn-primary-hover);
 	}
 </style>
