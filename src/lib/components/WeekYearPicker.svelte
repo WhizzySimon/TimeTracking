@@ -7,7 +7,7 @@
   - Quick button to go to current week
 -->
 <script lang="ts">
-	import { getWeekNumber } from '$lib/utils/date';
+	import { getWeekNumber, getISOWeekYear } from '$lib/utils/date';
 	import Modal from './Modal.svelte';
 	import type { TimeEntry } from '$lib/types';
 
@@ -24,9 +24,9 @@
 
 	let { currentDate, timeEntries = [], onselect, onclose }: Props = $props();
 
-	// Initialize with current week/year from prop
+	// Initialize with current week/year from prop (using ISO week year)
 	function getInitialYear() {
-		return currentDate.getFullYear();
+		return getISOWeekYear(currentDate);
 	}
 	function getInitialWeek() {
 		return getWeekNumber(currentDate);

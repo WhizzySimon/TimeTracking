@@ -28,6 +28,7 @@
 	import { parseDate } from '$lib/utils/date';
 	import {
 		getWeekNumber,
+		getISOWeekYear,
 		isCurrentWeek,
 		addDays,
 		getWeekDates,
@@ -54,8 +55,8 @@
 	// Is this the current week?
 	let isThisCurrentWeek = $derived(isCurrentWeek($currentDate));
 
-	// Week title display (with year)
-	let weekYear = $derived($currentDate.getFullYear());
+	// Week title display (with ISO week year)
+	let weekYear = $derived(getISOWeekYear($currentDate));
 	let weekTitle = $derived(
 		isThisCurrentWeek ? `Aktuelle KW ${weekNumber}/${weekYear}` : `KW ${weekNumber}/${weekYear}`
 	);

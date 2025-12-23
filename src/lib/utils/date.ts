@@ -146,6 +146,22 @@ export function getWeekNumber(date: Date): number {
 }
 
 /**
+ * Get ISO week year for a date
+ * ISO 8601: The week year may differ from calendar year at year boundaries
+ * e.g., Dec 29, 2025 (Monday) belongs to week 1 of 2026
+ */
+export function getISOWeekYear(date: Date): number {
+	const d = new Date(date);
+	d.setHours(0, 0, 0, 0);
+
+	// Set to nearest Thursday (this determines which year the week belongs to)
+	d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+
+	// The year of the Thursday is the ISO week year
+	return d.getFullYear();
+}
+
+/**
  * Add days to a date (returns new Date)
  */
 export function addDays(date: Date, days: number): Date {
