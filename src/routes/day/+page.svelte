@@ -26,6 +26,7 @@
 	import WarningBanner from '$lib/components/WarningBanner.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import DayPicker from '$lib/components/DayPicker.svelte';
+	import QuickStartButtons from '$lib/components/QuickStartButtons.svelte';
 
 	let loading = $state(true);
 
@@ -142,6 +143,18 @@
 		entryToDelete = null;
 	}
 
+	// Quick-Start handler: creates a new task immediately with the selected category
+	// For now, just opens the modal with the category pre-selected
+	// Full implementation (auto-start with endTime=null) will be in Task 7.3
+	function handleQuickStart(categoryId: string) {
+		// TODO Task 7.3: Implement auto-start logic (create entry with startTime=now, endTime=null)
+		// For now, open modal with category pre-selected (placeholder behavior)
+		editingEntry = null;
+		showAddModal = true;
+		// Note: AddTaskModal will need to accept a defaultCategoryId prop in Task 7.3
+		console.log('[QuickStart] Category selected:', categoryId);
+	}
+
 	onMount(async () => {
 		await initializeCategories();
 		// Load categories into store
@@ -177,6 +190,9 @@
 
 		<!-- Inline Summary -->
 		<InlineSummary {ist} {soll} {saldo} />
+
+		<!-- Quick-Start Buttons (top 5 frequent categories) -->
+		<QuickStartButtons categories={$categories} entries={$timeEntries} onstart={handleQuickStart} />
 
 		<!-- Add Task Button -->
 		<div class="add-task-section">

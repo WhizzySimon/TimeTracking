@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 7 - Quick-Start UX Improvements  
-**Tasks Completed:** 77 / 86  
-**Estimated Progress:** 90%
+**Tasks Completed:** 78 / 86  
+**Estimated Progress:** 91%
 
 ---
 
@@ -881,7 +881,7 @@ After each phase, verify against specs:
 ## Phase 7: Quick-Start UX Improvements
 
 **Target:** 10 tasks, ~8 hours  
-**Status:** In Progress (1/10 tasks)  
+**Status:** In Progress (2/10 tasks)  
 **Spec:** `Docs/Specs/quick-start-ux.md`  
 **Plan:** `Docs/Plans/quick-start-ux.md`  
 **Tasks:** `Docs/Tasks/quick-start-ux.md`
@@ -894,10 +894,11 @@ After each phase, verify against specs:
   - Deviations: None
   - Notes: Created getCategoryFrequency(), getTopCategories(), sortCategoriesByFrequency(). Excludes system categories, respects 30-day window, alphabetical tiebreaker.
 
-- [ ] **Task 7.2** — Quick-Start Buttons Komponente
+- [x] **Task 7.2** — Quick-Start Buttons Komponente
   - Files: `src/lib/components/QuickStartButtons.svelte`, `src/routes/day/+page.svelte`
-  - Verified: npm run verify ⬜, Browser test ⬜
+  - Verified: npm run verify ✅, Browser test ✅
   - Deviations: None
+  - Notes: Component shows up to 5 buttons for frequent categories. Integrated above "+ Aufgabe hinzufügen". handleQuickStart placeholder added (full logic in Task 7.3).
 
 - [ ] **Task 7.3** — Quick-Start Logik (Aufgabe sofort starten)
   - Files: `src/routes/day/+page.svelte`
