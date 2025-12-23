@@ -7,7 +7,8 @@ import { getSupabase, isSupabaseConfigured } from '$lib/supabase/client';
 import { getCurrentUserId } from '$lib/api/auth';
 import { exportSnapshot, type DatabaseSnapshot } from './snapshot';
 import { importSnapshot } from './restore';
-import { put, getByKey } from '$lib/storage/db';
+import { put, getByKey, getAll } from '$lib/storage/db';
+import type { TimeEntry } from '$lib/types';
 
 const SYNC_META_KEY = 'cloudSyncMeta';
 
@@ -34,13 +35,21 @@ export type SyncAction = 'upload' | 'restore' | 'conflict' | 'noop';
 export function determineSyncAction(
 	localMeta: CloudSyncMeta | null,
 	cloudUpdatedAt: string | null,
-	cloudHasData: boolean
+	cloudHasData: boolean,
+	localHasData: boolean = true
 ): SyncAction {
-	const isFreshInstall = !localMeta?.lastSyncAt && !localMeta?.localChangedAt;
+	const neverSynced = !localMeta?.lastSyncAt;
+	const hasLocalChanges = localMeta?.localChangedAt != null;
+	const isFreshInstall = neverSynced && !hasLocalChanges && !localHasData;
 
-	// Fresh install: always restore if cloud has data
+	// Fresh install with no local data: always restore if cloud has data
 	if (isFreshInstall && cloudHasData) {
 		return 'restore';
+	}
+
+	// Never synced but both have data: conflict (user must choose)
+	if (neverSynced && cloudHasData && localHasData) {
+		return 'conflict';
 	}
 
 	// Never synced, no cloud data: upload local data
@@ -48,16 +57,15 @@ export function determineSyncAction(
 		return 'upload';
 	}
 
-	const localChanged = localMeta?.localChangedAt != null;
 	const cloudChanged =
 		cloudUpdatedAt != null &&
 		(localMeta?.lastCloudUpdatedAt == null ||
 			new Date(cloudUpdatedAt) > new Date(localMeta.lastCloudUpdatedAt));
 
-	if (localChanged && cloudChanged) {
+	if (hasLocalChanges && cloudChanged) {
 		return 'conflict';
 	}
-	if (localChanged) {
+	if (hasLocalChanges) {
 		return 'upload';
 	}
 	if (cloudChanged) {
@@ -262,16 +270,26 @@ export async function syncWithCloud(): Promise<SyncResult> {
 		// 2. Get local meta
 		const localMeta = await getSyncMeta();
 
-		// 3. Determine action
-		const action = determineSyncAction(localMeta, cloudData.updatedAt, cloudData.hasData);
+		// 3. Check if local has meaningful data (time entries)
+		const localEntries = await getAll<TimeEntry>('timeEntries');
+		const localHasData = localEntries.length > 0;
+
+		// 4. Determine action
+		const action = determineSyncAction(
+			localMeta,
+			cloudData.updatedAt,
+			cloudData.hasData,
+			localHasData
+		);
 
 		console.log('[CloudSync] Action determined:', action, {
 			localMeta,
 			cloudUpdatedAt: cloudData.updatedAt,
-			cloudHasData: cloudData.hasData
+			cloudHasData: cloudData.hasData,
+			localHasData
 		});
 
-		// 4. Execute action
+		// 5. Execute action
 		switch (action) {
 			case 'noop':
 				return { success: true, action: 'noop' };
