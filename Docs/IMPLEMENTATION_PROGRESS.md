@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 7 - Quick-Start UX Improvements  
-**Tasks Completed:** 84 / 86  
-**Estimated Progress:** 98%
+**Tasks Completed:** 85 / 86  
+**Estimated Progress:** 99%
 
 ---
 
@@ -881,7 +881,7 @@ After each phase, verify against specs:
 ## Phase 7: Quick-Start UX Improvements
 
 **Target:** 10 tasks, ~8 hours  
-**Status:** In Progress (8/10 tasks)  
+**Status:** In Progress (9/10 tasks)  
 **Spec:** `Docs/Specs/quick-start-ux.md`  
 **Plan:** `Docs/Plans/quick-start-ux.md`  
 **Tasks:** `Docs/Tasks/quick-start-ux.md`
@@ -940,10 +940,11 @@ After each phase, verify against specs:
   - Deviations: None
   - Notes: Added categorySort store with 'frequency'/'alphabetical' options. Toggle in Erscheinungsbild section. CategorySelect uses setting via sortOrder prop. Persisted to localStorage.
 
-- [ ] **Task 7.9** — Endzeit vorausfüllen beim Bearbeiten
+- [x] **Task 7.9** — Endzeit vorausfüllen beim Bearbeiten
   - Files: `src/lib/components/AddTaskModal.svelte`
-  - Verified: npm run verify ⬜, Browser test ⬜
+  - Verified: npm run verify ✅, Browser test ✅
   - Deviations: None
+  - Notes: When editing a running task (endTime=null), end time is pre-filled with current time (rounded to 5 min). New tasks and completed tasks behave as before.
 
 ### Testing
 

@@ -48,10 +48,24 @@
 
 	function getInitialValues() {
 		const currentTime = roundToFiveMinutes(formatTime(new Date()));
+
+		// Task 7.9: When editing a running task (entry.endTime=null), pre-fill end time with current time
+		let initialEndTime = '';
+		if (entry) {
+			if (entry.endTime === null) {
+				// Running task: pre-fill with current time
+				initialEndTime = currentTime;
+			} else {
+				// Completed task: show existing end time
+				initialEndTime = entry.endTime;
+			}
+		}
+		// New task: endTime stays empty (as before)
+
 		return {
 			categoryId: entry?.categoryId ?? '',
 			startTime: entry?.startTime ?? currentTime,
-			endTime: entry?.endTime ?? '',
+			endTime: initialEndTime,
 			description: entry?.description ?? ''
 		};
 	}
