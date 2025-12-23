@@ -71,6 +71,7 @@
 	let appVersion = $state('');
 	let buildTime = $state('');
 	let showAddCategory = $state(false);
+	let showAddAbsenceCategory = $state(false);
 	let showAddWorkTimeModel = $state(false);
 	let showImportCategories = $state(false);
 	let showImportExcel = $state(false);
@@ -272,6 +273,11 @@
 					<span class="toggle-icon" class:expanded={expandedSections.abwesenheit}>▶</span>
 					<h2>Abwesenheitskategorien</h2>
 				</button>
+				<button
+					class="add-btn"
+					aria-label="Abwesenheitskategorie hinzufügen"
+					onclick={() => (showAddAbsenceCategory = true)}
+				>+</button>
 			</div>
 			{#if expandedSections.abwesenheit}
 				<div class="list">
@@ -332,22 +338,22 @@
 								<button
 									class="dropdown-item"
 									onclick={() => {
-										downloadCategoriesFile($categories);
-										showCategoryMenu = false;
-									}}
-								>
-									<span class="dropdown-icon">→</span>
-									<span>Exportieren</span>
-								</button>
-								<button
-									class="dropdown-item"
-									onclick={() => {
 										showImportCategories = true;
 										showCategoryMenu = false;
 									}}
 								>
 									<span class="dropdown-icon">←</span>
 									<span>Importieren</span>
+								</button>
+								<button
+									class="dropdown-item"
+									onclick={() => {
+										downloadCategoriesFile($categories);
+										showCategoryMenu = false;
+									}}
+								>
+									<span class="dropdown-icon">→</span>
+									<span>Exportieren</span>
 								</button>
 							</div>
 						{/if}
@@ -422,11 +428,23 @@
 	{/if}
 </div>
 
-<!-- Add Category Modal -->
+<!-- Add Work Category Modal -->
 {#if showAddCategory}
 	<AddCategoryModal
+		title="Neue Arbeitskategorie"
+		countsAsWorkTime={true}
 		onsave={() => (showAddCategory = false)}
 		onclose={() => (showAddCategory = false)}
+	/>
+{/if}
+
+<!-- Add Absence Category Modal -->
+{#if showAddAbsenceCategory}
+	<AddCategoryModal
+		title="Neue Abwesenheitskategorie"
+		countsAsWorkTime={false}
+		onsave={() => (showAddAbsenceCategory = false)}
+		onclose={() => (showAddAbsenceCategory = false)}
 	/>
 {/if}
 
