@@ -16,8 +16,8 @@ const sourceHook = join(__dirname, 'pre-commit');
 const targetHook = join(hooksDir, 'pre-commit');
 
 if (!existsSync(hooksDir)) {
-	console.error('Error: .git/hooks directory not found. Is this a git repository?');
-	process.exit(1);
+	console.log('Skipping hooks setup: .git/hooks not found (CI environment).');
+	process.exit(0);
 }
 
 if (!existsSync(sourceHook)) {
