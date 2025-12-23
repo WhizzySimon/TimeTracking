@@ -179,9 +179,6 @@
 					class="header-btn backup-btn"
 					onclick={handleCloudBackup}
 					disabled={backupInProgress || !$backupNeededStore}
-					title={$backupNeededStore
-						? 'Änderungen in die Cloud sichern'
-						: 'Alle Änderungen in der Cloud gesichert'}
 				>
 					{#if backupInProgress}
 						...
@@ -192,7 +189,7 @@
 					{/if}
 				</button>
 				{#if backupError}
-					<span class="backup-error-indicator" title={backupError}>!</span>
+					<span class="backup-error-indicator">!</span>
 				{/if}
 			</div>
 			<div class="header-right">
@@ -200,7 +197,7 @@
 					<button
 						class="header-btn profile-btn"
 						onclick={() => (showProfileMenu = !showProfileMenu)}
-						title="Profil"
+						aria-label="Profil"
 					>
 						<svg
 							width="24"

@@ -224,8 +224,7 @@
 				<button
 					class="icon-btn"
 					onclick={() => (showAddWorkTimeModel = true)}
-					aria-label="Modell hinzufügen"
-					title="Modell hinzufügen">+</button
+					aria-label="Modell hinzufügen">+</button
 				>
 			</div>
 			{#if expandedSections.workTimeModels}
@@ -276,7 +275,6 @@
 				<button
 					class="icon-btn"
 					aria-label="Abwesenheitskategorie hinzufügen"
-					title="Kategorie hinzufügen"
 					onclick={() => (showAddAbsenceCategory = true)}>+</button
 				>
 			</div>

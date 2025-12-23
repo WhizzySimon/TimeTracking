@@ -109,7 +109,8 @@
 
 	async function confirmNotification() {
 		showNotification = false;
-		showConfirm = true;
+		// User already confirmed in notification dialog, apply change directly
+		await confirmChange();
 	}
 
 	function cancelNotification() {
