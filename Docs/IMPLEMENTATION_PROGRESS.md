@@ -882,9 +882,9 @@ After each phase, verify against specs:
 
 **Target:** 10 tasks, ~8 hours  
 **Status:** Complete (10/10 tasks)  
-**Spec:** `Docs/Specs/quick-start-ux.md`  
-**Plan:** `Docs/Plans/quick-start-ux.md`  
-**Tasks:** `Docs/Tasks/quick-start-ux.md`
+**Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md`  
+**Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md`  
+**Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md`
 
 ### Quick-Start Buttons
 

@@ -270,6 +270,38 @@ Bevor du mit der Implementierung beginnst:
 
 ---
 
+## Namenskonvention für Dokumente
+
+**Alle neuen Docs (Specs, Plans, Tasks) MÜSSEN mit Phase-Nummer und Datum im Dateinamen erstellt werden.**
+
+### Format
+
+```
+Docs/Specs/P<phase>-<YYYYMMDD>-<feature-slug>.md
+Docs/Plans/P<phase>-<YYYYMMDD>-<feature-slug>.md
+Docs/Tasks/P<phase>-<YYYYMMDD>-<feature-slug>.md
+```
+
+### Beispiele
+
+- `Docs/Specs/P08-20251223-quick-start-ux.md`
+- `Docs/Plans/P08-20251223-quick-start-ux.md`
+- `Docs/Tasks/P08-20251223-quick-start-ux.md`
+
+### Regeln
+
+1. **Phase-Nummer:** Zweistellig mit führender Null (P01, P02, ..., P08)
+2. **Datum:** YYYYMMDD Format (Erstellungsdatum)
+3. **Feature-Slug:** Kebab-case, beschreibend
+
+### Warum?
+
+- Eindeutige Zuordnung zu Phasen im Progress Tracker
+- Chronologische Sortierung im Dateisystem
+- Vermeidung von Verwechslungen bei ähnlichen Feature-Namen
+
+---
+
 ## Quick Reference
 
 | Was               | Wo                                                      |

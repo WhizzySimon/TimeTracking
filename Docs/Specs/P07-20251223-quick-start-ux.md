@@ -1,5 +1,12 @@
 # Quick-Start UX — Spec
 
+**Phase:** 7 (ursprünglich), Phase 8 (Plus-Tab Erweiterung)  
+**Created:** 2025-12-23  
+**Last Updated:** 2025-12-23  
+**Status:** In Progress (Phase 7 implementiert, Phase 8 in Planung)
+
+---
+
 ## 1) Goal / Problem
 
 Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Klicks (3-4 pro Aktion). Für Nutzer mit 20-40 Tätigkeitswechseln pro Tag ist das ein spürbarer Nachteil gegenüber Konkurrenzprodukten wie Toggl und Clockify, die 1-Klick-Workflows bieten.
@@ -10,12 +17,21 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 
 ### In scope
 
-- Quick-Start Buttons für die 5 häufigsten Tätigkeiten (1-Klick-Start)
-- Kategorie-Dropdown nach Häufigkeit sortiert (mit Scroll zu Position 6)
-- "Beenden"-Button für laufende Aufgaben (1-Klick-Ende)
-- Resume-Button für beendete Aufgaben (1-Klick-Fortsetzen)
-- Endzeit vorausfüllen beim Bearbeiten einer laufenden Aufgabe
-- Toggle in Einstellungen: Sortierung alphabetisch / Häufigkeit
+#### Phase 7 (implementiert, teilweise obsolet durch Phase 8)
+- ~~Quick-Start Buttons für die 5 häufigsten Tätigkeiten auf Tag-Tab~~ → ersetzt durch Plus-Tab
+- ~~Kategorie-Dropdown nach Häufigkeit sortiert~~ → nicht mehr benötigt
+- "Beenden"-Button für laufende Aufgaben (1-Klick-Ende) ✓
+- Resume-Button für beendete Aufgaben (1-Klick-Fortsetzen) ✓
+- Endzeit vorausfüllen beim Bearbeiten einer laufenden Aufgabe ✓
+- ~~Toggle in Einstellungen: Sortierung alphabetisch / Häufigkeit~~ → entfernen
+
+#### Phase 8 (neu: Plus-Tab) — AKTUELL
+- **Dedizierter Plus-Tab** (`/add`) als **erster Tab** (links von "Tag"), nur "+" Symbol
+- **Volle Tätigkeitsliste** ohne Modal — maximale Sichtbarkeit
+- **Dynamische Default-Tab-Logik**: App öffnet mit Plus-Tab (keine laufende Aufgabe) oder Tag-Tab (laufende Aufgabe)
+- **Optimierte Sortierung**: Top 5 (Häufigkeit) + Rest (A-Z, ohne Duplikate)
+- **Entfernen vom Tag-Tab**: "+ Aufgabe hinzufügen" Button und Quick-Start Buttons
+- **Entfernen aus Einstellungen**: Sorting Toggle (nicht mehr benötigt)
 
 ### Out of scope
 
@@ -58,10 +74,36 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 
 - **TT-FR-017**: Beim Bearbeiten einer laufenden Aufgabe ist das Endzeit-Feld mit der aktuellen Zeit vorausgefüllt (nicht leer).
 
-### UI-Layout
+### UI-Layout (Phase 7)
 
 - **TT-FR-018**: Die Reihenfolge im Tag-Screen ist: Quick-Start Buttons → "+ Aufgabe hinzufügen" → Aufgabenliste (neueste zuerst).
 - **TT-FR-019**: Die Aufgabenliste scrollt nach unten, Quick-Start Buttons und "+ Aufgabe hinzufügen" bleiben immer sichtbar (sticky oder am Anfang).
+
+### Plus-Tab (Phase 8)
+
+- **TT-FR-020**: Der Plus-Tab ist unter `/add` erreichbar und zeigt ausschließlich die Tätigkeitsliste (kein Modal, keine anderen UI-Elemente außer Navigation).
+- **TT-FR-021**: Die Tätigkeitsliste nutzt die volle Bildschirmhöhe für maximale Sichtbarkeit. Ziel: So viele Tätigkeiten wie möglich ohne Scrollen.
+- **TT-FR-028**: Der Plus-Tab ist der **erste Tab** in der Navigation (links von "Tag") und zeigt nur ein "+" Symbol (kein Text).
+- **TT-FR-022**: Die Tätigkeitsliste ist in zwei Bereiche unterteilt:
+  - **Top 5**: Die 5 häufigsten Tätigkeiten (nach Nutzungsfrequenz der letzten 30 Tage), visuell abgetrennt
+  - **Rest (A-Z)**: Alle anderen Tätigkeiten alphabetisch sortiert, **ohne die Top 5 zu wiederholen** (keine Duplikate)
+- **TT-FR-023**: Ein Klick auf eine Tätigkeit erstellt sofort eine neue Aufgabe (Startzeit = aktuelle Uhrzeit gerundet auf 5 Min, Endzeit = null). Kein Modal, keine weitere Eingabe.
+- **TT-FR-024**: Nach dem Starten einer Aufgabe erfolgt automatische Weiterleitung zum Tag-Tab (`/day`), wo die laufende Aufgabe mit Beenden-Button sichtbar ist.
+- **TT-FR-025**: Systemkategorien (Pause, Urlaub, Krank, Feiertag) erscheinen NICHT in der Plus-Tab-Liste.
+
+### Dynamische Default-Tab-Logik (Phase 8)
+
+- **TT-FR-026**: Beim App-Start (Navigation zu `/` oder App-Öffnung):
+  - **Keine laufende Aufgabe** → Redirect zu `/add` (Plus-Tab)
+  - **Laufende Aufgabe vorhanden** → Redirect zu `/day` (Tag-Tab)
+- **TT-FR-027**: Die Logik prüft beim Laden, ob eine Aufgabe mit `endTime = null` für das aktuelle Datum existiert.
+
+### Entfernen (Phase 8 Cleanup)
+
+- **TT-FR-029**: Der "+ Aufgabe hinzufügen" Button wird vom Tag-Tab entfernt (Plus-Tab übernimmt).
+- **TT-FR-030**: Die Quick-Start Buttons werden vom Tag-Tab entfernt (Plus-Tab übernimmt).
+- **TT-FR-031**: Der Sorting Toggle (Häufigkeit/Alphabetisch) wird aus den Einstellungen entfernt.
+- **TT-FR-032**: Der Tag-Tab zeigt nur noch: Tagesnavigation, Tagesart-Selector, Zusammenfassung, Aufgabenliste mit Beenden/Resume.
 
 ## 4) Implementation Guarantees (IG)
 
@@ -70,6 +112,9 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 - **TT-IG-003**: Systemkategorien (Pause, Urlaub, Krank, Feiertag) werden nicht als Quick-Start Buttons angezeigt.
 - **TT-IG-004**: Die Häufigkeitsdaten werden lokal berechnet (keine Server-Anfrage).
 - **TT-IG-005**: Alle Aktionen (Quick-Start, Beenden, Resume) funktionieren offline.
+- **TT-IG-006** (Phase 8): Die Plus-Tab Tätigkeitsliste lädt in unter 100ms nach App-Start.
+- **TT-IG-007** (Phase 8): Der Plus-Tab funktioniert vollständig offline (alle Daten aus IndexedDB).
+- **TT-IG-008** (Phase 8): Die Default-Tab-Logik wird bei jedem App-Start/Navigation zu `/` ausgeführt.
 
 ## 5) Design Decisions (DD)
 
@@ -77,15 +122,26 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 - **TT-DD-002**: Automatisches Beenden bei Resume/Quick-Start — weniger Klicks, Fehler können durch Bearbeiten korrigiert werden.
 - **TT-DD-003**: Hybrid-Scroll im Dropdown — Top 5 bleiben erreichbar, aber Fokus auf Position 6.
 - **TT-DD-004**: Kein Bestätigungsdialog bei "Beenden" — Geschwindigkeit vor Sicherheit, Korrektur ist einfach.
+- **TT-DD-005** (Phase 8): Plus-Tab als separate Route (`/add`) statt Modal — maximaler Bildschirmplatz für Tätigkeitsliste.
+- **TT-DD-006** (Phase 8): Top 5 visuell abgetrennt vom A-Z Bereich (z.B. Trennlinie, anderer Hintergrund).
+- **TT-DD-007** (Phase 8): Kein Suchfeld auf Plus-Tab — bei 20-30 Kategorien ist Scrollen akzeptabel, Top 5 decken 80% der Fälle.
+- **TT-DD-008** (Phase 8): Dynamische Default-Tab-Logik — User landet immer dort, wo die nächste Aktion stattfindet.
 
 ## 6) Edge cases
 
+### Phase 7
 - **Keine Einträge in den letzten 30 Tagen**: Keine Quick-Start Buttons anzeigen, nur "+ Aufgabe hinzufügen".
 - **Weniger als 5 Kategorien genutzt**: Nur so viele Quick-Start Buttons wie Kategorien vorhanden.
 - **Alle Kategorien sind Systemkategorien**: Keine Quick-Start Buttons (Systemkategorien ausgeschlossen).
 - **Laufende Aufgabe beim App-Start**: "Beenden"-Button ist sofort sichtbar.
 - **Resume auf Aufgabe mit gelöschter Kategorie**: Resume-Button nicht anzeigen oder deaktivieren.
 - **Gleichstand bei Häufigkeit**: Alphabetisch sortieren als Tiebreaker.
+
+### Phase 8 (Plus-Tab)
+- **Weniger als 5 genutzte Kategorien**: Top-Bereich zeigt nur die vorhandenen.
+- **Keine Kategorien vorhanden**: Hinweis "Keine Kategorien" + Link zu Einstellungen.
+- **Laufende Aufgabe beim Klick auf Plus-Tab Tätigkeit**: Wird automatisch beendet, neue startet.
+- **Offline**: Plus-Tab funktioniert normal (IndexedDB).
 
 ## 7) Data & privacy
 
@@ -126,12 +182,36 @@ Der aktuelle Workflow zum Anlegen und Beenden von Aufgaben erfordert zu viele Kl
 
 - [ ] AC-015: Beim Bearbeiten einer laufenden Aufgabe ist Endzeit mit aktueller Zeit vorausgefüllt.
 
-### UI-Layout
+### UI-Layout (Phase 7)
 
 - [ ] AC-016: Quick-Start Buttons sind oberhalb von "+ Aufgabe hinzufügen".
 - [ ] AC-017: Aufgabenliste ist unterhalb, neueste zuerst.
 - [ ] AC-018: Bei langer Liste bleiben Quick-Start Buttons sichtbar (kein Scrollen nötig).
 
+### Plus-Tab (Phase 8)
+
+- [ ] AC-019: Plus-Tab unter `/add` erreichbar, zeigt Tätigkeitsliste.
+- [ ] AC-020: Top 5 häufigste Kategorien erscheinen oben, visuell abgetrennt.
+- [ ] AC-021: Rest der Kategorien alphabetisch sortiert, ohne die Top 5 zu wiederholen.
+- [ ] AC-022: Klick auf Tätigkeit startet Aufgabe sofort (kein Modal).
+- [ ] AC-023: Nach Klick → Weiterleitung zu `/day`.
+- [ ] AC-024: Systemkategorien erscheinen nicht in der Liste.
+
+### Default-Tab-Logik (Phase 8)
+
+- [ ] AC-025: App-Start ohne laufende Aufgabe → Redirect zu `/add`.
+- [ ] AC-026: App-Start mit laufender Aufgabe → Redirect zu `/day`.
+
+### Entfernen (Phase 8 Cleanup)
+
+- [ ] AC-027: Plus-Tab ist erster Tab in Navigation (links von "Tag"), zeigt nur "+".
+- [ ] AC-028: "+ Aufgabe hinzufügen" Button ist nicht mehr auf Tag-Tab.
+- [ ] AC-029: Quick-Start Buttons sind nicht mehr auf Tag-Tab.
+- [ ] AC-030: Sorting Toggle ist nicht mehr in Einstellungen.
+- [ ] AC-031: Tag-Tab zeigt nur: Navigation, Tagesart, Zusammenfassung, Aufgabenliste.
+
 ## 9) Change log
 
 - 2025-12-23: Created — Quick-Start UX Spec basierend auf Wettbewerbsanalyse
+- 2025-12-23: Updated — Phase 8 hinzugefügt: Plus-Tab mit Ein-Klick-Workflow und dynamischer Default-Tab-Logik
+- 2025-12-23: Updated — Plus-Tab als erster Tab (nur "+"), Entfernen von Quick-Start Buttons, "+ Aufgabe hinzufügen" Button und Sorting Toggle

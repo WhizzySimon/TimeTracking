@@ -1,5 +1,13 @@
 ﻿# <feature-slug> - Tasks
 
+**Phase:** <Phase-Nummer aus IMPLEMENTATION_PROGRESS.md>  
+**Created:** YYYY-MM-DD  
+**Last Updated:** YYYY-MM-DD  
+**Based on Spec:** `Docs/Specs/<feature-slug>.md`  
+**Based on Plan:** `Docs/Plans/<feature-slug>.md`
+
+---
+
 ## Task 1 - [Brief description]
 
 - **Files:**

@@ -1,5 +1,12 @@
 ﻿# <feature-slug> - Plan
 
+**Phase:** <Phase-Nummer aus IMPLEMENTATION_PROGRESS.md>  
+**Created:** YYYY-MM-DD  
+**Last Updated:** YYYY-MM-DD  
+**Based on Spec:** `Docs/Specs/<feature-slug>.md`
+
+---
+
 ## Architecture / modules
 
 - Component/module responsibilities

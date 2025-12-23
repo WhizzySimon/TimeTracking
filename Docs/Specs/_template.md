@@ -1,5 +1,12 @@
 ﻿# <feature-slug> — Spec
 
+**Phase:** <Phase-Nummer aus IMPLEMENTATION_PROGRESS.md>  
+**Created:** YYYY-MM-DD  
+**Last Updated:** YYYY-MM-DD  
+**Status:** Draft | In Review | Approved | Implemented
+
+---
+
 ## 1) Goal / Problem
 
 (1–3 sentences)

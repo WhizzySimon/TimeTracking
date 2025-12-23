@@ -1,5 +1,12 @@
 # Quick-Start UX - Plan
 
+**Phase:** 7 (Quick-Start UX) + Phase 8 (Plus-Tab)  
+**Created:** 2025-12-23  
+**Last Updated:** 2025-12-23  
+**Based on Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md`
+
+---
+
 ## Architecture / modules
 
 ### Neue Komponenten

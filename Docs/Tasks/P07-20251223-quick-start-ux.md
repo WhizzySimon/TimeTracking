@@ -1,8 +1,12 @@
 # Quick-Start UX - Tasks
 
-**Status:** Ready for implementation  
-**Based on:** `Docs/Specs/quick-start-ux.md`, `Docs/Plans/quick-start-ux.md`  
-**Estimated total:** ~8 hours
+**Phase:** 7 (Quick-Start UX) + Phase 8 (Plus-Tab)  
+**Created:** 2025-12-23  
+**Last Updated:** 2025-12-23  
+**Based on Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md`  
+**Based on Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md`  
+**Status:** Phase 7 Complete, Phase 8 Pending  
+**Estimated total:** ~8 hours (Phase 7) + ~4 hours (Phase 8)
 
 ---
 
