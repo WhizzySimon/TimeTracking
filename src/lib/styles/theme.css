@@ -1,0 +1,196 @@
+/**
+ * TimeTracker Theme Tokens
+ * 
+ * Design token system for consistent UI theming.
+ * Two themes: Cool (default) and Warm.
+ * 
+ * Usage: Apply data-theme="cool" or data-theme="warm" to <html> element.
+ * Components should use var(--token-name) instead of hardcoded colors.
+ * 
+ * To add a new theme:
+ * 1. Add a new [data-theme="your-theme"] block
+ * 2. Override all color tokens
+ * 3. Add the theme option to the theme store and UI selector
+ */
+
+/* ============================================================================
+   Base tokens (shared across themes)
+   ============================================================================ */
+:root {
+	/* Shape tokens */
+	--r-card: 18px;
+	--r-btn: 22px;
+	--r-pill: 20px;
+	--r-input: 8px;
+
+	/* Elevation/shadow tokens */
+	--elev-1: 0 2px 8px rgba(0, 0, 0, 0.08);
+	--elev-2: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+	/* Spacing tokens */
+	--space-xs: 0.25rem;
+	--space-sm: 0.5rem;
+	--space-md: 1rem;
+	--space-lg: 1.5rem;
+	--space-xl: 2rem;
+
+	/* Typography */
+	--font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	--font-size-sm: 0.875rem;
+	--font-size-base: 1rem;
+	--font-size-lg: 1.25rem;
+	--font-size-xl: 1.5rem;
+
+	/* Transitions */
+	--transition-fast: 0.15s ease;
+	--transition-normal: 0.2s ease;
+}
+
+/* ============================================================================
+   Cool Theme (default) - Blue-based
+   ============================================================================ */
+[data-theme='cool'],
+:root {
+	/* Background colors */
+	--bg: #eaf0ff;
+	--surface: #ffffff;
+	--surface-hover: #f5f8ff;
+	--surface-active: #e8eeff;
+
+	/* Text colors */
+	--text: #121622;
+	--text-secondary: #374151;
+	--muted: #66708c;
+
+	/* Brand/accent */
+	--accent: #5d5fef;
+	--accent-hover: #4b4de0;
+	--accent-light: rgba(93, 95, 239, 0.1);
+
+	/* Semantic colors */
+	--pos: #00876e;
+	--pos-light: rgba(0, 135, 110, 0.1);
+	--neg: #be3746;
+	--neg-light: rgba(190, 55, 70, 0.1);
+	--warning: #f59e0b;
+	--warning-light: rgba(245, 158, 11, 0.1);
+
+	/* Borders */
+	--border: #e2e8f0;
+	--border-light: rgba(255, 255, 255, 0.9);
+
+	/* Header/Nav specific */
+	--header-bg: #5d5fef;
+	--header-text: #ffffff;
+	--header-text-muted: rgba(255, 255, 255, 0.7);
+	--header-border: rgba(255, 255, 255, 0.2);
+
+	/* Nav tabs */
+	--nav-bg: #5d5fef;
+	--nav-text: rgba(255, 255, 255, 0.7);
+	--nav-text-active: #ffffff;
+	--nav-active-bg: rgba(255, 255, 255, 0.15);
+
+	/* Buttons */
+	--btn-primary-bg: #5d5fef;
+	--btn-primary-text: #ffffff;
+	--btn-primary-hover: #4b4de0;
+	--btn-secondary-bg: #ffffff;
+	--btn-secondary-text: #374151;
+	--btn-secondary-border: #e2e8f0;
+	--btn-secondary-hover: #f5f8ff;
+	--btn-danger-bg: #be3746;
+	--btn-danger-text: #ffffff;
+	--btn-danger-hover: #a52f3c;
+
+	/* Inputs */
+	--input-bg: #ffffff;
+	--input-border: #e2e8f0;
+	--input-focus-border: #5d5fef;
+	--input-text: #121622;
+	--input-placeholder: #9ca3af;
+
+	/* Cards */
+	--card-bg: #ffffff;
+	--card-border: #e2e8f0;
+	--card-hover-border: #cbd5e1;
+
+	/* Summary bar */
+	--summary-bg: #ffffff;
+	--summary-label: #66708c;
+	--summary-value: #121622;
+}
+
+/* ============================================================================
+   Warm Theme - Orange/Brown-based
+   ============================================================================ */
+[data-theme='warm'] {
+	/* Background colors */
+	--bg: #f8f4ee;
+	--surface: #fffcf7;
+	--surface-hover: #faf6f0;
+	--surface-active: #f5efe6;
+
+	/* Text colors */
+	--text: #221c16;
+	--text-secondary: #3d3428;
+	--muted: #7a6856;
+
+	/* Brand/accent */
+	--accent: #d07e36;
+	--accent-hover: #b86d2a;
+	--accent-light: rgba(208, 126, 54, 0.1);
+
+	/* Semantic colors */
+	--pos: #287850;
+	--pos-light: rgba(40, 120, 80, 0.1);
+	--neg: #aa463c;
+	--neg-light: rgba(170, 70, 60, 0.1);
+	--warning: #d07e36;
+	--warning-light: rgba(208, 126, 54, 0.1);
+
+	/* Borders */
+	--border: #e8e0d4;
+	--border-light: rgba(255, 252, 247, 0.9);
+
+	/* Header/Nav specific */
+	--header-bg: #d07e36;
+	--header-text: #ffffff;
+	--header-text-muted: rgba(255, 255, 255, 0.7);
+	--header-border: rgba(255, 255, 255, 0.2);
+
+	/* Nav tabs */
+	--nav-bg: #d07e36;
+	--nav-text: rgba(255, 255, 255, 0.7);
+	--nav-text-active: #ffffff;
+	--nav-active-bg: rgba(255, 255, 255, 0.15);
+
+	/* Buttons */
+	--btn-primary-bg: #d07e36;
+	--btn-primary-text: #ffffff;
+	--btn-primary-hover: #b86d2a;
+	--btn-secondary-bg: #fffcf7;
+	--btn-secondary-text: #3d3428;
+	--btn-secondary-border: #e8e0d4;
+	--btn-secondary-hover: #faf6f0;
+	--btn-danger-bg: #aa463c;
+	--btn-danger-text: #ffffff;
+	--btn-danger-hover: #943c34;
+
+	/* Inputs */
+	--input-bg: #fffcf7;
+	--input-border: #e8e0d4;
+	--input-focus-border: #d07e36;
+	--input-text: #221c16;
+	--input-placeholder: #a89888;
+
+	/* Cards */
+	--card-bg: #fffcf7;
+	--card-border: #e8e0d4;
+	--card-hover-border: #d8cfc0;
+
+	/* Summary bar */
+	--summary-bg: #fffcf7;
+	--summary-label: #7a6856;
+	--summary-value: #221c16;
+}

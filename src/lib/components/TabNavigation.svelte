@@ -51,8 +51,8 @@
 		transform: translateX(-50%);
 		width: 100%;
 		max-width: 600px;
-		background: #1e40af;
-		border-top: 1px solid #1e3a8a;
+		background: var(--nav-bg);
+		border-top: 1px solid var(--header-border);
 		padding: 0;
 		z-index: 100;
 	}
@@ -65,22 +65,22 @@
 		min-height: 50px;
 		padding: 10px 8px;
 		text-decoration: none;
-		color: #93c5fd;
+		color: var(--nav-text);
 		font-size: 0.875rem;
 		font-weight: 500;
 		white-space: nowrap;
 		transition:
-			color 0.15s ease,
-			background-color 0.15s ease;
+			color var(--transition-fast),
+			background-color var(--transition-fast);
 	}
 
 	.tab:hover {
-		background-color: #2563eb;
-		color: #bfdbfe;
+		background-color: var(--nav-active-bg);
+		color: var(--nav-text-active);
 	}
 
 	.tab.active {
-		color: #ffffff;
-		background-color: #3b82f6;
+		color: var(--nav-text-active);
+		background-color: var(--nav-active-bg);
 	}
 </style>

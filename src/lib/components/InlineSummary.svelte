@@ -42,9 +42,10 @@
 		flex-wrap: wrap;
 		gap: 1rem;
 		padding: 0.75rem 1rem;
-		background-color: var(--surface-color, #f5f5f5);
-		border-radius: 8px;
+		background-color: var(--summary-bg);
+		border-radius: var(--r-card);
 		font-size: 0.9rem;
+		border: 1px solid var(--border);
 	}
 
 	.summary-item {
@@ -54,21 +55,21 @@
 	}
 
 	.label {
-		color: var(--text-secondary, #666);
+		color: var(--summary-label);
 		font-weight: 500;
 	}
 
 	.value {
 		font-weight: 600;
-		color: var(--text-primary, #333);
+		color: var(--summary-value);
 	}
 
 	.value.positive {
-		color: var(--success-color, #22c55e);
+		color: var(--pos);
 	}
 
 	.value.negative {
-		color: var(--error-color, #ef4444);
+		color: var(--neg);
 	}
 
 	@media (max-width: 360px) {

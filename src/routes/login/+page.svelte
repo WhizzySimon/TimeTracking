@@ -106,30 +106,30 @@
 		align-items: center;
 		justify-content: center;
 		padding: 1rem;
-		background: #f5f5f5;
+		background: var(--bg);
 	}
 
 	.login-card {
 		width: 100%;
 		max-width: 400px;
-		background: white;
-		border-radius: 12px;
+		background: var(--surface);
+		border-radius: var(--r-card);
 		padding: 2rem;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		box-shadow: var(--elev-2);
 	}
 
 	h1 {
 		margin: 0 0 0.5rem;
 		font-size: 1.75rem;
 		text-align: center;
-		color: #3b82f6;
+		color: var(--accent);
 	}
 
 	h2 {
 		margin: 0 0 1.5rem;
 		font-size: 1.25rem;
 		text-align: center;
-		color: #333;
+		color: var(--text);
 		font-weight: 500;
 	}
 
@@ -147,41 +147,47 @@
 
 	.field label {
 		font-size: 0.9rem;
-		color: #333;
+		color: var(--text);
 		font-weight: 500;
 	}
 
 	.field input {
 		padding: 0.75rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
 		font-size: 1rem;
+		background: var(--input-bg);
+		color: var(--input-text);
+	}
+
+	.field input::placeholder {
+		color: var(--input-placeholder);
 	}
 
 	.field input:focus {
 		outline: none;
-		border-color: #3b82f6;
+		border-color: var(--input-focus-border);
 	}
 
 	.field input:disabled {
-		background: #f5f5f5;
+		background: var(--surface-hover);
 	}
 
 	.error {
-		color: #dc2626;
+		color: var(--neg);
 		font-size: 0.9rem;
 		padding: 0.75rem;
-		background: #fef2f2;
+		background: var(--neg-light);
 		border-radius: 6px;
 		text-align: center;
 	}
 
 	.submit-btn {
 		padding: 0.875rem;
-		background: #3b82f6;
-		color: white;
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
 		border: none;
-		border-radius: 8px;
+		border-radius: var(--r-btn);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
@@ -189,7 +195,7 @@
 	}
 
 	.submit-btn:hover:not(:disabled) {
-		background: #2563eb;
+		background: var(--btn-primary-hover);
 	}
 
 	.submit-btn:disabled {
@@ -202,52 +208,16 @@
 		justify-content: space-between;
 		margin-top: 1.5rem;
 		padding-top: 1rem;
-		border-top: 1px solid #eee;
+		border-top: 1px solid var(--border);
 	}
 
 	.links a {
-		color: #3b82f6;
+		color: var(--accent);
 		text-decoration: none;
 		font-size: 0.9rem;
 	}
 
 	.links a:hover {
 		text-decoration: underline;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.login-page {
-			background: #1a1a1a;
-		}
-
-		.login-card {
-			background: #2a2a2a;
-		}
-
-		h2 {
-			color: #eee;
-		}
-
-		.field label {
-			color: #ddd;
-		}
-
-		.field input {
-			background: #333;
-			border-color: #444;
-			color: #eee;
-		}
-
-		.field input:focus {
-			border-color: #3b82f6;
-		}
-
-		.field input:disabled {
-			background: #2a2a2a;
-		}
-
-		.links {
-			border-top-color: #444;
-		}
 	}
 </style>

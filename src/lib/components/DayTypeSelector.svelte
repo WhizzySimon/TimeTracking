@@ -114,23 +114,24 @@
 
 	.day-type-selector label {
 		font-weight: 500;
-		color: #666;
+		color: var(--muted);
 	}
 
 	.day-type-select {
 		flex: 1;
 		padding: 0.5rem 0.75rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
 		font-size: 1rem;
-		background: white;
+		background: var(--input-bg);
+		color: var(--input-text);
 		cursor: pointer;
 	}
 
 	.day-type-select:focus {
 		outline: none;
-		border-color: #3b82f6;
-		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+		border-color: var(--input-focus-border);
+		box-shadow: 0 0 0 2px var(--accent-light);
 	}
 
 	.day-type-select:disabled {

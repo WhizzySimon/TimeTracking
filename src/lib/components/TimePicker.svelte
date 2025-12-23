@@ -86,10 +86,11 @@
 
 	.time-select {
 		padding: 0.5rem 0.5rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
 		font-size: 1rem;
-		background: white;
+		background: var(--input-bg);
+		color: var(--input-text);
 		cursor: pointer;
 		min-width: 60px;
 		text-align: center;
@@ -97,13 +98,13 @@
 
 	.time-select:focus {
 		outline: none;
-		border-color: #3b82f6;
-		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+		border-color: var(--input-focus-border);
+		box-shadow: 0 0 0 2px var(--accent-light);
 	}
 
 	.separator {
 		font-size: 1.25rem;
 		font-weight: 500;
-		color: #333;
+		color: var(--text);
 	}
 </style>

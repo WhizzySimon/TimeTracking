@@ -320,7 +320,7 @@
 		display: flex;
 		justify-content: center;
 		padding: 2rem;
-		color: #666;
+		color: var(--muted);
 	}
 
 	/* Month Navigation */
@@ -334,9 +334,10 @@
 	.nav-btn {
 		width: 44px;
 		height: 44px;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		background: white;
+		border: 1px solid var(--border);
+		border-radius: var(--r-btn);
+		background: var(--surface);
+		color: var(--text);
 		font-size: 1.25rem;
 		cursor: pointer;
 		display: flex;
@@ -345,11 +346,11 @@
 	}
 
 	.nav-btn:hover {
-		background: #f5f5f5;
+		background: var(--surface-hover);
 	}
 
 	.nav-btn:active {
-		background: #eee;
+		background: var(--surface-active);
 	}
 
 	.month-title {
@@ -362,11 +363,12 @@
 		border: none;
 		cursor: pointer;
 		padding: 0.5rem;
-		border-radius: 8px;
+		border-radius: var(--r-btn);
+		color: var(--text);
 	}
 
 	.month-title:hover {
-		background: #f5f5f5;
+		background: var(--surface-hover);
 	}
 
 	/* Week List */
@@ -381,9 +383,9 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.75rem 1rem;
-		background: white;
-		border: 1px solid #eee;
-		border-radius: 8px;
+		background: var(--card-bg);
+		border: 1px solid var(--card-border);
+		border-radius: var(--r-card);
 		width: 100%;
 		text-align: left;
 		cursor: pointer;
@@ -392,12 +394,12 @@
 	}
 
 	.week-item:hover {
-		background: #f8fafc;
-		border-color: #3b82f6;
+		background: var(--surface-hover);
+		border-color: var(--accent);
 	}
 
 	.week-item:active {
-		background: #eff6ff;
+		background: var(--accent-light);
 	}
 
 	.week-info {
@@ -408,17 +410,17 @@
 
 	.week-number {
 		font-weight: 600;
-		color: #333;
+		color: var(--text);
 		min-width: 50px;
 	}
 
 	.week-range {
-		color: #666;
+		color: var(--muted);
 		font-size: 0.9rem;
 	}
 
 	.week-days {
-		color: #999;
+		color: var(--muted);
 		font-size: 0.8rem;
 	}
 
@@ -426,26 +428,26 @@
 		display: flex;
 		gap: 0.25rem;
 		font-size: 0.9rem;
-		color: #666;
+		color: var(--muted);
 	}
 
 	.week-hours .ist {
-		color: #333;
+		color: var(--text);
 	}
 
 	.week-hours .separator {
-		color: #999;
+		color: var(--muted);
 	}
 
 	.week-hours .soll {
-		color: #666;
+		color: var(--muted);
 	}
 
 	.week-hours .saldo.positive {
-		color: #16a34a;
+		color: var(--pos);
 	}
 
 	.week-hours .saldo.negative {
-		color: #dc2626;
+		color: var(--neg);
 	}
 </style>

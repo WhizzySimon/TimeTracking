@@ -234,7 +234,7 @@
 		display: flex;
 		justify-content: center;
 		padding: 2rem;
-		color: #666;
+		color: var(--muted);
 	}
 
 	/* Date Navigation */
@@ -248,9 +248,10 @@
 	.nav-btn {
 		width: 44px;
 		height: 44px;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		background: white;
+		border: 1px solid var(--border);
+		border-radius: var(--r-btn);
+		background: var(--surface);
+		color: var(--text);
 		font-size: 1.25rem;
 		cursor: pointer;
 		display: flex;
@@ -259,11 +260,11 @@
 	}
 
 	.nav-btn:hover {
-		background: #f5f5f5;
+		background: var(--surface-hover);
 	}
 
 	.nav-btn:active {
-		background: #eee;
+		background: var(--surface-active);
 	}
 
 	.date-title {
@@ -276,11 +277,12 @@
 		border: none;
 		cursor: pointer;
 		padding: 0.5rem;
-		border-radius: 8px;
+		border-radius: var(--r-btn);
+		color: var(--text);
 	}
 
 	.date-title:hover {
-		background: #f5f5f5;
+		background: var(--surface-hover);
 	}
 
 	/* Add Task Button */
@@ -291,18 +293,18 @@
 	.add-task-btn {
 		width: 100%;
 		padding: 0.75rem 1rem;
-		border: 2px dashed #ddd;
-		border-radius: 8px;
+		border: 2px dashed var(--border);
+		border-radius: var(--r-btn);
 		background: transparent;
-		color: #666;
+		color: var(--muted);
 		font-size: 1rem;
 		cursor: pointer;
-		transition: all 0.2s;
+		transition: all var(--transition-normal);
 	}
 
 	.add-task-btn:hover {
-		border-color: #3b82f6;
-		color: #3b82f6;
-		background: rgba(59, 130, 246, 0.05);
+		border-color: var(--accent);
+		color: var(--accent);
+		background: var(--accent-light);
 	}
 </style>

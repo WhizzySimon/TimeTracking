@@ -59,24 +59,24 @@
 		flex-direction: column;
 		gap: 0.25rem;
 		padding: 0.75rem 1rem;
-		background: white;
-		border: 1px solid #e5e5e5;
-		border-radius: 8px;
+		background: var(--card-bg);
+		border: 1px solid var(--card-border);
+		border-radius: var(--r-card);
 		cursor: pointer;
 		text-align: left;
 		width: 100%;
 		box-sizing: border-box;
-		transition: all 0.2s;
+		transition: all var(--transition-normal);
 	}
 
 	.task-item:hover {
-		border-color: #3b82f6;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+		border-color: var(--accent);
+		box-shadow: var(--elev-1);
 	}
 
 	.task-item.running {
-		border-color: #f59e0b;
-		background: #fffbeb;
+		border-color: var(--warning);
+		background: var(--warning-light);
 	}
 
 	.task-header {
@@ -98,7 +98,7 @@
 		height: 28px;
 		border: none;
 		background: transparent;
-		color: #999;
+		color: var(--muted);
 		font-size: 1.25rem;
 		cursor: pointer;
 		border-radius: 4px;
@@ -109,24 +109,24 @@
 	}
 
 	.delete-btn:hover {
-		background: #fee2e2;
-		color: #dc2626;
+		background: var(--neg-light);
+		color: var(--neg);
 	}
 
 	.task-time {
 		font-weight: 600;
 		font-size: 0.95rem;
-		color: #333;
+		color: var(--text);
 	}
 
 	.task-category {
 		font-size: 0.9rem;
-		color: #666;
+		color: var(--muted);
 	}
 
 	.task-description {
 		font-size: 0.85rem;
-		color: #888;
+		color: var(--muted);
 		font-style: italic;
 	}
 </style>

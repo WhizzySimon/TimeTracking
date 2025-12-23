@@ -15,6 +15,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { categories, workTimeModels } from '$lib/stores';
+	import { theme, setTheme, type ThemeValue } from '$lib/stores/theme';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
 	import { deleteUserCategoryWithSync, deleteWorkTimeModel } from '$lib/storage/operations';
@@ -87,6 +88,19 @@
 		abwesenheit: true,
 		arbeit: true
 	});
+	let currentTheme = $state<ThemeValue>('cool');
+
+	// Subscribe to theme store
+	$effect(() => {
+		const unsubscribe = theme.subscribe((value) => {
+			currentTheme = value;
+		});
+		return unsubscribe;
+	});
+
+	function handleThemeChange(newTheme: ThemeValue) {
+		setTheme(newTheme);
+	}
 	let deleteAccountInProgress = $state(false);
 	let deleteAccountError = $state<string | null>(null);
 
@@ -210,6 +224,32 @@
 			<p>Laden...</p>
 		</div>
 	{:else}
+		<!-- Appearance Section -->
+		<section class="section">
+			<div class="section-header">
+				<h2>Erscheinungsbild</h2>
+			</div>
+			<div class="theme-selector">
+				<span class="theme-label">Design</span>
+				<div class="theme-toggle">
+					<button
+						class="theme-option"
+						class:active={currentTheme === 'cool'}
+						onclick={() => handleThemeChange('cool')}
+					>
+						Cool
+					</button>
+					<button
+						class="theme-option"
+						class:active={currentTheme === 'warm'}
+						onclick={() => handleThemeChange('warm')}
+					>
+						Warm
+					</button>
+				</div>
+			</div>
+		</section>
+
 		<!-- Arbeitszeitmodelle Section (first - shorter list) -->
 		<section class="section">
 			<div class="section-header">
@@ -523,7 +563,54 @@
 		display: flex;
 		justify-content: center;
 		padding: 2rem;
-		color: #666;
+		color: var(--muted);
+	}
+
+	.theme-selector {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.75rem 1rem;
+		background: var(--card-bg);
+		border: 1px solid var(--card-border);
+		border-radius: var(--r-card);
+	}
+
+	.theme-label {
+		font-weight: 500;
+		color: var(--text);
+	}
+
+	.theme-toggle {
+		display: flex;
+		gap: 0;
+		border-radius: var(--r-pill);
+		overflow: hidden;
+		border: 1px solid var(--border);
+	}
+
+	.theme-option {
+		padding: 0.5rem 1rem;
+		border: none;
+		background: var(--surface);
+		color: var(--muted);
+		font-size: 0.9rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all var(--transition-fast);
+	}
+
+	.theme-option:first-child {
+		border-right: 1px solid var(--border);
+	}
+
+	.theme-option:hover:not(.active) {
+		background: var(--surface-hover);
+	}
+
+	.theme-option.active {
+		background: var(--accent);
+		color: white;
 	}
 
 	.section {
@@ -543,6 +630,7 @@
 		margin: 0;
 		font-size: 1.25rem;
 		font-weight: 600;
+		color: var(--text);
 	}
 
 	.section-toggle {
@@ -557,13 +645,13 @@
 	}
 
 	.section-toggle:hover h2 {
-		color: #3b82f6;
+		color: var(--accent);
 	}
 
 	.toggle-icon {
 		font-size: 0.75rem;
-		color: #6b7280;
-		transition: transform 0.2s ease;
+		color: var(--muted);
+		transition: transform var(--transition-normal);
 	}
 
 	.toggle-icon.expanded {
@@ -581,7 +669,7 @@
 		border: none;
 		border-radius: 4px;
 		background: transparent;
-		color: #3b82f6;
+		color: var(--accent);
 		font-size: 1.5rem;
 		font-weight: 300;
 		cursor: pointer;
@@ -591,7 +679,7 @@
 	}
 
 	.icon-btn:hover {
-		background: #eff6ff;
+		background: var(--accent-light);
 	}
 
 	.menu-container {
@@ -604,7 +692,7 @@
 		border: none;
 		border-radius: 4px;
 		background: transparent;
-		color: #6b7280;
+		color: var(--muted);
 		font-size: 1.25rem;
 		cursor: pointer;
 		display: flex;
@@ -613,8 +701,8 @@
 	}
 
 	.menu-btn:hover {
-		background: #f3f4f6;
-		color: #333;
+		background: var(--surface-hover);
+		color: var(--text);
 	}
 
 	.dropdown-menu {
@@ -622,10 +710,10 @@
 		top: 100%;
 		right: 0;
 		margin-top: 0.25rem;
-		background: white;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--r-card);
+		box-shadow: var(--elev-2);
 		z-index: 100;
 		min-width: 140px;
 		overflow: hidden;
@@ -638,8 +726,8 @@
 		width: 100%;
 		padding: 0.75rem 1rem;
 		border: none;
-		background: white;
-		color: #333;
+		background: var(--surface);
+		color: var(--text);
 		font-size: 0.9rem;
 		text-align: left;
 		cursor: pointer;
@@ -652,11 +740,11 @@
 	}
 
 	.dropdown-item:hover {
-		background: #f3f4f6;
+		background: var(--surface-hover);
 	}
 
 	.dropdown-item:not(:last-child) {
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid var(--border);
 	}
 
 	.list {
@@ -667,7 +755,7 @@
 
 	.empty {
 		text-align: center;
-		color: #888;
+		color: var(--muted);
 		padding: 1rem;
 		margin: 0;
 	}
@@ -677,9 +765,9 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.75rem 1rem;
-		background: white;
-		border: 1px solid #eee;
-		border-radius: 8px;
+		background: var(--card-bg);
+		border: 1px solid var(--card-border);
+		border-radius: var(--r-card);
 	}
 
 	.list-item.clickable {
@@ -687,8 +775,8 @@
 	}
 
 	.list-item.clickable:hover {
-		background: #f9fafb;
-		border-color: #ddd;
+		background: var(--surface-hover);
+		border-color: var(--card-hover-border);
 	}
 
 	.item-info {
@@ -700,12 +788,12 @@
 
 	.item-name {
 		font-weight: 500;
-		color: #333;
+		color: var(--text);
 	}
 
 	.item-detail {
 		font-size: 0.85rem;
-		color: #666;
+		color: var(--muted);
 	}
 
 	.delete-btn {
@@ -714,7 +802,7 @@
 		border: none;
 		border-radius: 4px;
 		background: transparent;
-		color: #dc2626;
+		color: var(--neg);
 		font-size: 1.25rem;
 		cursor: pointer;
 		display: flex;
@@ -723,20 +811,20 @@
 	}
 
 	.delete-btn:hover {
-		background: #fef2f2;
+		background: var(--neg-light);
 	}
 
 	.version-section {
 		margin-top: 1rem;
 		padding-top: 1rem;
-		border-top: 1px solid #eee;
+		border-top: 1px solid var(--border);
 	}
 
 	.version-info {
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
-		color: #666;
+		color: var(--muted);
 		font-size: 0.85rem;
 	}
 
@@ -746,29 +834,29 @@
 
 	.build-time {
 		font-size: 0.75rem;
-		color: #999;
+		color: var(--muted);
 	}
 
 	.delete-account-section {
 		margin-top: 2rem;
 		padding-top: 1rem;
-		border-top: 1px solid #eee;
+		border-top: 1px solid var(--border);
 	}
 
 	.delete-account-btn {
 		width: 100%;
 		padding: 0.875rem;
-		background: #dc2626;
-		color: white;
+		background: var(--btn-danger-bg);
+		color: var(--btn-danger-text);
 		border: none;
-		border-radius: 8px;
+		border-radius: var(--r-btn);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
 	}
 
 	.delete-account-btn:hover:not(:disabled) {
-		background: #b91c1c;
+		background: var(--btn-danger-hover);
 	}
 
 	.delete-account-btn:disabled {
@@ -780,7 +868,7 @@
 		display: block;
 		margin-top: 0.5rem;
 		font-size: 0.85rem;
-		color: #dc2626;
+		color: var(--neg);
 		text-align: center;
 	}
 
@@ -793,16 +881,16 @@
 	.import-btn {
 		width: 100%;
 		padding: 0.875rem;
-		background: #3b82f6;
-		color: white;
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
 		border: none;
-		border-radius: 8px;
+		border-radius: var(--r-btn);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
 	}
 
 	.import-btn:hover {
-		background: #2563eb;
+		background: var(--btn-primary-hover);
 	}
 </style>

@@ -209,10 +209,10 @@
 	}
 
 	.error-message {
-		background: #fef2f2;
-		color: #dc2626;
+		background: var(--neg-light);
+		color: var(--neg);
 		padding: 0.75rem;
-		border-radius: 8px;
+		border-radius: var(--r-input);
 		font-size: 0.9rem;
 	}
 
@@ -234,20 +234,26 @@
 	label {
 		font-weight: 500;
 		font-size: 0.9rem;
-		color: #333;
+		color: var(--text);
 	}
 
 	input {
 		padding: 0.5rem 0.75rem;
-		border: 1px solid #ddd;
-		border-radius: 8px;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
 		font-size: 1rem;
+		background: var(--input-bg);
+		color: var(--input-text);
+	}
+
+	input::placeholder {
+		color: var(--input-placeholder);
 	}
 
 	input:focus {
 		outline: none;
-		border-color: #3b82f6;
-		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+		border-color: var(--input-focus-border);
+		box-shadow: 0 0 0 2px var(--accent-light);
 	}
 
 	.form-actions {
@@ -260,20 +266,20 @@
 	.btn-primary,
 	.btn-secondary {
 		padding: 0.5rem 1rem;
-		border-radius: 8px;
+		border-radius: var(--r-btn);
 		font-size: 1rem;
 		cursor: pointer;
-		transition: all 0.2s;
+		transition: all var(--transition-normal);
 	}
 
 	.btn-primary {
-		background: #3b82f6;
-		color: white;
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
 		border: none;
 	}
 
 	.btn-primary:hover:not(:disabled) {
-		background: #2563eb;
+		background: var(--btn-primary-hover);
 	}
 
 	.btn-primary:disabled {
@@ -282,13 +288,13 @@
 	}
 
 	.btn-secondary {
-		background: white;
-		color: #666;
-		border: 1px solid #ddd;
+		background: var(--btn-secondary-bg);
+		color: var(--btn-secondary-text);
+		border: 1px solid var(--btn-secondary-border);
 	}
 
 	.btn-secondary:hover:not(:disabled) {
-		background: #f5f5f5;
+		background: var(--btn-secondary-hover);
 	}
 
 	.btn-secondary:disabled {

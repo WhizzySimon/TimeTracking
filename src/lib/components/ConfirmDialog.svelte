@@ -91,7 +91,7 @@
 		margin: 0;
 		font-size: 1rem;
 		line-height: 1.5;
-		color: #333;
+		color: var(--text);
 	}
 
 	.actions {
@@ -103,37 +103,37 @@
 	.btn-secondary,
 	.btn-confirm {
 		padding: 0.625rem 1.25rem;
-		border-radius: 8px;
+		border-radius: var(--r-btn);
 		font-size: 1rem;
 		cursor: pointer;
-		transition: all 0.2s;
+		transition: all var(--transition-normal);
 	}
 
 	.btn-secondary {
-		background: white;
-		color: #666;
-		border: 1px solid #ddd;
+		background: var(--btn-secondary-bg);
+		color: var(--btn-secondary-text);
+		border: 1px solid var(--btn-secondary-border);
 	}
 
 	.btn-secondary:hover {
-		background: #f5f5f5;
+		background: var(--btn-secondary-hover);
 	}
 
 	.btn-confirm {
-		background: #3b82f6;
-		color: white;
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
 		border: none;
 	}
 
 	.btn-confirm:hover {
-		background: #2563eb;
+		background: var(--btn-primary-hover);
 	}
 
 	.btn-confirm.danger {
-		background: #dc2626;
+		background: var(--btn-danger-bg);
 	}
 
 	.btn-confirm.danger:hover {
-		background: #b91c1c;
+		background: var(--btn-danger-hover);
 	}
 </style>

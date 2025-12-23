@@ -143,13 +143,13 @@
 	}
 
 	.modal-content {
-		background: white;
-		border-radius: 12px;
+		background: var(--surface);
+		border-radius: var(--r-card);
 		width: 100%;
 		max-width: 400px;
 		max-height: calc(100vh - 4rem);
 		overflow-y: auto;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+		box-shadow: var(--elev-2);
 	}
 
 	.modal-content.dragged {
@@ -162,13 +162,14 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 1rem 1rem 0.5rem;
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid var(--border);
 	}
 
 	.modal-header h2 {
 		margin: 0;
 		font-size: 1.25rem;
 		font-weight: 600;
+		color: var(--text);
 	}
 
 	.close-btn {
@@ -178,7 +179,7 @@
 		background: none;
 		font-size: 1.5rem;
 		cursor: pointer;
-		color: #666;
+		color: var(--muted);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -186,8 +187,8 @@
 	}
 
 	.close-btn:hover {
-		background: #f5f5f5;
-		color: #333;
+		background: var(--surface-hover);
+		color: var(--text);
 	}
 
 	.modal-body {

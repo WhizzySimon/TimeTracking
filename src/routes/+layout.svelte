@@ -5,6 +5,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import favicon from '$lib/assets/favicon.svg';
+	import '$lib/styles/theme.css';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
@@ -13,6 +14,7 @@
 	import { saveToCloud, needsBackup as checkNeedsBackup } from '$lib/backup/cloud';
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
 	import { setupUpdateDetection, updateAvailable, applyUpdate } from '$lib/pwa/update';
+	import { initTheme } from '$lib/stores/theme';
 
 	let { children } = $props();
 
@@ -81,6 +83,9 @@
 	}
 
 	onMount(async () => {
+		// Initialize theme from localStorage
+		initTheme();
+
 		if (!dev && 'serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/sw.js');
 		}
@@ -321,8 +326,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: #f5f5f5;
-		color: #666;
+		background: var(--bg);
+		color: var(--muted);
 	}
 
 	.auth-content {
@@ -336,14 +341,9 @@
 	}
 
 	:global(body) {
-		font-family:
-			system-ui,
-			-apple-system,
-			BlinkMacSystemFont,
-			'Segoe UI',
-			Roboto,
-			sans-serif;
-		background-color: #ffffff;
+		font-family: var(--font-family);
+		background-color: var(--bg);
+		color: var(--text);
 	}
 
 	.app-container {
@@ -352,7 +352,7 @@
 		min-height: 100vh;
 		max-width: 600px;
 		margin: 0 auto;
-		background-color: #eff6ff;
+		background-color: var(--bg);
 	}
 
 	.app-header {
@@ -360,8 +360,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 8px 1rem;
-		background: #1e40af;
-		border-bottom: 1px solid #1e3a8a;
+		background: var(--header-bg);
+		border-bottom: 1px solid var(--header-border);
 		position: sticky;
 		top: 0;
 		z-index: 50;
@@ -388,12 +388,12 @@
 	}
 
 	.backup-btn {
-		background: #3b82f6;
-		color: white;
+		background: rgba(255, 255, 255, 0.2);
+		color: var(--header-text);
 	}
 
 	.backup-btn:hover:not(:disabled) {
-		background: #2563eb;
+		background: rgba(255, 255, 255, 0.3);
 	}
 
 	.backup-btn:disabled {
@@ -407,8 +407,8 @@
 
 	.profile-btn {
 		background: transparent;
-		color: #bfdbfe;
-		border: 1px solid #3b82f6;
+		color: var(--header-text-muted);
+		border: 1px solid var(--header-border);
 		border-radius: 50%;
 		width: 36px;
 		height: 36px;
@@ -419,8 +419,8 @@
 	}
 
 	.profile-btn:hover {
-		background: #2563eb;
-		color: #ffffff;
+		background: rgba(255, 255, 255, 0.15);
+		color: var(--header-text);
 	}
 
 	.profile-menu {
@@ -428,9 +428,9 @@
 		top: 100%;
 		right: 0;
 		margin-top: 8px;
-		background: white;
-		border-radius: 8px;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		background: var(--surface);
+		border-radius: var(--r-card);
+		box-shadow: var(--elev-2);
 		min-width: 200px;
 		z-index: 100;
 		overflow: hidden;
@@ -439,15 +439,15 @@
 	.profile-email {
 		padding: 12px 16px;
 		font-size: 0.85rem;
-		color: #666;
-		background: #f9fafb;
-		border-bottom: 1px solid #eee;
+		color: var(--muted);
+		background: var(--surface-hover);
+		border-bottom: 1px solid var(--border);
 		word-break: break-all;
 	}
 
 	.menu-divider {
 		height: 1px;
-		background: #eee;
+		background: var(--border);
 	}
 
 	.menu-item {
@@ -456,7 +456,7 @@
 		gap: 10px;
 		padding: 12px 16px;
 		font-size: 0.9rem;
-		color: #333;
+		color: var(--text);
 		text-decoration: none;
 		background: none;
 		border: none;
@@ -466,15 +466,15 @@
 	}
 
 	.menu-item:hover {
-		background: #f5f5f5;
+		background: var(--surface-hover);
 	}
 
 	.menu-item.logout {
-		color: #dc2626;
+		color: var(--neg);
 	}
 
 	.menu-item.logout:hover {
-		background: #fef2f2;
+		background: var(--neg-light);
 	}
 
 	.profile-menu-backdrop {
@@ -495,7 +495,7 @@
 		justify-content: center;
 		width: 18px;
 		height: 18px;
-		background: #dc2626;
+		background: var(--neg);
 		color: white;
 		border-radius: 50%;
 		font-size: 0.75rem;
@@ -509,17 +509,17 @@
 	}
 
 	.install-banner {
-		background: #1e3a8a;
+		background: var(--header-bg);
 		padding: 8px 12px;
 		display: flex;
 		justify-content: center;
 	}
 
 	.install-btn {
-		background: #22c55e;
+		background: var(--pos);
 		color: white;
 		border: none;
-		border-radius: 6px;
+		border-radius: var(--r-btn);
 		padding: 8px 24px;
 		font-size: 0.9rem;
 		font-weight: 600;
@@ -529,21 +529,21 @@
 	}
 
 	.install-btn:hover {
-		background: #16a34a;
+		opacity: 0.9;
 	}
 
 	.update-banner {
-		background: #1e3a8a;
+		background: var(--header-bg);
 		padding: 8px 12px;
 		display: flex;
 		justify-content: center;
 	}
 
 	.update-btn {
-		background: #f59e0b;
+		background: var(--warning);
 		color: white;
 		border: none;
-		border-radius: 6px;
+		border-radius: var(--r-btn);
 		padding: 8px 24px;
 		font-size: 0.9rem;
 		font-weight: 600;
@@ -553,6 +553,6 @@
 	}
 
 	.update-btn:hover {
-		background: #d97706;
+		opacity: 0.9;
 	}
 </style>
