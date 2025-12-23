@@ -423,6 +423,7 @@
 		padding: 8px 1rem;
 		background: var(--header-bg);
 		border-bottom: 1px solid var(--header-border);
+		border-radius: var(--r-card) var(--r-card) 0 0;
 		position: sticky;
 		top: 0;
 		z-index: 50;
