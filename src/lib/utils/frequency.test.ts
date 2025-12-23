@@ -295,9 +295,33 @@ describe('getSmartTopCategories', () => {
 		createCategory('system-pause', 'Pause', 'system')
 	];
 
+	// Helper to create baseline entries (20+ days) so algorithm returns results
+	function createBaselineEntries(now: Date, categoryId: string = 'cat-e'): TimeEntry[] {
+		const entries: TimeEntry[] = [];
+		for (let i = 0; i < 25; i++) {
+			const date = new Date(now);
+			date.setDate(date.getDate() - i);
+			entries.push(createEntryWithTime(categoryId, date.toISOString().split('T')[0], '12:00'));
+		}
+		return entries;
+	}
+
 	it('returns empty array for no entries', () => {
 		const now = new Date('2025-12-23T09:00:00');
 		const result = getSmartTopCategories(5, [], categories, now);
+		expect(result).toEqual([]);
+	});
+
+	it('returns empty array when less than 20 days with entries', () => {
+		const now = new Date('2025-12-23T09:00:00');
+		// Only 5 days of entries - not enough for meaningful suggestions
+		const entries: TimeEntry[] = [];
+		for (let i = 0; i < 5; i++) {
+			const date = new Date(now);
+			date.setDate(date.getDate() - i);
+			entries.push(createEntryWithTime('cat-a', date.toISOString().split('T')[0], '09:00'));
+		}
+		const result = getSmartTopCategories(5, entries, categories, now);
 		expect(result).toEqual([]);
 	});
 
@@ -305,23 +329,27 @@ describe('getSmartTopCategories', () => {
 		// Tuesday 09:15 - slot 4 (08:00-10:00), weekday 2
 		const now = new Date('2025-12-23T09:15:00'); // Tuesday
 
-		const entries: TimeEntry[] = [
-			// cat-a: 1 context match (Tuesday 09:00), 2 total
-			createEntryWithTime('cat-a', '2025-12-23', '09:00'), // Context match!
-			createEntryWithTime('cat-a', '2025-12-20', '14:00'), // Different day/time
-
-			// cat-b: 0 context matches, 5 total (higher frequency but no context)
-			createEntryWithTime('cat-b', '2025-12-22', '09:00'), // Monday, not Tuesday
-			createEntryWithTime('cat-b', '2025-12-21', '09:00'),
-			createEntryWithTime('cat-b', '2025-12-20', '09:00'),
-			createEntryWithTime('cat-b', '2025-12-19', '09:00'),
-			createEntryWithTime('cat-b', '2025-12-18', '09:00')
-		];
+		// Create 25 days of entries for cat-a and cat-b
+		const entries: TimeEntry[] = [];
+		for (let i = 0; i < 25; i++) {
+			const date = new Date(now);
+			date.setDate(date.getDate() - i);
+			const dateStr = date.toISOString().split('T')[0];
+			// cat-a gets context matches on Tuesdays at 09:xx
+			if (date.getDay() === 2) {
+				entries.push(createEntryWithTime('cat-a', dateStr, '09:00')); // Context match!
+			} else {
+				entries.push(createEntryWithTime('cat-a', dateStr, '14:00')); // No context
+			}
+			// cat-b gets more entries but never at Tuesday 09:xx
+			entries.push(createEntryWithTime('cat-b', dateStr, '15:00'));
+			entries.push(createEntryWithTime('cat-b', dateStr, '16:00'));
+		}
 
 		const result = getSmartTopCategories(2, entries, categories, now);
 
-		// cat-a should be first (1 context match = 1000 + 2 = 1002)
-		// cat-b should be second (0 context matches = 0 + 5 = 5)
+		// cat-a should be first (has context matches on Tuesdays 09:xx)
+		// cat-b should be second (more total entries but no context matches)
 		expect(result[0].id).toBe('cat-a');
 		expect(result[1].id).toBe('cat-b');
 	});
@@ -330,36 +358,47 @@ describe('getSmartTopCategories', () => {
 		// Monday 14:00 - slot 7, weekday 1
 		const now = new Date('2025-12-22T14:00:00'); // Monday
 
-		const entries: TimeEntry[] = [
-			// All entries are on different days/times (no context matches)
-			createEntryWithTime('cat-c', '2025-12-21', '09:00'), // Sunday
-			createEntryWithTime('cat-c', '2025-12-21', '10:00'),
-			createEntryWithTime('cat-c', '2025-12-21', '11:00'), // 3 total
-
-			createEntryWithTime('cat-a', '2025-12-20', '09:00'), // Saturday
-			createEntryWithTime('cat-a', '2025-12-20', '10:00') // 2 total
-		];
+		// Create 25 days of entries - none at Monday 14:xx (no context matches)
+		const entries: TimeEntry[] = [];
+		for (let i = 0; i < 25; i++) {
+			const date = new Date(now);
+			date.setDate(date.getDate() - i);
+			const dateStr = date.toISOString().split('T')[0];
+			// cat-c gets 3 entries per day (highest frequency)
+			entries.push(createEntryWithTime('cat-c', dateStr, '09:00'));
+			entries.push(createEntryWithTime('cat-c', dateStr, '10:00'));
+			entries.push(createEntryWithTime('cat-c', dateStr, '11:00'));
+			// cat-a gets 2 entries per day
+			entries.push(createEntryWithTime('cat-a', dateStr, '09:00'));
+			entries.push(createEntryWithTime('cat-a', dateStr, '10:00'));
+		}
 
 		const result = getSmartTopCategories(2, entries, categories, now);
 
-		// No context matches, so sort by total frequency
-		expect(result[0].id).toBe('cat-c'); // 3 entries
-		expect(result[1].id).toBe('cat-a'); // 2 entries
+		// No context matches for Monday 14:xx, so sort by total frequency
+		expect(result[0].id).toBe('cat-c'); // More entries
+		expect(result[1].id).toBe('cat-a'); // Fewer entries
 	});
 
 	it('uses alphabetical tiebreaker for equal scores', () => {
 		const now = new Date('2025-12-23T09:00:00'); // Tuesday
 
-		const entries: TimeEntry[] = [
-			// All same context (Tuesday 09:00), 1 entry each
-			createEntryWithTime('cat-c', '2025-12-23', '09:00'), // Charlie
-			createEntryWithTime('cat-a', '2025-12-23', '09:00'), // Alpha
-			createEntryWithTime('cat-b', '2025-12-23', '09:00') // Beta
-		];
+		// Create 25 days of entries spread across cat-a, cat-b, cat-c
+		const entries: TimeEntry[] = [];
+		for (let i = 0; i < 25; i++) {
+			const date = new Date(now);
+			date.setDate(date.getDate() - i);
+			const dateStr = date.toISOString().split('T')[0];
+			// Each category gets entries on different days
+			if (i % 3 === 0) entries.push(createEntryWithTime('cat-a', dateStr, '09:00'));
+			if (i % 3 === 1) entries.push(createEntryWithTime('cat-b', dateStr, '09:00'));
+			if (i % 3 === 2) entries.push(createEntryWithTime('cat-c', dateStr, '09:00'));
+		}
 
 		const result = getSmartTopCategories(3, entries, categories, now);
 
-		// All have score 1001 (1 context match + 1 total), alphabetical order
+		// All have similar scores, alphabetical order as tiebreaker
+		expect(result.length).toBe(3);
 		expect(result[0].name).toBe('Alpha');
 		expect(result[1].name).toBe('Beta');
 		expect(result[2].name).toBe('Charlie');
@@ -368,14 +407,16 @@ describe('getSmartTopCategories', () => {
 	it('excludes system categories', () => {
 		const now = new Date('2025-12-23T09:00:00');
 
-		const entries: TimeEntry[] = [
-			createEntryWithTime('system-pause', '2025-12-23', '09:00'),
-			createEntryWithTime('system-pause', '2025-12-23', '09:30'),
-			createEntryWithTime('cat-a', '2025-12-23', '09:00')
-		];
+		// Start with baseline entries for cat-a
+		const entries: TimeEntry[] = createBaselineEntries(now, 'cat-a');
+
+		// Add system category entries
+		entries.push(createEntryWithTime('system-pause', '2025-12-23', '09:00'));
+		entries.push(createEntryWithTime('system-pause', '2025-12-23', '09:30'));
 
 		const result = getSmartTopCategories(5, entries, categories, now);
 
+		// Only cat-a should be returned, system-pause excluded
 		expect(result.length).toBe(1);
 		expect(result[0].id).toBe('cat-a');
 	});
@@ -404,13 +445,18 @@ describe('getSmartTopCategories', () => {
 	it('returns at most N categories', () => {
 		const now = new Date('2025-12-23T09:00:00');
 
-		const entries: TimeEntry[] = [
-			createEntryWithTime('cat-a', '2025-12-23', '09:00'),
-			createEntryWithTime('cat-b', '2025-12-23', '09:00'),
-			createEntryWithTime('cat-c', '2025-12-23', '09:00'),
-			createEntryWithTime('cat-d', '2025-12-23', '09:00'),
-			createEntryWithTime('cat-e', '2025-12-23', '09:00')
-		];
+		// Create entries for 5 categories across 25 days
+		const entries: TimeEntry[] = [];
+		const cats = ['cat-a', 'cat-b', 'cat-c', 'cat-d', 'cat-e'];
+		for (let i = 0; i < 25; i++) {
+			const date = new Date(now);
+			date.setDate(date.getDate() - i);
+			const dateStr = date.toISOString().split('T')[0];
+			// Each day has entries for all categories
+			for (const cat of cats) {
+				entries.push(createEntryWithTime(cat, dateStr, '09:00'));
+			}
+		}
 
 		const result = getSmartTopCategories(3, entries, categories, now);
 
@@ -421,19 +467,24 @@ describe('getSmartTopCategories', () => {
 		// Sunday 10:30 - slot 5 (10:00-12:00), weekday 0
 		const now = new Date('2025-12-21T10:30:00'); // Sunday
 
-		const entries: TimeEntry[] = [
-			// Context match: Sunday 10:xx
-			createEntryWithTime('cat-a', '2025-12-21', '10:00'), // Sunday slot 5
-			createEntryWithTime('cat-a', '2025-12-14', '10:30'), // Previous Sunday slot 5
-
-			// No context match
-			createEntryWithTime('cat-b', '2025-12-20', '10:00') // Saturday
-		];
+		// Create 25 days of entries
+		const entries: TimeEntry[] = [];
+		for (let i = 0; i < 25; i++) {
+			const date = new Date(now);
+			date.setDate(date.getDate() - i);
+			const dateStr = date.toISOString().split('T')[0];
+			// cat-a gets context matches on Sundays at 10:xx
+			if (date.getDay() === 0) {
+				entries.push(createEntryWithTime('cat-a', dateStr, '10:00')); // Context match!
+			}
+			// cat-b gets entries but never on Sunday 10:xx
+			entries.push(createEntryWithTime('cat-b', dateStr, '15:00'));
+		}
 
 		const result = getSmartTopCategories(2, entries, categories, now);
 
-		// cat-a: 2 context matches = 2000 + 2 = 2002
-		// cat-b: 0 context matches = 0 + 1 = 1
+		// cat-a: has context matches on Sundays 10:xx
+		// cat-b: no context matches
 		expect(result[0].id).toBe('cat-a');
 		expect(result[1].id).toBe('cat-b');
 	});
@@ -442,17 +493,26 @@ describe('getSmartTopCategories', () => {
 		// 09:15 is in slot 4 (08:00-10:00)
 		const now = new Date('2025-12-23T09:15:00'); // Tuesday
 
-		const entries: TimeEntry[] = [
-			createEntryWithTime('cat-a', '2025-12-23', '08:00'), // Same slot (4)
-			createEntryWithTime('cat-a', '2025-12-23', '09:59'), // Same slot (4)
-			createEntryWithTime('cat-b', '2025-12-23', '10:00'), // Different slot (5)
-			createEntryWithTime('cat-b', '2025-12-23', '07:59') // Different slot (3)
-		];
+		// Create 25 days of entries
+		const entries: TimeEntry[] = [];
+		for (let i = 0; i < 25; i++) {
+			const date = new Date(now);
+			date.setDate(date.getDate() - i);
+			const dateStr = date.toISOString().split('T')[0];
+			// cat-a gets context matches on Tuesdays at 08:xx-09:xx (slot 4)
+			if (date.getDay() === 2) {
+				entries.push(createEntryWithTime('cat-a', dateStr, '08:00')); // Same slot (4)
+				entries.push(createEntryWithTime('cat-a', dateStr, '09:59')); // Same slot (4)
+			}
+			// cat-b gets entries but at different slots
+			entries.push(createEntryWithTime('cat-b', dateStr, '10:00')); // Different slot (5)
+			entries.push(createEntryWithTime('cat-b', dateStr, '07:59')); // Different slot (3)
+		}
 
 		const result = getSmartTopCategories(2, entries, categories, now);
 
-		// cat-a: 2 context matches = 2000 + 2 = 2002
-		// cat-b: 0 context matches = 0 + 2 = 2
+		// cat-a: has context matches in slot 4 on Tuesdays
+		// cat-b: no context matches (different slots)
 		expect(result[0].id).toBe('cat-a');
 		expect(result[1].id).toBe('cat-b');
 	});

@@ -199,8 +199,9 @@ export function getSmartTopCategories(
 		days += LOOKBACK_INCREMENT;
 	}
 
-	// If still no entries, return empty
-	if (recentEntries.length === 0) {
+	// If not enough data (less than MIN_DAYS_WITH_ENTRIES), return empty
+	// This ensures we only show suggestions when we have statistically meaningful data
+	if (daysWithEntries < MIN_DAYS_WITH_ENTRIES) {
 		return [];
 	}
 
