@@ -15,7 +15,14 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { categories, workTimeModels } from '$lib/stores';
-	import { theme, setTheme, type ThemeValue } from '$lib/stores/theme';
+	import {
+		theme,
+		shape,
+		setTheme,
+		setShape,
+		type ThemeValue,
+		type ShapeValue
+	} from '$lib/stores/theme';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
 	import { deleteUserCategoryWithSync, deleteWorkTimeModel } from '$lib/storage/operations';
@@ -89,17 +96,28 @@
 		arbeit: true
 	});
 	let currentTheme = $state<ThemeValue>('cool');
+	let currentShape = $state<ShapeValue>('soft');
 
-	// Subscribe to theme store
+	// Subscribe to theme and shape stores
 	$effect(() => {
-		const unsubscribe = theme.subscribe((value) => {
+		const unsubTheme = theme.subscribe((value) => {
 			currentTheme = value;
 		});
-		return unsubscribe;
+		const unsubShape = shape.subscribe((value) => {
+			currentShape = value;
+		});
+		return () => {
+			unsubTheme();
+			unsubShape();
+		};
 	});
 
 	function handleThemeChange(newTheme: ThemeValue) {
 		setTheme(newTheme);
+	}
+
+	function handleShapeChange(newShape: ShapeValue) {
+		setShape(newShape);
 	}
 	let deleteAccountInProgress = $state(false);
 	let deleteAccountError = $state<string | null>(null);
@@ -230,7 +248,7 @@
 				<h2>Erscheinungsbild</h2>
 			</div>
 			<div class="theme-selector">
-				<span class="theme-label">Design</span>
+				<span class="theme-label">Farben</span>
 				<div class="theme-toggle">
 					<button
 						class="theme-option"
@@ -245,6 +263,25 @@
 						onclick={() => handleThemeChange('warm')}
 					>
 						Warm
+					</button>
+				</div>
+			</div>
+			<div class="theme-selector">
+				<span class="theme-label">Ecken</span>
+				<div class="theme-toggle">
+					<button
+						class="theme-option"
+						class:active={currentShape === 'sharp'}
+						onclick={() => handleShapeChange('sharp')}
+					>
+						Eckig
+					</button>
+					<button
+						class="theme-option"
+						class:active={currentShape === 'soft'}
+						onclick={() => handleShapeChange('soft')}
+					>
+						Rund
 					</button>
 				</div>
 			</div>

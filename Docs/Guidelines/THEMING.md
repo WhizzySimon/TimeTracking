@@ -4,28 +4,37 @@ This document explains how the theme system works and how to add new themes.
 
 ## Overview
 
-The app uses CSS custom properties (design tokens) for consistent theming. Two themes are available:
+The app uses CSS custom properties (design tokens) for consistent theming. Two independent settings are available:
 
+### Color Themes
 - **Cool** (default) - Blue-based color scheme
 - **Warm** - Orange/brown-based color scheme
+
+### Shape Styles
+- **Sharp** (Eckig) - Minimal rounding for a modern, angular look
+- **Soft** (Rund, default) - Generous rounding for a friendly, approachable look
+
+Users can mix and match color themes with shape styles (e.g., Warm + Sharp, Cool + Soft).
 
 ## Architecture
 
 ### Files
 
-| File                               | Purpose                                   |
-| ---------------------------------- | ----------------------------------------- |
-| `src/lib/styles/theme.css`         | All CSS token definitions                 |
-| `src/lib/stores/theme.ts`          | Theme store with localStorage persistence |
-| `src/routes/+layout.svelte`        | Theme initialization on app startup       |
-| `src/routes/settings/+page.svelte` | Theme selector UI                         |
+| File                               | Purpose                                          |
+| ---------------------------------- | ------------------------------------------------ |
+| `src/lib/styles/theme.css`         | All CSS token definitions (colors + shapes)      |
+| `src/lib/stores/theme.ts`          | Theme & shape stores with localStorage           |
+| `src/routes/+layout.svelte`        | Theme/shape initialization on app startup        |
+| `src/routes/settings/+page.svelte` | Theme and shape selector UI                      |
 
 ### How It Works
 
-1. Theme is stored in localStorage under key `timetracker-theme`
-2. On app startup, `initTheme()` loads the saved theme and applies it to `<html data-theme="...">`
-3. CSS tokens are scoped to `[data-theme="cool"]` and `[data-theme="warm"]`
-4. Components use `var(--token-name)` instead of hardcoded colors
+1. Color theme stored in localStorage under key `timetracker-theme`
+2. Shape style stored in localStorage under key `timetracker-shape`
+3. On app startup, `initTheme()` loads both and applies to `<html data-theme="..." data-shape="...">`
+4. Color tokens are scoped to `[data-theme="cool"]` and `[data-theme="warm"]`
+5. Shape tokens are scoped to `[data-shape="sharp"]` and `[data-shape="soft"]`
+6. Components use `var(--token-name)` instead of hardcoded values
 
 ## Adding a New Theme
 
@@ -137,14 +146,39 @@ In `src/routes/settings/+page.svelte`, add a new button in the theme toggle:
 </button>
 ```
 
+## Adding a New Shape Style
+
+Add a new shape block in `src/lib/styles/theme.css`:
+
+```css
+[data-shape='your-shape'] {
+	--r-card: Xpx;
+	--r-btn: Xpx;
+	--r-pill: Xpx;
+	--r-input: Xpx;
+	--r-tab: Xpx;
+	--r-modal: Xpx;
+	--r-banner: Xpx;
+}
+```
+
+Then update `src/lib/stores/theme.ts`:
+1. Add to `ShapeValue` type: `'sharp' | 'soft' | 'your-shape'`
+2. Update `loadShape()` to recognize the new value
+
 ## Token Reference
 
-### Shape Tokens (shared)
+### Shape Tokens (vary by data-shape)
 
-- `--r-card` - Card border radius (18px)
-- `--r-btn` - Button border radius (22px)
-- `--r-pill` - Pill/toggle border radius (20px)
-- `--r-input` - Input border radius (8px)
+| Token        | Sharp | Soft  | Usage                    |
+| ------------ | ----- | ----- | ------------------------ |
+| `--r-card`   | 4px   | 18px  | Cards, sections          |
+| `--r-btn`    | 4px   | 22px  | Buttons                  |
+| `--r-pill`   | 4px   | 20px  | Pills, toggles           |
+| `--r-input`  | 4px   | 12px  | Input fields, selects    |
+| `--r-tab`    | 0     | 16px  | Tab navigation bar       |
+| `--r-modal`  | 8px   | 20px  | Modal dialogs            |
+| `--r-banner` | 4px   | 12px  | Install/update banners   |
 
 ### Elevation Tokens (shared)
 
@@ -158,8 +192,8 @@ In `src/routes/settings/+page.svelte`, add a new button in the theme toggle:
 
 ## Best Practices
 
-1. **Never hardcode colors** - Always use `var(--token-name)`
+1. **Never hardcode colors or radii** - Always use `var(--token-name)`
 2. **Use semantic tokens** - Prefer `--pos`/`--neg` over specific colors
-3. **Test both themes** - Verify changes look good in Cool and Warm
+3. **Test all combinations** - Verify changes look good in Cool/Warm × Sharp/Soft
 4. **Keep contrast** - Ensure text is readable on all backgrounds
-5. **Add tokens if needed** - If a component needs a special color, add a new token rather than inlining
+5. **Add tokens if needed** - If a component needs a special value, add a new token rather than inlining

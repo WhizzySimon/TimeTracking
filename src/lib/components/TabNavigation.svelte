@@ -53,6 +53,7 @@
 		max-width: 600px;
 		background: var(--nav-bg);
 		border-top: 1px solid var(--header-border);
+		border-radius: var(--r-tab) var(--r-tab) 0 0;
 		padding: 0;
 		z-index: 100;
 	}

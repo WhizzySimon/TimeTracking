@@ -2,27 +2,25 @@
  * TimeTracker Theme Tokens
  * 
  * Design token system for consistent UI theming.
- * Two themes: Cool (default) and Warm.
  * 
- * Usage: Apply data-theme="cool" or data-theme="warm" to <html> element.
- * Components should use var(--token-name) instead of hardcoded colors.
+ * Color themes: Cool (default) and Warm
+ * Shape styles: Sharp (angular) and Soft (rounded)
+ * 
+ * Usage: 
+ * - Apply data-theme="cool" or data-theme="warm" to <html> for colors
+ * - Apply data-shape="sharp" or data-shape="soft" to <html> for corners
+ * - Components should use var(--token-name) instead of hardcoded values
  * 
  * To add a new theme:
- * 1. Add a new [data-theme="your-theme"] block
- * 2. Override all color tokens
- * 3. Add the theme option to the theme store and UI selector
+ * 1. Add a new [data-theme="your-theme"] block for colors
+ * 2. Add a new [data-shape="your-shape"] block for shapes
+ * 3. Add the option to the respective store and UI selector
  */
 
 /* ============================================================================
    Base tokens (shared across themes)
    ============================================================================ */
 :root {
-	/* Shape tokens */
-	--r-card: 18px;
-	--r-btn: 22px;
-	--r-pill: 20px;
-	--r-input: 8px;
-
 	/* Elevation/shadow tokens */
 	--elev-1: 0 2px 8px rgba(0, 0, 0, 0.08);
 	--elev-2: 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -193,4 +191,30 @@
 	--summary-bg: #fffcf7;
 	--summary-label: #7a6856;
 	--summary-value: #221c16;
+}
+
+/* ============================================================================
+   Shape Styles
+   ============================================================================ */
+
+/* Sharp style - minimal rounding for a modern, angular look */
+[data-shape='sharp'] {
+	--r-card: 4px;
+	--r-btn: 4px;
+	--r-pill: 4px;
+	--r-input: 4px;
+	--r-tab: 0;
+	--r-modal: 8px;
+	--r-banner: 4px;
+}
+
+/* Soft style - generous rounding for a friendly, approachable look */
+[data-shape='soft'] {
+	--r-card: 18px;
+	--r-btn: 22px;
+	--r-pill: 20px;
+	--r-input: 12px;
+	--r-tab: 16px;
+	--r-modal: 20px;
+	--r-banner: 12px;
 }

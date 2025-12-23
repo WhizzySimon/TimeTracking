@@ -513,6 +513,7 @@
 		padding: 8px 12px;
 		display: flex;
 		justify-content: center;
+		border-radius: var(--r-banner);
 	}
 
 	.install-btn {
@@ -537,6 +538,7 @@
 		padding: 8px 12px;
 		display: flex;
 		justify-content: center;
+		border-radius: var(--r-banner);
 	}
 
 	.update-btn {

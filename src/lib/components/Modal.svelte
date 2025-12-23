@@ -144,7 +144,7 @@
 
 	.modal-content {
 		background: var(--surface);
-		border-radius: var(--r-card);
+		border-radius: var(--r-modal);
 		width: 100%;
 		max-width: 400px;
 		max-height: calc(100vh - 4rem);
