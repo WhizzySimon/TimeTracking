@@ -11,18 +11,61 @@
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { categories, timeEntries } from '$lib/stores';
 	import { initializeCategories, getAllCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
+	import { saveTimeEntry } from '$lib/storage/operations';
+	import { formatDate, formatTime } from '$lib/utils/date';
 	import type { TimeEntry } from '$lib/types';
 	import CategoryList from '$lib/components/CategoryList.svelte';
 
 	let loading = $state(true);
 
-	// Placeholder for Task 8.4 - Ein-Klick-Start Logik
-	function handleCategorySelect(categoryId: string) {
-		console.log('Category selected:', categoryId);
-		// TODO: Implement in Task 8.4
+	// Check if there's a running task (no end time)
+	let runningEntry = $derived($timeEntries.find((e) => e.endTime === null) ?? null);
+
+	/**
+	 * Ein-Klick-Start: creates a new task immediately with the selected category.
+	 * Spec refs: TT-FR-003 (create with startTime=now, endTime=null)
+	 *            TT-FR-005 (auto-end running task first)
+	 *            Phase 8: Redirect to /day after start
+	 */
+	async function handleCategorySelect(categoryId: string) {
+		const now = new Date();
+		const currentTimeStr = formatTime(now);
+		const currentDateStr = formatDate(now, 'ISO');
+
+		// TT-FR-005: If a task is already running, end it first
+		if (runningEntry) {
+			const endedEntry: TimeEntry = {
+				...runningEntry,
+				endTime: currentTimeStr,
+				updatedAt: Date.now()
+			};
+			await saveTimeEntry(endedEntry);
+		}
+
+		// TT-FR-003: Create new task with startTime=now, endTime=null (running)
+		const newEntry: TimeEntry = {
+			id: `entry-${crypto.randomUUID()}`,
+			date: currentDateStr,
+			categoryId,
+			startTime: currentTimeStr,
+			endTime: null,
+			description: null,
+			createdAt: Date.now(),
+			updatedAt: Date.now()
+		};
+		await saveTimeEntry(newEntry);
+
+		// Reload all entries from IndexedDB to update the store
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
+
+		// Phase 8: Redirect to Day tab after starting task
+		goto(resolve('/day'));
 	}
 
 	onMount(async () => {
