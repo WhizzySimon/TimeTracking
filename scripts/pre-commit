@@ -1,0 +1,10 @@
+#!/bin/sh
+# Pre-commit hook: auto-increment version and regenerate sw.js
+# This runs before every commit to ensure version changes with each commit
+
+# Run the version update script
+node scripts/update-version.js
+
+# Stage the updated files so they're included in the commit
+git add static/version.json
+git add static/sw.js
