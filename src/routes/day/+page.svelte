@@ -14,10 +14,10 @@
 	import { onMount } from 'svelte';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { currentDate, activeWorkTimeModel, timeEntries, categories } from '$lib/stores';
-	import { formatDate, isToday, addDays } from '$lib/utils/date';
+	import { formatDate, isToday, addDays, formatTime } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
 	import { getByKey, getAll } from '$lib/storage/db';
-	import { deleteTimeEntry } from '$lib/storage/operations';
+	import { deleteTimeEntry, saveTimeEntry } from '$lib/storage/operations';
 	import type { Category, DayType, DayTypeValue, TimeEntry } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import DayTypeSelector from '$lib/components/DayTypeSelector.svelte';
@@ -143,16 +143,42 @@
 		entryToDelete = null;
 	}
 
-	// Quick-Start handler: creates a new task immediately with the selected category
-	// For now, just opens the modal with the category pre-selected
-	// Full implementation (auto-start with endTime=null) will be in Task 7.3
-	function handleQuickStart(categoryId: string) {
-		// TODO Task 7.3: Implement auto-start logic (create entry with startTime=now, endTime=null)
-		// For now, open modal with category pre-selected (placeholder behavior)
-		editingEntry = null;
-		showAddModal = true;
-		// Note: AddTaskModal will need to accept a defaultCategoryId prop in Task 7.3
-		console.log('[QuickStart] Category selected:', categoryId);
+	/**
+	 * Quick-Start handler: creates a new task immediately with the selected category.
+	 * Spec refs: TT-FR-003 (create with startTime=now, endTime=null)
+	 *            TT-FR-005 (auto-end running task first)
+	 */
+	async function handleQuickStart(categoryId: string) {
+		const now = new Date();
+		const currentTimeStr = formatTime(now);
+		const currentDateStr = formatDate(now, 'ISO');
+
+		// TT-FR-005: If a task is already running, end it first
+		if (runningEntry) {
+			const endedEntry: TimeEntry = {
+				...runningEntry,
+				endTime: currentTimeStr,
+				updatedAt: Date.now()
+			};
+			await saveTimeEntry(endedEntry);
+		}
+
+		// TT-FR-003: Create new task with startTime=now, endTime=null (running)
+		const newEntry: TimeEntry = {
+			id: `entry-${crypto.randomUUID()}`,
+			date: currentDateStr,
+			categoryId,
+			startTime: currentTimeStr,
+			endTime: null,
+			description: null,
+			createdAt: Date.now(),
+			updatedAt: Date.now()
+		};
+		await saveTimeEntry(newEntry);
+
+		// Reload all entries from IndexedDB to update the store
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
 	}
 
 	onMount(async () => {
