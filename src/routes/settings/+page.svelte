@@ -276,8 +276,8 @@
 				<button
 					class="add-btn"
 					aria-label="Abwesenheitskategorie hinzufügen"
-					onclick={() => (showAddAbsenceCategory = true)}
-				>+</button>
+					onclick={() => (showAddAbsenceCategory = true)}>+</button
+				>
 			</div>
 			{#if expandedSections.abwesenheit}
 				<div class="list">

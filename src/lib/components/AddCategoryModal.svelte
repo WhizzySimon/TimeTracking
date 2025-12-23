@@ -108,12 +108,12 @@
 		</div>
 
 		{#if showCheckbox}
-		<div class="field checkbox-field">
-			<label>
-				<input type="checkbox" bind:checked={countsAsWorkTimeState} disabled={saving} />
-				Zählt als Arbeitszeit
-			</label>
-		</div>
+			<div class="field checkbox-field">
+				<label>
+					<input type="checkbox" bind:checked={countsAsWorkTimeState} disabled={saving} />
+					Zählt als Arbeitszeit
+				</label>
+			</div>
 		{/if}
 
 		<!-- Error Message -->
