@@ -14,7 +14,7 @@
 	import { onMount } from 'svelte';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { currentDate, activeWorkTimeModel, timeEntries, categories } from '$lib/stores';
-	import { formatDate, isToday, addDays } from '$lib/utils/date';
+	import { formatDate, formatShortDate, isToday, addDays } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
 	import { getByKey, getAll } from '$lib/storage/db';
 	import { deleteTimeEntry } from '$lib/storage/operations';
@@ -54,12 +54,17 @@
 	// Saldo = Ist - Soll
 	let saldo = $derived(calculateSaldo(ist, soll));
 
-	// Reactive date display (with year already included in formatDate)
-	let dateDisplay = $derived(
-		isToday($currentDate)
-			? `Heute, ${formatDate($currentDate, 'DE')}`
-			: formatDate($currentDate, 'DE')
-	);
+	// Weekday names in German (short form)
+	const weekdayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+
+	// Reactive date display with weekday
+	let dateDisplay = $derived(() => {
+		const weekday = weekdayNames[$currentDate.getDay()];
+		if (isToday($currentDate)) {
+			return `Heute, ${weekday} ${formatDate($currentDate, 'DE')}`;
+		}
+		return `${weekday} ${formatDate($currentDate, 'DE')}`;
+	});
 
 	// Load day type when date changes
 	$effect(() => {
@@ -163,7 +168,7 @@
 		<!-- Date Navigation -->
 		<header class="date-nav">
 			<button class="nav-btn" onclick={goToPreviousDay} aria-label="Vorheriger Tag">←</button>
-			<button class="date-title" onclick={openDayPicker}>{dateDisplay}</button>
+			<button class="date-title" onclick={openDayPicker}>{dateDisplay()}</button>
 			<button class="nav-btn" onclick={goToNextDay} aria-label="Nächster Tag">→</button>
 		</header>
 
