@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 8 - Plus-Tab (Ein-Klick-Workflow)  
-**Tasks Completed:** 88 / 94  
-**Estimated Progress:** 94%
+**Tasks Completed:** 89 / 94  
+**Estimated Progress:** 95%
 
 ---
 
@@ -959,7 +959,7 @@ After each phase, verify against specs:
 ## Phase 8: Plus-Tab (Ein-Klick-Workflow + Smart Suggestions)
 
 **Target:** 9 tasks, ~5 hours  
-**Status:** In Progress (2/9 tasks)  
+**Status:** In Progress (3/9 tasks)  
 **Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Smart Suggestions)  
 **Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Algorithmus-Details)  
 **Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md` (Phase 8 Tasks 8.1-8.9)
@@ -978,10 +978,11 @@ After each phase, verify against specs:
   - Deviations: None
   - Notes: Implemented `getSmartTopCategories()` and `getTimeSlot()`. Context-first scoring (×1000 multiplier), 2h time slots, weekday matching, alphabetical tiebreaker.
 
-- [ ] **Task 8.3** — CategoryList Komponente
+- [x] **Task 8.3** — CategoryList Komponente
   - Files: `src/lib/components/CategoryList.svelte`, `src/routes/add/+page.svelte`
-  - Verified: ⬜
+  - Verified: npm run verify ✅, Browser test ✅
   - Deviations: None
+  - Notes: Created CategoryList with Top 5 smart suggestions + A-Z remaining categories. No duplicates. System categories excluded.
 
 - [ ] **Task 8.4** — Ein-Klick-Start Logik
   - Files: `src/routes/add/+page.svelte`
