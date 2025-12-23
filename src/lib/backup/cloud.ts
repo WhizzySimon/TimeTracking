@@ -14,6 +14,7 @@ export interface CloudBackupMeta {
 	key: string;
 	lastBackupAt: string | null;
 	lastBackupSuccess: boolean;
+	localChangedAt: string | null;
 }
 
 /**
@@ -85,17 +86,50 @@ export async function getBackupMeta(): Promise<CloudBackupMeta | null> {
 
 /**
  * Update local backup metadata.
+ * On successful backup, clears localChangedAt to indicate sync.
  */
 async function updateBackupMeta(timestamp: string | null, success: boolean): Promise<void> {
 	try {
+		const existing = await getBackupMeta();
 		await put('meta', {
 			key: BACKUP_META_KEY,
-			lastBackupAt: timestamp,
-			lastBackupSuccess: success
+			lastBackupAt: timestamp ?? existing?.lastBackupAt ?? null,
+			lastBackupSuccess: success,
+			localChangedAt: success ? null : (existing?.localChangedAt ?? null)
 		});
 	} catch (e) {
 		console.error('[CloudBackup] Failed to update meta:', e);
 	}
+}
+
+/**
+ * Mark that local data has changed (needs backup).
+ * Called by operations.ts on any data write.
+ */
+export async function markLocalChanged(): Promise<void> {
+	try {
+		const existing = await getBackupMeta();
+		await put('meta', {
+			key: BACKUP_META_KEY,
+			lastBackupAt: existing?.lastBackupAt ?? null,
+			lastBackupSuccess: existing?.lastBackupSuccess ?? false,
+			localChangedAt: new Date().toISOString()
+		});
+	} catch (e) {
+		console.error('[CloudBackup] Failed to mark local changed:', e);
+	}
+}
+
+/**
+ * Check if local data needs backup.
+ * Returns true if there are unsaved changes.
+ */
+export async function needsBackup(): Promise<boolean> {
+	const meta = await getBackupMeta();
+	if (!meta) return true; // Never backed up
+	if (!meta.lastBackupAt) return true; // Never backed up
+	if (!meta.localChangedAt) return false; // No changes since last backup
+	return new Date(meta.localChangedAt) > new Date(meta.lastBackupAt);
 }
 
 /**

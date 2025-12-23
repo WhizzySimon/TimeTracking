@@ -10,7 +10,7 @@
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline } from '$lib/stores';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
-	import { saveToCloud, getBackupMeta } from '$lib/backup/cloud';
+	import { saveToCloud, needsBackup as checkNeedsBackup } from '$lib/backup/cloud';
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
 	import { setupUpdateDetection, updateAvailable, applyUpdate } from '$lib/pwa/update';
 
@@ -25,7 +25,7 @@
 	let showOfflineDialog = $state(false);
 	let showProfileMenu = $state(false);
 	let backupInProgress = $state(false);
-	let lastBackupAt = $state<string | null>(null);
+	let backupNeeded = $state(true);
 	let backupError = $state<string | null>(null);
 	let canInstall = $state(false);
 	let hasUpdate = $state(false);
@@ -68,9 +68,9 @@
 
 		try {
 			const result = await saveToCloud();
-			if (result.success && result.timestamp) {
-				lastBackupAt = result.timestamp;
-			} else if (!result.success) {
+			if (result.success) {
+				backupNeeded = false;
+			} else {
 				backupError = result.error ?? 'Backup fehlgeschlagen';
 			}
 		} catch (e) {
@@ -78,19 +78,6 @@
 			backupError = e instanceof Error ? e.message : 'Backup fehlgeschlagen';
 		} finally {
 			backupInProgress = false;
-		}
-	}
-
-	function formatBackupTime(isoString: string): string {
-		try {
-			const date = new Date(isoString);
-			const day = date.getDate().toString().padStart(2, '0');
-			const month = (date.getMonth() + 1).toString().padStart(2, '0');
-			const hours = date.getHours().toString().padStart(2, '0');
-			const minutes = date.getMinutes().toString().padStart(2, '0');
-			return `${hours}:${minutes} ${day}.${month}`;
-		} catch {
-			return isoString;
 		}
 	}
 
@@ -116,11 +103,8 @@
 			await loadSession();
 			authChecked = true;
 
-			// Load last backup timestamp
-			const backupMeta = await getBackupMeta();
-			if (backupMeta?.lastBackupAt) {
-				lastBackupAt = backupMeta.lastBackupAt;
-			}
+			// Check if backup is needed
+			backupNeeded = await checkNeedsBackup();
 		}
 
 		// Check sync status on startup
@@ -195,16 +179,17 @@
 				<button
 					class="header-btn backup-btn"
 					onclick={handleCloudBackup}
-					disabled={backupInProgress}
-					title={lastBackupAt
-						? `Letztes Backup: ${formatBackupTime(lastBackupAt)}`
-						: 'Noch kein Backup'}
+					disabled={backupInProgress || !backupNeeded}
+					title={backupNeeded ? 'Änderungen in die Cloud sichern' : 'Alle Änderungen gesichert'}
 				>
-					{backupInProgress ? '...' : 'Save to cloud'}
+					{#if backupInProgress}
+						...
+					{:else if backupNeeded}
+						Save to cloud
+					{:else}
+						Saved to cloud
+					{/if}
 				</button>
-				{#if lastBackupAt}
-					<span class="backup-timestamp">{formatBackupTime(lastBackupAt)}</span>
-				{/if}
 				{#if backupError}
 					<span class="backup-error-indicator" title={backupError}>!</span>
 				{/if}
@@ -504,18 +489,6 @@
 		border: none;
 		z-index: 99;
 		cursor: default;
-	}
-
-	.backup-timestamp {
-		font-size: 0.75rem;
-		color: #93c5fd;
-		display: none;
-	}
-
-	@media (min-width: 360px) {
-		.backup-timestamp {
-			display: inline;
-		}
 	}
 
 	.backup-error-indicator {

@@ -45,12 +45,27 @@ Implementation:
 
 ### UX
 
-- Add a globally visible button: label = "Save to cloud" (final label can be adjusted).
-- Do not disable/grey it out when offline.
-- On click:
-  - If offline: show a modal dialog: "Offline — can't back up now. Your changes are saved locally. Try again when online."
-  - If online: upload a full snapshot of the local database.
-- Show "Last cloud backup: <timestamp>" near the button.
+Button behavior (smart sync status):
+
+- **Label**: "Save to cloud" when changes pending, "Saved to cloud" when synced
+- **State logic**:
+  - Track `localChangedAt` timestamp — updated on any IndexedDB write (entries, categories, settings)
+  - Compare `localChangedAt` vs `lastBackupAt` to determine sync status
+  - `needsBackup = localChangedAt !== null && (lastBackupAt === null || localChangedAt > lastBackupAt)`
+- **Button states**:
+  - **Synced** (no changes): Button disabled, label "Saved to cloud", standard button color (bluish)
+  - **Changes pending**: Button enabled, label "Save to cloud", standard button color
+  - **Never backed up**: Button enabled, label "Save to cloud"
+  - **Saving in progress**: Button disabled, label "..." (existing behavior)
+- **No timestamp display**: Remove the "Last cloud backup: timestamp" — button state is sufficient
+- **Offline handling**: On click when offline, show modal: "Offline — can't back up now. Your changes are saved locally. Try again when online."
+
+Design rationale:
+
+- Local data is always safe (IndexedDB) — no urgency colors needed
+- Button state alone communicates sync status clearly
+- Timestamp was redundant and potentially confusing
+
 - (Optional) In settings: "Restore from cloud" which overwrites local after confirmation.
 
 ### Data model (Supabase)
