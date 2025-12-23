@@ -105,10 +105,4 @@
 		font-size: 1.5rem;
 		font-weight: 700;
 	}
-
-	/* Plus-Tab active: white background with accent text for clear visibility */
-	.tab.plus-tab.active {
-		color: var(--accent);
-		background-color: white;
-	}
 </style>
