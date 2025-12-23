@@ -41,6 +41,12 @@
 		return String(hours);
 	}
 
+	// Helper to get initial isWorkday value (fallback to hours > 0 for backwards compatibility)
+	function getInitialIsWorkday(isWorkday: boolean | undefined, hours: number | null): boolean {
+		if (isWorkday !== undefined) return isWorkday;
+		return hours !== null && hours > 0;
+	}
+
 	// Form state - initialize from model if editing
 	let name = $state(initialModel?.name ?? '');
 	let validFrom = $state(
@@ -48,13 +54,22 @@
 			? formatDate(parseDate(initialModel.validFrom)!, 'DE')
 			: formatDate(new Date(), 'DE')
 	);
+	// Hours per day
 	let monday = $state(formatHoursForInput(initialModel?.monday ?? 8));
 	let tuesday = $state(formatHoursForInput(initialModel?.tuesday ?? 8));
 	let wednesday = $state(formatHoursForInput(initialModel?.wednesday ?? 8));
 	let thursday = $state(formatHoursForInput(initialModel?.thursday ?? 8));
 	let friday = $state(formatHoursForInput(initialModel?.friday ?? 8));
-	let saturday = $state(formatHoursForInput(initialModel?.saturday ?? null));
-	let sunday = $state(formatHoursForInput(initialModel?.sunday ?? null));
+	let saturday = $state(formatHoursForInput(initialModel?.saturday ?? 0));
+	let sunday = $state(formatHoursForInput(initialModel?.sunday ?? 0));
+	// Is workday checkboxes
+	let mondayIsWorkday = $state(getInitialIsWorkday(initialModel?.mondayIsWorkday, initialModel?.monday ?? 8));
+	let tuesdayIsWorkday = $state(getInitialIsWorkday(initialModel?.tuesdayIsWorkday, initialModel?.tuesday ?? 8));
+	let wednesdayIsWorkday = $state(getInitialIsWorkday(initialModel?.wednesdayIsWorkday, initialModel?.wednesday ?? 8));
+	let thursdayIsWorkday = $state(getInitialIsWorkday(initialModel?.thursdayIsWorkday, initialModel?.thursday ?? 8));
+	let fridayIsWorkday = $state(getInitialIsWorkday(initialModel?.fridayIsWorkday, initialModel?.friday ?? 8));
+	let saturdayIsWorkday = $state(getInitialIsWorkday(initialModel?.saturdayIsWorkday, initialModel?.saturday ?? null));
+	let sundayIsWorkday = $state(getInitialIsWorkday(initialModel?.sundayIsWorkday, initialModel?.sunday ?? null));
 	let error = $state('');
 	let saving = $state(false);
 
@@ -71,15 +86,10 @@
 		return total;
 	});
 
-	// Count active workdays
+	// Count active workdays (based on checkboxes, not hours)
 	let activeWorkdays = $derived(() => {
-		const values = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
-		let count = 0;
-		for (const v of values) {
-			const trimmed = v.trim();
-			if (trimmed && parseFloat(trimmed.replace(',', '.')) > 0) count++;
-		}
-		return count;
+		const workdays = [mondayIsWorkday, tuesdayIsWorkday, wednesdayIsWorkday, thursdayIsWorkday, fridayIsWorkday, saturdayIsWorkday, sundayIsWorkday];
+		return workdays.filter(Boolean).length;
 	});
 
 	// Parse hours input (empty = null/inactive)
@@ -145,6 +155,13 @@
 				friday: parseHours(friday),
 				saturday: parseHours(saturday),
 				sunday: parseHours(sunday),
+				mondayIsWorkday,
+				tuesdayIsWorkday,
+				wednesdayIsWorkday,
+				thursdayIsWorkday,
+				fridayIsWorkday,
+				saturdayIsWorkday,
+				sundayIsWorkday,
 				createdAt: initialModel?.createdAt ?? Date.now(),
 				updatedAt: Date.now()
 			};
@@ -216,79 +233,49 @@
 			<span class="total-value">{activeWorkdays()}</span>
 		</div>
 
-		<!-- Weekday Hours -->
+		<!-- Weekday Configuration -->
 		<div class="weekdays">
-			<h3 class="section-title">Stunden pro Tag (leer = inaktiv)</h3>
-			<div class="weekday-grid">
-				<div class="weekday">
-					<label for="hours-mon">Mo:</label>
-					<input
-						type="text"
-						id="hours-mon"
-						bind:value={monday}
-						class="hours-input"
-						disabled={saving}
-					/>
+			<h3 class="section-title">Wochentage</h3>
+			<div class="weekday-header">
+				<span class="header-day">Tag</span>
+				<span class="header-workday">Arbeitstag</span>
+				<span class="header-hours">Stunden</span>
+			</div>
+			<div class="weekday-list">
+				<div class="weekday-row">
+					<span class="day-label">Mo</span>
+					<input type="checkbox" id="workday-mon" bind:checked={mondayIsWorkday} disabled={saving} />
+					<input type="text" id="hours-mon" bind:value={monday} class="hours-input" disabled={saving} />
 				</div>
-				<div class="weekday">
-					<label for="hours-tue">Di:</label>
-					<input
-						type="text"
-						id="hours-tue"
-						bind:value={tuesday}
-						class="hours-input"
-						disabled={saving}
-					/>
+				<div class="weekday-row">
+					<span class="day-label">Di</span>
+					<input type="checkbox" id="workday-tue" bind:checked={tuesdayIsWorkday} disabled={saving} />
+					<input type="text" id="hours-tue" bind:value={tuesday} class="hours-input" disabled={saving} />
 				</div>
-				<div class="weekday">
-					<label for="hours-wed">Mi:</label>
-					<input
-						type="text"
-						id="hours-wed"
-						bind:value={wednesday}
-						class="hours-input"
-						disabled={saving}
-					/>
+				<div class="weekday-row">
+					<span class="day-label">Mi</span>
+					<input type="checkbox" id="workday-wed" bind:checked={wednesdayIsWorkday} disabled={saving} />
+					<input type="text" id="hours-wed" bind:value={wednesday} class="hours-input" disabled={saving} />
 				</div>
-				<div class="weekday">
-					<label for="hours-thu">Do:</label>
-					<input
-						type="text"
-						id="hours-thu"
-						bind:value={thursday}
-						class="hours-input"
-						disabled={saving}
-					/>
+				<div class="weekday-row">
+					<span class="day-label">Do</span>
+					<input type="checkbox" id="workday-thu" bind:checked={thursdayIsWorkday} disabled={saving} />
+					<input type="text" id="hours-thu" bind:value={thursday} class="hours-input" disabled={saving} />
 				</div>
-				<div class="weekday">
-					<label for="hours-fri">Fr:</label>
-					<input
-						type="text"
-						id="hours-fri"
-						bind:value={friday}
-						class="hours-input"
-						disabled={saving}
-					/>
+				<div class="weekday-row">
+					<span class="day-label">Fr</span>
+					<input type="checkbox" id="workday-fri" bind:checked={fridayIsWorkday} disabled={saving} />
+					<input type="text" id="hours-fri" bind:value={friday} class="hours-input" disabled={saving} />
 				</div>
-				<div class="weekday">
-					<label for="hours-sat">Sa:</label>
-					<input
-						type="text"
-						id="hours-sat"
-						bind:value={saturday}
-						class="hours-input"
-						disabled={saving}
-					/>
+				<div class="weekday-row">
+					<span class="day-label">Sa</span>
+					<input type="checkbox" id="workday-sat" bind:checked={saturdayIsWorkday} disabled={saving} />
+					<input type="text" id="hours-sat" bind:value={saturday} class="hours-input" disabled={saving} />
 				</div>
-				<div class="weekday">
-					<label for="hours-sun">So:</label>
-					<input
-						type="text"
-						id="hours-sun"
-						bind:value={sunday}
-						class="hours-input"
-						disabled={saving}
-					/>
+				<div class="weekday-row">
+					<span class="day-label">So</span>
+					<input type="checkbox" id="workday-sun" bind:checked={sundayIsWorkday} disabled={saving} />
+					<input type="text" id="hours-sun" bind:value={sunday} class="hours-input" disabled={saving} />
 				</div>
 			</div>
 		</div>
@@ -385,23 +372,45 @@
 		color: #666;
 	}
 
-	.weekday-grid {
+	.weekday-header {
 		display: grid;
-		grid-template-columns: repeat(7, 1fr);
+		grid-template-columns: 2.5rem 5rem 1fr;
 		gap: 0.5rem;
+		padding: 0.25rem 0;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: #666;
+		text-align: center;
 	}
 
-	.weekday {
+	.header-day {
+		text-align: left;
+	}
+
+	.weekday-list {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 		gap: 0.25rem;
 	}
 
-	.weekday label {
-		font-size: 0.85rem;
+	.weekday-row {
+		display: grid;
+		grid-template-columns: 2.5rem 5rem 1fr;
+		gap: 0.5rem;
+		align-items: center;
+	}
+
+	.day-label {
+		font-size: 0.9rem;
 		font-weight: 500;
 		color: #333;
+	}
+
+	.weekday-row input[type='checkbox'] {
+		width: 1.25rem;
+		height: 1.25rem;
+		cursor: pointer;
+		justify-self: center;
 	}
 
 	.hours-input {
@@ -479,15 +488,4 @@
 		cursor: not-allowed;
 	}
 
-	@media (max-width: 400px) {
-		.weekday-grid {
-			grid-template-columns: repeat(4, 1fr);
-		}
-	}
-
-	@media (max-width: 300px) {
-		.weekday-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-</style>
+	</style>

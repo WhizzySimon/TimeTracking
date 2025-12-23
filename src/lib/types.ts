@@ -57,6 +57,10 @@ export interface TimeEntry {
 /**
  * Work time model defining target hours per weekday.
  * Spec refs: TT-FR (work time models), ui-logic-spec-v1 sections 8-9
+ *
+ * Each weekday has:
+ * - hours: target hours (0-24, or null if not set)
+ * - isWorkday: whether the day counts as a workday (independent of hours)
  */
 export interface WorkTimeModel {
 	id: string;
@@ -69,6 +73,14 @@ export interface WorkTimeModel {
 	friday: number | null;
 	saturday: number | null;
 	sunday: number | null;
+	// Whether each day counts as a workday (independent of hours)
+	mondayIsWorkday?: boolean;
+	tuesdayIsWorkday?: boolean;
+	wednesdayIsWorkday?: boolean;
+	thursdayIsWorkday?: boolean;
+	fridayIsWorkday?: boolean;
+	saturdayIsWorkday?: boolean;
+	sundayIsWorkday?: boolean;
 	createdAt: number;
 	updatedAt: number;
 }

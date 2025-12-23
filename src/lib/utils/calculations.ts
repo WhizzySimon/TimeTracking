@@ -143,6 +143,37 @@ function getModelHoursForWeekday(model: WorkTimeModel, weekday: Weekday): number
 }
 
 /**
+ * Check if a weekday is marked as a workday in the model.
+ * Uses the explicit isWorkday flag if set, otherwise falls back to hours > 0 for backwards compatibility.
+ */
+export function isWeekdayWorkday(model: WorkTimeModel, weekday: Weekday): boolean {
+	switch (weekday) {
+		case 'monday':
+			return model.mondayIsWorkday ?? (model.monday !== null && model.monday > 0);
+		case 'tuesday':
+			return model.tuesdayIsWorkday ?? (model.tuesday !== null && model.tuesday > 0);
+		case 'wednesday':
+			return model.wednesdayIsWorkday ?? (model.wednesday !== null && model.wednesday > 0);
+		case 'thursday':
+			return model.thursdayIsWorkday ?? (model.thursday !== null && model.thursday > 0);
+		case 'friday':
+			return model.fridayIsWorkday ?? (model.friday !== null && model.friday > 0);
+		case 'saturday':
+			return model.saturdayIsWorkday ?? (model.saturday !== null && model.saturday > 0);
+		case 'sunday':
+			return model.sundayIsWorkday ?? (model.sunday !== null && model.sunday > 0);
+	}
+}
+
+/**
+ * Count active workdays in a work time model
+ */
+export function countWorkdays(model: WorkTimeModel): number {
+	const weekdays: Weekday[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+	return weekdays.filter((day) => isWeekdayWorkday(model, day)).length;
+}
+
+/**
  * Calculate Saldo (balance)
  * Saldo = Ist - Soll
  *
