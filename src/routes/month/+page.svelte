@@ -22,13 +22,7 @@
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll, getByKey } from '$lib/storage/db';
 	import { parseDate } from '$lib/utils/date';
-	import {
-		getWeekNumber,
-		addDays,
-		formatDate,
-		getDayOfWeek,
-		startOfDay
-	} from '$lib/utils/date';
+	import { getWeekNumber, formatDate, getDayOfWeek, startOfDay } from '$lib/utils/date';
 	import { calculateIst, calculateSoll, calculateSaldo } from '$lib/utils/calculations';
 	import type { Category, DayType, DayTypeValue, TimeEntry, WorkTimeModel } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
@@ -73,11 +67,10 @@
 	// Get all days in the current month
 	function getMonthDates(year: number, month: number): Date[] {
 		const dates: Date[] = [];
-		const firstDay = new Date(year, month, 1);
-		const lastDay = new Date(year, month + 1, 0);
+		const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-		for (let d = new Date(firstDay); d <= lastDay; d.setDate(d.getDate() + 1)) {
-			dates.push(new Date(d));
+		for (let day = 1; day <= daysInMonth; day++) {
+			dates.push(new Date(year, month, day));
 		}
 		return dates;
 	}
@@ -86,23 +79,22 @@
 
 	// Get weeks in the month (grouped by ISO week number)
 	function getWeeksInMonth(dates: Date[]): { weekNumber: number; year: number; dates: Date[] }[] {
-		const weeksMap = new Map<string, { weekNumber: number; year: number; dates: Date[] }>();
+		const weeksObj: Record<string, { weekNumber: number; year: number; dates: Date[] }> = {};
 
 		for (const date of dates) {
 			const weekNum = getWeekNumber(date);
 			// Use year of Thursday of the week for ISO week year
-			const thursday = new Date(date);
-			thursday.setDate(date.getDate() - ((date.getDay() + 6) % 7) + 3);
-			const weekYear = thursday.getFullYear();
-			const key = `${weekYear}-${weekNum}`;
+			const dayOffset = date.getDate() - ((date.getDay() + 6) % 7) + 3;
+			const thursdayYear = new Date(date.getFullYear(), date.getMonth(), dayOffset).getFullYear();
+			const key = `${thursdayYear}-${weekNum}`;
 
-			if (!weeksMap.has(key)) {
-				weeksMap.set(key, { weekNumber: weekNum, year: weekYear, dates: [] });
+			if (!weeksObj[key]) {
+				weeksObj[key] = { weekNumber: weekNum, year: thursdayYear, dates: [] };
 			}
-			weeksMap.get(key)!.dates.push(date);
+			weeksObj[key].dates.push(date);
 		}
 
-		return Array.from(weeksMap.values()).sort((a, b) => {
+		return Object.values(weeksObj).sort((a, b) => {
 			if (a.year !== b.year) return a.year - b.year;
 			return a.weekNumber - b.weekNumber;
 		});
@@ -171,15 +163,15 @@
 
 	// Month navigation functions
 	function goToPreviousMonth() {
-		const newDate = new Date($currentDate);
-		newDate.setMonth(newDate.getMonth() - 1);
-		currentDate.set(newDate);
+		const year = $currentDate.getFullYear();
+		const month = $currentDate.getMonth();
+		currentDate.set(new Date(year, month - 1, 1));
 	}
 
 	function goToNextMonth() {
-		const newDate = new Date($currentDate);
-		newDate.setMonth(newDate.getMonth() + 1);
-		currentDate.set(newDate);
+		const year = $currentDate.getFullYear();
+		const month = $currentDate.getMonth();
+		currentDate.set(new Date(year, month + 1, 1));
 	}
 
 	function openMonthPicker() {
@@ -294,11 +286,7 @@
 						<span class="separator">/</span>
 						<span class="soll">{weekSoll.toFixed(1).replace('.', ',')}</span>
 						<span class="separator">/</span>
-						<span
-							class="saldo"
-							class:positive={weekSaldo >= 0}
-							class:negative={weekSaldo < 0}
-						>
+						<span class="saldo" class:positive={weekSaldo >= 0} class:negative={weekSaldo < 0}>
 							{weekSaldo >= 0 ? '+' : ''}{weekSaldo.toFixed(1).replace('.', ',')}
 						</span>
 					</div>
