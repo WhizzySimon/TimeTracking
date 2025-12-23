@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 8 - Plus-Tab (Ein-Klick-Workflow)  
-**Tasks Completed:** 91 / 94  
-**Estimated Progress:** 97%
+**Tasks Completed:** 92 / 94  
+**Estimated Progress:** 98%
 
 ---
 
@@ -959,7 +959,7 @@ After each phase, verify against specs:
 ## Phase 8: Plus-Tab (Ein-Klick-Workflow + Smart Suggestions)
 
 **Target:** 9 tasks, ~5 hours  
-**Status:** In Progress (5/9 tasks)  
+**Status:** In Progress (6/9 tasks)  
 **Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Smart Suggestions)  
 **Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Algorithmus-Details)  
 **Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md` (Phase 8 Tasks 8.1-8.9)
@@ -998,10 +998,11 @@ After each phase, verify against specs:
   - Deviations: File was TabNavigation.svelte not Navigation.svelte
   - Notes: Plus-Tab added as first tab with "+" label, accent color styling, aria-label for accessibility.
 
-- [ ] **Task 8.6** — Default-Tab-Logik
+- [x] **Task 8.6** — Default-Tab-Logik
   - Files: `src/routes/+page.svelte`
-  - Verified: ⬜
+  - Verified: npm run verify ✅, Browser test ✅
   - Deviations: None
+  - Notes: Root "/" redirects to /day if running task exists, otherwise to /add (Plus-Tab).
 
 ### Cleanup
 
