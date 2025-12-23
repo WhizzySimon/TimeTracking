@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 7 - Quick-Start UX Improvements  
-**Tasks Completed:** 79 / 86  
-**Estimated Progress:** 92%
+**Tasks Completed:** 82 / 86  
+**Estimated Progress:** 95%
 
 ---
 
@@ -881,7 +881,7 @@ After each phase, verify against specs:
 ## Phase 7: Quick-Start UX Improvements
 
 **Target:** 10 tasks, ~8 hours  
-**Status:** In Progress (3/10 tasks)  
+**Status:** In Progress (6/10 tasks)  
 **Spec:** `Docs/Specs/quick-start-ux.md`  
 **Plan:** `Docs/Plans/quick-start-ux.md`  
 **Tasks:** `Docs/Tasks/quick-start-ux.md`
@@ -908,20 +908,23 @@ After each phase, verify against specs:
 
 ### Beenden & Resume Buttons
 
-- [ ] **Task 7.4** — TaskItem Refactor (Running vs Completed)
+- [x] **Task 7.4** — TaskItem Refactor (Running vs Completed)
   - Files: `src/lib/components/TaskItem.svelte`, `src/lib/components/TaskList.svelte`
-  - Verified: npm run verify ⬜, Browser test ⬜
+  - Verified: npm run verify ✅, Browser test ✅
   - Deviations: None
+  - Notes: Added Beenden button (running tasks) and Resume button ▶ (completed tasks). Running tasks have distinct visual style (warning border/bg). onend/onresume callbacks added.
 
-- [ ] **Task 7.5** — Beenden-Button Logik
+- [x] **Task 7.5** — Beenden-Button Logik
   - Files: `src/routes/day/+page.svelte`
-  - Verified: npm run verify ⬜, Browser test ⬜
+  - Verified: npm run verify ✅, Browser test ✅
   - Deviations: None
+  - Notes: handleEndEntry sets endTime=now and saves immediately. No modal, no confirmation per TT-FR-011. Tested: click Beenden → task ends, warning banner disappears.
 
-- [ ] **Task 7.6** — Resume-Button Logik
+- [x] **Task 7.6** — Resume-Button Logik
   - Files: `src/routes/day/+page.svelte`
-  - Verified: npm run verify ⬜, Browser test ⬜
+  - Verified: npm run verify ✅, Browser test ✅
   - Deviations: None
+  - Notes: handleResumeEntry creates new task with same category. Auto-ends running task first (TT-FR-015). Tested: click Resume → new running task created.
 
 ### Dropdown & Einstellungen
 

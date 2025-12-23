@@ -3,11 +3,15 @@
   
   Spec refs:
   - ui-logic-spec-v1.md Section 3.4 (Task list item display)
+  - TT-FR-010: Running task shows "Beenden" button
+  - TT-FR-012: Running task has visually different layout
+  - TT-FR-013: Completed tasks show Resume button (▶)
+  - TT-FR-016: Tap on task text opens edit modal
   
   Shows:
   - Time span (start - end, or "laufend" if running)
   - Category name
-  - "zählt als Arbeitszeit" indicator
+  - Beenden button (running) or Resume button (completed)
 -->
 <script lang="ts">
 	import type { TimeEntry, Category } from '$lib/types';
@@ -17,13 +21,25 @@
 		category: Category | undefined;
 		onclick?: () => void;
 		ondelete?: () => void;
+		onend?: () => void;
+		onresume?: () => void;
 	}
 
-	let { entry, category, onclick, ondelete }: Props = $props();
+	let { entry, category, onclick, ondelete, onend, onresume }: Props = $props();
 
 	function handleDelete(event: MouseEvent) {
 		event.stopPropagation();
 		ondelete?.();
+	}
+
+	function handleEnd(event: MouseEvent) {
+		event.stopPropagation();
+		onend?.();
+	}
+
+	function handleResume(event: MouseEvent) {
+		event.stopPropagation();
+		onresume?.();
 	}
 
 	let timeDisplay = $derived(
@@ -46,7 +62,14 @@
 			<span class="task-time">{timeDisplay}</span>
 			<span class="task-category">{category?.name ?? 'Unbekannt'}</span>
 		</div>
-		<button class="delete-btn" onclick={handleDelete} aria-label="Löschen">×</button>
+		<div class="task-actions">
+			{#if isRunning}
+				<button class="end-btn" onclick={handleEnd} aria-label="Beenden">Beenden</button>
+			{:else}
+				<button class="resume-btn" onclick={handleResume} aria-label="Fortsetzen">▶</button>
+			{/if}
+			<button class="delete-btn" onclick={handleDelete} aria-label="Löschen">×</button>
+		</div>
 	</div>
 	{#if entry.description}
 		<div class="task-description">{entry.description}</div>
@@ -91,6 +114,46 @@
 		align-items: center;
 		gap: 0.5rem;
 		flex: 1;
+	}
+
+	.task-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		flex-shrink: 0;
+	}
+
+	.end-btn {
+		padding: 0.25rem 0.5rem;
+		border: 1px solid var(--accent);
+		background: var(--accent);
+		color: white;
+		font-size: 0.75rem;
+		font-weight: 500;
+		cursor: pointer;
+		border-radius: var(--r-btn);
+	}
+
+	.end-btn:hover {
+		background: var(--accent-dark, #0056b3);
+	}
+
+	.resume-btn {
+		width: 28px;
+		height: 28px;
+		border: 1px solid var(--accent);
+		background: transparent;
+		color: var(--accent);
+		font-size: 0.875rem;
+		cursor: pointer;
+		border-radius: var(--r-btn);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.resume-btn:hover {
+		background: var(--accent-light);
 	}
 
 	.delete-btn {

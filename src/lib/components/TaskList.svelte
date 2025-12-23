@@ -15,9 +15,11 @@
 		entries: TimeEntry[];
 		onselect?: (entry: TimeEntry) => void;
 		ondelete?: (entry: TimeEntry) => void;
+		onend?: (entry: TimeEntry) => void;
+		onresume?: (entry: TimeEntry) => void;
 	}
 
-	let { entries, onselect, ondelete }: Props = $props();
+	let { entries, onselect, ondelete, onend, onresume }: Props = $props();
 
 	// Sort entries newest first (by startTime descending)
 	let sortedEntries = $derived([...entries].sort((a, b) => b.startTime.localeCompare(a.startTime)));
@@ -36,6 +38,8 @@
 				category={categoryMap.get(entry.categoryId)}
 				onclick={() => onselect?.(entry)}
 				ondelete={() => ondelete?.(entry)}
+				onend={() => onend?.(entry)}
+				onresume={() => onresume?.(entry)}
 			/>
 		{/each}
 	{/if}

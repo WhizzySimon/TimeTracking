@@ -181,6 +181,66 @@
 		timeEntries.set(allEntries);
 	}
 
+	/**
+	 * End a running task immediately.
+	 * Spec ref: TT-FR-011 (tap "Beenden" sets endTime=now, saves immediately)
+	 * Full implementation in Task 7.5
+	 */
+	async function handleEndEntry(entry: TimeEntry) {
+		const now = new Date();
+		const currentTimeStr = formatTime(now);
+
+		const endedEntry: TimeEntry = {
+			...entry,
+			endTime: currentTimeStr,
+			updatedAt: Date.now()
+		};
+		await saveTimeEntry(endedEntry);
+
+		// Reload all entries from IndexedDB to update the store
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
+	}
+
+	/**
+	 * Resume a completed task (create new task with same category).
+	 * Spec refs: TT-FR-014 (creates new task with same category)
+	 *            TT-FR-015 (auto-end running task first)
+	 * Full implementation in Task 7.6
+	 */
+	async function handleResumeEntry(entry: TimeEntry) {
+		const now = new Date();
+		const currentTimeStr = formatTime(now);
+		const currentDateStr = formatDate(now, 'ISO');
+
+		// TT-FR-015: If a task is already running, end it first
+		if (runningEntry) {
+			const endedEntry: TimeEntry = {
+				...runningEntry,
+				endTime: currentTimeStr,
+				updatedAt: Date.now()
+			};
+			await saveTimeEntry(endedEntry);
+		}
+
+		// TT-FR-014: Create new task with same category
+		const newEntry: TimeEntry = {
+			id: `entry-${crypto.randomUUID()}`,
+			date: currentDateStr,
+			categoryId: entry.categoryId,
+			startTime: currentTimeStr,
+			endTime: null,
+			description: null,
+			createdAt: Date.now(),
+			updatedAt: Date.now()
+		};
+		await saveTimeEntry(newEntry);
+
+		// Reload all entries from IndexedDB to update the store
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
+	}
+
 	onMount(async () => {
 		await initializeCategories();
 		// Load categories into store
@@ -226,7 +286,13 @@
 		</div>
 
 		<!-- Task List -->
-		<TaskList entries={dayEntries} onselect={openEditModal} ondelete={handleDeleteEntry} />
+		<TaskList
+			entries={dayEntries}
+			onselect={openEditModal}
+			ondelete={handleDeleteEntry}
+			onend={handleEndEntry}
+			onresume={handleResumeEntry}
+		/>
 	{/if}
 </div>
 
