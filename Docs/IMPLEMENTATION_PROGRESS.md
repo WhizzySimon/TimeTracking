@@ -959,7 +959,7 @@ After each phase, verify against specs:
 ## Phase 8: Plus-Tab (Ein-Klick-Workflow + Smart Suggestions)
 
 **Target:** 9 tasks, ~5 hours  
-**Status:** In Progress (8/9 tasks)  
+**Status:** Complete (9/9 tasks)  
 **Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Smart Suggestions)  
 **Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Algorithmus-Details)  
 **Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md` (Phase 8 Tasks 8.1-8.9)
@@ -1020,10 +1020,11 @@ After each phase, verify against specs:
 
 ### Testing
 
-- [ ] **Task 8.9** — E2E Tests erweitern
-  - Files: `e2e/quick-start.test.ts`
-  - Verified: ⬜
-  - Deviations: None
+- [x] **Task 8.9** — E2E Tests erweitern
+  - Files: `e2e/quick-start.test.ts`, `e2e/basic-flow.test.ts`
+  - Verified: npm run test:e2e ✅ (48 tests, all passing)
+  - Deviations: Also updated basic-flow.test.ts for Plus-Tab changes
+  - Notes: Updated tests for Plus-Tab, Default-Tab-Logik, removed old Quick-Start/Add-Button tests.
 
 ---
 

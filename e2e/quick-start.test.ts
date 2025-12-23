@@ -1,14 +1,14 @@
 /**
- * Quick-Start UX E2E Tests
+ * Quick-Start UX E2E Tests (Phase 8: Plus-Tab)
  * Verifies Quick-Start UX features work correctly:
- * 1) Quick-Start buttons appear for frequently used categories
- * 2) Quick-Start creates a running task immediately
+ * 1) Plus-Tab shows categories with smart suggestions
+ * 2) One-click start creates a running task and redirects to /day
  * 3) Beenden button ends a running task
  * 4) Resume button creates a new task with same category
  * 5) Auto-end running task when starting new one
- * 6) Category sort toggle in settings works
+ * 6) Default-Tab-Logik: "/" redirects based on running task state
  *
- * Spec refs: TT-FR-001 to TT-FR-018
+ * Spec refs: TT-FR-001 to TT-FR-018, Phase 8
  */
 
 import { expect, test } from '@playwright/test';
@@ -154,25 +154,34 @@ test.describe('Quick-Start UX', () => {
 		await page.waitForLoadState('networkidle');
 	});
 
-	test('Quick-Start buttons appear for frequently used categories', async ({ page }) => {
-		await page.goto('/day');
+	test('Plus-Tab shows categories with smart suggestions', async ({ page }) => {
+		await page.goto('/add');
 
 		// Wait for page to load
-		await expect(page.getByRole('button', { name: '+ Aufgabe hinzufügen' })).toBeVisible();
+		await expect(page.getByRole('heading', { name: 'Aufgabe starten' })).toBeVisible();
 
-		// Quick-Start buttons should appear (Meeting is most frequent)
+		// Smart suggestions section should appear
+		await expect(page.getByRole('heading', { name: 'Vorschläge' })).toBeVisible();
+
+		// All categories section should appear
+		await expect(page.getByRole('heading', { name: 'Alle Kategorien' })).toBeVisible();
+
+		// Category buttons should be visible (Meeting is most frequent)
 		await expect(page.getByRole('button', { name: /Meeting.*starten/i })).toBeVisible();
 	});
 
-	test('Quick-Start creates a running task immediately', async ({ page }) => {
-		await page.goto('/day');
+	test('One-click start creates a running task and redirects to /day', async ({ page }) => {
+		await page.goto('/add');
 
-		// Wait for Quick-Start button
-		const quickStartBtn = page.getByRole('button', { name: /Meeting.*starten/i });
-		await expect(quickStartBtn).toBeVisible();
+		// Wait for category button
+		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
+		await expect(categoryBtn).toBeVisible();
 
-		// Click Quick-Start
-		await quickStartBtn.click();
+		// Click category to start task
+		await categoryBtn.click();
+
+		// Should redirect to /day
+		await expect(page).toHaveURL(/\/day/);
 
 		// Warning banner should appear (task is running)
 		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
@@ -185,12 +194,14 @@ test.describe('Quick-Start UX', () => {
 	});
 
 	test('Beenden button ends a running task', async ({ page }) => {
-		await page.goto('/day');
+		// Create a running task via Plus-Tab
+		await page.goto('/add');
+		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
+		await expect(categoryBtn).toBeVisible();
+		await categoryBtn.click();
 
-		// Create a running task via Quick-Start
-		const quickStartBtn = page.getByRole('button', { name: /Meeting.*starten/i });
-		await expect(quickStartBtn).toBeVisible();
-		await quickStartBtn.click();
+		// Should redirect to /day
+		await expect(page).toHaveURL(/\/day/);
 
 		// Verify task is running
 		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
@@ -209,12 +220,12 @@ test.describe('Quick-Start UX', () => {
 	});
 
 	test('Resume button creates a new task with same category', async ({ page }) => {
-		await page.goto('/day');
-
-		// Create and end a task
-		const quickStartBtn = page.getByRole('button', { name: /Meeting.*starten/i });
-		await expect(quickStartBtn).toBeVisible();
-		await quickStartBtn.click();
+		// Create and end a task via Plus-Tab
+		await page.goto('/add');
+		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
+		await expect(categoryBtn).toBeVisible();
+		await categoryBtn.click();
+		await expect(page).toHaveURL(/\/day/);
 		await page.getByRole('button', { name: 'Beenden', exact: true }).click();
 
 		// Verify task is ended
@@ -232,22 +243,28 @@ test.describe('Quick-Start UX', () => {
 		await expect(taskItems).toHaveCount(2);
 	});
 
-	test('Auto-end running task when starting new one via Quick-Start', async ({ page }) => {
-		await page.goto('/day');
-
-		// Start first task (Meeting)
+	test('Auto-end running task when starting new one via Plus-Tab', async ({ page }) => {
+		// Start first task (Meeting) via Plus-Tab
+		await page.goto('/add');
 		const meetingBtn = page.getByRole('button', { name: /Meeting.*starten/i });
 		await expect(meetingBtn).toBeVisible();
 		await meetingBtn.click();
+
+		// Should redirect to /day
+		await expect(page).toHaveURL(/\/day/);
 
 		// Verify first task is running
 		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
 		await expect(page.getByRole('button', { name: 'Beenden', exact: true })).toHaveCount(1);
 
-		// Start second task (Coding) - should auto-end Meeting
+		// Go back to Plus-Tab and start second task (Coding) - should auto-end Meeting
+		await page.goto('/add');
 		const codingBtn = page.getByRole('button', { name: /Coding.*starten/i });
 		await expect(codingBtn).toBeVisible();
 		await codingBtn.click();
+
+		// Should redirect to /day
+		await expect(page).toHaveURL(/\/day/);
 
 		// Still only one running task (warning banner still visible)
 		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
@@ -259,29 +276,33 @@ test.describe('Quick-Start UX', () => {
 		await expect(page.getByRole('button', { name: 'Fortsetzen', exact: true })).toHaveCount(1);
 	});
 
-	test('Category sort toggle in settings works', async ({ page }) => {
-		await page.goto('/settings');
+	test('Default-Tab-Logik: "/" redirects to /add when no running task', async ({ page }) => {
+		// Navigate to root with no running task
+		await page.goto('/');
 
-		// Wait for settings page to load
-		await expect(page.getByRole('heading', { name: 'Erscheinungsbild' })).toBeVisible();
+		// Should redirect to /add (Plus-Tab)
+		await expect(page).toHaveURL(/\/add/);
 
-		// Find the category sort toggle
-		const frequencyBtn = page.getByRole('button', { name: 'Häufigkeit' });
-		const alphabeticalBtn = page.getByRole('button', { name: 'A-Z' });
+		// Plus-Tab content should be visible
+		await expect(page.getByRole('heading', { name: 'Aufgabe starten' })).toBeVisible();
+	});
 
-		await expect(frequencyBtn).toBeVisible();
-		await expect(alphabeticalBtn).toBeVisible();
+	test('Default-Tab-Logik: "/" redirects to /day when running task exists', async ({ page }) => {
+		// First create a running task
+		await page.goto('/add');
+		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
+		await expect(categoryBtn).toBeVisible();
+		await categoryBtn.click();
 
-		// Default should be frequency (active)
-		// Click A-Z to switch
-		await alphabeticalBtn.click();
+		// Should be on /day now
+		await expect(page).toHaveURL(/\/day/);
+		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
 
-		// Reload and verify setting persists
-		await page.reload();
-		await page.waitForLoadState('networkidle');
+		// Navigate to root - should redirect to /day (running task exists)
+		await page.goto('/');
+		await expect(page).toHaveURL(/\/day/);
 
-		// Setting should still be A-Z after reload
-		// (We can't easily verify the visual state, but the click should work)
-		await expect(page.getByRole('button', { name: 'A-Z' })).toBeVisible();
+		// Warning banner should still be visible
+		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
 	});
 });

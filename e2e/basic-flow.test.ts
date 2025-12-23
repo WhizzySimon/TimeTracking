@@ -58,17 +58,40 @@ test.describe('Basic App Flow', () => {
 				};
 				request.onsuccess = () => {
 					const db = request.result;
+					const tx = db.transaction(['authSession', 'categories'], 'readwrite');
+
 					// Insert mock auth session
-					const tx = db.transaction('authSession', 'readwrite');
-					const store = tx.objectStore('authSession');
-					const mockSession = {
+					const authStore = tx.objectStore('authSession');
+					authStore.put({
 						key: 'current',
 						userId: 'test-user-id',
 						email: 'test@example.com',
 						token: 'mock-token-for-testing',
-						expiresAt: Date.now() + 24 * 60 * 60 * 1000 // 24 hours from now
-					};
-					store.put(mockSession);
+						expiresAt: Date.now() + 24 * 60 * 60 * 1000
+					});
+
+					// Insert test categories
+					const catStore = tx.objectStore('categories');
+					const testCategories = [
+						{
+							id: 'cat-meeting',
+							name: 'Meeting',
+							type: 'user',
+							countsAsWorkTime: true,
+							createdAt: Date.now()
+						},
+						{
+							id: 'system-pause',
+							name: 'Pause',
+							type: 'system',
+							countsAsWorkTime: false,
+							createdAt: Date.now()
+						}
+					];
+					for (const cat of testCategories) {
+						catStore.put(cat);
+					}
+
 					tx.oncomplete = () => {
 						db.close();
 						resolve();
@@ -82,21 +105,21 @@ test.describe('Basic App Flow', () => {
 		await page.waitForLoadState('networkidle');
 	});
 
-	test('app loads and shows Day tab', async ({ page }) => {
+	test('app loads and shows Plus-Tab (no running task)', async ({ page }) => {
 		await page.goto('/');
 
-		// Should redirect to /day
-		await expect(page).toHaveURL(/\/day/);
+		// Should redirect to /add (Plus-Tab) when no running task
+		await expect(page).toHaveURL(/\/add/);
 
-		// Day navigation should be visible
-		await expect(page.getByRole('button', { name: 'Heute' })).toBeVisible();
+		// Plus-Tab heading should be visible
+		await expect(page.getByRole('heading', { name: 'Aufgabe starten' })).toBeVisible();
 
-		// Add task button should be visible
-		await expect(page.getByRole('button', { name: '+ Aufgabe hinzufügen' })).toBeVisible();
+		// Category sections should be visible
+		await expect(page.getByRole('heading', { name: 'Alle Kategorien' })).toBeVisible();
 	});
 
 	test('navigation between tabs works', async ({ page }) => {
-		await page.goto('/');
+		await page.goto('/day');
 
 		// Click Week tab
 		await page.getByRole('link', { name: 'Woche' }).click();
@@ -109,54 +132,51 @@ test.describe('Basic App Flow', () => {
 		// Wait for loading to complete, then check for Zeitraum label
 		await expect(page.getByText('Zeitraum:')).toBeVisible({ timeout: 10000 });
 
-		// Click Settings tab
-		await page.getByRole('link', { name: 'Einstellungen' }).click();
-		await expect(page).toHaveURL(/\/settings/);
-		// Use more specific selector - look for the section heading
-		await expect(page.getByRole('heading', { name: 'Abwesenheitskategorien' })).toBeVisible();
+		// Click Plus-Tab
+		await page.getByRole('link', { name: 'Aufgabe hinzufügen' }).click();
+		await expect(page).toHaveURL(/\/add/);
+		await expect(page.getByRole('heading', { name: 'Aufgabe starten' })).toBeVisible();
 
 		// Click Day tab to go back
 		await page.getByRole('link', { name: 'Tag' }).click();
 		await expect(page).toHaveURL(/\/day/);
 	});
 
-	test('can add and see a task', async ({ page }) => {
-		await page.goto('/day');
+	test('can add and see a task via Plus-Tab', async ({ page }) => {
+		await page.goto('/add');
 
-		// Click add task button
-		await page.getByRole('button', { name: '+ Aufgabe hinzufügen' }).click();
+		// Click a category button to start a task (Meeting is a user category)
+		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
+		await expect(categoryBtn).toBeVisible();
+		await categoryBtn.click();
 
-		// Modal should appear
-		await expect(page.getByRole('dialog')).toBeVisible();
-		await expect(page.getByRole('heading', { name: 'Aufgabe hinzufügen' })).toBeVisible();
+		// Should redirect to /day
+		await expect(page).toHaveURL(/\/day/);
 
-		// Fill in the form - category should already be selected
-		// Just click save with defaults
-		await page.getByRole('button', { name: 'Speichern' }).click();
+		// Task should appear in the list with "laufend"
+		await expect(page.getByText(/laufend/)).toBeVisible();
 
-		// Modal should close
-		await expect(page.getByRole('dialog')).not.toBeVisible();
-
-		// Task should appear in the list (no longer shows "Keine Aufgaben")
-		await expect(page.getByText('Keine Aufgaben für diesen Tag')).not.toBeVisible();
+		// Warning banner should appear
+		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
 	});
 
 	test('task persists after reload', async ({ page }) => {
-		await page.goto('/day');
+		// Create a task via Plus-Tab
+		await page.goto('/add');
+		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
+		await expect(categoryBtn).toBeVisible();
+		await categoryBtn.click();
 
-		// Add a task
-		await page.getByRole('button', { name: '+ Aufgabe hinzufügen' }).click();
-		await page.getByRole('button', { name: 'Speichern' }).click();
-
-		// Wait for modal to close
-		await expect(page.getByRole('dialog')).not.toBeVisible();
+		// Should be on /day with running task
+		await expect(page).toHaveURL(/\/day/);
+		await expect(page.getByText(/laufend/)).toBeVisible();
 
 		// Reload page
 		await page.reload();
 		await page.waitForLoadState('networkidle');
 
-		// Task should still be there
-		await expect(page.getByText('Keine Aufgaben für diesen Tag')).not.toBeVisible();
+		// Task should still be there (running)
+		await expect(page.getByText(/laufend/)).toBeVisible();
 	});
 
 	test('day type selector works', async ({ page }) => {
