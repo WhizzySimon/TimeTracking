@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 7 - Quick-Start UX Improvements  
-**Tasks Completed:** 85 / 86  
-**Estimated Progress:** 99%
+**Tasks Completed:** 86 / 86  
+**Estimated Progress:** 100%
 
 ---
 
@@ -881,7 +881,7 @@ After each phase, verify against specs:
 ## Phase 7: Quick-Start UX Improvements
 
 **Target:** 10 tasks, ~8 hours  
-**Status:** In Progress (9/10 tasks)  
+**Status:** Complete (10/10 tasks)  
 **Spec:** `Docs/Specs/quick-start-ux.md`  
 **Plan:** `Docs/Plans/quick-start-ux.md`  
 **Tasks:** `Docs/Tasks/quick-start-ux.md`
@@ -948,10 +948,11 @@ After each phase, verify against specs:
 
 ### Testing
 
-- [ ] **Task 7.10** — E2E Tests
+- [x] **Task 7.10** — E2E Tests
   - Files: `e2e/quick-start.test.ts`
-  - Verified: npm run test:e2e ⬜
+  - Verified: npm run test:e2e ✅ (6 tests, all passing)
   - Deviations: None
+  - Notes: Tests cover Quick-Start buttons, Beenden/Resume buttons, auto-end running task, and settings toggle. Used exact: true for button selectors to avoid matching task item containers.
 
 ---
 
