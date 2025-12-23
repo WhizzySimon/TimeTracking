@@ -376,7 +376,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 8px 12px;
+		padding: 8px 1rem;
 		background: #1e40af;
 		border-bottom: 1px solid #1e3a8a;
 		position: sticky;
