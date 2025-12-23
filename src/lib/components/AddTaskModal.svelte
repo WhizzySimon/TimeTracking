@@ -12,6 +12,7 @@
 -->
 <script lang="ts">
 	import { categories, timeEntries } from '$lib/stores';
+	import { categorySort } from '$lib/stores/theme';
 	import { formatDate, formatTime } from '$lib/utils/date';
 	import { saveTimeEntry } from '$lib/storage/operations';
 	import type { TimeEntry } from '$lib/types';
@@ -163,6 +164,7 @@
 				entries={$timeEntries}
 				value={categoryId}
 				onchange={(id) => (categoryId = id)}
+				sortOrder={$categorySort}
 				required
 			/>
 		</div>

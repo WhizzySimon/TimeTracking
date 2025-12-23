@@ -19,17 +19,23 @@ import { browser } from '$app/environment';
 
 export type ThemeValue = 'cool' | 'warm';
 export type ShapeValue = 'sharp' | 'soft';
+export type CategorySortValue = 'frequency' | 'alphabetical';
 
 const THEME_STORAGE_KEY = 'timetracker-theme';
 const SHAPE_STORAGE_KEY = 'timetracker-shape';
+const CATEGORY_SORT_STORAGE_KEY = 'timetracker-category-sort';
 const DEFAULT_THEME: ThemeValue = 'cool';
 const DEFAULT_SHAPE: ShapeValue = 'soft';
+const DEFAULT_CATEGORY_SORT: CategorySortValue = 'frequency';
 
 /** Current color theme store */
 export const theme = writable<ThemeValue>(DEFAULT_THEME);
 
 /** Current shape style store */
 export const shape = writable<ShapeValue>(DEFAULT_SHAPE);
+
+/** Current category sort order store (TT-FR-008) */
+export const categorySort = writable<CategorySortValue>(DEFAULT_CATEGORY_SORT);
 
 /**
  * Apply theme to document element.
@@ -78,6 +84,20 @@ function loadShape(): ShapeValue {
 }
 
 /**
+ * Load category sort order from localStorage.
+ * Returns default if not set or invalid.
+ */
+function loadCategorySort(): CategorySortValue {
+	if (!browser) return DEFAULT_CATEGORY_SORT;
+
+	const stored = localStorage.getItem(CATEGORY_SORT_STORAGE_KEY);
+	if (stored === 'frequency' || stored === 'alphabetical') {
+		return stored;
+	}
+	return DEFAULT_CATEGORY_SORT;
+}
+
+/**
  * Save theme to localStorage.
  */
 function saveTheme(themeValue: ThemeValue): void {
@@ -91,6 +111,14 @@ function saveTheme(themeValue: ThemeValue): void {
 function saveShape(shapeValue: ShapeValue): void {
 	if (!browser) return;
 	localStorage.setItem(SHAPE_STORAGE_KEY, shapeValue);
+}
+
+/**
+ * Save category sort order to localStorage.
+ */
+function saveCategorySort(sortValue: CategorySortValue): void {
+	if (!browser) return;
+	localStorage.setItem(CATEGORY_SORT_STORAGE_KEY, sortValue);
 }
 
 /**
@@ -114,15 +142,26 @@ export function setShape(shapeValue: ShapeValue): void {
 }
 
 /**
- * Initialize theme and shape on app startup.
+ * Set category sort order and persist to localStorage.
+ * TT-FR-008: Toggle between alphabetical and frequency sorting.
+ */
+export function setCategorySort(sortValue: CategorySortValue): void {
+	categorySort.set(sortValue);
+	saveCategorySort(sortValue);
+}
+
+/**
+ * Initialize theme, shape, and category sort on app startup.
  * Loads from localStorage and applies to document.
  * Call this once in +layout.svelte onMount.
  */
 export function initTheme(): void {
 	const savedTheme = loadTheme();
 	const savedShape = loadShape();
+	const savedCategorySort = loadCategorySort();
 	theme.set(savedTheme);
 	shape.set(savedShape);
+	categorySort.set(savedCategorySort);
 	applyTheme(savedTheme);
 	applyShape(savedShape);
 }
