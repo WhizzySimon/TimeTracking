@@ -1,9 +1,9 @@
 # TimeTracker v1 — Implementation Progress
 
-**Last Updated:** 2025-12-22  
-**Current Phase:** Phase 6 - Cloud Auth & Backup  
-**Tasks Completed:** 76 / 76  
-**Estimated Progress:** 100%
+**Last Updated:** 2025-12-23  
+**Current Phase:** Phase 7 - Quick-Start UX Improvements  
+**Tasks Completed:** 76 / 86  
+**Estimated Progress:** 88%
 
 ---
 
@@ -875,6 +875,74 @@ After each phase, verify against specs:
 | Task | Issue | Status | Resolution |
 | ---- | ----- | ------ | ---------- |
 | -    | -     | -      | -          |
+
+---
+
+## Phase 7: Quick-Start UX Improvements
+
+**Target:** 10 tasks, ~8 hours  
+**Status:** Not started (0/10 tasks)  
+**Spec:** `Docs/Specs/quick-start-ux.md`  
+**Plan:** `Docs/Plans/quick-start-ux.md`  
+**Tasks:** `Docs/Tasks/quick-start-ux.md`
+
+### Quick-Start Buttons
+
+- [ ] **Task 7.1** — Frequency Utils erstellen
+  - Files: `src/lib/utils/frequency.ts`, `src/lib/utils/frequency.test.ts`
+  - Verified: npm run verify ⬜, npm run test:unit ⬜
+  - Deviations: None
+
+- [ ] **Task 7.2** — Quick-Start Buttons Komponente
+  - Files: `src/lib/components/QuickStartButtons.svelte`, `src/routes/day/+page.svelte`
+  - Verified: npm run verify ⬜, Browser test ⬜
+  - Deviations: None
+
+- [ ] **Task 7.3** — Quick-Start Logik (Aufgabe sofort starten)
+  - Files: `src/routes/day/+page.svelte`
+  - Verified: npm run verify ⬜, Browser test ⬜
+  - Deviations: None
+
+### Beenden & Resume Buttons
+
+- [ ] **Task 7.4** — TaskItem Refactor (Running vs Completed)
+  - Files: `src/lib/components/TaskItem.svelte`, `src/lib/components/TaskList.svelte`
+  - Verified: npm run verify ⬜, Browser test ⬜
+  - Deviations: None
+
+- [ ] **Task 7.5** — Beenden-Button Logik
+  - Files: `src/routes/day/+page.svelte`
+  - Verified: npm run verify ⬜, Browser test ⬜
+  - Deviations: None
+
+- [ ] **Task 7.6** — Resume-Button Logik
+  - Files: `src/routes/day/+page.svelte`
+  - Verified: npm run verify ⬜, Browser test ⬜
+  - Deviations: None
+
+### Dropdown & Einstellungen
+
+- [ ] **Task 7.7** — Kategorie-Dropdown Häufigkeitssortierung
+  - Files: `src/lib/components/CategorySelect.svelte`
+  - Verified: npm run verify ⬜, Browser test ⬜
+  - Deviations: None
+
+- [ ] **Task 7.8** — Einstellungen Toggle für Sortierung
+  - Files: `src/routes/settings/+page.svelte`
+  - Verified: npm run verify ⬜, Browser test ⬜
+  - Deviations: None
+
+- [ ] **Task 7.9** — Endzeit vorausfüllen beim Bearbeiten
+  - Files: `src/lib/components/AddTaskModal.svelte`
+  - Verified: npm run verify ⬜, Browser test ⬜
+  - Deviations: None
+
+### Testing
+
+- [ ] **Task 7.10** — E2E Tests
+  - Files: `e2e/quick-start.test.ts`
+  - Verified: npm run test:e2e ⬜
+  - Deviations: None
 
 ---
 

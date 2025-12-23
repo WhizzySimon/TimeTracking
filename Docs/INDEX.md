@@ -20,6 +20,8 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 
 - AGENTS.md (repo root)  
   Purpose: spec-driven process, how to plan tasks, how to verify.
+- Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md  
+  Purpose: **Complete workflow guide** — 4 Phasen, Task-Workflow, Progress Tracking, Commit-Regeln.
 
 ### Product spec (what we build)
 

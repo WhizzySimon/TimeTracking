@@ -33,8 +33,10 @@ Run these workflows first:
 Then:
 
 4. Read `Docs/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
-5. Read `Docs/Tasks/timetracker-v1-implementation.md` to find the next incomplete task
-6. Start implementing the next task following the Automated Task Workflow from COMMAND_EXECUTION_RULES.md
+5. Find the relevant Tasks file:
+   - Check "Current Phase" in IMPLEMENTATION_PROGRESS.md
+   - Read the corresponding `Docs/Tasks/<feature>.md` file (e.g., `quick-start-ux.md`, `timetracker-v1-implementation.md`)
+6. Start implementing the next incomplete task following the Task-Workflow from `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md`
 
 Report:
 
