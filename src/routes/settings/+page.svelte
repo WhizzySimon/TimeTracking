@@ -274,8 +274,9 @@
 					<h2>Abwesenheitskategorien</h2>
 				</button>
 				<button
-					class="add-btn"
+					class="icon-btn"
 					aria-label="Abwesenheitskategorie hinzufügen"
+					title="Kategorie hinzufügen"
 					onclick={() => (showAddAbsenceCategory = true)}>+</button
 				>
 			</div>
@@ -294,6 +295,14 @@
 								<div class="item-info">
 									<span class="item-name" data-testid="category-name">{category.name}</span>
 								</div>
+								{#if category.type !== 'system'}
+									<button
+										class="delete-btn"
+										aria-label="Löschen"
+										data-testid="delete-category-btn"
+										onclick={() => handleDeleteCategory(category)}>×</button
+									>
+								{/if}
 							</div>
 						{/each}
 					{/if}
