@@ -1,3 +1,4 @@
+// __BUILD_ID__ = "dev"
 const CACHE_PREFIX = 'timetracker-';
 const ASSETS_TO_CACHE = [
   '/',
