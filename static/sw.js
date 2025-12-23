@@ -1,4 +1,4 @@
-// __BUILD_ID__ = "1.0.0.95-2025-12-23T22:24:10.244Z"
+// __BUILD_ID__ = "1.0.0.96-2025-12-23T22:27:15.659Z"
 const CACHE_PREFIX = 'timetracker-';
 const ASSETS_TO_CACHE = [
   '/',

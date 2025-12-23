@@ -17,7 +17,7 @@
 	import { initializeCategories, getAllCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
 	import { saveTimeEntry } from '$lib/storage/operations';
-	import { formatDate, formatTime, roundToFiveMinutes } from '$lib/utils/date';
+	import { formatDate, formatTime } from '$lib/utils/date';
 	import type { TimeEntry } from '$lib/types';
 	import CategoryList from '$lib/components/CategoryList.svelte';
 
@@ -34,7 +34,7 @@
 	 */
 	async function handleCategorySelect(categoryId: string) {
 		const now = new Date();
-		const currentTimeStr = roundToFiveMinutes(formatTime(now));
+		const currentTimeStr = formatTime(now);
 		const currentDateStr = formatDate(now, 'ISO');
 
 		// TT-FR-005: If a task is already running, end it first

@@ -8,6 +8,7 @@ import { put, deleteByKey } from './db';
 import { addToOutbox } from '$lib/sync/outbox';
 import { syncNow } from '$lib/sync/engine';
 import { markLocalChanged } from '$lib/backup/cloud';
+import { roundToFiveMinutes } from '$lib/utils/date';
 import type { TimeEntry, DayType, WorkTimeModel, Category } from '$lib/types';
 
 /**
@@ -26,10 +27,19 @@ function markChanged(): void {
 
 /**
  * Save a time entry and add to outbox.
+ * IMPORTANT: Times are automatically rounded to 5-minute increments.
+ * This ensures consistent time granularity across the entire app.
  */
 export async function saveTimeEntry(entry: TimeEntry): Promise<void> {
-	await put('timeEntries', entry);
-	await addToOutbox('entry_upsert', entry);
+	// Round times to 5-minute increments (centralized - no need to round at call sites)
+	const normalizedEntry: TimeEntry = {
+		...entry,
+		startTime: roundToFiveMinutes(entry.startTime),
+		endTime: entry.endTime ? roundToFiveMinutes(entry.endTime) : null
+	};
+
+	await put('timeEntries', normalizedEntry);
+	await addToOutbox('entry_upsert', normalizedEntry);
 	markChanged();
 	triggerSync();
 }
