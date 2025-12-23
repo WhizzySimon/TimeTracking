@@ -26,7 +26,6 @@
 	import WarningBanner from '$lib/components/WarningBanner.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import DayPicker from '$lib/components/DayPicker.svelte';
-	import QuickStartButtons from '$lib/components/QuickStartButtons.svelte';
 
 	let loading = $state(true);
 
@@ -102,11 +101,6 @@
 	}
 
 	// Modal handlers
-	function openAddModal() {
-		editingEntry = null;
-		showAddModal = true;
-	}
-
 	function openEditModal(entry: TimeEntry) {
 		editingEntry = entry;
 		showAddModal = true;
@@ -141,44 +135,6 @@
 	function cancelDeleteEntry() {
 		showDeleteConfirm = false;
 		entryToDelete = null;
-	}
-
-	/**
-	 * Quick-Start handler: creates a new task immediately with the selected category.
-	 * Spec refs: TT-FR-003 (create with startTime=now, endTime=null)
-	 *            TT-FR-005 (auto-end running task first)
-	 */
-	async function handleQuickStart(categoryId: string) {
-		const now = new Date();
-		const currentTimeStr = formatTime(now);
-		const currentDateStr = formatDate(now, 'ISO');
-
-		// TT-FR-005: If a task is already running, end it first
-		if (runningEntry) {
-			const endedEntry: TimeEntry = {
-				...runningEntry,
-				endTime: currentTimeStr,
-				updatedAt: Date.now()
-			};
-			await saveTimeEntry(endedEntry);
-		}
-
-		// TT-FR-003: Create new task with startTime=now, endTime=null (running)
-		const newEntry: TimeEntry = {
-			id: `entry-${crypto.randomUUID()}`,
-			date: currentDateStr,
-			categoryId,
-			startTime: currentTimeStr,
-			endTime: null,
-			description: null,
-			createdAt: Date.now(),
-			updatedAt: Date.now()
-		};
-		await saveTimeEntry(newEntry);
-
-		// Reload all entries from IndexedDB to update the store
-		const allEntries = await getAll<TimeEntry>('timeEntries');
-		timeEntries.set(allEntries);
 	}
 
 	/**
@@ -276,14 +232,6 @@
 
 		<!-- Inline Summary -->
 		<InlineSummary {ist} {soll} {saldo} />
-
-		<!-- Quick-Start Buttons (top 5 frequent categories) -->
-		<QuickStartButtons categories={$categories} entries={$timeEntries} onstart={handleQuickStart} />
-
-		<!-- Add Task Button -->
-		<div class="add-task-section">
-			<button class="add-task-btn" onclick={openAddModal}>+ Aufgabe hinzufügen</button>
-		</div>
 
 		<!-- Task List -->
 		<TaskList
@@ -391,28 +339,5 @@
 
 	.date-title:hover {
 		background: var(--surface-hover);
-	}
-
-	/* Add Task Button */
-	.add-task-section {
-		margin-top: 0.5rem;
-	}
-
-	.add-task-btn {
-		width: 100%;
-		padding: 0.75rem 1rem;
-		border: 2px dashed var(--border);
-		border-radius: var(--r-btn);
-		background: transparent;
-		color: var(--muted);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all var(--transition-normal);
-	}
-
-	.add-task-btn:hover {
-		border-color: var(--accent);
-		color: var(--accent);
-		background: var(--accent-light);
 	}
 </style>

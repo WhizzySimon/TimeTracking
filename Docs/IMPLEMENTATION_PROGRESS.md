@@ -2,8 +2,8 @@
 
 **Last Updated:** 2025-12-23  
 **Current Phase:** Phase 8 - Plus-Tab (Ein-Klick-Workflow)  
-**Tasks Completed:** 92 / 94  
-**Estimated Progress:** 98%
+**Tasks Completed:** 93 / 94  
+**Estimated Progress:** 99%
 
 ---
 
@@ -959,7 +959,7 @@ After each phase, verify against specs:
 ## Phase 8: Plus-Tab (Ein-Klick-Workflow + Smart Suggestions)
 
 **Target:** 9 tasks, ~5 hours  
-**Status:** In Progress (6/9 tasks)  
+**Status:** In Progress (7/9 tasks)  
 **Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Smart Suggestions)  
 **Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Algorithmus-Details)  
 **Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md` (Phase 8 Tasks 8.1-8.9)
@@ -1006,10 +1006,11 @@ After each phase, verify against specs:
 
 ### Cleanup
 
-- [ ] **Task 8.7** — Cleanup: Tag-Tab (Quick-Start + Add-Button entfernen)
-  - Files: `src/routes/day/+page.svelte`, `src/lib/components/QuickStartButtons.svelte`
-  - Verified: ⬜
-  - Deviations: None
+- [x] **Task 8.7** — Cleanup: Tag-Tab (Quick-Start + Add-Button entfernen)
+  - Files: `src/routes/day/+page.svelte`
+  - Verified: npm run verify ✅, Browser test ✅
+  - Deviations: QuickStartButtons.svelte kept (may be used elsewhere), only removed from Day page
+  - Notes: Removed QuickStartButtons, Add-Button, and related CSS/functions from Day page.
 
 - [ ] **Task 8.8** — Cleanup: Settings (Sorting Toggle entfernen)
   - Files: `src/routes/settings/+page.svelte`, `src/lib/stores/theme.ts`
