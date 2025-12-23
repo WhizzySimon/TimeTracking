@@ -143,18 +143,22 @@ export function getTimeSlot(hours: number): number {
  * Falls back to total frequency if no context matches.
  *
  * Algorithm:
- * 1. Filter entries from last 30 days
+ * 1. Find entries with adaptive lookback (extends until enough data found)
  * 2. For each category, calculate:
  *    - contextMatches: entries with same weekday AND same 2h time slot
- *    - totalFrequency: total entries in last 30 days
+ *    - totalFrequency: total entries in lookback period
  * 3. Score = contextMatches * 1000 + totalFrequency
  * 4. Sort by score descending, alphabetical tiebreaker
+ *
+ * Adaptive lookback:
+ * - Starts at 30 days, extends by 30 days up to 365 days max
+ * - Stops extending when at least 20 days with entries are found
  *
  * @param n - Number of top categories to return
  * @param entries - All time entries to analyze
  * @param categories - All available categories
  * @param now - Current date/time (for testing, defaults to new Date())
- * @param days - Number of days to look back (default: 30)
+ * @param initialDays - Initial number of days to look back (default: 30)
  * @returns Array of categories sorted by smart score (most relevant first)
  */
 export function getSmartTopCategories(
@@ -162,17 +166,43 @@ export function getSmartTopCategories(
 	entries: TimeEntry[],
 	categories: Category[],
 	now: Date = new Date(),
-	days: number = 30
+	initialDays: number = 30
 ): Category[] {
-	// 1. Filter to recent entries
-	const cutoffDate = new Date(now);
-	cutoffDate.setDate(cutoffDate.getDate() - days);
-	cutoffDate.setHours(0, 0, 0, 0);
-	const cutoffStr = cutoffDate.toISOString().split('T')[0];
+	const MIN_DAYS_WITH_ENTRIES = 20; // Target: at least 20 days with entries
+	const MAX_LOOKBACK_DAYS = 365; // Don't look back more than 1 year
+	const LOOKBACK_INCREMENT = 30; // Extend by 30 days each iteration
 
-	const recentEntries = entries.filter(
-		(e) => e.date >= cutoffStr && !SYSTEM_CATEGORY_IDS.includes(e.categoryId)
-	);
+	// 1. Find entries with adaptive lookback
+	let days = initialDays;
+	let recentEntries: TimeEntry[] = [];
+	let daysWithEntries = 0;
+
+	while (days <= MAX_LOOKBACK_DAYS) {
+		const cutoffDate = new Date(now);
+		cutoffDate.setDate(cutoffDate.getDate() - days);
+		cutoffDate.setHours(0, 0, 0, 0);
+		const cutoffStr = cutoffDate.toISOString().split('T')[0];
+
+		recentEntries = entries.filter(
+			(e) => e.date >= cutoffStr && !SYSTEM_CATEGORY_IDS.includes(e.categoryId)
+		);
+
+		// Count unique days with entries
+		const uniqueDays = new Set(recentEntries.map((e) => e.date));
+		daysWithEntries = uniqueDays.size;
+
+		// Stop if we have enough data or reached max lookback
+		if (daysWithEntries >= MIN_DAYS_WITH_ENTRIES || days >= MAX_LOOKBACK_DAYS) {
+			break;
+		}
+
+		days += LOOKBACK_INCREMENT;
+	}
+
+	// If still no entries, return empty
+	if (recentEntries.length === 0) {
+		return [];
+	}
 
 	// 2. Get current context
 	const currentWeekday = now.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat

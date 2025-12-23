@@ -53,18 +53,21 @@
 		let initialEndTime = '';
 		if (entry) {
 			if (entry.endTime === null) {
-				// Running task: pre-fill with current time
+				// Running task: pre-fill with current time (rounded)
 				initialEndTime = currentTime;
 			} else {
-				// Completed task: show existing end time
-				initialEndTime = entry.endTime;
+				// Completed task: show existing end time (rounded to match dropdown)
+				initialEndTime = roundToFiveMinutes(entry.endTime);
 			}
 		}
 		// New task: endTime stays empty (as before)
 
+		// Round startTime to 5-minute steps so it matches dropdown options
+		const initialStartTime = entry?.startTime ? roundToFiveMinutes(entry.startTime) : currentTime;
+
 		return {
 			categoryId: entry?.categoryId ?? '',
-			startTime: entry?.startTime ?? currentTime,
+			startTime: initialStartTime,
 			endTime: initialEndTime,
 			description: entry?.description ?? ''
 		};

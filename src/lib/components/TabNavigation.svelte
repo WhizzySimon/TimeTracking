@@ -97,23 +97,23 @@
 		border-radius: var(--r-pill);
 	}
 
-	/* Plus-Tab: prominent accent style */
+	/* Plus-Tab: prominent style - white text on nav background */
 	.tab.plus-tab {
 		flex: 0 0 auto;
 		min-width: 44px;
 		max-width: 44px;
 		font-size: 1.25rem;
 		font-weight: 600;
-		color: var(--accent);
+		color: white;
 	}
 
 	.tab.plus-tab:hover {
-		background-color: var(--accent-light);
-		color: var(--accent);
+		background-color: rgba(255, 255, 255, 0.25);
+		color: white;
 	}
 
 	.tab.plus-tab.active {
-		background-color: var(--accent);
+		background-color: rgba(255, 255, 255, 0.3);
 		color: white;
 	}
 </style>

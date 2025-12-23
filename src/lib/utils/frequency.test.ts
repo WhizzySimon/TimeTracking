@@ -380,16 +380,23 @@ describe('getSmartTopCategories', () => {
 		expect(result[0].id).toBe('cat-a');
 	});
 
-	it('excludes entries older than lookback period', () => {
+	it('excludes entries older than max lookback period (365 days)', () => {
 		const now = new Date('2025-12-23T09:00:00');
 
-		const entries: TimeEntry[] = [
-			createEntryWithTime('cat-a', '2025-12-23', '09:00'), // Recent
-			createEntryWithTime('cat-b', '2025-11-01', '09:00') // Older than 30 days
-		];
+		// Create enough recent entries so adaptive lookback doesn't need to extend
+		const entries: TimeEntry[] = [];
+		// Add 25 days of entries for cat-a (more than MIN_DAYS_WITH_ENTRIES=20)
+		for (let i = 0; i < 25; i++) {
+			const date = new Date(now);
+			date.setDate(date.getDate() - i);
+			entries.push(createEntryWithTime('cat-a', date.toISOString().split('T')[0], '09:00'));
+		}
+		// Add entry older than 365 days for cat-b
+		entries.push(createEntryWithTime('cat-b', '2024-01-01', '09:00'));
 
 		const result = getSmartTopCategories(5, entries, categories, now);
 
+		// cat-b should be excluded (older than max lookback)
 		expect(result.length).toBe(1);
 		expect(result[0].id).toBe('cat-a');
 	});
