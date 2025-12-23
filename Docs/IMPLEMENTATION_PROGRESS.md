@@ -956,58 +956,64 @@ After each phase, verify against specs:
 
 ---
 
-## Phase 8: Plus-Tab (Ein-Klick-Workflow)
+## Phase 8: Plus-Tab (Ein-Klick-Workflow + Smart Suggestions)
 
-**Target:** 8 tasks, ~4 hours  
-**Status:** Not Started (0/8 tasks)  
-**Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt)  
-**Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt)  
-**Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md` (Phase 8 Tasks)
+**Target:** 9 tasks, ~5 hours  
+**Status:** Not Started (0/9 tasks)  
+**Spec:** `Docs/Specs/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Smart Suggestions)  
+**Plan:** `Docs/Plans/P07-20251223-quick-start-ux.md` (Phase 8 Abschnitt + Algorithmus-Details)  
+**Tasks:** `Docs/Tasks/P07-20251223-quick-start-ux.md` (Phase 8 Tasks 8.1-8.9)
 
-### Plus-Tab Route & Komponenten
+### Plus-Tab Route & Smart Suggestions
 
 - [ ] **Task 8.1** — Plus-Tab Route erstellen
   - Files: `src/routes/add/+page.svelte`
   - Verified: ⬜
   - Deviations: None
 
-- [ ] **Task 8.2** — CategoryList Komponente
+- [ ] **Task 8.2** — Smart Suggestions Algorithmus implementieren
+  - Files: `src/lib/utils/frequency.ts`, `src/lib/utils/frequency.test.ts`
+  - Verified: ⬜
+  - Deviations: None
+  - Notes: Kontextbewusste Top 5 basierend auf Wochentag + 2h-Zeitslot. Kontext-First-Scoring (×1000), Fallback auf Gesamthäufigkeit.
+
+- [ ] **Task 8.3** — CategoryList Komponente
   - Files: `src/lib/components/CategoryList.svelte`, `src/routes/add/+page.svelte`
   - Verified: ⬜
   - Deviations: None
 
-- [ ] **Task 8.3** — Ein-Klick-Start Logik
+- [ ] **Task 8.4** — Ein-Klick-Start Logik
   - Files: `src/routes/add/+page.svelte`
   - Verified: ⬜
   - Deviations: None
 
 ### Navigation & Default-Tab
 
-- [ ] **Task 8.4** — Navigation anpassen (Plus-Tab erster Tab)
+- [ ] **Task 8.5** — Navigation anpassen (Plus-Tab erster Tab)
   - Files: `src/lib/components/Navigation.svelte`
   - Verified: ⬜
   - Deviations: None
 
-- [ ] **Task 8.5** — Default-Tab-Logik
+- [ ] **Task 8.6** — Default-Tab-Logik
   - Files: `src/routes/+page.svelte`
   - Verified: ⬜
   - Deviations: None
 
 ### Cleanup
 
-- [ ] **Task 8.6** — Cleanup: Tag-Tab (Quick-Start + Add-Button entfernen)
+- [ ] **Task 8.7** — Cleanup: Tag-Tab (Quick-Start + Add-Button entfernen)
   - Files: `src/routes/day/+page.svelte`, `src/lib/components/QuickStartButtons.svelte`
   - Verified: ⬜
   - Deviations: None
 
-- [ ] **Task 8.7** — Cleanup: Settings (Sorting Toggle entfernen)
+- [ ] **Task 8.8** — Cleanup: Settings (Sorting Toggle entfernen)
   - Files: `src/routes/settings/+page.svelte`, `src/lib/stores/theme.ts`
   - Verified: ⬜
   - Deviations: None
 
 ### Testing
 
-- [ ] **Task 8.8** — E2E Tests erweitern
+- [ ] **Task 8.9** — E2E Tests erweitern
   - Files: `e2e/quick-start.test.ts`
   - Verified: ⬜
   - Deviations: None
