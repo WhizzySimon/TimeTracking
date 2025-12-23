@@ -12,8 +12,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { SvelteMap } from 'svelte/reactivity';
-	import { timeEntries, categories, workTimeModels } from '$lib/stores';
+	import { timeEntries, categories, workTimeModels, currentDate } from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll, getByKey } from '$lib/storage/db';
 	import { formatDate, parseDate, getWeekNumber, addDays } from '$lib/utils/date';
@@ -164,6 +166,7 @@
 
 	// Group entries by period (week or month)
 	interface PeriodGroup {
+		key: string;
 		label: string;
 		ist: number;
 		soll: number;
@@ -376,13 +379,46 @@
 			}
 
 			const label = getPeriodLabel(key, byMonth);
-			result.push({ label, ist, soll });
+			result.push({ key, label, ist, soll });
 		}
 
 		return result;
 	}
 
 	let periodGroups = $derived(calculatePeriodGroups());
+
+	/**
+	 * Navigate to week or month tab based on period key.
+	 * Key format: "2025-01" for month, "2025-W01" for week
+	 */
+	function navigateToPeriod(key: string) {
+		const isMonth = !key.includes('-W');
+
+		if (isMonth) {
+			// Month key format: "2025-01"
+			const [year, month] = key.split('-').map(Number);
+			// Set currentDate to first day of the month
+			currentDate.set(new Date(year, month - 1, 1));
+			goto(resolve('/month'));
+		} else {
+			// Week key format: "2025-W01"
+			const [yearPart, weekPart] = key.split('-W');
+			const year = parseInt(yearPart);
+			const week = parseInt(weekPart);
+			// Get a date in that week (use Thursday as it's always in the correct ISO week)
+			const jan4 = new Date(year, 0, 4);
+			const dayOfWeek = jan4.getDay() || 7; // Convert Sunday from 0 to 7
+			// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local variable in non-reactive function
+			const firstThursday = new Date(jan4);
+			firstThursday.setDate(jan4.getDate() - dayOfWeek + 4);
+			// Calculate the target Thursday
+			// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local variable in non-reactive function
+			const targetDate = new Date(firstThursday);
+			targetDate.setDate(firstThursday.getDate() + (week - 1) * 7);
+			currentDate.set(targetDate);
+			goto(resolve('/week'));
+		}
+	}
 
 	// Load day types for the entire range
 	async function loadDayTypesForRange() {
@@ -452,9 +488,9 @@
 					{#if periodGroups.length === 0}
 						<p class="no-periods">Keine Daten im ausgewählten Zeitraum</p>
 					{:else}
-						{#each periodGroups as period (period.label)}
+						{#each periodGroups as period (period.key)}
 							{@const periodSaldo = period.ist - period.soll}
-							<div class="period-item">
+							<button class="period-item clickable" onclick={() => navigateToPeriod(period.key)}>
 								<span class="period-label">{period.label}</span>
 								<div class="period-hours">
 									<span class="ist">{formatHours(period.ist)}</span>
@@ -469,7 +505,7 @@
 										{periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}
 									</span>
 								</div>
-							</div>
+							</button>
 						{/each}
 					{/if}
 				</div>
@@ -602,6 +638,25 @@
 		background: white;
 		border: 1px solid #eee;
 		border-radius: 8px;
+		width: 100%;
+		text-align: left;
+		font-size: inherit;
+	}
+
+	.period-item.clickable {
+		cursor: pointer;
+		transition:
+			background-color 0.15s ease,
+			border-color 0.15s ease;
+	}
+
+	.period-item.clickable:hover {
+		background: #f8fafc;
+		border-color: #3b82f6;
+	}
+
+	.period-item.clickable:active {
+		background: #eff6ff;
 	}
 
 	.period-label {
