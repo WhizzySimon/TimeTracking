@@ -63,13 +63,27 @@
 	let saturday = $state(formatHoursForInput(initialModel?.saturday ?? 0));
 	let sunday = $state(formatHoursForInput(initialModel?.sunday ?? 0));
 	// Is workday checkboxes
-	let mondayIsWorkday = $state(getInitialIsWorkday(initialModel?.mondayIsWorkday, initialModel?.monday ?? 8));
-	let tuesdayIsWorkday = $state(getInitialIsWorkday(initialModel?.tuesdayIsWorkday, initialModel?.tuesday ?? 8));
-	let wednesdayIsWorkday = $state(getInitialIsWorkday(initialModel?.wednesdayIsWorkday, initialModel?.wednesday ?? 8));
-	let thursdayIsWorkday = $state(getInitialIsWorkday(initialModel?.thursdayIsWorkday, initialModel?.thursday ?? 8));
-	let fridayIsWorkday = $state(getInitialIsWorkday(initialModel?.fridayIsWorkday, initialModel?.friday ?? 8));
-	let saturdayIsWorkday = $state(getInitialIsWorkday(initialModel?.saturdayIsWorkday, initialModel?.saturday ?? null));
-	let sundayIsWorkday = $state(getInitialIsWorkday(initialModel?.sundayIsWorkday, initialModel?.sunday ?? null));
+	let mondayIsWorkday = $state(
+		getInitialIsWorkday(initialModel?.mondayIsWorkday, initialModel?.monday ?? 8)
+	);
+	let tuesdayIsWorkday = $state(
+		getInitialIsWorkday(initialModel?.tuesdayIsWorkday, initialModel?.tuesday ?? 8)
+	);
+	let wednesdayIsWorkday = $state(
+		getInitialIsWorkday(initialModel?.wednesdayIsWorkday, initialModel?.wednesday ?? 8)
+	);
+	let thursdayIsWorkday = $state(
+		getInitialIsWorkday(initialModel?.thursdayIsWorkday, initialModel?.thursday ?? 8)
+	);
+	let fridayIsWorkday = $state(
+		getInitialIsWorkday(initialModel?.fridayIsWorkday, initialModel?.friday ?? 8)
+	);
+	let saturdayIsWorkday = $state(
+		getInitialIsWorkday(initialModel?.saturdayIsWorkday, initialModel?.saturday ?? null)
+	);
+	let sundayIsWorkday = $state(
+		getInitialIsWorkday(initialModel?.sundayIsWorkday, initialModel?.sunday ?? null)
+	);
 	let error = $state('');
 	let saving = $state(false);
 
@@ -88,7 +102,15 @@
 
 	// Count active workdays (based on checkboxes, not hours)
 	let activeWorkdays = $derived(() => {
-		const workdays = [mondayIsWorkday, tuesdayIsWorkday, wednesdayIsWorkday, thursdayIsWorkday, fridayIsWorkday, saturdayIsWorkday, sundayIsWorkday];
+		const workdays = [
+			mondayIsWorkday,
+			tuesdayIsWorkday,
+			wednesdayIsWorkday,
+			thursdayIsWorkday,
+			fridayIsWorkday,
+			saturdayIsWorkday,
+			sundayIsWorkday
+		];
 		return workdays.filter(Boolean).length;
 	});
 
@@ -244,38 +266,115 @@
 			<div class="weekday-list">
 				<div class="weekday-row">
 					<span class="day-label">Mo</span>
-					<input type="checkbox" id="workday-mon" bind:checked={mondayIsWorkday} disabled={saving} />
-					<input type="text" id="hours-mon" bind:value={monday} class="hours-input" disabled={saving} />
+					<input
+						type="checkbox"
+						id="workday-mon"
+						bind:checked={mondayIsWorkday}
+						disabled={saving}
+					/>
+					<input
+						type="text"
+						id="hours-mon"
+						bind:value={monday}
+						class="hours-input"
+						disabled={saving}
+					/>
 				</div>
 				<div class="weekday-row">
 					<span class="day-label">Di</span>
-					<input type="checkbox" id="workday-tue" bind:checked={tuesdayIsWorkday} disabled={saving} />
-					<input type="text" id="hours-tue" bind:value={tuesday} class="hours-input" disabled={saving} />
+					<input
+						type="checkbox"
+						id="workday-tue"
+						bind:checked={tuesdayIsWorkday}
+						disabled={saving}
+					/>
+					<input
+						type="text"
+						id="hours-tue"
+						bind:value={tuesday}
+						class="hours-input"
+						disabled={saving}
+					/>
 				</div>
 				<div class="weekday-row">
 					<span class="day-label">Mi</span>
-					<input type="checkbox" id="workday-wed" bind:checked={wednesdayIsWorkday} disabled={saving} />
-					<input type="text" id="hours-wed" bind:value={wednesday} class="hours-input" disabled={saving} />
+					<input
+						type="checkbox"
+						id="workday-wed"
+						bind:checked={wednesdayIsWorkday}
+						disabled={saving}
+					/>
+					<input
+						type="text"
+						id="hours-wed"
+						bind:value={wednesday}
+						class="hours-input"
+						disabled={saving}
+					/>
 				</div>
 				<div class="weekday-row">
 					<span class="day-label">Do</span>
-					<input type="checkbox" id="workday-thu" bind:checked={thursdayIsWorkday} disabled={saving} />
-					<input type="text" id="hours-thu" bind:value={thursday} class="hours-input" disabled={saving} />
+					<input
+						type="checkbox"
+						id="workday-thu"
+						bind:checked={thursdayIsWorkday}
+						disabled={saving}
+					/>
+					<input
+						type="text"
+						id="hours-thu"
+						bind:value={thursday}
+						class="hours-input"
+						disabled={saving}
+					/>
 				</div>
 				<div class="weekday-row">
 					<span class="day-label">Fr</span>
-					<input type="checkbox" id="workday-fri" bind:checked={fridayIsWorkday} disabled={saving} />
-					<input type="text" id="hours-fri" bind:value={friday} class="hours-input" disabled={saving} />
+					<input
+						type="checkbox"
+						id="workday-fri"
+						bind:checked={fridayIsWorkday}
+						disabled={saving}
+					/>
+					<input
+						type="text"
+						id="hours-fri"
+						bind:value={friday}
+						class="hours-input"
+						disabled={saving}
+					/>
 				</div>
 				<div class="weekday-row">
 					<span class="day-label">Sa</span>
-					<input type="checkbox" id="workday-sat" bind:checked={saturdayIsWorkday} disabled={saving} />
-					<input type="text" id="hours-sat" bind:value={saturday} class="hours-input" disabled={saving} />
+					<input
+						type="checkbox"
+						id="workday-sat"
+						bind:checked={saturdayIsWorkday}
+						disabled={saving}
+					/>
+					<input
+						type="text"
+						id="hours-sat"
+						bind:value={saturday}
+						class="hours-input"
+						disabled={saving}
+					/>
 				</div>
 				<div class="weekday-row">
 					<span class="day-label">So</span>
-					<input type="checkbox" id="workday-sun" bind:checked={sundayIsWorkday} disabled={saving} />
-					<input type="text" id="hours-sun" bind:value={sunday} class="hours-input" disabled={saving} />
+					<input
+						type="checkbox"
+						id="workday-sun"
+						bind:checked={sundayIsWorkday}
+						disabled={saving}
+					/>
+					<input
+						type="text"
+						id="hours-sun"
+						bind:value={sunday}
+						class="hours-input"
+						disabled={saving}
+					/>
 				</div>
 			</div>
 		</div>
@@ -487,5 +586,4 @@
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
-
-	</style>
+</style>

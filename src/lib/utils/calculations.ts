@@ -169,7 +169,15 @@ export function isWeekdayWorkday(model: WorkTimeModel, weekday: Weekday): boolea
  * Count active workdays in a work time model
  */
 export function countWorkdays(model: WorkTimeModel): number {
-	const weekdays: Weekday[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+	const weekdays: Weekday[] = [
+		'monday',
+		'tuesday',
+		'wednesday',
+		'thursday',
+		'friday',
+		'saturday',
+		'sunday'
+	];
 	return weekdays.filter((day) => isWeekdayWorkday(model, day)).length;
 }
 

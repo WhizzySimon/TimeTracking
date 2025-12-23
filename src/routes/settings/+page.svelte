@@ -42,16 +42,16 @@
 	}
 
 	function countModelWorkdays(model: WorkTimeModel): number {
-		const days = [
-			model.monday,
-			model.tuesday,
-			model.wednesday,
-			model.thursday,
-			model.friday,
-			model.saturday,
-			model.sunday
+		const workdays = [
+			model.mondayIsWorkday ?? (model.monday !== null && model.monday > 0),
+			model.tuesdayIsWorkday ?? (model.tuesday !== null && model.tuesday > 0),
+			model.wednesdayIsWorkday ?? (model.wednesday !== null && model.wednesday > 0),
+			model.thursdayIsWorkday ?? (model.thursday !== null && model.thursday > 0),
+			model.fridayIsWorkday ?? (model.friday !== null && model.friday > 0),
+			model.saturdayIsWorkday ?? (model.saturday !== null && model.saturday > 0),
+			model.sundayIsWorkday ?? (model.sunday !== null && model.sunday > 0)
 		];
-		return days.filter((h) => h !== null && h > 0).length;
+		return workdays.filter(Boolean).length;
 	}
 
 	// Split categories: absence (system + non-work) vs work categories
