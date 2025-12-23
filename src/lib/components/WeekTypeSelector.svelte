@@ -36,6 +36,14 @@
 	let daysToChange: Date[] = $state([]);
 	let hasMixedWeek = $state(false);
 
+	// Reset selectedValue when week changes so the same option can be selected again
+	$effect(() => {
+		// Track weekDate changes
+		void weekDate;
+		// Reset to default so user can select same type for new week
+		selectedValue = 'arbeitswoche';
+	});
+
 	function weekTypeToDayType(weekType: WeekTypeValue): DayTypeValue {
 		switch (weekType) {
 			case 'arbeitswoche':
