@@ -234,6 +234,16 @@ export function formatTime(date: Date): string {
 }
 
 /**
+ * Round time string to nearest 5-minute increment (floor).
+ * E.g., "23:02" -> "23:00", "23:07" -> "23:05"
+ */
+export function roundToFiveMinutes(time: string): string {
+	const [hours, minutes] = time.split(':').map(Number);
+	const roundedMinutes = Math.floor(minutes / 5) * 5;
+	return `${String(hours).padStart(2, '0')}:${String(roundedMinutes).padStart(2, '0')}`;
+}
+
+/**
  * Parse time string (HH:mm) and apply to a date
  */
 export function parseTime(timeStr: string, baseDate: Date): Date | null {

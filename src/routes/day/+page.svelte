@@ -14,7 +14,7 @@
 	import { onMount } from 'svelte';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { currentDate, activeWorkTimeModel, timeEntries, categories } from '$lib/stores';
-	import { formatDate, isToday, addDays, formatTime } from '$lib/utils/date';
+	import { formatDate, isToday, addDays, formatTime, roundToFiveMinutes } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
 	import { getByKey, getAll } from '$lib/storage/db';
 	import { deleteTimeEntry, saveTimeEntry } from '$lib/storage/operations';
@@ -144,7 +144,7 @@
 	 */
 	async function handleEndEntry(entry: TimeEntry) {
 		const now = new Date();
-		const currentTimeStr = formatTime(now);
+		const currentTimeStr = roundToFiveMinutes(formatTime(now));
 
 		const endedEntry: TimeEntry = {
 			...entry,
@@ -166,7 +166,7 @@
 	 */
 	async function handleResumeEntry(entry: TimeEntry) {
 		const now = new Date();
-		const currentTimeStr = formatTime(now);
+		const currentTimeStr = roundToFiveMinutes(formatTime(now));
 		const currentDateStr = formatDate(now, 'ISO');
 
 		// TT-FR-015: If a task is already running, end it first
