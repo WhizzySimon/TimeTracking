@@ -24,6 +24,9 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# Generated service worker (built from sw.template.js)
+static/sw.js
+
 # Cascade automation output (do not commit)
 scripts/verify-code-output.txt
 scripts/cascade-command.txt
