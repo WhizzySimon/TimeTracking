@@ -101,7 +101,7 @@
 		color: var(--muted);
 		font-size: 1.25rem;
 		cursor: pointer;
-		border-radius: 4px;
+		border-radius: var(--r-btn);
 		display: flex;
 		align-items: center;
 		justify-content: center;

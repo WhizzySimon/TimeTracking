@@ -66,7 +66,7 @@
 		align-items: center;
 		gap: 6px;
 		padding: 4px 10px;
-		border-radius: 16px;
+		border-radius: var(--r-pill);
 		background-color: var(--indicator-bg);
 		color: var(--indicator-color);
 		font-size: 0.75rem;

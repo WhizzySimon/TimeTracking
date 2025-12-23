@@ -704,7 +704,7 @@
 		width: 32px;
 		height: 32px;
 		border: none;
-		border-radius: 4px;
+		border-radius: var(--r-btn);
 		background: transparent;
 		color: var(--accent);
 		font-size: 1.5rem;
@@ -727,7 +727,7 @@
 		width: 32px;
 		height: 32px;
 		border: none;
-		border-radius: 4px;
+		border-radius: var(--r-btn);
 		background: transparent;
 		color: var(--muted);
 		font-size: 1.25rem;
@@ -837,7 +837,7 @@
 		width: 32px;
 		height: 32px;
 		border: none;
-		border-radius: 4px;
+		border-radius: var(--r-btn);
 		background: transparent;
 		color: var(--neg);
 		font-size: 1.25rem;

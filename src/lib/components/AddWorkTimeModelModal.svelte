@@ -522,7 +522,7 @@
 		width: 100%;
 		padding: 0.5rem;
 		border: 1px solid var(--input-border);
-		border-radius: 4px;
+		border-radius: var(--r-input);
 		font-size: 0.9rem;
 		text-align: center;
 		background: var(--input-bg);
@@ -545,7 +545,7 @@
 		padding: 0.5rem;
 		background: var(--neg-light);
 		border: 1px solid var(--neg);
-		border-radius: 4px;
+		border-radius: var(--r-input);
 		color: var(--neg);
 		font-size: 0.9rem;
 	}

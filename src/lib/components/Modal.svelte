@@ -183,7 +183,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border-radius: 4px;
+		border-radius: var(--r-btn);
 	}
 
 	.close-btn:hover {

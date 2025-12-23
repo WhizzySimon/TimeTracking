@@ -205,7 +205,7 @@
 		padding: 0.5rem;
 		background: var(--neg-light);
 		border: 1px solid var(--neg);
-		border-radius: 4px;
+		border-radius: var(--r-input);
 		color: var(--neg);
 		font-size: 0.9rem;
 	}
