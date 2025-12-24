@@ -23,6 +23,9 @@
 
 	let { categories, entries, onselect }: Props = $props();
 
+	// Filter input state
+	let filterText = $state('');
+
 	// Get top 5 categories using smart context-aware suggestions
 	let topCategories = $derived(getSmartTopCategories(5, entries, categories));
 
@@ -34,6 +37,13 @@
 		allUserCategories
 			.filter((c) => !topCategories.some((t) => t.id === c.id))
 			.sort((a, b) => a.name.localeCompare(b.name, 'de'))
+	);
+
+	// Filtered categories based on search input
+	let filteredCategories = $derived(
+		filterText.trim()
+			? remainingCategories.filter((c) => c.name.toLowerCase().includes(filterText.toLowerCase()))
+			: remainingCategories
 	);
 
 	// Check if we have any categories
@@ -69,8 +79,9 @@
 		{#if remainingCategories.length > 0}
 			<section class="section all-section">
 				<h2 class="section-title">Alle Kategorien</h2>
+				<input type="text" class="filter-input" placeholder="Filtern..." bind:value={filterText} />
 				<div class="category-list-vertical">
-					{#each remainingCategories as category (category.id)}
+					{#each filteredCategories as category (category.id)}
 						<button
 							class="category-btn list-btn"
 							onclick={() => onselect(category.id)}
@@ -131,6 +142,26 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
+	}
+
+	.filter-input {
+		width: 100%;
+		padding: 0.625rem 0.875rem;
+		border: 1px solid var(--border-color, #d1d5db);
+		border-radius: var(--r-input, 0.5rem);
+		font-size: 0.875rem;
+		background: var(--bg-primary, #ffffff);
+		color: var(--text-primary, #1f2937);
+		outline: none;
+		transition: border-color var(--transition-fast, 0.15s);
+	}
+
+	.filter-input:focus {
+		border-color: var(--accent);
+	}
+
+	.filter-input::placeholder {
+		color: var(--text-secondary, #6b7280);
 	}
 
 	.category-btn {
@@ -199,6 +230,16 @@
 
 	:global(.dark) .list-btn:hover {
 		background: var(--bg-tertiary-dark, #4b5563);
+	}
+
+	:global(.dark) .filter-input {
+		background: var(--bg-secondary-dark, #374151);
+		border-color: var(--border-color-dark, #4b5563);
+		color: var(--text-primary-dark, #f3f4f6);
+	}
+
+	:global(.dark) .filter-input::placeholder {
+		color: var(--text-secondary-dark, #9ca3af);
 	}
 
 	/* Responsive - full width on small screens */
