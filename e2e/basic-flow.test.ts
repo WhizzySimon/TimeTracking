@@ -11,14 +11,18 @@ import { expect, test } from '@playwright/test';
 
 test.describe('Basic App Flow', () => {
 	test.beforeEach(async ({ page }) => {
+		// Navigate and wait for stable state before IndexedDB operations
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
+		await page.waitForLoadState('networkidle');
+
 		// Clear IndexedDB before each test for isolation
-		await page.goto('/');
 		await page.evaluate(async () => {
 			const dbs = await indexedDB.databases();
 			for (const db of dbs) {
 				if (db.name) indexedDB.deleteDatabase(db.name);
 			}
 		});
+
 		// Create mock auth session so tests don't get redirected to login
 		await page.evaluate(async () => {
 			const DB_NAME = 'timetracker';
@@ -100,8 +104,8 @@ test.describe('Basic App Flow', () => {
 				};
 			});
 		});
-		// Reload to start fresh with auth session
-		await page.reload();
+		// Navigate fresh to apply seeded data (avoid flaky reload)
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
 		await page.waitForLoadState('networkidle');
 	});
 
@@ -114,8 +118,8 @@ test.describe('Basic App Flow', () => {
 		// Plus-Tab heading should be visible
 		await expect(page.getByRole('heading', { name: 'Aufgabe starten' })).toBeVisible();
 
-		// Category sections should be visible
-		await expect(page.getByRole('heading', { name: 'Alle Kategorien' })).toBeVisible();
+		// Category sections should be visible (use data-testid for stability)
+		await expect(page.getByTestId('all-categories-section')).toBeVisible();
 	});
 
 	test('navigation between tabs works', async ({ page }) => {

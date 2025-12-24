@@ -15,14 +15,18 @@ import { expect, test } from '@playwright/test';
 
 test.describe('Quick-Start UX', () => {
 	test.beforeEach(async ({ page }) => {
+		// Navigate and wait for stable state before IndexedDB operations
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
+		await page.waitForLoadState('networkidle');
+
 		// Clear IndexedDB before each test for isolation
-		await page.goto('/');
 		await page.evaluate(async () => {
 			const dbs = await indexedDB.databases();
 			for (const db of dbs) {
 				if (db.name) indexedDB.deleteDatabase(db.name);
 			}
 		});
+
 		// Create mock auth session and seed test data
 		await page.evaluate(async () => {
 			const DB_NAME = 'timetracker';
@@ -109,36 +113,41 @@ test.describe('Quick-Start UX', () => {
 						catStore.put(cat);
 					}
 
-					// Insert test time entries to establish frequency
+					// Insert test time entries across 25 days to trigger smart suggestions
+					// (getSmartTopCategories requires MIN_DAYS_WITH_ENTRIES = 20)
 					const entryStore = tx.objectStore('timeEntries');
-					const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
 
-					// Meeting: 3 entries (most frequent)
-					for (let i = 0; i < 3; i++) {
+					// Create entries across 25 different days
+					for (let dayOffset = 1; dayOffset <= 25; dayOffset++) {
+						const entryDate = new Date(Date.now() - dayOffset * 86400000)
+							.toISOString()
+							.split('T')[0];
+
+						// Meeting: 1 entry per day (25 total - most frequent)
 						entryStore.put({
-							id: `entry-meeting-${i}`,
-							date: yesterday,
+							id: `entry-meeting-day${dayOffset}`,
+							date: entryDate,
 							categoryId: 'cat-meeting',
-							startTime: `0${9 + i}:00`,
-							endTime: `${10 + i}:00`,
+							startTime: '09:00',
+							endTime: '10:00',
 							description: null,
-							createdAt: Date.now() - i * 1000,
-							updatedAt: Date.now() - i * 1000
+							createdAt: Date.now() - dayOffset * 1000,
+							updatedAt: Date.now() - dayOffset * 1000
 						});
-					}
 
-					// Coding: 2 entries
-					for (let i = 0; i < 2; i++) {
-						entryStore.put({
-							id: `entry-coding-${i}`,
-							date: yesterday,
-							categoryId: 'cat-coding',
-							startTime: `1${3 + i}:00`,
-							endTime: `1${4 + i}:00`,
-							description: null,
-							createdAt: Date.now() - i * 1000,
-							updatedAt: Date.now() - i * 1000
-						});
+						// Coding: 1 entry every other day (12-13 total)
+						if (dayOffset % 2 === 0) {
+							entryStore.put({
+								id: `entry-coding-day${dayOffset}`,
+								date: entryDate,
+								categoryId: 'cat-coding',
+								startTime: '14:00',
+								endTime: '15:00',
+								description: null,
+								createdAt: Date.now() - dayOffset * 1000,
+								updatedAt: Date.now() - dayOffset * 1000
+							});
+						}
 					}
 
 					tx.oncomplete = () => {
@@ -149,8 +158,8 @@ test.describe('Quick-Start UX', () => {
 				};
 			});
 		});
-		// Reload to start fresh with seeded data
-		await page.reload();
+		// Navigate fresh to apply seeded data (avoid flaky reload)
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
 		await page.waitForLoadState('networkidle');
 	});
 
@@ -160,11 +169,11 @@ test.describe('Quick-Start UX', () => {
 		// Wait for page to load
 		await expect(page.getByRole('heading', { name: 'Aufgabe starten' })).toBeVisible();
 
-		// Smart suggestions section should appear
-		await expect(page.getByRole('heading', { name: 'Vorschläge' })).toBeVisible();
+		// Smart suggestions section should appear (use data-testid for cross-browser stability)
+		await expect(page.getByTestId('smart-suggestions-section')).toBeVisible();
 
 		// All categories section should appear
-		await expect(page.getByRole('heading', { name: 'Alle Kategorien' })).toBeVisible();
+		await expect(page.getByTestId('all-categories-section')).toBeVisible();
 
 		// Category buttons should be visible (Meeting is most frequent)
 		await expect(page.getByRole('button', { name: /Meeting.*starten/i })).toBeVisible();

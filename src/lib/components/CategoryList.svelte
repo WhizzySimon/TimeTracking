@@ -59,8 +59,8 @@
 	{:else}
 		<!-- Top 5 Smart Suggestions -->
 		{#if topCategories.length > 0}
-			<section class="section top-section">
-				<h2 class="section-title">Vorschläge</h2>
+			<section class="section top-section" data-testid="smart-suggestions-section">
+				<h2 class="section-title" data-testid="smart-suggestions-heading">Vorschläge</h2>
 				<div class="category-grid">
 					{#each topCategories as category (category.id)}
 						<button
@@ -77,8 +77,8 @@
 
 		<!-- Remaining categories A-Z -->
 		{#if remainingCategories.length > 0}
-			<section class="section all-section">
-				<h2 class="section-title">Alle Kategorien</h2>
+			<section class="section all-section" data-testid="all-categories-section">
+				<h2 class="section-title" data-testid="all-categories-heading">Alle Kategorien</h2>
 				<input type="text" class="filter-input" placeholder="Filtern..." bind:value={filterText} />
 				<div class="category-list-vertical">
 					{#each filteredCategories as category (category.id)}
