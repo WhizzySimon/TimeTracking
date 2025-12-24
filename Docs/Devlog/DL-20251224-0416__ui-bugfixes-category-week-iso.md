@@ -6,6 +6,7 @@
 **Workflow used:** UNKNOWN
 
 **Related Docs:**
+
 - Spec: NONE
 - Plan: NONE
 - Tasks: NONE
@@ -25,6 +26,7 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - NONE
 
 ### Code Delta (nur aus Chat)

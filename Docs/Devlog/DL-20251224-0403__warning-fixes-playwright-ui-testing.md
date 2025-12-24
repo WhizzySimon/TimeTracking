@@ -6,6 +6,7 @@
 **Workflow used:** UNKNOWN (continuation of previous session)
 
 **Related Docs:**
+
 - Spec: NONE
 - Plan: Docs/Plans/P01-20251220-timetracker-v1.md
 - Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
@@ -24,15 +25,18 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - NONE — No spec/plan/tasks changes in this chat
 
 ### Code Delta (nur aus Chat)
+
 - `src/lib/components/AddTaskModal.svelte` — Wrapped entry prop access in `getInitialValues()` function to avoid `state_referenced_locally` warning — Evidence: Chat edit
 - `src/lib/components/Modal.svelte` — Added `role="button"`, `tabindex="-1"`, `onkeydown` handler to modal backdrop for a11y — Evidence: Chat edit
 - `src/lib/components/TaskItem.svelte` — Added `role="button"`, `tabindex="0"`, `onkeydown` handler for a11y — Evidence: Chat edit
 - `src/routes/day/+page.svelte` — Added `categories.set(allCategories)` in onMount to fix empty category dropdown bug — Evidence: Chat edit
 
 ### Repo-Verified Delta (optional, getrennt!)
+
 - `.windsurf/rules/code-quality-rules.md` — File exists with 27 lines — Evidence: Repo file read
 
 ## Verification (strict)

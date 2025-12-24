@@ -6,6 +6,7 @@
 **Workflow used:** UNKNOWN
 
 **Related Docs:**
+
 - Spec: Docs/Specs/P01-20251220-timetracker-v1.md (implied, not explicitly read in chat)
 - Plan: Docs/Plans/P01-20251220-timetracker-v1.md
 - Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
@@ -23,9 +24,11 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - NONE — No spec/plan/tasks documents were modified in this chat
 
 ### Code Delta (nur aus Chat)
+
 - devBrowser.ts — Created MCP-compatible Playwright browser launcher with channel: 'chrome' — Evidence: "Created MCP-compatible Playwright browser launcher script"
 - package.json — Added playwright, @playwright/test, tsx dependencies + wb script — Evidence: "Added 'tsx' and 'playwright' to devDependencies and added 'wb' script"
 - src/app.html — Added <link rel="icon" type="image/png" href="/favicon.png" /> — Evidence: "Add favicon link to prevent 404 error"
@@ -36,6 +39,7 @@
 - Docs/INDEX.md — Removed "Cascade operational rules" section (moved to general .windsurf/rules) — Evidence: "Remove project-specific reference to COMMAND_EXECUTION_RULES"
 
 ### Repo-Verified Delta (optional, getrennt!)
+
 - COMMAND_EXECUTION_RULES.md — File exists in .windsurf/rules/ directory — Evidence: User action log shows file at e:\Private\Dev\Timekeeping\TimeTracker\.windsurf\rules\COMMAND_EXECUTION_RULES.md
 - Docs/Devlog/INDEX.md — Contains separator line "--- | --- | --- | --- | ---" — Evidence: read_file output shows line 2
 - e2e/milestone1.test.ts — File exists (5 E2E tests for Milestone 1) — Evidence: Referenced in chat as verification method

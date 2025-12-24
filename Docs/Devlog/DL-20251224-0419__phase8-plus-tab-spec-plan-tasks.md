@@ -6,6 +6,7 @@
 **Workflow used:** /new-feature (extended from Phase 7)
 
 **Related Docs:**
+
 - Spec: Docs/Specs/P07-20251223-quick-start-ux.md (Phase 8 section)
 - Plan: Docs/Plans/P07-20251223-quick-start-ux.md (Phase 8 section)
 - Tasks: Docs/Tasks/P07-20251223-quick-start-ux.md (Phase 8 tasks 8.1-8.8)

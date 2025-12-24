@@ -6,11 +6,12 @@
 **Workflow used:** UNKNOWN (continuation of previous session)
 
 **Related Docs:**
+
 - Spec: Docs/Specs/P07-20251223-quick-start-ux.md
 - Plan: Docs/Plans/P07-20251223-quick-start-ux.md
 - Tasks: Docs/Tasks/P07-20251223-quick-start-ux.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 7 → Phase 8, Quick-Start UX)
-- Other referenced docs: 
+- Other referenced docs:
   - Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md (created in this session)
   - Docs/INDEX.md (updated)
   - .windsurf/workflows/new-feature.md (created)
@@ -59,7 +60,6 @@
 
 - Claimed in chat:
   - Quick-Start UX documentation complete — Result: PASS (user confirmed) — Evidence: "Alles dokumentiert. Du kannst jetzt einen neuen Chat starten."
-  
 - Verified now in repo (static only):
   - Docs/Specs/P07-20251223-quick-start-ux.md exists (16167 bytes) — Evidence: list_dir output
   - Docs/Plans/P07-20251223-quick-start-ux.md exists (16707 bytes) — Evidence: list_dir output

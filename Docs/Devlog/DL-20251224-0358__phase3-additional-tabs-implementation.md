@@ -6,6 +6,7 @@
 **Workflow used:** /continue-work (inferred from checkpoint summary mentioning continuation of previous session)
 
 **Related Docs:**
+
 - Spec: NONE (Phase 3 uses existing ui-logic-spec-v1.md)
 - Plan: Docs/Plans/P01-20251220-timetracker-v1.md
 - Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
@@ -21,9 +22,11 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - Docs/IMPLEMENTATION_PROGRESS.md — Tasks 3.1-3.16 marked complete, task count updated to 41/60 — Evidence: Chat session summary
 
 ### Code Delta (nur aus Chat)
+
 - `src/routes/week/+page.svelte` — Week tab with navigation, WeekTypeSelector, inline summary, day list — Evidence: "Week Tab (Tasks 3.1-3.5)"
 - `src/lib/components/WeekTypeSelector.svelte` — Batch day type updates component — Evidence: "WeekTypeSelector component (batch day type updates)"
 - `src/routes/analysis/+page.svelte` — Analysis tab with date range, inline summary, period grouping — Evidence: "Analysis Tab (Tasks 3.6-3.10 + 3.7)"
@@ -36,6 +39,7 @@
 - `src/lib/utils/calculations.test.ts` — Updated all WorkTimeModel test instances with name property — Evidence: "Fixed by adding `name` property in type and all test instances"
 
 ### Repo-Verified Delta (optional, getrennt!)
+
 - Docs/IMPLEMENTATION_PROGRESS.md — Currently shows 94/94 tasks complete (Phase 8) — Evidence: Repo file line 5
 - `src/lib/components/AddCategoryModal.svelte` — File exists — Evidence: Repo file system
 - `src/lib/components/AddWorkTimeModelModal.svelte` — File exists — Evidence: Repo file system

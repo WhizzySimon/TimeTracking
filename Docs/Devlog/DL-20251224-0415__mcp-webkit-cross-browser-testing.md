@@ -6,6 +6,7 @@
 **Workflow used:** /new-task
 
 **Related Docs:**
+
 - Spec: NONE
 - Plan: NONE
 - Tasks: NONE
@@ -25,6 +26,7 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - NONE (no spec/plan/tasks existed for this work)
 
 ### Code Delta (nur aus Chat)

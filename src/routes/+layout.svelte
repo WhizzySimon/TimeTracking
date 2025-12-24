@@ -106,6 +106,36 @@
 		}
 	}
 
+	/**
+	 * Silent auto-sync triggered by visibility changes.
+	 * Does not show dialogs - conflicts are deferred to next manual sync.
+	 */
+	async function autoSync() {
+		// Skip if offline, not authenticated, or already syncing
+		if (!$isOnline || !$isAuthenticated || $syncInProgress) {
+			return;
+		}
+
+		syncInProgress.set(true);
+
+		try {
+			const result: SyncResult = await syncWithCloud();
+
+			if (result.needsConflictResolution) {
+				// Don't show dialog for auto-sync - user will see it on next manual sync
+				console.log('[Layout] Auto-sync detected conflict - deferred to manual sync');
+				syncNeeded = true;
+			} else if (result.success || result.action === 'noop') {
+				syncNeeded = false;
+			}
+			// Silently ignore errors for auto-sync
+		} catch (e) {
+			console.error('[Layout] Auto-sync failed:', e);
+		} finally {
+			syncInProgress.set(false);
+		}
+	}
+
 	async function handleConflictChoice(choice: 'local' | 'cloud') {
 		showConflictDialog = false;
 		syncInProgress.set(true);
@@ -157,17 +187,23 @@
 		// Check sync status on startup
 		checkSyncStatus();
 
-		// Trigger sync on startup (after a short delay to let app initialize)
+		// Trigger outbox sync on startup (after a short delay to let app initialize)
 		setTimeout(() => {
-			syncNow().catch((err) => console.error('[Layout] Startup sync failed:', err));
+			syncNow().catch((err) => console.error('[Layout] Startup outbox sync failed:', err));
 		}, 1000);
 
-		// Trigger sync when user returns to tab
+		// Trigger cloud sync on startup (after auth is checked)
+		setTimeout(() => {
+			autoSync();
+		}, 1500);
+
+		// Trigger cloud sync when user enters or leaves the app
 		if (browser) {
 			visibilityHandler = () => {
-				if (document.visibilityState === 'visible') {
-					syncNow().catch((err) => console.error('[Layout] Visibility sync failed:', err));
-				}
+				// Sync on both visible (entering) and hidden (leaving)
+				// - visible: pull any cloud changes
+				// - hidden: push any local changes before user leaves
+				autoSync();
 			};
 			document.addEventListener('visibilitychange', visibilityHandler);
 

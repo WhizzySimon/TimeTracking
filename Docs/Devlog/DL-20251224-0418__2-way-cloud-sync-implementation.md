@@ -6,6 +6,7 @@
 **Workflow used:** /continue-work
 
 **Related Docs:**
+
 - Spec: Docs/Specs/P06-20251222-cloud-backup-and-auth.md
 - Plan: Docs/Plans/P06-20251222-cloud-sync.md
 - Tasks: Docs/Tasks/P06-20251222-cloud-sync.md
@@ -27,17 +28,20 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - Docs/Specs/P06-20251222-cloud-backup-and-auth.md — Updated to reflect 2-way sync logic with conflict detection — Evidence: Chat mentions spec was already updated in previous session
 - Docs/Plans/P06-20251222-cloud-sync.md — Created/updated with sync decision algorithm — Evidence: Referenced in chat as existing
 - Docs/Tasks/P06-20251222-cloud-sync.md — Created task list for 2-way sync implementation — Evidence: Referenced in chat as existing with 10 tasks
 
 ### Code Delta (nur aus Chat)
+
 - src/lib/backup/cloud.ts — Added determineSyncAction(), syncWithCloud(), resolveConflict(), needsSync() functions; updated CloudSyncMeta interface with lastCloudUpdatedAt — Evidence: Multiple edits shown in chat
 - src/lib/backup/restore.ts — Created new file with importSnapshot() function — Evidence: "create mode 100644 src/lib/backup/restore.ts"
 - src/lib/stores/index.ts — Replaced backupNeeded with syncInProgress store — Evidence: Edit shown in chat
 - src/routes/+layout.svelte — Updated UI with Sync button, conflict dialog, sync handlers, greyed-out state CSS — Evidence: Multiple edits shown in chat
 
 ### Repo-Verified Delta (optional, getrennt!)
+
 - src/lib/backup/cloud.ts — File exists with determineSyncAction function at lines 34-74, syncWithCloud at lines 255-323, needsSync at lines 186-194 — Evidence: read_file tool output
 - src/lib/backup/restore.ts — File exists with importSnapshot function — Evidence: Mentioned in git commit output
 - Docs/Specs/P06-20251222-cloud-backup-and-auth.md — File exists — Evidence: find_by_name tool output
@@ -50,7 +54,6 @@
   - npm run verify — Result: PASS (ALL PASSED) — Evidence: cascade-output.txt "Verification complete: ALL PASSED"
   - MCP Playwright browser test — Result: PASS (Sync button visible, info dialog works) — Evidence: "Der Info-Dialog erscheint korrekt mit dem Text"
   - Fresh install test — Result: PASS (Button active, cloud data restored) — Evidence: "Super, jetzt hat es funktioniert. Er hat genau das Richtige gemacht"
-  
 - Verified now in repo (static only):
   - src/lib/backup/cloud.ts contains determineSyncAction function — Evidence: read_file lines 34-74
   - src/lib/backup/cloud.ts contains needsSync function — Evidence: read_file lines 186-194

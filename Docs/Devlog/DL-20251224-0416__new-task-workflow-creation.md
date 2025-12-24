@@ -6,11 +6,12 @@
 **Workflow used:** UNKNOWN
 
 **Related Docs:**
+
 - Spec: NONE
 - Plan: NONE
 - Tasks: NONE
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (not mentioned in chat, but implied context: 100% complete)
-- Other referenced docs: 
+- Other referenced docs:
   - .windsurf/workflows/continue-work.md
   - .windsurf/workflows/project-start.md
   - .windsurf/workflows/read-core-docs-and-code.md
@@ -31,18 +32,21 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - NONE — No spec/plan/tasks created, only workflow file
 
 ### Code Delta (nur aus Chat)
+
 - .windsurf/workflows/new-task.md — Created new workflow file with rules/governance loading + optional doc loading + mandatory verification steps — Evidence: Cascade created file in response to user request
 
 ### Repo-Verified Delta (optional, getrennt!)
+
 - .windsurf/workflows/new-task.md — File exists with 61 lines — Evidence: File created during chat session
 - .windsurf/workflows/continue-work.md — File exists, reads all rules + governance + core docs + entire codebase, searches IMPLEMENTATION_PROGRESS.md for next task — Evidence: Read in chat
 - .windsurf/workflows/project-start.md — File exists, orchestrates 3 sub-workflows — Evidence: Read in chat
 - .windsurf/workflows/read-core-docs-and-code.md — File exists, reads all Guidelines + entire src/ + e2e/ + config files — Evidence: Read in chat
 - .windsurf/workflows/read-governance.md — File exists, reads INDEX.md + AGENTS.md + cascade.md + IMPL_SPEC_RULES — Evidence: Read in chat
-- .windsurf/workflows/rules-read-all.md — File exists, reads all .windsurf/rules/*.md files — Evidence: Read in chat
+- .windsurf/workflows/rules-read-all.md — File exists, reads all .windsurf/rules/\*.md files — Evidence: Read in chat
 
 ## Verification (strict)
 

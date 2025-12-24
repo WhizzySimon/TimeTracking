@@ -6,11 +6,12 @@
 **Workflow used:** UNKNOWN
 
 **Related Docs:**
+
 - Spec: NONE
 - Plan: NONE
 - Tasks: NONE
 - Progress: NONE
-- Other referenced docs: Docs/INDEX.md, AGENTS.md, .windsurf/cascade.md, Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md, Docs/Specs/_template.md, .windsurf/rules/implementation-specification-rules.md, .windsurf/workflows/rules-read-all.md, .windsurf/workflows/read-core-docs-and-code.md
+- Other referenced docs: Docs/INDEX.md, AGENTS.md, .windsurf/cascade.md, Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md, Docs/Specs/\_template.md, .windsurf/rules/implementation-specification-rules.md, .windsurf/workflows/rules-read-all.md, .windsurf/workflows/read-core-docs-and-code.md
 
 ## Decisions (aus Chat)
 
@@ -29,6 +30,7 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - Docs/Plans/timetracker-v1-implementation.md — Created 13-section implementation plan with architecture, data model, component hierarchy — Evidence: Chat "I've created two documents following the AGENTS.md spec-driven process"
 - Docs/Tasks/timetracker-v1-implementation.md — Created 60 tasks across 4 phases (~40-50h) — Evidence: Chat "60 tasks across 4 phases"
 - Docs/IMPLEMENTATION_PROGRESS.md — Created progress tracker with task checkboxes and verification sections — Evidence: Chat "Created implementation progress checklist that updates after each task"
@@ -36,6 +38,7 @@
 - Docs/Tasks/task-0-setup-testing.md — Created prerequisite testing setup task — Evidence: Chat "Task 0 (PREREQUISITE)"
 
 ### Code Delta (nur aus Chat)
+
 - .windsurf/cascade.md — Created project-specific Cascade instructions with auto-load capability — Evidence: Chat "Created `.windsurf/cascade.md` — Auto-loaded by Cascade in every chat"
 - AGENTS.md — Updated source of truth section to defer to INDEX.md — Evidence: Chat "Simplified source of truth (lines 20-22)"
 - AGENTS.md — Added workflow references at start — Evidence: Chat "Added workflow references (lines 6-11)"
@@ -48,12 +51,13 @@
 - READY_TO_START.md — Created readiness checklist — Evidence: Chat "Created `READY_TO_START.md` - Final checklist & instructions"
 
 ### Repo-Verified Delta (optional, getrennt!)
+
 - Docs/INDEX.md — Contains priority order 0-6 with INDEX.md at position 0 — Evidence: Docs/INDEX.md lines 7-13
 - AGENTS.md — Line 6 shows "## Start-of-session workflows (mandatory)" — Evidence: AGENTS.md line 6
 - .windsurf/cascade.md — Lines 78-83 show simplified source of truth section — Evidence: .windsurf/cascade.md lines 78-83
 - .windsurf/workflows/rules-read-all.md — Exists and contains "Return only a single line" requirement — Evidence: .windsurf/workflows/rules-read-all.md line 14-15
 - .windsurf/workflows/read-core-docs-and-code.md — Exists and contains "Return only a single line" requirement — Evidence: .windsurf/workflows/read-core-docs-and-code.md line 25-26
-- Docs/Specs/_template.md — Contains FR/IG/DD sections with TT-FR-001, TT-IG-001, TT-DD-001 format — Evidence: Docs/Specs/_template.md lines 13-22
+- Docs/Specs/\_template.md — Contains FR/IG/DD sections with TT-FR-001, TT-IG-001, TT-DD-001 format — Evidence: Docs/Specs/\_template.md lines 13-22
 - Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md — Defines FR/IG/DD + verification loop + self-documenting — Evidence: Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md lines 13-56
 
 ## Verification (strict)

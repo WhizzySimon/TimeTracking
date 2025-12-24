@@ -6,6 +6,7 @@
 **Workflow used:** /new-task
 
 **Related Docs:**
+
 - Spec: NONE
 - Plan: NONE
 - Tasks: NONE
@@ -27,6 +28,7 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - NONE — No spec/plan/tasks created (ad-hoc task)
 
 ### Code Delta (nur aus Chat)

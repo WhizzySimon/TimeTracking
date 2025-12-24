@@ -6,14 +6,15 @@
 **Workflow used:** UNKNOWN
 
 **Related Docs:**
+
 - Spec: NONE
 - Plan: NONE
 - Tasks: NONE
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Cross-Browser Testing Summary section, UI Issues Found & Fixed #4)
-- Other referenced docs: 
+- Other referenced docs:
   - Docs/IMPLEMENTATION_PROGRESS.md
   - svelte.config.js
-  - static/_redirects
+  - static/\_redirects
 
 ## Decisions (aus Chat)
 
@@ -26,6 +27,7 @@
 ## Deltas
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
+
 - NONE
 
 ### Code Delta (nur aus Chat)
