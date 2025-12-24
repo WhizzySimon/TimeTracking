@@ -128,40 +128,33 @@ Definition of done for a task:
 
 **Never push directly to `main`.** The `main` branch is protected; direct pushes will be rejected.
 
+**Never merge via GitHub UI.** Always use the PR script to ensure consistent workflow.
+
 ### Command sequence for Cascade
 
 After completing a task, use this exact sequence:
 
 ```powershell
-# 1. Commit changes (on feature branch, NOT main)
+# 1. Create feature branch (if not already on one)
+git checkout -b feat/your-feature
+
+# 2. Commit changes
 git add -A
 git commit -m "feat: description"
 
-# 2. Push branch
-git push -u origin HEAD
-
-# 3. Create PR via GitHub CLI
-gh pr create --fill
-
-# 4. Enable auto-merge (merges when CI passes, deletes branch)
-gh pr merge --auto --squash --delete-branch
+# 3. Push, create PR, enable auto-merge (ONE command)
+powershell -File scripts/pr.ps1
 ```
+
+That's it. The `pr.ps1` script handles:
+- Pushing the branch
+- Creating PR (or reusing existing)
+- Enabling auto-merge with squash
+- Branch deletion after merge
 
 ### Branch naming
 
 Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
-
-### Helper scripts
-
-For convenience, use the repo's helper scripts:
-
-```powershell
-# Create PR from current branch
-powershell -File scripts/pr-create.ps1
-
-# Enable auto-merge for current PR
-powershell -File scripts/pr-merge-auto.ps1
-```
 
 ### Required CI check
 

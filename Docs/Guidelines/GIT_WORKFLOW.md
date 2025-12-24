@@ -1,10 +1,12 @@
 # Git Workflow (TimeTracker)
 
-## Rule
+## Rules
 
-**Never push directly to `main`.** All changes go through a pull request.
+- **Never push directly to `main`.** The `main` branch is protected; direct pushes will be rejected.
+- **Never merge via GitHub UI.** Always use `scripts/pr.ps1` for consistent workflow.
+- **Short-lived branches.** Create a branch, make changes, merge via PR, delete branch.
 
-## Workflow (CLI-based, no GitHub UI required)
+## Daily Workflow
 
 ### 1. Create a feature branch
 
@@ -14,53 +16,31 @@ git pull origin main
 git checkout -b feat/your-feature-name
 ```
 
-Branch naming conventions:
-- `feat/` — new feature
-- `fix/` — bug fix
-- `docs/` — documentation only
-- `refactor/` — code refactoring
-- `chore/` — maintenance tasks
-- `test/` — test changes
-
-### 2. Make commits
+### 2. Make changes and commit
 
 ```powershell
+# Edit files...
 git add -A
 git commit -m "feat: short description"
 ```
 
 Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`, `test:`
 
-### 3. Push branch to remote
+### 3. Push, create PR, enable auto-merge (ONE command)
 
 ```powershell
-git push -u origin HEAD
+powershell -File scripts/pr.ps1
 ```
 
-### 4. Create PR via GitHub CLI
+That's it! The script handles:
+- Pushing the branch to origin
+- Creating a PR (or reusing existing one)
+- Enabling auto-merge with squash strategy
+- Branch deletion after merge
 
-```powershell
-gh pr create --fill
-```
+### 4. Wait for CI, then clean up locally
 
-Or with custom title/body:
-
-```powershell
-gh pr create --title "feat: your feature" --body "Description here"
-```
-
-### 5. Enable auto-merge (merges when CI passes)
-
-```powershell
-gh pr merge --auto --squash --delete-branch
-```
-
-This command:
-- Enables auto-merge for the PR
-- Uses squash merge for clean history
-- Deletes the remote branch after merge
-
-### 6. Clean up locally (after merge)
+After the PR merges automatically:
 
 ```powershell
 git checkout main
@@ -68,15 +48,9 @@ git pull origin main
 git branch -d feat/your-feature-name
 ```
 
-## One-liner workflow
+## Branch Naming
 
-For quick changes, use the helper scripts:
-
-```powershell
-# After committing and pushing your branch:
-powershell -File scripts/pr-create.ps1
-powershell -File scripts/pr-merge-auto.ps1
-```
+Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 
 ## CI Requirements
 
@@ -138,9 +112,30 @@ Follow the prompts to authenticate with GitHub.
 | Action | Command |
 |--------|---------|
 | Create branch | `git checkout -b feat/name` |
-| Push branch | `git push -u origin HEAD` |
-| Create PR | `gh pr create --fill` |
-| Auto-merge PR | `gh pr merge --auto --squash --delete-branch` |
+| Commit | `git add -A; git commit -m "feat: description"` |
+| **Full PR workflow** | `powershell -File scripts/pr.ps1` |
 | Switch to main | `git checkout main` |
 | Update main | `git pull origin main` |
 | Delete local branch | `git branch -d feat/name` |
+
+## Manual Steps (if needed)
+
+For step-by-step control, you can also use:
+
+```powershell
+# Push branch
+git push -u origin HEAD
+
+# Create PR
+gh pr create --fill
+
+# Enable auto-merge
+gh pr merge --auto --squash --delete-branch
+```
+
+Or the individual helper scripts:
+
+```powershell
+powershell -File scripts/pr-create.ps1
+powershell -File scripts/pr-merge-auto.ps1
+```
