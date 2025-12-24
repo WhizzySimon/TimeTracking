@@ -122,6 +122,14 @@ Definition of done for a task:
 - Code changes completed
 - Verification executed (see "Verification" section)
 - Notes written back into the relevant spec/plan/tasks if reality differed from assumptions
+- Git commit & push:
+  ```
+  git add -A; git commit -m "feat: description"; git push
+  ```
+  Push triggers CI/CD for immediate feedback. Optionally check CI status:
+  ```
+  powershell -File scripts/check-ci.ps1 -Wait -Logs
+  ```
 
 ## Verification (no guessing)
 

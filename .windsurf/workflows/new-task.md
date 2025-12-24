@@ -38,13 +38,7 @@ Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) 
 
 ### 3. Git Commit & Push (REQUIRED - NEVER SKIP THIS)
 
-```
-git add -A; git commit -m "feat: description of changes"; git push
-```
-
-Write this to `scripts/cascade-command.txt` and confirm success.
-
-**⚠️ CRITICAL: Never end a session without committing AND pushing completed work. Push triggers CI/CD for immediate feedback.**
+See AGENTS.md "Definition of done for a task" for the commit & push workflow.
 
 ### 4. Check CI Status (OPTIONAL but recommended)
 
