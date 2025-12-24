@@ -4,12 +4,21 @@ on:
   push:
   pull_request:
 
+# Cancel in-progress runs for the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: windows-latest
+    timeout-minutes: 15
     env:
       PUBLIC_SUPABASE_URL: 'https://example.supabase.co'
       PUBLIC_SUPABASE_ANON_KEY: 'dummy'
+      # Playwright settings for CI stability
+      CI: true
+      PLAYWRIGHT_RETRIES: 2
 
     steps:
       - uses: actions/checkout@v4
@@ -33,8 +42,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Cache Playwright browsers to speed up CI
+      - name: Get Playwright version
+        id: playwright-version
+        shell: bash
+        run: echo "version=$(npm ls @playwright/test --json | jq -r '.dependencies["@playwright/test"].version')" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/AppData/Local/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
       - name: Install Playwright browsers
-        run: npx playwright install
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps
 
       - name: Verify (format, check, lint)
         id: verify

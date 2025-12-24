@@ -221,6 +221,38 @@ Never assume:
 - Long-term persistence on iOS
 - Unlimited capacity
 
+### IndexedDB Cross-Browser Compatibility (Critical)
+
+IndexedDB is the primary storage for this app. While IndexedDB itself is supported everywhere, **some convenience APIs are not**:
+
+**Safe to use (all browsers):**
+
+- `indexedDB.open(name, version)` - Open/create database
+- `indexedDB.deleteDatabase(name)` - Delete a specific database by name
+- All transaction and store operations
+
+**NOT safe to use (WebKit/Safari doesn't support):**
+
+- `indexedDB.databases()` - Lists all databases. **Use deleteDatabase(knownName) instead**
+
+**Rule:** Always delete databases by their known name, never enumerate them.
+
+**Example (E2E tests):**
+
+```javascript
+// ❌ WRONG - Not supported in WebKit/Safari
+const dbs = await indexedDB.databases();
+for (const db of dbs) {
+	indexedDB.deleteDatabase(db.name);
+}
+
+// ✅ CORRECT - Works everywhere
+await new Promise((resolve) => {
+	const req = indexedDB.deleteDatabase('timetracker');
+	req.onsuccess = req.onerror = req.onblocked = () => resolve();
+});
+```
+
 ---
 
 ## Testing Rules (Without iPhone)
