@@ -40,3 +40,28 @@ When encountering Svelte or TypeScript warnings:
 - For longer code examples, use indentation (4 spaces) or describe in plain text
 - Use bullet points and headings for structure
 - Keep examples short and inline when possible
+
+## Structured logging (required)
+- Use status keywords: OK / WARNING / ERROR / FAIL
+- Use progress markers: [ x / n ] for steps, ( x / n ) for retries
+Examples:
+- [ 1 / 4 ] OK: Parsed devlog index
+- [ 2 / 4 ] WARNING: Missing workflow field, defaulting to NONE
+- [ 3 / 4 ] ERROR: npm run verify failed (see output file)
+- [ 4 / 4 ] OK: All checks passed
+
+## BAD/GOOD examples (required)
+BAD:
+- Huge functions, nested conditionals, unclear names
+GOOD:
+- Small functions, early returns, explicit names, minimal abstraction
+
+## Function grouping markers (optional)
+Use markers to group related functions:
+- // --------- START: <Topic> ---------
+- // --------- END: <Topic> ---------
+
+## Singular/plural rule (required)
+Always use correct grammar:
+- 0 items, 1 item, 2 items
+Avoid: "1 item(s)"

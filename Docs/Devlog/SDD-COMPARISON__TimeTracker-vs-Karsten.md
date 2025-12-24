@@ -124,7 +124,7 @@
 
 ## 4) Best-of Merge (Top 10 Practices to Adopt into TimeTracker)
 
-### 1. Spec Dependency Declarations
+### 1. Spec Dependency Declarations — APPLIED 2025-12-24
 **What:** Add "Depends on" / "Does not depend on" sections to spec template  
 **Target:** `Docs/Specs/_template.md`  
 **Change:** Add after header block:
@@ -136,7 +136,7 @@
 - (explicitly exclude related-but-not-required specs)
 ```
 
-### 2. Spec Length Guidelines
+### 2. Spec Length Guidelines — APPLIED 2025-12-24
 **What:** Add recommended spec length by complexity  
 **Target:** `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md`  
 **Change:** Add section:
@@ -147,13 +147,10 @@
 - Complex task: ~800-1500 lines
 ```
 
-### 3. Domain Prefix for FR/IG/DD
+### 3. Domain Prefix for FR/IG/DD — APPLIED 2025-12-24
 **What:** Use feature-specific prefixes instead of generic TT-  
-**Target:** `Docs/Specs/_template.md`  
-**Change:** Update numbering guidance:
-```markdown
-- **<PREFIX>-FR-001**: ... (e.g., QS-FR-001 for Quick-Start, CS-FR-001 for Cloud-Sync)
-```
+**Target:** `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md`  
+**Change:** Added "Domain Prefix Convention" section with examples and usage guidance.
 
 ### 4. Exhaustive BAD/GOOD Examples in Code Rules
 **What:** Add concrete BAD/GOOD code examples to code-quality-rules.md  
@@ -176,7 +173,7 @@ Use markers for related functions:
 // --------- END: Topic A ---------
 ```
 
-### 7. "What we don't want" Section
+### 7. "What we don't want" Section — APPLIED 2025-12-24
 **What:** Add explicit anti-patterns section to spec template  
 **Target:** `Docs/Specs/_template.md`  
 **Change:** Add after Scope section:
@@ -190,17 +187,10 @@ Use markers for related functions:
 **Target:** `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md`  
 **Change:** Add diagram example section
 
-### 9. Spec Changes Timestamp Format
+### 9. Spec Changes Timestamp Format — APPLIED 2025-12-24
 **What:** Use `**[YYYY-MM-DD HH:MM]**` format with action prefixes  
-**Target:** `Docs/Specs/_template.md`  
-**Change:** Update Change log section with format:
-```markdown
-## Change log
-**[2025-12-24 06:30]**
-- Added: ...
-- Changed: ...
-- Fixed: ...
-```
+**Target:** `Docs/Specs/_template.md` + `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md`  
+**Change:** Updated Change log section in template and added "Change Log Format" section in guidelines.
 
 ### 10. Singular/Plural Message Handling Rule
 **What:** Add rule for correct singular/plural in user messages  
@@ -216,9 +206,9 @@ Avoid: "1 item(s)"
 
 ## 5) Next Actions (exactly 3 bullets)
 
-1. **Update `Docs/Specs/_template.md`** — Add dependency declarations, "What we don't want" section, and timestamped changelog format
-2. **Expand `.windsurf/rules/code-quality-rules.md`** — Add BAD/GOOD examples, function grouping markers, logging format, singular/plural rules
-3. **Add spec length guidelines** to `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` with complexity-based recommendations
+1. ~~**Update `Docs/Specs/_template.md`**~~ — DONE 2025-12-24: Added dependency declarations, "What we don't want" section, and timestamped changelog format
+2. **Expand `.windsurf/rules/code-quality-rules.md`** — Add BAD/GOOD examples, function grouping markers, logging format, singular/plural rules (NOT DONE - .windsurf/rules protected)
+3. ~~**Add spec length guidelines**~~ — DONE 2025-12-24: Added to `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` with complexity-based recommendations + domain prefix convention
 
 ---
 

@@ -5,6 +5,12 @@
 **Last Updated:** YYYY-MM-DD  
 **Status:** Draft | In Review | Approved | Implemented
 
+**Depends on:**
+- (list specs that must be read first to understand this spec)
+
+**Does not depend on:**
+- (explicitly exclude specs that might seem related but are not required)
+
 ---
 
 ## 1) Goal / Problem
@@ -20,6 +26,10 @@
 ### Out of scope
 
 - ...
+
+### What we don't want
+
+- (explicit anti-patterns and rejected approaches)
 
 ## 3) Functional Requirements (FR)
 
@@ -53,8 +63,12 @@
 
 ## 9) Change log
 
-- YYYY-MM-DD: Created
-- YYYY-MM-DD: ...
+**[YYYY-MM-DD HH:MM]**
+- Added: Initial spec created
+
+**[YYYY-MM-DD HH:MM]**
+- Changed: ...
+- Fixed: ...
 
 ---
 

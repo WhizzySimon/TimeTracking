@@ -12,6 +12,29 @@ We separate requirements into:
 
 This avoids "telling the model how" and instead forces "what must be true".
 
+## Spec Length Guidelines
+
+Recommended spec length by complexity:
+- **Small task:** ~100-200 lines (single component, minor feature)
+- **Medium task:** ~300-500 lines (multi-component feature, integration)
+- **Complex task:** ~800-1500 lines (cross-cutting feature, major subsystem)
+
+Write as much as necessary, but not more.
+
+## Domain Prefix Convention (optional)
+
+For larger features or multi-spec projects, use a domain-specific prefix instead of generic `TT-`:
+- **QS-FR-001**: Quick-Start feature
+- **CS-FR-001**: Cloud-Sync feature
+- **AN-FR-001**: Analysis feature
+
+When to use domain prefixes:
+- Feature spans multiple specs or plans
+- Disambiguation needed when referencing across specs
+- Feature is large enough to warrant its own namespace
+
+Default to `TT-` prefix for single-spec features or when in doubt.
+
 ## FR — Functional Requirements
 
 Write FR as observable behavior.
@@ -77,3 +100,14 @@ If code behavior changes, but the spec didn't:
 
 - Update the spec in the same change.
 - Add a change log entry with date and summary.
+
+## Change Log Format
+
+Use timestamped blocks with action prefixes:
+
+```markdown
+**[YYYY-MM-DD HH:MM]**
+- Added: ...
+- Changed: ...
+- Fixed: ...
+```
