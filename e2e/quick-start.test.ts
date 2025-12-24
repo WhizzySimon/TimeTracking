@@ -15,22 +15,24 @@ import { expect, test } from '@playwright/test';
 
 test.describe('Quick-Start UX', () => {
 	test.beforeEach(async ({ page }) => {
-		// Navigate and wait for stable state before IndexedDB operations
+		// First navigate to establish origin, then clear and seed
 		await page.goto('/', { waitUntil: 'domcontentloaded' });
-		await page.waitForLoadState('networkidle');
 
-		// Clear IndexedDB before each test for isolation
-		await page.evaluate(async () => {
-			const dbs = await indexedDB.databases();
-			for (const db of dbs) {
-				if (db.name) indexedDB.deleteDatabase(db.name);
-			}
-		});
-
-		// Create mock auth session and seed test data
+		// Clear all storage and seed test data in one atomic operation
+		// Note: indexedDB.databases() is NOT supported in WebKit/Safari
 		await page.evaluate(async () => {
 			const DB_NAME = 'timetracker';
 			const DB_VERSION = 6;
+
+			// Step 1: Delete existing database (works in all browsers)
+			await new Promise<void>((resolve) => {
+				const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
+				deleteRequest.onsuccess = () => resolve();
+				deleteRequest.onerror = () => resolve(); // Ignore errors, proceed anyway
+				deleteRequest.onblocked = () => resolve(); // Proceed even if blocked
+			});
+
+			// Step 2: Create fresh database with test data
 			return new Promise<void>((resolve, reject) => {
 				const request = indexedDB.open(DB_NAME, DB_VERSION);
 				request.onerror = () => reject(request.error);

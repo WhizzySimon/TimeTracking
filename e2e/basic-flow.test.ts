@@ -11,22 +11,25 @@ import { expect, test } from '@playwright/test';
 
 test.describe('Basic App Flow', () => {
 	test.beforeEach(async ({ page }) => {
-		// Navigate and wait for stable state before IndexedDB operations
+		// Use storageState clearing via context for reliable cross-browser isolation
+		// First navigate to establish origin, then clear and seed
 		await page.goto('/', { waitUntil: 'domcontentloaded' });
-		await page.waitForLoadState('networkidle');
 
-		// Clear IndexedDB before each test for isolation
-		await page.evaluate(async () => {
-			const dbs = await indexedDB.databases();
-			for (const db of dbs) {
-				if (db.name) indexedDB.deleteDatabase(db.name);
-			}
-		});
-
-		// Create mock auth session so tests don't get redirected to login
+		// Clear all storage and seed test data in one atomic operation
+		// Note: indexedDB.databases() is NOT supported in WebKit/Safari
 		await page.evaluate(async () => {
 			const DB_NAME = 'timetracker';
 			const DB_VERSION = 6;
+
+			// Step 1: Delete existing database (works in all browsers)
+			await new Promise<void>((resolve) => {
+				const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
+				deleteRequest.onsuccess = () => resolve();
+				deleteRequest.onerror = () => resolve(); // Ignore errors, proceed anyway
+				deleteRequest.onblocked = () => resolve(); // Proceed even if blocked
+			});
+
+			// Step 2: Create fresh database with test data
 			return new Promise<void>((resolve, reject) => {
 				const request = indexedDB.open(DB_NAME, DB_VERSION);
 				request.onerror = () => reject(request.error);
@@ -104,7 +107,7 @@ test.describe('Basic App Flow', () => {
 				};
 			});
 		});
-		// Navigate fresh to apply seeded data (avoid flaky reload)
+		// Navigate fresh to apply seeded data
 		await page.goto('/', { waitUntil: 'domcontentloaded' });
 		await page.waitForLoadState('networkidle');
 	});
