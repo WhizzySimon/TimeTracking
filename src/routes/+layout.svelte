@@ -10,6 +10,9 @@
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline, syncInProgress } from '$lib/stores';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
+	import { setUserProfile, clearUserProfile } from '$lib/stores/user';
+	import { loadUserProfile, clearCachedPlan } from '$lib/api/profile';
+	import { getCurrentUserId } from '$lib/api/auth';
 	import { syncWithCloud, resolveConflict, needsSync, type SyncResult } from '$lib/backup/cloud';
 	import type { DatabaseSnapshot } from '$lib/backup/snapshot';
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
@@ -59,6 +62,8 @@
 
 	async function handleLogout() {
 		await clearSession();
+		clearUserProfile();
+		clearCachedPlan();
 		showLogoutConfirm = false;
 		goto(resolve('/login'));
 	}
@@ -188,6 +193,13 @@
 		if (browser) {
 			await loadSession();
 			authChecked = true;
+
+			// Load user profile if authenticated
+			const userId = await getCurrentUserId();
+			if (userId) {
+				const profile = await loadUserProfile(userId);
+				setUserProfile(profile);
+			}
 
 			// Check if sync is needed on startup
 			syncNeeded = await needsSync();
