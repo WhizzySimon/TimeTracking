@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      PUBLIC_SUPABASE_URL: "https://example.supabase.co"
+      PUBLIC_SUPABASE_ANON_KEY: "dummy"
 
     steps:
       - uses: actions/checkout@v4
