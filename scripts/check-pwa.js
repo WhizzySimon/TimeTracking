@@ -231,8 +231,8 @@ function checkBuildOutput() {
 	const requiredFiles = [
 		'manifest.webmanifest',
 		'sw.js',
-		'icons/icon-192-2025-12-23.png',
-		'icons/icon-512-2025-12-23.png',
+		'icons/icon-192.png',
+		'icons/icon-512.png',
 		'200.html'
 	];
 
