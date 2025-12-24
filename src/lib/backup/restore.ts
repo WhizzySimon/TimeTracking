@@ -22,11 +22,24 @@ async function clearStore(storeName: string): Promise<void> {
 }
 
 /**
+ * Deep clone an object to ensure it's IndexedDB-safe.
+ * Removes any non-serializable properties (functions, symbols, etc.)
+ */
+function deepClone<T>(obj: T): T {
+	return JSON.parse(JSON.stringify(obj));
+}
+
+/**
  * Import a cloud snapshot into IndexedDB.
  * Clears existing data and replaces with snapshot data.
  * Does NOT import outbox (local-only sync queue).
+ * Deep-clones all data to ensure IndexedDB compatibility.
  */
 export async function importSnapshot(snapshot: DatabaseSnapshot): Promise<void> {
+	// Deep clone the snapshot to ensure all objects are IndexedDB-safe
+	// (Supabase JSONB might return objects with non-cloneable properties)
+	const safeSnapshot = deepClone(snapshot);
+
 	// Clear existing data stores (not meta, not outbox, not authSession)
 	await Promise.all([
 		clearStore('categories'),
@@ -36,29 +49,29 @@ export async function importSnapshot(snapshot: DatabaseSnapshot): Promise<void> 
 	]);
 
 	// Import categories
-	for (const category of snapshot.categories ?? []) {
+	for (const category of safeSnapshot.categories ?? []) {
 		await put<Category>('categories', category);
 	}
 
 	// Import time entries
-	for (const entry of snapshot.timeEntries ?? []) {
+	for (const entry of safeSnapshot.timeEntries ?? []) {
 		await put<TimeEntry>('timeEntries', entry);
 	}
 
 	// Import day types
-	for (const dayType of snapshot.dayTypes ?? []) {
+	for (const dayType of safeSnapshot.dayTypes ?? []) {
 		await put<DayType>('dayTypes', dayType);
 	}
 
 	// Import work time models
-	for (const model of snapshot.workTimeModels ?? []) {
+	for (const model of safeSnapshot.workTimeModels ?? []) {
 		await put<WorkTimeModel>('workTimeModels', model);
 	}
 
 	console.log('[Restore] Imported snapshot:', {
-		categories: snapshot.categories?.length ?? 0,
-		timeEntries: snapshot.timeEntries?.length ?? 0,
-		dayTypes: snapshot.dayTypes?.length ?? 0,
-		workTimeModels: snapshot.workTimeModels?.length ?? 0
+		categories: safeSnapshot.categories?.length ?? 0,
+		timeEntries: safeSnapshot.timeEntries?.length ?? 0,
+		dayTypes: safeSnapshot.dayTypes?.length ?? 0,
+		workTimeModels: safeSnapshot.workTimeModels?.length ?? 0
 	});
 }
