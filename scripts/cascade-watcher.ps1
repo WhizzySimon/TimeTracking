@@ -59,10 +59,23 @@ while ($true) {
             "" | Out-File -FilePath $outputFile -Encoding utf8
             
             # Execute command and capture output
+            # Use cmd /c to avoid PowerShell output buffering issues with webkit/playwright
             try {
-                $output = Invoke-Expression $command 2>&1 | Out-String
-                $exitCode = $LASTEXITCODE
-                if ($null -eq $exitCode) { $exitCode = 0 }
+                $tempOut = Join-Path $projectRoot "scripts/cascade-temp-out.txt"
+                $process = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $command -Wait -PassThru -NoNewWindow -RedirectStandardOutput $tempOut -RedirectStandardError "$tempOut.err"
+                $exitCode = $process.ExitCode
+                
+                # Read captured output
+                $output = ""
+                if (Test-Path $tempOut) {
+                    $output = Get-Content $tempOut -Raw -ErrorAction SilentlyContinue
+                    Remove-Item $tempOut -Force -ErrorAction SilentlyContinue
+                }
+                if (Test-Path "$tempOut.err") {
+                    $errOutput = Get-Content "$tempOut.err" -Raw -ErrorAction SilentlyContinue
+                    if ($errOutput) { $output += "`n$errOutput" }
+                    Remove-Item "$tempOut.err" -Force -ErrorAction SilentlyContinue
+                }
                 
                 # Write output
                 "=== Command: $command ===" | Out-File -FilePath $outputFile -Encoding utf8
