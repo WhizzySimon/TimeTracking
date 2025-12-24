@@ -1,12 +1,12 @@
-// __BUILD_ID__ = "1.0.0.128-2025-12-24T14:19:33.477Z"
+// __BUILD_ID__ = "1.0.0.129-2025-12-24T14:35:10.516Z"
 const CACHE_PREFIX = 'timetracker-';
 const ASSETS_TO_CACHE = [
   '/',
   '/manifest.webmanifest',
-  '/favicon.png',
-  '/apple-touch-icon.png',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  '/favicon-2025-12-23.png',
+  '/apple-touch-icon-2025-12-23.png',
+  '/icons/icon-192-2025-12-23.png',
+  '/icons/icon-512-2025-12-23.png',
   '/version.json'
 ];
 
@@ -61,8 +61,8 @@ self.addEventListener('fetch', (event) => {
     url.pathname.startsWith('/icons/') ||
     url.pathname.startsWith('/_app/') ||
     url.pathname === '/manifest.webmanifest' ||
-    url.pathname === '/favicon.png' ||
-    url.pathname === '/apple-touch-icon.png'
+    url.pathname === '/favicon-2025-12-23.png' ||
+    url.pathname === '/apple-touch-icon-2025-12-23.png'
   ) {
     event.respondWith(
       caches.match(event.request).then((cached) => {
