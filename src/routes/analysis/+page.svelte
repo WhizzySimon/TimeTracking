@@ -464,7 +464,7 @@
 	{:else}
 		<!-- Date Range Selector -->
 		<div class="range-section">
-			<span class="range-label">Zeitraum:</span>
+			<span class="range-label" data-testid="range-label">Zeitraum:</span>
 			<button class="range-button" onclick={() => (showRangeSelector = true)}>
 				{rangeDisplay}
 			</button>

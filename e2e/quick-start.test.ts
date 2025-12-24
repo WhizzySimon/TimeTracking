@@ -15,24 +15,25 @@ import { expect, test } from '@playwright/test';
 
 test.describe('Quick-Start UX', () => {
 	test.beforeEach(async ({ page }) => {
-		// First navigate to establish origin and wait for all redirects to complete
-		await page.goto('/', { waitUntil: 'networkidle' });
+		// Navigate to static origin page first (no app code, no redirects)
+		await page.goto('/e2e-origin.html', { waitUntil: 'domcontentloaded' });
 
-		// Clear all storage and seed test data in one atomic operation
-		// Note: indexedDB.databases() is NOT supported in WebKit/Safari
+		// Clear localStorage and seed IndexedDB while on static page
 		await page.evaluate(async () => {
+			localStorage.clear();
+
 			const DB_NAME = 'timetracker';
 			const DB_VERSION = 6;
 
-			// Step 1: Delete existing database (works in all browsers)
+			// Delete existing database
 			await new Promise<void>((resolve) => {
 				const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
 				deleteRequest.onsuccess = () => resolve();
-				deleteRequest.onerror = () => resolve(); // Ignore errors, proceed anyway
-				deleteRequest.onblocked = () => resolve(); // Proceed even if blocked
+				deleteRequest.onerror = () => resolve();
+				deleteRequest.onblocked = () => resolve();
 			});
 
-			// Step 2: Create fresh database with test data
+			// Create fresh database with test data
 			return new Promise<void>((resolve, reject) => {
 				const request = indexedDB.open(DB_NAME, DB_VERSION);
 				request.onerror = () => reject(request.error);
@@ -160,13 +161,11 @@ test.describe('Quick-Start UX', () => {
 				};
 			});
 		});
-		// Navigate fresh to apply seeded data (avoid flaky reload)
-		await page.goto('/', { waitUntil: 'domcontentloaded' });
-		await page.waitForLoadState('networkidle');
 	});
 
 	test('Plus-Tab shows categories with smart suggestions', async ({ page }) => {
-		await page.goto('/add');
+		await page.goto('/add', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/add/);
 
 		// Wait for page to load
 		await expect(page.getByRole('heading', { name: 'Aufgabe starten' })).toBeVisible();
@@ -182,7 +181,8 @@ test.describe('Quick-Start UX', () => {
 	});
 
 	test('One-click start creates a running task and redirects to /day', async ({ page }) => {
-		await page.goto('/add');
+		await page.goto('/add', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/add/);
 
 		// Wait for category button
 		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
@@ -195,10 +195,10 @@ test.describe('Quick-Start UX', () => {
 		await expect(page).toHaveURL(/\/day/);
 
 		// Warning banner should appear (task is running)
-		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
+		await expect(page.getByTestId('warning-banner')).toBeVisible();
 
-		// Task should appear in list with "laufend"
-		await expect(page.getByText(/laufend/)).toBeVisible();
+		// Task should appear in list (running)
+		await expect(page.getByTestId('task-item-running')).toBeVisible();
 
 		// Beenden button should be visible
 		await expect(page.getByRole('button', { name: 'Beenden', exact: true })).toBeVisible();
@@ -206,7 +206,8 @@ test.describe('Quick-Start UX', () => {
 
 	test('Beenden button ends a running task', async ({ page }) => {
 		// Create a running task via Plus-Tab
-		await page.goto('/add');
+		await page.goto('/add', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/add/);
 		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
 		await expect(categoryBtn).toBeVisible();
 		await categoryBtn.click();
@@ -215,16 +216,16 @@ test.describe('Quick-Start UX', () => {
 		await expect(page).toHaveURL(/\/day/);
 
 		// Verify task is running
-		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
+		await expect(page.getByTestId('warning-banner')).toBeVisible();
 
 		// Click Beenden
 		await page.getByRole('button', { name: 'Beenden', exact: true }).click();
 
 		// Warning banner should disappear
-		await expect(page.getByText('Aufgabe läuft noch')).not.toBeVisible();
+		await expect(page.getByTestId('warning-banner')).not.toBeVisible();
 
-		// Task should no longer show "laufend"
-		await expect(page.getByText(/laufend/)).not.toBeVisible();
+		// Task should no longer be running
+		await expect(page.getByTestId('task-item-running')).not.toBeVisible();
 
 		// Resume button should now be visible
 		await expect(page.getByRole('button', { name: 'Fortsetzen', exact: true })).toBeVisible();
@@ -232,7 +233,8 @@ test.describe('Quick-Start UX', () => {
 
 	test('Resume button creates a new task with same category', async ({ page }) => {
 		// Create and end a task via Plus-Tab
-		await page.goto('/add');
+		await page.goto('/add', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/add/);
 		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
 		await expect(categoryBtn).toBeVisible();
 		await categoryBtn.click();
@@ -240,13 +242,13 @@ test.describe('Quick-Start UX', () => {
 		await page.getByRole('button', { name: 'Beenden', exact: true }).click();
 
 		// Verify task is ended
-		await expect(page.getByText('Aufgabe läuft noch')).not.toBeVisible();
+		await expect(page.getByTestId('warning-banner')).not.toBeVisible();
 
 		// Click Resume
 		await page.getByRole('button', { name: 'Fortsetzen', exact: true }).click();
 
 		// Warning banner should reappear (new task is running)
-		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
+		await expect(page.getByTestId('warning-banner')).toBeVisible();
 
 		// Should now have 2 task items in the list
 		// Use a more specific selector for task items
@@ -256,7 +258,8 @@ test.describe('Quick-Start UX', () => {
 
 	test('Auto-end running task when starting new one via Plus-Tab', async ({ page }) => {
 		// Start first task (Meeting) via Plus-Tab
-		await page.goto('/add');
+		await page.goto('/add', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/add/);
 		const meetingBtn = page.getByRole('button', { name: /Meeting.*starten/i });
 		await expect(meetingBtn).toBeVisible();
 		await meetingBtn.click();
@@ -265,11 +268,12 @@ test.describe('Quick-Start UX', () => {
 		await expect(page).toHaveURL(/\/day/);
 
 		// Verify first task is running
-		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
+		await expect(page.getByTestId('warning-banner')).toBeVisible();
 		await expect(page.getByRole('button', { name: 'Beenden', exact: true })).toHaveCount(1);
 
 		// Go back to Plus-Tab and start second task (Coding) - should auto-end Meeting
-		await page.goto('/add');
+		await page.goto('/add', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/add/);
 		const codingBtn = page.getByRole('button', { name: /Coding.*starten/i });
 		await expect(codingBtn).toBeVisible();
 		await codingBtn.click();
@@ -278,7 +282,7 @@ test.describe('Quick-Start UX', () => {
 		await expect(page).toHaveURL(/\/day/);
 
 		// Still only one running task (warning banner still visible)
-		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
+		await expect(page.getByTestId('warning-banner')).toBeVisible();
 
 		// Only one Beenden button (the new running task)
 		await expect(page.getByRole('button', { name: 'Beenden', exact: true })).toHaveCount(1);
@@ -289,7 +293,10 @@ test.describe('Quick-Start UX', () => {
 
 	test('Default-Tab-Logik: "/" redirects to /add when no running task', async ({ page }) => {
 		// Navigate to root with no running task
-		await page.goto('/');
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+		// Wait for redirect to complete
+		await page.waitForURL(/\/(day|add)/);
 
 		// Should redirect to /add (Plus-Tab)
 		await expect(page).toHaveURL(/\/add/);
@@ -300,20 +307,22 @@ test.describe('Quick-Start UX', () => {
 
 	test('Default-Tab-Logik: "/" redirects to /day when running task exists', async ({ page }) => {
 		// First create a running task
-		await page.goto('/add');
+		await page.goto('/add', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/add/);
 		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
 		await expect(categoryBtn).toBeVisible();
 		await categoryBtn.click();
 
 		// Should be on /day now
 		await expect(page).toHaveURL(/\/day/);
-		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
+		await expect(page.getByTestId('warning-banner')).toBeVisible();
 
 		// Navigate to root - should redirect to /day (running task exists)
-		await page.goto('/');
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/(day|add)/);
 		await expect(page).toHaveURL(/\/day/);
 
 		// Warning banner should still be visible
-		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
+		await expect(page.getByTestId('warning-banner')).toBeVisible();
 	});
 });

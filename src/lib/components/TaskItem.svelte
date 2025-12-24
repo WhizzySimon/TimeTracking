@@ -42,11 +42,11 @@
 		onresume?.();
 	}
 
+	let isRunning = $derived(entry.endTime === null);
+
 	let timeDisplay = $derived(
 		entry.endTime ? `${entry.startTime} – ${entry.endTime}` : `${entry.startTime} – laufend`
 	);
-
-	let isRunning = $derived(entry.endTime === null);
 </script>
 
 <div
@@ -54,6 +54,7 @@
 	class:running={isRunning}
 	role="button"
 	tabindex="0"
+	data-testid={isRunning ? 'task-item-running' : 'task-item'}
 	{onclick}
 	onkeydown={(e) => e.key === 'Enter' && onclick?.()}
 >

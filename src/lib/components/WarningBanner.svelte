@@ -16,7 +16,7 @@
 	let { message }: Props = $props();
 </script>
 
-<div class="warning-banner" role="alert">
+<div class="warning-banner" role="alert" data-testid="warning-banner">
 	<span class="warning-icon">⚠</span>
 	<span class="warning-message">{message}</span>
 </div>

@@ -23,6 +23,8 @@ export default defineConfig({
 	use: {
 		locale: 'de-DE',
 		timezoneId: 'Europe/Berlin',
+		// Block service workers to prevent caching issues in E2E tests
+		serviceWorkers: 'block',
 		// Capture traces and screenshots on failure for debugging
 		trace: 'on-first-retry',
 		screenshot: 'only-on-failure',

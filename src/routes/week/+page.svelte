@@ -214,7 +214,9 @@
 		<!-- Week Navigation -->
 		<header class="week-nav">
 			<button class="nav-btn" onclick={goToPreviousWeek} aria-label="Vorherige Woche">←</button>
-			<button class="week-title" onclick={openWeekPicker}>{weekTitle}</button>
+			<button class="week-title" data-testid="week-title" onclick={openWeekPicker}
+				>{weekTitle}</button
+			>
 			<button class="nav-btn" onclick={goToNextWeek} aria-label="Nächste Woche">→</button>
 		</header>
 

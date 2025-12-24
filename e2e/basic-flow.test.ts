@@ -11,31 +11,30 @@ import { expect, test } from '@playwright/test';
 
 test.describe('Basic App Flow', () => {
 	test.beforeEach(async ({ page }) => {
-		// Use storageState clearing via context for reliable cross-browser isolation
-		// First navigate to establish origin and wait for all redirects to complete
-		await page.goto('/', { waitUntil: 'networkidle' });
+		// Navigate to static origin page first (no app code, no redirects)
+		await page.goto('/e2e-origin.html', { waitUntil: 'domcontentloaded' });
 
-		// Clear all storage and seed test data in one atomic operation
-		// Note: indexedDB.databases() is NOT supported in WebKit/Safari
+		// Clear localStorage and seed IndexedDB while on static page
 		await page.evaluate(async () => {
+			localStorage.clear();
+
 			const DB_NAME = 'timetracker';
 			const DB_VERSION = 6;
 
-			// Step 1: Delete existing database (works in all browsers)
+			// Delete existing database
 			await new Promise<void>((resolve) => {
 				const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
 				deleteRequest.onsuccess = () => resolve();
-				deleteRequest.onerror = () => resolve(); // Ignore errors, proceed anyway
-				deleteRequest.onblocked = () => resolve(); // Proceed even if blocked
+				deleteRequest.onerror = () => resolve();
+				deleteRequest.onblocked = () => resolve();
 			});
 
-			// Step 2: Create fresh database with test data
+			// Create fresh database with test data
 			return new Promise<void>((resolve, reject) => {
 				const request = indexedDB.open(DB_NAME, DB_VERSION);
 				request.onerror = () => reject(request.error);
 				request.onupgradeneeded = (event) => {
 					const db = (event.target as IDBOpenDBRequest).result;
-					// Create all required stores
 					if (!db.objectStoreNames.contains('categories')) {
 						db.createObjectStore('categories', { keyPath: 'id' });
 					}
@@ -107,13 +106,13 @@ test.describe('Basic App Flow', () => {
 				};
 			});
 		});
-		// Navigate fresh to apply seeded data
-		await page.goto('/', { waitUntil: 'domcontentloaded' });
-		await page.waitForLoadState('networkidle');
 	});
 
 	test('app loads and shows Plus-Tab (no running task)', async ({ page }) => {
-		await page.goto('/');
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+		// Wait for redirect to complete (app redirects based on running task state)
+		await page.waitForURL(/\/(day|add)/);
 
 		// Should redirect to /add (Plus-Tab) when no running task
 		await expect(page).toHaveURL(/\/add/);
@@ -126,18 +125,19 @@ test.describe('Basic App Flow', () => {
 	});
 
 	test('navigation between tabs works', async ({ page }) => {
-		await page.goto('/day');
+		await page.goto('/day', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/day/);
 
 		// Click Week tab
 		await page.getByRole('link', { name: 'Woche' }).click();
 		await expect(page).toHaveURL(/\/week/);
-		await expect(page.getByText(/KW \d+/)).toBeVisible();
+		await expect(page.getByTestId('week-title')).toBeVisible();
 
 		// Click Analysis tab
 		await page.getByRole('link', { name: 'Auswertung' }).click();
 		await expect(page).toHaveURL(/\/analysis/);
-		// Wait for loading to complete, then check for Zeitraum label
-		await expect(page.getByText('Zeitraum:')).toBeVisible({ timeout: 10000 });
+		// Wait for loading to complete, then check for range label
+		await expect(page.getByTestId('range-label')).toBeVisible({ timeout: 10000 });
 
 		// Click Plus-Tab
 		await page.getByRole('link', { name: 'Aufgabe hinzufügen' }).click();
@@ -150,7 +150,8 @@ test.describe('Basic App Flow', () => {
 	});
 
 	test('can add and see a task via Plus-Tab', async ({ page }) => {
-		await page.goto('/add');
+		await page.goto('/add', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/add/);
 
 		// Click a category button to start a task (Meeting is a user category)
 		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
@@ -160,34 +161,36 @@ test.describe('Basic App Flow', () => {
 		// Should redirect to /day
 		await expect(page).toHaveURL(/\/day/);
 
-		// Task should appear in the list with "laufend"
-		await expect(page.getByText(/laufend/)).toBeVisible();
+		// Task should appear in the list (running)
+		await expect(page.getByTestId('task-item-running')).toBeVisible();
 
 		// Warning banner should appear
-		await expect(page.getByText('Aufgabe läuft noch')).toBeVisible();
+		await expect(page.getByTestId('warning-banner')).toBeVisible();
 	});
 
 	test('task persists after reload', async ({ page }) => {
 		// Create a task via Plus-Tab
-		await page.goto('/add');
+		await page.goto('/add', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/add/);
 		const categoryBtn = page.getByRole('button', { name: /Meeting.*starten/i });
 		await expect(categoryBtn).toBeVisible();
 		await categoryBtn.click();
 
 		// Should be on /day with running task
 		await expect(page).toHaveURL(/\/day/);
-		await expect(page.getByText(/laufend/)).toBeVisible();
+		await expect(page.getByTestId('task-item-running')).toBeVisible();
 
 		// Reload page
-		await page.reload();
-		await page.waitForLoadState('networkidle');
+		await page.reload({ waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/day/);
 
 		// Task should still be there (running)
-		await expect(page.getByText(/laufend/)).toBeVisible();
+		await expect(page.getByTestId('task-item-running')).toBeVisible();
 	});
 
 	test('day type selector works', async ({ page }) => {
-		await page.goto('/day');
+		await page.goto('/day', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/day/);
 
 		// Find and change day type
 		const dayTypeSelect = page.getByRole('combobox', { name: 'Tagesart:' });

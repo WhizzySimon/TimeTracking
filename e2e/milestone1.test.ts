@@ -15,30 +15,30 @@ const SYSTEM_CATEGORIES = ['Pause', 'Urlaub', 'Krank', 'Feiertag'];
 
 test.describe('Milestone 1: Persistence + Categories', () => {
 	test.beforeEach(async ({ page }) => {
-		// First navigate to establish origin and wait for all redirects to complete
-		await page.goto('/', { waitUntil: 'networkidle' });
+		// Navigate to static origin page first (no app code, no redirects)
+		await page.goto('/e2e-origin.html', { waitUntil: 'domcontentloaded' });
 
-		// Clear all storage and seed test data in one atomic operation
-		// Note: indexedDB.databases() is NOT supported in WebKit/Safari
+		// Clear localStorage and seed IndexedDB while on static page
 		await page.evaluate(async () => {
+			localStorage.clear();
+
 			const DB_NAME = 'timetracker';
 			const DB_VERSION = 6;
 
-			// Step 1: Delete existing database (works in all browsers)
+			// Delete existing database
 			await new Promise<void>((resolve) => {
 				const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
 				deleteRequest.onsuccess = () => resolve();
-				deleteRequest.onerror = () => resolve(); // Ignore errors, proceed anyway
-				deleteRequest.onblocked = () => resolve(); // Proceed even if blocked
+				deleteRequest.onerror = () => resolve();
+				deleteRequest.onblocked = () => resolve();
 			});
 
-			// Step 2: Create fresh database with test data
+			// Create fresh database with test data
 			return new Promise<void>((resolve, reject) => {
 				const request = indexedDB.open(DB_NAME, DB_VERSION);
 				request.onerror = () => reject(request.error);
 				request.onupgradeneeded = (event) => {
 					const db = (event.target as IDBOpenDBRequest).result;
-					// Create all required stores
 					if (!db.objectStoreNames.contains('categories')) {
 						db.createObjectStore('categories', { keyPath: 'id' });
 					}
@@ -76,7 +76,7 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 						userId: 'test-user-id',
 						email: 'test@example.com',
 						token: 'mock-token-for-testing',
-						expiresAt: Date.now() + 24 * 60 * 60 * 1000 // 24 hours from now
+						expiresAt: Date.now() + 24 * 60 * 60 * 1000
 					};
 					store.put(mockSession);
 					tx.oncomplete = () => {
@@ -87,15 +87,13 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 				};
 			});
 		});
-		// Reload to pick up auth session
-		await page.reload();
-		await page.waitForLoadState('networkidle');
 	});
 
 	test('system categories exist, are protected, and have countsAsWorkTime=false', async ({
 		page
 	}) => {
-		await page.goto('/settings');
+		await page.goto('/settings', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/settings/);
 		await page.waitForSelector('[data-testid="category-list"]');
 
 		for (const sysName of SYSTEM_CATEGORIES) {
@@ -120,7 +118,8 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 	test('only system categories exist on first run (no default user categories)', async ({
 		page
 	}) => {
-		await page.goto('/settings');
+		await page.goto('/settings', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/settings/);
 		await page.waitForSelector('[data-testid="category-list"]');
 
 		// Per Phase 5: only system categories should exist on first run
@@ -139,7 +138,8 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 	});
 
 	test('user category persists across reload and defaults are not duplicated', async ({ page }) => {
-		await page.goto('/settings');
+		await page.goto('/settings', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/settings/);
 		await page.waitForSelector('[data-testid="category-list"]');
 
 		// Count total categories before adding
@@ -166,7 +166,8 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 		expect(countAfterAdd).toBe(initialCount + 1);
 
 		// Reload page
-		await page.reload();
+		await page.reload({ waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/settings/);
 		await page.waitForSelector('[data-testid="category-list"]');
 
 		// Verify the new category still exists
@@ -182,7 +183,8 @@ test.describe('Milestone 1: Persistence + Categories', () => {
 	});
 
 	test('cannot delete system categories but can delete user categories', async ({ page }) => {
-		await page.goto('/settings');
+		await page.goto('/settings', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL(/\/settings/);
 		await page.waitForSelector('[data-testid="category-list"]');
 
 		// Verify system categories have no delete button
