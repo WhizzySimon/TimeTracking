@@ -119,13 +119,20 @@
 
 	.day-type-select {
 		flex: 1;
-		padding: 0.5rem 0.75rem;
+		padding: 0.5rem 0.75rem 0.5rem 2rem;
 		border: 1px solid var(--input-border);
 		border-radius: var(--r-input);
 		font-size: 1rem;
 		background: var(--input-bg);
 		color: var(--input-text);
 		cursor: pointer;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: 0.75rem center;
+		background-size: 12px;
 	}
 
 	.day-type-select:focus {
