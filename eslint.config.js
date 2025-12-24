@@ -25,8 +25,7 @@ export default defineConfig(
 			// see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
 			'no-undef': 'off',
 			// Code quality: cyclomatic complexity threshold (Phase A enforcement)
-			// Start with 'warn' to audit violations, then promote to 'error' after fixing
-			complexity: ['warn', 20]
+			complexity: ['error', 20]
 		}
 	},
 	{
