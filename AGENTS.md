@@ -158,9 +158,12 @@ When reporting completion:
 
 ## Where to put long-lived knowledge
 
-- Project-wide rules: keep in this AGENTS.md (short, stable).
-- Feature detail: Docs/Specs/ + Docs/Plans/ + Docs/Tasks/.
+- **Project-wide process rules: AGENTS.md** (this file) — short, stable, applies to all tasks.
+- **Feature detail:** Docs/Specs/ + Docs/Plans/ + Docs/Tasks/.
+- **Workflows (`.windsurf/workflows/`):** Only orchestrate which docs to read. Do NOT duplicate rules here.
 - If instructions get long, split into additional docs and reference them from the spec/plan (do not bloat AGENTS.md).
+
+**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to AGENTS.md, NOT to individual workflow files. Workflows should reference AGENTS.md sections, not duplicate content.
 
 ## Communication style for Cascade output
 
