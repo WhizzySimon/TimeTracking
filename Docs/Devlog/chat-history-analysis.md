@@ -89,6 +89,8 @@ Nur wenn du im aktuellen Repo ohne Ausführung eindeutig belegen kannst:
 ## Verification (strict)
 Rule: "Verified now in repo" darf nur statische Fakten nennen (z.B. Eintrag existiert/fehlt). Keine Formulierungen wie "needs", "should", "must".
 
+Rule: Alles, was aus Terminal-/Script-Output stammt, zählt als "Claimed in chat" (auch wenn es plausibel ist). "Verified now in repo" nur, wenn du die Datei im Repo direkt lesen kannst (existiert/enthält/fehlt).
+
 - Claimed in chat:
   - <checks/tests> — Result: PASS/FAIL/UNKNOWN — Evidence: <Chat>
 - Verified now in repo (static only):
