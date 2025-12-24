@@ -12,8 +12,8 @@ import { expect, test } from '@playwright/test';
 test.describe('Basic App Flow', () => {
 	test.beforeEach(async ({ page }) => {
 		// Use storageState clearing via context for reliable cross-browser isolation
-		// First navigate to establish origin, then clear and seed
-		await page.goto('/', { waitUntil: 'domcontentloaded' });
+		// First navigate to establish origin and wait for all redirects to complete
+		await page.goto('/', { waitUntil: 'networkidle' });
 
 		// Clear all storage and seed test data in one atomic operation
 		// Note: indexedDB.databases() is NOT supported in WebKit/Safari
