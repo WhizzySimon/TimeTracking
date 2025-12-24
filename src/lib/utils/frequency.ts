@@ -169,8 +169,8 @@ export function getSmartTopCategories(
 	initialDays: number = 30
 ): Category[] {
 	const MIN_DAYS_WITH_ENTRIES = 20; // Target: at least 20 days with entries
-	const MAX_LOOKBACK_DAYS = 365; // Don't look back more than 1 year
-	const LOOKBACK_INCREMENT = 30; // Extend by 30 days each iteration
+	const MAX_LOOKBACK_DAYS = 3650; // Look back up to 10 years to find enough data
+	const LOOKBACK_INCREMENT = 90; // Extend by 90 days each iteration (faster for old data)
 
 	// 1. Find entries with adaptive lookback
 	let days = initialDays;
