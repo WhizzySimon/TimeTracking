@@ -61,6 +61,7 @@ git branch -d feat/your-feature-name
 - All PRs must pass the CI workflow before merging
 - The `ci.yml` workflow runs: format check, lint, typecheck, and tests
 - If CI fails, fix the issues and push again
+- **Required status check name:** `build` (this is the job name in `.github/workflows/ci.yml`)
 
 ## Branch Protection
 
