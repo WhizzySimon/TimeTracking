@@ -32,14 +32,16 @@ Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:
 powershell -File scripts/pr.ps1
 ```
 
-That's it! The script handles:
+The script handles:
 
 - Pushing the branch to origin
 - Creating a PR (or reusing existing one)
 - Enabling auto-merge with squash strategy
 - Branch deletion after merge
 
-### 4. Wait for CI, then clean up locally
+The PR will merge automatically when CI passes.
+
+### 4. Clean up locally
 
 After the PR merges automatically:
 
@@ -52,6 +54,40 @@ git branch -d feat/your-feature-name
 ## Branch Naming
 
 Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
+
+**Use task-specific names** to avoid collisions between parallel work:
+- `feat/P10-monetising` (not just `feat/monetising`)
+- `refactor/P08-code-quality` (not just `refactor/cleanup`)
+
+## Parallel Chat Sessions (CRITICAL)
+
+When running multiple Cascade chat sessions simultaneously:
+
+### Rules
+
+1. **Each chat MUST work on its own branch**
+   - Branch name should match the task (e.g., `feat/P10-monetising`)
+   - Never share branches between chats
+
+2. **Only ONE chat uses the cascade-watcher at a time**
+   - `scripts/cascade-command.txt` is a shared resource
+   - If both chats write to it simultaneously, commands get lost or corrupted
+   - Coordinate: finish one chat's command sequence before the other starts
+
+3. **Do not edit the same files in parallel**
+   - This causes merge conflicts
+   - If both chats need the same file, finish and merge one first
+
+### Safest Workflow
+
+- **Sequential:** Chat A finishes and merges → Chat B starts
+- **Parallel (careful):** Chat A on `feat/A`, Chat B on `feat/B`, completely separate files
+
+### Before Starting a New Chat
+
+1. Check: Is another chat currently using the cascade-watcher?
+2. Check: Will this chat touch files the other chat is editing?
+3. If conflicts possible: Wait for the other chat to finish, or work without watcher
 
 ## CI Requirements
 
@@ -69,15 +105,29 @@ Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 
 - Netlify deploy previews — informational only, not blocking
 
-## Branch Protection
+## GitHub Repository Settings
+
+### Repository Settings (current state)
+
+| Setting | Value | Meaning |
+|---------|-------|--------|
+| `allow_auto_merge` | ✅ true | `gh pr merge --auto` works |
+| `delete_branch_on_merge` | ❌ false | Branches are NOT auto-deleted (use `--delete-branch`) |
+| `allow_squash_merge` | ✅ true | Squash merge allowed |
+| `allow_merge_commit` | ✅ true | Merge commit allowed |
+| `allow_rebase_merge` | ✅ true | Rebase merge allowed |
+
+### Branch Protection (Ruleset "protect-main")
 
 The `main` branch is protected by a GitHub Ruleset:
 
-- Pull request required before merging
-- CI status check `build` must pass
-- Force pushes blocked
-- Branch deletion blocked
-- Rules apply to administrators too
+| Rule | Status |
+|------|--------|
+| Restrict deletions | ✅ Enabled |
+| Require pull request | ✅ Enabled (0 approvals required) |
+| Require status checks | ✅ Enabled (`build` check) |
+| Block force pushes | ✅ Enabled |
+| Bypass list | Empty (no one can bypass) |
 
 ## Troubleshooting
 
@@ -96,11 +146,14 @@ The `main` branch is protected by a GitHub Ruleset:
 Netlify previews are **not** required checks. If `build` passes, you can merge.
 If Netlify is blocking, check that it's not accidentally added as a required check.
 
-### Auto-merge not working
+### Auto-merge enabled
 
-1. Ensure auto-merge is enabled for the repo (Settings → General → Allow auto-merge)
-2. Ensure the PR has no merge conflicts
-3. Ensure all required checks are passing (just `build`)
+**Current state:** Auto-merge is enabled for this repository.
+
+**How it works:**
+- `gh pr merge --auto --squash --delete-branch` queues the PR for auto-merge
+- PR merges automatically when CI passes
+- `scripts/pr.ps1` uses this by default
 
 ### gh CLI not authenticated
 
@@ -123,22 +176,25 @@ Follow the prompts to authenticate with GitHub.
 
 ## Manual Steps (if needed)
 
-For step-by-step control, you can also use:
+For step-by-step control:
 
 ```powershell
-# Push branch
+# 1. Push branch
 git push -u origin HEAD
 
-# Create PR
+# 2. Create PR
 gh pr create --fill
 
-# Enable auto-merge
-gh pr merge --auto --squash --delete-branch
+# 3. Wait for CI to pass, then merge
+gh pr merge --squash --delete-branch
 ```
 
-Or the individual helper scripts:
+Or use the individual helper scripts:
 
 ```powershell
-powershell -File scripts/pr-create.ps1
-powershell -File scripts/pr-merge-auto.ps1
+powershell -File scripts/pr-create.ps1    # Steps 1-2
+# Wait for CI...
+gh pr merge --squash --delete-branch       # Step 3
 ```
+
+**Note:** `scripts/pr-merge-auto.ps1` also uses `--auto` and works correctly.
