@@ -369,7 +369,9 @@ export async function resolveConflict(
 			if (!cloudSnapshot) {
 				return { success: false, action: 'restore', error: 'Cloud-Snapshot nicht gefunden' };
 			}
-			await importSnapshot(cloudSnapshot);
+			// Deep clone again as safety net - Svelte reactivity may have added non-cloneable properties
+			const safeSnapshot = JSON.parse(JSON.stringify(cloudSnapshot)) as DatabaseSnapshot;
+			await importSnapshot(safeSnapshot);
 			await updateSyncMeta(new Date().toISOString(), cloudUpdatedAt!);
 			console.log('[CloudSync] Conflict resolved: restored from cloud');
 			return { success: true, action: 'restore' };

@@ -69,7 +69,6 @@ Tags currently used in devlogs but not in canonical categories above. Organized 
 | `spec-driven-dev`   | Spec-driven development process |
 | `automation`        | Workflow automation             |
 | `progress-tracking` | Task/phase progress tracking    |
-| `verification`      | Verification process, checks    |
 | `command-execution` | Command execution patterns      |
 | `governance`        | Governance docs/rules           |
 | `naming-convention` | Doc naming conventions          |
