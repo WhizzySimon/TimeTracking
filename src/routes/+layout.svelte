@@ -125,6 +125,11 @@
 				// Don't show dialog for auto-sync - user will see it on next manual sync
 				console.log('[Layout] Auto-sync detected conflict - deferred to manual sync');
 				syncNeeded = true;
+			} else if (result.action === 'restore' && result.success) {
+				// Reload app to reflect restored cloud data
+				console.log('[Layout] Auto-sync restored from cloud - reloading');
+				window.location.reload();
+				return;
 			} else if (result.success || result.action === 'noop') {
 				syncNeeded = false;
 			}
@@ -144,6 +149,10 @@
 			const result = await resolveConflict(choice, pendingCloudSnapshot, pendingCloudUpdatedAt);
 			if (!result.success) {
 				syncError = result.error ?? 'Konfliktlösung fehlgeschlagen';
+			} else if (choice === 'cloud') {
+				// Reload app to reflect restored cloud data
+				window.location.reload();
+				return;
 			}
 		} catch (e) {
 			console.error('[Layout] Conflict resolution failed:', e);
