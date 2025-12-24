@@ -56,12 +56,28 @@ Write `npm run verify` to `scripts/cascade-command.txt`, poll status, fix any er
 
 Use MCP Playwright browser to test the implemented functionality.
 
-### 3. Git Commit (REQUIRED)
+### 3. Git Commit & Push (REQUIRED)
 
 ```
-git add -A; git commit -m "feat: description of changes"
+git add -A; git commit -m "feat: description of changes"; git push
 ```
 
 Write this to `scripts/cascade-command.txt` and confirm success.
 
-**Never end a session without committing completed work.**
+**Never end a session without committing AND pushing completed work. Push triggers CI/CD for immediate feedback.**
+
+### 4. Check CI Status (OPTIONAL but recommended)
+
+After push, check if CI passes:
+
+```
+powershell -File scripts/check-ci.ps1 -Wait -Logs
+```
+
+This will:
+
+- Wait for the GitHub Actions run to complete
+- Show PASSED/FAILED status
+- Display failed job logs if CI fails
+
+If CI fails, read the logs and fix the issues before ending the session.
