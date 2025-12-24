@@ -34,9 +34,10 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install
 
       - name: Verify (format, check, lint)
+        id: verify
         shell: pwsh
         run: |
           npm run verify
@@ -52,7 +53,7 @@ jobs:
           }
 
       - name: Upload verify log (on failure)
-        if: failure()
+        if: steps.verify.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: verify-code-output
