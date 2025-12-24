@@ -6,7 +6,9 @@ Dieses Dokument beschreibt den vollständigen Workflow für die Entwicklung neue
 
 ## Welchen Workflow starten?
 
-Beim Start eines neuen Chats den richtigen Workflow wählen:
+**Immer zuerst `/project-start` ausführen.** Danach je nach Kontext `/continue-work` oder `/new-feature` oder `/new-task`.
+
+Beim Start eines neuen Chats (nach `/project-start`) den richtigen Workflow wählen:
 
 ```
 Neuer Chat starten
@@ -284,35 +286,22 @@ Bevor du mit der Implementierung beginnst:
 
 ---
 
-## Namenskonvention für Dokumente
+## Namenskonvention für Dokumente (optional)
 
-**Alle neuen Docs (Specs, Plans, Tasks) MÜSSEN mit Phase-Nummer und Datum im Dateinamen erstellt werden.**
+**Standard:** `Docs/Specs/<feature-slug>.md` (empfohlen)
 
-### Format
-
-```
-Docs/Specs/P<phase>-<YYYYMMDD>-<feature-slug>.md
-Docs/Plans/P<phase>-<YYYYMMDD>-<feature-slug>.md
-Docs/Tasks/P<phase>-<YYYYMMDD>-<feature-slug>.md
-```
+**Optional:** `Docs/Specs/P<phase>-<YYYYMMDD>-<feature-slug>.md` (nur wenn chronologische Sortierung gewünscht)
 
 ### Beispiele
 
-- `Docs/Specs/P08-20251223-quick-start-ux.md`
-- `Docs/Plans/P08-20251223-quick-start-ux.md`
-- `Docs/Tasks/P08-20251223-quick-start-ux.md`
+- **Standard:** `Docs/Specs/quick-start-ux.md`
+- **Optional:** `Docs/Specs/P08-20251223-quick-start-ux.md`
 
-### Regeln
+### Hinweise
 
-1. **Phase-Nummer:** Zweistellig mit führender Null (P01, P02, ..., P08)
-2. **Datum:** YYYYMMDD Format (Erstellungsdatum)
-3. **Feature-Slug:** Kebab-case, beschreibend
-
-### Warum?
-
-- Eindeutige Zuordnung zu Phasen im Progress Tracker
-- Chronologische Sortierung im Dateisystem
-- Vermeidung von Verwechslungen bei ähnlichen Feature-Namen
+- Bestehende Dokumente müssen NICHT umbenannt werden
+- Beide Formate sind gleichwertig akzeptiert
+- Feature-Slug immer in kebab-case
 
 ---
 

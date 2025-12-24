@@ -63,11 +63,20 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
     - [ ] Progress Tracker aktualisiert
     - [ ] User hat Tasks bestätigt
 
+### Phase -1: Pre-Implementation Gates
+
+12. **Verify Phase -1 / Pre-Implementation Gates are checked PASS** in spec/plan/tasks before Task 1 implementation:
+    - [ ] Simplicity: ≤3 neue Dateien für initiale Implementierung?
+    - [ ] Anti-Abstraction: Framework direkt nutzen, keine unnötigen Wrapper?
+    - [ ] Integration-First: Contracts/Interfaces vor Implementierung definiert?
+    - [ ] Scope-Lock: Keine neuen Requirements seit Spec-Approval hinzugefügt?
+    - [ ] Test-Ready: Mindestens ein Acceptance Check ist automatisierbar?
+
 ### Phase 4: IMPLEMENT
 
-12. Frage den User: "Spec, Plan und Tasks sind fertig. Soll ich mit Task 1 beginnen?"
+13. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. Soll ich mit Task 1 beginnen?"
 
-13. Bei "Ja": Starte Implementation gemäß Task-Workflow:
+14. Bei "Ja": Starte Implementation gemäß Task-Workflow:
     - Code implementieren
     - `npm run verify`
     - Unit Tests (wenn vorhanden)

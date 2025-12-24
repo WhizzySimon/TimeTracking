@@ -24,6 +24,7 @@ Before planning or coding, ALWAYS:
 
 - If multiple sources conflict, follow Docs/INDEX.md (explicit priority order).
 - If Docs/INDEX.md does not cover something, STOP and propose updating the relevant doc/spec instead of guessing.
+- Dateinamen-Konventionen siehe SPEC_DRIVEN_DEVELOPMENT.md; Standard bleibt Docs/Specs/<feature-slug>.md.
 
 ## Process (must follow in order)
 
