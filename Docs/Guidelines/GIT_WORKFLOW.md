@@ -32,14 +32,16 @@ Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:
 powershell -File scripts/pr.ps1
 ```
 
-That's it! The script handles:
+The script handles:
 
 - Pushing the branch to origin
 - Creating a PR (or reusing existing one)
 - Enabling auto-merge with squash strategy
 - Branch deletion after merge
 
-### 4. Wait for CI, then clean up locally
+The PR will merge automatically when CI passes.
+
+### 4. Clean up locally
 
 After the PR merges automatically:
 
@@ -103,15 +105,29 @@ When running multiple Cascade chat sessions simultaneously:
 
 - Netlify deploy previews — informational only, not blocking
 
-## Branch Protection
+## GitHub Repository Settings
+
+### Repository Settings (current state)
+
+| Setting | Value | Meaning |
+|---------|-------|--------|
+| `allow_auto_merge` | ✅ true | `gh pr merge --auto` works |
+| `delete_branch_on_merge` | ❌ false | Branches are NOT auto-deleted (use `--delete-branch`) |
+| `allow_squash_merge` | ✅ true | Squash merge allowed |
+| `allow_merge_commit` | ✅ true | Merge commit allowed |
+| `allow_rebase_merge` | ✅ true | Rebase merge allowed |
+
+### Branch Protection (Ruleset "protect-main")
 
 The `main` branch is protected by a GitHub Ruleset:
 
-- Pull request required before merging
-- CI status check `build` must pass
-- Force pushes blocked
-- Branch deletion blocked
-- Rules apply to administrators too
+| Rule | Status |
+|------|--------|
+| Restrict deletions | ✅ Enabled |
+| Require pull request | ✅ Enabled (0 approvals required) |
+| Require status checks | ✅ Enabled (`build` check) |
+| Block force pushes | ✅ Enabled |
+| Bypass list | Empty (no one can bypass) |
 
 ## Troubleshooting
 
@@ -130,11 +146,14 @@ The `main` branch is protected by a GitHub Ruleset:
 Netlify previews are **not** required checks. If `build` passes, you can merge.
 If Netlify is blocking, check that it's not accidentally added as a required check.
 
-### Auto-merge not working
+### Auto-merge enabled
 
-1. Ensure auto-merge is enabled for the repo (Settings → General → Allow auto-merge)
-2. Ensure the PR has no merge conflicts
-3. Ensure all required checks are passing (just `build`)
+**Current state:** Auto-merge is enabled for this repository.
+
+**How it works:**
+- `gh pr merge --auto --squash --delete-branch` queues the PR for auto-merge
+- PR merges automatically when CI passes
+- `scripts/pr.ps1` uses this by default
 
 ### gh CLI not authenticated
 
@@ -157,22 +176,25 @@ Follow the prompts to authenticate with GitHub.
 
 ## Manual Steps (if needed)
 
-For step-by-step control, you can also use:
+For step-by-step control:
 
 ```powershell
-# Push branch
+# 1. Push branch
 git push -u origin HEAD
 
-# Create PR
+# 2. Create PR
 gh pr create --fill
 
-# Enable auto-merge
-gh pr merge --auto --squash --delete-branch
+# 3. Wait for CI to pass, then merge
+gh pr merge --squash --delete-branch
 ```
 
-Or the individual helper scripts:
+Or use the individual helper scripts:
 
 ```powershell
-powershell -File scripts/pr-create.ps1
-powershell -File scripts/pr-merge-auto.ps1
+powershell -File scripts/pr-create.ps1    # Steps 1-2
+# Wait for CI...
+gh pr merge --squash --delete-branch       # Step 3
 ```
+
+**Note:** `scripts/pr-merge-auto.ps1` also uses `--auto` and works correctly.

@@ -6,7 +6,7 @@
     1. Validates branch (not main) and git state
     2. Pushes current branch to origin
     3. Creates PR if none exists, reuses existing PR otherwise
-    4. Enables auto-merge with squash strategy and branch deletion
+    4. Enables auto-merge with squash strategy
     
     The PR will automatically merge when CI passes.
 .PARAMETER AllowDirty
@@ -108,7 +108,6 @@ gh pr merge --auto --squash --delete-branch
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Failed to enable auto-merge" -ForegroundColor Red
     Write-Host "Possible causes:" -ForegroundColor Yellow
-    Write-Host "  - Auto-merge not enabled for repo (Settings > General > Allow auto-merge)" -ForegroundColor Yellow
     Write-Host "  - PR has merge conflicts" -ForegroundColor Yellow
     Write-Host "  - Required checks not configured correctly" -ForegroundColor Yellow
     exit 1
