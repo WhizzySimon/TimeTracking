@@ -129,10 +129,16 @@ Rule: Alles, was aus Terminal-/Script-Output stammt, zählt als "Claimed in chat
 
 Regeln:
 
-- 3–7 Tags, kurz, konsistent.
-- Beispiele: pwa, auth, supabase, ui, ux, testing, routing, infra, windows, ios, android, bugfix, docs, workflow
+- **3–7 Tags pro Eintrag** — nicht weniger, nicht mehr
+- **Tags MÜSSEN aus `Docs/Devlog/TAGS.md` stammen** — wenn keiner passt, verwende `misc`
+- **Format:** Komma-getrennt, KEINE Klammern (z.B. `ui, ux, bugfix`)
+- **Schreibweise:** immer lowercase
 
-- tags: [<tag1>, <tag2>, <tag3>]
+Beispiel:
+
+```
+tags: ui, ux, bugfix, settings, playwright
+```
 
 ## Confidence
 
@@ -144,7 +150,9 @@ Regeln:
 
 Füge in `Docs/Devlog/INDEX.md` eine neue Zeile hinzu:
 
-`<Chat Date/Time oder UNKNOWN> | <Title> | Docs/Devlog/<filename> | <DONE/OPEN/PARTIAL> | [<tag1>, <tag2>, ...]`
+`<Chat Date/Time oder UNKNOWN> | <Title> | Docs/Devlog/<filename> | <DONE/OPEN/PARTIAL> | <tag1>, <tag2>, <tag3>`
+
+**WICHTIG:** Tags OHNE Klammern, komma-getrennt. Siehe `Docs/Devlog/TAGS.md` für erlaubte Tags.
 
 Status-Regel:
 
