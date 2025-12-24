@@ -159,6 +159,90 @@ function colIndexToLetter(col: number): string {
 }
 
 /**
+ * Result of processing a single data row in a KW sheet
+ */
+interface RowProcessResult {
+	row: ExcelRow | null;
+	error: string | null;
+	timeMinutes: number | null;
+	shouldBreak: boolean;
+	shouldSkip: boolean;
+}
+
+/**
+ * Process a single data row from a KW sheet day column.
+ * Extracted to reduce complexity of parseKWSheet.
+ */
+function processKWSheetRow(
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	zeitValue: any,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	dauerValue: any,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	taetigkeitValue: any,
+	dateStr: string,
+	rowIndex: number,
+	prevTimeMinutes: number | null,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	getCell: (row: number, col: number) => any,
+	zeitCol: number
+): RowProcessResult {
+	// Check for empty row (potential end of data)
+	if (!zeitValue && !dauerValue && !taetigkeitValue) {
+		const nextZeit = getCell(rowIndex + 1, zeitCol);
+		const nextTaetigkeit = getCell(rowIndex + 1, zeitCol + 2);
+		if (!nextZeit && !nextTaetigkeit) {
+			return { row: null, error: null, timeMinutes: null, shouldBreak: true, shouldSkip: false };
+		}
+		return { row: null, error: null, timeMinutes: null, shouldBreak: false, shouldSkip: true };
+	}
+
+	// Skip rows without activity
+	if (!taetigkeitValue || String(taetigkeitValue).trim() === '') {
+		return { row: null, error: null, timeMinutes: null, shouldBreak: false, shouldSkip: true };
+	}
+
+	const activity = String(taetigkeitValue).trim();
+	const timeMinutes = parseTimeToMinutes(zeitValue);
+	let durationMinutes = parseDuration(dauerValue);
+
+	// Fallback: calculate duration from time difference
+	if (durationMinutes === null && timeMinutes !== null && prevTimeMinutes !== null) {
+		durationMinutes = timeMinutes - prevTimeMinutes;
+		if (durationMinutes < 0) durationMinutes = 0;
+	}
+
+	// Valid row with time and duration
+	if (timeMinutes !== null && durationMinutes !== null && durationMinutes > 0) {
+		return {
+			row: {
+				date: dateStr,
+				startTime: formatMinutesToTime(timeMinutes),
+				durationMinutes,
+				activity
+			},
+			error: null,
+			timeMinutes,
+			shouldBreak: false,
+			shouldSkip: false
+		};
+	}
+
+	// Error: activity without valid time
+	if (timeMinutes === null && activity) {
+		return {
+			row: null,
+			error: `Zeile ${rowIndex + 1}: Keine gültige Zeit für "${activity}"`,
+			timeMinutes: null,
+			shouldBreak: false,
+			shouldSkip: false
+		};
+	}
+
+	return { row: null, error: null, timeMinutes, shouldBreak: false, shouldSkip: false };
+}
+
+/**
  * Parse a single KW sheet
  */
 function parseKWSheet(
@@ -168,95 +252,49 @@ function parseKWSheet(
 	errors: string[]
 ): ExcelRow[] {
 	const rows: ExcelRow[] = [];
-
-	// Sheet structure: 7 days, each with 3 columns (Zeit, Dauer, Tätigkeit)
-	// Starting at column B (index 1)
-	const START_COL = 1; // B
+	const START_COL = 1;
 	const COLS_PER_DAY = 3;
-	const DATE_ROW = 1; // Row 2 (0-indexed)
-	const DATA_START_ROW = 3; // Row 4 (0-indexed)
+	const DATE_ROW = 1;
+	const DATA_START_ROW = 3;
 
-	// Get sheet range
-	const range = sheet['!ref'];
-	if (!range) {
+	if (!sheet['!ref']) {
 		return rows;
 	}
 
-	// Helper to get cell value
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const getCell = (row: number, col: number): any => {
-		const colLetter = colIndexToLetter(col);
-		const cellRef = `${colLetter}${row + 1}`;
-		const cell = sheet[cellRef];
+		const cell = sheet[`${colIndexToLetter(col)}${row + 1}`];
 		return cell ? cell.v : null;
 	};
 
-	// Process each of the 7 days
 	for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
 		const zeitCol = START_COL + dayIndex * COLS_PER_DAY;
-		const dauerCol = zeitCol + 1;
-		const taetigkeitCol = zeitCol + 2;
+		const dateStr = parseGermanDate(String(getCell(DATE_ROW, zeitCol) || ''), year);
+		if (!dateStr) continue;
 
-		// Get date from row 2
-		const dateCell = getCell(DATE_ROW, zeitCol);
-		const dateStr = parseGermanDate(String(dateCell || ''), year);
-		if (!dateStr) {
-			continue; // Skip days without valid date
-		}
-
-		// Process data rows
 		let rowIndex = DATA_START_ROW;
 		let prevTimeMinutes: number | null = null;
 
 		while (rowIndex < 100) {
-			// Safety limit
-			const zeitValue = getCell(rowIndex, zeitCol);
-			const dauerValue = getCell(rowIndex, dauerCol);
-			const taetigkeitValue = getCell(rowIndex, taetigkeitCol);
+			const result = processKWSheetRow(
+				getCell(rowIndex, zeitCol),
+				getCell(rowIndex, zeitCol + 1),
+				getCell(rowIndex, zeitCol + 2),
+				dateStr,
+				rowIndex,
+				prevTimeMinutes,
+				getCell,
+				zeitCol
+			);
 
-			// Stop if all cells are empty
-			if (!zeitValue && !dauerValue && !taetigkeitValue) {
-				// Check next row too (might be a gap)
-				const nextZeit = getCell(rowIndex + 1, zeitCol);
-				const nextTaetigkeit = getCell(rowIndex + 1, taetigkeitCol);
-				if (!nextZeit && !nextTaetigkeit) {
-					break;
-				}
+			if (result.shouldBreak) break;
+			if (result.shouldSkip) {
 				rowIndex++;
 				continue;
 			}
-
-			// Skip rows without activity
-			if (!taetigkeitValue || String(taetigkeitValue).trim() === '') {
-				rowIndex++;
-				continue;
-			}
-
-			const activity = String(taetigkeitValue).trim();
-			// Pass raw value - parseTimeToMinutes handles both Excel decimals and strings
-			const timeMinutes = parseTimeToMinutes(zeitValue);
-
-			// Get duration: prefer Dauer column, fallback to time difference
-			let durationMinutes = parseDuration(dauerValue);
-
-			if (durationMinutes === null && timeMinutes !== null && prevTimeMinutes !== null) {
-				// Calculate from time difference
-				durationMinutes = timeMinutes - prevTimeMinutes;
-				if (durationMinutes < 0) durationMinutes = 0;
-			}
-
-			if (timeMinutes !== null && durationMinutes !== null && durationMinutes > 0) {
-				rows.push({
-					date: dateStr,
-					startTime: formatMinutesToTime(timeMinutes),
-					durationMinutes,
-					activity
-				});
-			} else if (timeMinutes === null && activity) {
-				errors.push(`Zeile ${rowIndex + 1}: Keine gültige Zeit für "${activity}"`);
-			}
-
-			prevTimeMinutes = timeMinutes;
+			if (result.row) rows.push(result.row);
+			if (result.error) errors.push(result.error);
+			if (result.timeMinutes !== null) prevTimeMinutes = result.timeMinutes;
 			rowIndex++;
 		}
 	}
