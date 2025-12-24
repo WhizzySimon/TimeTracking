@@ -53,6 +53,40 @@ git branch -d feat/your-feature-name
 
 Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 
+**Use task-specific names** to avoid collisions between parallel work:
+- `feat/P10-monetising` (not just `feat/monetising`)
+- `refactor/P08-code-quality` (not just `refactor/cleanup`)
+
+## Parallel Chat Sessions (CRITICAL)
+
+When running multiple Cascade chat sessions simultaneously:
+
+### Rules
+
+1. **Each chat MUST work on its own branch**
+   - Branch name should match the task (e.g., `feat/P10-monetising`)
+   - Never share branches between chats
+
+2. **Only ONE chat uses the cascade-watcher at a time**
+   - `scripts/cascade-command.txt` is a shared resource
+   - If both chats write to it simultaneously, commands get lost or corrupted
+   - Coordinate: finish one chat's command sequence before the other starts
+
+3. **Do not edit the same files in parallel**
+   - This causes merge conflicts
+   - If both chats need the same file, finish and merge one first
+
+### Safest Workflow
+
+- **Sequential:** Chat A finishes and merges → Chat B starts
+- **Parallel (careful):** Chat A on `feat/A`, Chat B on `feat/B`, completely separate files
+
+### Before Starting a New Chat
+
+1. Check: Is another chat currently using the cascade-watcher?
+2. Check: Will this chat touch files the other chat is editing?
+3. If conflicts possible: Wait for the other chat to finish, or work without watcher
+
 ## CI Requirements
 
 - All PRs must pass the CI workflow before merging

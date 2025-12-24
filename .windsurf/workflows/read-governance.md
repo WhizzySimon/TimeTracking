@@ -9,6 +9,7 @@ Read:
 - AGENTS.md
 - .windsurf/cascade.md
 - Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/Guidelines/GIT_WORKFLOW.md (especially "Parallel Chat Sessions" section)
 
 Return only a single line:
 "Read governance docs, [z]k context tokens"
