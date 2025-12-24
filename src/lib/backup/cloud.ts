@@ -233,10 +233,16 @@ export async function getCloudSnapshotWithMeta(): Promise<CloudSnapshotWithMeta>
 			return { snapshot: null, updatedAt: null, hasData: false };
 		}
 
+		// Deep clone snapshot to ensure it's safe for IndexedDB storage later
+		// (Supabase JSONB might return objects with non-cloneable properties)
+		const safeSnapshot = data?.snapshot
+			? (JSON.parse(JSON.stringify(data.snapshot)) as DatabaseSnapshot)
+			: null;
+
 		return {
-			snapshot: data?.snapshot as DatabaseSnapshot | null,
+			snapshot: safeSnapshot,
 			updatedAt: data?.updated_at as string | null,
-			hasData: data?.snapshot != null
+			hasData: safeSnapshot != null
 		};
 	} catch (e) {
 		console.error('[CloudSync] Fetch failed:', e);
