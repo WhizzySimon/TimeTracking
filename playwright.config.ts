@@ -13,12 +13,12 @@ export default defineConfig({
 	expect: {
 		timeout: 10000
 	},
-	// Run tests in parallel but limit workers in CI
-	workers: process.env.CI ? 2 : undefined,
-	fullyParallel: true,
-	// Reporter configuration
+	// Run tests sequentially in CI to catch state bugs, parallel locally for speed
+	workers: process.env.CI ? 1 : undefined,
+	fullyParallel: !process.env.CI,
+	// Reporter configuration - always produce JSON for analysis
 	reporter: process.env.CI
-		? [['html', { open: 'never' }], ['github']]
+		? [['html', { open: 'never' }], ['github'], ['json', { outputFile: 'playwright-results.json' }]]
 		: [['html', { open: 'on-failure' }]],
 	use: {
 		locale: 'de-DE',

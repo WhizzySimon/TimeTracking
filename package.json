@@ -16,6 +16,7 @@
 		"test:unit": "vitest run",
 		"test:unit:watch": "vitest",
 		"test:e2e": "playwright test",
+		"test:e2e:ci": "playwright test --reporter=line,json --output=playwright-results.json",
 		"test:webkit": "playwright test --project=webkit",
 		"test:ios": "playwright test --project=\"Mobile Safari\"",
 		"test:webkit:ui": "playwright test --ui --project=webkit",
