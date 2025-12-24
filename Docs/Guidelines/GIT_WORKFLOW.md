@@ -1,60 +1,57 @@
 # Git Workflow (TimeTracker)
 
-## Rule
+## Rules
 
-**Never push directly to `main`.** All changes go through a pull request.
+- **Never push directly to `main`.** The `main` branch is protected; direct pushes will be rejected.
+- **Never merge via GitHub UI.** Always use `scripts/pr.ps1` for consistent workflow.
+- **Short-lived branches.** Create a branch, make changes, merge via PR, delete branch.
 
-## Workflow
+## Daily Workflow
 
 ### 1. Create a feature branch
 
-```bash
+```powershell
 git checkout main
 git pull origin main
 git checkout -b feat/your-feature-name
 ```
 
-Branch naming conventions:
-- `feat/` — new feature
-- `fix/` — bug fix
-- `docs/` — documentation only
-- `refactor/` — code refactoring
-- `chore/` — maintenance tasks
+### 2. Make changes and commit
 
-### 2. Make commits
-
-```bash
+```powershell
+# Edit files...
 git add -A
 git commit -m "feat: short description"
 ```
 
 Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`, `test:`
 
-### 3. Push branch to remote
+### 3. Push, create PR, enable auto-merge (ONE command)
 
-```bash
-git push -u origin feat/your-feature-name
+```powershell
+powershell -File scripts/pr.ps1
 ```
 
-### 4. Open a Pull Request
+That's it! The script handles:
 
-- Go to GitHub → repository → "Compare & pull request"
-- Add a descriptive title and description
-- Wait for CI checks to pass (green checkmark)
+- Pushing the branch to origin
+- Creating a PR (or reusing existing one)
+- Enabling auto-merge with squash strategy
+- Branch deletion after merge
 
-### 5. Merge the PR
+### 4. Wait for CI, then clean up locally
 
-- Once CI is green, click "Merge pull request"
-- Use "Squash and merge" for cleaner history (optional)
-- Delete the branch after merge (GitHub offers this automatically)
+After the PR merges automatically:
 
-### 6. Clean up locally
-
-```bash
+```powershell
 git checkout main
 git pull origin main
 git branch -d feat/your-feature-name
 ```
+
+## Branch Naming
+
+Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 
 ## CI Requirements
 
@@ -62,21 +59,86 @@ git branch -d feat/your-feature-name
 - The `ci.yml` workflow runs: format check, lint, typecheck, and tests
 - If CI fails, fix the issues and push again
 
+### Required status check
+
+- **Check name:** `build`
+- **Full name in GitHub UI:** `CI / build` (on pull_request events)
+- This is the **job name** in `.github/workflows/ci.yml`, not the workflow name
+
+### Checks NOT required for merge
+
+- Netlify deploy previews — informational only, not blocking
+
 ## Branch Protection
 
-The `main` branch is protected:
+The `main` branch is protected by a GitHub Ruleset:
+
 - Pull request required before merging
-- CI status checks must pass
+- CI status check `build` must pass
 - Force pushes blocked
 - Branch deletion blocked
 - Rules apply to administrators too
 
+## Troubleshooting
+
+### "CI — Expected" or "Waiting for status to be reported"
+
+**Cause:** The required status check name in the ruleset doesn't match the actual job name.
+
+**Fix:** In GitHub → Settings → Rules → Rulesets → edit the ruleset:
+
+- Required check must be `build` (the job name)
+- NOT `CI` (the workflow name)
+- Select from the dropdown, don't type free text
+
+### Netlify preview failed but I want to merge
+
+Netlify previews are **not** required checks. If `build` passes, you can merge.
+If Netlify is blocking, check that it's not accidentally added as a required check.
+
+### Auto-merge not working
+
+1. Ensure auto-merge is enabled for the repo (Settings → General → Allow auto-merge)
+2. Ensure the PR has no merge conflicts
+3. Ensure all required checks are passing (just `build`)
+
+### gh CLI not authenticated
+
+```powershell
+gh auth login
+```
+
+Follow the prompts to authenticate with GitHub.
+
 ## Quick Reference
 
-| Action | Command |
-|--------|---------|
-| Create branch | `git checkout -b feat/name` |
-| Push branch | `git push -u origin feat/name` |
-| Switch to main | `git checkout main` |
-| Update main | `git pull origin main` |
-| Delete local branch | `git branch -d feat/name` |
+| Action               | Command                                         |
+| -------------------- | ----------------------------------------------- |
+| Create branch        | `git checkout -b feat/name`                     |
+| Commit               | `git add -A; git commit -m "feat: description"` |
+| **Full PR workflow** | `powershell -File scripts/pr.ps1`               |
+| Switch to main       | `git checkout main`                             |
+| Update main          | `git pull origin main`                          |
+| Delete local branch  | `git branch -d feat/name`                       |
+
+## Manual Steps (if needed)
+
+For step-by-step control, you can also use:
+
+```powershell
+# Push branch
+git push -u origin HEAD
+
+# Create PR
+gh pr create --fill
+
+# Enable auto-merge
+gh pr merge --auto --squash --delete-branch
+```
+
+Or the individual helper scripts:
+
+```powershell
+powershell -File scripts/pr-create.ps1
+powershell -File scripts/pr-merge-auto.ps1
+```

@@ -26,7 +26,6 @@
 
 	let { onclose }: Props = $props();
 
-	let fileInput: HTMLInputElement | null = $state(null);
 	let selectedFile: File | null = $state(null);
 	let preview: ImportPreview | null = $state(null);
 	let unknownActivities: string[] = $state([]);
@@ -141,13 +140,7 @@
 		<!-- File Upload -->
 		<div class="upload-section">
 			<label class="upload-label">
-				<input
-					bind:this={fileInput}
-					type="file"
-					accept=".xlsx,.xlsm"
-					onchange={handleFileSelect}
-					class="file-input"
-				/>
+				<input type="file" accept=".xlsx,.xlsm" onchange={handleFileSelect} class="file-input" />
 				<span class="upload-btn">
 					{selectedFile ? selectedFile.name : 'Excel-Datei auswählen (.xlsx, .xlsm)'}
 				</span>

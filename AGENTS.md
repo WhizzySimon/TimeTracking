@@ -122,14 +122,46 @@ Definition of done for a task:
 - Code changes completed
 - Verification executed (see "Verification" section)
 - Notes written back into the relevant spec/plan/tasks if reality differed from assumptions
-- Git commit & push:
-  ```
-  git add -A; git commit -m "feat: description"; git push
-  ```
-  Push triggers CI/CD for immediate feedback. Optionally check CI status:
-  ```
-  powershell -File scripts/check-ci.ps1 -Wait -Logs
-  ```
+- Git commit & PR (see "Git workflow" section below)
+
+## Git workflow (mandatory)
+
+**Never push directly to `main`.** The `main` branch is protected; direct pushes will be rejected.
+
+**Never merge via GitHub UI.** Always use the PR script to ensure consistent workflow.
+
+### Command sequence for Cascade
+
+After completing a task, use this exact sequence:
+
+```powershell
+# 1. Create feature branch (if not already on one)
+git checkout -b feat/your-feature
+
+# 2. Commit changes
+git add -A
+git commit -m "feat: description"
+
+# 3. Push, create PR, enable auto-merge (ONE command)
+powershell -File scripts/pr.ps1
+```
+
+That's it. The `pr.ps1` script handles:
+
+- Pushing the branch
+- Creating PR (or reusing existing)
+- Enabling auto-merge with squash
+- Branch deletion after merge
+
+### Branch naming
+
+Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
+
+### Required CI check
+
+- The required status check is `build` (the job name in `.github/workflows/ci.yml`)
+- Netlify previews are NOT required for merge
+- See `Docs/Guidelines/GIT_WORKFLOW.md` for troubleshooting
 
 ## Verification (no guessing)
 

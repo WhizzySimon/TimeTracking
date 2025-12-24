@@ -154,26 +154,34 @@ function getModelHoursForWeekday(model: WorkTimeModel, weekday: Weekday): number
 }
 
 /**
+ * Weekday property mapping for WorkTimeModel lookup.
+ * Reduces cyclomatic complexity by using data instead of switch statements.
+ */
+const WEEKDAY_PROPS: Record<
+	Weekday,
+	{ hours: keyof WorkTimeModel; isWorkday: keyof WorkTimeModel }
+> = {
+	monday: { hours: 'monday', isWorkday: 'mondayIsWorkday' },
+	tuesday: { hours: 'tuesday', isWorkday: 'tuesdayIsWorkday' },
+	wednesday: { hours: 'wednesday', isWorkday: 'wednesdayIsWorkday' },
+	thursday: { hours: 'thursday', isWorkday: 'thursdayIsWorkday' },
+	friday: { hours: 'friday', isWorkday: 'fridayIsWorkday' },
+	saturday: { hours: 'saturday', isWorkday: 'saturdayIsWorkday' },
+	sunday: { hours: 'sunday', isWorkday: 'sundayIsWorkday' }
+};
+
+/**
  * Check if a weekday is marked as a workday in the model.
  * Uses the explicit isWorkday flag if set, otherwise falls back to hours > 0 for backwards compatibility.
  */
 export function isWeekdayWorkday(model: WorkTimeModel, weekday: Weekday): boolean {
-	switch (weekday) {
-		case 'monday':
-			return model.mondayIsWorkday ?? (model.monday !== null && model.monday > 0);
-		case 'tuesday':
-			return model.tuesdayIsWorkday ?? (model.tuesday !== null && model.tuesday > 0);
-		case 'wednesday':
-			return model.wednesdayIsWorkday ?? (model.wednesday !== null && model.wednesday > 0);
-		case 'thursday':
-			return model.thursdayIsWorkday ?? (model.thursday !== null && model.thursday > 0);
-		case 'friday':
-			return model.fridayIsWorkday ?? (model.friday !== null && model.friday > 0);
-		case 'saturday':
-			return model.saturdayIsWorkday ?? (model.saturday !== null && model.saturday > 0);
-		case 'sunday':
-			return model.sundayIsWorkday ?? (model.sunday !== null && model.sunday > 0);
+	const props = WEEKDAY_PROPS[weekday];
+	const explicitFlag = model[props.isWorkday] as boolean | undefined;
+	if (explicitFlag !== undefined) {
+		return explicitFlag;
 	}
+	const hours = model[props.hours] as number | null;
+	return hours !== null && hours > 0;
 }
 
 /**
