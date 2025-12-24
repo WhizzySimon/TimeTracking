@@ -147,6 +147,7 @@ powershell -File scripts/pr.ps1
 ```
 
 That's it. The `pr.ps1` script handles:
+
 - Pushing the branch
 - Creating PR (or reusing existing)
 - Enabling auto-merge with squash

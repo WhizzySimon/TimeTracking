@@ -33,6 +33,7 @@ powershell -File scripts/pr.ps1
 ```
 
 That's it! The script handles:
+
 - Pushing the branch to origin
 - Creating a PR (or reusing existing one)
 - Enabling auto-merge with squash strategy
@@ -71,6 +72,7 @@ Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 ## Branch Protection
 
 The `main` branch is protected by a GitHub Ruleset:
+
 - Pull request required before merging
 - CI status check `build` must pass
 - Force pushes blocked
@@ -84,6 +86,7 @@ The `main` branch is protected by a GitHub Ruleset:
 **Cause:** The required status check name in the ruleset doesn't match the actual job name.
 
 **Fix:** In GitHub → Settings → Rules → Rulesets → edit the ruleset:
+
 - Required check must be `build` (the job name)
 - NOT `CI` (the workflow name)
 - Select from the dropdown, don't type free text
@@ -109,14 +112,14 @@ Follow the prompts to authenticate with GitHub.
 
 ## Quick Reference
 
-| Action | Command |
-|--------|---------|
-| Create branch | `git checkout -b feat/name` |
-| Commit | `git add -A; git commit -m "feat: description"` |
-| **Full PR workflow** | `powershell -File scripts/pr.ps1` |
-| Switch to main | `git checkout main` |
-| Update main | `git pull origin main` |
-| Delete local branch | `git branch -d feat/name` |
+| Action               | Command                                         |
+| -------------------- | ----------------------------------------------- |
+| Create branch        | `git checkout -b feat/name`                     |
+| Commit               | `git add -A; git commit -m "feat: description"` |
+| **Full PR workflow** | `powershell -File scripts/pr.ps1`               |
+| Switch to main       | `git checkout main`                             |
+| Update main          | `git pull origin main`                          |
+| Delete local branch  | `git branch -d feat/name`                       |
 
 ## Manual Steps (if needed)
 

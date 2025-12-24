@@ -44,6 +44,22 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 - Docs/Guidelines/PROJECT_SCAFFOLD_CHECKLIST.md  
   Purpose: ensure project skeleton and tooling are complete.
 
+### Code quality
+
+- Docs/Standards/code-quality-standard.md  
+  Purpose: Code quality rules (formatting, linting, complexity, test stability).
+- Docs/Reports/code-quality-style-audit.md  
+  Purpose: Audit of current tooling and code hotspots (read-only snapshot).
+
+### Feature specs (P08 — Code Quality Enforcement)
+
+- Docs/Specs/P08-code-quality.md  
+  Purpose: Spec for future code quality enforcement work.
+- Docs/Plans/P08-code-quality.md  
+  Purpose: Plan for code quality enforcement.
+- Docs/Tasks/P08-code-quality.md  
+  Purpose: Task breakdown for code quality enforcement.
+
 ## Required "Doc Inventory" in every Cascade answer
 
 At the top of every response, Cascade must list:
