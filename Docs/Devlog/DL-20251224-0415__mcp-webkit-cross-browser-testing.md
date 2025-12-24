@@ -76,7 +76,7 @@
 
 ## Tags
 
-- tags: [mcp, playwright, webkit, safari, cross-browser, testing, ui-fix, 4k, android, ios, chrome]
+tags: mcp, playwright, webkit, safari, cross-browser, testing, ui
 
 ## Confidence
 

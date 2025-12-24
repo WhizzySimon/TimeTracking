@@ -80,7 +80,7 @@
 
 ## Tags
 
-- tags: [testing, e2e, playwright, data-testid, bugfix, ui, refactor]
+tags: testing, e2e, playwright, data-testid, bugfix, ui, refactor
 
 ## Confidence
 

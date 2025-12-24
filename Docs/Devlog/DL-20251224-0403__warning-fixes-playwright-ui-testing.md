@@ -63,7 +63,7 @@
 
 ## Tags
 
-- tags: [bugfix, a11y, svelte, playwright, ui-testing, workflow, code-quality]
+tags: bugfix, a11y, svelte, playwright, ui-testing, workflow, code-quality
 
 ## Confidence
 

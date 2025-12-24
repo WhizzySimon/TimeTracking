@@ -67,7 +67,7 @@
 
 ## Tags
 
-- tags: [windsurf, cascade, infra, investigation, permissions, workflow]
+tags: windsurf, cascade, infra, investigation, permissions, workflow
 
 ## Confidence
 

@@ -96,7 +96,7 @@
 
 ## Tags
 
-- tags: [spec-driven-dev, docs, workflow, setup, reconciliation, agents-md, cascade-config, testing-strategy]
+tags: spec-driven-dev, docs, workflow, setup, reconciliation, agents-md, cascade-config
 
 ## Confidence
 

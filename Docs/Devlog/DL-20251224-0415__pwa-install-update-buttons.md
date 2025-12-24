@@ -78,7 +78,7 @@
 
 ## Tags
 
-- tags: [pwa, install-button, service-worker, update-banner, ui, ux, android]
+tags: pwa, install-button, service-worker, update-banner, ui, ux, android
 
 ## Confidence
 

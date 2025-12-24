@@ -93,7 +93,7 @@
 
 ## Tags
 
-- tags: [ui, ux, design-tokens, shape-system, favicon, pwa, icons, bugfix, settings, playwright]
+tags: ui, ux, design-tokens, shape-system, favicon, pwa, bugfix
 
 ## Confidence
 

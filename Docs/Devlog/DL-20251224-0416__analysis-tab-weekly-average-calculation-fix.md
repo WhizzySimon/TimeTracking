@@ -59,7 +59,7 @@
 
 ## Tags
 
-- tags: [analysis-tab, calculation, work-time-model, weekly-average, bugfix, indexeddb, playwright]
+tags: analysis-tab, calculation, work-time-model, weekly-average, bugfix, indexeddb, playwright
 
 ## Confidence
 

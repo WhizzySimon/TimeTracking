@@ -73,7 +73,7 @@
 
 ## Tags
 
-- tags: [milestone1, playwright, mcp, testing, browser-automation, windsurf, command-execution, docs, workflow, bugfix, favicon]
+tags: milestone1, playwright, mcp, testing, browser-automation, windsurf, bugfix
 
 ## Confidence
 

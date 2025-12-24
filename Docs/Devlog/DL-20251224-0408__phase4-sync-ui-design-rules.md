@@ -76,7 +76,7 @@
 
 ## Tags
 
-- tags: [phase4, sync, ui, ux, dialog, confirm-dialog, minimal-interruption, error-handling, auto-retry, rules, docs, workflow]
+tags: phase4, sync, ui, ux, dialog, confirm-dialog, error-handling
 
 ## Confidence
 

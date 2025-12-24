@@ -113,6 +113,7 @@ Tags currently used in devlogs but not in canonical categories above. Organized 
 | `polish`               | UI polish/refinement       |
 | `navigation`           | Navigation patterns        |
 | `dialog`               | Dialog components          |
+| `dialogs`              | Dialog components          |
 | `confirm-dialog`       | Confirmation dialogs       |
 | `tooltips`             | Tooltip handling           |
 | `collapsible`          | Collapsible sections       |

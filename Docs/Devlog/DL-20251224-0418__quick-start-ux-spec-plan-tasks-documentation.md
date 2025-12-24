@@ -80,7 +80,7 @@
 
 ## Tags
 
-- tags: [docs, workflow, spec-driven-dev, quick-start-ux, phase7, phase8, testing, progress-tracking, verification, windsurf]
+tags: docs, workflow, spec-driven-dev, quick-start-ux, phase7, phase8, verification
 
 ## Confidence
 

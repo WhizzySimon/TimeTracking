@@ -66,7 +66,7 @@
 
 ## Tags
 
-- tags: [bugfix, ui, ux, time-rounding, header, design-tokens, refactor, architecture, data-layer]
+tags: bugfix, ui, ux, time-rounding, header, design-tokens, refactor
 
 ## Confidence
 

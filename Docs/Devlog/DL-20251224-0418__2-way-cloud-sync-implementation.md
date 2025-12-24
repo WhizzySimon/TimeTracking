@@ -73,7 +73,7 @@
 
 ## Tags
 
-- tags: [cloud-sync, supabase, conflict-detection, 2-way-sync, ui, ux, bugfix, indexeddb]
+tags: cloud-sync, supabase, conflict-detection, 2-way-sync, ui, ux, bugfix
 
 ## Confidence
 

@@ -87,7 +87,7 @@
 
 ## Tags
 
-- tags: [bugfix, ui, settings, categories, week-selector, iso-week-year, date-utils]
+tags: bugfix, ui, settings, categories, week-selector, iso-week-year, date-utils
 
 ## Confidence
 

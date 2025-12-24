@@ -89,7 +89,7 @@
 
 ## Tags
 
-- tags: [phase8, plus-tab, spec, plan, tasks, docs, naming-convention, reorganization]
+tags: phase8, plus-tab, spec, plan, tasks, docs, naming-convention
 
 ## Confidence
 

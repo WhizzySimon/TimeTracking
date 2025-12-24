@@ -68,7 +68,7 @@
 
 ## Tags
 
-- tags: [workflow, windsurf, modular, setup, docs, infra]
+tags: workflow, windsurf, modular, setup, docs, infra
 
 ## Confidence
 

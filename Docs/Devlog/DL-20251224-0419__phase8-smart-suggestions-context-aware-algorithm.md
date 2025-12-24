@@ -64,7 +64,7 @@
 
 ## Tags
 
-- tags: [phase8, smart-suggestions, context-aware, algorithm, data-analysis, spec, plan, tasks, docs, frequency-calculation]
+tags: phase8, smart-suggestions, context-aware, algorithm, data-analysis, spec, plan
 
 ## Confidence
 

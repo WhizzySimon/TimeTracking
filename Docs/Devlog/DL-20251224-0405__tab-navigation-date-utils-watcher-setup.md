@@ -89,7 +89,7 @@
 
 ## Tags
 
-- tags: [phase2, ui, navigation, routing, date-utils, testing, vitest, watcher, automation, workflow, git, docs, infra]
+tags: phase2, ui, navigation, routing, date-utils, testing, vitest
 
 ## Confidence
 

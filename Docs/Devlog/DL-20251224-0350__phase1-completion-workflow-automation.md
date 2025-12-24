@@ -72,7 +72,7 @@
 
 ## Tags
 
-- tags: [workflow, automation, phase1, stores, command-execution, verification, progress-tracking]
+tags: workflow, automation, phase1, stores, command-execution, verification, progress-tracking
 
 ## Confidence
 

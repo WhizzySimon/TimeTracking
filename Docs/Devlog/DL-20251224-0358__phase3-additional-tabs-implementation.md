@@ -72,7 +72,7 @@
 
 ## Tags
 
-- tags: [phase3, week-tab, analysis-tab, settings-tab, ui, indexeddb, bugfix, categories, work-time-models]
+tags: phase3, week-tab, analysis-tab, settings-tab, ui, indexeddb, bugfix
 
 ## Confidence
 

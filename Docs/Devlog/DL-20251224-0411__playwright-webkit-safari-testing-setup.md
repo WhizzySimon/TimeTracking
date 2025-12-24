@@ -78,7 +78,7 @@
 
 ## Tags
 
-- tags: [playwright, webkit, safari, ios, testing, pwa, browser-automation, watcher, scripts, docs]
+tags: playwright, webkit, safari, ios, testing, pwa, browser-automation
 
 ## Confidence
 

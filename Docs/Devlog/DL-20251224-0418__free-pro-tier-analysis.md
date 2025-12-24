@@ -59,7 +59,7 @@
 
 ## Tags
 
-- tags: [analysis, business-model, free-tier, pro-tier, ux, product-strategy, docs]
+tags: analysis, business-model, free-tier, pro-tier, ux, product-strategy, docs
 
 ## Confidence
 

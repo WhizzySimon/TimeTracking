@@ -60,7 +60,7 @@
 
 ## Tags
 
-- tags: [pwa, sveltekit, service-worker, manifest, adapter-static, scaffolding, setup]
+tags: pwa, sveltekit, service-worker, manifest, adapter-static, scaffolding, setup
 
 ## Confidence
 

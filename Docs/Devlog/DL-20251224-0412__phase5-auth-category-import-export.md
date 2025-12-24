@@ -77,7 +77,7 @@
 
 ## Tags
 
-- tags: [auth, phase5, category-import-export, mock-api, indexeddb, session-management, ui]
+tags: auth, phase5, category-import-export, mock-api, indexeddb, session-management, ui
 
 ## Confidence
 

@@ -69,7 +69,7 @@
 
 ## Tags
 
-- tags: [ui, ux, responsive, categories, settings, week-tab, analysis-tab, polish]
+tags: ui, ux, responsive, categories, settings, week-tab, analysis-tab
 
 ## Confidence
 

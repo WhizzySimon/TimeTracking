@@ -70,7 +70,7 @@
 
 ## Tags
 
-- tags: [pwa, service-worker, update-detection, version-automation, git-hooks, pre-commit, netlify, ci, build-process]
+tags: pwa, service-worker, update-detection, version-automation, git-hooks, pre-commit, netlify
 
 ## Confidence
 

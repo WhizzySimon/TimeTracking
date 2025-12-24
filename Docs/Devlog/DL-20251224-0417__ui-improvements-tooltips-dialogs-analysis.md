@@ -66,7 +66,7 @@
 
 ## Tags
 
-- tags: [ui, ux, tooltips, dialogs, analysis-tab, collapsible, excel-import, categories, mobile, accessibility, bugfix]
+tags: ui, ux, tooltips, dialogs, analysis-tab, collapsible, bugfix
 
 ## Confidence
 

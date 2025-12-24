@@ -68,7 +68,7 @@
 
 ## Tags
 
-- tags: [workflow, windsurf, new-task, ad-hoc, rules, governance, verification, testing, docs]
+tags: workflow, windsurf, new-task, ad-hoc, rules, governance, verification
 
 ## Confidence
 
