@@ -55,3 +55,18 @@
 
 - YYYY-MM-DD: Created
 - YYYY-MM-DD: ...
+
+---
+
+## 10) Spec Completeness Checklist
+
+Before proceeding to Phase 2 (Plan), verify all required sections are complete:
+
+- [ ] Goal / Problem statement (1-3 sentences)
+- [ ] Scope: In scope + Out of scope defined
+- [ ] Functional Requirements (FR) — all numbered (TT-FR-xxx)
+- [ ] Implementation Guarantees (IG) — all numbered (TT-IG-xxx)
+- [ ] Edge cases documented
+- [ ] Data & privacy notes complete
+- [ ] Acceptance checks — all numbered (AC-xxx) and mapped to FR/IG
+- [ ] No ambiguous terms without measurable definitions

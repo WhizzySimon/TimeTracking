@@ -55,6 +55,20 @@ Neuer Chat starten
 
 ---
 
+## Phase -1: Pre-Implementation Gates
+
+**Ziel:** Sicherstellen, dass wir nicht over-engineeren, bevor wir anfangen.
+
+Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
+
+- [ ] **Simplicity:** ≤3 neue Dateien für initiale Implementierung?
+- [ ] **Anti-Abstraction:** Framework direkt nutzen, keine unnötigen Wrapper?
+- [ ] **Integration-First:** Contracts/Interfaces vor Implementierung definiert?
+- [ ] **Scope-Lock:** Keine neuen Requirements seit Spec-Approval hinzugefügt?
+- [ ] **Test-Ready:** Mindestens ein Acceptance Check ist automatisierbar?
+
+---
+
 ## Phase 1: SPEC erstellen
 
 **Ziel:** Festhalten, WAS gebaut werden soll und WARUM.
@@ -317,4 +331,5 @@ Docs/Tasks/P<phase>-<YYYYMMDD>-<feature-slug>.md
 
 ## Änderungshistorie
 
+- 2025-12-24: Phase -1 / Pre-Implementation Gates hinzugefügt
 - 2025-12-23: Erstellt — Konsolidierter Workflow für Spec-Driven Development

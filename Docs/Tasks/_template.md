@@ -20,6 +20,8 @@
 - **Guardrails:**
   - Must not change X
   - Must preserve Y
+- **Parallel:** [P] _(or blank if sequential)_
+- **Estimated:** 0.5h / 1h / 2h
 
 ## Task 2 - [Brief description]
 
@@ -31,3 +33,5 @@
   - `npm run check`
 - **Guardrails:**
   - Must not change X
+- **Parallel:**
+- **Estimated:** 1h

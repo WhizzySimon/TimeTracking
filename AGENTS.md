@@ -94,6 +94,18 @@ Checkpoint to proceed:
 
 - No task depends on "figure it out while coding".
 
+### Phase -1 — PRE-IMPLEMENTATION GATES (before Phase 4)
+
+Before starting implementation, verify all gates pass:
+
+- [ ] **Simplicity:** ≤3 new files for initial implementation?
+- [ ] **Anti-Abstraction:** Using framework directly, no unnecessary wrappers?
+- [ ] **Integration-First:** Contracts/interfaces defined before implementation?
+- [ ] **Scope-Lock:** No new requirements added since spec approval?
+- [ ] **Test-Ready:** At least one acceptance check is automatable?
+
+If any gate fails, update the spec/plan/tasks first.
+
 ### Phase 4 — IMPLEMENT (one task at a time)
 
 Rules for implementation:

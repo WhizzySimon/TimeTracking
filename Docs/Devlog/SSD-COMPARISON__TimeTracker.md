@@ -302,33 +302,33 @@ Priority order (0 = highest):
 
 ### Priority 1: Critical (Do First)
 
-| # | File Path | Exact Change | Why |
-| - | --------- | ------------ | --- |
-| 1 | `Docs/Devlog/FOLLOW-UPS.md` | Already exists — add automation to extract from new devlogs | Single view of all open work; prevents lost follow-ups |
-| 2 | `Docs/Specs/_template.md` | Add "Completeness Checklist" section at bottom with all required sections as checkboxes | Self-documenting spec validation |
-| 3 | `.windsurf/rules/implementation-specification-rules.md` | Delete this file (keep only `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md`) | Eliminate duplicate; single source of truth |
-| 4 | `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` | Add "Pre-Implementation Gates" section with Simplicity/Anti-Abstraction/Integration-First checklists | Catch over-engineering before coding |
-| 5 | `Docs/Tasks/_template.md` | Add `**Parallel:** [P] / sequential` and `**Estimated:** 0.5h / 1h / 2h` fields | Enable parallelization, better planning |
+| # | File Path | Exact Change | Status | Why |
+| - | --------- | ------------ | ------ | --- |
+| 1 | `Docs/Devlog/FOLLOW-UPS.md` | Centralized tracker with 84 follow-ups | ✅ DONE | Single view of all open work; prevents lost follow-ups |
+| 2 | `Docs/Specs/_template.md` | Add "Completeness Checklist" section at bottom with all required sections as checkboxes | ✅ DONE | Self-documenting spec validation |
+| 3 | `.windsurf/rules/*.md` | Keep pointer files; canonical rules live in `Docs/Guidelines/` | ✅ DONE (architecture decision) | Windsurf auto-loads .windsurf/rules/; pointers reference canonical docs |
+| 4 | `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` | Add "Phase -1 / Pre-Implementation Gates" section (≤5 checkboxes) | ✅ DONE | Catch over-engineering before coding |
+| 5 | `Docs/Tasks/_template.md` | Add `**Parallel:** [P] / blank` and `**Estimated:** 0.5h / 1h / 2h` fields | ✅ DONE | Enable parallelization, better planning |
 
 ### Priority 2: Important (Do Soon)
 
-| # | File Path | Exact Change | Why |
-| - | --------- | ------------ | --- |
-| 6 | `Docs/IMPLEMENTATION_PROGRESS.md` | Add "Test Coverage" column to phase headers | Visibility into testing gaps |
-| 7 | `Docs/Devlog/chat-history-analysis.md` | Require ISO 8601 timestamps, workflow field from enum `{/project-start, /continue-work, /new-feature, /new-task, NONE}` | Consistent, sortable devlogs |
-| 8 | `AGENTS.md` | Add "Pre-Implementation Gates" checkpoint between Phase 3 and Phase 4 | Block implementation until gates pass |
-| 9 | `.windsurf/workflows/new-feature.md` | Add step: "Verify Pre-Implementation Gates pass before starting Task 1" | Enforce gates in workflow |
-| 10 | `Docs/Devlog/TAGS.md` | Run tag reconciliation script to add all in-use tags | Prevent tag drift |
+| # | File Path | Exact Change | Status | Why |
+| - | --------- | ------------ | ------ | --- |
+| 6 | `Docs/IMPLEMENTATION_PROGRESS.md` | Add "Test Coverage" column to phase headers | TODO | Visibility into testing gaps |
+| 7 | `Docs/Devlog/chat-history-analysis.md` | Workflow field from enum `{/project-start, /continue-work, /new-feature, /new-task, NONE}` (no UNKNOWN) | ✅ DONE | Consistent, sortable devlogs |
+| 8 | `AGENTS.md` | Add "Phase -1 / Pre-Implementation Gates" section (≤5 checkboxes) | ✅ DONE | Block implementation until gates pass |
+| 9 | `.windsurf/workflows/new-feature.md` | Add step: "Verify Pre-Implementation Gates pass before starting Task 1" | TODO | Enforce gates in workflow |
+| 10 | `Docs/Devlog/TAGS.md` | All in-use tags reconciled | ✅ DONE | 229 lines with comprehensive tag categories |
 
 ### Priority 3: Nice-to-Have (Do Later)
 
-| # | File Path | Exact Change | Why |
-| - | --------- | ------------ | --- |
-| 11 | `scripts/validate-devlog-tags.js` | Create script that checks DL-*.md tags against TAGS.md | Automated tag validation |
-| 12 | `Docs/Devlog/PHASE-HISTORY.md` | Create file documenting what P02-P05 covered (retroactive) | Historical clarity |
-| 13 | `Docs/Plans/_template.md` | Add "Pre-Implementation Gates" section with checkboxes | Template enforcement |
-| 14 | `.windsurf/cascade.md` | Add "Constitution" section with immutable principles | Architectural discipline |
-| 15 | `package.json` | Add `"verify:devlog": "node scripts/validate-devlog-tags.js"` to scripts | Integrate into CI |
+| # | File Path | Exact Change | Status | Why |
+| - | --------- | ------------ | ------ | --- |
+| 11 | `scripts/validate-devlog-tags.js` | Script validates DL-*.md and INDEX.md tags against TAGS.md | ✅ DONE | Automated tag validation (178 lines) |
+| 12 | `Docs/Devlog/PHASE-HISTORY.md` | Create file documenting what P02-P05 covered (retroactive) | TODO | Historical clarity |
+| 13 | `Docs/Plans/_template.md` | Add "Pre-Implementation Gates" section with checkboxes | TODO | Template enforcement |
+| 14 | `.windsurf/cascade.md` | Add "Constitution" section with immutable principles | TODO | Architectural discipline |
+| 15 | `scripts/verify-code.ps1` | Devlog tag validation integrated into `npm run verify` | ✅ DONE | Runs as Step 0 in verify-code.ps1 |
 
 ---
 

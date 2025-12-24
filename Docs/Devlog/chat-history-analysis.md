@@ -5,7 +5,7 @@ Ziel: Diesen kompletten Chat in ein standardisiertes Devlog-Artefakt extrahieren
 ## NON-NEGOTIABLE
 
 - KEINE Implementierung. KEINE Refactors. KEINE Tests ausführen. KEINE Commands (auch nicht via Watcher).
-- KEINE Annahmen. Wenn etwas nicht eindeutig im Chat steht: `UNKNOWN`.
+- KEINE Annahmen. Wenn etwas nicht eindeutig im Chat steht: `UNKNOWN` (außer Workflow-Feld, siehe unten).
 - Du darfst Repo-Dateien lesen, aber musst strikt unterscheiden:
   - **“aus Chat”** vs. **“repo-verified (static)”**
 - “repo-verified” bedeutet nur statische Fakten ohne Ausführung (z.B. Eintrag existiert/fehlt). Keine Formulierungen wie “needs/should/must”.
@@ -65,14 +65,14 @@ Regeln:
 
 ### Inhalt der Devlog-Datei (GENAU dieses Format)
 
-(Alles was nicht eindeutig ist: `UNKNOWN`)
+(Alles was nicht eindeutig ist: `UNKNOWN` — Ausnahme: Workflow-Feld muss aus Enum sein, bei Unklarheit `NONE`)
 
 # <Title>
 
 **Chat Date/Time:** <ISO oder UNKNOWN>
 **Generated At:** <ISO now>
 **Chat topic:** <1 Satz>
-**Workflow used:** </new-feature | /continue-work | /new-task | UNKNOWN>
+**Workflow used:** </project-start | /continue-work | /new-feature | /new-task | NONE>
 
 **Related Docs:**
 
