@@ -27,9 +27,10 @@ export const installState = writable<InstallState>(initialState);
 let deferredPrompt: BeforeInstallPromptEvent | null = null;
 
 /**
- * Check if the app is running in standalone mode (installed)
+ * Check if the app is running in standalone mode (installed).
+ * P09 Section 1.1: Used to distinguish browser vs installed PWA.
  */
-function checkIsInstalled(): boolean {
+export function checkIsInstalled(): boolean {
 	if (typeof window === 'undefined') return false;
 
 	// Check display-mode: standalone (works on most browsers)

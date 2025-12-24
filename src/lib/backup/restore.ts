@@ -1,6 +1,11 @@
 /**
  * Import cloud snapshot to IndexedDB.
  * Spec refs: cloud-backup-and-auth.md
+ *
+ * P09 SPEC COMPLIANCE:
+ * - Section 2.2: Auth tokens MUST survive page reload and SW updates
+ * - Section 2.2: Clearing caches MUST NOT clear authentication storage
+ *   This module explicitly does NOT clear 'authSession' store during import.
  */
 
 import { openDB, put } from '$lib/storage/db';

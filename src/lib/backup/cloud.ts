@@ -1,6 +1,12 @@
 /**
  * Cloud sync service using Supabase (2-way sync).
  * Spec refs: cloud-backup-and-auth.md
+ *
+ * P09 SPEC COMPLIANCE:
+ * - Section 3: Sync conflict detection with semantic comparison
+ * - Section 4: Automatic conflict resolution (merge before user interaction)
+ * - Section 5: User interaction only when auto-resolution fails
+ * - Section 7: Code documentation for conflict logic
  */
 
 import { getSupabase, isSupabaseConfigured } from '$lib/supabase/client';
@@ -8,7 +14,7 @@ import { getCurrentUserId } from '$lib/api/auth';
 import { exportSnapshot, type DatabaseSnapshot } from './snapshot';
 import { importSnapshot } from './restore';
 import { put, getByKey, getAll } from '$lib/storage/db';
-import type { TimeEntry } from '$lib/types';
+import type { TimeEntry, Category, DayType, WorkTimeModel } from '$lib/types';
 
 const SYNC_META_KEY = 'cloudSyncMeta';
 
@@ -25,12 +31,44 @@ export interface CloudSyncMeta {
 
 /**
  * Sync action determined by comparing local and cloud state.
+ * P09 Section 4: 'merge' action added for automatic conflict resolution.
  */
-export type SyncAction = 'upload' | 'restore' | 'conflict' | 'noop';
+export type SyncAction = 'upload' | 'restore' | 'conflict' | 'merge' | 'noop';
+
+/**
+ * P09 Section 3.1: Definition of what constitutes a sync conflict.
+ *
+ * A REAL conflict occurs when:
+ * - Same entity (by ID) exists in both local and cloud with DIFFERENT semantic content
+ * - User intent cannot be automatically determined
+ *
+ * NOT a conflict (P09 Section 3.1):
+ * - Timestamp-only differences (meta.exportedAt, etc.)
+ * - Reordered but semantically identical data
+ * - Locally cached values identical to cloud state
+ * - One side has entries the other doesn't (can be merged)
+ */
+export interface ConflictAnalysis {
+	/** True if there are real conflicts that require user decision */
+	hasRealConflicts: boolean;
+	/** True if data can be merged without losing information */
+	canAutoMerge: boolean;
+	/** Merged snapshot if auto-merge is possible */
+	mergedSnapshot?: DatabaseSnapshot;
+	/** Description of conflicts for user (P09 Section 5.2) */
+	conflictDescription?: string;
+	/** What would be lost if user chooses local */
+	localChoiceLoss?: string;
+	/** What would be lost if user chooses cloud */
+	cloudChoiceLoss?: string;
+}
 
 /**
  * Determine what sync action to take based on local meta and cloud state.
  * Implements decision table from spec.
+ *
+ * P09 Section 3.2: Conflicts are detected during automatic sync.
+ * P09 Section 4.1: Automatic resolution is attempted first.
  */
 export function determineSyncAction(
 	localMeta: CloudSyncMeta | null,
@@ -73,6 +111,185 @@ export function determineSyncAction(
 	}
 	return 'noop';
 }
+
+// --------- START: P09 Semantic Conflict Detection ---------
+
+/**
+ * P09 Section 3.1: Compare two entities for semantic equality.
+ * Ignores timestamp-only differences and field ordering.
+ *
+ * Two entities are semantically equal if all user-meaningful fields match.
+ * Metadata fields (createdAt, updatedAt, etc.) are ignored.
+ */
+function areEntitiesSemanticallyEqual<T extends { id: string }>(a: T, b: T): boolean {
+	// Compare by serializing without timestamp fields
+	const normalize = (obj: T): string => {
+		const copy = { ...obj } as Record<string, unknown>;
+		// Remove timestamp/meta fields that don't affect semantic meaning
+		delete copy.createdAt;
+		delete copy.updatedAt;
+		delete copy.syncedAt;
+		// Sort keys for consistent comparison
+		return JSON.stringify(copy, Object.keys(copy).sort());
+	};
+	return normalize(a) === normalize(b);
+}
+
+/**
+ * P09 Section 3.1 & 4.2: Analyze conflicts between local and cloud data.
+ * Attempts to merge data without losing information.
+ *
+ * Merge strategy (P09 Section 4.2):
+ * - Union of entries that exist only on one side
+ * - For entries on both sides: keep if semantically equal, conflict if different
+ */
+export async function analyzeConflicts(cloudSnapshot: DatabaseSnapshot): Promise<ConflictAnalysis> {
+	// Get current local data
+	const [localEntries, localCategories, localDayTypes, localWorkTimeModels] = await Promise.all([
+		getAll<TimeEntry>('timeEntries'),
+		getAll<Category>('categories'),
+		getAll<DayType>('dayTypes'),
+		getAll<WorkTimeModel>('workTimeModels')
+	]);
+
+	const cloudEntries = cloudSnapshot.timeEntries ?? [];
+	const cloudCategories = cloudSnapshot.categories ?? [];
+	const cloudDayTypes = cloudSnapshot.dayTypes ?? [];
+	const cloudWorkTimeModels = cloudSnapshot.workTimeModels ?? [];
+
+	// Build ID maps for comparison
+	const localEntryMap = new Map(localEntries.map((e) => [e.id, e]));
+	const cloudEntryMap = new Map(cloudEntries.map((e) => [e.id, e]));
+	const localCategoryMap = new Map(localCategories.map((c) => [c.id, c]));
+	const cloudCategoryMap = new Map(cloudCategories.map((c) => [c.id, c]));
+
+	// P09 Section 3.1: Find real conflicts (same ID, different content)
+	const conflictingEntries: string[] = [];
+	const conflictingCategories: string[] = [];
+
+	// Check time entries for conflicts
+	for (const [id, localEntry] of localEntryMap) {
+		const cloudEntry = cloudEntryMap.get(id);
+		if (cloudEntry && !areEntitiesSemanticallyEqual(localEntry, cloudEntry)) {
+			conflictingEntries.push(id);
+		}
+	}
+
+	// Check categories for conflicts
+	for (const [id, localCat] of localCategoryMap) {
+		const cloudCat = cloudCategoryMap.get(id);
+		if (cloudCat && !areEntitiesSemanticallyEqual(localCat, cloudCat)) {
+			conflictingCategories.push(id);
+		}
+	}
+
+	const hasRealConflicts = conflictingEntries.length > 0 || conflictingCategories.length > 0;
+
+	// P09 Section 4.2: If no real conflicts, we can auto-merge
+	if (!hasRealConflicts) {
+		// Merge: union of all entries from both sides
+		const mergedEntries = mergeArraysById(localEntries, cloudEntries);
+		const mergedCategories = mergeArraysById(localCategories, cloudCategories);
+		// DayType uses 'date' as key, not 'id'
+		const mergedDayTypes = mergeArraysByKey(localDayTypes, cloudDayTypes, 'date');
+		const mergedWorkTimeModels = mergeArraysById(localWorkTimeModels, cloudWorkTimeModels);
+
+		const mergedSnapshot: DatabaseSnapshot = {
+			meta: {
+				schemaVersion: cloudSnapshot.meta.schemaVersion,
+				exportedAt: new Date().toISOString(),
+				exportedAtMs: Date.now(),
+				appVersion: cloudSnapshot.meta.appVersion,
+				tz: cloudSnapshot.meta.tz,
+				tzOffsetMinutes: cloudSnapshot.meta.tzOffsetMinutes
+			},
+			categories: mergedCategories,
+			timeEntries: mergedEntries,
+			dayTypes: mergedDayTypes,
+			workTimeModels: mergedWorkTimeModels,
+			outbox: [] // Outbox is local-only
+		};
+
+		return {
+			hasRealConflicts: false,
+			canAutoMerge: true,
+			mergedSnapshot
+		};
+	}
+
+	// P09 Section 5.2: Build user-friendly conflict description
+	const localOnlyEntries = localEntries.filter((e) => !cloudEntryMap.has(e.id)).length;
+	const cloudOnlyEntries = cloudEntries.filter((e) => !localEntryMap.has(e.id)).length;
+
+	let conflictDescription = 'Einige Einträge wurden sowohl lokal als auch in der Cloud geändert.';
+	if (conflictingEntries.length > 0) {
+		conflictDescription += ` ${conflictingEntries.length} Zeiteinträge haben unterschiedliche Werte.`;
+	}
+	if (conflictingCategories.length > 0) {
+		conflictDescription += ` ${conflictingCategories.length} Kategorien haben unterschiedliche Werte.`;
+	}
+
+	// P09 Section 5.2: Describe what would be lost with each choice
+	let localChoiceLoss = '';
+	let cloudChoiceLoss = '';
+
+	if (cloudOnlyEntries > 0) {
+		localChoiceLoss = `${cloudOnlyEntries} Einträge aus der Cloud werden überschrieben.`;
+	}
+	if (localOnlyEntries > 0) {
+		cloudChoiceLoss = `${localOnlyEntries} lokale Einträge werden überschrieben.`;
+	}
+
+	return {
+		hasRealConflicts: true,
+		canAutoMerge: false,
+		conflictDescription,
+		localChoiceLoss: localChoiceLoss || 'Keine Daten gehen verloren.',
+		cloudChoiceLoss: cloudChoiceLoss || 'Keine Daten gehen verloren.'
+	};
+}
+
+/**
+ * P09 Section 4.2: Merge two arrays by ID, preferring local for duplicates.
+ * Used for auto-merge when no real conflicts exist.
+ */
+function mergeArraysById<T extends { id: string }>(local: T[], cloud: T[]): T[] {
+	const merged = new Map<string, T>();
+
+	// Add all cloud entries first
+	for (const item of cloud) {
+		merged.set(item.id, item);
+	}
+
+	// Override with local entries (local takes precedence for identical IDs)
+	for (const item of local) {
+		merged.set(item.id, item);
+	}
+
+	return Array.from(merged.values());
+}
+
+/**
+ * P09 Section 4.2: Merge two arrays by a custom key field.
+ * Used for entities like DayType that use 'date' instead of 'id'.
+ */
+function mergeArraysByKey<T, K extends keyof T>(local: T[], cloud: T[], keyField: K): T[] {
+	const merged = new Map<T[K], T>();
+
+	// Add all cloud entries first
+	for (const item of cloud) {
+		merged.set(item[keyField], item);
+	}
+
+	// Override with local entries (local takes precedence)
+	for (const item of local) {
+		merged.set(item[keyField], item);
+	}
+
+	return Array.from(merged.values());
+}
+
+// --------- END: P09 Semantic Conflict Detection ---------
 
 /**
  * Save current database snapshot to cloud.
@@ -252,19 +469,32 @@ export async function getCloudSnapshotWithMeta(): Promise<CloudSnapshotWithMeta>
 
 /**
  * Result of a sync operation.
+ * P09 Section 5.2: Includes conflict explanation for user dialog.
  */
 export interface SyncResult {
 	success: boolean;
 	action: SyncAction;
 	error?: string;
+	/** P09 Section 5.1: True only when user decision is required */
 	needsConflictResolution?: boolean;
 	cloudSnapshot?: DatabaseSnapshot | null;
 	cloudUpdatedAt?: string | null;
+	/** P09 Section 5.2: Explanation of what happened */
+	conflictDescription?: string;
+	/** P09 Section 5.2: What user loses if choosing local */
+	localChoiceLoss?: string;
+	/** P09 Section 5.2: What user loses if choosing cloud */
+	cloudChoiceLoss?: string;
 }
 
 /**
  * Main 2-way sync function.
  * Determines sync direction and executes (except for conflicts).
+ *
+ * P09 SPEC COMPLIANCE:
+ * - Section 3.2: Conflicts detected during automatic sync
+ * - Section 4.1: Automatic resolution attempted first
+ * - Section 5.1: User dialog only when auto-resolution fails
  */
 export async function syncWithCloud(): Promise<SyncResult> {
 	if (!isSupabaseConfigured()) {
@@ -326,15 +556,49 @@ export async function syncWithCloud(): Promise<SyncResult> {
 				return { success: true, action: 'restore' };
 			}
 
-			case 'conflict':
-				// Don't execute - return flag for UI to handle
+			case 'conflict': {
+				// P09 Section 4.1: Attempt automatic resolution first
+				if (!cloudData.snapshot) {
+					return { success: false, action: 'conflict', error: 'Cloud-Snapshot nicht gefunden' };
+				}
+
+				const conflictAnalysis = await analyzeConflicts(cloudData.snapshot);
+
+				// P09 Section 4.2: If no real conflicts, auto-merge
+				if (conflictAnalysis.canAutoMerge && conflictAnalysis.mergedSnapshot) {
+					console.log('[CloudSync] Auto-merging data (no real conflicts)');
+					await importSnapshot(conflictAnalysis.mergedSnapshot);
+					// Upload merged result to cloud
+					const uploadResult = await saveToCloud();
+					if (uploadResult.success) {
+						console.log('[CloudSync] Auto-merge complete, uploaded merged data');
+						return { success: true, action: 'merge' };
+					}
+					return {
+						success: false,
+						action: 'merge',
+						error: uploadResult.error
+					};
+				}
+
+				// P09 Section 5.1: Real conflicts require user decision
+				console.log('[CloudSync] Real conflicts detected, user decision required');
 				return {
 					success: true,
 					action: 'conflict',
 					needsConflictResolution: true,
 					cloudSnapshot: cloudData.snapshot,
-					cloudUpdatedAt: cloudData.updatedAt
+					cloudUpdatedAt: cloudData.updatedAt,
+					// P09 Section 5.2: Provide explanations for user
+					conflictDescription: conflictAnalysis.conflictDescription,
+					localChoiceLoss: conflictAnalysis.localChoiceLoss,
+					cloudChoiceLoss: conflictAnalysis.cloudChoiceLoss
 				};
+			}
+
+			case 'merge':
+				// This case is handled above in 'conflict' when auto-merge succeeds
+				return { success: true, action: 'merge' };
 		}
 	} catch (e) {
 		console.error('[CloudSync] Sync failed:', e);

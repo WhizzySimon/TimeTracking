@@ -2,6 +2,12 @@
  * Authentication store for TimeTracker.
  * Manages user session state and persistence.
  * Spec refs: technical-guideline-v1 section 5
+ *
+ * P09 SPEC COMPLIANCE:
+ * - Section 2.1: User MUST remain logged in after update (unless token expired)
+ * - Section 2.2: Auth tokens stored in IndexedDB survive page reload and SW updates
+ * - Section 2.2: Clearing caches does NOT clear IndexedDB auth storage
+ * - Section 2.3: If auto-login fails, the exact technical reason is logged
  */
 
 import { writable, derived } from 'svelte/store';

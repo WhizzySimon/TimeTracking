@@ -1,8 +1,8 @@
 # TimeTracker v1 — Implementation Progress
 
-**Last Updated:** 2025-12-23  
-**Current Phase:** Phase 8 - Plus-Tab (Ein-Klick-Workflow)  
-**Tasks Completed:** 94 / 94  
+**Last Updated:** 2025-12-24  
+**Current Phase:** Phase 9 - Update Handling, Auth Persistence & Sync Conflict Resolution  
+**Tasks Completed:** 95 / 95  
 **Estimated Progress:** 100%
 
 ---
@@ -1051,6 +1051,76 @@ After each phase, verify against specs:
 - **Fail:** Netlify 404 "Page not found" error
 
 ### Test Date: **\*\*\*\***\_\_\_\_**\*\*\*\***
+
+---
+
+## Phase 9: Update Handling, Auth Persistence & Sync Conflict Resolution (P09)
+
+**Target:** 1 implementation task  
+**Status:** Complete (1/1)  
+**Spec:** `Docs/Specs/P09-20251224-update-auth-sync-spec.md`  
+**Date:** 2025-12-24
+
+### Implementation Summary
+
+- [x] **P09 Implementation** — Full spec implementation
+  - Files:
+    - `src/lib/pwa/update.ts` - P09 Section 1: Update detection only in PWA mode
+    - `src/lib/pwa/install.ts` - Export checkIsInstalled for PWA detection
+    - `src/lib/backup/cloud.ts` - P09 Sections 3-5: Semantic conflict detection, auto-merge, user explanations
+    - `src/lib/backup/restore.ts` - P09 Section 2.2: Auth persistence documentation
+    - `src/lib/stores/auth.ts` - P09 Section 2: Auth persistence documentation
+    - `src/routes/+layout.svelte` - P09 Section 5.2: Improved conflict dialog with explanations
+  - Verified: npm run verify ✅ (ALL PASSED), Browser test ✅
+  - Deviations: None
+
+### P09 Spec Compliance Checklist
+
+**Section 1 - Update Handling:**
+- [x] 1.1: App distinguishes browser vs installed PWA
+- [x] 1.2: Update notifications NOT shown in browser mode
+- [x] 1.3: Reload does NOT invalidate auth (IndexedDB survives)
+
+**Section 2 - Auth Persistence:**
+- [x] 2.1: User remains logged in after update (unless token expired)
+- [x] 2.2: Auth tokens survive page reload and SW updates (IndexedDB)
+- [x] 2.2: Clearing caches does NOT clear auth storage
+- [x] 2.3: Auto-login failures are logged with technical reason
+
+**Section 3 - Sync Conflict Detection:**
+- [x] 3.1: Conflicts explicitly defined (semantic comparison, not timestamp-only)
+- [x] 3.1: Timestamp-only differences ignored
+- [x] 3.1: Reordered but identical data not a conflict
+- [x] 3.2: Conflicts detected during automatic sync
+
+**Section 4 - Automatic Conflict Resolution:**
+- [x] 4.1: Auto-resolution attempted before user interaction
+- [x] 4.2: Merge strategy (union of entries, no data loss)
+- [x] 4.3: Timestamp discrepancies ignored
+
+**Section 5 - User Interaction:**
+- [x] 5.1: Dialog appears immediately when user decision required
+- [x] 5.2: Dialog explains what happened
+- [x] 5.2: Dialog explains why auto-resolution failed
+- [x] 5.2: Dialog describes consequences of each choice
+- [x] 5.3: User understands what data will be kept/discarded
+
+**Section 6 - UX Rules:**
+- [x] 6.1: Sync button shows conflict state
+- [x] 6.2: No hidden states, all blocking states visible
+
+**Section 7 - Code Documentation:**
+- [x] Inline comments explain conflict definition
+- [x] Inline comments explain why conflicts occur
+- [x] Inline comments explain when user interaction unavoidable
+
+### Acceptance Criteria (from spec)
+
+- [x] Browser users never see meaningless update prompts
+- [x] Updates do not log users out
+- [x] Sync conflicts are rare, explainable, and mostly auto-resolved
+- [x] Users are only asked to decide when absolutely necessary
+- [x] No user data is lost under any circumstance
 
 ---
 

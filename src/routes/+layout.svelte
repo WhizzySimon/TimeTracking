@@ -33,9 +33,13 @@
 	let hasUpdate = $state(false);
 	let syncNeeded = $state(true);
 
-	// Conflict resolution state
+	// Conflict resolution state (P09 Section 5)
 	let pendingCloudSnapshot = $state<DatabaseSnapshot | null>(null);
 	let pendingCloudUpdatedAt = $state<string | null>(null);
+	// P09 Section 5.2: Conflict explanation for user
+	let conflictDescription = $state<string | null>(null);
+	let localChoiceLoss = $state<string | null>(null);
+	let cloudChoiceLoss = $state<string | null>(null);
 
 	// Pages that don't require authentication
 	const publicPaths = ['/login', '/signup', '/forgot-password', '/reset-password'];
@@ -86,9 +90,12 @@
 			const result: SyncResult = await syncWithCloud();
 
 			if (result.needsConflictResolution) {
-				// Store conflict data and show dialog
+				// P09 Section 5: Store conflict data and show dialog with explanations
 				pendingCloudSnapshot = result.cloudSnapshot ?? null;
 				pendingCloudUpdatedAt = result.cloudUpdatedAt ?? null;
+				conflictDescription = result.conflictDescription ?? null;
+				localChoiceLoss = result.localChoiceLoss ?? null;
+				cloudChoiceLoss = result.cloudChoiceLoss ?? null;
 				showConflictDialog = true;
 			} else if (!result.success) {
 				syncError = result.error ?? 'Synchronisierung fehlgeschlagen';
@@ -161,6 +168,9 @@
 			syncInProgress.set(false);
 			pendingCloudSnapshot = null;
 			pendingCloudUpdatedAt = null;
+			conflictDescription = null;
+			localChoiceLoss = null;
+			cloudChoiceLoss = null;
 		}
 	}
 
@@ -403,13 +413,13 @@
 	/>
 {/if}
 
-<!-- Conflict Dialog -->
+<!-- Conflict Dialog (P09 Section 5.2: Explain what happened and consequences) -->
 {#if showConflictDialog}
 	<ConfirmDialog
 		title="Datenkonflikt"
-		message="Lokale und Cloud-Daten unterscheiden sich. Welche Version möchten Sie behalten?"
-		confirmLabel="Cloud behalten"
-		cancelLabel="Lokal behalten"
+		message={conflictDescription ?? 'Lokale und Cloud-Daten unterscheiden sich.'}
+		confirmLabel={`Cloud behalten${cloudChoiceLoss ? ` (${cloudChoiceLoss})` : ''}`}
+		cancelLabel={`Lokal behalten${localChoiceLoss ? ` (${localChoiceLoss})` : ''}`}
 		onconfirm={() => handleConflictChoice('cloud')}
 		oncancel={() => handleConflictChoice('local')}
 	/>
