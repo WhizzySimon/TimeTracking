@@ -1,5 +1,5 @@
 # Code Verification Script
-# Runs format, TypeScript check, and lint, writing output to a file for Cascade to read.
+# Runs devlog tag validation, format, TypeScript check, and lint, writing output to a file for Cascade to read.
 #
 # Called by: npm run verify
 # Output: scripts/verify-code-output.txt
@@ -19,6 +19,13 @@ $outputFile = Join-Path $projectRoot "scripts/verify-code-output.txt"
 "" | Out-File -FilePath $outputFile -Append -Encoding utf8
 
 $allPassed = $true
+
+# Step 0: Validate devlog tags
+"--- Step 0: Validate devlog tags ---" | Out-File -FilePath $outputFile -Append -Encoding utf8
+$tagOutput = node scripts/validate-devlog-tags.js 2>&1 | Out-String
+$tagOutput | Out-File -FilePath $outputFile -Append -Encoding utf8
+if ($LASTEXITCODE -ne 0) { $allPassed = $false }
+"" | Out-File -FilePath $outputFile -Append -Encoding utf8
 
 # Step 1: Format
 "--- Step 1: npm run format ---" | Out-File -FilePath $outputFile -Append -Encoding utf8
