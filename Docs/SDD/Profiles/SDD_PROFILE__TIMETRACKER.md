@@ -8,6 +8,7 @@
 ## Evidence Inventory
 
 Files inspected:
+
 - `AGENTS.md` — Spec-driven development guide for Cascade
 - `Docs/INDEX.md` — Authoritative doc index with priority order
 - `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` — Complete 4-phase workflow
@@ -32,18 +33,18 @@ Files inspected:
 
 ## Axis Score Table
 
-| Axis | Score (0-5) | Confidence | Evidence Pointers | 1-line Rationale |
-|---|---:|---|---|---|
-| 1. Spec quality | 5 | High | `Docs/Specs/_template.md`, `AGENTS.md:42-52` | Template enforces FR/IG/DD numbering, scope, edge cases, acceptance checks, change log |
-| 2. Scope control | 5 | High | `AGENTS.md:54-57`, `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md:96-101` | Checkpoints require "no ambiguous terms", scope-lock gate before implementation |
-| 3. Traceability | 4 | High | `Docs/IMPLEMENTATION_PROGRESS.md`, `Docs/Tasks/_template.md` | Tasks link to spec/plan, progress tracker logs verification + deviations; no automated FR-to-test mapping |
-| 4. Code quality rules | 5 | High | `package.json:14-16`, `scripts/verify-code.ps1`, `.windsurf/rules/code-quality-rules.md` | Enforced via `npm run verify` (format + check + lint) with output capture |
-| 5. Testing strategy | 4 | High | `package.json:16-23`, `playwright.config.ts`, `e2e/*.test.ts` | Unit (Vitest) + E2E (Playwright, 3 browsers); 57 unit tests, 27 E2E tests; no coverage gates |
-| 6. Tooling & automation | 5 | High | `scripts/cascade-watcher.ps1`, `.windsurf/rules/COMMAND_EXECUTION_RULES.md` | Cascade watcher enables autonomous verification loop; MCP Playwright for UI testing |
-| 7. Context bootstrapping | 5 | High | `.windsurf/workflows/project-start.md`, `Docs/INDEX.md` | `/project-start` chains 3 workflows; INDEX.md defines priority order; mandatory doc inventory |
-| 8. Iteration loop | 5 | High | `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md:169-214` | 7-step task workflow: code → verify → unit test → UI test → progress → commit → next |
-| 9. Operational safety | 4 | High | `.windsurf/rules/COMMAND_EXECUTION_RULES.md:9-32`, `AGENTS.md:140-144` | Absolute ban on run_command; no broad refactors; but no rollback/backup automation |
-| 10. Cost/time efficiency | 4 | Med | `Docs/Tasks/_template.md:24`, `AGENTS.md:88` | Tasks sized 0.5-2h; parallel task marking; but no explicit token/cost tracking |
+| Axis                     | Score (0-5) | Confidence | Evidence Pointers                                                                        | 1-line Rationale                                                                                          |
+| ------------------------ | ----------: | ---------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| 1. Spec quality          |           5 | High       | `Docs/Specs/_template.md`, `AGENTS.md:42-52`                                             | Template enforces FR/IG/DD numbering, scope, edge cases, acceptance checks, change log                    |
+| 2. Scope control         |           5 | High       | `AGENTS.md:54-57`, `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md:96-101`                   | Checkpoints require "no ambiguous terms", scope-lock gate before implementation                           |
+| 3. Traceability          |           4 | High       | `Docs/IMPLEMENTATION_PROGRESS.md`, `Docs/Tasks/_template.md`                             | Tasks link to spec/plan, progress tracker logs verification + deviations; no automated FR-to-test mapping |
+| 4. Code quality rules    |           5 | High       | `package.json:14-16`, `scripts/verify-code.ps1`, `.windsurf/rules/code-quality-rules.md` | Enforced via `npm run verify` (format + check + lint) with output capture                                 |
+| 5. Testing strategy      |           4 | High       | `package.json:16-23`, `playwright.config.ts`, `e2e/*.test.ts`                            | Unit (Vitest) + E2E (Playwright, 3 browsers); 57 unit tests, 27 E2E tests; no coverage gates              |
+| 6. Tooling & automation  |           5 | High       | `scripts/cascade-watcher.ps1`, `.windsurf/rules/COMMAND_EXECUTION_RULES.md`              | Cascade watcher enables autonomous verification loop; MCP Playwright for UI testing                       |
+| 7. Context bootstrapping |           5 | High       | `.windsurf/workflows/project-start.md`, `Docs/INDEX.md`                                  | `/project-start` chains 3 workflows; INDEX.md defines priority order; mandatory doc inventory             |
+| 8. Iteration loop        |           5 | High       | `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md:169-214`                                     | 7-step task workflow: code → verify → unit test → UI test → progress → commit → next                      |
+| 9. Operational safety    |           4 | High       | `.windsurf/rules/COMMAND_EXECUTION_RULES.md:9-32`, `AGENTS.md:140-144`                   | Absolute ban on run_command; no broad refactors; but no rollback/backup automation                        |
+| 10. Cost/time efficiency |           4 | Med        | `Docs/Tasks/_template.md:24`, `AGENTS.md:88`                                             | Tasks sized 0.5-2h; parallel task marking; but no explicit token/cost tracking                            |
 
 **Total Score:** 46/50
 

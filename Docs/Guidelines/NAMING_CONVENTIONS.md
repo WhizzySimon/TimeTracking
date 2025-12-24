@@ -24,6 +24,7 @@ This document defines file and folder naming conventions for the TimeTracker rep
 **Pattern:** `<TOPIC>_<SUBTOPIC>.md` or `<TOPIC>.md`
 
 **Examples:**
+
 - `DEVELOPMENT_GUIDELINES.md`
 - `SPEC_DRIVEN_DEVELOPMENT.md`
 - `TECHNICAL_GUIDELINE_V1.md`
@@ -39,6 +40,7 @@ This document defines file and folder naming conventions for the TimeTracker rep
 **Pattern:** `<feature-slug>.md`
 
 **Examples:**
+
 - `quick-start-ux.md`
 - `cloud-sync.md`
 - `time-entry-validation.md`
@@ -54,6 +56,7 @@ This document defines file and folder naming conventions for the TimeTracker rep
 **Pattern:** `DL-YYYYMMDD-HHMM__<short-description>.md`
 
 **Examples:**
+
 - `DL-20251224-0324__pwa-scaffolding.md`
 - `DL-20251222-1430__auth-flow-fix.md`
 
@@ -68,6 +71,7 @@ This document defines file and folder naming conventions for the TimeTracker rep
 **Pattern:** `SDD_PROFILE__<TARGET_NAME>.md`
 
 **Examples:**
+
 - `SDD_PROFILE__TIMETRACKER.md`
 - `SDD_PROFILE__ANTHROPIC.md`
 - `SDD_PROFILE__TEMPLATE.md`
@@ -83,6 +87,7 @@ This document defines file and folder naming conventions for the TimeTracker rep
 **Pattern:** `<action-name>.md`
 
 **Examples:**
+
 - `project-start.md`
 - `new-feature.md`
 - `continue-work.md`
@@ -98,6 +103,7 @@ This document defines file and folder naming conventions for the TimeTracker rep
 **Pattern:** `<rule-domain>-rules.md`
 
 **Examples:**
+
 - `code-quality-rules.md`
 - `command-execution-rules.md`
 - `ui-design-rules.md`
@@ -108,12 +114,12 @@ This document defines file and folder naming conventions for the TimeTracker rep
 
 ## Special Prefixes
 
-| Prefix | Meaning | Example |
-|--------|---------|---------|
-| `_` (underscore) | Template or internal file | `_template.md` |
-| `DL-` | Devlog entry | `DL-20251224-0324__topic.md` |
-| `SDD_PROFILE__` | SDD profile document | `SDD_PROFILE__OPENAI.md` |
-| `AUDIT-` | Audit document | `AUDIT-2025-12-24__spec-driven-development.md` |
+| Prefix           | Meaning                   | Example                                        |
+| ---------------- | ------------------------- | ---------------------------------------------- |
+| `_` (underscore) | Template or internal file | `_template.md`                                 |
+| `DL-`            | Devlog entry              | `DL-20251224-0324__topic.md`                   |
+| `SDD_PROFILE__`  | SDD profile document      | `SDD_PROFILE__OPENAI.md`                       |
+| `AUDIT-`         | Audit document            | `AUDIT-2025-12-24__spec-driven-development.md` |
 
 ---
 
@@ -129,4 +135,5 @@ When a document has versions, append `_V<N>` or `-v<n>` matching the folder conv
 ## Change Log
 
 **[2025-12-24 13:50]**
+
 - Added: Initial naming conventions document

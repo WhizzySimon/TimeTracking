@@ -8,6 +8,7 @@
 ## Evidence Inventory
 
 Files inspected:
+
 - `README.md` — Project overview, API endpoints, setup instructions
 - `.windsurf/rules/implementation-specification-rules.md` — Spec writing rules (FR/IG/DD format)
 - `.windsurf/rules/python-rules.md` — Python coding conventions, logging format
@@ -28,18 +29,18 @@ Files inspected:
 
 ## Axis Score Table
 
-| Axis | Score (0-5) | Confidence | Evidence Pointers | 1-line Rationale |
-|---|---:|---|---|---|
-| 1. Spec quality | 4 | High | `_V2_SPEC_ROUTERS.md:1-60`, `.windsurf/rules/implementation-specification-rules.md:52-62` | FR/IG/DD numbering enforced, TOC required, "What we don't want" section; no spec template file |
-| 2. Scope control | 3 | Med | `_V2_SPEC_ROUTERS.md:56-61`, `.windsurf/rules/implementation-specification-rules.md:117-126` | "What we don't want" sections document anti-patterns; no explicit scope-lock gates |
-| 3. Traceability | 2 | Med | `_V2_SPEC_ROUTERS.md:192-200` | DD-E001 to DD-E009 numbered decisions; no progress tracker, no task-to-spec mapping |
-| 4. Code quality rules | 4 | High | `.windsurf/rules/python-rules.md`, `src/pyproject.toml:43-44` | Detailed Python rules (imports, logging, naming); ruff configured (line-length=200); no enforced pre-commit |
-| 5. Testing strategy | 2 | Med | `src/pyproject.toml:26-29`, `src/test_*.py` | pytest in dev deps, 3 integration test files; no unit tests, no E2E, no coverage |
-| 6. Tooling & automation | 2 | Med | `.vscode/tasks.json`, `InstallAndCompileDependencies.bat` | VS Code tasks for dev server; batch scripts for Azure deploy; no CI/CD, no verification script |
-| 7. Context bootstrapping | 3 | Med | `.windsurf/workflows/read-all-md-files.md`, `.windsurf/workflows/rules-read-all.md` | Workflows to read md files and rules; no mandatory doc inventory, no INDEX.md |
-| 8. Iteration loop | 1 | Low | UNKNOWN | No task workflow documented, no progress tracker, no commit conventions |
-| 9. Operational safety | 3 | Med | `.windsurf/rules/python-rules.md:26-38` | "Do not rename existing symbols", "re-use existing code"; no explicit run_command ban |
-| 10. Cost/time efficiency | 2 | Low | `.windsurf/rules/implementation-specification-rules.md:29` | Spec length guidelines (500-2500 lines); no task sizing, no token tracking |
+| Axis                     | Score (0-5) | Confidence | Evidence Pointers                                                                            | 1-line Rationale                                                                                            |
+| ------------------------ | ----------: | ---------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| 1. Spec quality          |           4 | High       | `_V2_SPEC_ROUTERS.md:1-60`, `.windsurf/rules/implementation-specification-rules.md:52-62`    | FR/IG/DD numbering enforced, TOC required, "What we don't want" section; no spec template file              |
+| 2. Scope control         |           3 | Med        | `_V2_SPEC_ROUTERS.md:56-61`, `.windsurf/rules/implementation-specification-rules.md:117-126` | "What we don't want" sections document anti-patterns; no explicit scope-lock gates                          |
+| 3. Traceability          |           2 | Med        | `_V2_SPEC_ROUTERS.md:192-200`                                                                | DD-E001 to DD-E009 numbered decisions; no progress tracker, no task-to-spec mapping                         |
+| 4. Code quality rules    |           4 | High       | `.windsurf/rules/python-rules.md`, `src/pyproject.toml:43-44`                                | Detailed Python rules (imports, logging, naming); ruff configured (line-length=200); no enforced pre-commit |
+| 5. Testing strategy      |           2 | Med        | `src/pyproject.toml:26-29`, `src/test_*.py`                                                  | pytest in dev deps, 3 integration test files; no unit tests, no E2E, no coverage                            |
+| 6. Tooling & automation  |           2 | Med        | `.vscode/tasks.json`, `InstallAndCompileDependencies.bat`                                    | VS Code tasks for dev server; batch scripts for Azure deploy; no CI/CD, no verification script              |
+| 7. Context bootstrapping |           3 | Med        | `.windsurf/workflows/read-all-md-files.md`, `.windsurf/workflows/rules-read-all.md`          | Workflows to read md files and rules; no mandatory doc inventory, no INDEX.md                               |
+| 8. Iteration loop        |           1 | Low        | UNKNOWN                                                                                      | No task workflow documented, no progress tracker, no commit conventions                                     |
+| 9. Operational safety    |           3 | Med        | `.windsurf/rules/python-rules.md:26-38`                                                      | "Do not rename existing symbols", "re-use existing code"; no explicit run_command ban                       |
+| 10. Cost/time efficiency |           2 | Low        | `.windsurf/rules/implementation-specification-rules.md:29`                                   | Spec length guidelines (500-2500 lines); no task sizing, no token tracking                                  |
 
 **Total Score:** 26/50
 

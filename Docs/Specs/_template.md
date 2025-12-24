@@ -6,9 +6,11 @@
 **Status:** Draft | In Review | Approved | Implemented
 
 **Depends on:**
+
 - (list specs that must be read first to understand this spec)
 
 **Does not depend on:**
+
 - (explicitly exclude specs that might seem related but are not required)
 
 ---
@@ -64,9 +66,11 @@
 ## 9) Change log
 
 **[YYYY-MM-DD HH:MM]**
+
 - Added: Initial spec created
 
 **[YYYY-MM-DD HH:MM]**
+
 - Changed: ...
 - Fixed: ...
 
