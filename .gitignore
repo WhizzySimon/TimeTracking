@@ -24,8 +24,12 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# Generated service worker (built from sw.template.js)
+# Generated service worker and version (built from sw.template.js)
 static/sw.js
+static/version.json
+
+# Playwright reports (generated)
+playwright-report/
 
 # Cascade automation output (do not commit)
 scripts/verify-code-output.txt
