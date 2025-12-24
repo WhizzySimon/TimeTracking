@@ -1,4 +1,4 @@
-# SSD Comparison: TimeTracker vs Karsten (SharePoint-GPT-Middleware)
+# SDD Comparison: TimeTracker vs Karsten (SharePoint-GPT-Middleware)
 
 **Generated:** 2025-12-24  
 **Purpose:** Compare Spec-Driven Development systems between two repos
@@ -229,4 +229,69 @@ Avoid: "1 item(s)"
 - **No Docs/Devlog/ folder** — could not compare decision tracking
 - **No package.json or test scripts** — could not compare verification automation
 - **No CI/CD configuration** — could not compare continuous integration
+
+---
+
+## Scoring Policy
+
+**Missing systems:** When a repo lacks a system entirely (e.g., no devlog, no task templates), score = 0 for that capability within the axis. Process maturity requires evidence.
+
+**Confidence per axis:**
+| Axis                      | A: TimeTracker | B: Karsten |
+|---------------------------|----------------|------------|
+| 1. Spec quality           | High           | High       |
+| 2. Scope control          | High           | Med        |
+| 3. Traceability           | High           | Med        |
+| 4. Code quality rules     | High           | High       |
+| 5. Testing strategy       | High           | Low        |
+| 6. Tooling & automation   | High           | Low        |
+| 7. Context bootstrapping  | High           | Med        |
+| 8. Iteration loop         | High           | Low        |
+| 9. Operational safety     | High           | Low        |
+| 10. Cost/time efficiency  | Med            | Med        |
+
+**Confidence definitions:**
+- **High:** Direct repo evidence (files, scripts, templates)
+- **Med:** Partial evidence or inferred from patterns
+- **Low:** No repo evidence; scored based on absence
+
+---
+
+## Appendix: Transcript-derived Insights
+
+**Source:** `KARSTEN-MEETING-INSIGHTS.md` (derived from meeting transcript 2025-12-18)
+
+### Insights NOT proven by repo evidence
+
+1. **Model benchmarking with "gold standard" question set**
+   - Karsten uses 10+ canonical questions to evaluate models before adoption
+   - Axis: Tooling & automation
+   - Repo evidence: None found; this is a runtime practice not captured in docs
+
+2. **Rule-compliance checks as explicit iteration step**
+   - Agent reviews its own output against rules/spec before proceeding
+   - Axis: Iteration loop
+   - Repo evidence: None; no workflow file mandates this step
+
+3. **Browser-first exploration principle**
+   - Prefers GET-accessible endpoints to avoid Postman/curl friction
+   - Axis: Cost/time efficiency
+   - Repo evidence: None; API design philosophy not documented
+
+### CONFLICT: Transcript vs Repo Evidence
+
+1. **CONFLICT: Iteration loop score**
+   - Transcript suggests active rule-compliance loops (would raise score to 3-4)
+   - Repo shows no workflow/automation for this (scored 2)
+   - Resolution: Keep score at 2; undocumented practices don't count for process maturity
+
+2. **CONFLICT: Tooling & automation score**
+   - Transcript mentions model benchmarking tooling (would raise score)
+   - Repo shows no benchmark scripts or test harness (scored 2)
+   - Resolution: Keep score at 2; verbal claims without repo artifacts don't raise score
+
+3. **CONFLICT: Context bootstrapping score**
+   - Transcript emphasizes "self-documenting endpoints" as core principle
+   - Repo has /rules-read-all but no explicit self-documentation mandate (scored 3)
+   - Resolution: Keep score at 3; philosophy stated but not codified
 

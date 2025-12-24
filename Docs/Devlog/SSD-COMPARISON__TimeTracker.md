@@ -2,11 +2,11 @@
 
 **Generated:** 2025-12-24T06:15:00+01:00  
 **Scope:** WhizzySimon/TimeTracking repository  
-**Purpose:** Compare TimeTracker's SSD system against industry best practices and propose concrete upgrades
+**Purpose:** Compare TimeTracker's SDD system against industry best practices and propose concrete upgrades
 
 ---
 
-## 1. Current SSD in This Repo (Step-by-Step)
+## 1. Current SDD in This Repo (Step-by-Step)
 
 ### Entry Points
 
@@ -136,7 +136,7 @@ Priority order (0 = highest): 0. `Docs/INDEX.md` (single source of truth)
 
 ## 4. Comparison Matrix
 
-### TimeTracker SSD vs External Sources
+### TimeTracker SDD vs External Sources
 
 | Dimension                | TimeTracker                                           | GitHub Spec Kit                                                | Anthropic Claude Code                        | OpenAI Agents                    | Microsoft/Copilot SDD                                          |
 | ------------------------ | ----------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------- | -------------------------------- | -------------------------------------------------------------- |
@@ -181,7 +181,7 @@ Priority order (0 = highest): 0. `Docs/INDEX.md` (single source of truth)
 
 ---
 
-## 5. "Best-of" SSD Blueprint for Cascade
+## 5. "Best-of" SDD Blueprint for Cascade
 
 ### Spec Format (Merged)
 
@@ -395,7 +395,7 @@ Once Karsten repo is present locally, run the same audit:
 
 ---
 
-## Appendix: TimeTracker vs Karsten SSD
+## Appendix: TimeTracker vs Karsten SDD
 
 **Status:** PENDING — Karsten repo not present locally
 
