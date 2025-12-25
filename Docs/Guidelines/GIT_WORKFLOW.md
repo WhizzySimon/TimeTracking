@@ -70,25 +70,40 @@ When running multiple Cascade chat sessions simultaneously:
    - Branch name should match the task (e.g., `feat/P10-monetising`)
    - Never share branches between chats
 
-2. **Only ONE chat uses the cascade-watcher at a time**
-   - `scripts/cascade-command.txt` is a shared resource
-   - If both chats write to it simultaneously, commands get lost or corrupted
-   - Coordinate: finish one chat's command sequence before the other starts
+2. **Each chat MUST use its own watcher instance**
+   - Use `cascade-watcher-instance.ps1 -Instance A` for Chat A
+   - Use `cascade-watcher-instance.ps1 -Instance B` for Chat B
+   - See `Docs/Guidelines/CASCADE_WATCHER.md` for details
 
 3. **Do not edit the same files in parallel**
    - This causes merge conflicts
    - If both chats need the same file, finish and merge one first
 
+### Multi-Watcher Setup
+
+**Terminal 1 (Chat A):**
+```powershell
+powershell -File scripts/watcher/watcher.ps1 -Instance A
+```
+
+**Terminal 2 (Chat B):**
+```powershell
+powershell -File scripts/watcher/watcher.ps1 -Instance B
+```
+
+Tell each chat which instance to use at session start:
+> "Use watcher instance A for this chat."
+
 ### Safest Workflow
 
 - **Sequential:** Chat A finishes and merges → Chat B starts
-- **Parallel (careful):** Chat A on `feat/A`, Chat B on `feat/B`, completely separate files
+- **Parallel (recommended):** Each chat uses its own watcher instance + separate branches
 
 ### Before Starting a New Chat
 
-1. Check: Is another chat currently using the cascade-watcher?
-2. Check: Will this chat touch files the other chat is editing?
-3. If conflicts possible: Wait for the other chat to finish, or work without watcher
+1. Start a new watcher instance (A, B, C, etc.)
+2. Tell Cascade which instance to use
+3. Ensure branches don't overlap on same files
 
 ## CI Requirements
 
@@ -210,6 +225,7 @@ Diese Sektion dokumentiert Fehler, die passiert sind, und wie man sie vermeidet.
 ### Anti-Pattern 1: Stash bei parallelen Chats
 
 **Was passiert ist:**
+
 1. Chat A hatte uncommitted Änderungen (Phase 11 Docs)
 2. Chat B wollte auf `main` wechseln für neuen Feature-Branch
 3. Git verweigert Branch-Wechsel wegen uncommitted changes
@@ -217,12 +233,14 @@ Diese Sektion dokumentiert Fehler, die passiert sind, und wie man sie vermeidet.
 5. User sieht die Änderungen nicht mehr und vergisst sie
 
 **Warum das schlecht ist:**
+
 - Änderungen sind "versteckt" und nicht mehr sichtbar
 - Der andere Chat weiß nicht, dass seine Änderungen gestasht wurden
 - Hohe Wahrscheinlichkeit, dass `git stash pop` vergessen wird
 - Änderungen können verloren gehen
 
 **Richtige Lösung:**
+
 ```powershell
 # FALSCH: Auf main wechseln (erfordert stash)
 git checkout main
@@ -237,16 +255,19 @@ git checkout -b feat/new-feature
 ### Anti-Pattern 2: Änderungen anderer Chats committen
 
 **Was passiert ist:**
+
 - Chat B sieht uncommitted files von Chat A
 - Chat B führt `git add -A` aus und committed alles
 - Chat A's Änderungen landen im falschen Branch/PR
 
 **Warum das schlecht ist:**
+
 - Vermischung von Features in einem Commit
 - Falscher Autor/Kontext für die Änderungen
 - Schwer nachzuvollziehen wer was gemacht hat
 
 **Richtige Lösung:**
+
 ```powershell
 # FALSCH: Alles stagen
 git add -A
@@ -262,11 +283,13 @@ git add src/routes/mypage/+page.svelte
 **Problem:** Git erlaubt keinen Branch-Wechsel wenn uncommitted changes existieren, die mit dem Ziel-Branch konfligieren könnten.
 
 **Falsche Reaktionen:**
+
 - `git stash` (versteckt Änderungen anderer)
 - `git checkout --force` (verwirft Änderungen!)
 - `git reset --hard` (verwirft Änderungen!)
 
 **Richtige Lösung:**
+
 - Direkt vom aktuellen Branch neuen Branch erstellen
 - ODER: Den anderen Chat bitten, zuerst zu committen
 
@@ -286,19 +309,19 @@ git add src/routes/mypage/+page.svelte
 
 ### Git Begriffe Kurzreferenz
 
-| Begriff | Bedeutung | Sichtbar im Explorer? |
-|---------|-----------|----------------------|
-| **Untracked** | Neue Datei, Git kennt sie nicht | Ja |
-| **Modified** | Bekannte Datei wurde geändert | Ja |
-| **Staged** | Für nächsten Commit vorgemerkt | Ja (als "staged") |
-| **Committed** | In Git-Historie gespeichert | Nein (Teil des Branches) |
-| **Stashed** | Temporär versteckt | **NEIN** (unsichtbar!) |
+| Begriff       | Bedeutung                       | Sichtbar im Explorer?    |
+| ------------- | ------------------------------- | ------------------------ |
+| **Untracked** | Neue Datei, Git kennt sie nicht | Ja                       |
+| **Modified**  | Bekannte Datei wurde geändert   | Ja                       |
+| **Staged**    | Für nächsten Commit vorgemerkt  | Ja (als "staged")        |
+| **Committed** | In Git-Historie gespeichert     | Nein (Teil des Branches) |
+| **Stashed**   | Temporär versteckt              | **NEIN** (unsichtbar!)   |
 
 ### Goldene Regel für parallele Chats
 
 > **Jeder Chat fasst NUR seine eigenen Dateien an.**
-> 
+>
 > - Nicht stagen was dir nicht gehört
-> - Nicht stashen was dir nicht gehört  
+> - Nicht stashen was dir nicht gehört
 > - Nicht committen was dir nicht gehört
 > - Im Zweifel: `git status` und nachdenken

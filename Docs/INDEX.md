@@ -44,6 +44,13 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 - Docs/Guidelines/PROJECT_SCAFFOLD_CHECKLIST.md  
   Purpose: ensure project skeleton and tooling are complete.
 
+### Cascade tooling
+
+- Docs/Guidelines/CASCADE_WATCHER.md  
+  Purpose: Command execution via watcher, syntax rules, common pitfalls.
+- Docs/Guidelines/GIT_WORKFLOW.md  
+  Purpose: Branch workflow, PR creation, parallel chat rules.
+
 ### Code quality
 
 - Docs/Standards/code-quality-standard.md  
