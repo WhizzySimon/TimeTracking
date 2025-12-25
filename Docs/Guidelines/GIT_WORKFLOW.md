@@ -1,10 +1,72 @@
 # Git Workflow (TimeTracker)
 
+This is the **single source of truth** for all Git-related rules in this project.
+
 ## Rules
 
 - **Never push directly to `main`.** The `main` branch is protected; direct pushes will be rejected.
 - **Never merge via GitHub UI.** Always use `scripts/pr.ps1` for consistent workflow.
 - **Short-lived branches.** Create a branch, make changes, merge via PR, delete branch.
+
+## CRITICAL: Branch check before ANY code changes
+
+**Before making ANY code changes, Cascade MUST:**
+
+1. Run `git branch --show-current` to check the current branch
+2. If on `main` or on a branch belonging to another task:
+   - Run `git checkout -b <prefix>/<task-description>`
+   - Example: `git checkout -b chore/multi-watcher-system`
+3. Only then proceed with code changes
+
+**This is non-negotiable.** Committing to the wrong branch causes confusion and pollutes PRs with unrelated changes.
+
+## BANNED: Never use git stash
+
+**Cascade must NEVER use `git stash`.** This command has caused data loss multiple times.
+
+Instead of stashing:
+1. Commit your current work to the current branch (even as WIP)
+2. Then switch branches
+3. Or: Ask the user to manually handle the situation
+
+If you need to switch branches with uncommitted changes:
+- Commit first: `git add -A && git commit -m "WIP: description"`
+- Then switch: `git checkout other-branch`
+- Later: `git reset HEAD~1` to undo the WIP commit if needed
+
+## Allowed Git Commands (whitelist)
+
+Cascade may ONLY use these Git commands:
+
+| Command | Purpose |
+|---------|---------|
+| `git branch --show-current` | Check current branch |
+| `git status --porcelain` | Check file status |
+| `git checkout -b <branch>` | Create and switch to new branch |
+| `git checkout <branch>` | Switch to existing branch (only if no uncommitted changes) |
+| `git add -A` | Stage all changes |
+| `git commit -m "..."` | Commit staged changes |
+| `git push` | Push to remote |
+| `git push -u origin HEAD` | Push new branch |
+| `git rm --cached <file>` | Remove file from git tracking |
+| `git log -n 5 --oneline` | View recent commits |
+| `powershell -File scripts/pr.ps1` | Create PR with auto-merge |
+
+## Banned Git Commands (blacklist)
+
+Cascade must NEVER use these commands:
+
+| Command | Reason |
+|---------|--------|
+| `git stash` | Causes data loss |
+| `git stash pop` | Causes data loss |
+| `git stash drop` | Causes data loss |
+| `git rebase` | Too complex, causes conflicts |
+| `git cherry-pick` | Too complex |
+| `git reset --hard` | Destroys uncommitted work |
+| `git merge` | Use PR workflow instead |
+| `git pull` | Only after committing local changes |
+| `git force push` | Destroys remote history |
 
 ## Daily Workflow
 
@@ -70,25 +132,40 @@ When running multiple Cascade chat sessions simultaneously:
    - Branch name should match the task (e.g., `feat/P10-monetising`)
    - Never share branches between chats
 
-2. **Only ONE chat uses the cascade-watcher at a time**
-   - `scripts/cascade-command.txt` is a shared resource
-   - If both chats write to it simultaneously, commands get lost or corrupted
-   - Coordinate: finish one chat's command sequence before the other starts
+2. **Each chat MUST use its own watcher instance**
+   - Use `scripts/watcher.ps1 -Instance A` for Chat A
+   - Use `scripts/watcher.ps1 -Instance B` for Chat B
+   - See `Docs/Guidelines/CASCADE_WATCHER.md` for details
 
 3. **Do not edit the same files in parallel**
    - This causes merge conflicts
    - If both chats need the same file, finish and merge one first
 
+### Multi-Watcher Setup
+
+**Terminal 1 (Chat A):**
+```powershell
+powershell -File scripts/watcher.ps1 -Instance A
+```
+
+**Terminal 2 (Chat B):**
+```powershell
+powershell -File scripts/watcher.ps1 -Instance B
+```
+
+Tell each chat which instance to use at session start:
+> "Use watcher instance A for this chat."
+
 ### Safest Workflow
 
 - **Sequential:** Chat A finishes and merges → Chat B starts
-- **Parallel (careful):** Chat A on `feat/A`, Chat B on `feat/B`, completely separate files
+- **Parallel (recommended):** Each chat uses its own watcher instance + separate branches
 
 ### Before Starting a New Chat
 
-1. Check: Is another chat currently using the cascade-watcher?
-2. Check: Will this chat touch files the other chat is editing?
-3. If conflicts possible: Wait for the other chat to finish, or work without watcher
+1. Start a new watcher instance (A, B, C, etc.)
+2. Tell Cascade which instance to use
+3. Ensure branches don't overlap on same files
 
 ## CI Requirements
 

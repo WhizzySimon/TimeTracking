@@ -84,8 +84,11 @@ Write-Host "OK: Branch pushed" -ForegroundColor Green
 Write-Host ""
 Write-Host "Checking for existing PR..." -ForegroundColor Cyan
 
-$prUrl = gh pr view --json url --jq '.url' 2>$null
+# Temporarily allow errors for PR check
+$ErrorActionPreference = "Continue"
+$prUrl = gh pr view --json url --jq '.url' 2>&1 | Where-Object { $_ -notmatch "no pull requests found" }
 $prExists = $LASTEXITCODE -eq 0 -and $prUrl
+$ErrorActionPreference = "Stop"
 
 if ($prExists) {
     Write-Host "OK: Reusing existing PR: $prUrl" -ForegroundColor Green
@@ -96,7 +99,10 @@ if ($prExists) {
         Write-Host "ERROR: Failed to create PR" -ForegroundColor Red
         exit 1
     }
-    $prUrl = gh pr view --json url --jq '.url' 2>$null
+    # Temporarily allow errors for PR URL fetch
+    $ErrorActionPreference = "Continue"
+    $prUrl = gh pr view --json url --jq '.url' 2>&1 | Where-Object { $_ -notmatch "no pull requests found" }
+    $ErrorActionPreference = "Stop"
     Write-Host "OK: PR created: $prUrl" -ForegroundColor Green
 }
 

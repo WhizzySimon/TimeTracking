@@ -126,23 +126,31 @@ Definition of done for a task:
 
 ## Git workflow (mandatory)
 
-**Never push directly to `main`.** The `main` branch is protected; direct pushes will be rejected.
+**See `Docs/Guidelines/GIT_WORKFLOW.md` for the complete Git workflow documentation.**
 
-**Never merge via GitHub UI.** Always use the PR script to ensure consistent workflow.
+This is the single source of truth for all Git-related rules. Key points:
+
+- **Never push directly to `main`** — branch is protected
+- **Always check branch before code changes** — `git branch --show-current`
+- **Never use `git stash`** — causes data loss
+- **Use only whitelisted Git commands** — see GIT_WORKFLOW.md for the full list
+- **Use `scripts/pr.ps1`** for PR creation with auto-merge
 
 ### Command sequence for Cascade
 
 After completing a task, use this exact sequence:
 
 ```powershell
-# 1. Create feature branch (if not already on one)
+# 0. FIRST: Check current branch (MANDATORY)
+git branch --show-current
+# If wrong branch, create new one:
 git checkout -b feat/your-feature
 
-# 2. Commit changes
+# 1. Commit changes
 git add -A
 git commit -m "feat: description"
 
-# 3. Push, create PR, enable auto-merge (ONE command)
+# 2. Push, create PR, enable auto-merge (ONE command)
 powershell -File scripts/pr.ps1
 ```
 

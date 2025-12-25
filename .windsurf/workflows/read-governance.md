@@ -10,6 +10,7 @@ Read:
 - .windsurf/cascade.md
 - Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
 - Docs/Guidelines/GIT_WORKFLOW.md (especially "Parallel Chat Sessions" section)
+- Docs/Guidelines/CASCADE_WATCHER.md
 
 Return only a single line:
 "Read governance docs, [z]k context tokens"

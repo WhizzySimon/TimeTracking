@@ -1,34 +1,55 @@
-# Cascade Command Watcher
-# Enables Cascade to execute commands autonomously by watching a request file.
+# Cascade Command Watcher (Multi-Instance)
+# Enables multiple Cascade chats to run commands in parallel.
 #
-# Start: powershell -ExecutionPolicy Bypass -File scripts/cascade-watcher.ps1
+# Usage:
+#   powershell -File scripts/watcher.ps1 -Instance A
+#   powershell -File scripts/watcher.ps1 -Instance B
 #
-# How it works:
-# 1. Cascade writes a command to scripts/cascade-command.txt
-# 2. This watcher detects the change and executes the command
-# 3. Output is written to scripts/cascade-output.txt
-# 4. Status is written to scripts/cascade-status.txt (IDLE/RUNNING/DONE:SUCCESS/DONE:FAILED)
-# 5. Cascade reads the output and continues
+# Each instance uses its own folder:
+#   - scripts/watcher/A/command.txt
+#   - scripts/watcher/A/status.txt
+#   - scripts/watcher/A/output.txt
+
+param(
+    [Parameter(Mandatory=$true)]
+    [ValidatePattern("^[A-Z]$")]
+    [string]$Instance
+)
 
 # Get script directory and set paths relative to project root
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $projectRoot = Split-Path -Parent $scriptDir
 Set-Location $projectRoot
 
-$requestFile = Join-Path $projectRoot "scripts/cascade-command.txt"
-$outputFile = Join-Path $projectRoot "scripts/cascade-output.txt"
-$statusFile = Join-Path $projectRoot "scripts/cascade-status.txt"
+$watcherDir = Join-Path $scriptDir "watcher"
+$instanceDir = Join-Path $watcherDir $Instance
+$requestFile = Join-Path $instanceDir "command.txt"
+$outputFile = Join-Path $instanceDir "output.txt"
+$statusFile = Join-Path $instanceDir "status.txt"
 
-Write-Host "=== Cascade Command Watcher ===" -ForegroundColor Cyan
+# Create instance directory if it doesn't exist
+if (-not (Test-Path $instanceDir)) {
+    New-Item -ItemType Directory -Path $instanceDir -Force | Out-Null
+}
+
+Write-Host "=== Cascade Watcher (Instance $Instance) ===" -ForegroundColor Cyan
 Write-Host "Project root: $projectRoot"
-Write-Host "Watching: $requestFile"
-Write-Host "Output: $outputFile"
-Write-Host "Status: $statusFile"
+Write-Host "Instance dir: $instanceDir"
+Write-Host ""
+Write-Host "Files:"
+Write-Host "  Command: $requestFile"
+Write-Host "  Output:  $outputFile"
+Write-Host "  Status:  $statusFile"
 Write-Host ""
 Write-Host "Press Ctrl+C to stop"
 Write-Host ""
 
-# Initialize files
+# Create files if they don't exist
+if (-not (Test-Path $requestFile)) {
+    "" | Out-File -FilePath $requestFile -Encoding utf8
+}
+
+# Initialize status
 "IDLE" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
 "" | Out-File -FilePath $outputFile -Encoding utf8
 
@@ -50,19 +71,20 @@ while ($true) {
         if ($command -and $command -ne $lastCommand -and $command -ne "") {
             $lastCommand = $command
             
-            Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Running: $command" -ForegroundColor Yellow
+            Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$Instance] Running: $command" -ForegroundColor Yellow
             
             # Mark as running
             "RUNNING" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
             
-            # Clear output file
-            "" | Out-File -FilePath $outputFile -Encoding utf8
+            # Clear output file and start streaming header
+            "=== Command: $command ===" | Out-File -FilePath $outputFile -Encoding utf8
+            "=== Started: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
+            "=== Output (streaming) ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
             
             # Execute command and capture output
-            # Use cmd /c to avoid PowerShell output buffering issues with webkit/playwright
             try {
                 # Use system TEMP folder to avoid git conflicts
-                $tempOut = Join-Path $env:TEMP "cascade-temp-out-$PID.txt"
+                $tempOut = Join-Path $env:TEMP "cascade-watcher-$Instance-$PID.txt"
                 $process = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $command -Wait -PassThru -NoNewWindow -RedirectStandardOutput $tempOut -RedirectStandardError "$tempOut.err"
                 $exitCode = $process.ExitCode
                 
@@ -78,26 +100,25 @@ while ($true) {
                     Remove-Item "$tempOut.err" -Force -ErrorAction SilentlyContinue
                 }
                 
-                # Write output
-                "=== Command: $command ===" | Out-File -FilePath $outputFile -Encoding utf8
-                "=== Exit Code: $exitCode ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
-                "=== Output ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
+                # Append output to file
                 $output | Out-File -FilePath $outputFile -Append -Encoding utf8
+                "" | Out-File -FilePath $outputFile -Append -Encoding utf8
+                "=== Exit Code: $exitCode ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
+                "=== Finished: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
                 
                 if ($exitCode -eq 0) {
                     "DONE:SUCCESS" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
-                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Completed: SUCCESS" -ForegroundColor Green
+                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$Instance] Completed: SUCCESS" -ForegroundColor Green
                 } else {
                     "DONE:FAILED" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
-                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Completed: FAILED (exit $exitCode)" -ForegroundColor Red
+                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$Instance] Completed: FAILED (exit $exitCode)" -ForegroundColor Red
                 }
             }
             catch {
-                "=== Command: $command ===" | Out-File -FilePath $outputFile -Encoding utf8
                 "=== Error ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
                 $_.Exception.Message | Out-File -FilePath $outputFile -Append -Encoding utf8
                 "DONE:ERROR" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
-                Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Error: $_" -ForegroundColor Red
+                Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$Instance] Error: $_" -ForegroundColor Red
             }
         }
     }

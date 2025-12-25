@@ -51,6 +51,13 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 - Docs/Reports/code-quality-style-audit.md  
   Purpose: Audit of current tooling and code hotspots (read-only snapshot).
 
+### Cascade tooling
+
+- Docs/Guidelines/CASCADE_WATCHER.md  
+  Purpose: Multi-instance watcher system for parallel chat sessions.
+- Docs/Guidelines/GIT_WORKFLOW.md  
+  Purpose: Git workflow, branch naming, PR process.
+
 ### Feature specs (P08 — Code Quality Enforcement)
 
 - Docs/Specs/P08-code-quality.md  
