@@ -61,7 +61,8 @@ while ($true) {
             # Execute command and capture output
             # Use cmd /c to avoid PowerShell output buffering issues with webkit/playwright
             try {
-                $tempOut = Join-Path $projectRoot "scripts/cascade-temp-out.txt"
+                # Use system TEMP folder to avoid git conflicts
+                $tempOut = Join-Path $env:TEMP "cascade-temp-out-$PID.txt"
                 $process = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $command -Wait -PassThru -NoNewWindow -RedirectStandardOutput $tempOut -RedirectStandardError "$tempOut.err"
                 $exitCode = $process.ExitCode
                 

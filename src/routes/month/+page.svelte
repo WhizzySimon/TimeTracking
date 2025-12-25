@@ -27,9 +27,17 @@
 	import type { Category, DayType, DayTypeValue, TimeEntry, WorkTimeModel } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import MonthYearPicker from '$lib/components/MonthYearPicker.svelte';
+	import Paywall from '$lib/components/Paywall.svelte';
+	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+	import { userPlan } from '$lib/stores/user';
 
 	let loading = $state(true);
 	let showMonthPicker = $state(false);
+	let showUpgradeDialog = $state(false);
+
+	function handleUpgrade() {
+		showUpgradeDialog = true;
+	}
 
 	// Month names in German
 	const monthNames = [
@@ -257,6 +265,9 @@
 		<div class="loading">
 			<p>Laden...</p>
 		</div>
+	{:else if $userPlan === 'free'}
+		<!-- Paywall for Free users -->
+		<Paywall onupgrade={handleUpgrade} />
 	{:else}
 		<!-- Month Navigation -->
 		<header class="month-nav">
@@ -303,6 +314,17 @@
 		timeEntries={$timeEntries}
 		onselect={handleMonthSelect}
 		onclose={() => (showMonthPicker = false)}
+	/>
+{/if}
+
+<!-- Upgrade Dialog -->
+{#if showUpgradeDialog}
+	<ConfirmDialog
+		type="alert"
+		title="Pro-Version"
+		message="Die Pro-Version kommt bald! Aktuell kannst du alle Funktionen kostenlos testen."
+		confirmLabel="OK"
+		onconfirm={() => (showUpgradeDialog = false)}
 	/>
 {/if}
 

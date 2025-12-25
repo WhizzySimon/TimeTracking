@@ -1054,4 +1054,65 @@ After each phase, verify against specs:
 
 ---
 
+## Phase 10: Free/Pro Feature-Flags + Paywall + User Profile
+
+**Target:** 11 tasks, ~10 hours  
+**Status:** In progress (8/11 tasks)  
+**Spec:** `Docs/Specs/P10-monetising.md`  
+**Plan:** `Docs/Plans/P10-monetising.md`  
+**Tasks:** `Docs/Tasks/P10-monetising.md`
+
+### Supabase Schema
+
+- [x] **Task 10.1** — Supabase Schema erweitern
+  - Files: Supabase SQL Editor (manuell)
+  - Verified: profiles table created with plan column
+
+### Core Infrastructure
+
+- [x] **Task 10.2** — TypeScript Types hinzufügen
+  - Files: `src/lib/types.ts`
+  - Verified: npm run verify ✅
+
+- [x] **Task 10.3** — Profile API erstellen
+  - Files: `src/lib/api/profile.ts`
+  - Verified: npm run verify ✅
+
+- [x] **Task 10.4** — User Store erstellen
+  - Files: `src/lib/stores/user.ts`
+  - Verified: npm run verify ✅
+
+- [x] **Task 10.5** — Profile bei Auth-Check laden
+  - Files: `src/routes/+layout.svelte`
+  - Verified: npm run verify ✅
+
+### Paywall
+
+- [x] **Task 10.6** — Paywall Komponente erstellen
+  - Files: `src/lib/components/Paywall.svelte`
+  - Verified: npm run verify ✅
+
+- [x] **Task 10.7** — Paywall in Monat-Tab
+  - Files: `src/routes/month/+page.svelte`
+  - Verified: npm run verify ✅
+
+- [x] **Task 10.8** — Paywall in Auswertung-Tab
+  - Files: `src/routes/analysis/+page.svelte`
+  - Verified: npm run verify ✅
+
+### User Profile UI
+
+- [ ] **Task 10.9** — Settings: Konto-Abschnitt
+  - Files: `src/routes/settings/+page.svelte`
+
+- [ ] **Task 10.10** — PlanSelector Modal
+  - Files: `src/lib/components/PlanSelector.svelte`
+
+### Testing
+
+- [ ] **Task 10.11** — E2E Tests
+  - Files: `e2e/paywall.test.ts`
+
+---
+
 **END OF PROGRESS TRACKER**

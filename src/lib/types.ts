@@ -131,3 +131,21 @@ export interface AuthSession {
 	expiresAt: number; // Unix timestamp
 	createdAt: number;
 }
+
+/** User plan type for Free/Pro gating. Spec refs: P10-FR-001 */
+export type UserPlan = 'free' | 'pro';
+
+/**
+ * User profile from Supabase profiles table.
+ * Spec refs: P10-monetising.md
+ */
+export interface UserProfile {
+	id: string;
+	email: string;
+	plan: UserPlan;
+	stripeCustomerId?: string;
+	subscriptionStatus?: string;
+	subscriptionEndsAt?: string;
+	createdAt: string;
+	updatedAt: string;
+}
