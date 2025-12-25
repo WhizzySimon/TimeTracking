@@ -15,6 +15,8 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { categories, workTimeModels } from '$lib/stores';
+	import { userProfile, userPlan } from '$lib/stores/user';
+	import { logout } from '$lib/api/auth';
 	import {
 		theme,
 		shape,
@@ -90,6 +92,8 @@
 	let modelToEdit: WorkTimeModel | null = $state(null);
 	let showCategoryMenu = $state(false);
 	let showDeleteAccountConfirm = $state(false);
+	let showLogoutConfirm = $state(false);
+	let logoutInProgress = $state(false);
 	let expandedSections = $state({
 		workTimeModels: true,
 		abwesenheit: true,
@@ -219,6 +223,23 @@
 		}
 	});
 
+	async function handleLogout() {
+		logoutInProgress = true;
+		try {
+			await logout();
+			await clearSession();
+			goto(resolve('/login'));
+		} catch (e) {
+			console.error('[Settings] Logout failed:', e);
+			logoutInProgress = false;
+		}
+	}
+
+	function handlePlanChange() {
+		// TODO: Task 10.10 - PlanSelector Modal
+		alert('Kommt bald');
+	}
+
 	async function handleDeleteAccount() {
 		deleteAccountError = null;
 		deleteAccountInProgress = true;
@@ -243,6 +264,44 @@
 			<p>Laden...</p>
 		</div>
 	{:else}
+		<!-- Konto Section -->
+		<section class="section" data-testid="account-section">
+			<div class="section-header">
+				<h2>Konto</h2>
+			</div>
+			<div class="account-info">
+				<div class="account-row">
+					<span class="account-label">E-Mail</span>
+					<span class="account-value" data-testid="account-email"
+						>{$userProfile?.email ?? 'Nicht angemeldet'}</span
+					>
+				</div>
+				<div class="account-row">
+					<span class="account-label">Plan</span>
+					<span
+						class="account-value plan-badge"
+						class:pro={$userPlan === 'pro'}
+						data-testid="account-plan"
+					>
+						{$userPlan === 'pro' ? 'Pro' : 'Free'}
+					</span>
+				</div>
+			</div>
+			<div class="account-actions">
+				<button class="secondary-btn" onclick={handlePlanChange} data-testid="change-plan-btn">
+					Plan ändern
+				</button>
+				<button
+					class="secondary-btn logout-btn"
+					onclick={() => (showLogoutConfirm = true)}
+					disabled={logoutInProgress}
+					data-testid="logout-btn"
+				>
+					{logoutInProgress ? 'Abmelden...' : 'Abmelden'}
+				</button>
+			</div>
+		</section>
+
 		<!-- Appearance Section -->
 		<section class="section">
 			<div class="section-header">
@@ -572,6 +631,17 @@
 		confirmStyle="danger"
 		onconfirm={confirmDeleteModel}
 		oncancel={cancelDeleteModel}
+	/>
+{/if}
+
+<!-- Logout Confirmation -->
+{#if showLogoutConfirm}
+	<ConfirmDialog
+		title="Abmelden"
+		message="Möchten Sie sich wirklich abmelden? Ihre lokalen Daten bleiben erhalten."
+		confirmLabel="Abmelden"
+		onconfirm={handleLogout}
+		oncancel={() => (showLogoutConfirm = false)}
 	/>
 {/if}
 
@@ -930,5 +1000,80 @@
 
 	.import-btn:hover {
 		background: var(--btn-primary-hover);
+	}
+
+	.account-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding: 1rem;
+		background: var(--card-bg);
+		border: 1px solid var(--card-border);
+		border-radius: var(--r-card);
+	}
+
+	.account-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.account-label {
+		font-weight: 500;
+		color: var(--muted);
+	}
+
+	.account-value {
+		color: var(--text);
+	}
+
+	.plan-badge {
+		padding: 0.25rem 0.75rem;
+		border-radius: var(--r-pill);
+		background: var(--surface);
+		font-weight: 500;
+		font-size: 0.85rem;
+	}
+
+	.plan-badge.pro {
+		background: var(--accent);
+		color: white;
+	}
+
+	.account-actions {
+		display: flex;
+		gap: 0.75rem;
+	}
+
+	.secondary-btn {
+		flex: 1;
+		padding: 0.75rem 1rem;
+		background: var(--surface);
+		color: var(--text);
+		border: 1px solid var(--border);
+		border-radius: var(--r-btn);
+		font-size: 0.9rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all var(--transition-fast);
+	}
+
+	.secondary-btn:hover:not(:disabled) {
+		background: var(--surface-hover);
+		border-color: var(--card-hover-border);
+	}
+
+	.secondary-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.secondary-btn.logout-btn {
+		color: var(--neg);
+		border-color: var(--neg);
+	}
+
+	.secondary-btn.logout-btn:hover:not(:disabled) {
+		background: var(--neg-light);
 	}
 </style>

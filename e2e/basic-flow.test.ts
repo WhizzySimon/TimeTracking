@@ -137,9 +137,9 @@ test.describe('Basic App Flow', () => {
 		await page.getByRole('link', { name: 'Auswertung' }).click();
 		await expect(page).toHaveURL(/\/analysis/);
 		// Wait for loading to complete - either range label (Pro) or paywall (Free) should be visible
-		await expect(
-			page.getByTestId('range-label').or(page.getByText('Pro-Funktionen'))
-		).toBeVisible({ timeout: 10000 });
+		await expect(page.getByTestId('range-label').or(page.getByText('Pro-Funktionen'))).toBeVisible({
+			timeout: 10000
+		});
 
 		// Click Plus-Tab
 		await page.getByRole('link', { name: 'Aufgabe hinzufügen' }).click();
