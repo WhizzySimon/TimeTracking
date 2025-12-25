@@ -5,6 +5,6 @@
 # Run the version update script
 node scripts/update-version.js
 
-# Stage the updated files so they're included in the commit
-git add static/version.json
-git add static/sw.js
+# Note: version.json and sw.js are in .gitignore
+# They are generated at build time, not committed
+# The pre-commit hook just ensures they exist locally for development
