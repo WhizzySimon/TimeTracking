@@ -5,7 +5,7 @@
 # Output: scripts/verify-code-output.txt
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$projectRoot = Split-Path -Parent $scriptDir
+$projectRoot = Split-Path -Parent (Split-Path -Parent $scriptDir)
 Set-Location $projectRoot
 
 $outputFile = Join-Path $projectRoot "scripts/verify-code-output.txt"
@@ -22,7 +22,7 @@ $allPassed = $true
 
 # Step 0: Validate devlog tags
 "--- Step 0: Validate devlog tags ---" | Out-File -FilePath $outputFile -Append -Encoding utf8
-$tagOutput = node scripts/validate-devlog-tags.js 2>&1 | Out-String
+$tagOutput = node scripts/setup/validate-devlog-tags.js 2>&1 | Out-String
 $tagOutput | Out-File -FilePath $outputFile -Append -Encoding utf8
 if ($LASTEXITCODE -ne 0) { $allPassed = $false }
 "" | Out-File -FilePath $outputFile -Append -Encoding utf8
