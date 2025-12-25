@@ -37,6 +37,7 @@
 	import ImportCategoriesModal from '$lib/components/ImportCategoriesModal.svelte';
 	import ImportExcelModal from '$lib/components/ImportExcelModal.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+	import PlanSelector from '$lib/components/PlanSelector.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
 		const days = [
@@ -93,6 +94,7 @@
 	let showCategoryMenu = $state(false);
 	let showDeleteAccountConfirm = $state(false);
 	let showLogoutConfirm = $state(false);
+	let showPlanSelector = $state(false);
 	let logoutInProgress = $state(false);
 	let expandedSections = $state({
 		workTimeModels: true,
@@ -236,8 +238,7 @@
 	}
 
 	function handlePlanChange() {
-		// TODO: Task 10.10 - PlanSelector Modal
-		alert('Kommt bald');
+		showPlanSelector = true;
 	}
 
 	async function handleDeleteAccount() {
@@ -632,6 +633,11 @@
 		onconfirm={confirmDeleteModel}
 		oncancel={cancelDeleteModel}
 	/>
+{/if}
+
+<!-- Plan Selector Modal -->
+{#if showPlanSelector}
+	<PlanSelector onclose={() => (showPlanSelector = false)} />
 {/if}
 
 <!-- Logout Confirmation -->
