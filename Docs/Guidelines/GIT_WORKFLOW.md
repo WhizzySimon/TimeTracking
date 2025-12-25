@@ -200,3 +200,105 @@ gh pr merge --squash --delete-branch       # Step 3
 ```
 
 **Note:** `scripts/pr-merge-auto.ps1` also uses `--auto` and works correctly.
+
+---
+
+## Anti-Patterns: Was man NICHT tun sollte
+
+Diese Sektion dokumentiert Fehler, die passiert sind, und wie man sie vermeidet.
+
+### Anti-Pattern 1: Stash bei parallelen Chats
+
+**Was passiert ist:**
+1. Chat A hatte uncommitted Änderungen (Phase 11 Docs)
+2. Chat B wollte auf `main` wechseln für neuen Feature-Branch
+3. Git verweigert Branch-Wechsel wegen uncommitted changes
+4. Chat B führte `git stash` aus → Änderungen von Chat A verschwinden aus Explorer
+5. User sieht die Änderungen nicht mehr und vergisst sie
+
+**Warum das schlecht ist:**
+- Änderungen sind "versteckt" und nicht mehr sichtbar
+- Der andere Chat weiß nicht, dass seine Änderungen gestasht wurden
+- Hohe Wahrscheinlichkeit, dass `git stash pop` vergessen wird
+- Änderungen können verloren gehen
+
+**Richtige Lösung:**
+```powershell
+# FALSCH: Auf main wechseln (erfordert stash)
+git checkout main
+git pull origin main
+git checkout -b feat/new-feature
+
+# RICHTIG: Direkt vom aktuellen Branch neuen Branch erstellen
+git checkout -b feat/new-feature
+# Uncommitted changes bleiben sichtbar!
+```
+
+### Anti-Pattern 2: Änderungen anderer Chats committen
+
+**Was passiert ist:**
+- Chat B sieht uncommitted files von Chat A
+- Chat B führt `git add -A` aus und committed alles
+- Chat A's Änderungen landen im falschen Branch/PR
+
+**Warum das schlecht ist:**
+- Vermischung von Features in einem Commit
+- Falscher Autor/Kontext für die Änderungen
+- Schwer nachzuvollziehen wer was gemacht hat
+
+**Richtige Lösung:**
+```powershell
+# FALSCH: Alles stagen
+git add -A
+
+# RICHTIG: Nur eigene Dateien stagen
+git add src/lib/components/MyComponent.svelte
+git add src/routes/mypage/+page.svelte
+# NICHT: git add Docs/  (wenn das vom anderen Chat ist)
+```
+
+### Anti-Pattern 3: Auf main wechseln mit uncommitted changes
+
+**Problem:** Git erlaubt keinen Branch-Wechsel wenn uncommitted changes existieren, die mit dem Ziel-Branch konfligieren könnten.
+
+**Falsche Reaktionen:**
+- `git stash` (versteckt Änderungen anderer)
+- `git checkout --force` (verwirft Änderungen!)
+- `git reset --hard` (verwirft Änderungen!)
+
+**Richtige Lösung:**
+- Direkt vom aktuellen Branch neuen Branch erstellen
+- ODER: Den anderen Chat bitten, zuerst zu committen
+
+### Checkliste: Vor jedem Branch-Wechsel
+
+- [ ] `git status` ausführen
+- [ ] Prüfen: Sind uncommitted changes von MIR oder von einem anderen Chat?
+- [ ] Wenn von anderem Chat: **NICHT** auf main wechseln
+- [ ] Stattdessen: `git checkout -b <neuer-branch>` direkt ausführen
+
+### Checkliste: Vor jedem Commit
+
+- [ ] `git status` ausführen
+- [ ] Prüfen: Welche Dateien gehören zu MEINEM Task?
+- [ ] Nur eigene Dateien stagen: `git add <datei1> <datei2>`
+- [ ] NICHT: `git add -A` wenn fremde Änderungen existieren
+
+### Git Begriffe Kurzreferenz
+
+| Begriff | Bedeutung | Sichtbar im Explorer? |
+|---------|-----------|----------------------|
+| **Untracked** | Neue Datei, Git kennt sie nicht | Ja |
+| **Modified** | Bekannte Datei wurde geändert | Ja |
+| **Staged** | Für nächsten Commit vorgemerkt | Ja (als "staged") |
+| **Committed** | In Git-Historie gespeichert | Nein (Teil des Branches) |
+| **Stashed** | Temporär versteckt | **NEIN** (unsichtbar!) |
+
+### Goldene Regel für parallele Chats
+
+> **Jeder Chat fasst NUR seine eigenen Dateien an.**
+> 
+> - Nicht stagen was dir nicht gehört
+> - Nicht stashen was dir nicht gehört  
+> - Nicht committen was dir nicht gehört
+> - Im Zweifel: `git status` und nachdenken
