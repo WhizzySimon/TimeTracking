@@ -65,6 +65,7 @@ Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 **Every new chat session = new branch.** At the start of each chat:
 
 1. **Create branch directly from current position:**
+
    ```
    git checkout -b feat/<task-name>
    ```
@@ -74,6 +75,7 @@ Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 3. **Exception:** Within the same chat, you may stay on the current branch and make multiple related PRs.
 
 This rule exists because:
+
 - Going to main requires stashing uncommitted changes from other chats
 - Stashing causes data loss (see Anti-Pattern 1)
 - Creating directly from current position preserves all uncommitted work

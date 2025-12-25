@@ -458,6 +458,15 @@
 		height: 100%;
 	}
 
+	/* Task 12.5: iPhone safe area support */
+	@supports (padding-top: env(safe-area-inset-top)) {
+		:global(html) {
+			padding-top: env(safe-area-inset-top);
+			padding-left: env(safe-area-inset-left);
+			padding-right: env(safe-area-inset-right);
+		}
+	}
+
 	:global(body) {
 		font-family: var(--font-family);
 		background-color: var(--bg);
@@ -635,6 +644,13 @@
 	.main-content {
 		flex: 1;
 		padding-bottom: 70px;
+	}
+
+	/* Task 12.5: iPhone safe area for main content bottom */
+	@supports (padding-bottom: env(safe-area-inset-bottom)) {
+		.main-content {
+			padding-bottom: calc(70px + env(safe-area-inset-bottom));
+		}
 	}
 
 	.install-banner {

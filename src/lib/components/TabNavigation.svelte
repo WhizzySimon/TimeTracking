@@ -66,6 +66,13 @@
 		gap: 4px;
 	}
 
+	/* Task 12.5: iPhone safe area for bottom navigation */
+	@supports (padding-bottom: env(safe-area-inset-bottom)) {
+		.tab-navigation {
+			padding-bottom: calc(6px + env(safe-area-inset-bottom));
+		}
+	}
+
 	.tab {
 		flex: 1;
 		display: flex;

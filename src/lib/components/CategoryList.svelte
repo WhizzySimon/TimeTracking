@@ -11,17 +11,28 @@
   System categories are excluded.
 -->
 <script lang="ts">
-	import { resolve } from '$app/paths';
 	import type { Category, TimeEntry } from '$lib/types';
 	import { getSmartTopCategories } from '$lib/utils/frequency';
+	import AddCategoryModal from './AddCategoryModal.svelte';
 
 	interface Props {
 		categories: Category[];
 		entries: TimeEntry[];
 		onselect: (categoryId: string) => void;
+		onCategoryCreated?: (category: Category) => void;
 	}
 
-	let { categories, entries, onselect }: Props = $props();
+	let { categories, entries, onselect, onCategoryCreated }: Props = $props();
+
+	// Modal state
+	let showAddCategory = $state(false);
+
+	function handleCategoryCreated(category: Category) {
+		showAddCategory = false;
+		if (onCategoryCreated) {
+			onCategoryCreated(category);
+		}
+	}
 
 	// Filter input state
 	let filterText = $state('');
@@ -54,7 +65,9 @@
 	{#if !hasCategories}
 		<div class="empty-state">
 			<p>Keine Kategorien vorhanden.</p>
-			<a href={resolve('/settings')} class="settings-link">Kategorien in Einstellungen anlegen</a>
+			<button class="create-btn" onclick={() => (showAddCategory = true)}
+				>Neue Kategorie erstellen</button
+			>
 		</div>
 	{:else}
 		<!-- Top 5 Smart Suggestions -->
@@ -81,6 +94,12 @@
 				<h2 class="section-title" data-testid="all-categories-heading">Alle Kategorien</h2>
 				<input type="text" class="filter-input" placeholder="Filtern..." bind:value={filterText} />
 				<div class="category-list-vertical">
+					<button
+						class="category-btn list-btn create-inline"
+						onclick={() => (showAddCategory = true)}
+					>
+						+ Neue Kategorie
+					</button>
 					{#each filteredCategories as category (category.id)}
 						<button
 							class="category-btn list-btn"
@@ -93,6 +112,10 @@
 				</div>
 			</section>
 		{/if}
+	{/if}
+
+	{#if showAddCategory}
+		<AddCategoryModal onsave={handleCategoryCreated} onclose={() => (showAddCategory = false)} />
 	{/if}
 </div>
 
@@ -110,11 +133,40 @@
 		color: var(--text-secondary, #6b7280);
 	}
 
-	.settings-link {
-		display: inline-block;
+	.create-btn {
 		margin-top: 1rem;
+		padding: 0.75rem 1.5rem;
+		background: var(--accent);
+		color: white;
+		border: none;
+		border-radius: var(--r-btn, 0.5rem);
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: background var(--transition-fast, 0.15s);
+	}
+
+	.create-btn:hover {
+		background: var(--accent-dark, #1d4ed8);
+	}
+
+	.create-inline {
 		color: var(--accent);
-		text-decoration: underline;
+		background: transparent;
+		border: 1px dashed var(--accent);
+		font-weight: 500;
+	}
+
+	.create-inline:hover {
+		background: var(--accent-light, #eff6ff);
+	}
+
+	:global(.dark) .create-inline {
+		background: transparent;
+	}
+
+	:global(.dark) .create-inline:hover {
+		background: var(--accent-dark-light, rgba(59, 130, 246, 0.2));
 	}
 
 	.section {

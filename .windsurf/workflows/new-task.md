@@ -7,6 +7,7 @@ description: Start a new task - reads rules and governance docs, ready for any i
 ### Step 0: Watcher + Branch Setup (CRITICAL)
 
 Read and follow:
+
 - `Docs/Tooling/CASCADE_WATCHER.md` section "Cascade Session Start" (watcher instance selection)
 - `Docs/Tooling/GIT_WORKFLOW.md` section "Cascade Session Start" (branch creation)
 

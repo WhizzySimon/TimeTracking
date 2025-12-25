@@ -192,10 +192,22 @@ When reporting completion:
 
 - **Project-wide process rules: AGENTS.md** (this file) — short, stable, applies to all tasks.
 - **Feature detail:** Docs/Specs/ + Docs/Plans/ + Docs/Tasks/.
+- **Tooling rules:** `Docs/Tooling/*.md` — watcher, git workflow, CI, etc.
 - **Workflows (`.windsurf/workflows/`):** Only orchestrate which docs to read. Do NOT duplicate rules here.
 - If instructions get long, split into additional docs and reference them from the spec/plan (do not bloat AGENTS.md).
 
-**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to AGENTS.md, NOT to individual workflow files. Workflows should reference AGENTS.md sections, not duplicate content.
+**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to AGENTS.md or the relevant `Docs/Tooling/*.md`, NOT to individual workflow files. Workflows should reference docs, not duplicate content.
+
+## Anti-patterns (NEVER do these)
+
+1. **Duplicating rules in workflows** — If you need to add a rule about branching, watcher usage, or any process, add it to the relevant doc (`Docs/Tooling/GIT_WORKFLOW.md`, `Docs/Tooling/CASCADE_WATCHER.md`, or this file). Then have workflows reference that doc with one line.
+
+2. **Manual commands when scripts exist** — Always check `scripts/` for existing scripts before running manual commands:
+   - PR creation → `powershell -File scripts/git/pr.ps1`
+   - CI check → `powershell -File scripts/git/check-ci.ps1`
+   - Verification → `npm run verify`
+
+3. **Creating memories for project rules** — Project rules go in project docs, not in Cascade memories. Memories are for user preferences only.
 
 ## Communication style for Cascade output
 

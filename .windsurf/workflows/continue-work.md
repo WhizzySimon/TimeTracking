@@ -15,6 +15,7 @@ Then tell Cascade "done" to begin.
 ### Step 0: Watcher + Branch Setup (CRITICAL)
 
 Read and follow:
+
 - `Docs/Tooling/CASCADE_WATCHER.md` section "Cascade Session Start" (watcher instance selection)
 - `Docs/Tooling/GIT_WORKFLOW.md` section "Cascade Session Start" (branch creation)
 

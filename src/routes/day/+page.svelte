@@ -12,6 +12,8 @@
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { currentDate, activeWorkTimeModel, timeEntries, categories } from '$lib/stores';
 	import { formatDate, isToday, addDays, formatTime } from '$lib/utils/date';
@@ -156,6 +158,9 @@
 		// Reload all entries from IndexedDB to update the store
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
+
+		// Task 12.4: Navigate to Add tab after ending task
+		goto(resolve('/add'));
 	}
 
 	/**
