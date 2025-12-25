@@ -48,7 +48,7 @@ See `Docs/Guidelines/CASCADE_WATCHER.md` for details.
 | Script                           | Purpose                                               |
 | -------------------------------- | ----------------------------------------------------- |
 | `scripts/watcher/watcher.ps1`    | Multi-instance watcher for Cascade commands           |
-| `scripts/cascade-watcher.ps1`    | Legacy single-instance watcher (still works)          |
+| `scripts/watcher/legacy/cascade-watcher.ps1` | Legacy single-instance watcher (deprecated) |
 | `scripts/verify-code.ps1`        | Runs format, check, lint (called by `npm run verify`) |
 
 ## Commands

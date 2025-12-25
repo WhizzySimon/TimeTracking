@@ -20,12 +20,13 @@ scripts/
 │   │   ├── command.txt
 │   │   ├── status.txt
 │   │   └── output.txt
-│   └── B/                   # Instance B files
-│       ├── command.txt
-│       ├── status.txt
-│       └── output.txt
-├── cascade-watcher.ps1      # Legacy single-instance watcher (still works)
-├── cascade-command.txt      # Legacy files for single-instance
+│   ├── B/                   # Instance B files
+│   │   ├── command.txt
+│   │   ├── status.txt
+│   │   └── output.txt
+│   └── legacy/              # Old single-instance watcher (deprecated)
+│       └── cascade-watcher.ps1
+├── cascade-command.txt      # Legacy files (not in git, created at runtime)
 ├── cascade-status.txt
 └── cascade-output.txt
 ```
@@ -37,10 +38,10 @@ scripts/
 For backward compatibility, the old single-instance watcher still works:
 
 ```powershell
-powershell -File scripts/cascade-watcher.ps1
+powershell -File scripts/watcher/legacy/cascade-watcher.ps1
 ```
 
-Uses files directly in `scripts/` folder.
+Uses files directly in `scripts/` folder (cascade-command.txt, etc.).
 
 ---
 

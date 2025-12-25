@@ -33,9 +33,19 @@ playwright-report/
 
 # Cascade automation output (do not commit)
 scripts/verify-code-output.txt
+scripts/cascade-temp-out.txt
+scripts/cascade-temp-out.txt.err
+
+# Cascade watcher files (legacy single-instance)
 scripts/cascade-command.txt
 scripts/cascade-output.txt
 scripts/cascade-status.txt
+
+# Cascade watcher files (multi-instance)
+scripts/watcher/*/command.txt
+scripts/watcher/*/output.txt
+scripts/watcher/*/status.txt
+
 # Legacy (can be deleted)
 scripts/verify-output.txt
 scripts/run-command.txt

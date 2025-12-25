@@ -1,7 +1,7 @@
-# Cascade Command Watcher
-# Enables Cascade to execute commands autonomously by watching a request file.
+# Cascade Command Watcher (Legacy Single-Instance)
+# DEPRECATED: Use scripts/watcher/watcher.ps1 -Instance A instead
 #
-# Start: powershell -ExecutionPolicy Bypass -File scripts/cascade-watcher.ps1
+# Start: powershell -ExecutionPolicy Bypass -File scripts/watcher/legacy/cascade-watcher.ps1
 #
 # How it works:
 # 1. Cascade writes a command to scripts/cascade-command.txt
@@ -12,7 +12,8 @@
 
 # Get script directory and set paths relative to project root
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$projectRoot = Split-Path -Parent $scriptDir
+# Go up 3 levels: legacy -> watcher -> scripts -> project root
+$projectRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $scriptDir))
 Set-Location $projectRoot
 
 $requestFile = Join-Path $projectRoot "scripts/cascade-command.txt"
