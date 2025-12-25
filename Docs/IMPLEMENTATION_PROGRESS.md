@@ -1118,4 +1118,60 @@ After each phase, verify against specs:
 
 ---
 
+## Phase 11: AI Import (Premium Feature)
+
+**Target:** 25 tasks, ~40-50 hours  
+**Status:** Not started (0/25 tasks)  
+**Spec:** `Docs/Specs/ai-import.md`  
+**Plan:** `Docs/Plans/ai-import.md`  
+**Tasks:** `Docs/Tasks/ai-import.md`
+
+### Phase 11.1: Foundation
+
+- [ ] **Task 11.1** — Types + IndexedDB Schema
+- [ ] **Task 11.2** — CSV Parser
+- [ ] **Task 11.3** — Validation Module
+- [ ] **Task 11.4** — Duplicate Detection
+
+### Phase 11.2: UI Shell
+
+- [ ] **Task 11.5** — Import Route + State Machine
+- [ ] **Task 11.6** — Upload Component
+- [ ] **Task 11.7** — Progress Component
+- [ ] **Task 11.8** — Basic Review Table
+
+### Phase 11.3: Review Features
+
+- [ ] **Task 11.9** — Inline Editing
+- [ ] **Task 11.10** — Issues Panel
+- [ ] **Task 11.11** — Bulk Actions
+- [ ] **Task 11.12** — Filter + Confidence Slider
+
+### Phase 11.4: AI Integration
+
+- [ ] **Task 11.13** — AI API Wrapper
+- [ ] **Task 11.14** — Column Mapping AI
+- [ ] **Task 11.15** — Category Guessing AI
+
+### Phase 11.5: Advanced Parsers
+
+- [ ] **Task 11.16** — Excel Parser
+- [ ] **Task 11.17** — Text Parser
+- [ ] **Task 11.18** — OCR Integration
+
+### Phase 11.6: Commit + Polish
+
+- [ ] **Task 11.19** — Commit Flow
+- [ ] **Task 11.20** — Import Report
+- [ ] **Task 11.21** — Preset Save/Load
+- [ ] **Task 11.22** — Premium Gating
+
+### Phase 11.7: Testing
+
+- [ ] **Task 11.23** — Unit Tests
+- [ ] **Task 11.24** — Integration Tests
+- [ ] **Task 11.25** — E2E Tests
+
+---
+
 **END OF PROGRESS TRACKER**

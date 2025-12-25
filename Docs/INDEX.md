@@ -60,6 +60,15 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 - Docs/Tasks/P08-code-quality.md  
   Purpose: Task breakdown for code quality enforcement.
 
+### Feature specs (P11 — AI Import)
+
+- Docs/Specs/ai-import.md  
+  Purpose: Spec for AI-powered import from CSV/Excel/Text/Images (Premium feature).
+- Docs/Plans/ai-import.md  
+  Purpose: Architecture and implementation plan for AI Import.
+- Docs/Tasks/ai-import.md  
+  Purpose: Task breakdown for AI Import (25 tasks in 7 sub-phases).
+
 ## Required "Doc Inventory" in every Cascade answer
 
 At the top of every response, Cascade must list:
