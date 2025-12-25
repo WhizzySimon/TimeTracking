@@ -14,7 +14,7 @@ npm run dev
 
 **Terminal 2 - Cascade Watcher:**
 
-See `Docs/Guidelines/CASCADE_WATCHER.md` for watcher setup instructions.
+See `Docs/Tooling/BOOTSTRAP.md` for watcher setup instructions.
 
 Then tell Cascade "done" to begin.
 
@@ -27,7 +27,7 @@ Run these workflows first:
 1. /rules-read-all
 2. /read-governance
 3. /read-core-docs-and-code
-4. **Check current branch** - Use watcher to run `git branch --show-current` (see CASCADE_WATCHER.md)
+4. **Check current branch** - Use watcher to run `git branch --show-current` (see Docs/Tooling/CASCADE_WATCHER.md)
 
 ### Branch Rule (CRITICAL)
 
@@ -36,7 +36,7 @@ Before starting any work:
 - If on `main`: Create a new feature branch for the next task (e.g., `feat/P10-monetising`)
 - If on a feature branch: Verify no other chat is using this branch
 - **Each chat session MUST use its own unique branch**
-- See `Docs/Guidelines/GIT_WORKFLOW.md` section "Parallel Chat Sessions" for details
+- See `Docs/Tooling/GIT_WORKFLOW.md` section "Parallel Chat Sessions" for details
 
 Then:
 
@@ -58,7 +58,7 @@ Report:
 
 ### 1. Verification
 
-Use watcher to run `npm run verify`, poll status, fix any errors. See `Docs/Guidelines/CASCADE_WATCHER.md`.
+Use watcher to run `npm run verify`, poll status, fix any errors. See `Docs/Tooling/CASCADE_WATCHER.md`.
 
 ### 2. UI Testing
 
@@ -74,7 +74,7 @@ After push, check if CI passes:
 
 ```
 powershell -File scripts/git/check-ci.ps1 -Wait -Logs
-# See Docs/Guidelines/GIT_WORKFLOW.md for script locations
+# See Docs/Tooling/GIT_WORKFLOW.md for script locations
 ```
 
 This will:

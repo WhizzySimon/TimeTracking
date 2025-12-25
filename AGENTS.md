@@ -161,7 +161,7 @@ Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 
 - The required status check is `build` (the job name in `.github/workflows/ci.yml`)
 - Netlify previews are NOT required for merge
-- See `Docs/Guidelines/GIT_WORKFLOW.md` for troubleshooting
+- See `Docs/Tooling/GIT_WORKFLOW.md` for troubleshooting
 
 ## Verification (no guessing)
 
