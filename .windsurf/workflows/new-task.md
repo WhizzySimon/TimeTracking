@@ -4,24 +4,39 @@ description: Start a new task - reads rules and governance docs, ready for any i
 
 ## Cascade Workflow
 
+### Step 0: Watcher Instance (CRITICAL)
+
+If the user specified an instance (e.g., `/new-task A`), use that instance.
+Otherwise, ask: **"Which watcher instance are you using? (A or B)"**
+
+Remember the instance for this entire session:
+
+- Instance A: `scripts/watcher/A/command.txt`, `scripts/watcher/A/status.txt`, `scripts/watcher/A/output.txt`
+- Instance B: `scripts/watcher/B/command.txt`, `scripts/watcher/B/status.txt`, `scripts/watcher/B/output.txt`
+
+### Step 1: Setup
+
 Run these steps:
 
 1. /rules-read-all
 2. /read-governance
-3. **Check current branch** - Use watcher to run `git branch --show-current` (see Docs/Tooling/CASCADE_WATCHER.md)
+3. **Check current branch** - Use watcher to run `git branch --show-current`
+
+### Step 2: Branch Decision (CRITICAL)
+
+**New chat session = new branch.** Create a branch directly from current position:
+
+```
+git checkout -b feat/<task-name>
+```
+
+**Do NOT go to main first.** See `Docs/Tooling/GIT_WORKFLOW.md` section "Anti-Pattern 1" for why.
+
+**Exception:** If continuing related work in the same chat, you may stay on the current branch and make multiple PRs.
 
 Then:
 
 4. Ask the user: "What would you like me to do? If specific docs are relevant, tell me which ones to read first."
-
-### Branch Rule (CRITICAL)
-
-Before starting any work:
-
-- If on `main`: Create a new feature branch for this task (e.g., `feat/P10-task-name`)
-- If on a feature branch: Verify no other chat is using this branch
-- **Each chat session MUST use its own unique branch**
-- See `Docs/Tooling/GIT_WORKFLOW.md` section "Parallel Chat Sessions" for details
 
 ### Optional doc loading
 
