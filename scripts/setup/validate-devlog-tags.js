@@ -20,7 +20,7 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const projectRoot = join(__dirname, '..');
+const projectRoot = join(__dirname, '..', '..');
 const devlogDir = join(projectRoot, 'Docs', 'Devlog');
 
 let hasErrors = false;

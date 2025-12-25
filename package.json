@@ -5,10 +5,10 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "node scripts/update-version.js && vite build",
+		"build": "node scripts/build/update-version.js && vite build",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo '' && node scripts/setup-hooks.js",
-		"setup-hooks": "node scripts/setup-hooks.js",
+		"prepare": "svelte-kit sync || echo '' && node scripts/setup/setup-hooks.js",
+		"setup-hooks": "node scripts/setup/setup-hooks.js",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
@@ -22,8 +22,8 @@
 		"test:webkit:ui": "playwright test --ui --project=webkit",
 		"test:ios:ui": "playwright test --ui --project=\"Mobile Safari\"",
 		"test": "npm run test:unit && npm run test:e2e",
-		"check:pwa": "node scripts/check-pwa.js",
-		"verify": "powershell -ExecutionPolicy Bypass -File scripts/verify-code.ps1",
+		"check:pwa": "node scripts/build/check-pwa.js",
+		"verify": "powershell -ExecutionPolicy Bypass -File scripts/build/verify-code.ps1",
 		"wb": "tsx devBrowser.ts"
 	},
 	"devDependencies": {

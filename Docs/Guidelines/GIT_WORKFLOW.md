@@ -3,7 +3,7 @@
 ## Rules
 
 - **Never push directly to `main`.** The `main` branch is protected; direct pushes will be rejected.
-- **Never merge via GitHub UI.** Always use `scripts/pr.ps1` for consistent workflow.
+- **Never merge via GitHub UI.** Always use `scripts/git/pr.ps1` for consistent workflow.
 - **Short-lived branches.** Create a branch, make changes, merge via PR, delete branch.
 
 ## Daily Workflow
@@ -29,7 +29,7 @@ Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:
 ### 3. Push, create PR, enable auto-merge (ONE command)
 
 ```powershell
-powershell -File scripts/pr.ps1
+powershell -File scripts/git/pr.ps1
 ```
 
 The script handles:
@@ -70,10 +70,10 @@ When running multiple Cascade chat sessions simultaneously:
    - Branch name should match the task (e.g., `feat/P10-monetising`)
    - Never share branches between chats
 
-2. **Only ONE chat uses the cascade-watcher at a time**
-   - `scripts/cascade-command.txt` is a shared resource
-   - If both chats write to it simultaneously, commands get lost or corrupted
-   - Coordinate: finish one chat's command sequence before the other starts
+2. **Each chat MUST use its own watcher instance**
+   - Chat A uses `scripts/watcher.ps1 -Instance A` → writes to `scripts/watcher/A/command.txt`
+   - Chat B uses `scripts/watcher.ps1 -Instance B` → writes to `scripts/watcher/B/command.txt`
+   - See `Docs/Guidelines/CASCADE_WATCHER.md` for details
 
 3. **Do not edit the same files in parallel**
    - This causes merge conflicts
@@ -155,7 +155,7 @@ If Netlify is blocking, check that it's not accidentally added as a required che
 
 - `gh pr merge --auto --squash --delete-branch` queues the PR for auto-merge
 - PR merges automatically when CI passes
-- `scripts/pr.ps1` uses this by default
+- `scripts/git/pr.ps1` uses this by default
 
 ### gh CLI not authenticated
 
@@ -171,7 +171,7 @@ Follow the prompts to authenticate with GitHub.
 | -------------------- | ----------------------------------------------- |
 | Create branch        | `git checkout -b feat/name`                     |
 | Commit               | `git add -A; git commit -m "feat: description"` |
-| **Full PR workflow** | `powershell -File scripts/pr.ps1`               |
+| **Full PR workflow** | `powershell -File scripts/git/pr.ps1`           |
 | Switch to main       | `git checkout main`                             |
 | Update main          | `git pull origin main`                          |
 | Delete local branch  | `git branch -d feat/name`                       |
