@@ -29,14 +29,23 @@ Run these workflows first:
 1. /rules-read-all
 2. /read-governance
 3. /read-core-docs-and-code
+4. **Check current branch** - Write `git branch --show-current` to `scripts/cascade-command.txt` and read output
+
+### Branch Rule (CRITICAL)
+
+Before starting any work:
+- If on `main`: Create a new feature branch for the next task (e.g., `feat/P10-monetising`)
+- If on a feature branch: Verify no other chat is using this branch
+- **Each chat session MUST use its own unique branch**
+- See `Docs/Guidelines/GIT_WORKFLOW.md` section "Parallel Chat Sessions" for details
 
 Then:
 
-4. Read `Docs/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
-5. Find the relevant Tasks file:
+5. Read `Docs/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
+6. Find the relevant Tasks file:
    - Check "Current Phase" in IMPLEMENTATION_PROGRESS.md
    - Read the corresponding `Docs/Tasks/<feature>.md` file (e.g., `quick-start-ux.md`, `timetracker-v1-implementation.md`)
-6. Start implementing the next incomplete task following the Task-Workflow from `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md`
+7. Start implementing the next incomplete task following the Task-Workflow from `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md`
 
 Report:
 

@@ -8,10 +8,19 @@ Run these steps:
 
 1. /rules-read-all
 2. /read-governance
+3. **Check current branch** - Write `git branch --show-current` to `scripts/cascade-command.txt` and read output
 
 Then:
 
-3. Ask the user: "What would you like me to do? If specific docs are relevant, tell me which ones to read first."
+4. Ask the user: "What would you like me to do? If specific docs are relevant, tell me which ones to read first."
+
+### Branch Rule (CRITICAL)
+
+Before starting any work:
+- If on `main`: Create a new feature branch for this task (e.g., `feat/P10-task-name`)
+- If on a feature branch: Verify no other chat is using this branch
+- **Each chat session MUST use its own unique branch**
+- See `Docs/Guidelines/GIT_WORKFLOW.md` section "Parallel Chat Sessions" for details
 
 ### Optional doc loading
 
