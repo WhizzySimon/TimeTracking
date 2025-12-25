@@ -8,7 +8,7 @@ Run these steps:
 
 1. /rules-read-all
 2. /read-governance
-3. **Check current branch** - Write `git branch --show-current` to `scripts/cascade-command.txt` and read output
+3. **Check current branch** - Use watcher to run `git branch --show-current` (see CASCADE_WATCHER.md)
 
 Then:
 
@@ -40,7 +40,7 @@ Proceed directly with the user's task. Use `code_search` or `grep_search` to fin
 
 ### 1. Verification
 
-Write `npm run verify` to `scripts/cascade-command.txt`, poll status, fix any errors until ALL PASSED.
+Use watcher to run `npm run verify`, poll status, fix any errors until ALL PASSED. See `Docs/Guidelines/CASCADE_WATCHER.md`.
 
 ### 2. UI Testing
 
@@ -55,7 +55,8 @@ See AGENTS.md "Definition of done for a task" for the commit & push workflow.
 After push, check if CI passes:
 
 ```
-powershell -File scripts/check-ci.ps1 -Wait -Logs
+powershell -File scripts/git/check-ci.ps1 -Wait -Logs
+# See Docs/Guidelines/GIT_WORKFLOW.md for script locations
 ```
 
 This will:

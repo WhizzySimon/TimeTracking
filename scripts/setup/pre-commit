@@ -3,7 +3,7 @@
 # This runs before every commit to ensure version changes with each commit
 
 # Run the version update script
-node scripts/update-version.js
+node scripts/build/update-version.js
 
 # Note: version.json and sw.js are in .gitignore
 # They are generated at build time, not committed

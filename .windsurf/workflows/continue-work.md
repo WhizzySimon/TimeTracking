@@ -14,9 +14,7 @@ npm run dev
 
 **Terminal 2 - Cascade Watcher:**
 
-```
-powershell -File scripts/cascade-watcher.ps1
-```
+See `Docs/Guidelines/CASCADE_WATCHER.md` for watcher setup instructions.
 
 Then tell Cascade "done" to begin.
 
@@ -29,7 +27,7 @@ Run these workflows first:
 1. /rules-read-all
 2. /read-governance
 3. /read-core-docs-and-code
-4. **Check current branch** - Write `git branch --show-current` to `scripts/cascade-command.txt` and read output
+4. **Check current branch** - Use watcher to run `git branch --show-current` (see CASCADE_WATCHER.md)
 
 ### Branch Rule (CRITICAL)
 
@@ -60,7 +58,7 @@ Report:
 
 ### 1. Verification
 
-Write `npm run verify` to `scripts/cascade-command.txt`, poll status, fix any errors.
+Use watcher to run `npm run verify`, poll status, fix any errors. See `Docs/Guidelines/CASCADE_WATCHER.md`.
 
 ### 2. UI Testing
 
@@ -75,7 +73,8 @@ See AGENTS.md "Definition of done for a task" for the commit & push workflow.
 After push, check if CI passes:
 
 ```
-powershell -File scripts/check-ci.ps1 -Wait -Logs
+powershell -File scripts/git/check-ci.ps1 -Wait -Logs
+# See Docs/Guidelines/GIT_WORKFLOW.md for script locations
 ```
 
 This will:

@@ -1,3 +1,6 @@
+---
+trigger: always_on
+---
 # Command Execution Limitations for Cascade
 
 **Last Updated:** December 21, 2025
@@ -193,51 +196,16 @@ console.log('Results written to script-output.json');
 ## 📝 Integration with Workflows
 
 This file should be read at the start of every session via the `/rules-read-all` workflow to ensure Cascade remembers these limitations.
-
----
-
 ## 🔄 Cascade Watcher System (Preferred)
 
-### Overview
+**See [Docs/Guidelines/CASCADE_WATCHER.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Guidelines/CASCADE_WATCHER.md:0:0-0:0) for complete watcher documentation.**
 
-The Cascade Watcher enables **autonomous command execution** without user intervention for each command.
-
-**User starts watcher once per session:**
-
-powershell -File scripts/cascade-watcher.ps1
-
-**Then Cascade can execute commands autonomously by:**
-
-1. Writing command to `scripts/cascade-command.txt`
-2. Watcher detects and executes it
-3. Output written to `scripts/cascade-output.txt`
-4. Status written to `scripts/cascade-status.txt`
-5. Cascade reads output and continues
-
-### Files
-
-| File                                                                                                                      | Purpose                                       |
-| ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| [scripts/cascade-watcher.ps1](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-watcher.ps1:0:0-0:0) | Watcher script (user starts once)             |
-| `scripts/cascade-command.txt`                                                                                             | Cascade writes commands here                  |
-| `scripts/cascade-output.txt`                                                                                              | Command output (Cascade reads)                |
-| `scripts/cascade-status.txt`                                                                                              | Status: IDLE/RUNNING/DONE:SUCCESS/DONE:FAILED |
-
-### Workflow with Watcher Running
-
-1. **Cascade writes code**
-2. **Cascade writes** command to `scripts/cascade-command.txt`
-3. **Watcher executes** command automatically
-4. **Cascade polls** `scripts/cascade-status.txt` until DONE
-5. **Cascade reads** `scripts/cascade-output.txt`
-6. **If errors:** Cascade fixes and repeats from step 2
-7. **If success:** Cascade continues to next task
-
-### User's Role (Minimal)
-
-- Start watcher once per session
+The watcher enables autonomous command execution:
+- User starts watcher once per session
+- Cascade writes commands to watcher command file
+- Cascade polls status file until DONE
+- Cascade reads output file
 - Start dev server when needed: `npm run dev`
-- That's it - Cascade handles the rest
 
 ---
 
@@ -285,10 +253,9 @@ After code verification passes, Cascade uses MCP browser tools:
 Cascade MUST follow this complete workflow:
 
 1. **Run verification via Cascade Watcher:**
-   - Write `npm run verify` to [scripts/cascade-command.txt](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-command.txt:0:0-0:0)
-   - Poll [scripts/cascade-status.txt](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-status.txt:0:0-0:0) until `DONE:SUCCESS` or `DONE:FAILED`
-   - Read output from [scripts/cascade-output.txt](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-output.txt:0:0-0:0)
-   - Fix any errors and repeat until ALL PASSED
+   - Use watcher to run `npm run verify` (see CASCADE_WATCHER.md for file paths)
+   - Poll status until `DONE:SUCCESS` or `DONE:FAILED`
+   - Read output and fix any errors until ALL PASSED
 
 2. **Test UI with MCP Playwright browser:**
    - Use `mcp0_browser_navigate` to open `http://localhost:5173`
@@ -297,7 +264,7 @@ Cascade MUST follow this complete workflow:
    - Check browser console for errors via `mcp0_browser_console_messages`
 
 3. **Commit changes via Cascade Watcher:**
-   - Write `git add -A; git commit -m "feat: description"` to [scripts/cascade-command.txt](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/cascade-command.txt:0:0-0:0)
+   - Use watcher to run `git add -A; git commit -m "feat: description"` (see CASCADE_WATCHER.md)
    - Poll until `DONE:SUCCESS`
    - Confirm commit succeeded
 
@@ -384,24 +351,13 @@ When making multiple edits to the same file:
 - **ALWAYS** use `multi_edit` tool to batch all changes in one operation
 - This is faster, less error-prone, and easier to review
 
-### Cascade-command.txt handling
+### Watcher command file handling
 
-- If file content needs to be completely replaced, use edit with the exact current content
-- If file gets corrupted, delete it with `git checkout -- scripts/cascade-command.txt` and recreate
-- Always read the file first before editing to get exact content
+See [Docs/Guidelines/CASCADE_WATCHER.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Guidelines/CASCADE_WATCHER.md:0:0-0:0) for watcher file locations and usage.
+
 
 ### PowerShell Syntax Rules
 
 - **NEVER use `&&`** to chain commands - PowerShell doesn't support it
 - **ALWAYS use `;`** (semicolon) to chain commands
 - Example: `git add -A; git commit -m "message"` (NOT `git add -A && git commit -m "message"`)
-
-### Complete Task Workflow (updated)
-
-After each task:
-
-1. Run `npm run verify` via cascade watcher
-2. Test UI with MCP Playwright browser
-3. Update progress tracker
-4. **Commit ALL changes including progress tracker** via cascade watcher
-5. Move to next task

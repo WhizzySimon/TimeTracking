@@ -39,6 +39,13 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 - Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
   Purpose: spec writing rules (FR/IG/DD), verification loop, self-documenting requirement.
 
+### Cascade tooling
+
+- Docs/Guidelines/CASCADE_WATCHER.md  
+  Purpose: Multi-instance watcher system for command execution.
+- Docs/Guidelines/GIT_WORKFLOW.md  
+  Purpose: Git workflow, branch naming, PR process, script locations.
+
 ### Setup checklist
 
 - Docs/Guidelines/PROJECT_SCAFFOLD_CHECKLIST.md  
