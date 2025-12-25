@@ -56,6 +56,7 @@ git branch -d feat/your-feature-name
 Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 
 **Use task-specific names** to avoid collisions between parallel work:
+
 - `feat/P10-monetising` (not just `feat/monetising`)
 - `refactor/P08-code-quality` (not just `refactor/cleanup`)
 
@@ -109,25 +110,25 @@ When running multiple Cascade chat sessions simultaneously:
 
 ### Repository Settings (current state)
 
-| Setting | Value | Meaning |
-|---------|-------|--------|
-| `allow_auto_merge` | ✅ true | `gh pr merge --auto` works |
+| Setting                  | Value    | Meaning                                               |
+| ------------------------ | -------- | ----------------------------------------------------- |
+| `allow_auto_merge`       | ✅ true  | `gh pr merge --auto` works                            |
 | `delete_branch_on_merge` | ❌ false | Branches are NOT auto-deleted (use `--delete-branch`) |
-| `allow_squash_merge` | ✅ true | Squash merge allowed |
-| `allow_merge_commit` | ✅ true | Merge commit allowed |
-| `allow_rebase_merge` | ✅ true | Rebase merge allowed |
+| `allow_squash_merge`     | ✅ true  | Squash merge allowed                                  |
+| `allow_merge_commit`     | ✅ true  | Merge commit allowed                                  |
+| `allow_rebase_merge`     | ✅ true  | Rebase merge allowed                                  |
 
 ### Branch Protection (Ruleset "protect-main")
 
 The `main` branch is protected by a GitHub Ruleset:
 
-| Rule | Status |
-|------|--------|
-| Restrict deletions | ✅ Enabled |
-| Require pull request | ✅ Enabled (0 approvals required) |
-| Require status checks | ✅ Enabled (`build` check) |
-| Block force pushes | ✅ Enabled |
-| Bypass list | Empty (no one can bypass) |
+| Rule                  | Status                            |
+| --------------------- | --------------------------------- |
+| Restrict deletions    | ✅ Enabled                        |
+| Require pull request  | ✅ Enabled (0 approvals required) |
+| Require status checks | ✅ Enabled (`build` check)        |
+| Block force pushes    | ✅ Enabled                        |
+| Bypass list           | Empty (no one can bypass)         |
 
 ## Troubleshooting
 
@@ -151,6 +152,7 @@ If Netlify is blocking, check that it's not accidentally added as a required che
 **Current state:** Auto-merge is enabled for this repository.
 
 **How it works:**
+
 - `gh pr merge --auto --squash --delete-branch` queues the PR for auto-merge
 - PR merges automatically when CI passes
 - `scripts/pr.ps1` uses this by default

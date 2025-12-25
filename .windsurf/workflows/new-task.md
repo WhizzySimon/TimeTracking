@@ -17,6 +17,7 @@ Then:
 ### Branch Rule (CRITICAL)
 
 Before starting any work:
+
 - If on `main`: Create a new feature branch for this task (e.g., `feat/P10-task-name`)
 - If on a feature branch: Verify no other chat is using this branch
 - **Each chat session MUST use its own unique branch**

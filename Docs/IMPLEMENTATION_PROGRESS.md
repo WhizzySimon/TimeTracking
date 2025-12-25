@@ -1057,7 +1057,7 @@ After each phase, verify against specs:
 ## Phase 10: Free/Pro Feature-Flags + Paywall + User Profile
 
 **Target:** 11 tasks, ~10 hours  
-**Status:** In progress (8/11 tasks)  
+**Status:** In progress (9/11 tasks)  
 **Spec:** `Docs/Specs/P10-monetising.md`  
 **Plan:** `Docs/Plans/P10-monetising.md`  
 **Tasks:** `Docs/Tasks/P10-monetising.md`
@@ -1102,8 +1102,11 @@ After each phase, verify against specs:
 
 ### User Profile UI
 
-- [ ] **Task 10.9** — Settings: Konto-Abschnitt
+- [x] **Task 10.9** — Settings: Konto-Abschnitt
   - Files: `src/routes/settings/+page.svelte`
+  - Verified: npm run verify ✅, Browser test ✅
+  - Deviations: None
+  - Notes: Added Konto section with email, plan display, Plan ändern button (shows "Kommt bald" placeholder), Abmelden button with confirmation dialog
 
 - [ ] **Task 10.10** — PlanSelector Modal
   - Files: `src/lib/components/PlanSelector.svelte`
