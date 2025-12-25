@@ -68,6 +68,19 @@ Cascade must NEVER use these commands:
 | `git pull` | Only after committing local changes |
 | `git force push` | Destroys remote history |
 
+## Scripts for Source Control
+
+Cascade should use these scripts instead of manual git/gh commands:
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `scripts/pr.ps1` | Push, create PR, enable auto-merge | `powershell -File scripts/pr.ps1` |
+| `scripts/check-ci.ps1` | Check CI status | `powershell -File scripts/check-ci.ps1` |
+| `scripts/check-ci.ps1 -Wait` | Wait for CI to complete | `powershell -File scripts/check-ci.ps1 -Wait` |
+| `scripts/check-ci.ps1 -Logs` | Show failed CI logs | `powershell -File scripts/check-ci.ps1 -Logs` |
+
+**Do NOT use deprecated scripts:** `pr-create.ps1`, `pr-merge-auto.ps1` (deleted, replaced by `pr.ps1`)
+
 ## Daily Workflow
 
 ### 1. Create a feature branch
