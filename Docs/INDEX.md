@@ -78,6 +78,27 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 - Docs/Tasks/ai-import.md  
   Purpose: Task breakdown for AI Import (25 tasks in 7 sub-phases).
 
+### Feature specs (P12 — UX Polish Bundle)
+
+- Docs/Specs/P12-ux-polish.md  
+  Purpose: Bundle of small UX fixes (German errors, password toggle, category in Add tab, etc.)
+- Docs/Tasks/P12-ux-polish.md  
+  Purpose: Task breakdown for UX polish (5 tasks).
+
+### Feature specs (P13 — Category Editing & Colors)
+
+- Docs/Specs/P13-category-editing.md  
+  Purpose: Edit categories and add color property.
+- Docs/Tasks/P13-category-editing.md  
+  Purpose: Task breakdown for category editing (7 tasks).
+
+### Feature specs (P14 — Cloud Sync Improvements)
+
+- Docs/Specs/P14-sync-improvements.md  
+  Purpose: Fix new device sync issues, improve conflict dialog.
+- Docs/Tasks/P14-sync-improvements.md  
+  Purpose: Task breakdown for sync improvements (7 tasks).
+
 ## Required "Doc Inventory" in every Cascade answer
 
 At the top of every response, Cascade must list:

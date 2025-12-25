@@ -741,6 +741,7 @@ describe('Premium Gating', () => {
 - Chat log extractor (Slack, Teams)
 - Learning mapping (transparent, user-editable)
 - Multi-language support (EN, FR)
+- **AI Task Grouping** — AI button to suggest/create category groups for existing tasks (user request 2025-12-25)
 
 ---
 

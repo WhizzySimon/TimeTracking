@@ -1174,4 +1174,59 @@ After each phase, verify against specs:
 
 ---
 
+## Phase 12: UX Polish Bundle
+
+**Target:** 5 tasks, ~3-4 hours  
+**Status:** Not started (0/5 tasks)  
+**Spec:** `Docs/Specs/P12-ux-polish.md`  
+**Tasks:** `Docs/Tasks/P12-ux-polish.md`
+
+User-reported UX issues bundled for efficient implementation:
+
+- [ ] **Task 12.1** — German Error Messages on Auth Pages
+- [ ] **Task 12.2** — Password Visibility Toggle
+- [ ] **Task 12.3** — Create Category in Add Tab
+- [ ] **Task 12.4** — Landing Page After Task End
+- [ ] **Task 12.5** — iPhone Layout Fix for Version Buttons
+
+---
+
+## Phase 13: Category Editing & Colors
+
+**Target:** 7 tasks, ~4-5 hours  
+**Status:** Not started (0/7 tasks)  
+**Spec:** `Docs/Specs/P13-category-editing.md`  
+**Tasks:** `Docs/Tasks/P13-category-editing.md`
+
+Enable editing existing categories and add color property:
+
+- [ ] **Task 13.1** — Add Color Field to Category Data Model
+- [ ] **Task 13.2** — Create EditCategoryModal Component
+- [ ] **Task 13.3** — Add Color Picker to Edit Modal
+- [ ] **Task 13.4** — Wire Edit Modal to Settings Page
+- [ ] **Task 13.5** — Display Category Color in Task List
+- [ ] **Task 13.6** — Add Color to AddCategoryModal
+- [ ] **Task 13.7** — Sync Color to Cloud Backup
+
+---
+
+## Phase 14: Cloud Sync Improvements
+
+**Target:** 7 tasks, ~4-5 hours  
+**Status:** Not started (0/7 tasks)  
+**Spec:** `Docs/Specs/P14-sync-improvements.md`  
+**Tasks:** `Docs/Tasks/P14-sync-improvements.md`
+
+Fix new device sync issues and improve conflict dialog:
+
+- [ ] **Task 14.1** — Detect Fresh Install State
+- [ ] **Task 14.2** — Auto-Download Cloud Backup on Fresh Login
+- [ ] **Task 14.3** — Gather Conflict Context Data
+- [ ] **Task 14.4** — Create Enhanced Conflict Dialog
+- [ ] **Task 14.5** — Implement Recommendation Logic
+- [ ] **Task 14.6** — Wire Conflict Dialog to Sync Flow
+- [ ] **Task 14.7** — Update Sync Indicator After Restore
+
+---
+
 **END OF PROGRESS TRACKER**
