@@ -5,6 +5,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import { translateAuthError } from '$lib/utils/authErrors';
 
 	let email = $state('');
 	let password = $state('');
@@ -12,6 +13,8 @@
 	let error = $state('');
 	let success = $state('');
 	let loading = $state(false);
+	let showPassword = $state(false);
+	let showConfirmPassword = $state(false);
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
@@ -57,13 +60,10 @@
 			goto(resolve('/day'));
 		} catch (e) {
 			console.error('[Signup] Failed:', e);
-			const message =
-				e instanceof Error
-					? e.message
-					: 'Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.';
+			const message = translateAuthError(e);
 
 			// Check if this is actually a success message (email confirmation required)
-			if (message.includes('erfolgreich')) {
+			if (message.includes('erfolgreich') || message.includes('bestätigen')) {
 				success = message;
 			} else {
 				error = message;
@@ -95,27 +95,47 @@
 
 			<div class="field">
 				<label for="password">Passwort</label>
-				<input
-					type="password"
-					id="password"
-					name="password"
-					autocomplete="new-password"
-					bind:value={password}
-					disabled={loading}
-				/>
+				<div class="password-input">
+					<input
+						type={showPassword ? 'text' : 'password'}
+						id="password"
+						name="password"
+						autocomplete="new-password"
+						bind:value={password}
+						disabled={loading}
+					/>
+					<button
+						type="button"
+						class="toggle-password"
+						onclick={() => (showPassword = !showPassword)}
+						aria-label={showPassword ? 'Passwort verbergen' : 'Passwort anzeigen'}
+					>
+						{showPassword ? '●' : '○'}
+					</button>
+				</div>
 				<span class="hint">Mindestens 8 Zeichen</span>
 			</div>
 
 			<div class="field">
 				<label for="confirmPassword">Passwort bestätigen</label>
-				<input
-					type="password"
-					id="confirmPassword"
-					name="confirmPassword"
-					autocomplete="new-password"
-					bind:value={confirmPassword}
-					disabled={loading}
-				/>
+				<div class="password-input">
+					<input
+						type={showConfirmPassword ? 'text' : 'password'}
+						id="confirmPassword"
+						name="confirmPassword"
+						autocomplete="new-password"
+						bind:value={confirmPassword}
+						disabled={loading}
+					/>
+					<button
+						type="button"
+						class="toggle-password"
+						onclick={() => (showConfirmPassword = !showConfirmPassword)}
+						aria-label={showConfirmPassword ? 'Passwort verbergen' : 'Passwort anzeigen'}
+					>
+						{showConfirmPassword ? '●' : '○'}
+					</button>
+				</div>
 			</div>
 
 			{#if success}
@@ -208,6 +228,39 @@
 	}
 
 	.field input:disabled {
+		background: var(--surface-hover);
+	}
+
+	.password-input {
+		position: relative;
+		display: flex;
+	}
+
+	.password-input input {
+		flex: 1;
+		padding-right: 2.5rem;
+	}
+
+	.toggle-password {
+		position: absolute;
+		right: 0.5rem;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 32px;
+		height: 32px;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		color: var(--muted);
+		font-size: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--r-btn);
+	}
+
+	.toggle-password:hover {
+		color: var(--text);
 		background: var(--surface-hover);
 	}
 
