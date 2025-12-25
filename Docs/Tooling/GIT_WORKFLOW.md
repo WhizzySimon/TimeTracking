@@ -73,7 +73,7 @@ When running multiple Cascade chat sessions simultaneously:
 2. **Each chat MUST use its own watcher instance**
    - Chat A uses `scripts/watcher.ps1 -Instance A` → writes to `scripts/watcher/A/command.txt`
    - Chat B uses `scripts/watcher.ps1 -Instance B` → writes to `scripts/watcher/B/command.txt`
-   - See `Docs/Tooling/CASCADE_WATCHER.md` for details
+   - See [CASCADE_WATCHER.md](CASCADE_WATCHER.md) for details
 
 3. **Do not edit the same files in parallel**
    - This causes merge conflicts

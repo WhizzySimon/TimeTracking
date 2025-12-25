@@ -41,9 +41,11 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 
 ### Cascade tooling
 
-- Docs/Guidelines/CASCADE_WATCHER.md  
+- Docs/Tooling/BOOTSTRAP.md  
+  Purpose: **Single entry point** for all tooling docs. Quick start commands and links.
+- Docs/Tooling/CASCADE_WATCHER.md  
   Purpose: Multi-instance watcher system for command execution.
-- Docs/Guidelines/GIT_WORKFLOW.md  
+- Docs/Tooling/GIT_WORKFLOW.md  
   Purpose: Git workflow, branch naming, PR process, script locations.
 
 ### Setup checklist
