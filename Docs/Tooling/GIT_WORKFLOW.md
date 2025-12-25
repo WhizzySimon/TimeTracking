@@ -60,6 +60,24 @@ Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
 - `feat/P10-monetising` (not just `feat/monetising`)
 - `refactor/P08-code-quality` (not just `refactor/cleanup`)
 
+## Cascade Session Start (CRITICAL)
+
+**Every new chat session = new branch.** At the start of each chat:
+
+1. **Create branch directly from current position:**
+   ```
+   git checkout -b feat/<task-name>
+   ```
+
+2. **Do NOT go to main first.** See "Anti-Pattern 1" below for why.
+
+3. **Exception:** Within the same chat, you may stay on the current branch and make multiple related PRs.
+
+This rule exists because:
+- Going to main requires stashing uncommitted changes from other chats
+- Stashing causes data loss (see Anti-Pattern 1)
+- Creating directly from current position preserves all uncommitted work
+
 ## Parallel Chat Sessions (CRITICAL)
 
 When running multiple Cascade chat sessions simultaneously:

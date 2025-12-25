@@ -15,25 +15,11 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 ## Cascade Workflow
 
-### Step 0: Watcher Instance (CRITICAL)
+### Step 0: Watcher + Branch Setup (CRITICAL)
 
-If the user specified an instance (e.g., `/new-feature A`), use that instance.
-Otherwise, ask: **"Which watcher instance are you using? (A or B)"**
-
-Remember the instance for this entire session:
-
-- Instance A: `scripts/watcher/A/command.txt`, `scripts/watcher/A/status.txt`, `scripts/watcher/A/output.txt`
-- Instance B: `scripts/watcher/B/command.txt`, `scripts/watcher/B/status.txt`, `scripts/watcher/B/output.txt`
-
-### Step 1: Branch Decision (CRITICAL)
-
-**New chat session = new branch.** Create a branch directly from current position:
-
-```
-git checkout -b feat/<feature-name>
-```
-
-**Do NOT go to main first.** See `Docs/Tooling/GIT_WORKFLOW.md` section "Anti-Pattern 1" for why.
+Read and follow:
+- `Docs/Tooling/CASCADE_WATCHER.md` section "Cascade Session Start" (watcher instance selection)
+- `Docs/Tooling/GIT_WORKFLOW.md` section "Cascade Session Start" (branch creation)
 
 ### Phase 0: Setup
 

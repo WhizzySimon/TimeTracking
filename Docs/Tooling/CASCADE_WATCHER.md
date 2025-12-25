@@ -63,11 +63,21 @@ scripts/
         └── output.txt
 ```
 
+## Cascade Session Start (CRITICAL)
+
+At the start of every chat session, Cascade MUST determine which watcher instance to use:
+
+1. **If user specified instance** (e.g., `/new-task A`): Use that instance
+2. **If not specified**: Ask user: "Which watcher instance are you using? (A or B)"
+3. **Remember the instance** for the entire session
+
+This prevents cross-chat command conflicts.
+
 ## Important Notes
 
 - **Temp files** are written to `$env:TEMP`, not the scripts folder (avoids git conflicts)
 - **Instance files** are gitignored (see `.gitignore`)
-- **Each chat** must tell Cascade which instance to use at the start of the session
+- **One instance per chat** - never share instances between parallel chats
 
 ## Troubleshooting
 

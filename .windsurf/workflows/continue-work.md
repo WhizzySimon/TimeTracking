@@ -4,25 +4,7 @@ description: Continue work on TimeTracker - reads all context and finds next tas
 
 ## User Setup (before starting)
 
-Open three integrated terminals and run:
-
-**Terminal 1 - Dev Server:**
-
-```
-npm run dev
-```
-
-**Terminal 2 - Cascade Watcher (Instance A):**
-
-```
-powershell -File scripts/watcher.ps1 -Instance A
-```
-
-**Terminal 3 - Cascade Watcher (Instance B) - for parallel chat sessions:**
-
-```
-powershell -File scripts/watcher.ps1 -Instance B
-```
+See `Docs/Tooling/CASCADE_WATCHER.md` for terminal setup and `README.md` for quick start.
 
 Then tell Cascade "done" to begin.
 
@@ -30,15 +12,11 @@ Then tell Cascade "done" to begin.
 
 ## Cascade Workflow
 
-### Step 0: Watcher Instance (CRITICAL)
+### Step 0: Watcher + Branch Setup (CRITICAL)
 
-If the user specified an instance (e.g., `/continue-work A`), use that instance.
-Otherwise, ask: **"Which watcher instance are you using? (A or B)"**
-
-Remember the instance for this entire session:
-
-- Instance A: `scripts/watcher/A/command.txt`, `scripts/watcher/A/status.txt`, `scripts/watcher/A/output.txt`
-- Instance B: `scripts/watcher/B/command.txt`, `scripts/watcher/B/status.txt`, `scripts/watcher/B/output.txt`
+Read and follow:
+- `Docs/Tooling/CASCADE_WATCHER.md` section "Cascade Session Start" (watcher instance selection)
+- `Docs/Tooling/GIT_WORKFLOW.md` section "Cascade Session Start" (branch creation)
 
 ### Step 1: Setup
 
@@ -47,19 +25,6 @@ Run these workflows first:
 1. /rules-read-all
 2. /read-governance
 3. /read-core-docs-and-code
-4. **Check current branch** - Use watcher to run `git branch --show-current`
-
-### Step 2: Branch Decision (CRITICAL)
-
-**New chat session = new branch.** Create a branch directly from current position:
-
-```
-git checkout -b feat/<task-name>
-```
-
-**Do NOT go to main first.** See `Docs/Tooling/GIT_WORKFLOW.md` section "Anti-Pattern 1" for why.
-
-**Exception:** If continuing related work in the same chat, you may stay on the current branch and make multiple PRs.
 
 Then:
 
