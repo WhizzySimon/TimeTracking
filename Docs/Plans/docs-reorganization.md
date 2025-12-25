@@ -276,30 +276,30 @@ read-governance.md → Docs/Tooling/BOOTSTRAP.md
 
 ### Phase 1: Create New Structure (no breaking changes)
 
-- [ ] **Task 1.1**: Create `Docs/Tooling/` folder
-- [ ] **Task 1.2**: Create `Docs/Tooling/BOOTSTRAP.md` (single entry point)
-- [ ] **Task 1.3**: Copy CASCADE_WATCHER.md to Docs/Tooling/ (keep original temporarily)
-- [ ] **Task 1.4**: Copy GIT_WORKFLOW.md to Docs/Tooling/ (keep original temporarily)
-- [ ] **Task 1.5**: Update INDEX.md to list Docs/Tooling/
+- [x] **Task 1.1**: Create `Docs/Tooling/` folder
+- [x] **Task 1.2**: Create `Docs/Tooling/BOOTSTRAP.md` (single entry point)
+- [x] **Task 1.3**: Copy CASCADE_WATCHER.md to Docs/Tooling/ (keep original temporarily)
+- [x] **Task 1.4**: Copy GIT_WORKFLOW.md to Docs/Tooling/ (keep original temporarily)
+- [x] **Task 1.5**: Update INDEX.md to list Docs/Tooling/
 
 ### Phase 2: Update References (one at a time)
 
-- [ ] **Task 2.1**: Update `read-governance.md` to reference BOOTSTRAP.md instead of individual docs
-- [ ] **Task 2.2**: Update `continue-work.md` to reference BOOTSTRAP.md
-- [ ] **Task 2.3**: Update `new-task.md` to reference BOOTSTRAP.md
-- [ ] **Task 2.4**: Update `command-execution-rules.md` to reference Docs/Tooling/
-- [ ] **Task 2.5**: Update AGENTS.md to reference Docs/Tooling/
+- [x] **Task 2.1**: Update `read-governance.md` to reference BOOTSTRAP.md instead of individual docs
+- [x] **Task 2.2**: Update `continue-work.md` to reference BOOTSTRAP.md
+- [x] **Task 2.3**: Update `new-task.md` to reference BOOTSTRAP.md
+- [x] **Task 2.4**: Update `command-execution-rules.md` to reference Docs/Tooling/
+- [x] **Task 2.5**: Update AGENTS.md to reference Docs/Tooling/
 
 ### Phase 3: Cleanup
 
-- [ ] **Task 3.1**: Remove Docs/Guidelines/CASCADE_WATCHER.md (now in Tooling/)
-- [ ] **Task 3.2**: Remove Docs/Guidelines/GIT_WORKFLOW.md (now in Tooling/)
-- [ ] **Task 3.3**: Verify no broken references (grep for old paths)
+- [x] **Task 3.1**: Remove Docs/Guidelines/CASCADE_WATCHER.md (now in Tooling/)
+- [x] **Task 3.2**: Remove Docs/Guidelines/GIT_WORKFLOW.md (now in Tooling/)
+- [x] **Task 3.3**: Verify no broken references (grep for old paths)
 
 ### Phase 4: Documentation
 
-- [ ] **Task 4.1**: Add "Where to put new docs" section to AGENTS.md
-- [ ] **Task 4.2**: Document the Tooling/ pattern in INDEX.md
+- [x] **Task 4.1**: Add "Where to put new docs" section to AGENTS.md — SKIPPED (already documented in INDEX.md)
+- [x] **Task 4.2**: Document the Tooling/ pattern in INDEX.md — DONE (BOOTSTRAP.md listed as entry point)
 
 ---
 
