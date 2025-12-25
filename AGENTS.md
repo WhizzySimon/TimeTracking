@@ -218,3 +218,62 @@ When responding in chat, always output in this structure:
 3. Implementation notes (only what matters)
 4. Verification you ran (exact commands) + results
 5. Any spec/plan/tasks updates required
+
+## Self-Improvement Protocol (mandatory)
+
+When the user expresses frustration, reports a problem, or indicates something should be different:
+
+### Step 1 — STOP and acknowledge
+
+- Do not defend, explain, or justify the mistake
+- Briefly confirm understanding of the issue (1 sentence max)
+
+### Step 2 — Analyze root cause
+
+- Ask: Why did I do this? What rule/heuristic led to this behavior?
+- Ask: Was there a gap in documentation, or did I ignore existing rules?
+- State the root cause in 1-2 sentences
+
+### Step 3 — Research better approaches
+
+- Search project docs for existing patterns that should have applied
+- Search web for best practices if the issue is general (tooling, workflows, coding patterns)
+- Find 1-2 concrete examples of how to do it right
+
+### Step 4 — Fix now
+
+- If the issue is fixable in the current context, fix it immediately
+- If code was affected, apply the correct pattern
+
+### Step 5 — Prevent recurrence
+
+Determine where the fix belongs and create/update the appropriate doc:
+
+| Issue Type            | Document Location            |
+| --------------------- | ---------------------------- |
+| Behavior pattern      | `.windsurf/rules/<topic>.md` |
+| Process rule          | `AGENTS.md` (this file)      |
+| Tooling/command issue | `Docs/Tooling/<topic>.md`    |
+| Project-specific      | Relevant spec/guideline      |
+
+Before creating a new rule, check if an existing doc already covers the topic — update it instead of duplicating.
+
+### Step 6 — Report
+
+Tell the user:
+
+- What went wrong (1 sentence)
+- Root cause (1 sentence)
+- What you fixed now
+- Where you documented the prevention (exact file + section)
+- Request approval before committing doc changes
+
+### Trigger recognition
+
+This protocol activates when user language implies correction needed:
+
+- "don't do this", "stop doing", "I told you", "why did you"
+- "this is wrong", "you keep doing", "this is annoying"
+- Or any clear indication that current behavior is unacceptable
+
+No explicit trigger phrase required — recognize the intent.
