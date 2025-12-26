@@ -43,6 +43,7 @@ Run these workflows first:
 3. /read-core-docs-and-code
 4. **Check current branch** - Use watcher to run `git branch --show-current`
 5. /check-orphaned-branches (see `.windsurf/workflows/helpers/check-orphaned-branches.md` — use autonomous mode)
+6. /check-pending-prs (see `.windsurf/workflows/helpers/check-pending-prs.md` — fix automatically if failed)
 
 ### Step 2: Branch Decision
 

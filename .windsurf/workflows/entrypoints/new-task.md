@@ -10,6 +10,7 @@ Run these steps:
 2. /read-governance
 3. **Check current branch** - Use watcher to run `git branch --show-current`
 4. /check-orphaned-branches (see `.windsurf/workflows/helpers/check-orphaned-branches.md`)
+5. /check-pending-prs (see `.windsurf/workflows/helpers/check-pending-prs.md`)
 
 Then:
 
