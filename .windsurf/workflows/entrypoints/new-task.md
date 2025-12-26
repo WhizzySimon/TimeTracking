@@ -7,8 +7,8 @@ description: Start a new task - reads rules and governance docs, ready for any i
 Run these steps:
 
 1. /rules-read-all
-2. /read-governance
-3. **Check current branch** - Use watcher to run `git branch --show-current` (see Docs/Tooling/CASCADE_WATCHER.md)
+2. /read-governance (includes health checks for orphaned branches + pending PRs)
+3. **Check current branch** - Use watcher to run `git branch --show-current`
 
 Then:
 
