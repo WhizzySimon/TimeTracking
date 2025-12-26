@@ -84,19 +84,34 @@ Write-Host "OK: Branch pushed" -ForegroundColor Green
 Write-Host ""
 Write-Host "Checking for existing PR..." -ForegroundColor Cyan
 
-$prUrl = gh pr view --json url --jq '.url' 2>$null
-$prExists = $LASTEXITCODE -eq 0 -and $prUrl
+# Use try-catch because gh pr view writes to stderr when no PR exists,
+# and $ErrorActionPreference = "Stop" would terminate the script
+$prUrl = $null
+$prExists = $false
+try {
+    $prUrl = gh pr view --json url --jq '.url' 2>&1
+    if ($LASTEXITCODE -eq 0 -and $prUrl -and $prUrl -notmatch "no pull requests") {
+        $prExists = $true
+    }
+} catch {
+    $prExists = $false
+}
 
 if ($prExists) {
     Write-Host "OK: Reusing existing PR: $prUrl" -ForegroundColor Green
 } else {
     Write-Host "Creating new PR..." -ForegroundColor Cyan
-    gh pr create --fill
+    gh pr create --fill --base main
     if ($LASTEXITCODE -ne 0) {
         Write-Host "ERROR: Failed to create PR" -ForegroundColor Red
         exit 1
     }
-    $prUrl = gh pr view --json url --jq '.url' 2>$null
+    # Get the PR URL after creation
+    try {
+        $prUrl = gh pr view --json url --jq '.url' 2>&1
+    } catch {
+        $prUrl = "(URL not available)"
+    }
     Write-Host "OK: PR created: $prUrl" -ForegroundColor Green
 }
 
