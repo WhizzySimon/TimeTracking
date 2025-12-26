@@ -45,6 +45,9 @@ Tell Cascade which watcher instance to use (A or B). Each chat session should us
 | Script                            | Purpose                                               |
 | --------------------------------- | ----------------------------------------------------- |
 | `scripts/watcher.ps1 -Instance X` | Multi-instance watcher for Cascade commands (A or B)  |
+| `scripts/git/pr.ps1`              | Push + create PR + enable auto-merge                  |
+| `scripts/git/cleanup-branches.ps1`| Delete local branches after their PRs merged          |
+| `scripts/git/health-check.ps1`    | Check for uncommitted work, stale branches            |
 | `scripts/build/verify-code.ps1`   | Runs format, check, lint (called by `npm run verify`) |
 
 ## Commands
