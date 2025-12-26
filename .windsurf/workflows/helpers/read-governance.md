@@ -10,6 +10,7 @@ Read:
 - .windsurf/cascade.md
 - Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
 - Docs/Tooling/BOOTSTRAP.md (tooling entry point — includes watcher + git workflow)
+- Docs/Devlog/LEARNINGS.md (proven preferences — read at session start)
 
 ## Health Checks (run after reading docs)
 
