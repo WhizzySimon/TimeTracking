@@ -26,7 +26,7 @@
 | Phase | Name                           | Status      |
 | ----- | ------------------------------ | ----------- |
 | D1    | Self-documenting Dev Framework | COMPLETE    |
-| D2    | Self-learning Dev Framework    | Not started |
+| D2    | Self-learning Dev Framework    | COMPLETE    |
 | D3    | Watcher Framework Improvement  | Not started |
 
 ### Priority 2: App Improvements (after Dev Framework)
@@ -132,11 +132,17 @@ Phase 4:
 
 ## Phase D2: Self-learning Dev Framework
 
-**Target:** TBD  
-**Status:** Not started  
-**Spec:** `Docs/Specs/self-learning-dev-framework.md` (to be created)
+**Target:** 4 files  
+**Status:** COMPLETE  
+**Commits:** f861f6d, b3e31e7
 
-_Placeholder — awaiting feature description_
+### Deliverables
+
+- [x] `Docs/Devlog/LEARNINGS.md` — Distillate (proven preferences, max 30 bullets)
+- [x] `Docs/Devlog/LEARNINGS-INBOX.md` — Inbox (raw feedback capture)
+- [x] `AGENTS.md` — Added Self-Learning System section
+- [x] `Docs/INDEX.md` — Added learnings files to Development history
+- [x] `.windsurf/workflows/helpers/read-governance.md` — Added LEARNINGS.md to session-start reading
 
 ---
 
