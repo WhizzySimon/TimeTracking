@@ -12,6 +12,7 @@ description: Start a new task - reads rules and governance docs, ready for any i
 ### Step 2: Ensure on dev branch
 
 Run via watcher:
+
 ```
 git checkout dev
 git pull origin dev
@@ -47,6 +48,7 @@ Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) 
 ### 3. Git Commit & Push (REQUIRED - NEVER SKIP THIS)
 
 See AGENTS.md "Git workflow" section:
+
 ```
 git add -A
 git commit -m "feat: description"

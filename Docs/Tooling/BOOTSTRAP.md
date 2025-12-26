@@ -63,10 +63,10 @@ powershell -File scripts/watcher.ps1 -Instance B
 
 ### Quick Reference
 
-| Action  | Command                                         |
-| ------- | ----------------------------------------------- |
-| Commit  | `git add -A; git commit -m "feat: description"` |
-| Push    | `git push`                                      |
+| Action | Command                                         |
+| ------ | ----------------------------------------------- |
+| Commit | `git add -A; git commit -m "feat: description"` |
+| Push   | `git push`                                      |
 
 ---
 
@@ -107,4 +107,3 @@ scripts/
 ### Edit tool fails on command.txt
 
 The watcher may have already consumed the command. Wait a moment and try again.
-

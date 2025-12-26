@@ -48,7 +48,16 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 - Docs/Tooling/CASCADE_WATCHER.md  
   Purpose: Multi-instance watcher system for command execution.
 - Docs/Tooling/GIT_WORKFLOW.md  
-  Purpose: Git workflow, branch naming, PR process, script locations.
+  Purpose: Git workflow, simple dev/main model, no PRs.
+
+### Development history
+
+- Docs/Devlog/CHANGELOG.md  
+  Purpose: **Everything log** — one line per commit/session, quick scan of all changes.
+- Docs/Devlog/DECISIONS.md  
+  Purpose: **Decision log** — significant design/architecture/policy decisions (ADR-light).
+- Docs/Devlog/INDEX.md  
+  Purpose: Index of detailed session devlogs.
 
 ### Setup checklist
 

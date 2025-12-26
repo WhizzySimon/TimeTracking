@@ -31,6 +31,7 @@ Then tell Cascade "done" to begin.
 ### Step 2: Ensure on dev branch
 
 Run via watcher:
+
 ```
 git checkout dev
 git pull origin dev
@@ -67,6 +68,7 @@ Use MCP Playwright browser to test the implemented functionality.
 ### 3. Git Commit & Push (REQUIRED)
 
 See AGENTS.md "Git workflow" section:
+
 ```
 git add -A
 git commit -m "feat: description"

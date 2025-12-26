@@ -49,12 +49,12 @@ git checkout dev
 
 ## Quick Reference
 
-| Action        | Command                                         |
-| ------------- | ----------------------------------------------- |
-| Start work    | `git checkout dev && git pull origin dev`       |
-| Commit        | `git add -A; git commit -m "feat: description"` |
-| Push          | `git push`                                      |
-| Release       | `git checkout main && git merge dev && git push origin main` |
+| Action     | Command                                                      |
+| ---------- | ------------------------------------------------------------ |
+| Start work | `git checkout dev && git pull origin dev`                    |
+| Commit     | `git add -A; git commit -m "feat: description"`              |
+| Push       | `git push`                                                   |
+| Release    | `git checkout main && git merge dev && git push origin main` |
 
 ## Parallel Chat Sessions
 
@@ -72,6 +72,7 @@ When running multiple Cascade chat sessions simultaneously:
 **Never use `git stash`** in this project. It has caused data loss multiple times.
 
 Instead of stashing:
+
 1. Commit current work: `git add -A; git commit -m "WIP: description"`
 2. Later: `git reset HEAD~1` to undo the WIP commit if needed
 

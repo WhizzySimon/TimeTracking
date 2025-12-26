@@ -6,6 +6,7 @@
 ## Why This Was Built
 
 The multi-branch CI workflow was implemented to:
+
 1. Protect the `main` branch from direct pushes
 2. Require all changes to go through Pull Requests
 3. Run automated tests (CI) before merging
@@ -15,6 +16,7 @@ The multi-branch CI workflow was implemented to:
 ## Why It Was Removed
 
 For a single developer, this workflow caused more problems than it solved:
+
 1. **Work loss risk:** Switching branches without committing/pushing caused work to be "forgotten"
 2. **Complexity:** Many scripts, rules, and checks to maintain
 3. **No real benefit:** The same tests run locally before push
@@ -24,6 +26,7 @@ For a single developer, this workflow caused more problems than it solved:
 ## The New Workflow
 
 Simple dev/main model:
+
 - `dev` branch: All work happens here, push directly
 - `main` branch: Merge from dev when ready for release
 - No PRs, no branch protection, no auto-merge complexity
@@ -46,7 +49,7 @@ Purpose: Push branch, create PR, enable auto-merge with squash strategy.
     2. Pushes current branch to origin
     3. Creates PR if none exists, reuses existing PR otherwise
     4. Enables auto-merge with squash strategy
-    
+
     The PR will automatically merge when CI passes.
 .PARAMETER AllowDirty
     Allow running with uncommitted changes (default: fail if dirty).
@@ -211,6 +214,7 @@ $prJson = gh pr list --head $currentBranch --json number,state,mergeable
 Purpose: Interactive commit workflow for humans - handles branching, staging, committing, PR creation.
 
 Features:
+
 - `-Quick` flag for auto-generated branch names
 - Creates branch if on main
 - Stages all changes
@@ -222,6 +226,7 @@ Features:
 Purpose: Create a new branch from main for manual work.
 
 Features:
+
 - `-Quick` flag for timestamp-based branch names (chore/quick-20251226-1430)
 - `-Name` parameter for custom names
 - Auto-prefixes with chore/ if no prefix specified
@@ -258,29 +263,29 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Detect Node version
         # Reads .nvmrc if exists
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Cache Playwright browsers
         uses: actions/cache@v4
-      
+
       - name: Install Playwright browsers
         if: cache miss
         run: npx playwright install --with-deps
-      
+
       - name: Verify (format, check, lint)
         run: npm run verify
-      
+
       - name: Run tests
         run: npm run test --if-present
-      
+
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
 ```
@@ -313,6 +318,7 @@ If you ever want to restore this workflow:
 4. Re-add the documentation to AGENTS.md and workflows
 
 The key GitHub settings were:
+
 - Branch protection rule on `main`
 - Require status checks to pass (the `build` job)
 - Require PR before merging

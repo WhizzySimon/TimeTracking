@@ -130,6 +130,7 @@ Definition of done for a task:
 ## Git workflow (simple)
 
 We use a simple dev/main model:
+
 - **`dev` branch:** All work happens here. Push directly.
 - **`main` branch:** Stable releases. Merge from dev when ready.
 
@@ -183,14 +184,17 @@ When reporting completion:
 
 **Before ending any session, Cascade MUST verify:**
 
-1. **No uncommitted changes:** Run `git status` — working tree must be clean
-2. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
+1. **Changelog updated:** `Docs/Devlog/CHANGELOG.md` has entry for this session's work
+2. **No uncommitted changes:** Run `git status` — working tree must be clean
+3. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
 
 **If any of these fail, DO NOT end the session.** Complete the cycle:
+
+- Missing changelog → Add one-line entry to `Docs/Devlog/CHANGELOG.md`
 - Uncommitted → `git add -A; git commit -m "..."`
 - Unpushed → `git push`
 
-**Why this matters:** Unpushed work is lost if the local environment changes.
+**Why this matters:** Unpushed work is lost if the local environment changes. Missing changelog entries make history unrecoverable.
 
 ## Communication style for Cascade output
 

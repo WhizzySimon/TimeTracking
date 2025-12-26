@@ -196,11 +196,15 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 │     └─ Verification-Ergebnisse eintragen                            │
 │     └─ Deviations notieren (falls vorhanden)                        │
 │                                                                     │
-│  6. GIT COMMIT                                                      │
+│  6. CHANGELOG UPDATEN                                               │
+│     └─ Eine Zeile in Docs/Devlog/CHANGELOG.md hinzufügen            │
+│     └─ Format: | Date | Type | Summary | Ref |                      │
+│                                                                     │
+│  7. GIT COMMIT                                                      │
 │     └─ git add -A; git commit -m "feat: description"                │
 │     └─ Commit-Message im Conventional Commits Format                │
 │                                                                     │
-│  7. NÄCHSTER TASK                                                   │
+│  8. NÄCHSTER TASK                                                   │
 │     └─ Weiter mit nächstem Task                                     │
 │     └─ Bei Phase-Ende: User informieren                             │
 └─────────────────────────────────────────────────────────────────────┘
@@ -210,7 +214,8 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 
 1. **Erst** alle Tests bestehen lassen
 2. **Dann** Progress Tracker updaten
-3. **Zuletzt** Git Commit (damit Progress Tracker im Commit ist)
+3. **Dann** Changelog updaten (eine Zeile in `Docs/Devlog/CHANGELOG.md`)
+4. **Zuletzt** Git Commit (damit alles im Commit ist)
 
 ### Commit-Message Format
 
