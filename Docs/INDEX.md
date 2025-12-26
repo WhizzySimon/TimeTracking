@@ -84,6 +84,17 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 - Docs/Tasks/P08-code-quality.md  
   Purpose: Task breakdown for code quality enforcement.
 
+### Feature specs (A1 — Subscription Plans)
+
+- Docs/Specs/subscription-plans.md  
+  Purpose: Subscription tiers (Free/Pro/Premium), Import/Export, Cloud Backup gating.
+- Docs/Plans/subscription-plans.md  
+  Purpose: Architecture for subscription feature.
+- Docs/Tasks/subscription-plans.md  
+  Purpose: Task breakdown for subscription implementation.
+
+Note: Supersedes `Docs/Specs/P10-monetising.md` (DEPRECATED).
+
 ### Feature specs (P11 — AI Import)
 
 - Docs/Specs/ai-import.md  

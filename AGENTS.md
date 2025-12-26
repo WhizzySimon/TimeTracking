@@ -196,8 +196,14 @@ Cascade learns from maintainer feedback via a two-tier system:
 
 ### When to update
 
-- **Inbox:** After each change set if maintainer gave corrective feedback
+- **Inbox:** After each change set if maintainer gave feedback (positive OR corrective)
 - **Distillate:** Only when promotion criteria met (repeated 2+ times across sessions OR explicitly marked by maintainer)
+
+### What to capture
+
+- **Corrective feedback:** "Don't do X", "Always do Y instead", mistakes to avoid
+- **Positive feedback:** "Good job on X", "I like how you did Y" — reinforces good patterns
+- Both types help Cascade learn what works and what doesn't
 
 ### Distillate entry format
 
@@ -236,7 +242,7 @@ When a Distillate item is categorized as **Hard Rule**, the same commit should a
 
 **Before ending any session, Cascade MUST verify:**
 
-1. **Learnings captured:** Review session for corrective feedback → add to `Docs/Devlog/LEARNINGS-INBOX.md`
+1. **Learnings captured:** Review session for feedback (positive AND corrective) → add to `Docs/Devlog/LEARNINGS-INBOX.md`
 2. **Learnings promoted:** Check INBOX for items repeated 2+ times → promote to `Docs/Devlog/LEARNINGS.md`
 3. **Decisions captured:** If architecture/policy decision was made → add to `Docs/Devlog/DECISIONS.md`
 4. **Changelog updated:** `Docs/Devlog/CHANGELOG.md` has entry for this session's work

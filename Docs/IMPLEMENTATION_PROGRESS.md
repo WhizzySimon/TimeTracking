@@ -27,15 +27,16 @@
 | ----- | ------------------------------ | ----------- |
 | D1    | Self-documenting Dev Framework | COMPLETE    |
 | D2    | Self-learning Dev Framework    | COMPLETE    |
-| D3    | Watcher Framework Improvement  | Not started |
+| D3    | Watcher Framework Improvement  | COMPLETE    |
 
 ### Priority 2: App Improvements (after Dev Framework)
 
 | Phase | Name                                    | Status      |
 | ----- | --------------------------------------- | ----------- |
-| 10    | Free/Pro Feature-Flags + Paywall        | Blocked     |
+| 10    | Free/Pro Feature-Flags + Paywall        | DEPRECATED  |
 | 11    | AI Import (Premium Feature)             | Blocked     |
-| A1    | Features (Subscriptions, Multi-AG, etc) | Not started |
+| A1    | Subscription Plans                      | Not started |
+| A1b   | Multi-Arbeitgeber (Future)              | Not started |
 | A2    | UX (Kategorien, Navigation, Landing)    | Not started |
 | A3    | UI (Deutsch, Farbschemata, Icons)       | Not started |
 | A4    | Bugs (Auto Sync, Resume Button)         | Not started |
@@ -250,7 +251,33 @@ Phase 4:
 
 ---
 
-## Phase A1: Features (Subscriptions, Multi-AG, kleine Änderungen)
+## Phase A1: Subscription Plans
+
+**Target:** 13 tasks  
+**Status:** Not started  
+**Spec:** `Docs/Specs/subscription-plans.md`  
+**Plan:** `Docs/Plans/subscription-plans.md`  
+**Tasks:** `Docs/Tasks/subscription-plans.md`
+
+### Tasks
+
+- [ ] **Task A1.1** — ProPaywall Component
+- [ ] **Task A1.2** — Cloud Backup Plan Gating
+- [ ] **Task A1.3** — Export Module (JSON)
+- [ ] **Task A1.4** — Export Module (CSV)
+- [ ] **Task A1.5** — Export Module (PDF)
+- [ ] **Task A1.6** — ExportDialog Component
+- [ ] **Task A1.7** — Import Module (JSON)
+- [ ] **Task A1.8** — Import Module (Excel)
+- [ ] **Task A1.9** — Import Route (UI)
+- [ ] **Task A1.10** — Settings: Konto Section
+- [ ] **Task A1.11** — Settings: Daten Section
+- [ ] **Task A1.12** — PlanComparison Modal
+- [ ] **Task A1.13** — E2E Tests
+
+---
+
+## Phase A1b: Multi-Arbeitgeber (Future)
 
 **Target:** TBD  
 **Status:** Not started  
@@ -258,7 +285,6 @@ Phase 4:
 
 ### Planned Features
 
-- [ ] Subscription plans
 - [ ] Mehrere Arbeitgeber (AG)
 - [ ] Kleine Änderungen (TBD)
 
