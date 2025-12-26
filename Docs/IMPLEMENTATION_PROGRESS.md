@@ -1,9 +1,9 @@
 # TimeTracker v1 — Implementation Progress
 
-**Last Updated:** 2025-12-23  
-**Current Phase:** Phase 8 - Plus-Tab (Ein-Klick-Workflow)  
-**Tasks Completed:** 94 / 94  
-**Estimated Progress:** 100%
+**Last Updated:** 2025-12-26  
+**Current Phase:** Phase 10 - Free/Pro Feature-Flags + Paywall + User Profile  
+**Tasks Completed:** 10 / 11 (Phase 10)  
+**Estimated Progress:** 91%
 
 ---
 
@@ -1108,8 +1108,11 @@ After each phase, verify against specs:
   - Deviations: None
   - Notes: Added Konto section with email, plan display, Plan ändern button (shows "Kommt bald" placeholder), Abmelden button with confirmation dialog
 
-- [ ] **Task 10.10** — PlanSelector Modal
+- [x] **Task 10.10** — PlanSelector Modal
   - Files: `src/lib/components/PlanSelector.svelte`
+  - Verified: npm run verify ✅, Browser test ✅
+  - Deviations: Fixed existing implementation - replaced browser alert() with ConfirmDialog per UI design rules
+  - Notes: Modal shows Free vs Pro comparison, current plan highlighted, "Pro freischalten" shows ConfirmDialog with "Kommt bald" message
 
 ### Testing
 

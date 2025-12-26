@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import Modal from './Modal.svelte';
+	import ConfirmDialog from './ConfirmDialog.svelte';
 	import { userPlan } from '$lib/stores/user';
 	import type { UserPlan } from '$lib/types';
 
@@ -16,9 +17,10 @@
 	let { onclose }: Props = $props();
 
 	let currentPlan: UserPlan = $derived($userPlan);
+	let showUpgradeDialog = $state(false);
 
 	function handleUpgrade() {
-		alert('Kommt bald');
+		showUpgradeDialog = true;
 	}
 </script>
 
@@ -65,6 +67,16 @@
 		</div>
 	</div>
 </Modal>
+
+{#if showUpgradeDialog}
+	<ConfirmDialog
+		type="alert"
+		title="Pro-Version"
+		message="Die Pro-Version kommt bald! Aktuell kannst du alle Funktionen kostenlos testen."
+		confirmLabel="OK"
+		onconfirm={() => (showUpgradeDialog = false)}
+	/>
+{/if}
 
 <style>
 	.plan-selector {
