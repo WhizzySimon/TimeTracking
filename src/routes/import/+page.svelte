@@ -10,8 +10,9 @@
 	import { onMount } from 'svelte';
 	import Paywall from '$lib/components/Paywall.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+	import ImportUpload from '$lib/components/import/ImportUpload.svelte';
 	import { isPremium } from '$lib/stores/user';
-	import type { TimeEntryCandidate } from '$lib/import/types';
+	import type { TimeEntryCandidate, ImportSource } from '$lib/import/types';
 
 	type ImportStep = 'upload' | 'processing' | 'review' | 'commit' | 'report';
 
@@ -19,6 +20,7 @@
 	let loading = $state(true);
 	let showUpgradeDialog = $state(false);
 
+	let sources: ImportSource[] = $state([]);
 	let candidates: TimeEntryCandidate[] = $state([]);
 	let processingProgress = $state(0);
 	let processingFile = $state('');
@@ -27,7 +29,12 @@
 		showUpgradeDialog = true;
 	}
 
+	function handleSourcesChange(newSources: ImportSource[]) {
+		sources = newSources;
+	}
+
 	function handleStartProcessing() {
+		if (sources.length === 0) return;
 		currentStep = 'processing';
 		processingProgress = 0;
 	}
@@ -43,6 +50,7 @@
 
 	function handleReset() {
 		currentStep = 'upload';
+		sources = [];
 		candidates = [];
 		processingProgress = 0;
 	}
@@ -78,14 +86,7 @@
 
 		{#if currentStep === 'upload'}
 			<section class="upload-section">
-				<div class="upload-zone">
-					<div class="upload-icon">📄</div>
-					<p>Dateien hierher ziehen oder klicken zum Auswählen</p>
-					<p class="upload-hint">CSV, Excel (.xlsx), JSON, Text oder Bilder</p>
-					<button class="btn-primary" onclick={() => handleStartProcessing()}>
-						Verarbeitung starten
-					</button>
-				</div>
+				<ImportUpload onfileschange={handleSourcesChange} onstart={handleStartProcessing} />
 			</section>
 		{:else if currentStep === 'processing'}
 			<section class="processing-section">
