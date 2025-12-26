@@ -5,7 +5,7 @@
  */
 
 const DB_NAME = 'timetracker';
-const DB_VERSION = 6;
+const DB_VERSION = 7;
 
 let dbInstance: IDBDatabase | null = null;
 
@@ -61,6 +61,20 @@ export async function openDB(): Promise<IDBDatabase> {
 			// Auth session store (technical-guideline-v1 section 5)
 			if (!db.objectStoreNames.contains('authSession')) {
 				db.createObjectStore('authSession', { keyPath: 'key' });
+			}
+
+			// Import batches store (ai-import.md Section 7)
+			if (!db.objectStoreNames.contains('importBatches')) {
+				const store = db.createObjectStore('importBatches', { keyPath: 'id' });
+				store.createIndex('userId', 'userId', { unique: false });
+				store.createIndex('status', 'status', { unique: false });
+				store.createIndex('createdAt', 'createdAt', { unique: false });
+			}
+
+			// Import presets store (ai-import.md Section 7)
+			if (!db.objectStoreNames.contains('importPresets')) {
+				const store = db.createObjectStore('importPresets', { keyPath: 'id' });
+				store.createIndex('name', 'name', { unique: true });
 			}
 		};
 
