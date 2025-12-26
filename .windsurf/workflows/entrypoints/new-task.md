@@ -7,10 +7,8 @@ description: Start a new task - reads rules and governance docs, ready for any i
 Run these steps:
 
 1. /rules-read-all
-2. /read-governance
+2. /read-governance (includes health checks for orphaned branches + pending PRs)
 3. **Check current branch** - Use watcher to run `git branch --show-current`
-4. /check-orphaned-branches (see `.windsurf/workflows/helpers/check-orphaned-branches.md`)
-5. /check-pending-prs (see `.windsurf/workflows/helpers/check-pending-prs.md`)
 
 Then:
 

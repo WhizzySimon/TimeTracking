@@ -18,10 +18,8 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 ### Phase 0: Setup
 
 1. /rules-read-all
-2. /read-governance
+2. /read-governance (includes health checks for orphaned branches + pending PRs)
 3. Read `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Workflow-Guide)
-4. /check-orphaned-branches (see `.windsurf/workflows/helpers/check-orphaned-branches.md`)
-5. /check-pending-prs (see `.windsurf/workflows/helpers/check-pending-prs.md`)
 
 ### Phase 1: SPEC erstellen
 
