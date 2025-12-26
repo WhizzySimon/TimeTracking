@@ -235,17 +235,19 @@ When a Distillate item is categorized as **Hard Rule**, the same commit should a
 
 **Before ending any session, Cascade MUST verify:**
 
-1. **Changelog updated:** `Docs/Devlog/CHANGELOG.md` has entry for this session's work
-2. **No uncommitted changes:** Run `git status` — working tree must be clean
-3. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
+1. **Learnings captured:** Review session for corrective feedback → add to `Docs/Devlog/LEARNINGS-INBOX.md`
+2. **Changelog updated:** `Docs/Devlog/CHANGELOG.md` has entry for this session's work
+3. **No uncommitted changes:** Run `git status` — working tree must be clean
+4. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
 
 **If any of these fail, DO NOT end the session.** Complete the cycle:
 
+- Feedback given → Add to `Docs/Devlog/LEARNINGS-INBOX.md` (date, context, feedback)
 - Missing changelog → Add one-line entry to `Docs/Devlog/CHANGELOG.md`
 - Uncommitted → `git add -A; git commit -m "..."`
 - Unpushed → `git push`
 
-**Why this matters:** Unpushed work is lost if the local environment changes. Missing changelog entries make history unrecoverable.
+**Why this matters:** Unpushed work is lost if the local environment changes. Missing changelog entries make history unrecoverable. Uncaptured learnings mean repeated mistakes.
 
 ## Communication style for Cascade output
 
