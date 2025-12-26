@@ -56,19 +56,17 @@ powershell -File scripts/watcher.ps1 -Instance B
 
 **Full documentation:** [GIT_WORKFLOW.md](GIT_WORKFLOW.md)
 
-### Key Rules
+### Simple dev/main Model
 
-- **Never push directly to `main`** — branch is protected
-- **Never merge via GitHub UI** — use `scripts/git/pr.ps1`
-- **Each chat uses its own branch** — e.g., `feat/P10-task-name`
+- **`dev` branch:** All work happens here. Push directly.
+- **`main` branch:** Stable releases. Merge from dev when ready.
 
 ### Quick Reference
 
-| Action               | Command                                         |
-| -------------------- | ----------------------------------------------- |
-| Create branch        | `git checkout -b feat/name`                     |
-| Commit               | `git add -A; git commit -m "feat: description"` |
-| **Full PR workflow** | `powershell -File scripts/git/pr.ps1`           |
+| Action  | Command                                         |
+| ------- | ----------------------------------------------- |
+| Commit  | `git add -A; git commit -m "feat: description"` |
+| Push    | `git push`                                      |
 
 ---
 
@@ -93,9 +91,6 @@ scripts/
 │   │   ├── status.txt
 │   │   └── output.txt
 │   └── B/                # Instance B files
-├── git/
-│   ├── pr.ps1            # Push + PR + auto-merge
-│   └── check-ci.ps1      # Check CI status
 └── build/
     └── verify-code.ps1   # Code verification
 ```
@@ -113,6 +108,3 @@ scripts/
 
 The watcher may have already consumed the command. Wait a moment and try again.
 
-### CI check stuck on "Expected"
-
-See [GIT_WORKFLOW.md](GIT_WORKFLOW.md) → Troubleshooting section.

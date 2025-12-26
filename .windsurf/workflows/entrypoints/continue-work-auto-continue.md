@@ -43,15 +43,12 @@ Run these workflows first:
 3. /read-core-docs-and-code
 4. **Check current branch** - Use watcher to run `git branch --show-current`
 
-### Step 2: Branch Decision
-
-**New chat session = new branch.** Create a branch directly from current position:
+### Step 2: Ensure on dev branch
 
 ```
-git checkout -b feat/<task-name>
+git checkout dev
+git pull origin dev
 ```
-
-**Do NOT go to main first.** See `Docs/Tooling/GIT_WORKFLOW.md` section "Anti-Pattern 1" for why.
 
 Then:
 
@@ -73,7 +70,7 @@ For each task:
 2. **Verify** - Run `npm run verify` via watcher, fix errors
 3. **Test UI** - Use MCP Playwright if applicable
 4. **Commit** - `git add -A` then `git commit -m "feat: description"`
-5. **Push** - `powershell -File scripts/git/pr.ps1`
+5. **Push** - `git push`
 6. **Update progress** - Mark task complete in `Docs/IMPLEMENTATION_PROGRESS.md`
 7. **Continue to next task** - Do NOT stop to ask if you should continue
 
