@@ -354,8 +354,10 @@ When making multiple edits to the same file:
 
 See [Docs/Tooling/CASCADE_WATCHER.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Tooling/CASCADE_WATCHER.md:0:0-0:0) for watcher file locations and usage.
 
-### PowerShell Syntax Rules
+### Command Chaining Syntax (cmd.exe)
 
-- **NEVER use `&&`** to chain commands - PowerShell doesn't support it
-- **ALWAYS use `;`** (semicolon) to chain commands
-- Example: `git add -A; git commit -m "message"` (NOT `git add -A && git commit -m "message"`)
+The watcher executes commands via **cmd.exe** (not PowerShell) for simpler output capture.
+
+- **Use `&&`** to chain commands (cmd.exe syntax)
+- **Do NOT use `;`** — cmd.exe doesn't understand it
+- Example: `git add -A && git commit -m "message"`

@@ -10,8 +10,8 @@ Proven preferences and patterns. Read at session start. **Max 30 bullets.**
 
 - **[Hard Rule]** Never use `git stash` — causes data loss. Use WIP commits instead.
   - Because: Multiple incidents of lost work. See GIT_WORKFLOW.md.
-- **[Hard Rule]** Use semicolon (`;`) not `&&` for PowerShell command chaining.
-  - Because: PowerShell does not support `&&`.
+- **[Hard Rule]** Use `&&` not `;` for watcher command chaining.
+  - Because: Watcher executes via cmd.exe, which uses `&&` (not PowerShell's `;`).
 
 ## Preferences
 

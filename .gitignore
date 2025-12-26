@@ -34,16 +34,9 @@ playwright-report/
 # Cascade automation output (do not commit)
 scripts/verify-code-output.txt
 
-# Cascade watcher instance files (multi-instance)
-scripts/watcher/*/command.txt
-scripts/watcher/*/output.txt
-scripts/watcher/*/status.txt
-
-# Legacy (can be deleted after PR #15 merges)
-scripts/cascade-command.txt
-scripts/cascade-output.txt
-scripts/cascade-status.txt
-scripts/verify-output.txt
-scripts/run-command.txt
-scripts/command-output.txt
-scripts/command-status.txt
+# Cascade watcher system (dynamic sessions)
+scripts/watcher/*/
+scripts/watcher/main.lock
+scripts/watcher/main-control.txt
+scripts/watcher/main-status.txt
+scripts/watcher/logs/

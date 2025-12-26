@@ -112,6 +112,27 @@ scripts/
 - **Logs** — each session has a dedicated log in `scripts/watcher/logs/`
 - **Max sessions** — 10 concurrent (configurable in script)
 
+## Why cmd.exe (not PowerShell)?
+
+The watcher script is PowerShell, but it executes commands via **cmd.exe**:
+
+```powershell
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $command ...
+```
+
+**Reasons:**
+
+- Simpler output capture with redirects
+- Consistent behavior with standard Windows commands
+- Avoids PowerShell encoding quirks
+
+**Consequence:** Use `&&` (not `;`) for command chaining:
+
+```
+git add -A && git commit -m "message"   # Correct (cmd.exe)
+git add -A; git commit -m "message"     # WRONG (PowerShell syntax)
+```
+
 ## Troubleshooting
 
 ### "Main Watcher already running" error
