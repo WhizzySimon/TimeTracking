@@ -132,8 +132,8 @@ export interface AuthSession {
 	createdAt: number;
 }
 
-/** User plan type for Free/Pro gating. Spec refs: P10-FR-001 */
-export type UserPlan = 'free' | 'pro';
+/** User plan type for feature gating. Spec refs: P10-FR-001, P11-FR-001 */
+export type UserPlan = 'free' | 'pro' | 'premium';
 
 /**
  * User profile from Supabase profiles table.

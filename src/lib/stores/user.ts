@@ -15,8 +15,11 @@ export const userPlan = derived(userProfile, ($profile) => {
 	return $profile?.plan ?? 'free';
 });
 
-/** Derived store: true if user has Pro plan */
-export const isPro = derived(userPlan, ($plan) => $plan === 'pro');
+/** Derived store: true if user has Pro plan or higher */
+export const isPro = derived(userPlan, ($plan) => $plan === 'pro' || $plan === 'premium');
+
+/** Derived store: true if user has Premium plan */
+export const isPremium = derived(userPlan, ($plan) => $plan === 'premium');
 
 /** Derived store: true if user has Free plan */
 export const isFree = derived(userPlan, ($plan) => $plan === 'free');

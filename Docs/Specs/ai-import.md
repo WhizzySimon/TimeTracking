@@ -410,49 +410,83 @@ type SourceType = 'timesheet' | 'projektlog' | 'rechnung' | 'kalender' | 'chat' 
 
 ## 8) Parsing Strategy
 
-### A) Structured Files (CSV/Excel/JSON)
+### AI-First Architecture
 
-1. **Deterministic parsing first:**
-   - Read file structure (columns, rows)
-   - Detect header row
-   - Parse data types (dates, times, numbers)
+All parsing is done by OpenAI. No programmatic CSV/Excel parsers needed because user data formats are unpredictable.
 
-2. **AI assists with:**
-   - Column mapping: "Start" / "Von" / "Beginn" -> startTime
-   - Free text -> category/note separation
-   - Summary row detection: "Total", "Summe", "Week XX", "Gesamt"
+```
+User uploads file (any format)
+       |
+       v
++--------------------+
+| Extract as text    |  (read file content as string)
++--------------------+
+       |
+       v
++--------------------+
+| OpenAI Responses   |  Server-side API call
+| API with schema    |  Returns TimeEntryCandidate[]
++--------------------+
+       |
+       v
++--------------------+
+| Local validation   |  (dates, durations, duplicates)
++--------------------+
+       |
+       v
+    ImportBatch
+```
 
-3. **Validation:**
-   - Apply all guardrails
-   - Generate issues for problems
+### OpenAI Integration
 
-### B) Unstructured Text
+**API:** OpenAI Responses API (`/v1/responses`)  
+**Model:** Hard-coded in config (e.g., `gpt-4o`)  
+**API Key:** Environment variable `OPENAI_API_KEY` (server-side only)
 
-1. **AI extracts:**
-   - Line-by-line parsing
-   - Date/time pattern recognition
-   - Category/note extraction
+```typescript
+// Server route: /api/import/parse
+const response = await fetch('https://api.openai.com/v1/responses', {
+	method: 'POST',
+	headers: {
+		Authorization: `Bearer ${OPENAI_API_KEY}`,
+		'Content-Type': 'application/json'
+	},
+	body: JSON.stringify({
+		model: 'gpt-4o',
+		input: [
+			{ role: 'system', content: IMPORT_SYSTEM_PROMPT },
+			{ role: 'user', content: fileContent }
+		]
+	})
+});
+```
 
-2. **Source refs:**
-   - Each candidate gets line number reference
+### System Prompt (IMPORT_SYSTEM_PROMPT)
 
-3. **Confidence:**
-   - Lower than structured files
-   - More issues expected
+The AI receives:
 
-### C) Images (OCR)
+1. Schema definition for `TimeEntryCandidate`
+2. User's available categories
+3. Instructions to return valid JSON array
+4. Rules: never invent data, set confidence < 0.5 for uncertain fields
 
-1. **OCR processing:**
-   - Server-side OCR (Tesseract or cloud API)
-   - Returns text + line positions
+### File Handling by Type
 
-2. **AI structures:**
-   - Same as unstructured text
-   - Additional "handwritten" flag if detected
+| Type       | Handling                                            |
+| ---------- | --------------------------------------------------- |
+| CSV/Excel  | Read as text, send full content to AI               |
+| JSON       | Read as text, send full content to AI               |
+| Plain text | Send full content to AI                             |
+| Images     | Upload to OpenAI Files API, AI extracts with vision |
 
-3. **Confidence:**
-   - Printed text: 0.5 - 0.8
-   - Handwritten: 0.0 - 0.4 (always requires review)
+### Confidence Assignment
+
+AI assigns confidence per candidate:
+
+- **0.9-1.0:** All fields clearly extracted
+- **0.7-0.9:** Most fields clear, some inference
+- **0.5-0.7:** Significant uncertainty
+- **< 0.5:** Missing required fields or very uncertain
 
 ---
 
@@ -507,23 +541,33 @@ function normalizeText(text: string): string {
 
 ## 10) Premium Gating
 
+### Plan Tiers
+
+| Plan    | Features                                       |
+| ------- | ---------------------------------------------- |
+| Free    | Day tab, Week tab, basic time tracking         |
+| Pro     | + Month tab, Analysis tab, Cloud backup        |
+| Premium | + AI Import (this feature), future AI features |
+
 ### UI Gating
 
-- Import button/route shows lock icon for Free users
-- Clicking shows Paywall component with upsell
+- Import button/route shows lock icon for Free/Pro users
+- Clicking shows Paywall component with Premium upsell
 - Premium users see full import UI
 
 ### Backend Gating
 
 - All import API endpoints check user plan
-- Free plan: return 403 with upgrade message
+- Free/Pro plan: return 403 with upgrade message
 - Premium plan: proceed with import
 
 ### Implementation
 
 ```typescript
 // Route guard
-if (userPlan === 'free') {
+import { isPremium } from '$lib/stores/user';
+
+if (!$isPremium) {
 	showPaywall = true;
 	return;
 }
@@ -531,7 +575,7 @@ if (userPlan === 'free') {
 // API check
 async function processImport(files: File[]): Promise<ImportBatch> {
 	const plan = await getUserPlan();
-	if (plan === 'free') {
+	if (plan !== 'premium') {
 		throw new Error('Premium required for AI Import');
 	}
 	// ... proceed
