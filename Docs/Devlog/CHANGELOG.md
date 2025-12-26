@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-26 | feat     | A1.1: ProPaywall component + watcher heartbeat for real-time observability         | —       |
 | 2025-12-26 | docs     | A1: Subscription Plans spec/plan/tasks + self-learning captures positive feedback  | —       |
 | 2025-12-26 | docs     | Fix watcher docs: cmd.exe uses &&, update README, gitignore                        | ee44211 |
 | 2025-12-26 | feat     | D3: Watcher Framework Improvement — main watcher orchestrator + dynamic sessions   | 535f485 |

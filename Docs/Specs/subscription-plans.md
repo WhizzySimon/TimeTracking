@@ -171,8 +171,8 @@ ALTER TABLE public.profiles ADD CONSTRAINT profiles_plan_check
 
 ### What is stored?
 
-| Field | Type | Description |
-|-------|------|-------------|
+| Field  | Type | Description                 |
+| ------ | ---- | --------------------------- |
 | `plan` | TEXT | 'free', 'pro', or 'premium' |
 
 ### Export data

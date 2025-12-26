@@ -1,8 +1,9 @@
 # P10 — Free/Pro Feature-Flags + Paywall + User Profile
 
 > **DEPRECATED:** This spec has been superseded by `Docs/Specs/subscription-plans.md`
-> 
+>
 > Key changes in new spec:
+>
 > - Free tier includes Monat/Auswertung (not gated)
 > - Pro tier gates Cloud Backup, Import, Export
 > - Premium tier added as placeholder

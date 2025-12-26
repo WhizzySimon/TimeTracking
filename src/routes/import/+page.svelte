@@ -1,35 +1,29 @@
 <!--
-  AI Import Page
+  Import Page
   
   State machine: upload -> processing -> review -> commit -> report
-  Spec ref: Docs/Specs/ai-import.md Section 6 (UX Flow)
+  Spec ref: Docs/Specs/subscription-plans.md (Pro feature)
   
-  Premium-only feature (requires Premium plan)
+  Pro-only feature (requires Pro plan)
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Paywall from '$lib/components/Paywall.svelte';
-	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import ImportUpload from '$lib/components/import/ImportUpload.svelte';
 	import ImportProgress from '$lib/components/import/ImportProgress.svelte';
 	import ImportReview from '$lib/components/import/ImportReview.svelte';
-	import { isPremium } from '$lib/stores/user';
+	import { isPro } from '$lib/stores/user';
 	import type { TimeEntryCandidate, ImportSource } from '$lib/import/types';
 
 	type ImportStep = 'upload' | 'processing' | 'review' | 'commit' | 'report';
 
 	let currentStep: ImportStep = $state('upload');
 	let loading = $state(true);
-	let showUpgradeDialog = $state(false);
 
 	let sources: ImportSource[] = $state([]);
 	let candidates: TimeEntryCandidate[] = $state([]);
 	let processingProgress = $state(0);
 	let processingFile = $state('');
-
-	function handleUpgrade() {
-		showUpgradeDialog = true;
-	}
 
 	function handleSourcesChange(newSources: ImportSource[]) {
 		sources = newSources;
@@ -68,17 +62,8 @@
 
 {#if loading}
 	<div class="loading">Laden...</div>
-{:else if !$isPremium}
-	<Paywall onupgrade={handleUpgrade} />
-	{#if showUpgradeDialog}
-		<ConfirmDialog
-			type="alert"
-			title="Premium-Version"
-			message="Die Premium-Version mit AI Import kommt bald! Aktuell kannst du alle anderen Funktionen nutzen."
-			confirmLabel="OK"
-			onconfirm={() => (showUpgradeDialog = false)}
-		/>
-	{/if}
+{:else if !$isPro}
+	<Paywall feature="import" onclose={() => history.back()} />
 {:else}
 	<div class="import-page">
 		<header class="import-header">

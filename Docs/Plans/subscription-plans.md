@@ -11,35 +11,35 @@
 
 ### New Components
 
-| Component | Location | Responsibility |
-|-----------|----------|----------------|
-| `ProPaywall.svelte` | `src/lib/components/` | Reusable paywall modal for Pro features |
-| `PlanComparison.svelte` | `src/lib/components/` | Modal showing Free vs Pro vs Premium |
-| `ExportDialog.svelte` | `src/lib/components/` | Export format selection dialog |
-| `+page.svelte` (import) | `src/routes/import/` | Import flow UI |
+| Component               | Location              | Responsibility                          |
+| ----------------------- | --------------------- | --------------------------------------- |
+| `ProPaywall.svelte`     | `src/lib/components/` | Reusable paywall modal for Pro features |
+| `PlanComparison.svelte` | `src/lib/components/` | Modal showing Free vs Pro vs Premium    |
+| `ExportDialog.svelte`   | `src/lib/components/` | Export format selection dialog          |
+| `+page.svelte` (import) | `src/routes/import/`  | Import flow UI                          |
 
 ### Modified Components
 
-| Component | Changes |
-|-----------|---------|
-| `src/routes/settings/+page.svelte` | Add Konto section, Daten section |
-| `src/lib/stores/user.ts` | Already has `isPro`, `isPremium` (no changes needed) |
-| `src/lib/backup/` | Add plan check before cloud backup |
+| Component                          | Changes                                              |
+| ---------------------------------- | ---------------------------------------------------- |
+| `src/routes/settings/+page.svelte` | Add Konto section, Daten section                     |
+| `src/lib/stores/user.ts`           | Already has `isPro`, `isPremium` (no changes needed) |
+| `src/lib/backup/`                  | Add plan check before cloud backup                   |
 
 ### New Modules
 
-| Module | Location | Responsibility |
-|--------|----------|----------------|
+| Module      | Location          | Responsibility            |
+| ----------- | ----------------- | ------------------------- |
 | `export.ts` | `src/lib/export/` | CSV, JSON, PDF generation |
-| `import.ts` | `src/lib/import/` | JSON, Excel parsing |
-| `pdf.ts` | `src/lib/export/` | PDF table generation |
-| `excel.ts` | `src/lib/import/` | Excel (.xlsx) parsing |
+| `import.ts` | `src/lib/import/` | JSON, Excel parsing       |
+| `pdf.ts`    | `src/lib/export/` | PDF table generation      |
+| `excel.ts`  | `src/lib/import/` | Excel (.xlsx) parsing     |
 
 ### Dependencies
 
-| Library | Purpose | Size |
-|---------|---------|------|
-| `xlsx` (SheetJS) | Excel parsing | ~300KB |
+| Library                     | Purpose        | Size   |
+| --------------------------- | -------------- | ------ |
+| `xlsx` (SheetJS)            | Excel parsing  | ~300KB |
 | `jspdf` + `jspdf-autotable` | PDF generation | ~200KB |
 
 ---
@@ -61,20 +61,22 @@ ALTER TABLE public.profiles ADD CONSTRAINT profiles_plan_check
 ### Export Data Shapes
 
 **CSV columns:**
+
 ```
 date,start_time,end_time,category,description,duration_minutes
 2025-12-01,08:00,12:00,Arbeit,Meeting,240
 ```
 
 **JSON structure:**
+
 ```typescript
 interface ExportData {
-  version: number;
-  exportedAt: string;
-  entries: TimeEntry[];
-  categories: Category[];
-  dayTypes: DayType[];
-  workTimeModels: WorkTimeModel[];
+	version: number;
+	exportedAt: string;
+	entries: TimeEntry[];
+	categories: Category[];
+	dayTypes: DayType[];
+	workTimeModels: WorkTimeModel[];
 }
 ```
 
@@ -84,7 +86,8 @@ interface ExportData {
 
 **JSON:** Same as ExportData above.
 
-**Excel:** 
+**Excel:**
+
 - Sheet 1: Entries (date, start, end, category, description)
 - Header row required
 - Date format: YYYY-MM-DD or DD.MM.YYYY
@@ -97,10 +100,10 @@ interface ExportData {
 
 ```typescript
 interface ExportDialogState {
-  isOpen: boolean;
-  selectedFormat: 'csv' | 'json' | 'pdf';
-  isExporting: boolean;
-  error: string | null;
+	isOpen: boolean;
+	selectedFormat: 'csv' | 'json' | 'pdf';
+	isExporting: boolean;
+	error: string | null;
 }
 ```
 
@@ -108,23 +111,23 @@ interface ExportDialogState {
 
 ```typescript
 interface ImportPageState {
-  step: 'upload' | 'preview' | 'importing' | 'complete';
-  file: File | null;
-  parsedData: ParsedImportData | null;
-  validationErrors: ValidationError[];
-  importResult: ImportResult | null;
+	step: 'upload' | 'preview' | 'importing' | 'complete';
+	file: File | null;
+	parsedData: ParsedImportData | null;
+	validationErrors: ValidationError[];
+	importResult: ImportResult | null;
 }
 
 interface ParsedImportData {
-  entries: TimeEntry[];
-  categories: Category[];
-  source: 'json' | 'excel';
+	entries: TimeEntry[];
+	categories: Category[];
+	source: 'json' | 'excel';
 }
 
 interface ImportResult {
-  entriesAdded: number;
-  entriesUpdated: number;
-  categoriesAdded: number;
+	entriesAdded: number;
+	entriesUpdated: number;
+	categoriesAdded: number;
 }
 ```
 
@@ -139,15 +142,15 @@ interface ImportResult {
 
 ## Error Handling
 
-| Scenario | Handling |
-|----------|----------|
-| Export fails | Show toast error, log to console |
-| PDF generation fails | Fallback to CSV offer |
-| Import file invalid | Show error in preview, disable import |
-| Import file too large | Show size limit error (10MB max) |
-| Excel parse error | Show row-level errors in preview |
-| Duplicate entries on import | Show warning, let user choose skip/overwrite |
-| Network error during plan check | Use cached plan, default to 'free' |
+| Scenario                        | Handling                                     |
+| ------------------------------- | -------------------------------------------- |
+| Export fails                    | Show toast error, log to console             |
+| PDF generation fails            | Fallback to CSV offer                        |
+| Import file invalid             | Show error in preview, disable import        |
+| Import file too large           | Show size limit error (10MB max)             |
+| Excel parse error               | Show row-level errors in preview             |
+| Duplicate entries on import     | Show warning, let user choose skip/overwrite |
+| Network error during plan check | Use cached plan, default to 'free'           |
 
 ---
 
@@ -155,28 +158,28 @@ interface ImportResult {
 
 ### Unit Tests
 
-| Module | Tests |
-|--------|-------|
+| Module      | Tests                                      |
+| ----------- | ------------------------------------------ |
 | `export.ts` | CSV format, JSON structure, column headers |
-| `import.ts` | JSON parsing, Excel parsing, validation |
-| `pdf.ts` | Table generation, formatting |
+| `import.ts` | JSON parsing, Excel parsing, validation    |
+| `pdf.ts`    | Table generation, formatting               |
 
 ### Integration Tests
 
-| Flow | Tests |
-|------|-------|
-| Export flow | Format selection → download trigger |
-| Import flow | Upload → preview → confirm → data in IndexedDB |
-| Paywall | Free user → paywall shown, Pro user → feature works |
+| Flow        | Tests                                               |
+| ----------- | --------------------------------------------------- |
+| Export flow | Format selection → download trigger                 |
+| Import flow | Upload → preview → confirm → data in IndexedDB      |
+| Paywall     | Free user → paywall shown, Pro user → feature works |
 
 ### E2E Tests
 
-| Scenario | Tests |
-|----------|-------|
-| Free user export | Shows paywall |
-| Pro user export | Downloads file |
-| Import JSON | Preview shows data, import succeeds |
-| Import Excel | Parses correctly, imports data |
+| Scenario         | Tests                               |
+| ---------------- | ----------------------------------- |
+| Free user export | Shows paywall                       |
+| Pro user export  | Downloads file                      |
+| Import JSON      | Preview shows data, import succeeds |
+| Import Excel     | Parses correctly, imports data      |
 
 ---
 

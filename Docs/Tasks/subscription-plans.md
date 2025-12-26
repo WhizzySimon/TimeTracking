@@ -248,19 +248,19 @@
 
 ## Summary
 
-| Task | Description | Est. |
-|------|-------------|------|
-| A1.1 | ProPaywall Component | 1h |
-| A1.2 | Cloud Backup Plan Gating | 1h |
-| A1.3 | Export Module (JSON) | 1h |
-| A1.4 | Export Module (CSV) | 1h |
-| A1.5 | Export Module (PDF) | 1.5h |
-| A1.6 | ExportDialog Component | 1h |
-| A1.7 | Import Module (JSON) | 1h |
-| A1.8 | Import Module (Excel) | 1.5h |
-| A1.9 | Import Route (UI) | 2h |
-| A1.10 | Settings: Konto Section | 1h |
-| A1.11 | Settings: Daten Section | 0.5h |
-| A1.12 | PlanComparison Modal | 1h |
-| A1.13 | E2E Tests | 1.5h |
-| **Total** | | **15h** |
+| Task      | Description              | Est.    |
+| --------- | ------------------------ | ------- |
+| A1.1      | ProPaywall Component     | 1h      |
+| A1.2      | Cloud Backup Plan Gating | 1h      |
+| A1.3      | Export Module (JSON)     | 1h      |
+| A1.4      | Export Module (CSV)      | 1h      |
+| A1.5      | Export Module (PDF)      | 1.5h    |
+| A1.6      | ExportDialog Component   | 1h      |
+| A1.7      | Import Module (JSON)     | 1h      |
+| A1.8      | Import Module (Excel)    | 1.5h    |
+| A1.9      | Import Route (UI)        | 2h      |
+| A1.10     | Settings: Konto Section  | 1h      |
+| A1.11     | Settings: Daten Section  | 0.5h    |
+| A1.12     | PlanComparison Modal     | 1h      |
+| A1.13     | E2E Tests                | 1.5h    |
+| **Total** |                          | **15h** |

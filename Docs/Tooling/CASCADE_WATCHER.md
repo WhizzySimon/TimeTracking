@@ -101,8 +101,43 @@ scripts/
     └── <session-id>/     # Session folders (dynamic)
         ├── command.txt
         ├── status.txt
-        └── output.txt
+        ├── output.txt
+        └── heartbeat.txt  # Real-time progress updates
 ```
+
+## Heartbeat System
+
+The watcher now includes a **heartbeat file** that updates every 500ms while a command is running. This enables Cascade to:
+
+1. **Know if watcher is alive** — heartbeat timestamp updates even when output is buffered
+2. **See elapsed time** — know how long a command has been running
+3. **Get real-time output** — output.txt streams incrementally during execution
+
+### Heartbeat Format
+
+```
+<timestamp>|<status>|<elapsed_seconds>
+```
+
+Examples:
+```
+2025-12-26 22:40:15|RUNNING|45      # Command running for 45 seconds
+2025-12-26 22:41:30|DONE:SUCCESS|120 # Completed after 120 seconds
+2025-12-26 22:41:30|DONE:FAILED|30   # Failed after 30 seconds
+2025-12-26 22:41:30|ERROR|0          # Error occurred
+2025-12-26 22:35:00|IDLE|0           # Watcher idle
+```
+
+### How Cascade Should Use Heartbeat
+
+1. **Read heartbeat.txt** instead of just status.txt to see:
+   - Is the watcher alive? (timestamp recent?)
+   - How long has command been running? (elapsed seconds)
+   - Current status (IDLE/RUNNING/DONE:*)
+
+2. **Detect stalled watcher** — if heartbeat timestamp is >30s old while status is RUNNING, watcher may have crashed
+
+3. **Estimate remaining time** — use elapsed time to gauge long-running commands
 
 ## Important Notes
 

@@ -36,6 +36,7 @@ if (-not (Test-Path $logsDir)) {
 $requestFile = Join-Path $sessionDir "command.txt"
 $outputFile = Join-Path $sessionDir "output.txt"
 $statusFile = Join-Path $sessionDir "status.txt"
+$heartbeatFile = Join-Path $sessionDir "heartbeat.txt"
 
 # Set window title for easy identification
 $host.UI.RawUI.WindowTitle = "Cascade Watcher [$SessionId]"
@@ -53,6 +54,8 @@ if (-not (Test-Path $requestFile)) {
 }
 "IDLE" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
 "" | Out-File -FilePath $outputFile -Encoding utf8
+# Initialize heartbeat with current time
+"$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')|IDLE|0" | Out-File -FilePath $heartbeatFile -Encoding utf8 -NoNewline
 
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "Cascade Watcher [$SessionId] Started" -ForegroundColor Cyan
@@ -93,55 +96,92 @@ while ($true) {
             
             # Mark as running
             "RUNNING" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
+            $startTime = Get-Date
             
             # Clear output file and start streaming header
             "=== Command: $command ===" | Out-File -FilePath $outputFile -Encoding utf8
             "=== Started: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
             "=== Output (streaming) ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
             
-            # Execute command and capture output
+            # Execute command with real-time output streaming and heartbeat
             try {
                 # Use system TEMP folder to avoid git conflicts
                 $tempOut = Join-Path $env:TEMP "cascade-watcher-$SessionId-$PID.txt"
-                $process = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $command -Wait -PassThru -NoNewWindow -RedirectStandardOutput $tempOut -RedirectStandardError "$tempOut.err" -WorkingDirectory $repoRoot
+                $tempErr = Join-Path $env:TEMP "cascade-watcher-$SessionId-$PID.err"
+                
+                # Start process without waiting
+                $process = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $command -PassThru -NoNewWindow -RedirectStandardOutput $tempOut -RedirectStandardError $tempErr -WorkingDirectory $repoRoot
+                
+                # Poll for completion with heartbeat and real-time output streaming
+                $lastOutputSize = 0
+                $lastErrSize = 0
+                while (-not $process.HasExited) {
+                    # Update heartbeat every iteration (every 500ms)
+                    $elapsed = [int]((Get-Date) - $startTime).TotalSeconds
+                    "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')|RUNNING|$elapsed" | Out-File -FilePath $heartbeatFile -Encoding utf8 -NoNewline
+                    
+                    # Stream new output to file in real-time
+                    if (Test-Path $tempOut) {
+                        $currentSize = (Get-Item $tempOut -ErrorAction SilentlyContinue).Length
+                        if ($currentSize -gt $lastOutputSize) {
+                            $newContent = Get-Content $tempOut -Raw -ErrorAction SilentlyContinue
+                            if ($newContent) {
+                                $newContent | Out-File -FilePath $outputFile -Encoding utf8
+                                # Re-add header since we're overwriting
+                                $header = "=== Command: $command ===`n=== Started: $($startTime.ToString('yyyy-MM-dd HH:mm:ss')) ===`n=== Output (streaming) ===`n"
+                                ($header + $newContent) | Out-File -FilePath $outputFile -Encoding utf8
+                            }
+                            $lastOutputSize = $currentSize
+                        }
+                    }
+                    
+                    Start-Sleep -Milliseconds 500
+                }
+                
+                # Process finished - get exit code
                 $exitCode = $process.ExitCode
                 
-                # Read captured output
+                # Read final output
                 $output = ""
                 if (Test-Path $tempOut) {
                     $output = Get-Content $tempOut -Raw -ErrorAction SilentlyContinue
                     Remove-Item $tempOut -Force -ErrorAction SilentlyContinue
                 }
-                if (Test-Path "$tempOut.err") {
-                    $errOutput = Get-Content "$tempOut.err" -Raw -ErrorAction SilentlyContinue
+                if (Test-Path $tempErr) {
+                    $errOutput = Get-Content $tempErr -Raw -ErrorAction SilentlyContinue
                     if ($errOutput) { $output += "`n$errOutput" }
-                    Remove-Item "$tempOut.err" -Force -ErrorAction SilentlyContinue
+                    Remove-Item $tempErr -Force -ErrorAction SilentlyContinue
                 }
                 
-                # Append output to file
+                # Write final output file with complete content
+                "=== Command: $command ===" | Out-File -FilePath $outputFile -Encoding utf8
+                "=== Started: $($startTime.ToString('yyyy-MM-dd HH:mm:ss')) ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
+                "=== Output (streaming) ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
                 if ($output) {
                     $output | Out-File -FilePath $outputFile -Append -Encoding utf8
                 }
-                
-                # Write footer
                 "" | Out-File -FilePath $outputFile -Append -Encoding utf8
                 "=== Exit Code: $exitCode ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
                 "=== Finished: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
                 
-                # Update status
+                # Update status and heartbeat
+                $elapsed = [int]((Get-Date) - $startTime).TotalSeconds
                 if ($exitCode -eq 0) {
                     "DONE:SUCCESS" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
-                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] DONE:SUCCESS" -ForegroundColor Green
-                    Write-Log "DONE:SUCCESS (exit code 0)"
+                    "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')|DONE:SUCCESS|$elapsed" | Out-File -FilePath $heartbeatFile -Encoding utf8 -NoNewline
+                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] DONE:SUCCESS (${elapsed}s)" -ForegroundColor Green
+                    Write-Log "DONE:SUCCESS (exit code 0, ${elapsed}s)"
                 } else {
                     "DONE:FAILED" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
-                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] DONE:FAILED (exit code $exitCode)" -ForegroundColor Red
-                    Write-Log "DONE:FAILED (exit code $exitCode)"
+                    "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')|DONE:FAILED|$elapsed" | Out-File -FilePath $heartbeatFile -Encoding utf8 -NoNewline
+                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] DONE:FAILED (exit code $exitCode, ${elapsed}s)" -ForegroundColor Red
+                    Write-Log "DONE:FAILED (exit code $exitCode, ${elapsed}s)"
                 }
             } catch {
                 $errorMsg = $_.Exception.Message
                 "ERROR: $errorMsg" | Out-File -FilePath $outputFile -Append -Encoding utf8
                 "DONE:FAILED" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
+                "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')|ERROR|0" | Out-File -FilePath $heartbeatFile -Encoding utf8 -NoNewline
                 Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] ERROR: $errorMsg" -ForegroundColor Red
                 Write-Log "ERROR: $errorMsg"
             }
