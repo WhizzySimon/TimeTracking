@@ -137,7 +137,10 @@ Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "PR URL:      $prUrl" -ForegroundColor Cyan
 Write-Host "Merge mode:  squash (auto-merge enabled)" -ForegroundColor Cyan
-Write-Host "Branch:      will be deleted after merge" -ForegroundColor Cyan
+Write-Host "Branch:      remote will be deleted after merge" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "The PR will merge automatically when CI passes." -ForegroundColor Yellow
 Write-Host "Check status: gh pr view" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "After merge, clean up local branches:" -ForegroundColor Gray
+Write-Host "  powershell -File scripts/git/cleanup-branches.ps1" -ForegroundColor Gray
