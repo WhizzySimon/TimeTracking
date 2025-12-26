@@ -10,7 +10,7 @@ Offline-first time tracking app (SvelteKit PWA).
 
 ## Start a new Cascade session
 
-**Step 1:** Open two integrated terminals and run:
+**Step 1:** Open three integrated terminals and run:
 
 Terminal 1 - Dev Server:
 
@@ -18,26 +18,34 @@ Terminal 1 - Dev Server:
 npm run dev
 ```
 
-Terminal 2 - Cascade Watcher:
+Terminal 2 - Cascade Watcher (Instance A):
 
 ```
-powershell -File scripts/cascade-watcher.ps1
+powershell -File scripts/watcher.ps1 -Instance A
+```
+
+Terminal 3 - Cascade Watcher (Instance B) - for parallel chat sessions:
+
+```
+powershell -File scripts/watcher.ps1 -Instance B
 ```
 
 **Step 2:** Start a new chat with:
 
 ```
-/continue-work
+/new-task
 ```
 
-**Step 3:** Say "done" when Cascade asks, then it continues automatically.
+Tell Cascade which watcher instance to use (A or B). Each chat session should use a different instance.
+
+**Step 3:** Describe your task. Cascade will read docs and begin working.
 
 ## Scripts
 
-| Script                        | Purpose                                               |
-| ----------------------------- | ----------------------------------------------------- |
-| `scripts/cascade-watcher.ps1` | Watches for commands from Cascade                     |
-| `scripts/verify-code.ps1`     | Runs format, check, lint (called by `npm run verify`) |
+| Script                            | Purpose                                               |
+| --------------------------------- | ----------------------------------------------------- |
+| `scripts/watcher.ps1 -Instance X` | Multi-instance watcher for Cascade commands (A or B)  |
+| `scripts/build/verify-code.ps1`   | Runs format, check, lint (called by `npm run verify`) |
 
 ## Commands
 
