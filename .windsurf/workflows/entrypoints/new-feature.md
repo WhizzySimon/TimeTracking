@@ -20,9 +20,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 1. /rules-read-all
 2. /read-governance
 3. Read `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Workflow-Guide)
-4. **Check for orphaned branches** - Use watcher to run `git branch --no-merged main`
-
-If step 4 shows any branches, warn the user: "Found orphaned branches with unmerged work: [list]. These should be merged first to avoid lost work. Continue anyway?"
+4. /check-orphaned-branches (see `.windsurf/workflows/helpers/check-orphaned-branches.md`)
 
 ### Phase 1: SPEC erstellen
 
