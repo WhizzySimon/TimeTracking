@@ -9,48 +9,17 @@ description: Start a new task - reads rules and governance docs, ready for any i
 1. /rules-read-all
 2. /read-governance
 
-### Step 2: SAFE SWITCH CHECK (MANDATORY - BLOCKS if work would be lost)
+### Step 2: Ensure on dev branch
 
 Run via watcher:
 ```
-powershell -File scripts/git/safe-switch.ps1
+git checkout dev
+git pull origin dev
 ```
 
-**If exit code is 1 (FAILED):**
-- DO NOT proceed
-- DO NOT switch branches
-- Fix the issues shown (commit, push, create PR)
-- Run safe-switch.ps1 again until it passes
+### Step 3: Ask for task
 
-**If exit code is 0 (SUCCESS):**
-- Safe to proceed to Step 3
-
-### Step 3: Clean up and prepare
-
-Run via watcher:
-```
-git checkout main
-git pull origin main
-powershell -File scripts/git/cleanup-branches.ps1
-```
-
-This automatically:
-- Switches to main
-- Pulls latest changes
-- Deletes local branches that have been merged (cleanup after previous sessions)
-
-### Step 4: Ask for task
-
-Say: "Ready on main. What would you like me to do?"
-
-### Branch Rule (CRITICAL)
-
-Before starting any work:
-
-- If on `main`: Create a new feature branch for this task (e.g., `feat/P10-task-name`)
-- If on a feature branch: Verify no other chat is using this branch
-- **Each chat session MUST use its own unique branch**
-- See `Docs/Tooling/GIT_WORKFLOW.md` section "Parallel Chat Sessions" for details
+Say: "Ready on dev. What would you like me to do?"
 
 ### Optional doc loading
 
@@ -77,24 +46,12 @@ Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) 
 
 ### 3. Git Commit & Push (REQUIRED - NEVER SKIP THIS)
 
-See AGENTS.md "Definition of done for a task" for the commit & push workflow.
-
-### 4. Check CI Status (OPTIONAL but recommended)
-
-After push, check if CI passes:
-
+See AGENTS.md "Git workflow" section:
 ```
-powershell -File scripts/git/check-ci.ps1 -Wait -Logs
-# See Docs/Tooling/GIT_WORKFLOW.md for script locations
+git add -A
+git commit -m "feat: description"
+git push
 ```
-
-This will:
-
-- Wait for the GitHub Actions run to complete
-- Show PASSED/FAILED status
-- Display failed job logs if CI fails
-
-If CI fails, read the logs and fix the issues before ending the session.
 
 ---
 

@@ -28,37 +28,15 @@ Then tell Cascade "done" to begin.
 2. /read-governance
 3. /read-core-docs-and-code
 
-### Step 2: SAFE SWITCH CHECK (MANDATORY - BLOCKS if work would be lost)
+### Step 2: Ensure on dev branch
 
 Run via watcher:
 ```
-powershell -File scripts/git/safe-switch.ps1
+git checkout dev
+git pull origin dev
 ```
 
-**If exit code is 1 (FAILED):**
-- DO NOT proceed
-- DO NOT switch branches
-- Fix the issues shown (commit, push, create PR)
-- Run safe-switch.ps1 again until it passes
-
-**If exit code is 0 (SUCCESS):**
-- Safe to proceed to Step 3
-
-### Step 3: Clean up and prepare
-
-Run via watcher:
-```
-git checkout main
-git pull origin main
-powershell -File scripts/git/cleanup-branches.ps1
-```
-
-This automatically:
-- Switches to main
-- Pulls latest changes
-- Deletes local branches that have been merged (cleanup after previous sessions)
-
-### Step 4: Find and start next task
+### Step 3: Find and start next task
 
 Then:
 
@@ -88,21 +66,9 @@ Use MCP Playwright browser to test the implemented functionality.
 
 ### 3. Git Commit & Push (REQUIRED)
 
-See AGENTS.md "Definition of done for a task" for the commit & push workflow.
-
-### 4. Check CI Status (OPTIONAL but recommended)
-
-After push, check if CI passes:
-
+See AGENTS.md "Git workflow" section:
 ```
-powershell -File scripts/git/check-ci.ps1 -Wait -Logs
-# See Docs/Tooling/GIT_WORKFLOW.md for script locations
+git add -A
+git commit -m "feat: description"
+git push
 ```
-
-This will:
-
-- Wait for the GitHub Actions run to complete
-- Show PASSED/FAILED status
-- Display failed job logs if CI fails
-
-If CI fails, read the logs and fix the issues before ending the session.

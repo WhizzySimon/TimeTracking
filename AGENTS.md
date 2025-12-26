@@ -125,46 +125,25 @@ Definition of done for a task:
 - Code changes completed
 - Verification executed (see "Verification" section)
 - Notes written back into the relevant spec/plan/tasks if reality differed from assumptions
-- Git commit & PR (see "Git workflow" section below)
+- Git commit & push (see "Git workflow" section below)
 
-## Git workflow (mandatory)
+## Git workflow (simple)
 
-**Never push directly to `main`.** The `main` branch is protected; direct pushes will be rejected.
-
-**Never merge via GitHub UI.** Always use the PR script to ensure consistent workflow.
+We use a simple dev/main model:
+- **`dev` branch:** All work happens here. Push directly.
+- **`main` branch:** Stable releases. Merge from dev when ready.
 
 ### Command sequence for Cascade
 
-After completing a task, use this exact sequence:
+After completing a task:
 
-```powershell
-# 1. Create feature branch (if not already on one)
-git checkout -b feat/your-feature
-
-# 2. Commit changes
+```bash
 git add -A
 git commit -m "feat: description"
-
-# 3. Push, create PR, enable auto-merge (ONE command)
-powershell -File scripts/pr.ps1
+git push
 ```
 
-That's it. The `pr.ps1` script handles:
-
-- Pushing the branch
-- Creating PR (or reusing existing)
-- Enabling auto-merge with squash
-- Branch deletion after merge
-
-### Branch naming
-
-Use prefixes: `feat/`, `fix/`, `docs/`, `refactor/`, `chore/`, `test/`
-
-### Required CI check
-
-- The required status check is `build` (the job name in `.github/workflows/ci.yml`)
-- Netlify previews are NOT required for merge
-- See `Docs/Tooling/GIT_WORKFLOW.md` for troubleshooting
+That's it. No PRs, no branch protection, no CI blocking.
 
 ## Verification (no guessing)
 
@@ -205,17 +184,13 @@ When reporting completion:
 **Before ending any session, Cascade MUST verify:**
 
 1. **No uncommitted changes:** Run `git status` — working tree must be clean
-2. **No unpushed commits:** Run `git log origin/main..HEAD --oneline` — must be empty OR a PR must exist
-3. **PR exists for the branch:** If there are pushed commits, confirm PR was created via `pr.ps1`
-4. **CI is passing (or user acknowledged):** Check CI status or inform user if failing
+2. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
 
 **If any of these fail, DO NOT end the session.** Complete the cycle:
-- Uncommitted → `git add -A && git commit -m "..."`
+- Uncommitted → `git add -A; git commit -m "..."`
 - Unpushed → `git push`
-- No PR → `powershell -File scripts/git/pr.ps1`
-- CI failing → Fix the issue or explicitly tell user "CI is failing, work may be blocked"
 
-**Why this matters:** Work on unmerged branches gets LOST when the next session starts from `main`.
+**Why this matters:** Unpushed work is lost if the local environment changes.
 
 ## Communication style for Cascade output
 

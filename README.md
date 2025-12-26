@@ -40,42 +40,21 @@ Tell Cascade which watcher instance to use (A or B). Each chat session should us
 
 **Step 3:** Describe your task. Cascade will read docs and begin working.
 
-## Manual Source Control (for humans)
+## Git Workflow
 
-When you need to commit changes manually (not via Cascade), use these scripts:
+Simple dev/main model:
 
-### Quick commit (trivial changes)
+- **`dev` branch:** All work happens here. Push directly.
+- **`main` branch:** Stable releases. Merge from dev when ready.
 
-```powershell
-./scripts/manual-source-control/commit.ps1 -Quick -Message "chore: update workspace"
+```bash
+# After completing work
+git add -A
+git commit -m "feat: description"
+git push
 ```
 
-Auto-generates branch name, commits, creates PR with auto-merge. Minimal interaction.
-
-### Normal commit (on existing branch)
-
-```powershell
-./scripts/manual-source-control/commit.ps1
-```
-
-If on main, prompts for branch name. Otherwise commits to current branch.
-
-### Start a new branch first
-
-```powershell
-./scripts/manual-source-control/new-branch.ps1 -Name "update-config"
-# Creates: chore/update-config
-
-./scripts/manual-source-control/new-branch.ps1 -Quick
-# Creates: chore/quick-20251226-1430
-```
-
-### Why branches are required
-
-Main branch is protected (CI must pass). The scripts make this painless:
-- `-Quick` flag auto-generates branch names for trivial changes
-- PRs auto-merge when CI passes
-- No manual GitHub interaction needed
+No PRs, no branch protection, no CI blocking. Just commit and push.
 
 ## Scripts
 
