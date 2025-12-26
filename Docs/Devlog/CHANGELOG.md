@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-26 | docs     | Enhance AGENTS.md with complete single-source-of-truth table and rules             | —       |
 | 2025-12-26 | docs     | Update workflows to reference AGENTS.md session-end rules (single source of truth) | —       |
 | 2025-12-26 | docs     | Phase D1: Self-documenting dev framework (CHANGELOG + DECISIONS)                   | f268bfd |
 | 2025-12-26 | docs     | Remove snapshot reference, simplify archive links                                  | ea71377 |

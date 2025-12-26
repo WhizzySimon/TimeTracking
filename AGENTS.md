@@ -171,12 +171,27 @@ When reporting completion:
 - Follow the repo's PWA/SvelteKit/platform rules exactly as documented in the project docs.
 - If a requirement conflicts with browser constraints, document the constraint in the spec and propose the smallest viable alternative.
 
-## Where to put long-lived knowledge
+## Where to put long-lived knowledge (Single Source of Truth)
 
-- **Project-wide process rules: AGENTS.md** (this file) — short, stable, applies to all tasks.
-- **Feature detail:** Docs/Specs/ + Docs/Plans/ + Docs/Tasks/.
-- **Workflows (`.windsurf/workflows/`):** Only orchestrate which docs to read. Do NOT duplicate rules here.
-- If instructions get long, split into additional docs and reference them from the spec/plan (do not bloat AGENTS.md).
+| Content Type         | Canonical Location                          | Notes                                                             |
+| -------------------- | ------------------------------------------- | ----------------------------------------------------------------- |
+| **Process rules**    | `AGENTS.md`                                 | Session workflow, git rules, verification, coding rules           |
+| **Always-on rules**  | `.windsurf/rules/*.md`                      | Auto-loaded every session (code-quality, command-execution, etc.) |
+| **Workflows**        | `.windsurf/workflows/`                      | ONLY orchestrate — reference docs, never duplicate content        |
+| **Doc hierarchy**    | `Docs/INDEX.md`                             | Priority order when docs conflict                                 |
+| **Coding standards** | `Docs/Guidelines/`                          | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc.                  |
+| **Tooling docs**     | `Docs/Tooling/`                             | Watcher, git workflow, bootstrap                                  |
+| **Feature specs**    | `Docs/Specs/`, `Docs/Plans/`, `Docs/Tasks/` | Per-feature documentation                                         |
+| **Dev history**      | `Docs/Devlog/CHANGELOG.md`                  | One line per commit                                               |
+| **Decisions**        | `Docs/Devlog/DECISIONS.md`                  | Architecture/policy decisions (ADR-light)                         |
+
+### Rules for Adding/Changing Dev Framework Content
+
+1. **Never duplicate** — If content exists in one location, reference it, don't copy it.
+2. **Workflows only orchestrate** — Workflows tell Cascade which docs to read. They must NOT contain rules or commands that could go stale.
+3. **Process rules go in AGENTS.md** — Not in workflows, not in guidelines.
+4. **Always-on rules go in `.windsurf/rules/`** — These auto-load every session.
+5. **If unsure, check `Docs/INDEX.md`** — It defines the priority order.
 
 **CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to AGENTS.md, NOT to individual workflow files. Workflows should reference AGENTS.md sections, not duplicate content.
 
