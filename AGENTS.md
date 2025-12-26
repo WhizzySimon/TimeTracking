@@ -184,6 +184,42 @@ When reporting completion:
 | **Feature specs**    | `Docs/Specs/`, `Docs/Plans/`, `Docs/Tasks/` | Per-feature documentation                                         |
 | **Dev history**      | `Docs/Devlog/CHANGELOG.md`                  | One line per commit                                               |
 | **Decisions**        | `Docs/Devlog/DECISIONS.md`                  | Architecture/policy decisions (ADR-light)                         |
+| **Learnings**        | `Docs/Devlog/LEARNINGS.md`                  | Proven preferences (max 30 bullets)                               |
+| **Learnings Inbox**  | `Docs/Devlog/LEARNINGS-INBOX.md`            | Raw feedback capture (unbounded, low priority)                    |
+
+## Self-Learning System
+
+Cascade learns from maintainer feedback via a two-tier system:
+
+- **Inbox:** `Docs/Devlog/LEARNINGS-INBOX.md` — raw capture, unbounded, not read at session start
+- **Distillate:** `Docs/Devlog/LEARNINGS.md` — proven preferences, max 30 bullets, read at session start
+
+### When to update
+
+- **Inbox:** After each change set if maintainer gave corrective feedback
+- **Distillate:** Only when promotion criteria met (repeated 2+ times across sessions OR explicitly marked by maintainer)
+
+### Distillate entry format
+
+```
+- **[Category]** Short statement (1-2 lines)
+  - Because: one short clause (optional)
+```
+
+Categories: **Hard Rule** | **Preference** | **Reminder**
+
+### Promotion → Enforcement
+
+When a Distillate item is categorized as **Hard Rule**, the same commit should also add it to:
+- `.windsurf/rules/` (for always-on enforcement), OR
+- `AGENTS.md` (for process-related rules)
+
+### Anti-bloat rules (mandatory)
+
+- Hard cap: 30 bullets max in Distillate
+- Merge duplicates before adding new items
+- Prune items not referenced in 10+ sessions
+- No ephemeral mood — store actionable guidance only
 
 ### Rules for Adding/Changing Dev Framework Content
 

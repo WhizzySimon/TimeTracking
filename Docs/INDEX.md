@@ -56,6 +56,10 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
   Purpose: **Everything log** — one line per commit/session, quick scan of all changes.
 - Docs/Devlog/DECISIONS.md  
   Purpose: **Decision log** — significant design/architecture/policy decisions (ADR-light).
+- Docs/Devlog/LEARNINGS.md  
+  Purpose: **Learnings (Distillate)** — proven preferences, max 30 bullets, read at session start.
+- Docs/Devlog/LEARNINGS-INBOX.md  
+  Purpose: **Learnings Inbox** — raw feedback capture, unbounded, not read at session start.
 - Docs/Devlog/INDEX.md  
   Purpose: Index of detailed session devlogs.
 
