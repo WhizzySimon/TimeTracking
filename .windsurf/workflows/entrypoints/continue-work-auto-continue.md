@@ -42,6 +42,12 @@ Run these workflows first:
 2. /read-governance
 3. /read-core-docs-and-code
 4. **Check current branch** - Use watcher to run `git branch --show-current`
+5. **Check for orphaned branches** - Use watcher to run `git branch --no-merged main`
+
+If step 5 shows orphaned branches, **merge them first without asking** (autonomous mode):
+- For each orphaned branch: `git checkout <branch>` then `powershell -File scripts/git/pr.ps1`
+- Wait for CI to pass
+- Then return to main task
 
 ### Step 2: Branch Decision
 

@@ -8,7 +8,10 @@ Run these steps:
 
 1. /rules-read-all
 2. /read-governance
-3. **Check current branch** - Use watcher to run `git branch --show-current` (see Docs/Tooling/CASCADE_WATCHER.md)
+3. **Check current branch** - Use watcher to run `git branch --show-current`
+4. **Check for orphaned branches** - Use watcher to run `git branch --no-merged main`
+
+If step 4 shows any branches other than the current one, warn the user: "Found orphaned branches with unmerged work: [list]. These should be merged first to avoid lost work. Continue anyway?"
 
 Then:
 
