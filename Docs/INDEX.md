@@ -1,4 +1,6 @@
-﻿# TimeTracker Docs Index (Authoritative)
+﻿# Cascade Dev Framework — TimeTracker Docs Index
+
+This is the **authoritative documentation index** for the Cascade Dev Framework.
 
 ## Rule
 

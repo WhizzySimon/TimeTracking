@@ -1,7 +1,10 @@
-# TimeTracker — Spec-Driven Development Guide for Cascade
+# Cascade Dev Framework — TimeTracker
 
-This repo uses Spec-Driven Development: we write/maintain specs that drive implementation.
-Primary rule: DO NOT start implementing until the spec + plan + tasks are explicit and internally consistent.
+This repo uses the **Cascade Dev Framework** for spec-driven development with AI coding agents.
+
+The framework includes: specs, plans, tasks, rules, workflows, guidelines, profiles, and tooling.
+
+**Primary rule:** DO NOT start implementing until the spec + plan + tasks are explicit and internally consistent.
 
 ## Start-of-session workflow (mandatory)
 
@@ -196,6 +199,23 @@ When reporting completion:
 - If instructions get long, split into additional docs and reference them from the spec/plan (do not bloat AGENTS.md).
 
 **CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to AGENTS.md, NOT to individual workflow files. Workflows should reference AGENTS.md sections, not duplicate content.
+
+## Session-end rules (CRITICAL - work must never be lost)
+
+**Before ending any session, Cascade MUST verify:**
+
+1. **No uncommitted changes:** Run `git status` — working tree must be clean
+2. **No unpushed commits:** Run `git log origin/main..HEAD --oneline` — must be empty OR a PR must exist
+3. **PR exists for the branch:** If there are pushed commits, confirm PR was created via `pr.ps1`
+4. **CI is passing (or user acknowledged):** Check CI status or inform user if failing
+
+**If any of these fail, DO NOT end the session.** Complete the cycle:
+- Uncommitted → `git add -A && git commit -m "..."`
+- Unpushed → `git push`
+- No PR → `powershell -File scripts/git/pr.ps1`
+- CI failing → Fix the issue or explicitly tell user "CI is failing, work may be blocked"
+
+**Why this matters:** Work on unmerged branches gets LOST when the next session starts from `main`.
 
 ## Communication style for Cascade output
 

@@ -25,9 +25,9 @@ Then tell Cascade "done" to begin.
 Run these workflows first:
 
 1. /rules-read-all
-2. /read-governance
+2. /read-governance (includes health checks for orphaned branches + pending PRs)
 3. /read-core-docs-and-code
-4. **Check current branch** - Use watcher to run `git branch --show-current` (see Docs/Tooling/CASCADE_WATCHER.md)
+4. **Check current branch** - Use watcher to run `git branch --show-current`
 
 ### Branch Rule (CRITICAL)
 

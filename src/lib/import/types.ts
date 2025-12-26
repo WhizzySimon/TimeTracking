@@ -40,13 +40,19 @@ export type IssueType =
 // Import batch status
 export type ImportBatchStatus = 'draft' | 'reviewed' | 'committed';
 
+// File type for import sources
+export type ImportFileType = 'csv' | 'excel' | 'json' | 'text' | 'image';
+
 // Source file/input metadata
 export interface ImportSource {
 	id: string;
+	type: ImportFileType;
 	filename: string;
-	mimeType: string;
-	hash: string;
-	size: number;
+	content: string;
+	sizeBytes: number;
+	addedAt: number;
+	mimeType?: string;
+	hash?: string;
 	sheetName?: string;
 }
 
