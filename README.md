@@ -40,15 +40,54 @@ Tell Cascade which watcher instance to use (A or B). Each chat session should us
 
 **Step 3:** Describe your task. Cascade will read docs and begin working.
 
+## Manual Source Control (for humans)
+
+When you need to commit changes manually (not via Cascade), use these scripts:
+
+### Quick commit (trivial changes)
+
+```powershell
+./scripts/manual-source-control/commit.ps1 -Quick -Message "chore: update workspace"
+```
+
+Auto-generates branch name, commits, creates PR with auto-merge. Minimal interaction.
+
+### Normal commit (on existing branch)
+
+```powershell
+./scripts/manual-source-control/commit.ps1
+```
+
+If on main, prompts for branch name. Otherwise commits to current branch.
+
+### Start a new branch first
+
+```powershell
+./scripts/manual-source-control/new-branch.ps1 -Name "update-config"
+# Creates: chore/update-config
+
+./scripts/manual-source-control/new-branch.ps1 -Quick
+# Creates: chore/quick-20251226-1430
+```
+
+### Why branches are required
+
+Main branch is protected (CI must pass). The scripts make this painless:
+- `-Quick` flag auto-generates branch names for trivial changes
+- PRs auto-merge when CI passes
+- No manual GitHub interaction needed
+
 ## Scripts
 
-| Script                            | Purpose                                               |
-| --------------------------------- | ----------------------------------------------------- |
-| `scripts/watcher.ps1 -Instance X` | Multi-instance watcher for Cascade commands (A or B)  |
-| `scripts/git/pr.ps1`              | Push + create PR + enable auto-merge                  |
-| `scripts/git/cleanup-branches.ps1`| Delete local branches after their PRs merged          |
-| `scripts/git/health-check.ps1`    | Check for uncommitted work, stale branches            |
-| `scripts/build/verify-code.ps1`   | Runs format, check, lint (called by `npm run verify`) |
+| Script                                        | Purpose                                               |
+| --------------------------------------------- | ----------------------------------------------------- |
+| `scripts/manual-source-control/commit.ps1`    | Manual commit workflow (with `-Quick` for trivial)    |
+| `scripts/manual-source-control/new-branch.ps1`| Create a chore branch before making changes           |
+| `scripts/watcher.ps1 -Instance X`             | Multi-instance watcher for Cascade commands (A or B)  |
+| `scripts/git/pr.ps1`                          | Push + create PR + enable auto-merge                  |
+| `scripts/git/cleanup-branches.ps1`            | Delete local branches after their PRs merged          |
+| `scripts/git/health-check.ps1`                | Check for uncommitted work, stale branches            |
+| `scripts/build/verify-code.ps1`               | Runs format, check, lint (called by `npm run verify`) |
 
 ## Commands
 

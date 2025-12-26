@@ -2,9 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../../../../Whizzy/Projekte/Lookout-GPT/gpt-extensions"
 		}
 	],
 	"settings": {}

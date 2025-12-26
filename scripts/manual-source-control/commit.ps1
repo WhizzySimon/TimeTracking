@@ -12,12 +12,22 @@
     6. Creates PR with auto-merge
 
 .EXAMPLE
-    powershell -File scripts/git/commit.ps1
+    ./scripts/manual-source-control/commit.ps1
+    # Interactive mode - prompts for everything
+
+.EXAMPLE
+    ./scripts/manual-source-control/commit.ps1 -Message "chore: update workspace"
+    # With commit message - if on main, prompts for branch name
+
+.EXAMPLE
+    ./scripts/manual-source-control/commit.ps1 -Quick -Message "chore: update workspace"
+    # Quick mode: auto-generates branch, commits, creates PR - minimal interaction
 #>
 
 param(
     [string]$Message,
-    [string]$BranchName
+    [string]$BranchName,
+    [switch]$Quick
 )
 
 $ErrorActionPreference = "Stop"
@@ -83,7 +93,7 @@ if (-not $status) {
         Write-Host ""
         $push = Read-Host "Push and create PR? (Y/n)"
         if ($push -ne "n" -and $push -ne "N") {
-            & "$PSScriptRoot\pr.ps1"
+            & "$PSScriptRoot\..\git\pr.ps1"
         }
     }
     exit 0
@@ -123,9 +133,15 @@ if ($LASTEXITCODE -ne 0) {
 
 # Step 7: Push and create PR
 Write-Host ""
-$createPR = Read-Host "Push and create PR? (Y/n)"
-if ($createPR -ne "n" -and $createPR -ne "N") {
-    & "$PSScriptRoot\pr.ps1"
+if ($Quick) {
+    # Quick mode: auto-create PR without asking
+    Write-Host "Quick mode: creating PR automatically..." -ForegroundColor Cyan
+    & "$PSScriptRoot\..\git\pr.ps1"
+} else {
+    $createPR = Read-Host "Push and create PR? (Y/n)"
+    if ($createPR -ne "n" -and $createPR -ne "N") {
+        & "$PSScriptRoot\..\git\pr.ps1"
+    }
 }
 
 Write-Host ""
