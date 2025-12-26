@@ -19,6 +19,7 @@ Raw capture of feedback and lessons. Review periodically for promotion to LEARNI
 
 | Date | Context | Feedback | Promoted? |
 | ---- | ------- | -------- | --------- |
+| 2025-12-26 | D3 watcher docs | Forgot to update CHANGELOG + LEARNINGS before commit. User caught it. Need systematic pre-commit check. | → LEARNINGS.md |
 
 ---
 
