@@ -18,7 +18,24 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 ### Phase 0: Setup
 
 1. /rules-read-all
-2. /read-governance (includes health checks for orphaned branches + pending PRs)
+2. /read-governance
+
+### Phase 0.5: SAFE SWITCH CHECK (MANDATORY - BLOCKS if work would be lost)
+
+Run via watcher:
+```
+powershell -File scripts/git/safe-switch.ps1
+```
+
+**If exit code is 1 (FAILED):**
+- DO NOT proceed
+- DO NOT switch branches
+- Fix the issues shown (commit, push, create PR)
+- Run safe-switch.ps1 again until it passes
+
+**If exit code is 0 (SUCCESS):**
+- Safe to proceed
+
 3. Read `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Workflow-Guide)
 
 ### Phase 1: SPEC erstellen

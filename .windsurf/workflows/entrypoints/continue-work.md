@@ -28,7 +28,23 @@ Then tell Cascade "done" to begin.
 2. /read-governance
 3. /read-core-docs-and-code
 
-### Step 2: Clean up and prepare (AUTOMATIC - no user interaction)
+### Step 2: SAFE SWITCH CHECK (MANDATORY - BLOCKS if work would be lost)
+
+Run via watcher:
+```
+powershell -File scripts/git/safe-switch.ps1
+```
+
+**If exit code is 1 (FAILED):**
+- DO NOT proceed
+- DO NOT switch branches
+- Fix the issues shown (commit, push, create PR)
+- Run safe-switch.ps1 again until it passes
+
+**If exit code is 0 (SUCCESS):**
+- Safe to proceed to Step 3
+
+### Step 3: Clean up and prepare
 
 Run via watcher:
 ```
@@ -42,7 +58,7 @@ This automatically:
 - Pulls latest changes
 - Deletes local branches that have been merged (cleanup after previous sessions)
 
-### Step 3: Find and start next task
+### Step 4: Find and start next task
 
 Then:
 
