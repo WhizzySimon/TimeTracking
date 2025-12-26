@@ -81,13 +81,14 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 13. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. Soll ich mit Task 1 beginnen?"
 
-14. Bei "Ja": Starte Implementation gemäß Task-Workflow:
+14. Bei "Ja": Starte Implementation gemäß Task-Workflow (see `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md`):
     - Code implementieren
     - `npm run verify`
     - Unit Tests (wenn vorhanden)
     - MCP Playwright Browser Test
     - Progress Tracker updaten
-    - Git Commit
+    - Changelog updaten
+    - Git Commit (follow AGENTS.md "Session-end rules")
 
 ---
 

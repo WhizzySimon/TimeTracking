@@ -121,6 +121,7 @@ Phase 4:
 **Commit:** f268bfd
 
 ### Deliverables
+
 - [x] `Docs/Devlog/CHANGELOG.md` — Everything log (one line per commit)
 - [x] `Docs/Devlog/DECISIONS.md` — Decision log (ADR-light)
 - [x] `Docs/INDEX.md` — Added Development history section

@@ -47,13 +47,7 @@ Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) 
 
 ### 3. Git Commit & Push (REQUIRED - NEVER SKIP THIS)
 
-See AGENTS.md "Git workflow" section:
-
-```
-git add -A
-git commit -m "feat: description"
-git push
-```
+**Follow AGENTS.md "Session-end rules" section** — includes changelog update, commit, and push.
 
 ---
 

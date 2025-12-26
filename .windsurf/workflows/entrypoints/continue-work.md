@@ -67,10 +67,4 @@ Use MCP Playwright browser to test the implemented functionality.
 
 ### 3. Git Commit & Push (REQUIRED)
 
-See AGENTS.md "Git workflow" section:
-
-```
-git add -A
-git commit -m "feat: description"
-git push
-```
+**Follow AGENTS.md "Session-end rules" section** — includes changelog update, commit, and push.
