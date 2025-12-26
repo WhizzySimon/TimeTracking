@@ -11,6 +11,8 @@
 	import Paywall from '$lib/components/Paywall.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import ImportUpload from '$lib/components/import/ImportUpload.svelte';
+	import ImportProgress from '$lib/components/import/ImportProgress.svelte';
+	import ImportReview from '$lib/components/import/ImportReview.svelte';
 	import { isPremium } from '$lib/stores/user';
 	import type { TimeEntryCandidate, ImportSource } from '$lib/import/types';
 
@@ -90,27 +92,15 @@
 			</section>
 		{:else if currentStep === 'processing'}
 			<section class="processing-section">
-				<div class="progress-container">
-					<div class="progress-bar">
-						<div class="progress-fill" style="width: {processingProgress}%"></div>
-					</div>
-					<p class="progress-text">{processingFile || 'Verarbeite...'}</p>
-					<button class="btn-secondary" onclick={handleCancelProcessing}> Abbrechen </button>
-				</div>
+				<ImportProgress
+					progress={processingProgress}
+					currentFile={processingFile}
+					oncancel={handleCancelProcessing}
+				/>
 			</section>
 		{:else if currentStep === 'review'}
 			<section class="review-section">
-				<div class="review-header">
-					<h2>Einträge prüfen</h2>
-					<span class="count">{candidates.length} Einträge gefunden</span>
-				</div>
-				<div class="review-placeholder">
-					<p>Review-Tabelle wird in Task 11.8 implementiert</p>
-				</div>
-				<div class="review-actions">
-					<button class="btn-secondary" onclick={handleReset}>Zurück</button>
-					<button class="btn-primary" onclick={handleCommit}>Importieren</button>
-				</div>
+				<ImportReview {candidates} oncancel={handleReset} oncommit={handleCommit} />
 			</section>
 		{:else if currentStep === 'commit'}
 			<section class="commit-section">
@@ -197,79 +187,12 @@
 		margin-top: 1.5rem;
 	}
 
-	.btn-secondary {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
-		padding: 0.75rem 1.5rem;
-		border-radius: 8px;
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
 	.processing-section {
-		text-align: center;
-		padding: 3rem;
-	}
-
-	.progress-container {
-		max-width: 400px;
-		margin: 0 auto;
-	}
-
-	.progress-bar {
-		height: 8px;
-		background: var(--bg-tertiary);
-		border-radius: 4px;
-		overflow: hidden;
-	}
-
-	.progress-fill {
-		height: 100%;
-		background: var(--accent-color);
-		transition: width 0.3s;
-	}
-
-	.progress-text {
-		margin: 1rem 0;
-		color: var(--text-secondary);
+		padding: 2rem;
 	}
 
 	.review-section {
 		margin-top: 1rem;
-	}
-
-	.review-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 1rem;
-	}
-
-	.review-header h2 {
-		margin: 0;
-		font-size: 1.25rem;
-	}
-
-	.count {
-		color: var(--text-secondary);
-		font-size: 0.875rem;
-	}
-
-	.review-placeholder {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 8px;
-		padding: 3rem;
-		text-align: center;
-		color: var(--text-tertiary);
-	}
-
-	.review-actions {
-		display: flex;
-		justify-content: space-between;
-		margin-top: 1.5rem;
-		gap: 1rem;
 	}
 
 	.commit-section,
