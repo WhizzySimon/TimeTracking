@@ -13,7 +13,8 @@ Proven preferences and patterns. Read at session start. **Max 30 bullets.**
 - **[Hard Rule]** Use `&&` not `;` for watcher command chaining.
   - Because: Watcher executes via cmd.exe, which uses `&&` (not PowerShell's `;`).
 - **[Hard Rule]** Before every commit, update CHANGELOG.md and review session for LEARNINGS-INBOX.
-  - Because: Easy to forget in the flow of implementation. User caught missed updates.
+  - Because: Easy to forget in the flow of implementation.
+  - If forgotten again: Escalate to `.windsurf/rules/commit-checklist.md` (always-on enforcement).
 
 ## Preferences
 
