@@ -25,7 +25,7 @@
 
 | Phase | Name                           | Status      |
 | ----- | ------------------------------ | ----------- |
-| D1    | Self-documenting Dev Framework | Not started |
+| D1    | Self-documenting Dev Framework | COMPLETE    |
 | D2    | Self-learning Dev Framework    | Not started |
 | D3    | Watcher Framework Improvement  | Not started |
 
@@ -116,11 +116,16 @@ Phase 4:
 
 ## Phase D1: Self-documenting Dev Framework
 
-**Target:** TBD  
-**Status:** Not started  
-**Spec:** `Docs/Specs/self-documenting-dev-framework.md` (to be created)
+**Target:** 5 files  
+**Status:** COMPLETE  
+**Commit:** f268bfd
 
-_Placeholder — awaiting feature description_
+### Deliverables
+- [x] `Docs/Devlog/CHANGELOG.md` — Everything log (one line per commit)
+- [x] `Docs/Devlog/DECISIONS.md` — Decision log (ADR-light)
+- [x] `Docs/INDEX.md` — Added Development history section
+- [x] `AGENTS.md` — Added changelog to session-end rules
+- [x] `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` — Added changelog step to workflow
 
 ---
 
