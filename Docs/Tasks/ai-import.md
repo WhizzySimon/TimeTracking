@@ -10,9 +10,11 @@
 
 ## Overview
 
-25 tasks organized into 7 sub-phases for MVP implementation.
+19 tasks organized into 6 sub-phases for MVP implementation.
 
-**Estimated total:** ~40-50 hours
+**Estimated total:** ~30-35 hours
+
+**Architecture:** AI-first (OpenAI Responses API handles all parsing, no programmatic CSV/Excel parsers)
 
 ---
 
@@ -34,21 +36,25 @@
   - Must follow existing type patterns
 - **Estimated:** 1h
 
-### Task 11.2 — CSV Parser
+### Task 11.2 — OpenAI API Integration
 
 - **Files:**
-  - `src/lib/import/parsers/csv.ts` (new)
-  - `src/lib/import/parsers/index.ts` (new)
+  - `src/lib/import/openai.ts` (new)
+  - `src/lib/import/prompts/import-system.ts` (new)
+  - `src/routes/api/import/parse/+server.ts` (new)
 - **Done when:**
-  - CSV files parsed into RawData structure
-  - Header row detected automatically
-  - Common date formats supported (DD.MM.YYYY, YYYY-MM-DD, MM/DD/YYYY)
-  - Common time formats supported (HH:mm, H:mm, HH:mm:ss)
+  - Server route calls OpenAI Responses API
+  - System prompt instructs AI to return TimeEntryCandidate[] JSON
+  - OPENAI_API_KEY read from environment variable
+  - Model hard-coded (gpt-4o)
+  - Premium plan check before API call
+  - Error handling for API failures
 - **Verify:**
   - `npm run verify`
-  - Unit tests pass
+  - Manual test with .env.local API key
 - **Guardrails:**
-  - No external dependencies (use built-in parsing)
+  - API key never exposed to client
+  - Must use Responses API (not deprecated Chat Completions)
 - **Estimated:** 2h
 
 ### Task 11.3 — Validation Module
@@ -399,19 +405,18 @@
 
 - **Files:**
   - `src/routes/import/+page.svelte` (modify)
-  - `src/routes/api/import/ai/+server.ts` (modify)
-  - `src/routes/api/import/ocr/+server.ts` (modify)
+  - `src/routes/api/import/parse/+server.ts` (modify)
 - **Done when:**
-  - Free users see Paywall component
+  - Free/Pro users see Paywall component with Premium upsell
   - Premium users see full import UI
-  - API endpoints check plan before processing
-  - 403 returned for free users on API calls
+  - API endpoint checks plan before processing
+  - 403 returned for non-Premium users on API calls
 - **Verify:**
   - `npm run verify`
-  - Browser test: free user blocked, premium user allowed
+  - Browser test: free/pro user blocked, premium user allowed
 - **Guardrails:**
   - Must use existing Paywall component
-  - Must use existing user store
+  - Must use isPremium store
 - **Estimated:** 1h
 
 ---
@@ -421,22 +426,21 @@
 ### Task 11.23 — Unit Tests
 
 - **Files:**
-  - `src/lib/import/parsers/csv.test.ts` (new)
-  - `src/lib/import/parsers/excel.test.ts` (new)
-  - `src/lib/import/validators.test.ts` (exists, extend)
-  - `src/lib/import/duplicates.test.ts` (exists, extend)
+  - `src/lib/import/validators.test.ts` (extend)
+  - `src/lib/import/duplicates.test.ts` (extend)
+  - `src/lib/import/openai.test.ts` (new)
 - **Done when:**
-  - CSV parser tests: header detection, date parsing, edge cases
-  - Excel parser tests: sheet handling, cell types
   - Validator tests: all rules covered
   - Duplicate tests: fingerprint consistency, detection accuracy
+  - OpenAI wrapper tests: mock API responses, error handling
   - All tests pass
 - **Verify:**
   - `npm run verify`
   - `npm run test:unit`
 - **Guardrails:**
+  - Must mock OpenAI API calls
   - Must cover edge cases from spec
-- **Estimated:** 3h
+- **Estimated:** 2h
 
 ### Task 11.24 — Integration Tests
 
@@ -473,7 +477,7 @@
 ## Task Dependencies
 
 ```
-11.1 (Types) ──┬──> 11.2 (CSV Parser)
+11.1 (Types) ──┬──> 11.2 (OpenAI API)
                │
                ├──> 11.3 (Validators)
                │
@@ -491,24 +495,16 @@
        │
        └──> 11.12 (Filter)
 
-11.5 ──> 11.13 (AI Wrapper) ──┬──> 11.14 (Column Mapping)
-                              │
-                              └──> 11.15 (Category Guess)
-
-11.2 ──> 11.16 (Excel Parser)
-
-11.13 ──> 11.17 (Text Parser)
-
-11.13 ──> 11.18 (OCR)
-
-11.9-11.12 + 11.14-11.15 ──> 11.19 (Commit) ──> 11.20 (Report)
+11.9-11.12 ──> 11.19 (Commit) ──> 11.20 (Report)
 
 11.19 ──> 11.21 (Presets)
 
-11.5 + 11.13 ──> 11.22 (Premium Gating)
+11.5 + 11.2 ──> 11.22 (Premium Gating)
 
 11.1-11.22 ──> 11.23 (Unit Tests) ──> 11.24 (Integration) ──> 11.25 (E2E)
 ```
+
+**Note:** Tasks 11.13-11.18 removed (AI-first architecture - OpenAI handles all parsing)
 
 ---
 
@@ -518,7 +514,7 @@ Tasks that can be worked on in parallel (by different developers or in separate 
 
 **Parallel Group A (after 11.1):**
 
-- 11.2 (CSV Parser)
+- 11.2 (OpenAI API)
 - 11.3 (Validators)
 - 11.4 (Duplicates)
 
@@ -528,13 +524,6 @@ Tasks that can be worked on in parallel (by different developers or in separate 
 - 11.10 (Issues Panel)
 - 11.11 (Bulk Actions)
 - 11.12 (Filter)
-
-**Parallel Group C (after 11.13):**
-
-- 11.14 (Column Mapping)
-- 11.15 (Category Guess)
-- 11.17 (Text Parser)
-- 11.18 (OCR)
 
 ---
 

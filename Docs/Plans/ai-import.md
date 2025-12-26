@@ -65,24 +65,23 @@
 src/
   lib/
     import/
-      types.ts              # ImportBatch, TimeEntryCandidate, etc.
+      types.ts              # ImportBatch, TimeEntryCandidate, etc. ✅ Done
       orchestrator.ts       # Main import flow control
-      parsers/
-        index.ts            # Parser registry
-        csv.ts              # CSV parser
-        excel.ts            # Excel parser (xlsx)
-        json.ts             # JSON parser
-        text.ts             # Plain text parser
-        ocr.ts              # OCR wrapper (calls server)
-      validators.ts         # Validation rules
+      openai.ts             # OpenAI Responses API wrapper
+      validators.ts         # Local validation rules
       duplicates.ts         # Fingerprint generation, duplicate detection
-      ai.ts                 # AI API wrapper
       presets.ts            # Preset CRUD operations
+      prompts/
+        import-system.ts    # System prompt for AI parsing
     storage/
-      db.ts                 # Add importBatches + importPresets stores
+      db.ts                 # Add importBatches + importPresets stores ✅ Done
   routes/
     import/
       +page.svelte          # Main import page (state machine)
+    api/
+      import/
+        parse/
+          +server.ts        # Server-side OpenAI API call (Premium only)
   components/
     import/
       ImportUpload.svelte   # File upload UI
@@ -95,6 +94,14 @@ src/
       BulkActions.svelte    # Bulk action buttons
       PresetSelector.svelte # Preset dropdown
 ```
+
+**Removed (AI-first approach):**
+
+- ~~parsers/csv.ts~~ — AI handles all parsing
+- ~~parsers/excel.ts~~ — AI handles all parsing
+- ~~parsers/json.ts~~ — AI handles all parsing
+- ~~parsers/text.ts~~ — AI handles all parsing
+- ~~parsers/ocr.ts~~ — AI handles vision
 
 ### Modified Files
 
@@ -193,79 +200,90 @@ let batch: ImportBatch | null = null;
 
 ## Parsing Pipeline
 
+### AI-First Architecture
+
+All parsing is done by OpenAI. No programmatic CSV/Excel parsers needed because user data formats are unpredictable.
+
 ### Flow
 
 ```
-Files/Text/Images
+User uploads file (any format)
        |
        v
-+------------------+
-| Source Detection |  (mime type, content sniffing)
-+------------------+
++--------------------+
+| Read file as text  |  (client-side)
++--------------------+
        |
        v
-+------------------+
-| Parser Selection |  (csv/excel/json/text/ocr)
-+------------------+
++--------------------+
+| POST /api/import/  |  (server-side)
+| parse              |
++--------------------+
        |
        v
-+------------------+
-| Raw Extraction   |  (rows, columns, text lines)
-+------------------+
++--------------------+
+| OpenAI Responses   |  model: gpt-4o (hard-coded)
+| API call           |  returns TimeEntryCandidate[]
++--------------------+
        |
        v
-+------------------+
-| AI Enhancement   |  (column mapping, category guessing)
-+------------------+
++--------------------+
+| Local validation   |  (dates, durations, duplicates)
++--------------------+
        |
        v
-+------------------+
-| Candidate Build  |  (TimeEntryCandidate objects)
-+------------------+
-       |
-       v
-+------------------+
-| Validation       |  (flags, issues)
-+------------------+
-       |
-       v
-+------------------+
-| Duplicate Check  |  (fingerprint, DB lookup)
-+------------------+
-       |
-       v
-ImportBatch
+    ImportBatch
 ```
 
-### Parser Interface
+### OpenAI Integration
 
 ```typescript
-interface Parser {
-	canParse(file: File): boolean;
-	parse(file: File, preset?: ImportPreset): Promise<RawData>;
+// src/lib/import/openai.ts
+const OPENAI_MODEL = 'gpt-4o'; // Hard-coded, update manually
+
+export async function parseWithAI(
+	fileContent: string,
+	categories: Category[]
+): Promise<TimeEntryCandidate[]> {
+	const response = await fetch('/api/import/parse', {
+		method: 'POST',
+		body: JSON.stringify({ content: fileContent, categories })
+	});
+	return response.json();
 }
 
-interface RawData {
-	rows: RawRow[];
-	headers?: string[];
-	sourceRef: string;
-}
-
-interface RawRow {
-	cells: Record<string, string>;
-	lineNumber: number;
-}
+// src/routes/api/import/parse/+server.ts
+const response = await fetch('https://api.openai.com/v1/responses', {
+	method: 'POST',
+	headers: {
+		Authorization: `Bearer ${OPENAI_API_KEY}`,
+		'Content-Type': 'application/json'
+	},
+	body: JSON.stringify({
+		model: OPENAI_MODEL,
+		input: [
+			{ role: 'system', content: IMPORT_SYSTEM_PROMPT },
+			{ role: 'user', content: fileContent }
+		]
+	})
+});
 ```
 
-### Parser Registry
+### Environment Variables
 
-```typescript
-const parsers: Parser[] = [csvParser, excelParser, jsonParser, textParser, ocrParser];
-
-function selectParser(file: File): Parser | null {
-	return parsers.find((p) => p.canParse(file)) || null;
-}
+```env
+# .env.local (gitignored)
+OPENAI_API_KEY=sk-...
 ```
+
+### File Handling
+
+| Type       | Client-side               | Server-side                |
+| ---------- | ------------------------- | -------------------------- |
+| CSV/Excel  | Read as text (FileReader) | Send to OpenAI             |
+| JSON       | Read as text              | Send to OpenAI             |
+| Plain text | Read as text              | Send to OpenAI             |
+| Images     | Convert to base64         | Upload to OpenAI Files API |
 
 ---
 
