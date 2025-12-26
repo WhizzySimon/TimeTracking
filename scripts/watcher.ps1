@@ -1,20 +1,19 @@
 <#
 .SYNOPSIS
-    Multi-instance Cascade Watcher - watches for commands and executes them.
+    Cascade Child Watcher - watches for commands and executes them.
 .DESCRIPTION
-    Watches scripts/watcher/<Instance>/command.txt for new commands.
-    Executes commands and writes output to scripts/watcher/<Instance>/output.txt.
-    Status is written to scripts/watcher/<Instance>/status.txt.
-.PARAMETER Instance
-    The instance identifier (e.g., A, B). Each chat session should use a different instance.
+    Watches scripts/watcher/<SessionId>/command.txt for new commands.
+    Executes commands and writes output to scripts/watcher/<SessionId>/output.txt.
+    Status is written to scripts/watcher/<SessionId>/status.txt.
+.PARAMETER SessionId
+    The session identifier (e.g., 20251226-210530-x7k9). Spawned by main watcher.
 .EXAMPLE
-    powershell -File scripts/watcher.ps1 -Instance A
-    powershell -File scripts/watcher.ps1 -Instance B
+    powershell -File scripts/watcher.ps1 -SessionId 20251226-210530-x7k9
 #>
 
 param(
     [Parameter(Mandatory=$true)]
-    [string]$Instance
+    [string]$SessionId
 )
 
 $ErrorActionPreference = "Continue"
@@ -22,16 +21,31 @@ $ErrorActionPreference = "Continue"
 # Calculate paths relative to script location
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = Split-Path -Parent $scriptDir
-$instanceDir = Join-Path $scriptDir "watcher\$Instance"
+$sessionDir = Join-Path $scriptDir "watcher\$SessionId"
+$logsDir = Join-Path $scriptDir "watcher\logs"
+$logFile = Join-Path $logsDir "$SessionId.log"
 
-# Create instance directory if it doesn't exist
-if (-not (Test-Path $instanceDir)) {
-    New-Item -ItemType Directory -Path $instanceDir -Force | Out-Null
+# Create directories if needed
+if (-not (Test-Path $sessionDir)) {
+    New-Item -ItemType Directory -Path $sessionDir -Force | Out-Null
+}
+if (-not (Test-Path $logsDir)) {
+    New-Item -ItemType Directory -Path $logsDir -Force | Out-Null
 }
 
-$requestFile = Join-Path $instanceDir "command.txt"
-$outputFile = Join-Path $instanceDir "output.txt"
-$statusFile = Join-Path $instanceDir "status.txt"
+$requestFile = Join-Path $sessionDir "command.txt"
+$outputFile = Join-Path $sessionDir "output.txt"
+$statusFile = Join-Path $sessionDir "status.txt"
+
+# Set window title for easy identification
+$host.UI.RawUI.WindowTitle = "Cascade Watcher [$SessionId]"
+
+# Log function
+function Write-Log {
+    param([string]$Message)
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    "[$timestamp] $Message" | Out-File -FilePath $logFile -Append -Encoding utf8
+}
 
 # Initialize files
 if (-not (Test-Path $requestFile)) {
@@ -41,16 +55,19 @@ if (-not (Test-Path $requestFile)) {
 "" | Out-File -FilePath $outputFile -Encoding utf8
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "Cascade Watcher [$Instance] Started" -ForegroundColor Cyan
+Write-Host "Cascade Watcher [$SessionId] Started" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "Instance:    $Instance" -ForegroundColor White
+Write-Host "Session:     $SessionId" -ForegroundColor White
 Write-Host "Command:     $requestFile" -ForegroundColor White
 Write-Host "Output:      $outputFile" -ForegroundColor White
 Write-Host "Status:      $statusFile" -ForegroundColor White
+Write-Host "Log:         $logFile" -ForegroundColor White
 Write-Host "Working dir: $repoRoot" -ForegroundColor White
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "Waiting for commands..." -ForegroundColor Yellow
 Write-Host ""
+
+Write-Log "Session started (PID: $PID)"
 
 $lastCommand = ""
 
@@ -71,7 +88,8 @@ while ($true) {
         if ($command -and $command -ne $lastCommand -and $command -ne "") {
             $lastCommand = $command
             
-            Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$Instance] Running: $command" -ForegroundColor Yellow
+            Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] Running: $command" -ForegroundColor Yellow
+            Write-Log "Running: $command"
             
             # Mark as running
             "RUNNING" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
@@ -84,7 +102,7 @@ while ($true) {
             # Execute command and capture output
             try {
                 # Use system TEMP folder to avoid git conflicts
-                $tempOut = Join-Path $env:TEMP "cascade-watcher-$Instance-$PID.txt"
+                $tempOut = Join-Path $env:TEMP "cascade-watcher-$SessionId-$PID.txt"
                 $process = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $command -Wait -PassThru -NoNewWindow -RedirectStandardOutput $tempOut -RedirectStandardError "$tempOut.err" -WorkingDirectory $repoRoot
                 $exitCode = $process.ExitCode
                 
@@ -113,16 +131,19 @@ while ($true) {
                 # Update status
                 if ($exitCode -eq 0) {
                     "DONE:SUCCESS" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
-                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$Instance] DONE:SUCCESS" -ForegroundColor Green
+                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] DONE:SUCCESS" -ForegroundColor Green
+                    Write-Log "DONE:SUCCESS (exit code 0)"
                 } else {
                     "DONE:FAILED" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
-                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$Instance] DONE:FAILED (exit code $exitCode)" -ForegroundColor Red
+                    Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] DONE:FAILED (exit code $exitCode)" -ForegroundColor Red
+                    Write-Log "DONE:FAILED (exit code $exitCode)"
                 }
             } catch {
                 $errorMsg = $_.Exception.Message
                 "ERROR: $errorMsg" | Out-File -FilePath $outputFile -Append -Encoding utf8
                 "DONE:FAILED" | Out-File -FilePath $statusFile -Encoding utf8 -NoNewline
-                Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$Instance] ERROR: $errorMsg" -ForegroundColor Red
+                Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] ERROR: $errorMsg" -ForegroundColor Red
+                Write-Log "ERROR: $errorMsg"
             }
         }
     }

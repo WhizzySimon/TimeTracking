@@ -148,11 +148,27 @@ Phase 4:
 
 ## Phase D3: Watcher Framework Improvement
 
-**Target:** TBD  
-**Status:** Not started  
-**Spec:** `Docs/Specs/watcher-framework-improvement.md` (to be created)
+**Target:** 7 tasks  
+**Status:** COMPLETE  
+**Spec:** `Docs/Specs/D3-watcher-framework-improvement.md`  
+**Plan:** `Docs/Plans/D3-watcher-framework-improvement.md`  
+**Tasks:** `Docs/Tasks/D3-watcher-framework-improvement.md`
 
-_Placeholder — awaiting feature description_
+### Tasks
+
+- [x] **Task D3.1** — Main watcher core (lockfile, control loop)
+- [x] **Task D3.2** — SPAWN command
+- [x] **Task D3.3** — KILL, LIST, SHUTDOWN commands
+- [x] **Task D3.4** — Child watcher session support
+- [x] **Task D3.5** — Child health monitoring
+- [x] **Task D3.6** — Update documentation
+- [x] **Task D3.7** — Progress tracker and commit
+
+### Deliverables
+
+- `scripts/watcher-main.ps1` — Main watcher orchestrator (new)
+- `scripts/watcher.ps1` — Updated child watcher with SessionId support
+- `Docs/Tooling/CASCADE_WATCHER.md` — Complete documentation rewrite
 
 ---
 

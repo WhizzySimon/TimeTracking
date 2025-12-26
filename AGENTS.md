@@ -211,6 +211,7 @@ Categories: **Hard Rule** | **Preference** | **Reminder**
 ### Promotion → Enforcement
 
 When a Distillate item is categorized as **Hard Rule**, the same commit should also add it to:
+
 - `.windsurf/rules/` (for always-on enforcement), OR
 - `AGENTS.md` (for process-related rules)
 

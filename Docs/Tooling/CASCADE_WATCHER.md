@@ -4,41 +4,80 @@ This is the **single source of truth** for the Cascade Watcher system.
 
 ## Overview
 
-The Cascade Watcher allows Cascade to execute terminal commands without using the broken `run_command` tool. It watches for commands written to a file and executes them.
+The Cascade Watcher allows Cascade to execute terminal commands without using the broken `run_command` tool. A main watcher orchestrates child watchers that execute commands.
 
-## Multi-Instance System
+## Architecture
 
-Each chat session uses its own watcher instance to avoid conflicts:
-
-| Instance | Command File                    | Status File                    | Output File                    |
-| -------- | ------------------------------- | ------------------------------ | ------------------------------ |
-| A        | `scripts/watcher/A/command.txt` | `scripts/watcher/A/status.txt` | `scripts/watcher/A/output.txt` |
-| B        | `scripts/watcher/B/command.txt` | `scripts/watcher/B/status.txt` | `scripts/watcher/B/output.txt` |
-
-## User Setup
-
-Start the watcher in a terminal before beginning a Cascade session:
-
-**For Chat A:**
-
-```powershell
-powershell -File scripts/watcher.ps1 -Instance A
+```
+┌─────────────────────────────────────────────────────────┐
+│  Main Watcher (watcher-main.ps1)                        │
+│  - Single instance (lockfile protected)                 │
+│  - Spawns/kills child watchers on demand                │
+│  - Monitors child health                                │
+└─────────────────────────────────────────────────────────┘
+         │ SPAWN/KILL/LIST/SHUTDOWN
+         ▼
+┌─────────────────────────────────────────────────────────┐
+│  Child Watcher (watcher.ps1 -SessionId <id>)            │
+│  - Executes commands for one Cascade session            │
+│  - Writes output to session folder                      │
+│  - Logs to dedicated log file                           │
+└─────────────────────────────────────────────────────────┘
 ```
 
-**For Chat B (parallel session):**
+## How to Run
+
+### Start Main Watcher (once)
 
 ```powershell
-powershell -File scripts/watcher.ps1 -Instance B
+powershell -File scripts/watcher-main.ps1
 ```
+
+Leave this running. It will manage all sessions automatically.
+
+### How to Stop
+
+- **Ctrl+C** in the main watcher terminal, OR
+- Write `SHUTDOWN` to `scripts/watcher/main-control.txt`
+
+Both methods cleanly terminate all child sessions.
 
 ## How Cascade Uses the Watcher
 
-1. **Write command** to `scripts/watcher/<Instance>/command.txt` using edit tool
-2. **Poll** `scripts/watcher/<Instance>/status.txt` until `DONE:SUCCESS` or `DONE:FAILED`
-3. **Read output** from `scripts/watcher/<Instance>/output.txt`
-4. **Act on results** - fix errors if any, continue if passed
+### 1. Request a Session
 
-### Status Values
+Write `SPAWN` to `scripts/watcher/main-control.txt`:
+
+```
+SPAWN
+```
+
+Poll `scripts/watcher/main-status.txt` until it shows `SPAWNED:<session-id>`.
+
+### 2. Execute Commands
+
+Use the session ID to write commands:
+
+```
+scripts/watcher/<session-id>/command.txt   # Write command here
+scripts/watcher/<session-id>/status.txt    # Poll until DONE:*
+scripts/watcher/<session-id>/output.txt    # Read output
+```
+
+### 3. End Session (optional)
+
+Write `KILL:<session-id>` to `scripts/watcher/main-control.txt`.
+
+## Control Commands
+
+| Command             | Effect                               |
+| ------------------- | ------------------------------------ |
+| `SPAWN`             | Create new session, returns ID       |
+| `KILL:<session-id>` | Terminate specific session           |
+| `LIST`              | Update status file with all sessions |
+| `SHUTDOWN`          | Stop all sessions and main watcher   |
+
+## Status Values
 
 | Status         | Meaning                                   |
 | -------------- | ----------------------------------------- |
@@ -51,13 +90,15 @@ powershell -File scripts/watcher.ps1 -Instance B
 
 ```
 scripts/
-├── watcher.ps1           # Main watcher script
+├── watcher-main.ps1      # Main watcher orchestrator
+├── watcher.ps1           # Child watcher script
 └── watcher/
-    ├── A/                # Instance A files
-    │   ├── command.txt   # Write commands here
-    │   ├── status.txt    # Poll this for status
-    │   └── output.txt    # Read command output
-    └── B/                # Instance B files
+    ├── main.lock         # Lockfile (prevents duplicate main)
+    ├── main-control.txt  # Control commands
+    ├── main-status.txt   # Main watcher status
+    ├── logs/             # Per-session log files
+    │   └── <session-id>.log
+    └── <session-id>/     # Session folders (dynamic)
         ├── command.txt
         ├── status.txt
         └── output.txt
@@ -65,21 +106,35 @@ scripts/
 
 ## Important Notes
 
-- **Temp files** are written to `$env:TEMP`, not the scripts folder (avoids git conflicts)
-- **Instance files** are gitignored (see `.gitignore`)
-- **Each chat** must tell Cascade which instance to use at the start of the session
+- **Single main watcher** — protected by lockfile, cannot start twice
+- **Session IDs** — format `YYYYMMDD-HHmmss-xxxx` (timestamp + random)
+- **Temp files** — written to `$env:TEMP`, not the scripts folder
+- **Logs** — each session has a dedicated log in `scripts/watcher/logs/`
+- **Max sessions** — 10 concurrent (configurable in script)
 
 ## Troubleshooting
 
+### "Main Watcher already running" error
+
+Another main watcher is running. Either:
+
+- Use the existing one, OR
+- If it crashed, delete `scripts/watcher/main.lock` and restart
+
+### Session died unexpectedly
+
+Main watcher detects and reports dead sessions. Check the session log:
+
+```
+scripts/watcher/logs/<session-id>.log
+```
+
 ### Command not executing
 
-- Check that the watcher terminal is running
-- Verify you're writing to the correct instance folder
+1. Check main watcher terminal is running
+2. Verify session ID is correct
+3. Check `scripts/watcher/<session-id>/status.txt`
 
 ### Edit tool fails on command.txt
 
-The watcher may have already consumed the command. Wait a moment and try again with a different command string.
-
-### Stale command from previous session
-
-The watcher ignores commands that were present when it started. This prevents re-executing old commands.
+The watcher may have already consumed the command. Wait and try again with a different command string.
