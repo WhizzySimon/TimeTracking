@@ -4,15 +4,28 @@ description: Start a new task - reads rules and governance docs, ready for any i
 
 ## Cascade Workflow
 
-Run these steps:
+### Step 1: Read rules and docs
 
 1. /rules-read-all
-2. /read-governance (includes health checks for orphaned branches + pending PRs)
-3. **Check current branch** - Use watcher to run `git branch --show-current`
+2. /read-governance
 
-Then:
+### Step 2: Clean up and prepare (AUTOMATIC - no user interaction)
 
-4. Ask the user: "What would you like me to do? If specific docs are relevant, tell me which ones to read first."
+Run via watcher:
+```
+git checkout main
+git pull origin main
+powershell -File scripts/git/cleanup-branches.ps1
+```
+
+This automatically:
+- Switches to main
+- Pulls latest changes
+- Deletes local branches that have been merged (cleanup after previous sessions)
+
+### Step 3: Ask for task
+
+Say: "Ready on main. What would you like me to do?"
 
 ### Branch Rule (CRITICAL)
 

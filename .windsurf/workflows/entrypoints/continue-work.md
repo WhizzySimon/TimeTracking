@@ -22,21 +22,27 @@ Then tell Cascade "done" to begin.
 
 ## Cascade Workflow
 
-Run these workflows first:
+### Step 1: Read rules and docs
 
 1. /rules-read-all
-2. /read-governance (includes health checks for orphaned branches + pending PRs)
+2. /read-governance
 3. /read-core-docs-and-code
-4. **Check current branch** - Use watcher to run `git branch --show-current`
 
-### Branch Rule (CRITICAL)
+### Step 2: Clean up and prepare (AUTOMATIC - no user interaction)
 
-Before starting any work:
+Run via watcher:
+```
+git checkout main
+git pull origin main
+powershell -File scripts/git/cleanup-branches.ps1
+```
 
-- If on `main`: Create a new feature branch for the next task (e.g., `feat/P10-monetising`)
-- If on a feature branch: Verify no other chat is using this branch
-- **Each chat session MUST use its own unique branch**
-- See `Docs/Tooling/GIT_WORKFLOW.md` section "Parallel Chat Sessions" for details
+This automatically:
+- Switches to main
+- Pulls latest changes
+- Deletes local branches that have been merged (cleanup after previous sessions)
+
+### Step 3: Find and start next task
 
 Then:
 
