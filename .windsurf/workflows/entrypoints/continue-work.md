@@ -27,7 +27,24 @@ Run these workflows first:
 1. /rules-read-all
 2. /read-governance
 3. /read-core-docs-and-code
-4. **Check current branch** - Use watcher to run `git branch --show-current` (see Docs/Tooling/CASCADE_WATCHER.md)
+4. **Check current branch** - Use watcher to run `git branch --show-current`
+5. **Check for orphaned branches** - Use watcher to run `git branch --no-merged main`
+
+### Orphaned Branch Check (CRITICAL - DO NOT SKIP)
+
+If step 5 shows branches other than the current one, these are **orphaned branches with unmerged work**.
+
+**Action required:**
+1. List the orphaned branches to the user
+2. For each orphaned branch, run: `git log main..<branch> --oneline` to see what work is there
+3. Ask the user: "These branches have unmerged work. Should I merge them first?"
+4. If yes, for each branch:
+   - `git checkout <branch>`
+   - `powershell -File scripts/git/pr.ps1`
+   - Wait for CI to pass and auto-merge
+5. Then return to the original task
+
+**Why this matters:** Work on orphaned branches will be LOST if not merged.
 
 ### Branch Rule (CRITICAL)
 
