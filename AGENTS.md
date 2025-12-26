@@ -1,7 +1,10 @@
-# TimeTracker — Spec-Driven Development Guide for Cascade
+# Cascade Dev Framework — TimeTracker
 
-This repo uses Spec-Driven Development: we write/maintain specs that drive implementation.
-Primary rule: DO NOT start implementing until the spec + plan + tasks are explicit and internally consistent.
+This repo uses the **Cascade Dev Framework** for spec-driven development with AI coding agents.
+
+The framework includes: specs, plans, tasks, rules, workflows, guidelines, profiles, and tooling.
+
+**Primary rule:** DO NOT start implementing until the spec + plan + tasks are explicit and internally consistent.
 
 ## Start-of-session workflow (mandatory)
 
