@@ -5,10 +5,9 @@
 
 ---
 
-## Archives
+## Archive
 
-- **Snapshot:** `Docs/Progress/IMPLEMENTATION_PROGRESS_2025-12-26.md` (verbatim pre-trim copy)
-- **Completed History:** `Docs/Progress/IMPLEMENTATION_PROGRESS_V1_CLEAN_2025-12-26.md` (Phases 1-8 summary)
+- **Completed History:** `Docs/Progress/IMPLEMENTATION_PROGRESS_V1_CLEAN_2025-12-26.md` (Phases 1-8)
 
 ---
 

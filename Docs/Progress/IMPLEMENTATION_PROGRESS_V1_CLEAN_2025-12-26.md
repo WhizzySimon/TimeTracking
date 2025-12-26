@@ -1,8 +1,7 @@
 # TimeTracker v1 — Implementation Progress (Completed History)
 
 **Archived:** 2025-12-26  
-**Coverage:** Phases 1-8, 6.1, 6.2, 6.3 (all completed)  
-**Original Snapshot:** `IMPLEMENTATION_PROGRESS_2025-12-26.md`
+**Coverage:** Phases 1-8, 6.1, 6.2, 6.3 (all completed)
 
 ---
 
