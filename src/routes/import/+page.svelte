@@ -152,30 +152,6 @@
 		margin-top: 1rem;
 	}
 
-	.upload-zone {
-		border: 2px dashed var(--border-color);
-		border-radius: 12px;
-		padding: 3rem 2rem;
-		text-align: center;
-		background: var(--bg-secondary);
-		transition: border-color 0.2s;
-	}
-
-	.upload-zone:hover {
-		border-color: var(--accent-color);
-	}
-
-	.upload-icon {
-		font-size: 3rem;
-		margin-bottom: 1rem;
-	}
-
-	.upload-hint {
-		font-size: 0.875rem;
-		color: var(--text-tertiary);
-		margin-top: 0.5rem;
-	}
-
 	.btn-primary {
 		background: var(--accent-color);
 		color: white;
