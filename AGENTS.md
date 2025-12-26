@@ -236,13 +236,17 @@ When a Distillate item is categorized as **Hard Rule**, the same commit should a
 **Before ending any session, Cascade MUST verify:**
 
 1. **Learnings captured:** Review session for corrective feedback → add to `Docs/Devlog/LEARNINGS-INBOX.md`
-2. **Changelog updated:** `Docs/Devlog/CHANGELOG.md` has entry for this session's work
-3. **No uncommitted changes:** Run `git status` — working tree must be clean
-4. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
+2. **Learnings promoted:** Check INBOX for items repeated 2+ times → promote to `Docs/Devlog/LEARNINGS.md`
+3. **Decisions captured:** If architecture/policy decision was made → add to `Docs/Devlog/DECISIONS.md`
+4. **Changelog updated:** `Docs/Devlog/CHANGELOG.md` has entry for this session's work
+5. **No uncommitted changes:** Run `git status` — working tree must be clean
+6. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
 
 **If any of these fail, DO NOT end the session.** Complete the cycle:
 
 - Feedback given → Add to `Docs/Devlog/LEARNINGS-INBOX.md` (date, context, feedback)
+- Duplicates in Inbox → Promote to `Docs/Devlog/LEARNINGS.md`, mark as promoted in Inbox
+- Decision made → Add to `Docs/Devlog/DECISIONS.md` (use template)
 - Missing changelog → Add one-line entry to `Docs/Devlog/CHANGELOG.md`
 - Uncommitted → `git add -A; git commit -m "..."`
 - Unpushed → `git push`

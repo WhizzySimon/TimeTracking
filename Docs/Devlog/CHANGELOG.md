@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-26 | docs     | D1+D2: Complete session-end rules (learnings, promotion, decisions, changelog)     | —       |
 | 2025-12-26 | docs     | D2: Add learnings review to session-end rules (before every commit)                | —       |
 | 2025-12-26 | docs     | D2: Integrate LEARNINGS.md into session-start workflow                             | b3e31e7 |
 | 2025-12-26 | docs     | Phase D2: Self-learning dev framework (LEARNINGS + LEARNINGS-INBOX)                | f861f6d |
