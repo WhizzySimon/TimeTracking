@@ -28,7 +28,7 @@
 | D1    | Self-documenting Dev Framework | COMPLETE    |
 | D2    | Self-learning Dev Framework    | COMPLETE    |
 | D3    | Watcher Framework Improvement  | COMPLETE    |
-| D4    | Just-in-Time Rules System      | IN PROGRESS |
+| D4    | Just-in-Time Rules System      | COMPLETE    |
 
 ### Priority 2: App Improvements (after Dev Framework)
 
@@ -64,9 +64,9 @@
 | D4.8 | Create `framework-changes.md` | DONE | T7: Framework doc rules |
 | D4.9 | Create `RULE_MAP.md` dispatcher | DONE | Replaces AGENTS.md |
 | D4.10 | Update `Docs/INDEX.md` | DONE | Add Rules section |
-| D4.11 | Update `.windsurf/rules/` pointers | USER TODO | Cannot edit, user must update |
-| D4.12 | Keep AGENTS.md as backup | DONE | Will delete after testing |
-| D4.13 | Test with real session | Not started | Verify nothing lost |
+| D4.11 | Update `.windsurf/rules/` pointers | DONE | User updated manually |
+| D4.12 | Keep AGENTS.md as backup | DONE | Can delete later |
+| D4.13 | Test with real session | DONE | PASS — all content covered |
 
 ### Migration Checklist (from AGENTS.md)
 
