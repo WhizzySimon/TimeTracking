@@ -14,14 +14,16 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 3. Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md (platform constraints)
 4. Docs/Guidelines/DEVELOPMENT_GUIDELINES.md (coding/repo rules)
 5. Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md (how to write specs)
-6. AGENTS.md (Cascade process rules)
+6. RULE_MAP.md (process rules dispatcher)
 
 ## Authoritative documents
 
 ### Development process (how we work)
 
-- AGENTS.md (repo root)  
-  Purpose: spec-driven process, how to plan tasks, how to verify.
+- RULE_MAP.md (repo root)  
+  Purpose: **Rule dispatcher** — trigger points for just-in-time rule loading.
+- Docs/Rules/*.md  
+  Purpose: **Trigger-based rules** — read at specific points (session-start, pre-commit, etc.)
 - Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md  
   Purpose: **Complete workflow guide** — 4 Phasen, Task-Workflow, Progress Tracking, Commit-Regeln.
 

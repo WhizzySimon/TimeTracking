@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-27 | feat     | D4: Just-in-time rules system — RULE_MAP.md + Docs/Rules/ (7 trigger files)        | —       |
 | 2025-12-27 | docs     | Escalate pre-commit checklist to AGENTS.md after 2 violations                      | —       |
 | 2025-12-27 | feat     | Versioning: git describe format (v1.0.0-N-ghash), bump-version + release scripts   | 12e0bd9 |
 | 2025-12-27 | feat     | A1.12: PlanComparison modal with Free/Pro/Premium comparison                       | —       |

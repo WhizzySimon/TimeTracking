@@ -23,11 +23,12 @@
 
 ### Priority 1: Dev System Improvements (do first)
 
-| Phase | Name                           | Status   |
-| ----- | ------------------------------ | -------- |
-| D1    | Self-documenting Dev Framework | COMPLETE |
-| D2    | Self-learning Dev Framework    | COMPLETE |
-| D3    | Watcher Framework Improvement  | COMPLETE |
+| Phase | Name                           | Status      |
+| ----- | ------------------------------ | ----------- |
+| D1    | Self-documenting Dev Framework | COMPLETE    |
+| D2    | Self-learning Dev Framework    | COMPLETE    |
+| D3    | Watcher Framework Improvement  | COMPLETE    |
+| D4    | Just-in-Time Rules System      | IN PROGRESS |
 
 ### Priority 2: App Improvements (after Dev Framework)
 
@@ -40,6 +41,55 @@
 | A2    | UX (Kategorien, Navigation, Landing) | Not started |
 | A3    | UI (Deutsch, Farbschemata, Icons)    | Not started |
 | A4    | Bugs (Auto Sync, Resume Button)      | Not started |
+
+---
+
+## Phase D4: Just-in-Time Rules System
+
+**Goal:** Restructure AGENTS.md (282 lines) into a slim dispatcher (~50 lines) + trigger-based rule files.
+
+**Research:** `Docs/Devlog/SSD Analysis/2025-12-27__just-in-time-rules-research.md`
+
+### Tasks
+
+| # | Task | Status | Notes |
+|---|------|--------|-------|
+| D4.1 | Create `Docs/Rules/` folder | DONE | New folder for trigger-based rules |
+| D4.2 | Create `session-start.md` | DONE | T1: Session start rules |
+| D4.3 | Create `spec-writing.md` | DONE | T2: Spec creation rules |
+| D4.4 | Create `planning.md` | DONE | T3: Plan creation rules |
+| D4.5 | Create `implementation.md` | DONE | T4: Implementation rules |
+| D4.6 | Create `pre-commit.md` | DONE | T5: Pre-commit checklist |
+| D4.7 | Create `session-end.md` | DONE | T6: Session end rules |
+| D4.8 | Create `framework-changes.md` | DONE | T7: Framework doc rules |
+| D4.9 | Create `RULE_MAP.md` dispatcher | DONE | Replaces AGENTS.md |
+| D4.10 | Update `Docs/INDEX.md` | DONE | Add Rules section |
+| D4.11 | Update `.windsurf/rules/` pointers | USER TODO | Cannot edit, user must update |
+| D4.12 | Keep AGENTS.md as backup | DONE | Will delete after testing |
+| D4.13 | Test with real session | Not started | Verify nothing lost |
+
+### Migration Checklist (from AGENTS.md)
+
+Content to extract:
+
+- [ ] Start-of-session workflow (lines 9-16) → session-start.md
+- [ ] Mandatory doc loading (lines 17-24) → session-start.md
+- [ ] Source of truth (lines 26-31) → dispatcher (core)
+- [ ] Phase 1 SPEC (lines 36-61) → spec-writing.md
+- [ ] Phase 2 PLAN (lines 62-80) → planning.md
+- [ ] Phase 3 TASKS (lines 82-99) → planning.md
+- [ ] Phase -1 PRE-IMPLEMENTATION GATES (lines 101-111) → implementation.md
+- [ ] Phase 4 IMPLEMENT (lines 113-128) → implementation.md
+- [ ] Git workflow (lines 130-147) → pre-commit.md
+- [ ] Verification (lines 149-160) → implementation.md
+- [ ] Coding rules (lines 162-167) → implementation.md
+- [ ] PWA constraints (lines 169-172) → implementation.md
+- [ ] Single Source of Truth table (lines 174-188) → dispatcher (reference)
+- [ ] Self-Learning System (lines 190-229) → session-end.md
+- [ ] Rules for framework changes (lines 231-239) → framework-changes.md
+- [ ] Pre-commit checklist (lines 241-251) → pre-commit.md
+- [ ] Session-end rules (lines 253-271) → session-end.md
+- [ ] Communication style (lines 273-282) → dispatcher (core)
 
 ---
 
