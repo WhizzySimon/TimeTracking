@@ -219,6 +219,56 @@ Typical:
 
 ---
 
+## Navigation Patterns
+
+### Rule: Always use `resolve()` for internal navigation
+
+SvelteKit's `resolve()` from `$app/paths` prepends the base path. Required for apps deployed under subdirectories.
+
+```js
+import { goto } from '$app/navigation';
+import { resolve } from '$app/paths';
+
+// ✅ CORRECT
+goto(resolve('/day'));
+
+// ❌ WRONG - breaks if deployed under /my-app/
+goto('/day');
+```
+
+### Rule: Use `pushState` for navigation with state, NOT query params
+
+When navigating and passing temporary state (e.g., "open edit modal for item X"):
+
+```js
+import { pushState } from '$app/navigation';
+import { resolve } from '$app/paths';
+
+// ✅ CORRECT - state passed via pushState
+pushState(resolve('/day'), { editEntryId: entry.id });
+
+// Then read in target page:
+// import { page } from '$app/state';
+// const editId = $page.state?.editEntryId;
+```
+
+**Why NOT query params:**
+
+1. ESLint rule `svelte/no-navigation-without-resolve` rejects `goto(resolve('/path') + '?query=...')` - it requires `resolve()` to wrap the entire argument
+2. TypeScript types for `resolve()` only accept known route paths, not paths with query strings
+3. Query params pollute the URL for temporary UI state
+4. `pushState` is the SvelteKit-recommended pattern for this use case
+
+### When to use query params
+
+Use query params only when:
+
+- The state should be shareable/bookmarkable (e.g., filter settings)
+- The state should survive page refresh
+- External links need to deep-link to specific state
+
+---
+
 ## Definition of "PWA implemented"
 
 A SvelteKit PWA implementation is considered done when:

@@ -2,13 +2,16 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { dev, browser } from '$app/environment';
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
+	import { goto, pushState } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import '$lib/styles/theme.css';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
-	import { isOnline, syncInProgress } from '$lib/stores';
+	import { isOnline, syncInProgress, runningEntry, currentDate } from '$lib/stores';
+	import { saveTimeEntry } from '$lib/storage/operations';
+	import { formatTime, isToday } from '$lib/utils/date';
+	import WarningBanner from '$lib/components/WarningBanner.svelte';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
 	import {
 		setUserProfile,
@@ -73,6 +76,37 @@
 		clearCachedPlan();
 		showLogoutConfirm = false;
 		goto(resolve('/login'));
+	}
+
+	function handleRunningTaskClick() {
+		const entry = $runningEntry;
+		if (!entry) return;
+		currentDate.set(new Date(entry.date + 'T00:00:00'));
+		pushState(resolve('/day'), { editEntryId: entry.id });
+	}
+
+	// Check if running task is from today
+	let runningTaskIsToday = $derived(
+		$runningEntry ? isToday(new Date($runningEntry.date + 'T00:00:00')) : false
+	);
+
+	/**
+	 * End the running task immediately from the banner.
+	 * Only available for tasks started today.
+	 */
+	async function handleEndRunningTask() {
+		const entry = $runningEntry;
+		if (!entry) return;
+
+		const now = new Date();
+		const currentTimeStr = formatTime(now);
+
+		const endedEntry = {
+			...entry,
+			endTime: currentTimeStr,
+			updatedAt: Date.now()
+		};
+		await saveTimeEntry(endedEntry);
 	}
 
 	async function handleSyncClick() {
@@ -398,6 +432,16 @@
 				<button class="install-btn" onclick={triggerInstall}> App installieren </button>
 			</div>
 		{/if}
+		{#if $runningEntry}
+			<div class="running-task-banner">
+				<WarningBanner
+					message="Aufgabe läuft noch (keine Endzeit)"
+					onclick={handleRunningTaskClick}
+					actionLabel={runningTaskIsToday ? 'Beenden' : undefined}
+					onaction={runningTaskIsToday ? handleEndRunningTask : undefined}
+				/>
+			</div>
+		{/if}
 		<main class="main-content">
 			{@render children()}
 		</main>
@@ -678,6 +722,11 @@
 
 	.install-btn:hover {
 		opacity: 0.9;
+	}
+
+	.running-task-banner {
+		padding: 0 1rem;
+		margin-top: 0.5rem;
 	}
 
 	.update-banner {

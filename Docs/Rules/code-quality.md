@@ -14,6 +14,39 @@ When encountering framework or language warnings:
 2. **Fix the root cause** instead
 3. **Verify with linter/checker** that warnings are resolved (0 errors, 0 warnings)
 
+## Lint Error Resolution (required)
+
+**When a lint fix attempt fails, STOP and analyze before trying again.**
+
+If a lint rule rejects your first fix attempt:
+
+1. **Do NOT iterate on syntax** - multiple quick-fix attempts waste time
+2. **Research the rule** - read the official documentation to understand WHY it exists
+3. **Question the pattern** - is the implementation approach correct, or is there a better pattern?
+4. **Check for known issues** - search GitHub issues for the rule; it may be a known limitation
+5. **Consider alternatives** - the linter may be telling you the design is wrong, not just the syntax
+
+**Example failure mode (avoid this):**
+
+```
+Attempt 1: goto(url.pathname + url.search) → rejected
+Attempt 2: goto(resolve('/path') + '?query') → rejected
+Attempt 3: goto(resolve(`/path?query`)) → TypeScript error
+Attempt 4: goto(`${resolve('/path')}?query`) → rejected
+```
+
+**Correct approach:**
+
+```
+Attempt 1 fails → STOP
+Research: Why does svelte/no-navigation-without-resolve exist?
+Insight: Rule requires resolve() to wrap entire argument
+Question: Is query param the right pattern here?
+Solution: Use pushState() for temporary navigation state
+```
+
+**Key insight:** Lint rules often reveal design problems, not just syntax issues.
+
 ## Code Generation Principles (required)
 
 - **Do not rename existing symbols** unless explicitly asked

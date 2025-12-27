@@ -11,15 +11,47 @@
 <script lang="ts">
 	interface Props {
 		message: string;
+		onclick?: () => void;
+		actionLabel?: string;
+		onaction?: () => void;
 	}
 
-	let { message }: Props = $props();
+	let { message, onclick, actionLabel, onaction }: Props = $props();
+
+	function handleActionClick(event: MouseEvent) {
+		event.stopPropagation();
+		onaction?.();
+	}
 </script>
 
-<div class="warning-banner" role="alert" data-testid="warning-banner">
-	<span class="warning-icon">⚠</span>
-	<span class="warning-message">{message}</span>
-</div>
+{#if onclick}
+	<div
+		class="warning-banner clickable"
+		role="button"
+		tabindex="0"
+		data-testid="warning-banner"
+		{onclick}
+		onkeydown={(e) => e.key === 'Enter' && onclick?.()}
+	>
+		<span class="warning-icon">⚠</span>
+		<span class="warning-message">{message}</span>
+		{#if actionLabel && onaction}
+			<button class="action-btn" onclick={handleActionClick} data-testid="warning-banner-action">
+				{actionLabel}
+			</button>
+		{/if}
+	</div>
+{:else}
+	<div class="warning-banner" role="alert" data-testid="warning-banner">
+		<span class="warning-icon">⚠</span>
+		<span class="warning-message">{message}</span>
+		{#if actionLabel && onaction}
+			<button class="action-btn" onclick={handleActionClick} data-testid="warning-banner-action">
+				{actionLabel}
+			</button>
+		{/if}
+	</div>
+{/if}
 
 <style>
 	.warning-banner {
@@ -40,5 +72,31 @@
 	.warning-message {
 		font-size: 0.9rem;
 		font-weight: 500;
+	}
+
+	.clickable {
+		cursor: pointer;
+	}
+
+	.clickable:hover {
+		background: var(--warning-hover, var(--warning-light));
+		filter: brightness(0.95);
+	}
+
+	.action-btn {
+		margin-left: auto;
+		padding: 0.25rem 0.75rem;
+		border: 1px solid var(--accent);
+		background: var(--accent);
+		color: white;
+		font-size: 0.8rem;
+		font-weight: 500;
+		cursor: pointer;
+		border-radius: var(--r-btn);
+		white-space: nowrap;
+	}
+
+	.action-btn:hover {
+		background: var(--accent-dark, #0056b3);
 	}
 </style>

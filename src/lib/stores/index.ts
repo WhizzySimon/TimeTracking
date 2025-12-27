@@ -61,12 +61,22 @@ export const currentWeek = derived<typeof currentDate, WeekBounds>(currentDate, 
 );
 
 /**
- * Running entry (task with no end time).
- * Used for warning banner per ui-logic-spec-v1 section 3.1
+ * All running entries (tasks with no end time), sorted by createdAt ascending (oldest first).
+ * Used for warning banner per running-task-banner spec TT-FR-104
  */
-export const runningEntry = derived<typeof timeEntries, TimeEntry | null>(
+export const runningEntries = derived<typeof timeEntries, TimeEntry[]>(
 	timeEntries,
-	($timeEntries) => $timeEntries.find((entry) => entry.endTime === null) ?? null
+	($timeEntries) =>
+		$timeEntries.filter((entry) => entry.endTime === null).sort((a, b) => a.createdAt - b.createdAt)
+);
+
+/**
+ * Oldest running entry (task with no end time).
+ * Used for warning banner per running-task-banner spec TT-FR-104
+ */
+export const runningEntry = derived<typeof runningEntries, TimeEntry | null>(
+	runningEntries,
+	($runningEntries) => $runningEntries[0] ?? null
 );
 
 /**

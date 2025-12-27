@@ -13,7 +13,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { currentDate, activeWorkTimeModel, timeEntries, categories } from '$lib/stores';
+	import {
+		currentDate,
+		activeWorkTimeModel,
+		timeEntries,
+		categories,
+		runningEntry
+	} from '$lib/stores';
 	import { formatDate, isToday, addDays, formatTime } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
 	import { getByKey, getAll } from '$lib/storage/db';
@@ -23,7 +29,9 @@
 	import DayTypeSelector from '$lib/components/DayTypeSelector.svelte';
 	import TaskList from '$lib/components/TaskList.svelte';
 	import AddTaskModal from '$lib/components/AddTaskModal.svelte';
-	import WarningBanner from '$lib/components/WarningBanner.svelte';
+	import { page } from '$app/stores';
+	import { replaceState } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import DayPicker from '$lib/components/DayPicker.svelte';
 
@@ -41,9 +49,6 @@
 
 	// Filter entries for current date
 	let dayEntries = $derived($timeEntries.filter((e) => e.date === formatDate($currentDate, 'ISO')));
-
-	// Check if there's a running task (no end time)
-	let runningEntry = $derived($timeEntries.find((e) => e.endTime === null) ?? null);
 
 	// Calculate Ist from day entries (only completed tasks with countsAsWorkTime categories)
 	let ist = $derived(calculateIst(dayEntries, $categories));
@@ -170,9 +175,9 @@
 		const currentDateStr = formatDate(now, 'ISO');
 
 		// TT-FR-015: If a task is already running, end it first
-		if (runningEntry) {
+		if ($runningEntry) {
 			const endedEntry: TimeEntry = {
-				...runningEntry,
+				...$runningEntry,
 				endTime: currentTimeStr,
 				updatedAt: Date.now()
 			};
@@ -197,6 +202,21 @@
 		timeEntries.set(allEntries);
 	}
 
+	// Watch for editEntryId in page state (from running task banner click via pushState)
+	$effect(() => {
+		const pageState = $page.state as { editEntryId?: string } | undefined;
+		const editEntryId = pageState?.editEntryId;
+		if (editEntryId && !loading) {
+			const entryToEdit = $timeEntries.find((e) => e.id === editEntryId);
+			if (entryToEdit) {
+				editingEntry = entryToEdit;
+				showAddModal = true;
+			}
+			// Clear the state after opening modal
+			replaceState(resolve('/day'), {});
+		}
+	});
+
 	onMount(async () => {
 		await initializeCategories();
 		// Load categories into store
@@ -215,11 +235,6 @@
 			<p>Laden...</p>
 		</div>
 	{:else}
-		<!-- Warning Banner (if running task exists) -->
-		{#if runningEntry}
-			<WarningBanner message="Aufgabe läuft noch (keine Endzeit)" />
-		{/if}
-
 		<!-- Date Navigation -->
 		<header class="date-nav">
 			<button class="nav-btn" onclick={goToPreviousDay} aria-label="Vorheriger Tag">←</button>
