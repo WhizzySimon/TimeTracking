@@ -10,29 +10,61 @@ const versionJsonPath = join(__dirname, '..', '..', 'static', 'version.json');
 const swTemplatePath = join(__dirname, '..', '..', 'static', 'sw.template.js');
 const swJsPath = join(__dirname, '..', '..', 'static', 'sw.js');
 
-function getCommitHash() {
-	// Netlify provides COMMIT_REF environment variable
-	if (process.env.COMMIT_REF) {
-		return process.env.COMMIT_REF.substring(0, 7);
-	}
-	// Fallback: get from git locally
+function getVersion() {
+	// Use git describe to get version from tags
+	// Output format: v1.0.0-5-g78e087e (tag-commits-hash)
+	// If exactly on tag: v1.0.0
 	try {
-		return execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
+		const describe = execSync('git describe --tags --long', {
+			encoding: 'utf-8',
+			stdio: ['pipe', 'pipe', 'pipe']
+		}).trim();
+
+		// Parse: v1.0.0-5-g78e087e
+		const match = describe.match(/^v?(\d+\.\d+\.\d+)-(\d+)-g([a-f0-9]+)$/);
+		if (match) {
+			const [, semver, commits, hash] = match;
+			return {
+				version: `${semver}.${commits}`,
+				hash: hash
+			};
+		}
+
+		// Exactly on tag: v1.0.0
+		const tagMatch = describe.match(/^v?(\d+\.\d+\.\d+)$/);
+		if (tagMatch) {
+			return {
+				version: `${tagMatch[1]}.0`,
+				hash: execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim()
+			};
+		}
 	} catch {
-		return 'dev';
+		// No tags exist yet - fall back to commit count
+	}
+
+	// Fallback: use commit count with base version
+	try {
+		const commitCount = execSync('git rev-list --count HEAD', { encoding: 'utf-8' }).trim();
+		const hash = execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
+		return {
+			version: `1.0.0.${commitCount}`,
+			hash: hash
+		};
+	} catch {
+		return { version: '1.0.0.0', hash: 'dev' };
 	}
 }
 
-const commitHash = getCommitHash();
+const { version: fullVersion } = getVersion();
 
 const versionInfo = {
-	version: commitHash,
+	version: fullVersion,
 	buildTime: new Date().toISOString()
 };
 
 writeFileSync(versionJsonPath, JSON.stringify(versionInfo, null, 2) + '\n');
 
-console.log(`Updated version.json: ${versionInfo.version} @ ${versionInfo.buildTime}`);
+console.log(`Updated version.json: v${versionInfo.version} @ ${versionInfo.buildTime}`);
 
 // Generate sw.js from template with BUILD_ID so browser detects new service worker
 const BUILD_ID_MARKER = /^\/\/ __BUILD_ID__ = ".*"$/m;
