@@ -19,6 +19,7 @@
 [ ] LEARNINGS-INBOX.md — Reviewed session for feedback (positive/corrective)
 [ ] DECISIONS.md — If decision was made, added entry
 [ ] Learning promotion — Check INBOX for items repeated 2+ times → promote to LEARNINGS.md
+[ ] Documentation — After changes, check if docs need updating (README, INDEX, rule files, etc.)
 ```
 
 **This is not optional.** Violations: 2025-12-26, 2025-12-27.

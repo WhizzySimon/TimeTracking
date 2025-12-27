@@ -2,11 +2,36 @@
 
 Offline-first time tracking app (SvelteKit PWA).
 
-## Documentation
+## Dev Framework
 
-- **Docs/INDEX.md** — Source of truth, doc hierarchy, priority order
-- **Docs/Rules/_entrypoint-jit-rule-map.md** — JIT rule dispatcher (trigger table)
-- **Docs/Tooling/BOOTSTRAP.md** — Tooling entry point
+This project uses a **Just-in-Time (JIT) rule system** for AI-assisted development with Windsurf/Cascade.
+
+**How it works:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│  .windsurf/rules/always-on.md   ← THE ONLY always-on rule  │
+│         │                                                   │
+│         ▼                                                   │
+│  Docs/Rules/_entrypoint-jit-rule-map.md  ← Trigger table   │
+│         │                                                   │
+│         ├──► session-start.md, code-quality.md             │
+│         ├──► command-execution.md, pre-commit.md           │
+│         └──► ... (10 JIT rules with canary markers)        │
+│                                                             │
+│  .windsurf/workflows/                                       │
+│         ├── entrypoints/  (/new-task, /continue-work, ...) │
+│         └── helpers/      (rules-read-all, read-governance) │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Key files:**
+- **Docs/INDEX.md** — Doc hierarchy, priority order
+- **Docs/Rules/_entrypoint-jit-rule-map.md** — When to read which rule
+- **Docs/Tooling/BOOTSTRAP.md** — Tooling setup
+
+**Trigger points:** session-start, writing code, executing commands, pre-commit, session-end, etc.
+
+Each rule file has a **canary marker** — Cascade outputs it to prove the rule was read.
 
 ## Start a new Cascade session
 

@@ -33,11 +33,12 @@ Run `/project-start` before doing anything else.
 
 ---
 
-## Rules Location
+## JIT Rule System
 
-Always-on rules are in `.windsurf/rules/`:
+**One always-on rule** in `.windsurf/rules/always-on.md` points to the trigger table.
 
-- `code-quality-rules.md`
-- `command-execution-rules.md`
-- `implementation-specification-rules.md`
-- `ui-design-rules.md`
+**All rules** are in `Docs/Rules/`:
+- `_entrypoint-jit-rule-map.md` — trigger table (loaded first)
+- `code-quality.md`, `command-execution.md`, `pre-commit.md`, etc.
+
+Each rule has a **canary marker** to verify it was read.

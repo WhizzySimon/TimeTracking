@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-27 | docs     | D5.3: Document dev framework in README with diagram, add doc-check to pre-commit | —       |
 | 2025-12-27 | refactor | D5.2: Migrate global_rules to JIT system, delete 6 redundant memories, add canaries | —       |
 | 2025-12-27 | refactor | D5.1: Rename jit-rule-map → _entrypoint-jit-rule-map, delete START_HERE, update README/INDEX | —       |
 | 2025-12-27 | refactor | D5: JIT rule system — single always-on.md pointer to jit-rule-map.md, delete 4 old | —       |
