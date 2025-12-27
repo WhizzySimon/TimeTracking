@@ -14,7 +14,7 @@ Proven preferences and patterns. Read at session start. **Max 30 bullets.**
   - Because: Watcher executes via cmd.exe, which uses `&&` (not PowerShell's `;`).
 - **[Hard Rule]** Before every commit, update CHANGELOG.md and review session for LEARNINGS-INBOX.
   - Because: Easy to forget in the flow of implementation.
-  - If forgotten again: Escalate to `.windsurf/rules/commit-checklist.md` (always-on enforcement).
+  - **ESCALATED:** Added mandatory pre-commit checklist to AGENTS.md after violations on 2025-12-26 and 2025-12-27.
 
 ## Preferences
 

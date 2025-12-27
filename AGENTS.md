@@ -238,16 +238,26 @@ When a Distillate item is categorized as **Hard Rule**, the same commit should a
 
 **CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to AGENTS.md, NOT to individual workflow files. Workflows should reference AGENTS.md sections, not duplicate content.
 
+## Pre-commit checklist (MANDATORY — run BEFORE every git commit)
+
+**STOP. Before running `git commit`, complete this checklist:**
+
+```
+[ ] CHANGELOG.md — Added one-line entry for this work
+[ ] LEARNINGS-INBOX.md — Reviewed session for feedback (positive/corrective)
+[ ] DECISIONS.md — If decision was made, added entry
+```
+
+**This is not optional.** Violations: 2025-12-26, 2025-12-27. Two violations = mandatory checklist.
+
 ## Session-end rules (CRITICAL - work must never be lost)
 
 **Before ending any session, Cascade MUST verify:**
 
-1. **Learnings captured:** Review session for feedback (positive AND corrective) → add to `Docs/Devlog/LEARNINGS-INBOX.md`
+1. **Pre-commit checklist completed** (see above)
 2. **Learnings promoted:** Check INBOX for items repeated 2+ times → promote to `Docs/Devlog/LEARNINGS.md`
-3. **Decisions captured:** If architecture/policy decision was made → add to `Docs/Devlog/DECISIONS.md`
-4. **Changelog updated:** `Docs/Devlog/CHANGELOG.md` has entry for this session's work
-5. **No uncommitted changes:** Run `git status` — working tree must be clean
-6. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
+3. **No uncommitted changes:** Run `git status` — working tree must be clean
+4. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
 
 **If any of these fail, DO NOT end the session.** Complete the cycle:
 
