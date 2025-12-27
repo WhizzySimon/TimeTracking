@@ -103,62 +103,43 @@ while ($true) {
             "=== Started: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
             "=== Output (streaming) ===" | Out-File -FilePath $outputFile -Append -Encoding utf8
             
-            # Execute command with real-time output streaming and heartbeat
+            # Execute command with heartbeat
             try {
-                # Use system TEMP folder to avoid git conflicts
-                $tempOut = Join-Path $env:TEMP "cascade-watcher-$SessionId-$PID.txt"
-                $tempErr = Join-Path $env:TEMP "cascade-watcher-$SessionId-$PID.err"
+                # Start process using System.Diagnostics.Process for reliable exit code capture
+                $psi = New-Object System.Diagnostics.ProcessStartInfo
+                $psi.FileName = "cmd.exe"
+                $psi.Arguments = "/c $command"
+                $psi.WorkingDirectory = $repoRoot
+                $psi.UseShellExecute = $false
+                $psi.RedirectStandardOutput = $true
+                $psi.RedirectStandardError = $true
+                $psi.CreateNoWindow = $true
                 
-                # Start process without waiting
-                $process = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $command -PassThru -NoNewWindow -RedirectStandardOutput $tempOut -RedirectStandardError $tempErr -WorkingDirectory $repoRoot
+                $process = [System.Diagnostics.Process]::Start($psi)
                 
-                # Poll for completion with heartbeat and real-time output streaming
-                $lastOutputSize = 0
+                # Start async readers to avoid deadlock
+                $stdoutTask = $process.StandardOutput.ReadToEndAsync()
+                $stderrTask = $process.StandardError.ReadToEndAsync()
+                
+                # Poll for completion with heartbeat
                 while (-not $process.HasExited) {
-                    # Update heartbeat every iteration (every 500ms)
                     $elapsed = [int]((Get-Date) - $startTime).TotalSeconds
                     "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')|RUNNING|$elapsed" | Out-File -FilePath $heartbeatFile -Encoding utf8 -NoNewline
-                    
-                    # Stream new output to file in real-time
-                    if (Test-Path $tempOut) {
-                        $currentSize = (Get-Item $tempOut -ErrorAction SilentlyContinue).Length
-                        if ($currentSize -gt $lastOutputSize) {
-                            $newContent = Get-Content $tempOut -Raw -ErrorAction SilentlyContinue
-                            if ($newContent) {
-                                $newContent | Out-File -FilePath $outputFile -Encoding utf8
-                                # Re-add header since we're overwriting
-                                $header = "=== Command: $command ===`n=== Started: $($startTime.ToString('yyyy-MM-dd HH:mm:ss')) ===`n=== Output (streaming) ===`n"
-                                ($header + $newContent) | Out-File -FilePath $outputFile -Encoding utf8
-                            }
-                            $lastOutputSize = $currentSize
-                        }
-                    }
-                    
                     Start-Sleep -Milliseconds 500
                 }
                 
-                # Process finished - ensure exit code is captured
-                # WaitForExit() is required even after HasExited is true to populate ExitCode
+                # Wait for process to fully exit and async readers to complete
                 $process.WaitForExit()
+                [void]$stdoutTask.Wait(5000)
+                [void]$stderrTask.Wait(5000)
+                
+                # Get exit code (now reliable with System.Diagnostics.Process)
                 $exitCode = $process.ExitCode
                 
-                # Fallback if ExitCode is still null (shouldn't happen after WaitForExit)
-                if ($null -eq $exitCode) {
-                    $exitCode = -1
-                    Write-Log "WARNING: ExitCode was null, using -1"
-                }
-                
-                # Read final output
-                $output = ""
-                if (Test-Path $tempOut) {
-                    $output = Get-Content $tempOut -Raw -ErrorAction SilentlyContinue
-                    Remove-Item $tempOut -Force -ErrorAction SilentlyContinue
-                }
-                if (Test-Path $tempErr) {
-                    $errOutput = Get-Content $tempErr -Raw -ErrorAction SilentlyContinue
-                    if ($errOutput) { $output += "`n$errOutput" }
-                    Remove-Item $tempErr -Force -ErrorAction SilentlyContinue
-                }
+                # Get output from async readers
+                $output = $stdoutTask.Result
+                $errOutput = $stderrTask.Result
+                if ($errOutput) { $output += "`n$errOutput" }
                 
                 # Write final output file with complete content
                 "=== Command: $command ===" | Out-File -FilePath $outputFile -Encoding utf8
