@@ -36,7 +36,7 @@
 | ----- | ------------------------------------ | ----------- |
 | 10    | Free/Pro Feature-Flags + Paywall     | DEPRECATED  |
 | 11    | AI Import (Premium Feature)          | Blocked     |
-| A1    | Subscription Plans                   | IN PROGRESS |
+| A1    | Subscription Plans                   | COMPLETE    |
 | A1c   | Payment System (Stripe/etc)          | Future      |
 | A1b   | Multi-Arbeitgeber (Future)           | Not started |
 | A2    | UX (Kategorien, Navigation, Landing) | Not started |
@@ -305,7 +305,7 @@ Phase 4:
 ## Phase A1: Subscription Plans
 
 **Target:** 13 tasks  
-**Status:** In Progress (13/13)  
+**Status:** COMPLETE (13/13)  
 **Spec:** `Docs/Specs/subscription-plans.md`  
 **Plan:** `Docs/Plans/subscription-plans.md`  
 **Tasks:** `Docs/Tasks/subscription-plans.md`
@@ -324,7 +324,7 @@ Phase 4:
 - [x] **Task A1.10** — Settings: Konto Section
 - [x] **Task A1.11** — Settings: Daten Section
 - [x] **Task A1.12** — PlanComparison Modal
-- [ ] **Task A1.13** — E2E Tests
+- [x] **Task A1.13** — E2E Tests
 
 ---
 
