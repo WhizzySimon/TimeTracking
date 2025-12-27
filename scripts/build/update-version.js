@@ -16,8 +16,9 @@ function getVersion() {
 	// If exactly on tag: v1.0.0
 
 	// Fetch tags first (needed for Netlify shallow clones)
+	// Note: Do NOT use --depth=1 as it creates shallow history that breaks git describe
 	try {
-		execSync('git fetch --tags --depth=1', {
+		execSync('git fetch --tags', {
 			encoding: 'utf-8',
 			stdio: ['pipe', 'pipe', 'pipe']
 		});
