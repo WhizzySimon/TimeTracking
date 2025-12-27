@@ -27,14 +27,13 @@ Raw capture of feedback and lessons. Review periodically for promotion to LEARNI
 | 2025-12-27 | Versioning      | Netlify does shallow clones without tags. Need `git fetch --tags` before `git describe` for CI/CD environments.                                                                                                                               | Pending        |
 | 2025-12-26 | A1 spec phase   | POSITIVE: User praised analysis of P10 conflicts and clarifying questions before spec creation. "Awesome analysis, very good findings, thanks for coming back with the questions."                                                            | Pending        |
 | 2025-12-26 | A1 spec phase   | POSITIVE: User reminded to commit docs before starting implementation. Good practice to checkpoint work.                                                                                                                                      | Pending        |
-| 2025-12-26 | D3 watcher docs | Forgot to update CHANGELOG + LEARNINGS before commit. User caught it. Need systematic pre-commit check.                                                                                                                                       | → LEARNINGS.md |
-
 ---
 
 ## Archive (promoted or rejected)
 
 | Date       | Item                  | Outcome                               |
 | ---------- | --------------------- | ------------------------------------- |
+| 2025-12-26 | Pre-commit checklist  | Promoted to LEARNINGS.md (Hard Rule)  |
 | 2025-12-26 | git stash ban         | Promoted to LEARNINGS.md (Hard Rule)  |
 | 2025-12-26 | PowerShell semicolon  | Promoted to LEARNINGS.md (Hard Rule)  |
 | 2025-12-26 | Prefer upstream fixes | Promoted to LEARNINGS.md (Preference) |

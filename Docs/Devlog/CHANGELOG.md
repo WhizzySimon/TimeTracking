@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-27 | feat     | Running task banner: add Beenden button for today's tasks, click navigates to edit | 8d812fd |
 | 2025-12-27 | refactor | Guidance system v2: pointer files, canary marker, AGENTS.md refs fixed             | —       |
 | 2025-12-27 | docs     | A2-A6: Specs + Plans for Multi-AG, Kleine Änderungen, UX, UI, Bugs                 | —       |
 | 2025-12-27 | test     | A1.13: E2E tests for subscription plans (Free/Pro gating)                          | —       |
