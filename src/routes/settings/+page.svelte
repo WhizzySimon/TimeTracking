@@ -38,6 +38,7 @@
 	import ImportExcelModal from '$lib/components/ImportExcelModal.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import ExportDialog from '$lib/components/ExportDialog.svelte';
+	import PlanComparison from '$lib/components/PlanComparison.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
 		const days = [
@@ -87,6 +88,7 @@
 	let showImportCategories = $state(false);
 	let showImportExcel = $state(false);
 	let showExportDialog = $state(false);
+	let showPlanComparison = $state(false);
 	let showDeleteConfirm = $state(false);
 	let showDeleteModelConfirm = $state(false);
 	let categoryToDelete: Category | null = $state(null);
@@ -238,8 +240,7 @@
 	}
 
 	function handlePlanChange() {
-		// TODO: Task 10.10 - PlanSelector Modal
-		alert('Kommt bald');
+		showPlanComparison = true;
 	}
 
 	async function handleDeleteAccount() {
@@ -668,6 +669,11 @@
 <!-- Export Dialog -->
 {#if showExportDialog}
 	<ExportDialog onclose={() => (showExportDialog = false)} />
+{/if}
+
+<!-- Plan Comparison Modal -->
+{#if showPlanComparison}
+	<PlanComparison onclose={() => (showPlanComparison = false)} />
 {/if}
 
 <style>

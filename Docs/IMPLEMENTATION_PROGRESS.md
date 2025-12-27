@@ -254,7 +254,7 @@ Phase 4:
 ## Phase A1: Subscription Plans
 
 **Target:** 13 tasks  
-**Status:** In Progress (11/13)  
+**Status:** In Progress (12/13)  
 **Spec:** `Docs/Specs/subscription-plans.md`  
 **Plan:** `Docs/Plans/subscription-plans.md`  
 **Tasks:** `Docs/Tasks/subscription-plans.md`
@@ -272,7 +272,7 @@ Phase 4:
 - [x] **Task A1.9** — Import Route (UI)
 - [x] **Task A1.10** — Settings: Konto Section
 - [x] **Task A1.11** — Settings: Daten Section
-- [ ] **Task A1.12** — PlanComparison Modal
+- [x] **Task A1.12** — PlanComparison Modal
 - [ ] **Task A1.13** — E2E Tests
 
 ---
