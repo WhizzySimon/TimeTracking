@@ -39,8 +39,8 @@ export function clearUserProfile(): void {
 }
 
 /**
- * Update plan in store (for testing or manual override).
- * Note: This does NOT persist to Supabase.
+ * Update plan in store and persist to localStorage.
+ * Used for local upgrade (payment system coming later).
  */
 export function setUserPlanLocal(plan: UserPlan): void {
 	userProfile.update((profile) => {
@@ -49,4 +49,25 @@ export function setUserPlanLocal(plan: UserPlan): void {
 		}
 		return profile;
 	});
+	if (typeof localStorage !== 'undefined') {
+		localStorage.setItem('timetracker_user_plan', plan);
+	}
+}
+
+/**
+ * Load persisted plan override from localStorage.
+ * Call this after loading user profile from Supabase.
+ */
+export function loadPersistedPlanOverride(): void {
+	if (typeof localStorage !== 'undefined') {
+		const savedPlan = localStorage.getItem('timetracker_user_plan') as UserPlan | null;
+		if (savedPlan && (savedPlan === 'pro' || savedPlan === 'premium')) {
+			userProfile.update((profile) => {
+				if (profile) {
+					return { ...profile, plan: savedPlan };
+				}
+				return profile;
+			});
+		}
+	}
 }

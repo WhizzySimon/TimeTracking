@@ -10,7 +10,7 @@
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline, syncInProgress } from '$lib/stores';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
-	import { setUserProfile, clearUserProfile, isPro } from '$lib/stores/user';
+	import { setUserProfile, clearUserProfile, isPro, loadPersistedPlanOverride } from '$lib/stores/user';
 	import Paywall from '$lib/components/Paywall.svelte';
 	import { loadUserProfile, clearCachedPlan } from '$lib/api/profile';
 	import { getCurrentUserId } from '$lib/api/auth';
@@ -206,6 +206,7 @@
 			if (userId) {
 				const profile = await loadUserProfile(userId);
 				setUserProfile(profile);
+				loadPersistedPlanOverride();
 			}
 
 			// Check if sync is needed on startup

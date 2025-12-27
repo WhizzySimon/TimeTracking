@@ -38,6 +38,26 @@ If any gate fails, update the spec/plan/tasks first.
 - Follow the repo's PWA/SvelteKit/platform rules exactly as documented
 - If a requirement conflicts with browser constraints, document the constraint in the spec and propose the smallest viable alternative
 
+## Watcher Usage (Command Execution)
+
+**NEVER use `run_command` tool.** Use the Cascade Watcher instead.
+
+**Session Discovery (CRITICAL):**
+1. Read `scripts/watcher/main-status.txt` FIRST
+2. Find `ID=<session-id>` in the SESSIONS list
+3. Use that session ID for all file paths
+
+**Execute Commands:**
+```
+scripts/watcher/<session-id>/command.txt   # Write command here
+scripts/watcher/<session-id>/heartbeat.txt # Poll until DONE:*
+scripts/watcher/<session-id>/output.txt    # Read output
+```
+
+**Never assume session ID from memory or checkpoint — always discover it fresh.**
+
+Full docs: `Docs/Tooling/CASCADE_WATCHER.md`
+
 ## Verification
 
 Before marking any task complete:
