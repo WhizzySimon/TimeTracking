@@ -13,10 +13,6 @@ Significant design, architecture, and policy decisions. Newest first.
 **Decision:** Replace AGENTS.md with RULE_MAP.md (50 lines) + Docs/Rules/ (7 trigger-based files). Load rules at trigger points, not upfront.  
 **Alternatives:** Keep growing AGENTS.md (rejected — proven to fail), use only .windsurf/rules/ (rejected — can't edit those files).  
 **Consequences:** Reduced cognitive load; rules fresh when needed; easier to maintain and extend.  
-**Future improvements to consider:**
-- Auto-verification after commits (script that checks CHANGELOG updated, etc.)
-- Watcher could remind Cascade of pending tasks
-- Session-end checklist could be enforced by tooling, not memory
 **Source:** c76e30d, 5113584
 
 ---
