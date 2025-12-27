@@ -36,7 +36,7 @@
 | ----- | ------------------------------------ | ----------- |
 | 10    | Free/Pro Feature-Flags + Paywall     | DEPRECATED  |
 | 11    | AI Import (Premium Feature)          | Blocked     |
-| A1    | Subscription Plans                   | Not started |
+| A1    | Subscription Plans                   | IN PROGRESS |
 | A1b   | Multi-Arbeitgeber (Future)           | Not started |
 | A2    | UX (Kategorien, Navigation, Landing) | Not started |
 | A3    | UI (Deutsch, Farbschemata, Icons)    | Not started |

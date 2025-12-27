@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { userPlan } from '$lib/stores/user';
+	import { userPlan, setUserPlanLocal } from '$lib/stores/user';
 
 	interface Props {
 		onclose: () => void;
@@ -8,7 +8,8 @@
 	let { onclose }: Props = $props();
 
 	function handleUpgrade() {
-		alert('Pro-Version kommt bald! Wir arbeiten daran.');
+		setUserPlanLocal('pro');
+		onclose();
 	}
 
 	function handleBackdropClick(event: MouseEvent) {

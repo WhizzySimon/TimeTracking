@@ -54,7 +54,25 @@ SPAWN
 
 Poll `scripts/watcher/main-status.txt` until it shows `SPAWNED:<session-id>`.
 
-### 2. Execute Commands
+### 2. Discover Active Session (CRITICAL)
+
+**Before writing any command, read `main-status.txt` to find the active session:**
+
+```
+scripts/watcher/main-status.txt
+```
+
+Example content:
+```
+MAIN_PID=1364
+UPDATED=2025-12-27T09:50:56
+SESSIONS:
+  - ID=20251227-095056-0y1p PID=18284 STATUS=RUNNING
+```
+
+Parse the `ID=` value to get the active session. **Never assume a session ID from memory or checkpoint.**
+
+### 3. Execute Commands
 
 Use the session ID to write commands:
 
@@ -64,7 +82,7 @@ scripts/watcher/<session-id>/status.txt    # Poll until DONE:*
 scripts/watcher/<session-id>/output.txt    # Read output
 ```
 
-### 3. End Session (optional)
+### 4. End Session (optional)
 
 Write `KILL:<session-id>` to `scripts/watcher/main-control.txt`.
 
