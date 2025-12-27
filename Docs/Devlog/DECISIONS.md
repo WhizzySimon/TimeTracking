@@ -6,6 +6,17 @@ Significant design, architecture, and policy decisions. Newest first.
 
 ---
 
+## DEC-2025-004: Use git describe format for versioning
+
+**Date:** 2025-12-27  
+**Context:** Needed a versioning system that auto-increments, resets on version bumps, and allows tracing builds to commits.  
+**Decision:** Use standard `git describe --tags --long` format: `v1.0.0-N-ghash` (tag, commits since tag, commit hash).  
+**Alternatives:** Separate version + hash fields (rejected — requires parsing), commit count only (rejected — no reset on bump), manual version (rejected — error-prone).  
+**Consequences:** Full traceability; version bumps via `scripts/git/bump-version.js`; releases via `scripts/git/release.js`.  
+**Source:** 12e0bd9
+
+---
+
 ## DEC-2025-003: Simple dev/main Git workflow without PRs
 
 **Date:** 2025-12-26  
