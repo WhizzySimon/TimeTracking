@@ -3,22 +3,19 @@
  * Release script for TimeTracker
  *
  * Usage:
- *   node scripts/release.js [version]
- *
- * Examples:
- *   node scripts/release.js 1.0.0
- *   node scripts/release.js 1.1.0
+ *   node scripts/release.js
  *
  * What it does:
  *   1. Validates you're on dev branch with clean working tree
- *   2. Pulls latest from dev and main
- *   3. Merges dev into main (fast-forward)
- *   4. Creates git tag (v1.0.0)
+ *   2. Gets the latest version tag from dev
+ *   3. Pulls latest from dev and main
+ *   4. Merges dev into main (fast-forward)
  *   5. Pushes main and tags to GitHub
  *   6. Creates GitHub release using gh CLI
  *   7. Switches back to dev branch
  *
  * Prerequisites:
+ *   - Run `node scripts/bump-version.js` first to create a version tag
  *   - GitHub CLI (gh) installed and authenticated
  *   - Clean working tree
  *   - On dev branch
@@ -54,36 +51,39 @@ async function prompt(question) {
 	return new Promise((resolve) => {
 		rl.question(question, (answer) => {
 			rl.close();
-			resolve(answer.trim());
+			resolve(answer.trim().toLowerCase());
 		});
 	});
 }
 
-function validateVersion(version) {
-	const semverRegex = /^\d+\.\d+\.\d+$/;
-	if (!semverRegex.test(version)) {
-		console.error(`ERROR: Invalid version format "${version}". Expected: X.Y.Z (e.g., 1.0.0)`);
-		process.exit(1);
+function getLatestTag() {
+	try {
+		const tag = execSync('git describe --tags --abbrev=0', {
+			encoding: 'utf-8',
+			stdio: ['pipe', 'pipe', 'pipe']
+		}).trim();
+		if (/^v?\d+\.\d+\.\d+$/.test(tag)) {
+			return tag.startsWith('v') ? tag : `v${tag}`;
+		}
+	} catch {
+		// No tags found
 	}
-	return version;
+	return null;
 }
 
 async function main() {
 	console.log('\n=== TimeTracker Release Script ===\n');
 
-	// Get version from argument or prompt
-	let version = process.argv[2];
-	if (!version) {
-		const latestTag = exec('git describe --tags --abbrev=0 2>/dev/null || echo "none"', {
-			ignoreError: true
-		});
-		console.log(`Latest release: ${latestTag || 'none'}`);
-		version = await prompt('Enter new version (e.g., 1.0.0): ');
+	// Get latest version tag
+	const tag = getLatestTag();
+	if (!tag) {
+		console.error('ERROR: No version tag found.');
+		console.error('Run `node scripts/bump-version.js` first to create a version tag.');
+		process.exit(1);
 	}
-	version = validateVersion(version);
-	const tag = `v${version}`;
 
-	console.log(`\nPreparing release: ${tag}\n`);
+	const version = tag.replace(/^v/, '');
+	console.log(`Releasing version: ${version} (tag: ${tag})\n`);
 
 	// Step 1: Validate current state
 	console.log('[ 1 / 7 ] Validating current state...');
@@ -95,44 +95,40 @@ async function main() {
 
 	const status = exec('git status --porcelain');
 	if (status) {
-		console.error('  ERROR: Working tree not clean. Commit or stash changes first.');
+		console.error('  ERROR: Working tree not clean. Commit or discard changes first.');
 		console.error(`  ${status}`);
-		process.exit(1);
-	}
-
-	const existingTag = exec(`git tag -l "${tag}"`, { ignoreError: true });
-	if (existingTag) {
-		console.error(`  ERROR: Tag ${tag} already exists.`);
 		process.exit(1);
 	}
 	console.log('  OK.');
 
+	// Confirm release
+	const confirm = await prompt(`Release ${tag} to production? (y/n): `);
+	if (confirm !== 'y' && confirm !== 'yes') {
+		console.log('Aborted.');
+		process.exit(0);
+	}
+
 	// Step 2: Pull latest
-	console.log('[ 2 / 7 ] Pulling latest from remote...');
+	console.log('[ 2 / 6 ] Pulling latest from remote...');
 	exec('git fetch origin');
 	exec('git pull origin dev');
 	console.log('  OK.');
 
 	// Step 3: Switch to main and merge
-	console.log('[ 3 / 7 ] Merging dev into main...');
+	console.log('[ 3 / 6 ] Merging dev into main...');
 	exec('git checkout main');
 	exec('git pull origin main');
 	exec('git merge dev --ff-only');
 	console.log('  OK.');
 
-	// Step 4: Create tag
-	console.log(`[ 4 / 7 ] Creating tag ${tag}...`);
-	exec(`git tag -a ${tag} -m "Release ${tag}"`);
-	console.log('  OK.');
-
-	// Step 5: Push to GitHub
-	console.log('[ 5 / 7 ] Pushing main and tags to GitHub...');
+	// Step 4: Push to GitHub
+	console.log('[ 4 / 6 ] Pushing main and tags to GitHub...');
 	execLive('git push origin main');
 	execLive('git push origin --tags');
 	console.log('  OK.');
 
-	// Step 6: Create GitHub release
-	console.log('[ 6 / 7 ] Creating GitHub release...');
+	// Step 5: Create GitHub release
+	console.log('[ 5 / 6 ] Creating GitHub release...');
 	const ghCheck = exec('gh --version', { ignoreError: true });
 	if (!ghCheck) {
 		console.log('  WARNING: GitHub CLI (gh) not found. Skipping release creation.');
@@ -143,8 +139,8 @@ async function main() {
 		console.log('  OK.');
 	}
 
-	// Step 7: Switch back to dev
-	console.log('[ 7 / 7 ] Switching back to dev branch...');
+	// Step 6: Switch back to dev
+	console.log('[ 6 / 6 ] Switching back to dev branch...');
 	exec('git checkout dev');
 	console.log('  OK.');
 
