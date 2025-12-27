@@ -14,6 +14,17 @@ function getVersion() {
 	// Use git describe to get version from tags
 	// Output format: v1.0.0-5-g78e087e (tag-commits-hash)
 	// If exactly on tag: v1.0.0
+
+	// Fetch tags first (needed for Netlify shallow clones)
+	try {
+		execSync('git fetch --tags --depth=1', {
+			encoding: 'utf-8',
+			stdio: ['pipe', 'pipe', 'pipe']
+		});
+	} catch {
+		// Ignore fetch errors (may fail locally or without network)
+	}
+
 	try {
 		const describe = execSync('git describe --tags --long', {
 			encoding: 'utf-8',
