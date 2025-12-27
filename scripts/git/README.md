@@ -85,6 +85,7 @@ node scripts/git/release.js
    - Next build shows: `1.0.1.0`
 
 3. **Release to production:** When ready to deploy
+
    ```bash
    node scripts/git/release.js
    ```

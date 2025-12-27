@@ -43,11 +43,13 @@ If any gate fails, update the spec/plan/tasks first.
 **NEVER use `run_command` tool.** Use the Cascade Watcher instead.
 
 **Session Discovery (CRITICAL):**
+
 1. Read `scripts/watcher/main-status.txt` FIRST
 2. Find `ID=<session-id>` in the SESSIONS list
 3. Use that session ID for all file paths
 
 **Execute Commands:**
+
 ```
 scripts/watcher/<session-id>/command.txt   # Write command here
 scripts/watcher/<session-id>/heartbeat.txt # Poll until DONE:*

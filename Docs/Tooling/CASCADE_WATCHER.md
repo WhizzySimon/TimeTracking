@@ -63,6 +63,7 @@ scripts/watcher/main-status.txt
 ```
 
 Example content:
+
 ```
 MAIN_PID=1364
 UPDATED=2025-12-27T09:50:56

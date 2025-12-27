@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-27 | feat     | A1.5: PDF export module with jspdf + jspdf-autotable                               | —       |
 | 2025-12-27 | docs     | Self-learning: route Hard Rules to specific trigger files, not general locations   | —       |
 | 2025-12-27 | fix      | Watcher exit code — use System.Diagnostics.Process for reliable capture            | 5e7c2d8 |
 | 2025-12-27 | fix      | Watcher exit code bug — add WaitForExit() before reading ExitCode                  | —       |

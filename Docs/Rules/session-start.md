@@ -34,6 +34,7 @@ Read `Docs/Devlog/LEARNINGS.md` (max 30 bullets of proven preferences).
 ---
 
 **Next:** After session start, proceed to appropriate trigger:
+
 - Creating spec? → Read `Docs/Rules/spec-writing.md`
 - Creating plan? → Read `Docs/Rules/planning.md`
 - Implementing? → Read `Docs/Rules/implementation.md`

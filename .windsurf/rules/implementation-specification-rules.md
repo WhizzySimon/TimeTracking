@@ -10,14 +10,14 @@ trigger: always_on
 
 This project uses trigger-based rules. Read the right rules at the right time:
 
-| When | Read |
-|------|------|
-| Session start | [Docs/Rules/session-start.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/session-start.md:0:0-0:0) |
-| Creating spec | [Docs/Rules/spec-writing.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/spec-writing.md:0:0-0:0) |
-| Creating plan | [Docs/Rules/planning.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/planning.md:0:0-0:0) |
+| When                | Read                                                                                                                        |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Session start       | [Docs/Rules/session-start.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/session-start.md:0:0-0:0)   |
+| Creating spec       | [Docs/Rules/spec-writing.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/spec-writing.md:0:0-0:0)     |
+| Creating plan       | [Docs/Rules/planning.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/planning.md:0:0-0:0)             |
 | Before implementing | [Docs/Rules/implementation.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/implementation.md:0:0-0:0) |
-| Before git commit | [Docs/Rules/pre-commit.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/pre-commit.md:0:0-0:0) |
-| Session end | [Docs/Rules/session-end.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/session-end.md:0:0-0:0) |
+| Before git commit   | [Docs/Rules/pre-commit.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/pre-commit.md:0:0-0:0)         |
+| Session end         | [Docs/Rules/session-end.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Rules/session-end.md:0:0-0:0)       |
 
 Full trigger map: [RULE_MAP.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/RULE_MAP.md:0:0-0:0)
 
@@ -30,9 +30,11 @@ Full trigger map: [RULE_MAP.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeT
 ## How to Write Requirements (FR/IG/DD)
 
 Authoritative format:
+
 - [Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md:0:0-0:0)
 - `Docs/Specs/_template.md`
 
 Minimum bar for any feature change:
+
 - FR/IG/DD are numbered, testable, and unambiguous
 - Acceptance checks exist and map to the numbered requirements

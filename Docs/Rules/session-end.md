@@ -58,17 +58,17 @@ Categories: **Hard Rule** | **Preference** | **Reminder**
 
 When a Distillate item is categorized as **Hard Rule**, add it to the **appropriate trigger-based rule file**:
 
-| Rule is about... | Add to |
-|------------------|--------|
-| Session start workflow | `Docs/Rules/session-start.md` |
-| Writing specs | `Docs/Rules/spec-writing.md` |
-| Creating plans | `Docs/Rules/planning.md` |
-| Implementation/coding | `Docs/Rules/implementation.md` |
-| Pre-commit checklist | `Docs/Rules/pre-commit.md` |
-| Session end workflow | `Docs/Rules/session-end.md` |
-| Framework doc changes | `Docs/Rules/framework-changes.md` |
-| Always needed (coding style, watcher) | `.windsurf/rules/` |
-| Core principles | `RULE_MAP.md` |
+| Rule is about...                      | Add to                            |
+| ------------------------------------- | --------------------------------- |
+| Session start workflow                | `Docs/Rules/session-start.md`     |
+| Writing specs                         | `Docs/Rules/spec-writing.md`      |
+| Creating plans                        | `Docs/Rules/planning.md`          |
+| Implementation/coding                 | `Docs/Rules/implementation.md`    |
+| Pre-commit checklist                  | `Docs/Rules/pre-commit.md`        |
+| Session end workflow                  | `Docs/Rules/session-end.md`       |
+| Framework doc changes                 | `Docs/Rules/framework-changes.md` |
+| Always needed (coding style, watcher) | `.windsurf/rules/`                |
+| Core principles                       | `RULE_MAP.md`                     |
 
 **Do NOT add rules to a general location.** Route them to the specific trigger file so they are loaded at the right time.
 

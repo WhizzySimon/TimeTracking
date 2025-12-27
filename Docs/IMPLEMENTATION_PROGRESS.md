@@ -23,12 +23,12 @@
 
 ### Priority 1: Dev System Improvements (do first)
 
-| Phase | Name                           | Status      |
-| ----- | ------------------------------ | ----------- |
-| D1    | Self-documenting Dev Framework | COMPLETE    |
-| D2    | Self-learning Dev Framework    | COMPLETE    |
-| D3    | Watcher Framework Improvement  | COMPLETE    |
-| D4    | Just-in-Time Rules System      | COMPLETE    |
+| Phase | Name                           | Status   |
+| ----- | ------------------------------ | -------- |
+| D1    | Self-documenting Dev Framework | COMPLETE |
+| D2    | Self-learning Dev Framework    | COMPLETE |
+| D3    | Watcher Framework Improvement  | COMPLETE |
+| D4    | Just-in-Time Rules System      | COMPLETE |
 
 ### Priority 2: App Improvements (after Dev Framework)
 
@@ -53,21 +53,21 @@
 
 ### Tasks
 
-| # | Task | Status | Notes |
-|---|------|--------|-------|
-| D4.1 | Create `Docs/Rules/` folder | DONE | New folder for trigger-based rules |
-| D4.2 | Create `session-start.md` | DONE | T1: Session start rules |
-| D4.3 | Create `spec-writing.md` | DONE | T2: Spec creation rules |
-| D4.4 | Create `planning.md` | DONE | T3: Plan creation rules |
-| D4.5 | Create `implementation.md` | DONE | T4: Implementation rules |
-| D4.6 | Create `pre-commit.md` | DONE | T5: Pre-commit checklist |
-| D4.7 | Create `session-end.md` | DONE | T6: Session end rules |
-| D4.8 | Create `framework-changes.md` | DONE | T7: Framework doc rules |
-| D4.9 | Create `RULE_MAP.md` dispatcher | DONE | Replaces AGENTS.md |
-| D4.10 | Update `Docs/INDEX.md` | DONE | Add Rules section |
-| D4.11 | Update `.windsurf/rules/` pointers | DONE | User updated manually |
-| D4.12 | Keep AGENTS.md as backup | DONE | Can delete later |
-| D4.13 | Test with real session | DONE | PASS — all content covered |
+| #     | Task                               | Status | Notes                              |
+| ----- | ---------------------------------- | ------ | ---------------------------------- |
+| D4.1  | Create `Docs/Rules/` folder        | DONE   | New folder for trigger-based rules |
+| D4.2  | Create `session-start.md`          | DONE   | T1: Session start rules            |
+| D4.3  | Create `spec-writing.md`           | DONE   | T2: Spec creation rules            |
+| D4.4  | Create `planning.md`               | DONE   | T3: Plan creation rules            |
+| D4.5  | Create `implementation.md`         | DONE   | T4: Implementation rules           |
+| D4.6  | Create `pre-commit.md`             | DONE   | T5: Pre-commit checklist           |
+| D4.7  | Create `session-end.md`            | DONE   | T6: Session end rules              |
+| D4.8  | Create `framework-changes.md`      | DONE   | T7: Framework doc rules            |
+| D4.9  | Create `RULE_MAP.md` dispatcher    | DONE   | Replaces AGENTS.md                 |
+| D4.10 | Update `Docs/INDEX.md`             | DONE   | Add Rules section                  |
+| D4.11 | Update `.windsurf/rules/` pointers | DONE   | User updated manually              |
+| D4.12 | Keep AGENTS.md as backup           | DONE   | Can delete later                   |
+| D4.13 | Test with real session             | DONE   | PASS — all content covered         |
 
 ### Migration Checklist (from AGENTS.md)
 
@@ -305,7 +305,7 @@ Phase 4:
 ## Phase A1: Subscription Plans
 
 **Target:** 13 tasks  
-**Status:** In Progress (12/13)  
+**Status:** In Progress (13/13)  
 **Spec:** `Docs/Specs/subscription-plans.md`  
 **Plan:** `Docs/Plans/subscription-plans.md`  
 **Tasks:** `Docs/Tasks/subscription-plans.md`
@@ -316,7 +316,7 @@ Phase 4:
 - [x] **Task A1.2** — Cloud Backup Plan Gating
 - [x] **Task A1.3** — Export Module (JSON)
 - [x] **Task A1.4** — Export Module (CSV)
-- [ ] **Task A1.5** — Export Module (PDF)
+- [x] **Task A1.5** — Export Module (PDF)
 - [x] **Task A1.6** — ExportDialog Component
 - [x] **Task A1.7** — Import Module (JSON)
 - [x] **Task A1.8** — Import Module (Excel)

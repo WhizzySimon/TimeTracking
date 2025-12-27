@@ -7,6 +7,7 @@
 ## When to Create a Spec
 
 For any non-trivial change, create/update a spec file:
+
 - Location: `Docs/Specs/<feature-slug>.md`
 - Template: `Docs/Specs/_template.md`
 - Rules: `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md`

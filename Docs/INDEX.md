@@ -22,7 +22,7 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 
 - RULE_MAP.md (repo root)  
   Purpose: **Rule dispatcher** — trigger points for just-in-time rule loading.
-- Docs/Rules/*.md  
+- Docs/Rules/\*.md  
   Purpose: **Trigger-based rules** — read at specific points (session-start, pre-commit, etc.)
 - Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md  
   Purpose: **Complete workflow guide** — 4 Phasen, Task-Workflow, Progress Tracking, Commit-Regeln.
