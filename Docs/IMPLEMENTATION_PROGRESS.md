@@ -38,10 +38,11 @@
 | 11    | AI Import (Premium Feature)          | Blocked     |
 | A1    | Subscription Plans                   | COMPLETE    |
 | A1c   | Payment System (Stripe/etc)          | Future      |
-| A1b   | Multi-Arbeitgeber (Future)           | Not started |
-| A2    | UX (Kategorien, Navigation, Landing) | Not started |
-| A3    | UI (Deutsch, Farbschemata, Icons)    | Not started |
-| A4    | Bugs (Auto Sync, Resume Button)      | Not started |
+| A2    | Multi-Arbeitgeber                    | Not started |
+| A3    | Kleine Änderungen                    | Not started |
+| A4    | UX (Kategorien, Navigation, Landing) | Not started |
+| A5    | UI (Deutsch, Farbschemata)           | Not started |
+| A6    | Bugs (Auto Sync, Resume Button)      | Not started |
 
 ---
 
@@ -328,57 +329,123 @@ Phase 4:
 
 ---
 
-## Phase A1b: Multi-Arbeitgeber (Future)
+## Phase A2: Multi-Arbeitgeber
 
-**Target:** TBD  
+**Target:** 18 tasks  
 **Status:** Not started  
-**Spec:** TBD
+**Spec:** `Docs/Specs/multi-arbeitgeber.md`  
+**Plan:** `Docs/Plans/multi-arbeitgeber.md`
 
-### Planned Features
+### Tasks
 
-- [ ] Mehrere Arbeitgeber (AG)
-- [ ] Kleine Änderungen (TBD)
+- [ ] **Task A2.1** — IndexedDB migration: add employers store
+- [ ] **Task A2.2** — IndexedDB migration: add employerId to entries/categories/models
+- [ ] **Task A2.3** — Supabase migration: employers table + columns
+- [ ] **Task A2.4** — Employer store + CRUD operations
+- [ ] **Task A2.5** — EmployerSelector component
+- [ ] **Task A2.6** — Integrate selector into Header
+- [ ] **Task A2.7** — Filter logic for all stores
+- [ ] **Task A2.8** — Update Day/Week/Month tabs for AG filtering
+- [ ] **Task A2.9** — Update Analysis tab for AG filtering
+- [ ] **Task A2.10** — Update Add tab: group categories by AG
+- [ ] **Task A2.11** — Update Settings: AG management section
+- [ ] **Task A2.12** — Update Settings: categories grouped by AG
+- [ ] **Task A2.13** — Update WorkTimeModelDialog for AG
+- [ ] **Task A2.14** — StundenzettelExport component
+- [ ] **Task A2.15** — Export to Excel (.xlsx) per AG
+- [ ] **Task A2.16** — Export to PDF per AG
+- [ ] **Task A2.17** — Sync employers to Supabase
+- [ ] **Task A2.18** — E2E tests for multi-AG
 
 ---
 
-## Phase A2: UX Improvements
+## Phase A3: Kleine Änderungen
 
-**Target:** TBD  
+**Target:** 7 tasks  
 **Status:** Not started  
-**Spec:** TBD
+**Spec:** `Docs/Specs/kleine-aenderungen.md`  
+**Plan:** `Docs/Plans/kleine-aenderungen.md`
 
-### Planned Features
+### Tasks
 
-- [ ] Kategorien umbenennen
-- [ ] Navigation (vor/zurück)
-- [ ] Landing page Verhalten
+- [ ] **Task A3.1** — CategoryDialog component (create mode)
+- [ ] **Task A3.2** — CategoryDialog component (edit mode)
+- [ ] **Task A3.3** — Add "Kategorie erstellen" button to Add tab
+- [ ] **Task A3.4** — Make categories clickable in Settings
+- [ ] **Task A3.5** — PasswordInput component with toggle
+- [ ] **Task A3.6** — Integrate PasswordInput into LoginForm
+- [ ] **Task A3.7** — E2E tests
 
 ---
 
-## Phase A3: UI Improvements
+## Phase A4: UX Improvements
 
-**Target:** TBD  
+**Target:** 12 tasks  
 **Status:** Not started  
-**Spec:** TBD
+**Spec:** `Docs/Specs/ux-improvements.md`  
+**Plan:** `Docs/Plans/ux-improvements.md`
 
-### Planned Features
+### Tasks
 
-- [ ] UI komplett auf deutsch
-- [ ] Farbschemata
-- [ ] Icon design
+- [ ] **Task A4.1** — Rename "Arbeitskategorien" → "Tätigkeiten" globally
+- [ ] **Task A4.2** — Rename "Abwesenheitskategorien" → "Abwesenheit" globally
+- [ ] **Task A4.3** — CategoryBadge component
+- [ ] **Task A4.4** — Add badges to Settings category lists
+- [ ] **Task A4.5** — Day navigation: add date labels to arrows
+- [ ] **Task A4.6** — Week navigation: add week number labels
+- [ ] **Task A4.7** — Month navigation: add month abbrev labels
+- [ ] **Task A4.8** — BackButton component
+- [ ] **Task A4.9** — Integrate BackButton into Header
+- [ ] **Task A4.10** — Landing page logic: check running task
+- [ ] **Task A4.11** — Redirect to /add or /day based on task state
+- [ ] **Task A4.12** — E2E tests
 
 ---
 
-## Phase A4: Bug Fixes
+## Phase A5: UI Improvements
 
-**Target:** TBD  
+**Target:** 12 tasks  
 **Status:** Not started  
-**Spec:** TBD
+**Spec:** `Docs/Specs/ui-improvements.md`  
+**Plan:** `Docs/Plans/ui-improvements.md`
 
-### Known Bugs
+### Tasks
 
-- [ ] Auto Sync bei Konflikt
-- [ ] Resume button vertikale Ausrichtung
+- [ ] **Task A5.1** — Audit all UI for English text
+- [ ] **Task A5.2** — Translate login error messages
+- [ ] **Task A5.3** — Translate form validation messages
+- [ ] **Task A5.4** — Translate remaining UI text
+- [ ] **Task A5.5** — Define color scheme constants (5 schemes)
+- [ ] **Task A5.6** — Color calculation utilities (HSL variants)
+- [ ] **Task A5.7** — CSS custom properties for theming
+- [ ] **Task A5.8** — Color scheme picker in Settings
+- [ ] **Task A5.9** — Persist scheme to localStorage
+- [ ] **Task A5.10** — Sync scheme to Supabase for Pro
+- [ ] **Task A5.11** — Contrast ratio validation
+- [ ] **Task A5.12** — E2E tests
+
+---
+
+## Phase A6: Bug Fixes
+
+**Target:** 11 tasks  
+**Status:** Not started  
+**Spec:** `Docs/Specs/bug-fixes.md`  
+**Plan:** `Docs/Plans/bug-fixes.md`
+
+### Tasks
+
+- [ ] **Task A6.1** — Add updatedAt to all entity types
+- [ ] **Task A6.2** — IndexedDB migration for updatedAt
+- [ ] **Task A6.3** — Update save functions to set updatedAt
+- [ ] **Task A6.4** — Fresh login detection function
+- [ ] **Task A6.5** — Auto-sync on fresh login
+- [ ] **Task A6.6** — Conflict resolution with timestamps
+- [ ] **Task A6.7** — Integrate conflict resolution into sync engine
+- [ ] **Task A6.8** — Fix TaskItem layout (CSS grid)
+- [ ] **Task A6.9** — Test on 320px viewport
+- [ ] **Task A6.10** — E2E tests for sync scenarios
+- [ ] **Task A6.11** — E2E tests for button alignment
 
 ---
 
