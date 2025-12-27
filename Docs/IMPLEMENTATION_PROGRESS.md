@@ -316,7 +316,7 @@ Phase 4:
 - [x] **Task A1.2** — Cloud Backup Plan Gating
 - [x] **Task A1.3** — Export Module (JSON)
 - [x] **Task A1.4** — Export Module (CSV)
-- [x] **Task A1.5** — Export Module (PDF)
+- [ ] **Task A1.5** — Export Module (PDF)
 - [x] **Task A1.6** — ExportDialog Component
 - [x] **Task A1.7** — Import Module (JSON)
 - [x] **Task A1.8** — Import Module (Excel)
