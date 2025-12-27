@@ -30,8 +30,8 @@
 
 ```typescript
 interface UserPreferences {
-  colorScheme: 'cool' | 'warm' | 'green' | 'purple' | 'neutral';
-  // existing fields...
+	colorScheme: 'cool' | 'warm' | 'green' | 'purple' | 'neutral';
+	// existing fields...
 }
 ```
 
@@ -50,10 +50,10 @@ Stored in localStorage and synced to Supabase `user_profiles.preferences`.
 
 ```css
 :root {
-  --color-primary: hsl(var(--scheme-hue), 70%, 50%);
-  --color-primary-light: hsl(var(--scheme-hue), 70%, 90%);
-  --color-primary-dark: hsl(var(--scheme-hue), 70%, 30%);
-  /* etc. */
+	--color-primary: hsl(var(--scheme-hue), 70%, 50%);
+	--color-primary-light: hsl(var(--scheme-hue), 70%, 90%);
+	--color-primary-dark: hsl(var(--scheme-hue), 70%, 30%);
+	/* etc. */
 }
 ```
 
@@ -61,22 +61,22 @@ Stored in localStorage and synced to Supabase `user_profiles.preferences`.
 
 ## Color Scheme Definitions
 
-| Scheme | Base Hue | Primary | Description |
-|--------|----------|---------|-------------|
-| Cool | 210 | #3b82f6 | Blue (current) |
-| Warm | 25 | #f97316 | Orange (current) |
-| Green | 142 | #22c55e | Nature/Growth |
-| Purple | 270 | #a855f7 | Creative/Premium |
-| Neutral | 215 | #64748b | Professional/Minimal |
+| Scheme  | Base Hue | Primary | Description          |
+| ------- | -------- | ------- | -------------------- |
+| Cool    | 210      | #3b82f6 | Blue (current)       |
+| Warm    | 25       | #f97316 | Orange (current)     |
+| Green   | 142      | #22c55e | Nature/Growth        |
+| Purple  | 270      | #a855f7 | Creative/Premium     |
+| Neutral | 215      | #64748b | Professional/Minimal |
 
 ---
 
 ## Error Handling
 
-| Error | Handling | User Feedback |
-|-------|----------|---------------|
-| Invalid scheme value | Default to 'cool' | No error |
-| Scheme sync fails | Keep local preference | Subtle sync indicator |
+| Error                | Handling              | User Feedback         |
+| -------------------- | --------------------- | --------------------- |
+| Invalid scheme value | Default to 'cool'     | No error              |
+| Scheme sync fails    | Keep local preference | Subtle sync indicator |
 
 ---
 
@@ -111,19 +111,19 @@ Stored in localStorage and synced to Supabase `user_profiles.preferences`.
 
 ## Tasks
 
-| # | Task | Estimate | Dependencies |
-|---|------|----------|--------------|
-| A5.1 | Audit all UI for English text | 1h | - |
-| A5.2 | Translate login error messages | 1h | A5.1 |
-| A5.3 | Translate form validation messages | 1h | A5.1 |
-| A5.4 | Translate remaining UI text | 1h | A5.1 |
-| A5.5 | Define color scheme constants (5 schemes) | 1h | - |
-| A5.6 | Color calculation utilities (HSL variants) | 1h | A5.5 |
-| A5.7 | CSS custom properties for theming | 1h | A5.5 |
-| A5.8 | Color scheme picker in Settings | 1h | A5.7 |
-| A5.9 | Persist scheme to localStorage | 0.5h | A5.8 |
-| A5.10 | Sync scheme to Supabase for Pro | 1h | A5.9 |
-| A5.11 | Contrast ratio validation | 1h | A5.6 |
-| A5.12 | E2E tests | 1h | A5.1-A5.11 |
+| #     | Task                                       | Estimate | Dependencies |
+| ----- | ------------------------------------------ | -------- | ------------ |
+| A5.1  | Audit all UI for English text              | 1h       | -            |
+| A5.2  | Translate login error messages             | 1h       | A5.1         |
+| A5.3  | Translate form validation messages         | 1h       | A5.1         |
+| A5.4  | Translate remaining UI text                | 1h       | A5.1         |
+| A5.5  | Define color scheme constants (5 schemes)  | 1h       | -            |
+| A5.6  | Color calculation utilities (HSL variants) | 1h       | A5.5         |
+| A5.7  | CSS custom properties for theming          | 1h       | A5.5         |
+| A5.8  | Color scheme picker in Settings            | 1h       | A5.7         |
+| A5.9  | Persist scheme to localStorage             | 0.5h     | A5.8         |
+| A5.10 | Sync scheme to Supabase for Pro            | 1h       | A5.9         |
+| A5.11 | Contrast ratio validation                  | 1h       | A5.6         |
+| A5.12 | E2E tests                                  | 1h       | A5.1-A5.11   |
 
 **Total estimate:** ~11.5 hours

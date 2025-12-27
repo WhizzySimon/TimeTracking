@@ -27,18 +27,18 @@ All syncable entities get `updatedAt` field:
 
 ```typescript
 interface TimeEntry {
-  // existing fields...
-  updatedAt: number; // UTC milliseconds
+	// existing fields...
+	updatedAt: number; // UTC milliseconds
 }
 
 interface Category {
-  // existing fields...
-  updatedAt: number;
+	// existing fields...
+	updatedAt: number;
 }
 
 interface WorkTimeModel {
-  // existing fields...
-  updatedAt: number;
+	// existing fields...
+	updatedAt: number;
 }
 ```
 
@@ -55,9 +55,9 @@ interface WorkTimeModel {
 
 ```typescript
 function isFreshLogin(): boolean {
-  const entries = await getAll('timeEntries');
-  const categories = await getAll('categories');
-  return entries.length === 0 && categories.length === 0;
+	const entries = await getAll('timeEntries');
+	const categories = await getAll('categories');
+	return entries.length === 0 && categories.length === 0;
 }
 ```
 
@@ -71,15 +71,15 @@ function isFreshLogin(): boolean {
 
 ```typescript
 function resolveConflict(local: Entry, cloud: Entry): Entry {
-  // Same entry modified on both sides
-  if (local.updatedAt > cloud.updatedAt) {
-    return local; // Local is newer
-  } else if (cloud.updatedAt > local.updatedAt) {
-    return cloud; // Cloud is newer
-  } else {
-    // Same timestamp (rare): prefer cloud for stability
-    return cloud;
-  }
+	// Same entry modified on both sides
+	if (local.updatedAt > cloud.updatedAt) {
+		return local; // Local is newer
+	} else if (cloud.updatedAt > local.updatedAt) {
+		return cloud; // Cloud is newer
+	} else {
+		// Same timestamp (rare): prefer cloud for stability
+		return cloud;
+	}
 }
 ```
 
@@ -91,21 +91,21 @@ function resolveConflict(local: Entry, cloud: Entry): Entry {
 
 ```css
 .task-item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 8px;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	gap: 8px;
 }
 
 .task-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .task-actions {
-  flex-shrink: 0;
-  width: 40px; /* Fixed width for button */
+	flex-shrink: 0;
+	width: 40px; /* Fixed width for button */
 }
 ```
 
@@ -113,11 +113,11 @@ function resolveConflict(local: Entry, cloud: Entry): Entry {
 
 ## Error Handling
 
-| Error | Handling | User Feedback |
-|-------|----------|---------------|
-| Fresh sync fails | Show error, allow retry | "Synchronisierung fehlgeschlagen. Erneut versuchen?" |
-| Conflict resolution fails | Log, keep both versions | Console log only |
-| Network error during sync | Queue for later | Sync indicator shows pending |
+| Error                     | Handling                | User Feedback                                        |
+| ------------------------- | ----------------------- | ---------------------------------------------------- |
+| Fresh sync fails          | Show error, allow retry | "Synchronisierung fehlgeschlagen. Erneut versuchen?" |
+| Conflict resolution fails | Log, keep both versions | Console log only                                     |
+| Network error during sync | Queue for later         | Sync indicator shows pending                         |
 
 ---
 
@@ -153,18 +153,18 @@ function resolveConflict(local: Entry, cloud: Entry): Entry {
 
 ## Tasks
 
-| # | Task | Estimate | Dependencies |
-|---|------|----------|--------------|
-| A6.1 | Add updatedAt to all entity types | 1h | - |
-| A6.2 | IndexedDB migration for updatedAt | 1h | A6.1 |
-| A6.3 | Update save functions to set updatedAt | 1h | A6.1 |
-| A6.4 | Fresh login detection function | 1h | - |
-| A6.5 | Auto-sync on fresh login | 2h | A6.4 |
-| A6.6 | Conflict resolution with timestamps | 2h | A6.3 |
-| A6.7 | Integrate conflict resolution into sync engine | 2h | A6.6 |
-| A6.8 | Fix TaskItem layout (CSS grid) | 1h | - |
-| A6.9 | Test on 320px viewport | 0.5h | A6.8 |
-| A6.10 | E2E tests for sync scenarios | 2h | A6.1-A6.7 |
-| A6.11 | E2E tests for button alignment | 0.5h | A6.8 |
+| #     | Task                                           | Estimate | Dependencies |
+| ----- | ---------------------------------------------- | -------- | ------------ |
+| A6.1  | Add updatedAt to all entity types              | 1h       | -            |
+| A6.2  | IndexedDB migration for updatedAt              | 1h       | A6.1         |
+| A6.3  | Update save functions to set updatedAt         | 1h       | A6.1         |
+| A6.4  | Fresh login detection function                 | 1h       | -            |
+| A6.5  | Auto-sync on fresh login                       | 2h       | A6.4         |
+| A6.6  | Conflict resolution with timestamps            | 2h       | A6.3         |
+| A6.7  | Integrate conflict resolution into sync engine | 2h       | A6.6         |
+| A6.8  | Fix TaskItem layout (CSS grid)                 | 1h       | -            |
+| A6.9  | Test on 320px viewport                         | 0.5h     | A6.8         |
+| A6.10 | E2E tests for sync scenarios                   | 2h       | A6.1-A6.7    |
+| A6.11 | E2E tests for button alignment                 | 0.5h     | A6.8         |
 
 **Total estimate:** ~14 hours

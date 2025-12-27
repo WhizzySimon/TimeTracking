@@ -4,7 +4,14 @@
  */
 
 import { getAll } from '$lib/storage/db';
-import type { Category, TimeEntry, DayType, WorkTimeModel, OutboxItem } from '$lib/types';
+import type {
+	Category,
+	TimeEntry,
+	DayType,
+	WorkTimeModel,
+	OutboxItem,
+	UserPreference
+} from '$lib/types';
 
 export interface SnapshotMeta {
 	schemaVersion: number;
@@ -26,19 +33,22 @@ export interface DatabaseSnapshot {
 	dayTypes: DayType[];
 	workTimeModels: WorkTimeModel[];
 	outbox: OutboxItem[];
+	userPreferences?: UserPreference[];
 }
 
 /**
  * Export full IndexedDB snapshot for cloud backup.
  */
 export async function exportSnapshot(): Promise<DatabaseSnapshot> {
-	const [categories, timeEntries, dayTypes, workTimeModels, outbox] = await Promise.all([
-		getAll<Category>('categories'),
-		getAll<TimeEntry>('timeEntries'),
-		getAll<DayType>('dayTypes'),
-		getAll<WorkTimeModel>('workTimeModels'),
-		getAll<OutboxItem>('outbox')
-	]);
+	const [categories, timeEntries, dayTypes, workTimeModels, outbox, userPreferences] =
+		await Promise.all([
+			getAll<Category>('categories'),
+			getAll<TimeEntry>('timeEntries'),
+			getAll<DayType>('dayTypes'),
+			getAll<WorkTimeModel>('workTimeModels'),
+			getAll<OutboxItem>('outbox'),
+			getAll<UserPreference>('userPreferences')
+		]);
 
 	let appVersion = 'unknown';
 	try {
@@ -72,6 +82,7 @@ export async function exportSnapshot(): Promise<DatabaseSnapshot> {
 		timeEntries,
 		dayTypes,
 		workTimeModels,
-		outbox
+		outbox,
+		userPreferences
 	};
 }

@@ -4,12 +4,21 @@
 
 ---
 
+## Canary
+
+**When you read this file, output exactly:**
+
+> [CANARY] pre-commit rules loaded
+
+---
+
 ## STOP — Complete This Checklist First
 
 ```
 [ ] CHANGELOG.md — Added one-line entry for this work
 [ ] LEARNINGS-INBOX.md — Reviewed session for feedback (positive/corrective)
 [ ] DECISIONS.md — If decision was made, added entry
+[ ] Learning promotion — Check INBOX for items repeated 2+ times → promote to LEARNINGS.md
 ```
 
 **This is not optional.** Violations: 2025-12-26, 2025-12-27.
@@ -33,7 +42,16 @@ git commit -m "feat: description"
 git push
 ```
 
-That's it. No PRs, no branch protection, no CI blocking.
+**Push is mandatory.** Unpushed work is lost if the local environment changes.
+
+## Post-Push Verification
+
+After pushing, verify:
+
+1. **Working tree clean:** `git status` shows nothing to commit
+2. **No unpushed commits:** `git log origin/dev..HEAD --oneline` is empty
+
+If either check fails, fix before ending the session.
 
 ## Commit Message Format
 
@@ -46,4 +64,4 @@ That's it. No PRs, no branch protection, no CI blocking.
 
 ---
 
-**Next:** After session work is complete → Read `Docs/Rules/session-end.md`
+**Self-Learning System:** See `Docs/Rules/session-end.md` for learning promotion rules and the two-tier system (Inbox → Distillate).

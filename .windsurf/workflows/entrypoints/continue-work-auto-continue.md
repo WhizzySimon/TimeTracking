@@ -70,7 +70,7 @@ For each task:
 2. **Verify** - Run `npm run verify` via watcher, fix errors
 3. **Test UI** - Use MCP Playwright if applicable
 4. **Update progress** - Mark task complete in `Docs/IMPLEMENTATION_PROGRESS.md`
-5. **Session-end** - Follow AGENTS.md "Session-end rules" (changelog, commit, push)
+5. **Session-end** - Follow `Docs/Rules/pre-commit.md` (changelog, commit, push)
 6. **Continue to next task** - Do NOT stop to ask if you should continue
 
 **STOP ONLY when:**

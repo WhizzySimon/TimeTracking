@@ -35,7 +35,7 @@ function success(msg) {
 }
 
 function extractTagsFromTagsMd() {
-	const tagsPath = join(devlogDir, 'SSD Analysis', 'TAGS.md');
+	const tagsPath = join(projectRoot, 'Docs', 'Reports', 'SSD Analysis', 'TAGS.md');
 	const content = readFileSync(tagsPath, 'utf-8');
 	const tags = new Set();
 	const aliasMap = new Map();

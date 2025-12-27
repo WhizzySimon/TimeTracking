@@ -17,7 +17,8 @@
 	import { SvelteMap } from 'svelte/reactivity';
 	import { timeEntries, categories, workTimeModels, currentDate } from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { getAll, getByKey } from '$lib/storage/db';
+	import { getAll, getByKey, put } from '$lib/storage/db';
+	import { markLocalChanged } from '$lib/backup/cloud';
 	import { formatDate, parseDate, getWeekNumber, addDays } from '$lib/utils/date';
 	import {
 		calculateIst,
@@ -25,50 +26,63 @@
 		calculateSaldo,
 		formatHours
 	} from '$lib/utils/calculations';
-	import type { Category, DayType, DayTypeValue, TimeEntry, WorkTimeModel } from '$lib/types';
+	import type {
+		Category,
+		DayType,
+		DayTypeValue,
+		TimeEntry,
+		WorkTimeModel,
+		UserPreference
+	} from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import DateRangeSelector from '$lib/components/DateRangeSelector.svelte';
 
-	const STORAGE_KEY = 'analysis-date-range';
+	const PREF_KEY = 'analysis-date-range';
 
 	let loading = $state(true);
 	let showRangeSelector = $state(false);
+	let rangeLoaded = $state(false);
 	// Collapsible sections state
 	let expandedSections = $state({
 		zeiten: true,
 		taetigkeiten: true
 	});
 
-	// Load saved range from localStorage or use defaults
-	function getInitialRange(): { start: string; end: string } {
-		if (browser) {
-			const saved = localStorage.getItem(STORAGE_KEY);
-			if (saved) {
-				try {
-					const parsed = JSON.parse(saved);
-					if (parsed.start && parsed.end) {
-						return parsed;
-					}
-				} catch {
-					// Ignore parse errors
+	// Default range: 01.01.current year to today
+	const defaultRange = {
+		start: formatDate(new Date(new Date().getFullYear(), 0, 1), 'ISO'),
+		end: formatDate(new Date(), 'ISO')
+	};
+
+	let rangeStartStr = $state(defaultRange.start);
+	let rangeEndStr = $state(defaultRange.end);
+
+	// Load range from IndexedDB
+	async function loadSavedRange() {
+		try {
+			const pref = await getByKey<UserPreference>('userPreferences', PREF_KEY);
+			if (pref?.value) {
+				const parsed = JSON.parse(pref.value);
+				if (parsed.start && parsed.end) {
+					rangeStartStr = parsed.start;
+					rangeEndStr = parsed.end;
 				}
 			}
+		} catch {
+			// Use defaults on error
 		}
-		// Default: 01.01.current year to today
-		return {
-			start: formatDate(new Date(new Date().getFullYear(), 0, 1), 'ISO'),
-			end: formatDate(new Date(), 'ISO')
-		};
+		rangeLoaded = true;
 	}
 
-	const initialRange = getInitialRange();
-	let rangeStartStr = $state(initialRange.start);
-	let rangeEndStr = $state(initialRange.end);
-
-	// Save range to localStorage when it changes
+	// Save range to IndexedDB when it changes (after initial load)
 	$effect(() => {
-		if (browser && rangeStartStr && rangeEndStr) {
-			localStorage.setItem(STORAGE_KEY, JSON.stringify({ start: rangeStartStr, end: rangeEndStr }));
+		if (browser && rangeLoaded && rangeStartStr && rangeEndStr) {
+			const pref: UserPreference = {
+				key: PREF_KEY,
+				value: JSON.stringify({ start: rangeStartStr, end: rangeEndStr }),
+				updatedAt: Date.now()
+			};
+			put('userPreferences', pref).then(() => markLocalChanged());
 		}
 	});
 
@@ -450,6 +464,7 @@
 		timeEntries.set(allEntries);
 		const allModels = await getAll<WorkTimeModel>('workTimeModels');
 		workTimeModels.set(allModels);
+		await loadSavedRange();
 		await loadDayTypesForRange();
 		loading = false;
 	});

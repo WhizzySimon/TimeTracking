@@ -6,7 +6,7 @@ auto_execution_mode: 1
 Read:
 
 - Docs/INDEX.md
-- AGENTS.md
+- RULE_MAP.md
 - .windsurf/cascade.md
 - Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
 - Docs/Tooling/BOOTSTRAP.md (tooling entry point — includes watcher + git workflow)

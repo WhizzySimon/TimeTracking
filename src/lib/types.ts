@@ -136,6 +136,16 @@ export interface AuthSession {
 export type UserPlan = 'free' | 'pro' | 'premium';
 
 /**
+ * User preference stored in IndexedDB for cloud sync.
+ * Key-value store for preferences that should sync across devices.
+ */
+export interface UserPreference {
+	key: string;
+	value: string;
+	updatedAt: number;
+}
+
+/**
  * User profile from Supabase profiles table.
  * Spec refs: P10-monetising.md
  */

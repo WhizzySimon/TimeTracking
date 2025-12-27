@@ -48,10 +48,10 @@ No schema changes required.
 
 ## Error Handling
 
-| Error | Handling | User Feedback |
-|-------|----------|---------------|
-| History.back() fails | Fallback to /day | No error shown |
-| Running task check fails | Default to /add | No error shown |
+| Error                    | Handling         | User Feedback  |
+| ------------------------ | ---------------- | -------------- |
+| History.back() fails     | Fallback to /day | No error shown |
+| Running task check fails | Default to /add  | No error shown |
 
 ---
 
@@ -82,19 +82,19 @@ No schema changes required.
 
 ## Tasks
 
-| # | Task | Estimate | Dependencies |
-|---|------|----------|--------------|
-| A4.1 | Rename "Arbeitskategorien" → "Tätigkeiten" globally | 1h | - |
-| A4.2 | Rename "Abwesenheitskategorien" → "Abwesenheit" globally | 0.5h | - |
-| A4.3 | CategoryBadge component | 1h | - |
-| A4.4 | Add badges to Settings category lists | 1h | A4.3 |
-| A4.5 | Day navigation: add date labels to arrows | 1h | - |
-| A4.6 | Week navigation: add week number labels | 1h | - |
-| A4.7 | Month navigation: add month abbrev labels | 1h | - |
-| A4.8 | BackButton component | 1h | - |
-| A4.9 | Integrate BackButton into Header | 0.5h | A4.8 |
-| A4.10 | Landing page logic: check running task | 1h | - |
-| A4.11 | Redirect to /add or /day based on task state | 0.5h | A4.10 |
-| A4.12 | E2E tests | 1.5h | A4.1-A4.11 |
+| #     | Task                                                     | Estimate | Dependencies |
+| ----- | -------------------------------------------------------- | -------- | ------------ |
+| A4.1  | Rename "Arbeitskategorien" → "Tätigkeiten" globally      | 1h       | -            |
+| A4.2  | Rename "Abwesenheitskategorien" → "Abwesenheit" globally | 0.5h     | -            |
+| A4.3  | CategoryBadge component                                  | 1h       | -            |
+| A4.4  | Add badges to Settings category lists                    | 1h       | A4.3         |
+| A4.5  | Day navigation: add date labels to arrows                | 1h       | -            |
+| A4.6  | Week navigation: add week number labels                  | 1h       | -            |
+| A4.7  | Month navigation: add month abbrev labels                | 1h       | -            |
+| A4.8  | BackButton component                                     | 1h       | -            |
+| A4.9  | Integrate BackButton into Header                         | 0.5h     | A4.8         |
+| A4.10 | Landing page logic: check running task                   | 1h       | -            |
+| A4.11 | Redirect to /add or /day based on task state             | 0.5h     | A4.10        |
+| A4.12 | E2E tests                                                | 1.5h     | A4.1-A4.11   |
 
 **Total estimate:** ~11 hours

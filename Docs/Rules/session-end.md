@@ -1,30 +1,16 @@
 # Session End Rules
 
-**Trigger:** Before ending any session
+**Trigger:** Before ending any session (optional — pre-commit now includes these checks)
 
 ---
 
-## CRITICAL — Work Must Never Be Lost
+## Pre-Commit Covers Most Checks
 
-Before ending any session, Cascade MUST verify:
+The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/Rules/pre-commit.md`.
 
-1. **Pre-commit checklist completed** (see `Docs/Rules/pre-commit.md`)
-2. **Learnings promoted:** Check INBOX for items repeated 2+ times → promote to `Docs/Devlog/LEARNINGS.md`
-3. **No uncommitted changes:** Run `git status` — working tree must be clean
-4. **No unpushed commits:** Run `git log origin/dev..HEAD --oneline` — must be empty
+**If you committed and pushed, session-end checks are already done.**
 
----
-
-## If Any Check Fails
-
-**DO NOT end the session.** Complete the cycle:
-
-- Feedback given → Add to `Docs/Devlog/LEARNINGS-INBOX.md` (date, context, feedback)
-- Duplicates in Inbox → Promote to `Docs/Devlog/LEARNINGS.md`, mark as promoted in Inbox
-- Decision made → Add to `Docs/Devlog/DECISIONS.md` (use template)
-- Missing changelog → Add one-line entry to `Docs/Devlog/CHANGELOG.md`
-- Uncommitted → `git add -A; git commit -m "..."`
-- Unpushed → `git push`
+This file documents the self-learning system for reference.
 
 ---
 

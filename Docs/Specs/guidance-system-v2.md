@@ -17,52 +17,60 @@
 
 ## 1) Goal / Problem
 
-The current guidance system has JIT rules but no verification that rules are loaded at trigger points. Additionally, `ui-design-rules.md` (109 lines) loads always-on even for non-UI work, and several files reference `AGENTS.md` which no longer exists.
+The current guidance system has three issues:
+
+1. **No verification** that JIT rules are loaded at trigger points (violations on 2025-12-26, 2025-12-27)
+2. **Session-end is unreliable** — Cascade doesn't know when a session ends; user may forget to trigger it
+3. **Editability problem** — `.windsurf/rules/` files cannot be edited by Cascade, but contain full rules (203 lines) that should be maintainable
 
 ## 2) Scope
 
 ### In scope
 
-- Add canary markers to critical JIT rules (`pre-commit.md`, `session-end.md`)
-- Move `ui-design-rules.md` from always-on to JIT
+- Add canary marker to `pre-commit.md` to verify rule loading
+- Merge session-end checks INTO pre-commit (eliminate separate session-end trigger)
+- Make `.windsurf/rules/` files reference-only, move actual rules to editable `Docs/Rules/`
 - Fix stale `AGENTS.md` references in workflow files
 
 ### Out of scope
 
-- Changing the JIT rule structure itself
+- Changing the JIT rule trigger structure
 - Adding new rules or triggers
 - Modifying the learning loop process (already documented correctly)
 
 ### What we don't want
 
-- Over-engineering: canary markers should be 3-5 lines, not complex verification systems
+- Over-engineering: canary markers should be 3-5 lines
 - Breaking existing workflows
-- Adding more always-on context
+- Multiple places to maintain the same rule
 
 ## 3) Functional Requirements (FR)
 
 - **GS-FR-001**: When Cascade reads `Docs/Rules/pre-commit.md`, it MUST output `[CANARY] pre-commit rules loaded` before any commit-related action.
-- **GS-FR-002**: When Cascade reads `Docs/Rules/session-end.md`, it MUST output `[CANARY] session-end rules loaded` before any session-end action.
-- **GS-FR-003**: UI design rules (`ConfirmDialog`, minimal interruption, retry pattern) MUST only load when Cascade is about to modify UI components (`.svelte` files or UI-related code).
-- **GS-FR-004**: All workflow files MUST reference `RULE_MAP.md` or `Docs/Rules/*.md` instead of `AGENTS.md`.
+- **GS-FR-002**: Pre-commit rules MUST include all critical session-end checks (push verification, learning promotion, clean working tree) so every commit completes the full cycle.
+- **GS-FR-003**: All `.windsurf/rules/*.md` files MUST be reference-only (≤15 lines each), pointing to editable files in `Docs/Rules/`.
+- **GS-FR-004**: Actual rule content MUST live in `Docs/Rules/` where Cascade can edit it.
+- **GS-FR-005**: All workflow files MUST reference `RULE_MAP.md` or `Docs/Rules/*.md` instead of `AGENTS.md`.
 
 ## 4) Implementation Guarantees (IG)
 
-- **GS-IG-001**: Always-on context (`.windsurf/rules/*.md`) MUST be ≤160 lines after implementation (currently ~257 lines).
-- **GS-IG-002**: Existing rule content MUST NOT be lost — only moved or referenced differently.
-- **GS-IG-003**: All canary markers MUST be visible in chat output (not hidden or conditional).
+- **GS-IG-001**: Total `.windsurf/rules/*.md` content MUST be ≤60 lines after implementation (currently ~260 lines).
+- **GS-IG-002**: Existing rule content MUST NOT be lost — only moved to `Docs/Rules/`.
+- **GS-IG-003**: Canary marker MUST be visible in chat output (not hidden or conditional).
+- **GS-IG-004**: After implementation, all rules MUST be editable by Cascade (no rules locked in uneditable files).
 
 ## 5) Design Decisions (DD)
 
 - **GS-DD-001**: Canary format is `[CANARY] <filename> loaded` — simple, grep-able, unambiguous.
-- **GS-DD-002**: UI rules move to `Docs/Rules/ui-work.md` (new JIT file), with a 10-line pointer remaining in `.windsurf/rules/ui-design-rules.md`.
-- **GS-DD-003**: Domain prefix `GS-` (Guidance System) used for this spec to avoid collision with `TT-` app requirements.
+- **GS-DD-002**: `.windsurf/rules/` files become 10-15 line pointers with format: "Read `Docs/Rules/<name>.md` for full rules."
+- **GS-DD-003**: Session-end is eliminated as a separate trigger; its checks merge into pre-commit.
+- **GS-DD-004**: Domain prefix `GS-` (Guidance System) used for this spec.
 
 ## 6) Edge cases
 
-- **EC-001**: What if Cascade forgets to output canary? — This is the problem we're solving; the marker proves compliance or reveals failure.
-- **EC-002**: What if UI rules are needed but not loaded? — The 10-line pointer in always-on tells Cascade when to load the full file.
-- **EC-003**: What if someone references AGENTS.md in new code? — Not a concern; AGENTS.md doesn't exist, so file read fails obviously.
+- **EC-001**: What if Cascade forgets to output canary? — The missing marker proves the rule was not loaded; this is the detection mechanism.
+- **EC-002**: What if user closes chat without committing? — Work may be lost, but this is existing behavior. Pre-commit ensures committed work is complete.
+- **EC-003**: What if AGENTS.md is referenced in new code? — File doesn't exist, read fails obviously (self-correcting).
 
 ## 7) Data & privacy
 
@@ -73,12 +81,22 @@ The current guidance system has JIT rules but no verification that rules are loa
 ## 8) Acceptance checks (testable)
 
 - [ ] **AC-001**: `[CANARY] pre-commit rules loaded` appears in chat before any commit (maps to GS-FR-001)
-- [ ] **AC-002**: `[CANARY] session-end rules loaded` appears in chat before session end (maps to GS-FR-002)
-- [ ] **AC-003**: Line count of `.windsurf/rules/*.md` totals ≤160 lines (maps to GS-IG-001)
-- [ ] **AC-004**: `grep -r "AGENTS.md" .windsurf/` returns no matches (maps to GS-FR-004)
-- [ ] **AC-005**: UI-only session does NOT fail — `Docs/Rules/ui-work.md` loads correctly when triggered (maps to GS-FR-003)
+- [ ] **AC-002**: Pre-commit checklist includes push, learning promotion, clean tree checks (maps to GS-FR-002)
+- [ ] **AC-003**: Each file in `.windsurf/rules/` is ≤15 lines (maps to GS-FR-003)
+- [ ] **AC-004**: Total `.windsurf/rules/*.md` is ≤60 lines (maps to GS-IG-001)
+- [ ] **AC-005**: `grep -r "AGENTS.md" .windsurf/` returns no matches (maps to GS-FR-005)
+- [ ] **AC-006**: All rule content exists in `Docs/Rules/` and is editable (maps to GS-IG-004)
+- [ ] **AC-007**: Full test: complete a task, commit, verify canary appears and all checks pass
 
 ## 9) Change log
+
+**[2025-12-27 14:15]**
+
+- Changed: Merged session-end into pre-commit (GS-FR-002, GS-DD-003)
+- Changed: All .windsurf/rules/ files become reference-only (GS-FR-003, GS-FR-004)
+- Changed: Target ≤60 lines for always-on context (was 160)
+- Added: GS-IG-004 editability guarantee
+- Removed: Session-end canary (no longer needed)
 
 **[2025-12-27 11:30]**
 

@@ -41,43 +41,48 @@
 ### IndexedDB
 
 **New store: `employers`**
+
 ```typescript
 interface Employer {
-  id: string;
-  name: string;
-  createdAt: number;
-  updatedAt: number;
-  isActive: boolean;
+	id: string;
+	name: string;
+	createdAt: number;
+	updatedAt: number;
+	isActive: boolean;
 }
 ```
 
 **Modified: `categories`**
+
 ```typescript
 interface Category {
-  // existing fields...
-  employerId?: string | null; // null = all AGs
+	// existing fields...
+	employerId?: string | null; // null = all AGs
 }
 ```
 
 **Modified: `timeEntries`**
+
 ```typescript
 interface TimeEntry {
-  // existing fields...
-  employerId?: string | null;
+	// existing fields...
+	employerId?: string | null;
 }
 ```
 
 **Modified: `workTimeModels`**
+
 ```typescript
 interface WorkTimeModel {
-  // existing fields...
-  employerId?: string | null;
+	// existing fields...
+	employerId?: string | null;
 }
 ```
 
 ### Supabase
 
 **New table: `employers`**
+
 - id (uuid, PK)
 - user_id (uuid, FK to auth.users)
 - name (text)
@@ -86,6 +91,7 @@ interface WorkTimeModel {
 - is_active (boolean, default true)
 
 **Modified tables:** Add `employer_id` column to:
+
 - categories
 - time_entries
 - work_time_models
@@ -115,12 +121,12 @@ interface WorkTimeModel {
 
 ## Error Handling
 
-| Error | Handling | User Feedback |
-|-------|----------|---------------|
-| AG creation fails | Retry 3x, log error | Toast: "Arbeitgeber konnte nicht erstellt werden" |
-| AG sync fails | Queue for later sync | Subtle sync indicator |
-| Filter returns empty | Show empty state | "Keine Einträge für diesen Arbeitgeber" |
-| Export fails | Log, show error | Toast: "Export fehlgeschlagen" |
+| Error                | Handling             | User Feedback                                     |
+| -------------------- | -------------------- | ------------------------------------------------- |
+| AG creation fails    | Retry 3x, log error  | Toast: "Arbeitgeber konnte nicht erstellt werden" |
+| AG sync fails        | Queue for later sync | Subtle sync indicator                             |
+| Filter returns empty | Show empty state     | "Keine Einträge für diesen Arbeitgeber"           |
+| Export fails         | Log, show error      | Toast: "Export fehlgeschlagen"                    |
 
 ---
 
@@ -159,25 +165,25 @@ interface WorkTimeModel {
 
 ## Tasks
 
-| # | Task | Estimate | Dependencies |
-|---|------|----------|--------------|
-| A2.1 | IndexedDB migration: add employers store | 1h | - |
-| A2.2 | IndexedDB migration: add employerId to entries/categories/models | 1h | A2.1 |
-| A2.3 | Supabase migration: employers table + columns | 1h | - |
-| A2.4 | Employer store + CRUD operations | 2h | A2.1 |
-| A2.5 | EmployerSelector component | 2h | A2.4 |
-| A2.6 | Integrate selector into Header | 1h | A2.5 |
-| A2.7 | Filter logic for all stores | 2h | A2.2 |
-| A2.8 | Update Day/Week/Month tabs for AG filtering | 2h | A2.7 |
-| A2.9 | Update Analysis tab for AG filtering | 1h | A2.7 |
-| A2.10 | Update Add tab: group categories by AG | 2h | A2.7 |
-| A2.11 | Update Settings: AG management section | 2h | A2.4 |
-| A2.12 | Update Settings: categories grouped by AG | 1h | A2.7 |
-| A2.13 | Update WorkTimeModelDialog for AG | 1h | A2.2 |
-| A2.14 | StundenzettelExport component | 3h | A2.7 |
-| A2.15 | Export to Excel (.xlsx) per AG | 2h | A2.14 |
-| A2.16 | Export to PDF per AG | 1h | A2.14 |
-| A2.17 | Sync employers to Supabase | 2h | A2.3, A2.4 |
-| A2.18 | E2E tests for multi-AG | 2h | A2.1-A2.17 |
+| #     | Task                                                             | Estimate | Dependencies |
+| ----- | ---------------------------------------------------------------- | -------- | ------------ |
+| A2.1  | IndexedDB migration: add employers store                         | 1h       | -            |
+| A2.2  | IndexedDB migration: add employerId to entries/categories/models | 1h       | A2.1         |
+| A2.3  | Supabase migration: employers table + columns                    | 1h       | -            |
+| A2.4  | Employer store + CRUD operations                                 | 2h       | A2.1         |
+| A2.5  | EmployerSelector component                                       | 2h       | A2.4         |
+| A2.6  | Integrate selector into Header                                   | 1h       | A2.5         |
+| A2.7  | Filter logic for all stores                                      | 2h       | A2.2         |
+| A2.8  | Update Day/Week/Month tabs for AG filtering                      | 2h       | A2.7         |
+| A2.9  | Update Analysis tab for AG filtering                             | 1h       | A2.7         |
+| A2.10 | Update Add tab: group categories by AG                           | 2h       | A2.7         |
+| A2.11 | Update Settings: AG management section                           | 2h       | A2.4         |
+| A2.12 | Update Settings: categories grouped by AG                        | 1h       | A2.7         |
+| A2.13 | Update WorkTimeModelDialog for AG                                | 1h       | A2.2         |
+| A2.14 | StundenzettelExport component                                    | 3h       | A2.7         |
+| A2.15 | Export to Excel (.xlsx) per AG                                   | 2h       | A2.14        |
+| A2.16 | Export to PDF per AG                                             | 1h       | A2.14        |
+| A2.17 | Sync employers to Supabase                                       | 2h       | A2.3, A2.4   |
+| A2.18 | E2E tests for multi-AG                                           | 2h       | A2.1-A2.17   |
 
 **Total estimate:** ~26 hours

@@ -67,4 +67,4 @@ Use MCP Playwright browser to test the implemented functionality.
 
 ### 3. Git Commit & Push (REQUIRED)
 
-**Follow AGENTS.md "Session-end rules" section** — includes changelog update, commit, and push.
+**Follow `Docs/Rules/pre-commit.md`** — includes changelog update, commit, and push.

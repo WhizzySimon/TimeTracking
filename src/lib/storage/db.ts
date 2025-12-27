@@ -5,7 +5,7 @@
  */
 
 const DB_NAME = 'timetracker';
-const DB_VERSION = 7;
+const DB_VERSION = 8;
 
 let dbInstance: IDBDatabase | null = null;
 
@@ -75,6 +75,11 @@ export async function openDB(): Promise<IDBDatabase> {
 			if (!db.objectStoreNames.contains('importPresets')) {
 				const store = db.createObjectStore('importPresets', { keyPath: 'id' });
 				store.createIndex('name', 'name', { unique: true });
+			}
+
+			// User preferences store (synced to cloud)
+			if (!db.objectStoreNames.contains('userPreferences')) {
+				db.createObjectStore('userPreferences', { keyPath: 'key' });
 			}
 		};
 

@@ -47,7 +47,7 @@ Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) 
 
 ### 3. Git Commit & Push (REQUIRED - NEVER SKIP THIS)
 
-**Follow AGENTS.md "Session-end rules" section** — includes changelog update, commit, and push.
+**Follow `Docs/Rules/pre-commit.md`** — includes changelog update, commit, and push.
 
 ---
 
@@ -59,7 +59,7 @@ Start your response with:
 # Doc Inventory
 - .windsurf/rules/* (all rules)
 - Docs/INDEX.md
-- AGENTS.md
+- RULE_MAP.md
 - .windsurf/cascade.md
 - Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
 - [any additional docs the user requested]

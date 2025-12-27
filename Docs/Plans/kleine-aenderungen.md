@@ -44,11 +44,11 @@ No schema changes required. Uses existing `categories` store.
 
 ## Error Handling
 
-| Error | Handling | User Feedback |
-|-------|----------|---------------|
-| Empty category name | Block save | Inline validation: "Name erforderlich" |
-| Duplicate name | Allow (user choice) | No error |
-| Save fails | Retry 3x | Toast: "Speichern fehlgeschlagen" |
+| Error               | Handling            | User Feedback                          |
+| ------------------- | ------------------- | -------------------------------------- |
+| Empty category name | Block save          | Inline validation: "Name erforderlich" |
+| Duplicate name      | Allow (user choice) | No error                               |
+| Save fails          | Retry 3x            | Toast: "Speichern fehlgeschlagen"      |
 
 ---
 
@@ -78,14 +78,14 @@ No schema changes required. Uses existing `categories` store.
 
 ## Tasks
 
-| # | Task | Estimate | Dependencies |
-|---|------|----------|--------------|
-| A3.1 | CategoryDialog component (create mode) | 2h | - |
-| A3.2 | CategoryDialog component (edit mode) | 1h | A3.1 |
-| A3.3 | Add "Kategorie erstellen" button to Add tab | 1h | A3.1 |
-| A3.4 | Make categories clickable in Settings | 1h | A3.2 |
-| A3.5 | PasswordInput component with toggle | 1h | - |
-| A3.6 | Integrate PasswordInput into LoginForm | 0.5h | A3.5 |
-| A3.7 | E2E tests | 1h | A3.1-A3.6 |
+| #    | Task                                        | Estimate | Dependencies |
+| ---- | ------------------------------------------- | -------- | ------------ |
+| A3.1 | CategoryDialog component (create mode)      | 2h       | -            |
+| A3.2 | CategoryDialog component (edit mode)        | 1h       | A3.1         |
+| A3.3 | Add "Kategorie erstellen" button to Add tab | 1h       | A3.1         |
+| A3.4 | Make categories clickable in Settings       | 1h       | A3.2         |
+| A3.5 | PasswordInput component with toggle         | 1h       | -            |
+| A3.6 | Integrate PasswordInput into LoginForm      | 0.5h     | A3.5         |
+| A3.7 | E2E tests                                   | 1h       | A3.1-A3.6    |
 
 **Total estimate:** ~7.5 hours

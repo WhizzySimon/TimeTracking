@@ -9,7 +9,7 @@ Step A (docs):
 Read:
 
 - Docs/INDEX.md
-- AGENTS.md
+- RULE_MAP.md
 - Docs/Guidelines/ui-logic-spec-v1.md
 - Docs/Guidelines/technical-guideline-v1.md
 - Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md

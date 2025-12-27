@@ -88,7 +88,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
     - MCP Playwright Browser Test
     - Progress Tracker updaten
     - Changelog updaten
-    - Git Commit (follow AGENTS.md "Session-end rules")
+    - Git Commit (follow `Docs/Rules/pre-commit.md`)
 
 ---
 
@@ -99,7 +99,7 @@ Nach Phase 0-3:
 ```
 # Doc Inventory
 - .windsurf/rules/* (all rules)
-- Docs/INDEX.md, AGENTS.md
+- Docs/INDEX.md, RULE_MAP.md
 - Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md
 
 # Feature: <name>

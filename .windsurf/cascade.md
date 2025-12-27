@@ -4,7 +4,7 @@
 
 For the complete development process, see:
 
-- **Process rules:** `AGENTS.md`
+- **Process rules:** `RULE_MAP.md`
 - **Doc hierarchy:** `Docs/INDEX.md`
 - **Tooling setup:** `Docs/Tooling/BOOTSTRAP.md`
 

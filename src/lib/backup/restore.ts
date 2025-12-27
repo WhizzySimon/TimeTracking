@@ -5,7 +5,7 @@
 
 import { openDB, put } from '$lib/storage/db';
 import type { DatabaseSnapshot } from './snapshot';
-import type { Category, TimeEntry, DayType, WorkTimeModel } from '$lib/types';
+import type { Category, TimeEntry, DayType, WorkTimeModel, UserPreference } from '$lib/types';
 
 /**
  * Clear a single object store.
@@ -30,48 +30,43 @@ function deepClone<T>(obj: T): T {
 }
 
 /**
+ * Import items into a store.
+ */
+async function importItems<T>(storeName: string, items: T[] | undefined): Promise<number> {
+	const safeItems = items ?? [];
+	for (const item of safeItems) {
+		await put<T>(storeName, item);
+	}
+	return safeItems.length;
+}
+
+/**
  * Import a cloud snapshot into IndexedDB.
  * Clears existing data and replaces with snapshot data.
  * Does NOT import outbox (local-only sync queue).
  * Deep-clones all data to ensure IndexedDB compatibility.
  */
 export async function importSnapshot(snapshot: DatabaseSnapshot): Promise<void> {
-	// Deep clone the snapshot to ensure all objects are IndexedDB-safe
-	// (Supabase JSONB might return objects with non-cloneable properties)
 	const safeSnapshot = deepClone(snapshot);
 
-	// Clear existing data stores (not meta, not outbox, not authSession)
 	await Promise.all([
 		clearStore('categories'),
 		clearStore('timeEntries'),
 		clearStore('dayTypes'),
-		clearStore('workTimeModels')
+		clearStore('workTimeModels'),
+		clearStore('userPreferences')
 	]);
 
-	// Import categories
-	for (const category of safeSnapshot.categories ?? []) {
-		await put<Category>('categories', category);
-	}
+	const counts = {
+		categories: await importItems<Category>('categories', safeSnapshot.categories),
+		timeEntries: await importItems<TimeEntry>('timeEntries', safeSnapshot.timeEntries),
+		dayTypes: await importItems<DayType>('dayTypes', safeSnapshot.dayTypes),
+		workTimeModels: await importItems<WorkTimeModel>('workTimeModels', safeSnapshot.workTimeModels),
+		userPreferences: await importItems<UserPreference>(
+			'userPreferences',
+			safeSnapshot.userPreferences
+		)
+	};
 
-	// Import time entries
-	for (const entry of safeSnapshot.timeEntries ?? []) {
-		await put<TimeEntry>('timeEntries', entry);
-	}
-
-	// Import day types
-	for (const dayType of safeSnapshot.dayTypes ?? []) {
-		await put<DayType>('dayTypes', dayType);
-	}
-
-	// Import work time models
-	for (const model of safeSnapshot.workTimeModels ?? []) {
-		await put<WorkTimeModel>('workTimeModels', model);
-	}
-
-	console.log('[Restore] Imported snapshot:', {
-		categories: safeSnapshot.categories?.length ?? 0,
-		timeEntries: safeSnapshot.timeEntries?.length ?? 0,
-		dayTypes: safeSnapshot.dayTypes?.length ?? 0,
-		workTimeModels: safeSnapshot.workTimeModels?.length ?? 0
-	});
+	console.log('[Restore] Imported snapshot:', counts);
 }

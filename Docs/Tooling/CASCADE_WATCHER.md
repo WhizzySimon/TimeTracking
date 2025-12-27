@@ -224,3 +224,11 @@ If you're on an older version, the watcher ignores duplicate commands. Workaroun
 ```
 npm run verify && echo run-1735280000
 ```
+
+### Cascade shows RUNNING but command finished
+
+If Cascade keeps polling status.txt and seeing "RUNNING" even though the command finished:
+
+1. **File caching issue** — Cascade's read_file tool may cache file contents. The actual file on disk may show DONE:SUCCESS/FAILED.
+2. **Check verify-code-output.txt directly** — For verify commands, read `scripts/verify-code-output.txt` to see the actual result (ends with `STATUS: ALL PASSED` or `STATUS: FAILED`).
+3. **User can verify** — Ask the user to check the terminal or status.txt manually if Cascade appears stuck.
