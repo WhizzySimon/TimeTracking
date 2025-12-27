@@ -1,6 +1,7 @@
 ---
 trigger: always_on
 ---
+
 # UI Design Rules (TimeTracker)
 
 ## Dialog Policy

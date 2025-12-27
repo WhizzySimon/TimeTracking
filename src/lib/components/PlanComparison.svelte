@@ -83,7 +83,7 @@
 
 		<div class="modal-body">
 			<div class="plans-grid">
-				{#each plans as plan}
+				{#each plans as plan (plan.name)}
 					<div
 						class="plan-card"
 						class:current={$userPlan === plan.name.toLowerCase()}
@@ -100,7 +100,7 @@
 						</div>
 						<div class="plan-price">{plan.price}</div>
 						<ul class="features-list">
-							{#each plan.features as feature}
+							{#each plan.features as feature (feature.name)}
 								<li class:included={feature.included} class:excluded={!feature.included}>
 									<span class="feature-icon">{feature.included ? '✓' : '—'}</span>
 									<span class="feature-name">{feature.name}</span>
@@ -108,9 +108,7 @@
 							{/each}
 						</ul>
 						{#if plan.name === 'Pro' && $userPlan === 'free'}
-							<button class="upgrade-btn" onclick={handleUpgrade}>
-								Pro freischalten
-							</button>
+							<button class="upgrade-btn" onclick={handleUpgrade}> Pro freischalten </button>
 						{/if}
 					</div>
 				{/each}

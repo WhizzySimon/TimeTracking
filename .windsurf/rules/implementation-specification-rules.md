@@ -1,6 +1,7 @@
 ---
 trigger: always_on
 ---
+
 # Implementation Specification Rules (TimeTracker)
 
 This file is a bootstrap rule set for Cascade. The authoritative source of truth is defined in Docs/INDEX.md.

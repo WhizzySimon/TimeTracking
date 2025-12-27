@@ -1,10 +1,7 @@
 #!/bin/sh
-# Pre-commit hook: auto-increment version and regenerate sw.js
-# This runs before every commit to ensure version changes with each commit
+# Pre-commit hook placeholder
+# Version is now determined by commit hash at build time (not pre-commit)
+# See scripts/build/update-version.js
 
-# Run the version update script
-node scripts/build/update-version.js
-
-# Note: version.json and sw.js are in .gitignore
-# They are generated at build time, not committed
-# The pre-commit hook just ensures they exist locally for development
+# No-op - hook exists but does nothing
+exit 0

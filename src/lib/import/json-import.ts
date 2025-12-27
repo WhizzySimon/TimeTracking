@@ -133,7 +133,9 @@ export function parseJsonImport(jsonString: string): JsonImportResult {
 
 	const meta = obj.meta as ImportMeta;
 	if (meta.schemaVersion > 1) {
-		warnings.push(`Neuere Schema-Version (${meta.schemaVersion}). Einige Daten werden möglicherweise ignoriert.`);
+		warnings.push(
+			`Neuere Schema-Version (${meta.schemaVersion}). Einige Daten werden möglicherweise ignoriert.`
+		);
 	}
 
 	const data: ImportData = {

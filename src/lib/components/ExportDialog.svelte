@@ -52,7 +52,7 @@
 </script>
 
 {#if !$isPro}
-	<Paywall feature="export" onclose={onclose} />
+	<Paywall feature="export" {onclose} />
 {:else}
 	<div
 		class="dialog-backdrop"

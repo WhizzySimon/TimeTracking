@@ -1,4 +1,5 @@
 import { writeFileSync, readFileSync, existsSync } from 'fs';
+import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -9,35 +10,29 @@ const versionJsonPath = join(__dirname, '..', '..', 'static', 'version.json');
 const swTemplatePath = join(__dirname, '..', '..', 'static', 'sw.template.js');
 const swJsPath = join(__dirname, '..', '..', 'static', 'sw.js');
 
-// Base version (major.minor.patch)
-const BASE_VERSION = '1.0.0';
-
-// Read current build number from existing version.json
-let buildNumber = 1;
-if (existsSync(versionJsonPath)) {
+function getCommitHash() {
+	// Netlify provides COMMIT_REF environment variable
+	if (process.env.COMMIT_REF) {
+		return process.env.COMMIT_REF.substring(0, 7);
+	}
+	// Fallback: get from git locally
 	try {
-		const existing = JSON.parse(readFileSync(versionJsonPath, 'utf-8'));
-		if (existing.version) {
-			const parts = existing.version.split('.');
-			if (parts.length === 4) {
-				buildNumber = parseInt(parts[3], 10) + 1;
-			}
-		}
+		return execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
 	} catch {
-		// If parsing fails, start at 1
+		return 'dev';
 	}
 }
 
-const fullVersion = `${BASE_VERSION}.${buildNumber}`;
+const commitHash = getCommitHash();
 
 const versionInfo = {
-	version: fullVersion,
+	version: commitHash,
 	buildTime: new Date().toISOString()
 };
 
 writeFileSync(versionJsonPath, JSON.stringify(versionInfo, null, 2) + '\n');
 
-console.log(`Updated version.json: v${versionInfo.version} @ ${versionInfo.buildTime}`);
+console.log(`Updated version.json: ${versionInfo.version} @ ${versionInfo.buildTime}`);
 
 // Generate sw.js from template with BUILD_ID so browser detects new service worker
 const BUILD_ID_MARKER = /^\/\/ __BUILD_ID__ = ".*"$/m;

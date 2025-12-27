@@ -12,7 +12,7 @@ export interface PdfExportOptions {
 	dateRange?: { start: string; end: string };
 }
 
-export async function exportToPdf(_options: PdfExportOptions = {}): Promise<void> {
+export async function exportToPdf(): Promise<void> {
 	// PDF export requires additional library (jsPDF, pdfmake, etc.)
 	// For now, show a "coming soon" message
 	alert('PDF Export kommt bald! Nutze JSON oder CSV Export.');
