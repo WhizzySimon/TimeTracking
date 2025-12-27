@@ -10,7 +10,8 @@
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import { isOnline, syncInProgress } from '$lib/stores';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
-	import { setUserProfile, clearUserProfile } from '$lib/stores/user';
+	import { setUserProfile, clearUserProfile, isPro } from '$lib/stores/user';
+	import Paywall from '$lib/components/Paywall.svelte';
 	import { loadUserProfile, clearCachedPlan } from '$lib/api/profile';
 	import { getCurrentUserId } from '$lib/api/auth';
 	import { syncWithCloud, resolveConflict, needsSync, type SyncResult } from '$lib/backup/cloud';
@@ -35,6 +36,7 @@
 	let canInstall = $state(false);
 	let hasUpdate = $state(false);
 	let syncNeeded = $state(true);
+	let showProPaywall = $state(false);
 
 	// Conflict resolution state
 	let pendingCloudSnapshot = $state<DatabaseSnapshot | null>(null);
@@ -69,6 +71,11 @@
 	}
 
 	async function handleSyncClick() {
+		// Cloud backup requires Pro plan
+		if (!$isPro) {
+			showProPaywall = true;
+			return;
+		}
 		// If already synced, show info dialog
 		if (!syncNeeded && !$syncInProgress) {
 			showSyncInfoDialog = true;
@@ -116,8 +123,8 @@
 	 * Does not show dialogs - conflicts are deferred to next manual sync.
 	 */
 	async function autoSync() {
-		// Skip if offline, not authenticated, or already syncing
-		if (!$isOnline || !$isAuthenticated || $syncInProgress) {
+		// Skip if offline, not authenticated, already syncing, or not Pro
+		if (!$isOnline || !$isAuthenticated || $syncInProgress || !$isPro) {
 			return;
 		}
 
@@ -436,6 +443,11 @@
 		confirmLabel="OK"
 		onconfirm={() => (showSyncInfoDialog = false)}
 	/>
+{/if}
+
+<!-- Pro Paywall for Cloud Backup -->
+{#if showProPaywall}
+	<Paywall feature="backup" onclose={() => (showProPaywall = false)} />
 {/if}
 
 <style>

@@ -114,7 +114,6 @@ while ($true) {
                 
                 # Poll for completion with heartbeat and real-time output streaming
                 $lastOutputSize = 0
-                $lastErrSize = 0
                 while (-not $process.HasExited) {
                     # Update heartbeat every iteration (every 500ms)
                     $elapsed = [int]((Get-Date) - $startTime).TotalSeconds
@@ -177,6 +176,10 @@ while ($true) {
                     Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] DONE:FAILED (exit code $exitCode, ${elapsed}s)" -ForegroundColor Red
                     Write-Log "DONE:FAILED (exit code $exitCode, ${elapsed}s)"
                 }
+                
+                # Clear command.txt after execution to allow same command to run again
+                "" | Out-File -FilePath $requestFile -Encoding utf8 -NoNewline
+                $lastCommand = ""
             } catch {
                 $errorMsg = $_.Exception.Message
                 "ERROR: $errorMsg" | Out-File -FilePath $outputFile -Append -Encoding utf8
@@ -184,6 +187,10 @@ while ($true) {
                 "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')|ERROR|0" | Out-File -FilePath $heartbeatFile -Encoding utf8 -NoNewline
                 Write-Host "[$(Get-Date -Format 'HH:mm:ss')] [$SessionId] ERROR: $errorMsg" -ForegroundColor Red
                 Write-Log "ERROR: $errorMsg"
+                
+                # Clear command.txt after error to allow retry
+                "" | Out-File -FilePath $requestFile -Encoding utf8 -NoNewline
+                $lastCommand = ""
             }
         }
     }

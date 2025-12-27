@@ -254,7 +254,7 @@ Phase 4:
 ## Phase A1: Subscription Plans
 
 **Target:** 13 tasks  
-**Status:** In Progress (1/13)  
+**Status:** In Progress (2/13)  
 **Spec:** `Docs/Specs/subscription-plans.md`  
 **Plan:** `Docs/Plans/subscription-plans.md`  
 **Tasks:** `Docs/Tasks/subscription-plans.md`
@@ -262,7 +262,7 @@ Phase 4:
 ### Tasks
 
 - [x] **Task A1.1** — ProPaywall Component
-- [ ] **Task A1.2** — Cloud Backup Plan Gating
+- [x] **Task A1.2** — Cloud Backup Plan Gating
 - [ ] **Task A1.3** — Export Module (JSON)
 - [ ] **Task A1.4** — Export Module (CSV)
 - [ ] **Task A1.5** — Export Module (PDF)

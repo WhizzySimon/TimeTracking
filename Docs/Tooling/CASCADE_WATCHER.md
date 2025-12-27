@@ -120,6 +120,7 @@ The watcher now includes a **heartbeat file** that updates every 500ms while a c
 ```
 
 Examples:
+
 ```
 2025-12-26 22:40:15|RUNNING|45      # Command running for 45 seconds
 2025-12-26 22:41:30|DONE:SUCCESS|120 # Completed after 120 seconds
@@ -133,7 +134,7 @@ Examples:
 1. **Read heartbeat.txt** instead of just status.txt to see:
    - Is the watcher alive? (timestamp recent?)
    - How long has command been running? (elapsed seconds)
-   - Current status (IDLE/RUNNING/DONE:*)
+   - Current status (IDLE/RUNNING/DONE:\*)
 
 2. **Detect stalled watcher** — if heartbeat timestamp is >30s old while status is RUNNING, watcher may have crashed
 
@@ -194,3 +195,13 @@ scripts/watcher/logs/<session-id>.log
 ### Edit tool fails on command.txt
 
 The watcher may have already consumed the command. Wait and try again with a different command string.
+
+### Command not picked up (same command twice)
+
+**Fixed in v1.0.0.97:** The watcher now clears command.txt after execution. This allows the same command to run multiple times.
+
+If you're on an older version, the watcher ignores duplicate commands. Workaround: append a comment with timestamp:
+
+```
+npm run verify && echo run-1735280000
+```

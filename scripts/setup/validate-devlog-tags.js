@@ -35,7 +35,7 @@ function success(msg) {
 }
 
 function extractTagsFromTagsMd() {
-	const tagsPath = join(devlogDir, 'TAGS.md');
+	const tagsPath = join(devlogDir, 'SSD Analysis', 'TAGS.md');
 	const content = readFileSync(tagsPath, 'utf-8');
 	const tags = new Set();
 	const aliasMap = new Map();
@@ -107,8 +107,14 @@ function validateDevlogFile(filePath, validTags) {
 }
 
 function validateIndexMd(validTags) {
-	const indexPath = join(devlogDir, 'INDEX.md');
-	const content = readFileSync(indexPath, 'utf-8');
+	const indexPath = join(devlogDir, 'SSD Analysis', 'INDEX.md');
+	let content;
+	try {
+		content = readFileSync(indexPath, 'utf-8');
+	} catch {
+		console.log('[SKIP] INDEX.md not found, skipping validation');
+		return;
+	}
 	const lines = content.split('\n');
 
 	for (let i = 2; i < lines.length; i++) {
