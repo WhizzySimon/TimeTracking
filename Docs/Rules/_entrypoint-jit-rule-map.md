@@ -24,6 +24,7 @@
 | **Creating/updating plan** | `Docs/Rules/planning.md` |
 | **Before implementing** | `Docs/Rules/implementation.md` |
 | **Before git commit** | `Docs/Rules/pre-commit.md` |
+| **Starting a task** | `Docs/AI/boxes/<box>.md` (choose box first) |
 | **Session end** | `Docs/Rules/session-end.md` |
 | **Changing framework docs** | `Docs/Rules/framework-changes.md` |
 
