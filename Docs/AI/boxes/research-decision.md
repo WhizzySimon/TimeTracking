@@ -24,6 +24,7 @@ All acceptance criteria for research MUST:
 - Capture in appropriate doc (DECISIONS.md, spec, or dedicated doc)
 
 **Example:**
+
 ```
 AC-001: Question: Which PDF library to use for export?
 AC-002: Options evaluated: jspdf, pdfmake, @react-pdf/renderer
@@ -35,12 +36,12 @@ AC-004: Includes: pros/cons, bundle size, API complexity
 
 ## Required Verification Commands
 
-| Command | Required | Notes |
-|---------|----------|-------|
-| `npm run verify` | ⚠️ If code | Only if experimental code added |
-| `npm run test:unit` | ❌ No | Research doesn't need tests |
-| `npm run test:e2e` | ❌ No | Research doesn't need tests |
-| Browser test (MCP) | ⚠️ Optional | Only for UI spikes |
+| Command             | Required    | Notes                           |
+| ------------------- | ----------- | ------------------------------- |
+| `npm run verify`    | ⚠️ If code  | Only if experimental code added |
+| `npm run test:unit` | ❌ No       | Research doesn't need tests     |
+| `npm run test:e2e`  | ❌ No       | Research doesn't need tests     |
+| Browser test (MCP)  | ⚠️ Optional | Only for UI spikes              |
 
 ---
 
@@ -72,13 +73,13 @@ However, if research leads to **implementation**:
 
 ## Common Failure Patterns
 
-| Pattern | Prevention |
-|---------|------------|
-| Researching too long | Timebox to 1-2 hours max |
-| Not documenting findings | Always write DECISIONS.md entry |
-| Jumping to implementation | Research is for decisions, not code |
-| Only considering one option | Always list 2+ alternatives |
-| Forgetting rejected options | Document why NOT as well as why |
+| Pattern                     | Prevention                          |
+| --------------------------- | ----------------------------------- |
+| Researching too long        | Timebox to 1-2 hours max            |
+| Not documenting findings    | Always write DECISIONS.md entry     |
+| Jumping to implementation   | Research is for decisions, not code |
+| Only considering one option | Always list 2+ alternatives         |
+| Forgetting rejected options | Document why NOT as well as why     |
 
 ---
 

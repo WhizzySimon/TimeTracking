@@ -16,13 +16,13 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 3. Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md (platform constraints)
 4. Docs/Guidelines/DEVELOPMENT_GUIDELINES.md (coding/repo rules)
 5. Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md (how to write specs)
-6. Docs/Rules/_entrypoint-jit-rule-map.md (JIT rule dispatcher)
+6. Docs/Rules/\_entrypoint-jit-rule-map.md (JIT rule dispatcher)
 
 ## Authoritative documents
 
 ### Development process (how we work)
 
-- Docs/Rules/_entrypoint-jit-rule-map.md  
+- Docs/Rules/\_entrypoint-jit-rule-map.md  
   Purpose: **JIT Rule dispatcher** — trigger points for just-in-time rule loading.
 - Docs/Rules/\*.md  
   Purpose: **Trigger-based rules** — read at specific points (session-start, pre-commit, etc.)
@@ -53,6 +53,23 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
   Purpose: Multi-instance watcher system for command execution.
 - Docs/Tooling/GIT_WORKFLOW.md  
   Purpose: Git workflow, simple dev/main model, no PRs.
+
+### AI / Autonomy Stack (D5)
+
+- Docs/AI/INDEX.md  
+  Purpose: **Entry point for AI tooling** — task boxes, telemetry, anomaly detection, evidence bundles.
+- Docs/AI/ZOOM_OUT.md  
+  Purpose: **Anomaly recovery protocol** — 5-step procedure when stuck.
+- Docs/AI/boxes/\*.md  
+  Purpose: **Task box checklists** — per-type verification requirements (feature, bugfix, refactor, etc.)
+- scripts/ai/telemetry.js  
+  Purpose: **Telemetry CLI** — log events, commands, errors (JSONL format).
+- scripts/ai/anomaly-detector.js  
+  Purpose: **Anomaly detection** — repetition, churn, time, scope drift.
+- scripts/ai/evidence-generator.js  
+  Purpose: **Evidence bundles** — per-task completion artifacts.
+- scripts/ai/learning-extractor.js  
+  Purpose: **Learning extraction** — propose principles from evidence.
 
 ### Development history
 

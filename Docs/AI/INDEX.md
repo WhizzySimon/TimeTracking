@@ -18,14 +18,14 @@ The Autonomy Stack provides:
 
 Before starting work, identify your task type:
 
-| Box | When to use |
-|-----|-------------|
-| `feature` | New user-facing functionality |
-| `bugfix` | Fixing broken behavior |
-| `refactor` | Code restructuring without behavior change |
-| `infra-build` | Build, CI, tooling, dependencies |
-| `research-decision` | Investigation, ADR, spike |
-| `ui-ux` | Visual/interaction changes |
+| Box                 | When to use                                |
+| ------------------- | ------------------------------------------ |
+| `feature`           | New user-facing functionality              |
+| `bugfix`            | Fixing broken behavior                     |
+| `refactor`          | Code restructuring without behavior change |
+| `infra-build`       | Build, CI, tooling, dependencies           |
+| `research-decision` | Investigation, ADR, spike                  |
+| `ui-ux`             | Visual/interaction changes                 |
 
 Read the box checklist: `Docs/AI/boxes/<box-type>.md`
 
@@ -102,14 +102,14 @@ Docs/Devlog/Evidence/
 
 ## npm Scripts
 
-| Command | Purpose |
-|---------|---------|
-| `npm run ai:log-event` | Log a telemetry event |
-| `npm run ai:start-command` | Log command start |
-| `npm run ai:end-command` | Log command end with result |
-| `npm run ai:fingerprint-error` | Get stable hash for error |
-| `npm run ai:detect-anomalies` | Check session for anomalies |
-| `npm run ai:evidence` | Generate evidence bundle |
+| Command                        | Purpose                          |
+| ------------------------------ | -------------------------------- |
+| `npm run ai:log-event`         | Log a telemetry event            |
+| `npm run ai:start-command`     | Log command start                |
+| `npm run ai:end-command`       | Log command end with result      |
+| `npm run ai:fingerprint-error` | Get stable hash for error        |
+| `npm run ai:detect-anomalies`  | Check session for anomalies      |
+| `npm run ai:evidence`          | Generate evidence bundle         |
 | `npm run ai:extract-learnings` | Propose principles from evidence |
 
 ## Related Documentation

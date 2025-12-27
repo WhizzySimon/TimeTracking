@@ -23,6 +23,7 @@ All acceptance criteria for refactors MUST:
 - Verify all existing tests still pass
 
 **Example:**
+
 ```
 AC-001: Extract time calculation logic from DayTab.svelte to src/lib/time/calculations.ts
 AC-002: DayTab.svelte imports from new location
@@ -34,12 +35,12 @@ AC-004: E2E tests pass unchanged (behavior identical)
 
 ## Required Verification Commands
 
-| Command | Required | Notes |
-|---------|----------|-------|
-| `npm run verify` | ✅ Yes | Format + TypeScript + Lint |
-| `npm run test:unit` | ✅ Yes | All tests must pass |
-| `npm run test:e2e` | ✅ Yes | Behavior must be unchanged |
-| Browser test (MCP) | ⚠️ Optional | Only if UI touched |
+| Command             | Required    | Notes                      |
+| ------------------- | ----------- | -------------------------- |
+| `npm run verify`    | ✅ Yes      | Format + TypeScript + Lint |
+| `npm run test:unit` | ✅ Yes      | All tests must pass        |
+| `npm run test:e2e`  | ✅ Yes      | Behavior must be unchanged |
+| Browser test (MCP)  | ⚠️ Optional | Only if UI touched         |
 
 ---
 
@@ -70,13 +71,13 @@ If risk class is **high** (architecture change):
 
 ## Common Failure Patterns
 
-| Pattern | Prevention |
-|---------|------------|
-| Accidental behavior change | Run tests after every small change |
-| Renaming breaks imports | Use IDE rename refactoring |
-| Forgetting to update tests | Search for old names in test files |
-| Too big a change | Break into multiple commits |
-| Mixing refactor with features | Do ONE thing per commit |
+| Pattern                       | Prevention                         |
+| ----------------------------- | ---------------------------------- |
+| Accidental behavior change    | Run tests after every small change |
+| Renaming breaks imports       | Use IDE rename refactoring         |
+| Forgetting to update tests    | Search for old names in test files |
+| Too big a change              | Break into multiple commits        |
+| Mixing refactor with features | Do ONE thing per commit            |
 
 ---
 

@@ -145,10 +145,10 @@ This section defines mechanisms to ensure the Autonomy Stack framework can evolv
 
 **Versioning Rules:**
 
-| Change Type | Bump | Example |
-|-------------|------|---------|
-| Breaking change to spec/schema/protocol | MAJOR (0.x → 1.0) | Telemetry schema incompatible |
-| New feature or significant enhancement | MINOR (0.0.x → 0.1.0) | Add new box type, new anomaly detector |
+| Change Type                             | Bump                  | Example                                 |
+| --------------------------------------- | --------------------- | --------------------------------------- |
+| Breaking change to spec/schema/protocol | MAJOR (0.x → 1.0)     | Telemetry schema incompatible           |
+| New feature or significant enhancement  | MINOR (0.0.x → 0.1.0) | Add new box type, new anomaly detector  |
 | Bug fix, doc clarification, minor tweak | PATCH (0.0.0 → 0.0.1) | Fix typo in checklist, adjust threshold |
 
 **Tagging Rules:**
@@ -159,6 +159,7 @@ This section defines mechanisms to ensure the Autonomy Stack framework can evolv
 - **Command:** `git tag -a framework-v0.x.y -m "Framework: <summary>"`
 
 **Requirements:**
+
 - **TT-FR-018**: VERSION.md contains current FRAMEWORK_VERSION
 - **TT-FR-019**: Every framework change bumps version according to rules above
 - **TT-FR-020**: Git tag is created after each version bump
@@ -186,17 +187,18 @@ This section defines mechanisms to ensure the Autonomy Stack framework can evolv
 
 **Required Fields per Entry:**
 
-| Field | Description |
-|-------|-------------|
-| Version | Semantic version being released |
-| Date | ISO date of change |
-| Category | Added, Changed, Fixed, Removed, Deprecated |
-| Summary | One-line description |
-| Rationale | Why this change was made |
-| Risk | low (docs/config), medium (behavior), high (schema/protocol) |
-| Evidence | What verification proves correctness |
+| Field     | Description                                                  |
+| --------- | ------------------------------------------------------------ |
+| Version   | Semantic version being released                              |
+| Date      | ISO date of change                                           |
+| Category  | Added, Changed, Fixed, Removed, Deprecated                   |
+| Summary   | One-line description                                         |
+| Rationale | Why this change was made                                     |
+| Risk      | low (docs/config), medium (behavior), high (schema/protocol) |
+| Evidence  | What verification proves correctness                         |
 
 **Rules:**
+
 - **TT-FR-021**: Every framework change MUST include a CHANGELOG entry
 - **TT-FR-022**: CHANGELOG entry MUST be committed in same PR/commit as the change
 - **TT-FR-023**: CHANGELOG is append-only at the top (newest first)
@@ -211,18 +213,18 @@ This section defines mechanisms to ensure the Autonomy Stack framework can evolv
 
 #### Golden Tasks (10 defined)
 
-| ID | Name | Box | Description |
-|----|------|-----|-------------|
-| GT-01 | Simple Bugfix | bugfix | Fix isolated bug with clear repro steps |
-| GT-02 | Multi-file Bugfix | bugfix | Fix bug spanning 2-3 files |
-| GT-03 | Small Feature | feature | Add single new UI element or endpoint |
-| GT-04 | Feature with Tests | feature | New feature including unit + E2E tests |
-| GT-05 | Rename Refactor | refactor | Rename variable/function across codebase |
-| GT-06 | Extract Module | refactor | Extract logic into new module |
-| GT-07 | Add npm Script | infra-build | Add new script to package.json |
-| GT-08 | Update Dependency | infra-build | Bump dependency version |
-| GT-09 | Style/Layout Fix | ui-ux | CSS/styling change with visual verification |
-| GT-10 | Research Decision | research-decision | Investigate options, document decision |
+| ID    | Name               | Box               | Description                                 |
+| ----- | ------------------ | ----------------- | ------------------------------------------- |
+| GT-01 | Simple Bugfix      | bugfix            | Fix isolated bug with clear repro steps     |
+| GT-02 | Multi-file Bugfix  | bugfix            | Fix bug spanning 2-3 files                  |
+| GT-03 | Small Feature      | feature           | Add single new UI element or endpoint       |
+| GT-04 | Feature with Tests | feature           | New feature including unit + E2E tests      |
+| GT-05 | Rename Refactor    | refactor          | Rename variable/function across codebase    |
+| GT-06 | Extract Module     | refactor          | Extract logic into new module               |
+| GT-07 | Add npm Script     | infra-build       | Add new script to package.json              |
+| GT-08 | Update Dependency  | infra-build       | Bump dependency version                     |
+| GT-09 | Style/Layout Fix   | ui-ux             | CSS/styling change with visual verification |
+| GT-10 | Research Decision  | research-decision | Investigate options, document decision      |
 
 #### Per-Task Definition
 
@@ -236,20 +238,24 @@ Each golden task specifies:
 **Expected Duration:** <minutes>
 
 **Acceptance Criteria Template:**
+
 - AC-1: <criterion>
 - AC-2: <criterion>
 
 **Minimum Verification Commands:**
+
 - `npm run verify`
 - <additional commands>
 
 **Evidence Bundle Requirements:**
+
 - [ ] Box type declared
 - [ ] All AC checked
 - [ ] Changed files listed
 - [ ] Verification output included
 
 **Success Metrics:**
+
 - Anomalies triggered: 0 (ideal)
 - Retries needed: 0 (ideal)
 - Time vs expected: ≤1.2x (ideal)
@@ -258,11 +264,11 @@ Each golden task specifies:
 
 #### GTRS Run Cadence
 
-| Trigger | Action |
-|---------|--------|
+| Trigger                      | Action                                  |
+| ---------------------------- | --------------------------------------- |
 | Before framework version tag | Run all 10 golden tasks, record results |
-| Weekly (optional) | Run subset (GT-01, GT-03, GT-05, GT-09) |
-| After major framework change | Run full suite |
+| Weekly (optional)            | Run subset (GT-01, GT-03, GT-05, GT-09) |
+| After major framework change | Run full suite                          |
 
 #### Results Recording
 
@@ -279,11 +285,11 @@ Each golden task specifies:
 
 ## Results
 
-| Task | Status | Anomalies | Retries | Time | Interventions | Notes |
-|------|--------|-----------|---------|------|---------------|-------|
-| GT-01 | PASS | 0 | 0 | 5m | 0 | — |
-| GT-02 | PASS | 1 | 1 | 12m | 0 | churn on utils.ts |
-| ... |
+| Task  | Status | Anomalies | Retries | Time | Interventions | Notes             |
+| ----- | ------ | --------- | ------- | ---- | ------------- | ----------------- |
+| GT-01 | PASS   | 0         | 0       | 5m   | 0             | —                 |
+| GT-02 | PASS   | 1         | 1       | 12m  | 0             | churn on utils.ts |
+| ...   |
 
 ## Summary
 
@@ -294,6 +300,7 @@ Each golden task specifies:
 ```
 
 **Requirements:**
+
 - **TT-FR-024**: GTRS.md defines all 10 golden tasks with full specification
 - **TT-FR-025**: GTRS run is required before each framework version tag
 - **TT-FR-026**: Results are stored in timestamped markdown files
@@ -304,32 +311,39 @@ Each golden task specifies:
 ## 9) Acceptance checks (testable)
 
 ### Box Router
+
 - [ ] AC-001: `Docs/AI/boxes/` contains 6 box definition files
 - [ ] AC-002: Each box file has: acceptance criteria format, verification commands, evidence requirements, risk class
 
 ### Telemetry
+
 - [ ] AC-003: Running `npm run ai:log-event -- --type=test --message="hello"` creates/appends to session log
 - [ ] AC-004: Session log file is valid JSONL (each line parses as JSON)
 - [ ] AC-005: `npm run ai:fingerprint-error` produces consistent hash for same input
 
 ### Anomaly Detection
+
 - [ ] AC-006: Running detector on log with 3+ identical error_fingerprints outputs `repetition` anomaly
 - [ ] AC-007: Running detector on log with file modified 6+ times outputs `churn` anomaly
 - [ ] AC-008: Anomaly output includes reference to ZOOM_OUT.md
 
 ### Evidence Bundle
+
 - [ ] AC-009: Running `npm run ai:evidence` generates Markdown file in `Docs/Devlog/Evidence/`
 - [ ] AC-010: Generated file contains all required sections (box, criteria, files, commands, gaps, links)
 
 ### Learning Extraction
+
 - [ ] AC-011: Running `npm run ai:extract-learnings` appends to LEARNINGS-INBOX.md
 - [ ] AC-012: Proposed principles include evidence links
 
 ### Integration
+
 - [ ] AC-013: `npm run verify` still passes after all changes
 - [ ] AC-014: Existing watcher functionality unchanged
 
 ### Framework Evolution Guardrails
+
 - [ ] AC-015: `Docs/AI/VERSION.md` exists with FRAMEWORK_VERSION in format `0.x.y`
 - [ ] AC-016: `Docs/AI/CHANGELOG.md` exists with required entry format documented
 - [ ] AC-017: `Docs/AI/GTRS.md` exists with all 10 golden tasks defined

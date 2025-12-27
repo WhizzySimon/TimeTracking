@@ -24,6 +24,7 @@ All acceptance criteria for infra/build MUST:
 - Include rollback procedure for high-risk
 
 **Example:**
+
 ```
 AC-001: Add `ai:log-event` script to package.json
 AC-002: Running `npm run ai:log-event -- --help` exits with code 0
@@ -35,12 +36,12 @@ AC-004: Existing `npm run verify` still passes
 
 ## Required Verification Commands
 
-| Command | Required | Notes |
-|---------|----------|-------|
-| `npm run verify` | ✅ Yes | Must not break existing |
-| `npm run build` | ⚠️ If build touched | Production build works |
-| `npm run test:unit` | ⚠️ If deps changed | Tests still pass |
-| `npm run test:e2e` | ⚠️ If deps changed | E2E still works |
+| Command             | Required            | Notes                   |
+| ------------------- | ------------------- | ----------------------- |
+| `npm run verify`    | ✅ Yes              | Must not break existing |
+| `npm run build`     | ⚠️ If build touched | Production build works  |
+| `npm run test:unit` | ⚠️ If deps changed  | Tests still pass        |
+| `npm run test:e2e`  | ⚠️ If deps changed  | E2E still works         |
 
 ---
 
@@ -69,13 +70,13 @@ If risk class is **high** (CI/deploy changes):
 
 ## Common Failure Patterns
 
-| Pattern | Prevention |
-|---------|------------|
-| Breaking existing scripts | Run all scripts after changes |
-| Dependency conflicts | Use `npm ls` to check tree |
-| Build works locally, fails in CI | Test with clean `npm ci` |
-| Forgetting to commit package-lock.json | Always commit lock file |
-| Undocumented scripts | Add to README or Docs |
+| Pattern                                | Prevention                    |
+| -------------------------------------- | ----------------------------- |
+| Breaking existing scripts              | Run all scripts after changes |
+| Dependency conflicts                   | Use `npm ls` to check tree    |
+| Build works locally, fails in CI       | Test with clean `npm ci`      |
+| Forgetting to commit package-lock.json | Always commit lock file       |
+| Undocumented scripts                   | Add to README or Docs         |
 
 ---
 

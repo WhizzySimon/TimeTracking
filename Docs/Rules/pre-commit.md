@@ -34,6 +34,7 @@ We use a simple dev/main model:
 - **`main` branch:** Stable releases. Merge from dev when ready.
 
 **BANNED:** Never use `git stash` — causes data loss. Use WIP commits instead:
+
 ```bash
 git add -A && git commit -m "WIP: description"
 ```

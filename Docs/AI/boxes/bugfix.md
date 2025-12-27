@@ -23,6 +23,7 @@ All acceptance criteria for bugfixes MUST:
 - Define how to verify the fix
 
 **Example:**
+
 ```
 AC-001: Bug: Clicking "Save to cloud" while offline shows error toast but also throws unhandled exception
 AC-002: Expected: Offline modal appears, no console errors
@@ -34,12 +35,12 @@ AC-004: Verify: Console shows no errors, modal appears
 
 ## Required Verification Commands
 
-| Command | Required | Notes |
-|---------|----------|-------|
-| `npm run verify` | ✅ Yes | Format + TypeScript + Lint |
+| Command             | Required     | Notes                                |
+| ------------------- | ------------ | ------------------------------------ |
+| `npm run verify`    | ✅ Yes       | Format + TypeScript + Lint           |
 | `npm run test:unit` | ⚠️ If exists | Run existing tests for affected code |
-| `npm run test:e2e` | ⚠️ If exists | Run existing E2E for affected flow |
-| Browser test (MCP) | ✅ Yes | Verify fix in browser |
+| `npm run test:e2e`  | ⚠️ If exists | Run existing E2E for affected flow   |
+| Browser test (MCP)  | ✅ Yes       | Verify fix in browser                |
 
 ---
 
@@ -70,13 +71,13 @@ If risk class is **high** (data loss, auth, payments):
 
 ## Common Failure Patterns
 
-| Pattern | Prevention |
-|---------|------------|
+| Pattern                   | Prevention                                    |
+| ------------------------- | --------------------------------------------- |
 | Fixing symptoms not cause | Use ZOOM_OUT protocol after 2 failed attempts |
-| Over-engineering the fix | Prefer minimal 1-3 line fixes |
-| Breaking other code | Run full test suite |
-| Missing regression test | Add test that would have caught this bug |
-| Same bug returns | Document in LEARNINGS-INBOX.md |
+| Over-engineering the fix  | Prefer minimal 1-3 line fixes                 |
+| Breaking other code       | Run full test suite                           |
+| Missing regression test   | Add test that would have caught this bug      |
+| Same bug returns          | Document in LEARNINGS-INBOX.md                |
 
 ---
 

@@ -1,6 +1,6 @@
 # TimeTracker v1 — Implementation Progress (Current)
 
-**Last Updated:** 2025-12-26  
+**Last Updated:** 2025-12-27  
 **Current Focus:** Dev Framework Improvements (Phases D1-D3), then App Improvements
 
 ---
@@ -29,6 +29,7 @@
 | D2    | Self-learning Dev Framework    | COMPLETE |
 | D3    | Watcher Framework Improvement  | COMPLETE |
 | D4    | Just-in-Time Rules System      | COMPLETE |
+| D5    | Autonomy Stack v2              | COMPLETE |
 
 ### Priority 2: App Improvements (after Dev Framework)
 
@@ -43,6 +44,31 @@
 | A4    | UX (Kategorien, Navigation, Landing) | Not started |
 | A5    | UI (Deutsch, Farbschemata)           | Not started |
 | A6    | Bugs (Auto Sync, Resume Button)      | Not started |
+
+---
+
+## Phase D5: Autonomy Stack v2
+
+**Goal:** Add structured task routing, telemetry, anomaly detection, and evidence bundles for higher-quality Cascade development.
+
+**Spec:** `Docs/Specs/autonomy-stack-v2.md`  
+**Plan:** `Docs/Plans/autonomy-stack-v2.md`  
+**Tasks:** `Docs/Tasks/autonomy-stack-v2.md`
+
+### Tasks
+
+| #     | Task                     | Status | Notes |
+| ----- | ------------------------ | ------ | ----- |
+| D5.1  | Folder structure + INDEX | DONE   |       |
+| D5.2  | Box checklists (6 files) | DONE   |       |
+| D5.3  | ZOOM_OUT protocol        | DONE   |       |
+| D5.4  | telemetry.js CLI         | DONE   |       |
+| D5.5  | anomaly-detector.js      | DONE   |       |
+| D5.6  | evidence-generator.js    | DONE   |       |
+| D5.7  | learning-extractor.js    | DONE   |       |
+| D5.8  | npm scripts              | DONE   |       |
+| D5.9  | Update Docs/INDEX.md     | DONE   |       |
+| D5.10 | Verify + examples        | DONE   |       |
 
 ---
 

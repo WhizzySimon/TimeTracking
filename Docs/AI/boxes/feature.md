@@ -23,6 +23,7 @@ All acceptance criteria for features MUST:
 - Map to testable assertions
 
 **Example:**
+
 ```
 AC-001: User can click "Export" button on Settings page
 AC-002: Export dialog shows format options (JSON, CSV, PDF)
@@ -34,12 +35,12 @@ AC-004: Error toast appears if export fails
 
 ## Required Verification Commands
 
-| Command | Required | Notes |
-|---------|----------|-------|
-| `npm run verify` | ✅ Yes | Format + TypeScript + Lint |
-| `npm run test:unit` | ✅ Yes | If feature has logic |
-| `npm run test:e2e` | ✅ Yes | For user flows |
-| Browser test (MCP) | ✅ Yes | Visual verification |
+| Command             | Required | Notes                      |
+| ------------------- | -------- | -------------------------- |
+| `npm run verify`    | ✅ Yes   | Format + TypeScript + Lint |
+| `npm run test:unit` | ✅ Yes   | If feature has logic       |
+| `npm run test:e2e`  | ✅ Yes   | For user flows             |
+| Browser test (MCP)  | ✅ Yes   | Visual verification        |
 
 ---
 
@@ -71,10 +72,10 @@ If risk class is **high** (auth, payments, data model):
 
 ## Common Failure Patterns
 
-| Pattern | Prevention |
-|---------|------------|
-| Missing loading states | Always add loading UI before async |
+| Pattern                   | Prevention                                         |
+| ------------------------- | -------------------------------------------------- |
+| Missing loading states    | Always add loading UI before async                 |
 | Forgetting error handling | Every async must have try/catch with user feedback |
-| Breaking existing tests | Run full test suite before commit |
-| Scope creep | Stick to spec; log new ideas for future |
-| Skipping mobile test | Always check 375px viewport |
+| Breaking existing tests   | Run full test suite before commit                  |
+| Scope creep               | Stick to spec; log new ideas for future            |
+| Skipping mobile test      | Always check 375px viewport                        |

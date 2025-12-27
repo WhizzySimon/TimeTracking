@@ -25,6 +25,7 @@ All acceptance criteria for UI/UX MUST:
 - Note accessibility requirements (contrast, focus indicators)
 
 **Example:**
+
 ```
 AC-001: Button uses primary color (#3B82F6) with white text
 AC-002: Hover state darkens by 10%
@@ -37,12 +38,12 @@ AC-005: Contrast ratio meets WCAG AA (4.5:1)
 
 ## Required Verification Commands
 
-| Command | Required | Notes |
-|---------|----------|-------|
-| `npm run verify` | ✅ Yes | Format + TypeScript + Lint |
-| `npm run test:unit` | ❌ No | UI rarely needs unit tests |
-| `npm run test:e2e` | ⚠️ If flow | Only if user flow affected |
-| Browser test (MCP) | ✅ Yes | Visual verification required |
+| Command             | Required   | Notes                        |
+| ------------------- | ---------- | ---------------------------- |
+| `npm run verify`    | ✅ Yes     | Format + TypeScript + Lint   |
+| `npm run test:unit` | ❌ No      | UI rarely needs unit tests   |
+| `npm run test:e2e`  | ⚠️ If flow | Only if user flow affected   |
+| Browser test (MCP)  | ✅ Yes     | Visual verification required |
 
 ---
 
@@ -73,13 +74,13 @@ If risk class is **high** (navigation/flow changes):
 
 ## Common Failure Patterns
 
-| Pattern | Prevention |
-|---------|------------|
-| Only testing desktop | Always test 375px viewport |
-| Forgetting dark mode | Test both light and dark themes |
-| Breaking touch targets | Minimum 44x44px for mobile |
-| Ignoring focus states | Test keyboard navigation |
-| Color contrast issues | Use contrast checker tool |
+| Pattern                | Prevention                      |
+| ---------------------- | ------------------------------- |
+| Only testing desktop   | Always test 375px viewport      |
+| Forgetting dark mode   | Test both light and dark themes |
+| Breaking touch targets | Minimum 44x44px for mobile      |
+| Ignoring focus states  | Test keyboard navigation        |
+| Color contrast issues  | Use contrast checker tool       |
 
 ---
 
@@ -95,9 +96,9 @@ If risk class is **high** (navigation/flow changes):
 
 ## Viewport Checklist
 
-| Viewport | Width | Test |
-|----------|-------|------|
-| Mobile | 375px | ✅ Required |
-| Tablet | 768px | ⚠️ If layout changes |
-| Desktop | 1280px | ✅ Required |
-| Large | 1920px | ⚠️ Optional |
+| Viewport | Width  | Test                 |
+| -------- | ------ | -------------------- |
+| Mobile   | 375px  | ✅ Required          |
+| Tablet   | 768px  | ⚠️ If layout changes |
+| Desktop  | 1280px | ✅ Required          |
+| Large    | 1920px | ⚠️ Optional          |

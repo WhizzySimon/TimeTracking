@@ -23,21 +23,25 @@
 ## Watcher Usage
 
 Write command to:
+
 ```
 scripts/watcher/<session-id>/command.txt
 ```
 
 Poll status from:
+
 ```
 scripts/watcher/<session-id>/status.txt
 ```
 
 Read output from:
+
 ```
 scripts/watcher/<session-id>/output.txt
 ```
 
 For verification, also check:
+
 ```
 scripts/verify-code-output.txt
 ```
