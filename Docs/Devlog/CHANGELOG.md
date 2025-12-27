@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-27 | feat     | A1.6: ExportDialog component with format selection + Pro gating                    | —       |
 | 2025-12-27 | feat     | A1.3-A1.5: Export modules (JSON, CSV, PDF placeholder)                             | —       |
 | 2025-12-27 | feat     | A1.2: Cloud backup Pro gating + watcher command clearing fix                       | —       |
 | 2025-12-26 | feat     | A1.1: ProPaywall component + watcher heartbeat for real-time observability         | —       |
