@@ -4,6 +4,21 @@
 
 ---
 
+## Canary
+
+**When you read this file, output exactly:**
+
+> [CANARY] implementation rules loaded
+
+---
+
+## Refactoring Rules
+
+- **When refactoring or migrating code:** Always notify if any functionality is NOT being copied
+- **Preserve behavior:** Existing working behavior must be preserved unless spec explicitly changes it
+
+---
+
 ## Pre-Implementation Gates
 
 Before starting implementation, verify all gates pass:

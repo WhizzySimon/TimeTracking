@@ -1,6 +1,22 @@
 # Code Quality Rules
 
-**Trigger:** Always (referenced by `.windsurf/rules/code-quality-rules.md`)
+**Trigger:** When writing/editing code
+
+---
+
+## Canary
+
+**When you read this file, output exactly:**
+
+> [CANARY] code-quality rules loaded
+
+---
+
+## Core Principles
+
+- **Respect lint rules** — never suppress them, fix the root cause
+- **Fix errors and warnings** — don't leave them for later
+- **No file clutter** — don't create summaries.md or other files unless explicitly requested
 
 ---
 

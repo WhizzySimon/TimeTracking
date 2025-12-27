@@ -32,6 +32,11 @@ We use a simple dev/main model:
 - **`dev` branch:** All work happens here. Push directly.
 - **`main` branch:** Stable releases. Merge from dev when ready.
 
+**BANNED:** Never use `git stash` — causes data loss. Use WIP commits instead:
+```bash
+git add -A && git commit -m "WIP: description"
+```
+
 ## Command Sequence
 
 After completing a task:

@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-27 | refactor | D5.2: Migrate global_rules to JIT system, delete 6 redundant memories, add canaries | —       |
 | 2025-12-27 | refactor | D5.1: Rename jit-rule-map → _entrypoint-jit-rule-map, delete START_HERE, update README/INDEX | —       |
 | 2025-12-27 | refactor | D5: JIT rule system — single always-on.md pointer to jit-rule-map.md, delete 4 old | —       |
 | 2025-12-27 | feat     | Running task banner: add Beenden button for today's tasks, click navigates to edit | 8d812fd |
