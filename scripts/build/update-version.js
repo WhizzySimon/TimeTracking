@@ -55,10 +55,11 @@ function getVersion() {
 	}
 }
 
-const { version: fullVersion } = getVersion();
+const { version: fullVersion, hash: commitHash } = getVersion();
 
 const versionInfo = {
 	version: fullVersion,
+	commit: commitHash,
 	buildTime: new Date().toISOString()
 };
 

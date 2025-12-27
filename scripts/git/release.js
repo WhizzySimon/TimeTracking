@@ -3,7 +3,7 @@
  * Release script for TimeTracker
  *
  * Usage:
- *   node scripts/release.js
+ *   node scripts/git/release.js
  *
  * What it does:
  *   1. Validates you're on dev branch with clean working tree
@@ -15,7 +15,7 @@
  *   7. Switches back to dev branch
  *
  * Prerequisites:
- *   - Run `node scripts/bump-version.js` first to create a version tag
+ *   - Run `node scripts/git/bump-version.js` first to create a version tag
  *   - GitHub CLI (gh) installed and authenticated
  *   - Clean working tree
  *   - On dev branch
@@ -78,7 +78,7 @@ async function main() {
 	const tag = getLatestTag();
 	if (!tag) {
 		console.error('ERROR: No version tag found.');
-		console.error('Run `node scripts/bump-version.js` first to create a version tag.');
+		console.error('Run `node scripts/git/bump-version.js` first to create a version tag.');
 		process.exit(1);
 	}
 
@@ -86,7 +86,7 @@ async function main() {
 	console.log(`Releasing version: ${version} (tag: ${tag})\n`);
 
 	// Step 1: Validate current state
-	console.log('[ 1 / 7 ] Validating current state...');
+	console.log('[ 1 / 6 ] Validating current state...');
 	const currentBranch = exec('git branch --show-current');
 	if (currentBranch !== 'dev') {
 		console.error(`  ERROR: Must be on dev branch. Currently on: ${currentBranch}`);

@@ -99,3 +99,34 @@ npm run test:e2e     # Browser tests (9 tests, ~30s)
 ### Testing Documentation
 
 See `Docs/Testing/` for detailed testing guides.
+
+## Developer Guide
+
+### Versioning
+
+TimeTracker uses a 4-part version: `X.Y.Z.B`
+
+- `X.Y.Z` = Semantic version (major.minor.patch)
+- `B` = Build number (auto-increments, resets on version bump)
+
+The version is derived from git tags using `git describe`. Each build includes:
+
+- Version string (e.g., `1.0.0.5`)
+- Commit hash for traceability
+- Build timestamp
+
+### Version Management Scripts
+
+Located in `scripts/git/`:
+
+```bash
+# Bump version (creates git tag, resets build number)
+node scripts/git/bump-version.js patch   # 1.0.0 → 1.0.1
+node scripts/git/bump-version.js minor   # 1.0.1 → 1.1.0
+node scripts/git/bump-version.js major   # 1.1.0 → 2.0.0
+
+# Release to production (merges dev → main, creates GitHub release)
+node scripts/git/release.js
+```
+
+See `scripts/git/README.md` for detailed documentation.

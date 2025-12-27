@@ -5,12 +5,12 @@
  * Creates a new version tag, which resets the build number.
  *
  * Usage:
- *   node scripts/bump-version.js [major|minor|patch]
+ *   node scripts/git/bump-version.js [major|minor|patch]
  *
  * Examples:
- *   node scripts/bump-version.js patch   # 1.0.0 → 1.0.1
- *   node scripts/bump-version.js minor   # 1.0.1 → 1.1.0
- *   node scripts/bump-version.js major   # 1.1.0 → 2.0.0
+ *   node scripts/git/bump-version.js patch   # 1.0.0 → 1.0.1
+ *   node scripts/git/bump-version.js minor   # 1.0.1 → 1.1.0
+ *   node scripts/git/bump-version.js major   # 1.1.0 → 2.0.0
  *
  * What it does:
  *   1. Gets current version from latest git tag
