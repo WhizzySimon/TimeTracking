@@ -254,7 +254,7 @@ Phase 4:
 ## Phase A1: Subscription Plans
 
 **Target:** 13 tasks  
-**Status:** In Progress (6/13)  
+**Status:** In Progress (8/13)  
 **Spec:** `Docs/Specs/subscription-plans.md`  
 **Plan:** `Docs/Plans/subscription-plans.md`  
 **Tasks:** `Docs/Tasks/subscription-plans.md`
@@ -267,8 +267,8 @@ Phase 4:
 - [x] **Task A1.4** — Export Module (CSV)
 - [x] **Task A1.5** — Export Module (PDF)
 - [x] **Task A1.6** — ExportDialog Component
-- [ ] **Task A1.7** — Import Module (JSON)
-- [ ] **Task A1.8** — Import Module (Excel)
+- [x] **Task A1.7** — Import Module (JSON)
+- [x] **Task A1.8** — Import Module (Excel)
 - [ ] **Task A1.9** — Import Route (UI)
 - [ ] **Task A1.10** — Settings: Konto Section
 - [ ] **Task A1.11** — Settings: Daten Section
