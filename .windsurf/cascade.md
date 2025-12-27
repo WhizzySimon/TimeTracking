@@ -4,7 +4,7 @@
 
 For the complete development process, see:
 
-- **JIT Rule Map:** `Docs/Rules/jit-rule-map.md` (loaded via always-on.md)
+- **JIT Rule Map:** `Docs/Rules/_entrypoint-jit-rule-map.md` (loaded via always-on.md)
 - **Doc hierarchy:** `Docs/INDEX.md`
 - **Tooling setup:** `Docs/Tooling/BOOTSTRAP.md`
 

@@ -1,10 +1,12 @@
-﻿# Cascade Dev Framework — TimeTracker Docs Index
+﻿# Docs Index
 
-This is the **authoritative documentation index** for the Cascade Dev Framework.
+This is the **authoritative index for the Docs/ folder**. It lists all documentation and their priority order.
+
+**Note:** This is one level up from code — it indexes docs, not the repo. For repo-level quickstart, see `README.md`.
 
 ## Rule
 
-Cascade MUST read this file first. Cascade MUST only treat docs listed here as authoritative.
+Cascade reads this via `/read-governance` helper. Only docs listed here are authoritative.
 
 ## Priority order (when conflicts exist)
 
@@ -14,14 +16,14 @@ Cascade MUST read this file first. Cascade MUST only treat docs listed here as a
 3. Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md (platform constraints)
 4. Docs/Guidelines/DEVELOPMENT_GUIDELINES.md (coding/repo rules)
 5. Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md (how to write specs)
-6. RULE_MAP.md (process rules dispatcher)
+6. Docs/Rules/_entrypoint-jit-rule-map.md (JIT rule dispatcher)
 
 ## Authoritative documents
 
 ### Development process (how we work)
 
-- RULE_MAP.md (repo root)  
-  Purpose: **Rule dispatcher** — trigger points for just-in-time rule loading.
+- Docs/Rules/_entrypoint-jit-rule-map.md  
+  Purpose: **JIT Rule dispatcher** — trigger points for just-in-time rule loading.
 - Docs/Rules/\*.md  
   Purpose: **Trigger-based rules** — read at specific points (session-start, pre-commit, etc.)
 - Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md  

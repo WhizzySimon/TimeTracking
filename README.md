@@ -2,11 +2,11 @@
 
 Offline-first time tracking app (SvelteKit PWA).
 
-## Entry points
+## Documentation
 
-- Human onboarding: `START_HERE.md`
-- Single source of truth + priority order: `Docs/INDEX.md`
-- Agent/process rules: `AGENTS.md`
+- **Docs/INDEX.md** — Source of truth, doc hierarchy, priority order
+- **Docs/Rules/_entrypoint-jit-rule-map.md** — JIT rule dispatcher (trigger table)
+- **Docs/Tooling/BOOTSTRAP.md** — Tooling entry point
 
 ## Start a new Cascade session
 
