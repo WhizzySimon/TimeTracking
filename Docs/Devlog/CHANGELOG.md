@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                            | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------- | ------- |
+| 2025-12-27 | feat     | A1.10-A1.11: Settings Daten section + ExportDialog integration                     | —       |
 | 2025-12-27 | feat     | A1.7-A1.8: JSON import module + index.ts (Excel already existed)                   | —       |
 | 2025-12-27 | feat     | A1.6: ExportDialog component with format selection + Pro gating                    | —       |
 | 2025-12-27 | feat     | A1.3-A1.5: Export modules (JSON, CSV, PDF placeholder)                             | —       |

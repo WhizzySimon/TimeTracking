@@ -37,6 +37,7 @@
 	import ImportCategoriesModal from '$lib/components/ImportCategoriesModal.svelte';
 	import ImportExcelModal from '$lib/components/ImportExcelModal.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+	import ExportDialog from '$lib/components/ExportDialog.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
 		const days = [
@@ -85,6 +86,7 @@
 	let showAddWorkTimeModel = $state(false);
 	let showImportCategories = $state(false);
 	let showImportExcel = $state(false);
+	let showExportDialog = $state(false);
 	let showDeleteConfirm = $state(false);
 	let showDeleteModelConfirm = $state(false);
 	let categoryToDelete: Category | null = $state(null);
@@ -534,14 +536,20 @@
 			{/if}
 		</section>
 
-		<!-- Excel Import Section -->
-		<section class="section">
+		<!-- Daten Section (Export/Import) -->
+		<section class="section" data-testid="data-section">
 			<div class="section-header">
-				<h2>Daten-Import</h2>
+				<h2>Daten</h2>
 			</div>
-			<div class="import-actions">
-				<button class="import-btn" onclick={() => (showImportExcel = true)}>
-					Excel-Datei importieren (.xlsx, .xlsm)
+			<div class="data-actions">
+				<button class="data-btn" onclick={() => (showExportDialog = true)} data-testid="export-btn">
+					Exportieren
+				</button>
+				<button class="data-btn" onclick={() => goto(resolve('/import'))} data-testid="import-btn">
+					Importieren
+				</button>
+				<button class="data-btn secondary" onclick={() => (showImportExcel = true)}>
+					Excel-Datei importieren
 				</button>
 			</div>
 		</section>
@@ -655,6 +663,11 @@
 		onconfirm={handleDeleteAccount}
 		oncancel={() => (showDeleteAccountConfirm = false)}
 	/>
+{/if}
+
+<!-- Export Dialog -->
+{#if showExportDialog}
+	<ExportDialog onclose={() => (showExportDialog = false)} />
 {/if}
 
 <style>
@@ -980,13 +993,13 @@
 		text-align: center;
 	}
 
-	.import-actions {
+	.data-actions {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
 	}
 
-	.import-btn {
+	.data-btn {
 		width: 100%;
 		padding: 0.875rem;
 		background: var(--btn-primary-bg);
@@ -998,8 +1011,18 @@
 		cursor: pointer;
 	}
 
-	.import-btn:hover {
+	.data-btn:hover {
 		background: var(--btn-primary-hover);
+	}
+
+	.data-btn.secondary {
+		background: var(--card-bg);
+		color: var(--fg);
+		border: 1px solid var(--card-border);
+	}
+
+	.data-btn.secondary:hover {
+		background: var(--card-bg-hover);
 	}
 
 	.account-info {
