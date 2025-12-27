@@ -128,7 +128,7 @@
 	}
 
 	.dialog {
-		background: var(--card);
+		background: var(--card-bg, var(--surface, #ffffff));
 		border-radius: 12px;
 		width: 90%;
 		max-width: 400px;
