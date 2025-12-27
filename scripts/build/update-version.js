@@ -15,15 +15,25 @@ function getVersion() {
 	// Output format: v1.0.0-5-g78e087e (tag-commits-hash)
 	// If exactly on tag: v1.0.0
 
-	// Fetch tags first (needed for Netlify shallow clones)
-	// Note: Do NOT use --depth=1 as it creates shallow history that breaks git describe
+	// Unshallow the clone first (needed for Netlify/CI shallow clones)
+	// Without full history, git describe can't count commits since tag
+	try {
+		execSync('git fetch --unshallow', {
+			encoding: 'utf-8',
+			stdio: ['pipe', 'pipe', 'pipe']
+		});
+	} catch {
+		// Ignore - fails if already unshallow (local dev) or no network
+	}
+
+	// Fetch tags (in case they weren't included in initial clone)
 	try {
 		execSync('git fetch --tags', {
 			encoding: 'utf-8',
 			stdio: ['pipe', 'pipe', 'pipe']
 		});
 	} catch {
-		// Ignore fetch errors (may fail locally or without network)
+		// Ignore fetch errors
 	}
 
 	try {
