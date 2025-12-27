@@ -19,6 +19,8 @@ Raw capture of feedback and lessons. Review periodically for promotion to LEARNI
 
 | Date       | Context         | Feedback                                                                                                                                                                           | Promoted?      |
 | ---------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| 2025-12-27 | D4 cleanup      | CORRECTIVE: Forgot to delete AGENTS.md after test PASS. Said "can delete later" but didn't. When task has "do X after Y passes", execute immediately.                             | Pending        |
+| 2025-12-27 | Watcher fix     | BUG FIX: PowerShell's Start-Process doesn't populate ExitCode immediately after HasExited. Must call $process.WaitForExit() first.                                                | Pending        |
 | 2025-12-27 | Versioning      | CORRECTIVE: Forgot session-end rules (CHANGELOG, DECISIONS, LEARNINGS) until user reminded. Need to internalize this as automatic.                                                | Pending        |
 | 2025-12-27 | Watcher         | BUG: Watcher shows DONE:FAILED with empty exit code for ALL commands, even successful ones. Output shows real result. Watcher exit code capture is broken.                        | Pending        |
 | 2025-12-27 | Versioning      | Netlify does shallow clones without tags. Need `git fetch --tags` before `git describe` for CI/CD environments.                                                                   | Pending        |

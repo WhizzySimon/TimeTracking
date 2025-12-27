@@ -6,6 +6,21 @@ Significant design, architecture, and policy decisions. Newest first.
 
 ---
 
+## DEC-2025-005: Just-in-time rules system (D4)
+
+**Date:** 2025-12-27  
+**Context:** AGENTS.md was 282 lines. Rules loaded at session start were forgotten by commit time (violations on 2025-12-26, 2025-12-27). Research confirmed: "context rot" — LLMs lose focus as context grows.  
+**Decision:** Replace AGENTS.md with RULE_MAP.md (50 lines) + Docs/Rules/ (7 trigger-based files). Load rules at trigger points, not upfront.  
+**Alternatives:** Keep growing AGENTS.md (rejected — proven to fail), use only .windsurf/rules/ (rejected — can't edit those files).  
+**Consequences:** Reduced cognitive load; rules fresh when needed; easier to maintain and extend.  
+**Future improvements to consider:**
+- Auto-verification after commits (script that checks CHANGELOG updated, etc.)
+- Watcher could remind Cascade of pending tasks
+- Session-end checklist could be enforced by tooling, not memory
+**Source:** c76e30d, 5113584
+
+---
+
 ## DEC-2025-004: Use git describe format for versioning
 
 **Date:** 2025-12-27  

@@ -137,8 +137,16 @@ while ($true) {
                     Start-Sleep -Milliseconds 500
                 }
                 
-                # Process finished - get exit code
+                # Process finished - ensure exit code is captured
+                # WaitForExit() is required even after HasExited is true to populate ExitCode
+                $process.WaitForExit()
                 $exitCode = $process.ExitCode
+                
+                # Fallback if ExitCode is still null (shouldn't happen after WaitForExit)
+                if ($null -eq $exitCode) {
+                    $exitCode = -1
+                    Write-Log "WARNING: ExitCode was null, using -1"
+                }
                 
                 # Read final output
                 $output = ""
