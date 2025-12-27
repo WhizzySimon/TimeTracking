@@ -6,6 +6,17 @@ Significant design, architecture, and policy decisions. Newest first.
 
 ---
 
+## DEC-2025-006: Single always-on pointer to JIT rule map (D5)
+
+**Date:** 2025-12-27  
+**Context:** D4's JIT system still had 4 always-on rules in .windsurf/rules/ that were context-specific (code-quality, command-execution, ui-design, implementation-specification). Pre-commit checklist was still being skipped (3rd violation).  
+**Decision:** Reduce to ONE always-on file (always-on.md) that points to editable jit-rule-map.md in Docs/Rules/. Delete all other .windsurf/rules/ files.  
+**Alternatives:** Add more always-on rules (rejected — context overload), hardcode jit-rule-map in workflows (rejected — loses Windsurf native loading).  
+**Consequences:** Minimal always-on context; jit-rule-map is editable; Windsurf auto-loads the pointer which chains to trigger table.  
+**Source:** This commit
+
+---
+
 ## DEC-2025-005: Just-in-time rules system (D4)
 
 **Date:** 2025-12-27  
