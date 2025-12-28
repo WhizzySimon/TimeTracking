@@ -64,7 +64,33 @@ After completing a task:
 npm run ai:evidence -- --task=D5.1 --box=infra-build
 ```
 
-### 5. Extract Learnings (Periodic)
+### 5. Run `/audit` (Deterministic; staged-only frozen snapshot)
+
+Before marking a task complete, you MUST run `/audit` with the staged snapshot policy:
+
+- Evidence Bundle is created at `Docs/Devlog/Evidence/<task-id>.md` and **staged** alongside the code.
+- Preconditions:
+  - No unstaged changes:
+    - `git diff --name-only` must be empty
+  - No untracked files:
+    - `git ls-files --others --exclude-standard` must be empty
+  - Must have staged changes:
+    - `git diff --staged --name-only` must be non-empty
+  - Evidence Bundle must appear in `git diff --staged --name-only`
+- Auditor uses **ONLY** `git diff --staged` (never working tree).
+
+Record snapshot identifiers in the Evidence Bundle:
+
+```bash
+git rev-parse HEAD
+git diff --staged | git hash-object --stdin
+git diff --staged --stat
+git diff --staged
+```
+
+Write the Audit Report to `Docs/Reports/` after the verdict and reference the Evidence Bundle (single source of truth).
+
+### 6. Extract Learnings (Periodic)
 
 After completing a phase or on session end:
 

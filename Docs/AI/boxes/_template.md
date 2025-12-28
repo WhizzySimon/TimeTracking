@@ -20,7 +20,21 @@ All acceptance criteria for this box MUST:
 
 ## Required Verification Commands
 
-Before marking task complete, run:
+Before marking task complete:
+
+1) Ensure you have a frozen staged snapshot (required for `/audit`):
+- No unstaged changes:
+  - `git diff --name-only` must be empty
+- No untracked files:
+  - `git ls-files --others --exclude-standard` must be empty
+- Must have staged changes:
+  - `git diff --staged --name-only` must be non-empty
+- Evidence Bundle must be staged and included in:
+  - `git diff --staged --name-only`
+
+2) Run `/audit` and write an Audit Report after the verdict (report does not need to be staged during preconditions).
+
+3) Run verification commands:
 
 | Command             | Required | Notes                      |
 | ------------------- | -------- | -------------------------- |
@@ -37,8 +51,19 @@ The evidence bundle MUST include:
 
 - [ ] Box type declared
 - [ ] Acceptance criteria listed
-- [ ] Changed files listed
-- [ ] Verification command results
+- [ ] Planned scope listed (or explicitly "NOT PROVIDED" + risk flag)
+- [ ] Preconditions captured (staged snapshot policy):
+  - [ ] `git diff --name-only` output pasted (must be empty)
+  - [ ] `git ls-files --others --exclude-standard` output pasted (must be empty)
+  - [ ] `git diff --staged --name-only` output pasted (must be non-empty)
+  - [ ] Evidence Bundle file appears in `git diff --staged --name-only`
+- [ ] Frozen snapshot captured (staged-only):
+  - [ ] `BASE_HEAD` (`git rev-parse HEAD`) recorded
+  - [ ] `STAGED_DIFF_HASH` recorded
+  - [ ] `git diff --staged --stat` pasted (recommended)
+  - [ ] `git diff --staged` pasted
+- [ ] Verification command results (minimum `npm run verify`)
+- [ ] Audit Report link added (report generated after verdict; references this bundle; no separate ACP file)
 - [ ] (additional box-specific requirements)
 
 ---

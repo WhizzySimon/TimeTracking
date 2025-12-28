@@ -32,6 +32,7 @@
 | **Creating/updating spec**       | `Docs/Rules/spec-writing.md`                |
 | **Creating/updating plan**       | `Docs/Rules/planning.md`                    |
 | **Before implementing**          | `Docs/Rules/implementation.md`              |
+| **Before marking task complete** | Run `/audit` (GPT-5.2 Medium), ensure Evidence Bundle is staged |
 | **Before git commit**            | `Docs/Rules/pre-commit.md`                  |
 | **Starting a task**              | `Docs/AI/boxes/<box>.md` (choose box first) |
 | **Session end**                  | `Docs/Rules/session-end.md`                 |

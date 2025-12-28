@@ -6,6 +6,17 @@ Significant design, architecture, and policy decisions. Newest first.
 
 ---
 
+## DEC-2025-007: Deterministic staged-only audit policy (Auditor System)
+
+**Date:** 2025-12-28  
+**Context:** Designed an Auditor system for evidence-first code review. Needed to define how the audit input is frozen and whether Evidence Bundle/Audit Report must be staged.  
+**Decision:** Option A — Evidence Bundle MUST be staged alongside code; Audit Report is generated post-verdict (not staged during preconditions). Preconditions use `git diff --name-only` (empty), `git ls-files --others --exclude-standard` (empty), `git diff --staged --name-only` (non-empty + includes Evidence Bundle).  
+**Alternatives:** Option B (Evidence Bundle untracked, explicit exception) — rejected for complexity; ACP as separate file — rejected to avoid duplication.  
+**Consequences:** Single source of truth (Evidence Bundle with embedded ACP fields); deterministic audit input via `STAGED_DIFF_HASH`; X-High escalation reruns must use exact same staged diff.  
+**Source:** This commit
+
+---
+
 ## DEC-2025-006: Single always-on pointer to JIT rule map (D5)
 
 **Date:** 2025-12-27  
