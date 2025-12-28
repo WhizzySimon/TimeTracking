@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                                       | Ref     |
 | ---------- | -------- | --------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-28 | feat     | Rule read logging: Windsurf hooks + post_read_code evidence-based logging + working_directory fix | —       |
 | 2025-12-27 | feat     | D5: Autonomy Stack v2 — task boxes, telemetry JSONL, anomaly detection, evidence bundles      | —       |
 | 2025-12-27 | docs     | D5.3: Document dev framework in README with diagram, add doc-check to pre-commit              | —       |
 | 2025-12-27 | refactor | D5.2: Migrate global_rules to JIT system, delete 6 redundant memories, add canaries           | —       |

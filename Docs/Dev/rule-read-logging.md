@@ -132,10 +132,29 @@ Thresholds in `scripts/report_rule_reads.py`:
 
 ## Windows Notes
 
-- Use `py -3` instead of `python` or `python3` (Windows Python Launcher)
-- The `-u` flag ensures unbuffered output for debugging
-- Smoke test uses `cmd /c echo ... >> ...` for Windows compatibility
-- Path normalization handles both `\` and `/` separators
+- Use `python` (not `py -3`) — Windsurf hooks use a shell where `py` isn't recognized
+- Use **absolute paths** in hooks.json — relative paths fail even though docs say `working_directory` defaults to workspace root (tested 2025-12-28)
+- `${workspaceFolder}` variables are NOT supported
+- Forward slashes work in paths: `E:/Private/Dev/.../script.py`
+- Path normalization in the script handles both `\` and `/` separators
+- Smoke test (if needed): `cmd /c echo ... >> ...` for Windows compatibility
+
+### Path Configuration (Windows)
+
+Experiments on 2025-12-28:
+
+| Attempt | Command | `working_directory` | Result |
+|---------|---------|---------------------|--------|
+| 1 | `python .windsurf/hooks/...` (relative) | Not set | ❌ FAILED |
+| 2 | `.windsurf/hooks/run_logger.bat` | Not set | ❌ FAILED |
+| 3 | `python E:/.../rule_read_logger.py` (absolute) | Not set | ✅ WORKS |
+| 4 | `python .windsurf/hooks/...` (relative) | `E:/.../TimeTracker` (absolute) | ✅ WORKS |
+
+**Conclusion**: On Windows, the default `working_directory` is NOT the workspace root. You must either:
+- Use absolute paths in `command`, OR
+- Use relative `command` + explicit absolute `working_directory`
+
+**Current config uses option 2** — one absolute path per hook (`working_directory`), relative script path.
 
 ## Files Changed
 
