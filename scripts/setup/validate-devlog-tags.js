@@ -21,7 +21,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const projectRoot = join(__dirname, '..', '..');
-const devlogDir = join(projectRoot, 'Docs', 'DevFramework', 'Devlog');
+const devlogDir = join(projectRoot, 'Docs', 'DevFramework', 'FrameworkSelfImprovementLogs');
 
 let hasErrors = false;
 
@@ -35,7 +35,7 @@ function success(msg) {
 }
 
 function extractTagsFromTagsMd() {
-	const tagsPath = join(projectRoot, 'Docs', 'DevFramework', 'Reports', 'SSD Analysis', 'TAGS.md');
+	const tagsPath = join(projectRoot, 'Docs', 'DevFramework', 'Archive', 'SSD Analysis', 'TAGS.md');
 	const content = readFileSync(tagsPath, 'utf-8');
 	const tags = new Set();
 	const aliasMap = new Map();
@@ -111,7 +111,7 @@ function validateIndexMd(validTags) {
 		projectRoot,
 		'Docs',
 		'DevFramework',
-		'Reports',
+		'Archive',
 		'SSD Analysis',
 		'INDEX.md'
 	);

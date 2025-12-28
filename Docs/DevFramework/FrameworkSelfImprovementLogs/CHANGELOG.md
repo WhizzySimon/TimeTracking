@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                                              | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-28 | refactor | DevFramework restructure: rename 11 folders, merge 4, move Progress to AppDocs, update all refs     | —       |
 | 2025-12-28 | docs     | Add template references to planning.md (Plans + Tasks templates)                                     | —       |
 | 2025-12-28 | feat     | A2.1: IndexedDB employers store + Employer type (Phase A2 Multi-Arbeitgeber start)                   | —       |
 | 2025-12-28 | docs     | Fix doc paths after restructure (AppDocs/DevFramework), run_command primary + watcher fallback       | —       |
