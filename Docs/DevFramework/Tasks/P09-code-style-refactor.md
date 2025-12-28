@@ -6,6 +6,16 @@
 
 **Priority**: Low (housekeeping task, do incrementally)
 
+---
+
+## JIT Rules (MANDATORY)
+
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md`
+
+Key triggers during task execution: writing code, before commit, session end.
+
+---
+
 ## Reference
 
 All rules defined in: `.windsurf/rules/code-quality-rules.md`

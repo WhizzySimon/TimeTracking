@@ -8,6 +8,14 @@
 
 ---
 
+## JIT Rules (MANDATORY)
+
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md`
+
+Key triggers during task execution: writing code, before commit, session end.
+
+---
+
 ## Overview
 
 19 tasks organized into 6 sub-phases for MVP implementation.

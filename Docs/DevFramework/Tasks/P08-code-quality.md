@@ -6,6 +6,14 @@
 
 ---
 
+## JIT Rules (MANDATORY)
+
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md`
+
+Key triggers during task execution: writing code, before commit, session end.
+
+---
+
 ## Phase A — ESLint Complexity Rule ✓
 
 ### Task A.1 — Add complexity rule (warning) ✓

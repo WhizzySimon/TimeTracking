@@ -197,14 +197,18 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 │     └─ Deviations notieren (falls vorhanden)                        │
 │                                                                     │
 │  6. CHANGELOG UPDATEN                                               │
-│     └─ Eine Zeile in Docs/Devlog/CHANGELOG.md hinzufügen            │
+│     └─ Eine Zeile in Docs/DevFramework/Devlog/CHANGELOG.md          │
 │     └─ Format: | Date | Type | Summary | Ref |                      │
 │                                                                     │
-│  7. GIT COMMIT                                                      │
-│     └─ git add -A; git commit -m "feat: description"                │
+│  7. JIT RULE: BEFORE COMMIT                                         │
+│     └─ Follow JIT rule map trigger "Before git commit"              │
+│     └─ (See: Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md)   │
+│                                                                     │
+│  8. GIT COMMIT                                                      │
+│     └─ git commit -m "feat: description"                            │
 │     └─ Commit-Message im Conventional Commits Format                │
 │                                                                     │
-│  8. NÄCHSTER TASK                                                   │
+│  9. NÄCHSTER TASK                                                   │
 │     └─ Weiter mit nächstem Task                                     │
 │     └─ Bei Phase-Ende: User informieren                             │
 └─────────────────────────────────────────────────────────────────────┘
@@ -214,8 +218,9 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 
 1. **Erst** alle Tests bestehen lassen
 2. **Dann** Progress Tracker updaten
-3. **Dann** Changelog updaten (eine Zeile in `Docs/Devlog/CHANGELOG.md`)
-4. **Zuletzt** Git Commit (damit alles im Commit ist)
+3. **Dann** Changelog updaten (eine Zeile in `Docs/DevFramework/Devlog/CHANGELOG.md`)
+4. **Dann** JIT rule map: "Before git commit" trigger
+5. **Zuletzt** Git Commit (damit alles im Commit ist)
 
 ### Commit-Message Format
 
@@ -239,7 +244,7 @@ feat: kurze Beschreibung
 
 ## Progress Tracker
 
-**Datei:** `Docs/IMPLEMENTATION_PROGRESS.md`
+**Datei:** `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md`
 
 ### Format pro Task
 
@@ -286,7 +291,7 @@ Bevor du mit der Implementierung beginnst:
 - [ ] **Spec existiert:** `Docs/Specs/<feature>.md`
 - [ ] **Plan existiert:** `Docs/Plans/<feature>.md`
 - [ ] **Tasks existieren:** `Docs/Tasks/<feature>.md`
-- [ ] **Progress Tracker:** Phase in `Docs/IMPLEMENTATION_PROGRESS.md` angelegt
+- [ ] **Progress Tracker:** Phase in `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` angelegt
 - [ ] **Alle Checkpoints** der Phasen 1-3 erfüllt
 
 ---
@@ -317,13 +322,15 @@ Bevor du mit der Implementierung beginnst:
 | Spec Template     | `Docs/Specs/_template.md`                               |
 | Plan Template     | `Docs/Plans/_template.md`                               |
 | Tasks Template    | `Docs/Tasks/_template.md`                               |
-| Progress Tracker  | `Docs/IMPLEMENTATION_PROGRESS.md`                       |
-| FR/IG/DD Regeln   | `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` |
-| Command Execution | `.windsurf/rules/COMMAND_EXECUTION_RULES.md`            |
+| Progress Tracker  | `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md`                       |
+| FR/IG/DD Regeln   | `Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` |
+| Command Execution | `Docs/DevFramework/Tooling/command-execution-rules.md`               |
+| Pre-Commit Rules  | `Docs/DevFramework/Rules/pre-commit.md`                              |
 
 ---
 
 ## Änderungshistorie
 
+- 2025-12-28: Added JIT rule map reference to task workflow; paths updated to DevFramework structure
 - 2025-12-24: Phase -1 / Pre-Implementation Gates hinzugefügt
 - 2025-12-23: Erstellt — Konsolidierter Workflow für Spec-Driven Development

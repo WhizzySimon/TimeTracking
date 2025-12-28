@@ -8,6 +8,14 @@
 
 ---
 
+## JIT Rules (MANDATORY)
+
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md`
+
+Key triggers during task execution: writing code, before commit, session end.
+
+---
+
 # PHASE 0: Framework Evolution Guardrails (Prerequisites)
 
 These tasks MUST be completed before any code implementation tasks.
