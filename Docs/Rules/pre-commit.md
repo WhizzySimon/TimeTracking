@@ -19,6 +19,7 @@
 [ ] LEARNINGS-INBOX.md — Reviewed session for feedback (positive/corrective)
 [ ] DECISIONS.md — If decision was made, added entry
 [ ] Learning promotion — Check INBOX for items repeated 2+ times → promote to LEARNINGS.md
+[ ] IMPLEMENTATION_PROGRESS.md — If tasks added/changed/completed, update progress tracker
 [ ] Documentation — After changes, check if docs need updating (README, INDEX, rule files, etc.)
 ```
 
