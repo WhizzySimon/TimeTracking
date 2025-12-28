@@ -104,29 +104,6 @@
 | D4.12 | Keep AGENTS.md as backup           | DONE   | Can delete later                   |
 | D4.13 | Test with real session             | DONE   | PASS — all content covered         |
 
-### Migration Checklist (from AGENTS.md)
-
-Content to extract:
-
-- [ ] Start-of-session workflow (lines 9-16) → session-start.md
-- [ ] Mandatory doc loading (lines 17-24) → session-start.md
-- [ ] Source of truth (lines 26-31) → dispatcher (core)
-- [ ] Phase 1 SPEC (lines 36-61) → spec-writing.md
-- [ ] Phase 2 PLAN (lines 62-80) → planning.md
-- [ ] Phase 3 TASKS (lines 82-99) → planning.md
-- [ ] Phase -1 PRE-IMPLEMENTATION GATES (lines 101-111) → implementation.md
-- [ ] Phase 4 IMPLEMENT (lines 113-128) → implementation.md
-- [ ] Git workflow (lines 130-147) → pre-commit.md
-- [ ] Verification (lines 149-160) → implementation.md
-- [ ] Coding rules (lines 162-167) → implementation.md
-- [ ] PWA constraints (lines 169-172) → implementation.md
-- [ ] Single Source of Truth table (lines 174-188) → dispatcher (reference)
-- [ ] Self-Learning System (lines 190-229) → session-end.md
-- [ ] Rules for framework changes (lines 231-239) → framework-changes.md
-- [ ] Pre-commit checklist (lines 241-251) → pre-commit.md
-- [ ] Session-end rules (lines 253-271) → session-end.md
-- [ ] Communication style (lines 273-282) → dispatcher (core)
-
 ---
 
 ## Open Checklists
