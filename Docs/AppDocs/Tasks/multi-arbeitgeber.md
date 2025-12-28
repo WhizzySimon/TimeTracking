@@ -89,7 +89,7 @@ Tasks A2.3 and A2.17 were SKIPPED based on this convention.
 - **Guardrails:**
   - Delete must be soft delete by default
 - **Estimated:** 2h
-- **Status:** Pending
+- **Status:** COMPLETE
 - **Dependencies:** A2.1
 
 ---

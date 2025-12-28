@@ -24,7 +24,7 @@ description: Deterministic audit on a frozen staged snapshot (git diff --staged 
 If not specified by user, use today's date:
 
 ```
-Docs/DevFramework/Devlog/Evidence/AUD-YYYY-MM-DD-01.md
+Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/AUD-YYYY-MM-DD-01.md
 ```
 
 (Replace YYYY-MM-DD with current date. Increment -01 if file exists.)
@@ -66,7 +66,7 @@ git diff --staged --name-only
 
 - Check if Evidence Bundle path appears in `git diff --staged --name-only`
 - PASS if present
-- FAIL if missing → Remediation: Create from `Docs/DevFramework/Devlog/Evidence/_template.md` and stage it
+- FAIL if missing → Remediation: Create from `Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/_template.md` and stage it
 
 ---
 

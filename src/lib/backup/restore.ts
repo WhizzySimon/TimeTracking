@@ -5,7 +5,14 @@
 
 import { openDB, put } from '$lib/storage/db';
 import type { DatabaseSnapshot } from './snapshot';
-import type { Category, TimeEntry, DayType, WorkTimeModel, UserPreference } from '$lib/types';
+import type {
+	Category,
+	TimeEntry,
+	DayType,
+	WorkTimeModel,
+	UserPreference,
+	Employer
+} from '$lib/types';
 
 /**
  * Clear a single object store.
@@ -54,7 +61,8 @@ export async function importSnapshot(snapshot: DatabaseSnapshot): Promise<void> 
 		clearStore('timeEntries'),
 		clearStore('dayTypes'),
 		clearStore('workTimeModels'),
-		clearStore('userPreferences')
+		clearStore('userPreferences'),
+		clearStore('employers')
 	]);
 
 	const counts = {
@@ -65,7 +73,8 @@ export async function importSnapshot(snapshot: DatabaseSnapshot): Promise<void> 
 		userPreferences: await importItems<UserPreference>(
 			'userPreferences',
 			safeSnapshot.userPreferences
-		)
+		),
+		employers: await importItems<Employer>('employers', safeSnapshot.employers)
 	};
 
 	console.log('[Restore] Imported snapshot:', counts);

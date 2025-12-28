@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                                              | Ref     |
 | ---------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-28 | feat     | A2.4: Employer store + CRUD operations (employers.ts) + backup snapshot integration                  | —       |
 | 2025-12-28 | feat     | A2.2: Add employerId field to TimeEntry, Category, WorkTimeModel interfaces                          | —       |
 | 2025-12-28 | refactor | Scripts cleanup: e2e→AutomatedUITests, ai→CascadeAgentTools, validate-tags→build, eslint .cjs fix    | —       |
 | 2025-12-28 | docs     | Add template references to planning.md (Plans + Tasks templates)                                     | —       |

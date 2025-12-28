@@ -343,7 +343,7 @@ Phase 4:
 ## Phase A2: Multi-Arbeitgeber
 
 **Target:** 18 tasks  
-**Status:** In progress (4/18 — 2 skipped)  
+**Status:** In progress (5/18 — 2 skipped)  
 **Spec:** `Docs/AppDocs/Specs/multi-arbeitgeber.md`  
 **Plan:** `Docs/AppDocs/Plans/multi-arbeitgeber.md`  
 **Tasks:** `Docs/AppDocs/Tasks/multi-arbeitgeber.md`
@@ -353,7 +353,7 @@ Phase 4:
 - [x] **Task A2.1** — IndexedDB migration: add employers store
 - [x] **Task A2.2** — IndexedDB migration: add employerId to entries/categories/models
 - [x] **Task A2.3** — ~~Supabase migration~~ SKIPPED (snapshot-based sync)
-- [ ] **Task A2.4** — Employer store + CRUD operations
+- [x] **Task A2.4** — Employer store + CRUD operations
 - [ ] **Task A2.5** — EmployerSelector component
 - [ ] **Task A2.6** — Integrate selector into Header
 - [ ] **Task A2.7** — Filter logic for all stores

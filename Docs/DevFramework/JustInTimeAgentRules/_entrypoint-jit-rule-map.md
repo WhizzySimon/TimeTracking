@@ -9,6 +9,7 @@
 **Immediately scan your current context** (task file, workflow, user request) and identify which triggers from the table below will apply. **Read those rule files NOW**, before proceeding.
 
 Example: If you're about to implement a task, you will be writing code and committing. Pre-load:
+
 - `code-quality.md` (writing code trigger)
 - `implementation.md` (before implementing trigger)
 - `pre-commit.md` (before commit trigger)

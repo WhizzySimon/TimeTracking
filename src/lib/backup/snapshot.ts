@@ -10,7 +10,8 @@ import type {
 	DayType,
 	WorkTimeModel,
 	OutboxItem,
-	UserPreference
+	UserPreference,
+	Employer
 } from '$lib/types';
 
 export interface SnapshotMeta {
@@ -34,20 +35,22 @@ export interface DatabaseSnapshot {
 	workTimeModels: WorkTimeModel[];
 	outbox: OutboxItem[];
 	userPreferences?: UserPreference[];
+	employers?: Employer[];
 }
 
 /**
  * Export full IndexedDB snapshot for cloud backup.
  */
 export async function exportSnapshot(): Promise<DatabaseSnapshot> {
-	const [categories, timeEntries, dayTypes, workTimeModels, outbox, userPreferences] =
+	const [categories, timeEntries, dayTypes, workTimeModels, outbox, userPreferences, employers] =
 		await Promise.all([
 			getAll<Category>('categories'),
 			getAll<TimeEntry>('timeEntries'),
 			getAll<DayType>('dayTypes'),
 			getAll<WorkTimeModel>('workTimeModels'),
 			getAll<OutboxItem>('outbox'),
-			getAll<UserPreference>('userPreferences')
+			getAll<UserPreference>('userPreferences'),
+			getAll<Employer>('employers')
 		]);
 
 	let appVersion = 'unknown';
@@ -83,6 +86,7 @@ export async function exportSnapshot(): Promise<DatabaseSnapshot> {
 		dayTypes,
 		workTimeModels,
 		outbox,
-		userPreferences
+		userPreferences,
+		employers
 	};
 }
