@@ -63,13 +63,34 @@ Solution: Use pushState() for temporary navigation state
 
 **Key insight:** Lint rules often reveal design problems, not just syntax issues.
 
+## Code Naming (required)
+
+Names must be **self-explanatory** — no comment needed to understand purpose.
+
+1. **Functions** — name explains what it does: `calculateTotalHours()` not `calc()`
+2. **Variables** — name explains what it contains: `activeTimeEntries` not `entries`
+3. **Booleans** — prefix with is/has/can/should: `isRunning`, `hasUnsavedChanges`
+4. **Max 4-5 words** — `getUserActiveTimeEntries` ✓, `getTheCurrentlyActiveUserTimeEntryRecords` ✗
+5. **No abbreviations** — `category` not `cat`, `configuration` not `cfg`
+6. **No single-letter names** — except `i`, `j`, `k` for loop indices
+
+### Examples
+
+| ❌ Unclear | ✓ Self-Explanatory |
+|-----------|---------------------|
+| `proc()` | `processTimeEntry()` |
+| `data` | `userSettings` |
+| `temp` | `unsavedDraft` |
+| `flag` | `isTimerRunning` |
+
+---
+
 ## Code Generation Principles (required)
 
 - **Do not rename existing symbols** unless explicitly asked
 - **Analyze existing codebase first** — re-use existing patterns, naming conventions, formatting, design philosophy, logging style
 - **Check for existing helpers** before implementing new ones
 - **Principle of Least Surprise** — prefer simple, idiomatic code over clever or magical solutions
-- **Clear, fully written names** — avoid ambiguous abbreviations; follow existing naming patterns
 - **Optimize for readability and maintainability**, not micro-optimizations
 - **Prefer standard library** over third-party packages; add dependencies only if a helper would be unreasonably complex
 - **No emojis in code or logging** — UI exceptions: checkmark/X/warning icons for status
