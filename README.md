@@ -13,7 +13,7 @@ This project uses a **Just-in-Time (JIT) rule system** for AI-assisted developme
 │  .windsurf/rules/always-on.md   ← THE ONLY always-on rule  │
 │         │                                                   │
 │         ▼                                                   │
-│  Docs/Rules/_entrypoint-jit-rule-map.md  ← Trigger table   │
+│  Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md       │
 │         │                                                   │
 │         ├──► session-start.md, code-quality.md             │
 │         ├──► command-execution.md, pre-commit.md           │
@@ -28,8 +28,8 @@ This project uses a **Just-in-Time (JIT) rule system** for AI-assisted developme
 **Key files:**
 
 - **Docs/INDEX.md** — Doc hierarchy, priority order
-- **Docs/Rules/\_entrypoint-jit-rule-map.md** — When to read which rule
-- **Docs/Tooling/BOOTSTRAP.md** — Tooling setup
+- **Docs/DevFramework/Rules/\_entrypoint-jit-rule-map.md** — When to read which rule
+- **Docs/DevFramework/Tooling/BOOTSTRAP.md** — Tooling setup
 
 **Trigger points:** session-start, writing code, executing commands, pre-commit, session-end, etc.
 
@@ -45,13 +45,11 @@ Terminal 1 - Dev Server:
 npm run dev
 ```
 
-Terminal 2 - Cascade Main Watcher:
+Terminal 2 - Cascade Watcher (optional fallback):
 
-```
-powershell -File scripts/watcher-main.ps1
-```
+The integrated PowerShell terminal works directly. The watcher is only needed as fallback if `run_command` fails.
 
-Leave the main watcher running. It manages sessions automatically.
+See `Docs/DevFramework/Tooling/BOOTSTRAP.md` for watcher setup if needed.
 
 **Step 2:** Start a new chat with:
 

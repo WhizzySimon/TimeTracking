@@ -31,14 +31,14 @@
 
 ### Module Responsibilities
 
-| Module                 | File                               | Responsibility                                     |
-| ---------------------- | ---------------------------------- | -------------------------------------------------- |
-| **Telemetry CLI**      | `scripts/ai/telemetry.js`          | Log events, start/end commands, fingerprint errors |
-| **Anomaly Detector**   | `scripts/ai/anomaly-detector.js`   | Read session log, detect patterns, output alerts   |
-| **Evidence Generator** | `scripts/ai/evidence-generator.js` | Compile task completion artifacts                  |
-| **Learning Extractor** | `scripts/ai/learning-extractor.js` | Propose principles from evidence/anomalies         |
-| **Box Definitions**    | `Docs/DevFramework/TaskQualityAssurance/boxes/*.md`               | Per-task-type checklists (human-readable)          |
-| **Zoom-Out Protocol**  | `Docs/DevFramework/TaskQualityAssurance/ZOOM_OUT.md`              | Recovery procedure when anomalies fire             |
+| Module                 | File                                                 | Responsibility                                     |
+| ---------------------- | ---------------------------------------------------- | -------------------------------------------------- |
+| **Telemetry CLI**      | `scripts/ai/telemetry.js`                            | Log events, start/end commands, fingerprint errors |
+| **Anomaly Detector**   | `scripts/ai/anomaly-detector.js`                     | Read session log, detect patterns, output alerts   |
+| **Evidence Generator** | `scripts/ai/evidence-generator.js`                   | Compile task completion artifacts                  |
+| **Learning Extractor** | `scripts/ai/learning-extractor.js`                   | Propose principles from evidence/anomalies         |
+| **Box Definitions**    | `Docs/DevFramework/TaskQualityAssurance/boxes/*.md`  | Per-task-type checklists (human-readable)          |
+| **Zoom-Out Protocol**  | `Docs/DevFramework/TaskQualityAssurance/ZOOM_OUT.md` | Recovery procedure when anomalies fire             |
 
 ### Dependencies
 

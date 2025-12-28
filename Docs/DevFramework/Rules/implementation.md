@@ -53,27 +53,12 @@ If any gate fails, update the spec/plan/tasks first.
 - Follow the repo's PWA/SvelteKit/platform rules exactly as documented
 - If a requirement conflicts with browser constraints, document the constraint in the spec and propose the smallest viable alternative
 
-## Watcher Usage (Command Execution)
+## Command Execution
 
-**NEVER use `run_command` tool.** Use the Cascade Watcher instead.
+**Use the integrated PowerShell terminal** (`run_command` tool) for all commands.
 
-**Session Discovery (CRITICAL):**
-
-1. Read `scripts/watcher/main-status.txt` FIRST
-2. Find `ID=<session-id>` in the SESSIONS list
-3. Use that session ID for all file paths
-
-**Execute Commands:**
-
-```
-scripts/watcher/<session-id>/command.txt   # Write command here
-scripts/watcher/<session-id>/heartbeat.txt # Poll until DONE:*
-scripts/watcher/<session-id>/output.txt    # Read output
-```
-
-**Never assume session ID from memory or checkpoint — always discover it fresh.**
-
-Full docs: `Docs/Tooling/CASCADE_WATCHER.md`
+The Cascade Watcher is deprecated and only used as fallback if the integrated terminal doesn't work.
+See `Docs/DevFramework/Tooling/CASCADE_WATCHER.md` for fallback instructions.
 
 ## Verification
 
@@ -95,8 +80,8 @@ When reporting completion:
 - Code changes completed
 - Verification executed
 - Notes written back into the relevant spec/plan/tasks if reality differed from assumptions
-- Git commit & push (see `Docs/Rules/pre-commit.md`)
+- Git commit & push (see `Docs/DevFramework/Rules/pre-commit.md`)
 
 ---
 
-**Next:** Before committing → Read `Docs/Rules/pre-commit.md`
+**Next:** Before committing → Read `Docs/DevFramework/Rules/pre-commit.md`

@@ -8,7 +8,7 @@
 
 Goal: Choose architecture/approach and write it down before code.
 
-Location: `Docs/Plans/<feature-slug>.md`
+Location: `Docs/AppDocs/Plans/<feature-slug>.md` or `Docs/DevFramework/Plans/<feature-slug>.md`
 
 ### Required Sections
 
@@ -31,7 +31,7 @@ Each plan MUST contain:
 
 Goal: Break plan into reviewable, independently testable units.
 
-Location: `Docs/Tasks/<feature-slug>.md`
+Location: `Docs/AppDocs/Tasks/<feature-slug>.md` or `Docs/DevFramework/Tasks/<feature-slug>.md`
 
 ### Rules
 
@@ -47,4 +47,4 @@ Location: `Docs/Tasks/<feature-slug>.md`
 
 ---
 
-**Next:** When tasks are defined → Read `Docs/Rules/implementation.md`
+**Next:** When tasks are defined → Read `Docs/DevFramework/Rules/implementation.md`

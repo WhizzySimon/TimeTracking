@@ -4,12 +4,12 @@ This folder contains all **application documentation** — the product specs, UI
 
 ## What's in AppDocs?
 
-| Folder | Purpose |
-|--------|---------|
+| Folder        | Purpose                                                                  |
+| ------------- | ------------------------------------------------------------------------ |
 | `Guidelines/` | Product spec (UI_LOGIC_SPEC), technical guidelines, platform constraints |
-| `Specs/` | Feature specifications (subscription plans, AI import, etc.) |
-| `Plans/` | Feature implementation plans |
-| `Tasks/` | Feature task breakdowns |
+| `Specs/`      | Feature specifications (subscription plans, AI import, etc.)             |
+| `Plans/`      | Feature implementation plans                                             |
+| `Tasks/`      | Feature task breakdowns                                                  |
 
 ## Key Documents
 
@@ -25,10 +25,10 @@ This folder contains all **application documentation** — the product specs, UI
 
 ### Active Features
 
-| Feature | Spec | Plan | Tasks |
-|---------|------|------|-------|
+| Feature            | Spec                          | Plan                          | Tasks                         |
+| ------------------ | ----------------------------- | ----------------------------- | ----------------------------- |
 | Subscription Plans | `Specs/subscription-plans.md` | `Plans/subscription-plans.md` | `Tasks/subscription-plans.md` |
-| AI Import | `Specs/ai-import.md` | `Plans/ai-import.md` | `Tasks/ai-import.md` |
+| AI Import          | `Specs/ai-import.md`          | `Plans/ai-import.md`          | `Tasks/ai-import.md`          |
 
 ---
 

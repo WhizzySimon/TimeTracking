@@ -39,6 +39,7 @@ Before marking task complete:
 - [ ] `/audit` PASS (or FAIL remediated)
 
 **Model switch behavior** (see `Docs/Rules/ai-config.json`):
+
 - `switch_model_before_audit=true`: Builder stages and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
 - `switch_model_before_audit=false`: Builder runs `/audit` itself
 

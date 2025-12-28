@@ -14,7 +14,7 @@
 
 ## Audit Gate (required before commit)
 
-1. Read `Docs/Rules/ai-config.json` → `switch_model_before_audit`
+1. Read `Docs/DevFramework/Rules/ai-config.json` → `switch_model_before_audit`
 2. If `true` and you are Builder (Opus):
    - Verify `/audit` was run by GPT-5.2 Medium Reasoning
    - If not: **STOP** and instruct user to switch model and run `/audit`
@@ -86,4 +86,4 @@ If either check fails, fix before ending the session.
 
 ---
 
-**Self-Learning System:** See `Docs/Rules/session-end.md` for learning promotion rules and the two-tier system (Inbox → Distillate).
+**Self-Learning System:** See `Docs/DevFramework/Rules/session-end.md` for learning promotion rules and the two-tier system (Inbox → Distillate).

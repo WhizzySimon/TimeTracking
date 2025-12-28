@@ -4,20 +4,20 @@ This folder contains all **development framework documentation** — the process
 
 ## What's in DevFramework?
 
-| Folder | Purpose |
-|--------|---------|
-| `Rules/` | JIT rules for Cascade behavior (session-start, pre-commit, etc.) |
-| `Guidelines/` | Development guidelines, spec writing rules, workflow guides |
-| `Tooling/` | Cascade watcher, git workflow, bootstrap docs |
-| `TaskQualityAssurance/` | Quality assurance system (task boxes, audit, evidence bundles) |
-| `Devlog/` | Changelog, decisions, learnings, evidence bundles |
-| `Specs/` | Framework-related specifications |
-| `Plans/` | Framework-related implementation plans |
-| `Tasks/` | Framework-related task breakdowns |
-| `Standards/` | Code quality standards |
-| `Testing/` | Testing strategy documentation |
-| `SDD/` | Spec-Driven Development profiles |
-| `Reports/` | Analysis and audit reports |
+| Folder                  | Purpose                                                          |
+| ----------------------- | ---------------------------------------------------------------- |
+| `Rules/`                | JIT rules for Cascade behavior (session-start, pre-commit, etc.) |
+| `Guidelines/`           | Development guidelines, spec writing rules, workflow guides      |
+| `Tooling/`              | Cascade watcher, git workflow, bootstrap docs                    |
+| `TaskQualityAssurance/` | Quality assurance system (task boxes, audit, evidence bundles)   |
+| `Devlog/`               | Changelog, decisions, learnings, evidence bundles                |
+| `Specs/`                | Framework-related specifications                                 |
+| `Plans/`                | Framework-related implementation plans                           |
+| `Tasks/`                | Framework-related task breakdowns                                |
+| `Standards/`            | Code quality standards                                           |
+| `Testing/`              | Testing strategy documentation                                   |
+| `SDD/`                  | Spec-Driven Development profiles                                 |
+| `Reports/`              | Analysis and audit reports                                       |
 
 ## Quick Start
 
@@ -29,6 +29,7 @@ This folder contains all **development framework documentation** — the process
 ### For Task Quality Assurance
 
 See `TaskQualityAssurance/INDEX.md` for:
+
 - Task boxes (checklists per task type)
 - Anomaly detection
 - Evidence bundles
@@ -37,6 +38,7 @@ See `TaskQualityAssurance/INDEX.md` for:
 ### For Tooling Setup
 
 See `Tooling/BOOTSTRAP.md` for:
+
 - Dev server setup
 - Cascade watcher
 - Git workflow

@@ -8,9 +8,9 @@
 
 For any non-trivial change, create/update a spec file:
 
-- Location: `Docs/Specs/<feature-slug>.md`
-- Template: `Docs/Specs/_template.md`
-- Rules: `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md`
+- Location: `Docs/AppDocs/Specs/<feature-slug>.md` or `Docs/DevFramework/Specs/<feature-slug>.md`
+- Template: `Docs/AppDocs/Specs/_template.md` or `Docs/DevFramework/Specs/_template.md`
+- Rules: `Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md`
 
 ## Required Sections
 
@@ -35,4 +35,4 @@ Before moving to planning:
 
 ---
 
-**Next:** When spec is approved → Read `Docs/Rules/planning.md`
+**Next:** When spec is approved → Read `Docs/DevFramework/Rules/planning.md`

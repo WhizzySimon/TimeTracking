@@ -12,9 +12,10 @@ Open two integrated terminals and run:
 npm run dev
 ```
 
-**Terminal 2 - Cascade Watcher:**
+**Terminal 2 - Cascade Watcher (optional):**
 
-See `Docs/Tooling/BOOTSTRAP.md` for watcher setup instructions.
+The watcher is only needed as fallback if the integrated terminal doesn't work.
+See `Docs/DevFramework/Tooling/BOOTSTRAP.md` for watcher setup if needed.
 
 Then tell Cascade "done" to begin.
 
@@ -24,15 +25,10 @@ Then tell Cascade "done" to begin.
 
 **KEY DIFFERENCE:** In this mode, Cascade does NOT ask questions. It makes reasonable decisions and proceeds. If something is truly ambiguous, it documents the assumption and continues.
 
-### Step 0: Watcher Instance
+### Step 0: Command Execution
 
-If the user specified an instance (e.g., `/continue-work-auto-continue B`), use that instance.
-Otherwise, **try Instance A first**. If Instance A is not responding (status stuck on RUNNING for >30 seconds), **automatically switch to Instance B**.
-
-Remember the instance for this entire session:
-
-- Instance A: `scripts/watcher/A/command.txt`, `scripts/watcher/A/status.txt`, `scripts/watcher/A/output.txt`
-- Instance B: `scripts/watcher/B/command.txt`, `scripts/watcher/B/status.txt`, `scripts/watcher/B/output.txt`
+Use the integrated PowerShell terminal (`run_command` tool) for all commands.
+The watcher system is deprecated and only used as fallback if the terminal doesn't work.
 
 ### Step 1: Setup
 
@@ -52,10 +48,10 @@ git pull origin dev
 
 Then:
 
-5. Read `Docs/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
+5. Read `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
 6. Find the relevant Tasks file:
    - Check "Current Phase" in IMPLEMENTATION_PROGRESS.md
-   - Read the corresponding `Docs/Tasks/<feature>.md` file
+   - Read the corresponding `Docs/AppDocs/Tasks/<feature>.md` or `Docs/DevFramework/Tasks/<feature>.md` file
 7. Start implementing the next incomplete task
 
 **DO NOT ASK** which task to work on. Pick the next incomplete task in order.
@@ -69,8 +65,8 @@ For each task:
 1. **Implement** - Write the code
 2. **Verify** - Run `npm run verify` via watcher, fix errors
 3. **Test UI** - Use MCP Playwright if applicable
-4. **Update progress** - Mark task complete in `Docs/IMPLEMENTATION_PROGRESS.md`
-5. **Session-end** - Follow `Docs/Rules/pre-commit.md` (changelog, commit, push)
+4. **Update progress** - Mark task complete in `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md`
+5. **Session-end** - Follow `Docs/DevFramework/Rules/pre-commit.md` (changelog, commit, push)
 6. **Continue to next task** - Do NOT stop to ask if you should continue
 
 **STOP ONLY when:**
@@ -83,6 +79,6 @@ For each task:
 
 ## After ALL tasks complete
 
-1. Update `Docs/IMPLEMENTATION_PROGRESS.md` with all completed tasks
+1. Update `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` with all completed tasks
 2. Final commit and push
 3. Report summary of what was completed

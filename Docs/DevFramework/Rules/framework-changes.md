@@ -16,21 +16,22 @@
 
 ## Single Source of Truth
 
-| Content Type         | Canonical Location                          | Notes                                                             |
-| -------------------- | ------------------------------------------- | ----------------------------------------------------------------- |
-| **Process rules**    | `RULE_MAP.md`                               | Session workflow, git rules, verification, coding rules           |
-| **Always-on rules**  | `.windsurf/rules/*.md`                      | Auto-loaded every session (code-quality, command-execution, etc.) |
-| **Workflows**        | `.windsurf/workflows/`                      | ONLY orchestrate — reference docs, never duplicate content        |
-| **Doc hierarchy**    | `Docs/INDEX.md`                             | Priority order when docs conflict                                 |
-| **Coding standards** | `Docs/Guidelines/`                          | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc.                  |
-| **Tooling docs**     | `Docs/Tooling/`                             | Watcher, git workflow, bootstrap                                  |
-| **Feature specs**    | `Docs/Specs/`, `Docs/Plans/`, `Docs/Tasks/` | Per-feature documentation                                         |
-| **Dev history**      | `Docs/Devlog/CHANGELOG.md`                  | One line per commit                                               |
-| **Decisions**        | `Docs/Devlog/DECISIONS.md`                  | Architecture/policy decisions (ADR-light)                         |
-| **Learnings**        | `Docs/Devlog/LEARNINGS.md`                  | Proven preferences (max 30 bullets)                               |
-| **Learnings Inbox**  | `Docs/Devlog/LEARNINGS-INBOX.md`            | Raw feedback capture (unbounded, low priority)                    |
-| **Trigger rules**    | `Docs/Rules/`                               | Just-in-time rules loaded at specific triggers                    |
+| Content Type         | Canonical Location                             | Notes                                                             |
+| -------------------- | ---------------------------------------------- | ----------------------------------------------------------------- |
+| **Process rules**    | `RULE_MAP.md`                                  | Session workflow, git rules, verification, coding rules           |
+| **Always-on rules**  | `.windsurf/rules/*.md`                         | Auto-loaded every session (code-quality, command-execution, etc.) |
+| **Workflows**        | `.windsurf/workflows/`                         | ONLY orchestrate — reference docs, never duplicate content        |
+| **Doc hierarchy**    | `Docs/INDEX.md`                                | Priority order when docs conflict                                 |
+| **Coding standards** | `Docs/DevFramework/Guidelines/`                | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc.                  |
+| **Tooling docs**     | `Docs/DevFramework/Tooling/`                   | Watcher, git workflow, bootstrap                                  |
+| **App specs**        | `Docs/AppDocs/Specs/`, `Plans/`, `Tasks/`      | Per-feature app documentation                                     |
+| **Framework specs**  | `Docs/DevFramework/Specs/`, `Plans/`, `Tasks/` | Per-feature framework documentation                               |
+| **Dev history**      | `Docs/DevFramework/Devlog/CHANGELOG.md`        | One line per commit                                               |
+| **Decisions**        | `Docs/DevFramework/Devlog/DECISIONS.md`        | Architecture/policy decisions (ADR-light)                         |
+| **Learnings**        | `Docs/DevFramework/Devlog/LEARNINGS.md`        | Proven preferences (max 30 bullets)                               |
+| **Learnings Inbox**  | `Docs/DevFramework/Devlog/LEARNINGS-INBOX.md`  | Raw feedback capture (unbounded, low priority)                    |
+| **Trigger rules**    | `Docs/DevFramework/Rules/`                     | Just-in-time rules loaded at specific triggers                    |
 
 ---
 
-**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to the appropriate `Docs/Rules/*.md` file, NOT to individual workflow files. Workflows should reference docs, not duplicate content.
+**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to the appropriate `Docs/DevFramework/Rules/*.md` file, NOT to individual workflow files. Workflows should reference docs, not duplicate content.

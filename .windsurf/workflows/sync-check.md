@@ -25,7 +25,7 @@ Identify:
 ### 2. Check IMPLEMENTATION_PROGRESS.md
 
 ```
-Read: Docs/IMPLEMENTATION_PROGRESS.md
+Read: Docs/DevFramework/IMPLEMENTATION_PROGRESS.md
 ```
 
 Extract:
@@ -38,7 +38,7 @@ Extract:
 
 If the current phase has a Tasks file, read it:
 
-- `Docs/Tasks/<phase-name>.md`
+- `Docs/AppDocs/Tasks/<phase-name>.md` or `Docs/DevFramework/Tasks/<phase-name>.md`
 
 ### 4. Cross-Reference Chat vs Docs
 

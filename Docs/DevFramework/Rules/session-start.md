@@ -22,19 +22,19 @@ If required info is missing, STOP and propose an update to the relevant doc (spe
 
 ## Learnings Check
 
-Read `Docs/Devlog/LEARNINGS.md` (max 30 bullets of proven preferences).
+Read `Docs/DevFramework/Devlog/LEARNINGS.md` (max 30 bullets of proven preferences).
 
 ## Memory Policy
 
 - **Do NOT use `create_memory` tool** — this project uses file-based documentation
-- All learnings go to `Docs/Devlog/LEARNINGS-INBOX.md`
-- All rules go to `Docs/Rules/` or `.windsurf/rules/`
+- All learnings go to `Docs/DevFramework/Devlog/LEARNINGS-INBOX.md`
+- All rules go to `Docs/DevFramework/Rules/` or `.windsurf/rules/`
 - IDE-independent system — no reliance on Cascade memories
 
 ---
 
 **Next:** After session start, proceed to appropriate trigger:
 
-- Creating spec? → Read `Docs/Rules/spec-writing.md`
-- Creating plan? → Read `Docs/Rules/planning.md`
-- Implementing? → Read `Docs/Rules/implementation.md`
+- Creating spec? → Read `Docs/DevFramework/Rules/spec-writing.md`
+- Creating plan? → Read `Docs/DevFramework/Rules/planning.md`
+- Implementing? → Read `Docs/DevFramework/Rules/implementation.md`

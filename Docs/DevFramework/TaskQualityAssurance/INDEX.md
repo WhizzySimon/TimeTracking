@@ -69,16 +69,19 @@ npm run ai:evidence -- --task=D5.1 --box=infra-build
 Before marking a task complete, run `/audit` on a frozen staged snapshot.
 
 **Config flag:** `Docs/DevFramework/Rules/ai-config.json` → `switch_model_before_audit`
+
 - `true` (default): Builder stages changes and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
 - `false`: Builder stages changes and runs `/audit` itself (same chat)
 
 **Preconditions (all must pass):**
+
 - `git diff --name-only` → empty (no unstaged changes)
 - `git ls-files --others --exclude-standard` → empty (no untracked files)
 - `git diff --staged --name-only` → non-empty (has staged changes)
 - Evidence Bundle must be staged
 
 **Deterministic identifiers:**
+
 - `BASE_HEAD`: `git rev-parse HEAD`
 - `STAGED_DIFF_HASH`: `git diff --staged | git hash-object --stdin`
 

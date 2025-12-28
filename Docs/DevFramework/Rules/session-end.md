@@ -6,7 +6,7 @@
 
 ## Pre-Commit Covers Most Checks
 
-The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/Rules/pre-commit.md`.
+The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/DevFramework/Rules/pre-commit.md`.
 
 **If you committed and pushed, session-end checks are already done.**
 
@@ -18,8 +18,8 @@ This file documents the self-learning system for reference.
 
 Cascade learns from maintainer feedback via a two-tier system:
 
-- **Inbox:** `Docs/Devlog/LEARNINGS-INBOX.md` — raw capture, unbounded, not read at session start
-- **Distillate:** `Docs/Devlog/LEARNINGS.md` — proven preferences, max 30 bullets, read at session start
+- **Inbox:** `Docs/DevFramework/Devlog/LEARNINGS-INBOX.md` — raw capture, unbounded, not read at session start
+- **Distillate:** `Docs/DevFramework/Devlog/LEARNINGS.md` — proven preferences, max 30 bullets, read at session start
 
 ### When to Update
 
@@ -44,17 +44,17 @@ Categories: **Hard Rule** | **Preference** | **Reminder**
 
 When a Distillate item is categorized as **Hard Rule**, add it to the **appropriate trigger-based rule file**:
 
-| Rule is about...                      | Add to                            |
-| ------------------------------------- | --------------------------------- |
-| Session start workflow                | `Docs/Rules/session-start.md`     |
-| Writing specs                         | `Docs/Rules/spec-writing.md`      |
-| Creating plans                        | `Docs/Rules/planning.md`          |
-| Implementation/coding                 | `Docs/Rules/implementation.md`    |
-| Pre-commit checklist                  | `Docs/Rules/pre-commit.md`        |
-| Session end workflow                  | `Docs/Rules/session-end.md`       |
-| Framework doc changes                 | `Docs/Rules/framework-changes.md` |
-| Always needed (coding style, watcher) | `.windsurf/rules/`                |
-| Core principles                       | `RULE_MAP.md`                     |
+| Rule is about...                      | Add to                                         |
+| ------------------------------------- | ---------------------------------------------- |
+| Session start workflow                | `Docs/DevFramework/Rules/session-start.md`     |
+| Writing specs                         | `Docs/DevFramework/Rules/spec-writing.md`      |
+| Creating plans                        | `Docs/DevFramework/Rules/planning.md`          |
+| Implementation/coding                 | `Docs/DevFramework/Rules/implementation.md`    |
+| Pre-commit checklist                  | `Docs/DevFramework/Rules/pre-commit.md`        |
+| Session end workflow                  | `Docs/DevFramework/Rules/session-end.md`       |
+| Framework doc changes                 | `Docs/DevFramework/Rules/framework-changes.md` |
+| Always needed (coding style, watcher) | `.windsurf/rules/`                             |
+| Core principles                       | `RULE_MAP.md`                                  |
 
 **Do NOT add rules to a general location.** Route them to the specific trigger file so they are loaded at the right time.
 

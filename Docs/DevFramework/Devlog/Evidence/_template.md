@@ -10,6 +10,7 @@
 ## Acceptance Criteria (REQUIRED)
 
 <!-- If empty, /audit will FAIL -->
+
 - [ ] Criterion 1
 - [ ] Criterion 2
 - [ ] Criterion 3
@@ -25,10 +26,10 @@
 
 ## Commands Run + Results
 
-| Command | Exit Code | Notes |
-| --- | --- | --- |
-| `npm run verify` | | |
-| | | |
+| Command          | Exit Code | Notes |
+| ---------------- | --------- | ----- |
+| `npm run verify` |           |       |
+|                  |           |       |
 
 ---
 

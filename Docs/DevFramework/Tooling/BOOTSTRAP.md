@@ -30,16 +30,16 @@ powershell -File scripts/watcher.ps1 -Instance B
 
 ---
 
-## Watcher System
+## Command Execution
 
-**Full documentation:** [CASCADE_WATCHER.md](CASCADE_WATCHER.md)
+**Primary method:** Use `run_command` tool (integrated PowerShell terminal).
 
-### How Cascade Uses the Watcher
+**Fallback:** Cascade Watcher (file-based) - see [CASCADE_WATCHER.md](CASCADE_WATCHER.md)
 
-1. **Write command** to `scripts/watcher/<Instance>/command.txt` using edit tool
-2. **Poll** `scripts/watcher/<Instance>/status.txt` until `DONE:SUCCESS` or `DONE:FAILED`
-3. **Read output** from `scripts/watcher/<Instance>/output.txt`
-4. **Act on results** - fix errors if any, continue if passed
+### How Cascade Executes Commands
+
+1. **Primary:** Use `run_command` tool with PowerShell syntax
+2. **Fallback (if terminal fails):** Write to watcher files (see CASCADE_WATCHER.md)
 
 ### Status Values
 

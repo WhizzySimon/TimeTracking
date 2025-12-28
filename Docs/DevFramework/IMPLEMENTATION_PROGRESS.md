@@ -65,18 +65,18 @@
 
 ### Phase 1+: Implementation (blocked by Phase 0)
 
-| #     | Task                     | Status  | Notes                                    |
-| ----- | ------------------------ | ------- | ---------------------------------------- |
-| D5.1  | Folder structure + INDEX | DONE    | Docs created                             |
-| D5.2  | Box checklists (6 files) | DONE    | Docs created                             |
-| D5.3  | ZOOM_OUT protocol        | DONE    | Docs created                             |
-| D5.4  | telemetry.cjs CLI        | DONE    | Scripts implemented (.cjs for ESM compat)|
-| D5.5  | anomaly-detector.cjs     | DONE    | Scripts implemented                      |
-| D5.6  | evidence-generator.cjs   | DONE    | Scripts implemented                      |
-| D5.7  | learning-extractor.cjs   | DONE    | Scripts implemented                      |
-| D5.8  | npm scripts              | DONE    | 7 ai:* scripts added                     |
-| D5.9  | Update Docs/INDEX.md     | DONE    | Docs updated                             |
-| D5.10 | Verify + examples        | DONE    | All scripts verified working             |
+| #     | Task                     | Status | Notes                                     |
+| ----- | ------------------------ | ------ | ----------------------------------------- |
+| D5.1  | Folder structure + INDEX | DONE   | Docs created                              |
+| D5.2  | Box checklists (6 files) | DONE   | Docs created                              |
+| D5.3  | ZOOM_OUT protocol        | DONE   | Docs created                              |
+| D5.4  | telemetry.cjs CLI        | DONE   | Scripts implemented (.cjs for ESM compat) |
+| D5.5  | anomaly-detector.cjs     | DONE   | Scripts implemented                       |
+| D5.6  | evidence-generator.cjs   | DONE   | Scripts implemented                       |
+| D5.7  | learning-extractor.cjs   | DONE   | Scripts implemented                       |
+| D5.8  | npm scripts              | DONE   | 7 ai:\* scripts added                     |
+| D5.9  | Update Docs/INDEX.md     | DONE   | Docs updated                              |
+| D5.10 | Verify + examples        | DONE   | All scripts verified working              |
 
 ---
 

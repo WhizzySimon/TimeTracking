@@ -59,13 +59,16 @@
 ## Required Fixes (builder-actionable patch instructions)
 
 ### Fix 1
+
 - **Target:** `path/to/file.ext`
 - **Anchor:** `<unique header or search string>`
 - **Operation:** INSERT | REPLACE | DELETE
 - **Paste-ready content:**
+
 ```text
 <PASTE FINAL CONTENT HERE>
 ```
+
 - **Notes:** <tests / constraints / follow-up evidence updates>
 
 ---

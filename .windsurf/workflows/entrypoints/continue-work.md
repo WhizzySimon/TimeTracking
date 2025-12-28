@@ -12,9 +12,10 @@ Open two integrated terminals and run:
 npm run dev
 ```
 
-**Terminal 2 - Cascade Watcher:**
+**Terminal 2 - Cascade Watcher (optional):**
 
-See `Docs/DevFramework/Tooling/BOOTSTRAP.md` for watcher setup instructions.
+The watcher is only needed as fallback if the integrated terminal doesn't work.
+See `Docs/DevFramework/Tooling/BOOTSTRAP.md` for watcher setup if needed.
 
 Then tell Cascade "done" to begin.
 
@@ -30,11 +31,10 @@ Then tell Cascade "done" to begin.
 
 ### Step 2: Ensure on dev branch
 
-Run via watcher:
+Run:
 
 ```
-git checkout dev
-git pull origin dev
+git checkout dev && git pull origin dev
 ```
 
 ### Step 3: Find and start next task
@@ -59,7 +59,7 @@ Report:
 
 ### 1. Verification
 
-Use watcher to run `npm run verify`, poll status, fix any errors. See `Docs/DevFramework/Tooling/CASCADE_WATCHER.md`.
+Run `npm run verify`, fix any errors until ALL PASSED.
 
 ### 2. UI Testing
 

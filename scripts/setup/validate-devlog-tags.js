@@ -21,7 +21,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const projectRoot = join(__dirname, '..', '..');
-const devlogDir = join(projectRoot, 'Docs', 'Devlog');
+const devlogDir = join(projectRoot, 'Docs', 'DevFramework', 'Devlog');
 
 let hasErrors = false;
 
@@ -35,7 +35,7 @@ function success(msg) {
 }
 
 function extractTagsFromTagsMd() {
-	const tagsPath = join(projectRoot, 'Docs', 'Reports', 'SSD Analysis', 'TAGS.md');
+	const tagsPath = join(projectRoot, 'Docs', 'DevFramework', 'Reports', 'SSD Analysis', 'TAGS.md');
 	const content = readFileSync(tagsPath, 'utf-8');
 	const tags = new Set();
 	const aliasMap = new Map();
@@ -107,7 +107,14 @@ function validateDevlogFile(filePath, validTags) {
 }
 
 function validateIndexMd(validTags) {
-	const indexPath = join(devlogDir, 'SSD Analysis', 'INDEX.md');
+	const indexPath = join(
+		projectRoot,
+		'Docs',
+		'DevFramework',
+		'Reports',
+		'SSD Analysis',
+		'INDEX.md'
+	);
 	let content;
 	try {
 		content = readFileSync(indexPath, 'utf-8');

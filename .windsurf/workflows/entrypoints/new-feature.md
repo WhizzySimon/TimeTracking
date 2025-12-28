@@ -24,14 +24,14 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
    git checkout dev
    git pull origin dev
    ```
-4. Read `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Workflow-Guide)
+4. Read `Docs/DevFramework/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Workflow-Guide)
 
 ### Phase 1: SPEC erstellen
 
 4. Frage den User: "Beschreibe das Feature, das du implementieren willst."
 
 5. Nach User-Input:
-   - Erstelle `Docs/Specs/<feature-slug>.md` basierend auf `Docs/Specs/_template.md`
+   - Erstelle `Docs/AppDocs/Specs/<feature-slug>.md` basierend auf `Docs/AppDocs/Specs/_template.md`
    - Fülle aus: Goal, Scope, FR, IG, DD, Edge cases, Data & privacy, Acceptance checks
    - Zeige dem User die Spec zur Bestätigung
 
@@ -42,7 +42,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 ### Phase 2: PLAN erstellen
 
-7. Erstelle `Docs/Plans/<feature-slug>.md` basierend auf `Docs/Plans/_template.md`
+7. Erstelle `Docs/AppDocs/Plans/<feature-slug>.md` basierend auf `Docs/AppDocs/Plans/_template.md`
    - Architecture/modules
    - Data model
    - UI state model
@@ -55,11 +55,11 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 ### Phase 3: TASKS erstellen
 
-9. Erstelle `Docs/Tasks/<feature-slug>.md` basierend auf `Docs/Tasks/_template.md`
+9. Erstelle `Docs/AppDocs/Tasks/<feature-slug>.md` basierend auf `Docs/AppDocs/Tasks/_template.md`
    - Kleine Tasks (0.5-2h)
    - Jeder Task hat: Files, Done when, Verify, Guardrails
 
-10. Füge neue Phase in `Docs/IMPLEMENTATION_PROGRESS.md` hinzu
+10. Füge neue Phase in `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` hinzu
     - Phase-Header mit Status "Not started"
     - Alle Tasks als [ ] (unchecked)
 
@@ -81,14 +81,14 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 13. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. Soll ich mit Task 1 beginnen?"
 
-14. Bei "Ja": Starte Implementation gemäß Task-Workflow (see `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md`):
+14. Bei "Ja": Starte Implementation gemäß Task-Workflow (see `Docs/DevFramework/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md`):
     - Code implementieren
     - `npm run verify`
     - Unit Tests (wenn vorhanden)
     - MCP Playwright Browser Test
     - Progress Tracker updaten
     - Changelog updaten
-    - Git Commit (follow `Docs/Rules/pre-commit.md`)
+    - Git Commit (follow `Docs/DevFramework/Rules/pre-commit.md`)
 
 ---
 
@@ -100,12 +100,12 @@ Nach Phase 0-3:
 # Doc Inventory
 - .windsurf/rules/* (all rules)
 - Docs/INDEX.md, RULE_MAP.md
-- Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md
+- Docs/DevFramework/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md
 
 # Feature: <name>
-- Spec: Docs/Specs/<feature>.md ✅
-- Plan: Docs/Plans/<feature>.md ✅
-- Tasks: Docs/Tasks/<feature>.md ✅
+- Spec: Docs/AppDocs/Specs/<feature>.md ✅
+- Plan: Docs/AppDocs/Plans/<feature>.md ✅
+- Tasks: Docs/AppDocs/Tasks/<feature>.md ✅
 - Progress Tracker: Updated ✅
 
 Bereit für Implementation. Soll ich mit Task 1 beginnen?

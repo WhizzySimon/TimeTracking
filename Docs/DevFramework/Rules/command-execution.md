@@ -28,63 +28,50 @@
 
 ---
 
-## Primary Method: Direct Terminal (PowerShell)
+## Primary Method: Integrated Terminal (run_command)
 
-The integrated terminal works with PowerShell (not cmd.exe).
+**Use the `run_command` tool** for all command execution. The integrated PowerShell terminal works directly.
 
-**Requirement:** Windsurf settings → Terminal → Default Profile = **PowerShell**
+### Key Points
 
-### Terminal Test
+- Use PowerShell syntax
+- Set `Blocking: true` for short commands (verify, git status, etc.)
+- Set `Blocking: false` for long-running commands (dev server, tests)
+- Always specify `Cwd` (current working directory) - **never use `cd` in commands**
 
-Run this test at session start to verify terminal works:
+### Example
 
-```powershell
-New-Item -Path "test-terminal.txt" -Value "test" -Force; Remove-Item "test-terminal.txt"; Write-Host "TERMINAL_OK"
 ```
-
-**Expected output:** `TERMINAL_OK`
-
-- If test passes → Use `run_command` tool with PowerShell syntax
-- If test fails → Try Cascade Watcher fallback
+run_command with:
+  CommandLine: "npm run verify"
+  Cwd: "e:\Private\Dev\Timekeeping\TimeTracker"
+  Blocking: true
+```
 
 ---
 
-## Fallback: Cascade Watcher
+## Fallback: Cascade Watcher (deprecated)
 
-Use only if terminal test fails.
+Use only if the integrated terminal doesn't work.
 
-### Test if Watcher is Running
-
-1. Check `scripts/watcher/main-status.txt` exists and has recent UPDATED timestamp
-2. If no active sessions, write `new` to `scripts/watcher/main-control.txt`
-3. Wait and check if session directory is created in `scripts/watcher/`
-
-**If watcher is not running:** Inform user to start it manually (see `Docs/Tooling/BOOTSTRAP.md`)
-
-### Watcher Usage
-
-```
-Write command to:   scripts/watcher/<session-id>/command.txt
-Poll status from:   scripts/watcher/<session-id>/status.txt
-Read output from:   scripts/watcher/<session-id>/output.txt
-```
+**If watcher is needed:** See `Docs/DevFramework/Tooling/CASCADE_WATCHER.md` for setup.
 
 **Watcher uses cmd.exe:** Use `&&` not `;` to chain commands
 
 ---
 
-## If Neither Works → STOP
+## If Terminal Doesn't Work → Try Watcher
 
-**Do NOT proceed with tasks if commands cannot be executed.**
+If `run_command` fails consistently:
 
-1. Inform user that command execution is not working
-2. Ask user to fix terminal/watcher setup
-3. Wait for user confirmation before continuing
+1. Ask user to start the watcher: `powershell -File scripts/watcher-main.ps1`
+2. Use watcher file-based command execution (see CASCADE_WATCHER.md)
+3. If watcher also fails, inform user and wait for fix
 
-**Rationale:** Proceeding without working commands leads to unverified work, silent failures, and wasted effort.
+**Rationale:** Proceeding without working commands leads to unverified work and silent failures.
 
 ---
 
 ## Full Documentation
 
-See `Docs/Tooling/CASCADE_WATCHER.md` for complete watcher setup.
+See `Docs/DevFramework/Tooling/CASCADE_WATCHER.md` for watcher fallback setup.

@@ -317,11 +317,11 @@ Bevor du mit der Implementierung beginnst:
 
 ## Quick Reference
 
-| Was               | Wo                                                      |
-| ----------------- | ------------------------------------------------------- |
-| Spec Template     | `Docs/Specs/_template.md`                               |
-| Plan Template     | `Docs/Plans/_template.md`                               |
-| Tasks Template    | `Docs/Tasks/_template.md`                               |
+| Was               | Wo                                                                   |
+| ----------------- | -------------------------------------------------------------------- |
+| Spec Template     | `Docs/Specs/_template.md`                                            |
+| Plan Template     | `Docs/Plans/_template.md`                                            |
+| Tasks Template    | `Docs/Tasks/_template.md`                                            |
 | Progress Tracker  | `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md`                       |
 | FR/IG/DD Regeln   | `Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` |
 | Command Execution | `Docs/DevFramework/Tooling/command-execution-rules.md`               |
