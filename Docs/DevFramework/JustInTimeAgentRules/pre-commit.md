@@ -14,7 +14,7 @@
 
 ## Audit Gate (required before commit)
 
-1. Read `Docs/DevFramework/Rules/ai-config.json` → `switch_model_before_audit`
+1. Read `Docs/DevFramework/JustInTimeAgentRules/ai-config.json` → `switch_model_before_audit`
 2. **Prepare for audit (Builder does this BEFORE switching models):**
    - Run `git add -A` to stage all changes
    - Create Evidence Bundle from `Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/_template.md`
@@ -91,4 +91,4 @@ If either check fails, fix before ending the session.
 
 ---
 
-**Self-Learning System:** See `Docs/DevFramework/Rules/session-end.md` for learning promotion rules and the two-tier system (Inbox → Distillate).
+**Self-Learning System:** See `Docs/DevFramework/JustInTimeAgentRules/session-end.md` for learning promotion rules and the two-tier system (Inbox → Distillate).

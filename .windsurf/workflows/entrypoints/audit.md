@@ -8,7 +8,7 @@ description: Deterministic audit on a frozen staged snapshot (git diff --staged 
 
 ## Config
 
-- **Flag location:** `Docs/DevFramework/Rules/ai-config.json`
+- **Flag location:** `Docs/DevFramework/JustInTimeAgentRules/ai-config.json`
 - **Key:** `switch_model_before_audit` (boolean)
   - `true`: Builder stages changes and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
   - `false`: Builder stages changes and runs `/audit` itself (same chat, same model)

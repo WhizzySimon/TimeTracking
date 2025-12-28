@@ -47,7 +47,7 @@ Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) 
 
 ### 3. Git Commit & Push (REQUIRED - NEVER SKIP THIS)
 
-**Follow `Docs/DevFramework/Rules/pre-commit.md`** — includes changelog update, commit, and push.
+**Follow `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`** — includes changelog update, commit, and push.
 
 ---
 
@@ -61,7 +61,7 @@ Start your response with:
 - Docs/INDEX.md
 - RULE_MAP.md
 - .windsurf/cascade.md
-- Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
 - [any additional docs the user requested]
 
 Ready for your task.

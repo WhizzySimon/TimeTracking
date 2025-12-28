@@ -10,7 +10,7 @@
 
 ## JIT Rules (MANDATORY)
 
-**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md`
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 
 Key triggers during task execution: writing code, before commit, session end.
 

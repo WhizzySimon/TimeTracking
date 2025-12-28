@@ -202,7 +202,7 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 │                                                                     │
 │  7. JIT RULE: BEFORE COMMIT                                         │
 │     └─ Follow JIT rule map trigger "Before git commit"              │
-│     └─ (See: Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md)   │
+│     └─ (See: Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md)   │
 │                                                                     │
 │  8. GIT COMMIT                                                      │
 │     └─ git commit -m "feat: description"                            │
@@ -323,9 +323,9 @@ Bevor du mit der Implementierung beginnst:
 | Plan Template     | `Docs/Plans/_template.md`                                            |
 | Tasks Template    | `Docs/Tasks/_template.md`                                            |
 | Progress Tracker  | `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md`                       |
-| FR/IG/DD Regeln   | `Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` |
+| FR/IG/DD Regeln   | `Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md` |
 | Command Execution | `Docs/DevFramework/Tooling/command-execution-rules.md`               |
-| Pre-Commit Rules  | `Docs/DevFramework/Rules/pre-commit.md`                              |
+| Pre-Commit Rules  | `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`                              |
 
 ---
 

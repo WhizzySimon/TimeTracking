@@ -10,7 +10,7 @@ Create a comparable SDD profile document for ONE target (repo root) using the st
 2. Read:
    - Docs/DevFramework/SDD/Profiles/SDD_PROFILE\_\_RUNBOOK.md
    - Docs/DevFramework/SDD/Profiles/SDD_PROFILE\_\_TEMPLATE.md
-   - (Within TARGET root) any AGENTS.md, Docs/DevFramework/Guidelines/, Docs/AppDocs/Specs/\_template.md, Docs/AppDocs/Tasks/\_template.md, .windsurf/workflows/*, scripts/*verify\*, package.json, test config, devlog files if present.
+   - (Within TARGET root) any AGENTS.md, Docs/DevFramework/DeveloperGuidesAndStandards/, Docs/AppDocs/Specs/\_template.md, Docs/AppDocs/Tasks/\_template.md, .windsurf/workflows/*, scripts/*verify\*, package.json, test config, devlog files if present.
 
 3. Evidence rule (mandatory):
    - Every claim must include an evidence pointer: file path + brief snippet reference.

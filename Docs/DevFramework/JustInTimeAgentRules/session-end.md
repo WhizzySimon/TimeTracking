@@ -6,7 +6,7 @@
 
 ## Pre-Commit Covers Most Checks
 
-The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/DevFramework/Rules/pre-commit.md`.
+The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`.
 
 **If you committed and pushed, session-end checks are already done.**
 
@@ -46,13 +46,13 @@ When a Distillate item is categorized as **Hard Rule**, add it to the **appropri
 
 | Rule is about...                      | Add to                                         |
 | ------------------------------------- | ---------------------------------------------- |
-| Session start workflow                | `Docs/DevFramework/Rules/session-start.md`     |
-| Writing specs                         | `Docs/DevFramework/Rules/spec-writing.md`      |
-| Creating plans                        | `Docs/DevFramework/Rules/planning.md`          |
-| Implementation/coding                 | `Docs/DevFramework/Rules/implementation.md`    |
-| Pre-commit checklist                  | `Docs/DevFramework/Rules/pre-commit.md`        |
-| Session end workflow                  | `Docs/DevFramework/Rules/session-end.md`       |
-| Framework doc changes                 | `Docs/DevFramework/Rules/framework-changes.md` |
+| Session start workflow                | `Docs/DevFramework/JustInTimeAgentRules/session-start.md`     |
+| Writing specs                         | `Docs/DevFramework/JustInTimeAgentRules/spec-writing.md`      |
+| Creating plans                        | `Docs/DevFramework/JustInTimeAgentRules/planning.md`          |
+| Implementation/coding                 | `Docs/DevFramework/JustInTimeAgentRules/implementation.md`    |
+| Pre-commit checklist                  | `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`        |
+| Session end workflow                  | `Docs/DevFramework/JustInTimeAgentRules/session-end.md`       |
+| Framework doc changes                 | `Docs/DevFramework/JustInTimeAgentRules/framework-changes.md` |
 | Always needed (coding style, watcher) | `.windsurf/rules/`                             |
 | Core principles                       | `RULE_MAP.md`                                  |
 

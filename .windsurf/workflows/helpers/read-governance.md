@@ -7,7 +7,7 @@ Read:
 
 - Docs/INDEX.md
 - .windsurf/cascade.md
-- Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
 - Docs/DevFramework/Tooling/BOOTSTRAP.md (tooling entry point — includes watcher + git workflow)
 - Docs/DevFramework/Devlog/LEARNINGS.md (proven preferences — read at session start)
 

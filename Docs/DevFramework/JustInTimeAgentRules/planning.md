@@ -49,4 +49,4 @@ Template: `Docs/AppDocs/Tasks/_template.md` or `Docs/DevFramework/Tasks/_templat
 
 ---
 
-**Next:** When tasks are defined → Read `Docs/DevFramework/Rules/implementation.md`
+**Next:** When tasks are defined → Read `Docs/DevFramework/JustInTimeAgentRules/implementation.md`

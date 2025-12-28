@@ -59,7 +59,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 When you actually consult/read a rule file to guide your behavior, emit an invisible marker at the end of your response:
 
 ```
-<!-- RULE_CONSULTED: Docs/DevFramework/Rules/code-quality.md, Docs/DevFramework/Rules/pre-commit.md -->
+<!-- RULE_CONSULTED: Docs/DevFramework/JustInTimeAgentRules/code-quality.md, Docs/DevFramework/JustInTimeAgentRules/pre-commit.md -->
 ```
 
 - Use relative paths from repo root

@@ -4,7 +4,7 @@
 
 For the complete development process, see:
 
-- **JIT Rule Map:** `Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md` (loaded via always-on.md)
+- **JIT Rule Map:** `Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md` (loaded via always-on.md)
 - **Doc hierarchy:** `Docs/INDEX.md`
 - **Tooling setup:** `Docs/DevFramework/Tooling/BOOTSTRAP.md`
 
@@ -37,7 +37,7 @@ Run `/project-start` before doing anything else.
 
 **One always-on rule** in `.windsurf/rules/always-on.md` points to the trigger table.
 
-**All rules** are in `Docs/DevFramework/Rules/`:
+**All rules** are in `Docs/DevFramework/JustInTimeAgentRules/`:
 
 - `_entrypoint-jit-rule-map.md` — trigger table (loaded first)
 - `code-quality.md`, `command-execution.md`, `pre-commit.md`, etc.

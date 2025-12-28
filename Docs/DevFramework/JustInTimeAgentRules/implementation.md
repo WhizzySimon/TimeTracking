@@ -80,8 +80,8 @@ When reporting completion:
 - Code changes completed
 - Verification executed
 - Notes written back into the relevant spec/plan/tasks if reality differed from assumptions
-- Git commit & push (see `Docs/DevFramework/Rules/pre-commit.md`)
+- Git commit & push (see `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`)
 
 ---
 
-**Next:** Before committing → Read `Docs/DevFramework/Rules/pre-commit.md`
+**Next:** Before committing → Read `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`

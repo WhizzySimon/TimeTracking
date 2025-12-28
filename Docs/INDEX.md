@@ -21,9 +21,9 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 1. Docs/AppDocs/Guidelines/UI_LOGIC_SPEC_V1.md (product truth)
 2. Docs/AppDocs/Guidelines/TECHNICAL_GUIDELINE_V1.md (architecture truth)
 3. Docs/AppDocs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md (platform constraints)
-4. Docs/DevFramework/Guidelines/DEVELOPMENT_GUIDELINES.md (coding/repo rules)
-5. Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md (how to write specs)
-6. Docs/DevFramework/Rules/\_entrypoint-jit-rule-map.md (JIT rule dispatcher)
+4. Docs/DevFramework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md (coding/repo rules)
+5. Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md (how to write specs)
+6. Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md (JIT rule dispatcher)
 
 ---
 
@@ -33,20 +33,20 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 
 ### JIT Rules System
 
-- Docs/DevFramework/Rules/\_entrypoint-jit-rule-map.md  
+- Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md  
   Purpose: **JIT Rule dispatcher** — trigger points for just-in-time rule loading.
-- Docs/DevFramework/Rules/\*.md  
+- Docs/DevFramework/JustInTimeAgentRules/*.md  
   Purpose: **Trigger-based rules** — read at specific points (session-start, pre-commit, etc.)
 
 ### Development Guidelines
 
-- Docs/DevFramework/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md  
+- Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md  
   Purpose: **Complete workflow guide** — 4 Phasen, Task-Workflow, Progress Tracking, Commit-Regeln.
-- Docs/DevFramework/Guidelines/DEVELOPMENT_GUIDELINES.md  
+- Docs/DevFramework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md  
   Purpose: coding standards, practices, guardrails.
-- Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md  
+- Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md  
   Purpose: spec writing rules (FR/IG/DD), verification loop, self-documenting requirement.
-- Docs/DevFramework/Guidelines/PROJECT_SCAFFOLD_CHECKLIST.md  
+- Docs/DevFramework/DeveloperGuidesAndStandards/PROJECT_SCAFFOLD_CHECKLIST.md  
   Purpose: ensure project skeleton and tooling are complete.
 
 ### Cascade Tooling

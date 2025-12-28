@@ -13,8 +13,8 @@ Read:
 - Docs/AppDocs/Guidelines/UI_LOGIC_SPEC_V1.md
 - Docs/AppDocs/Guidelines/TECHNICAL_GUIDELINE_V1.md
 - Docs/AppDocs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md
-- Docs/DevFramework/Guidelines/DEVELOPMENT_GUIDELINES.md
-- Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/DevFramework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md
+- Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
 
 Step B (code):
 Read all:

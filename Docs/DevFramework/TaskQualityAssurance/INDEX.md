@@ -68,7 +68,7 @@ npm run ai:evidence -- --task=D5.1 --box=infra-build
 
 Before marking a task complete, run `/audit` on a frozen staged snapshot.
 
-**Config flag:** `Docs/DevFramework/Rules/ai-config.json` → `switch_model_before_audit`
+**Config flag:** `Docs/DevFramework/JustInTimeAgentRules/ai-config.json` → `switch_model_before_audit`
 
 - `true` (default): Builder stages changes and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
 - `false`: Builder stages changes and runs `/audit` itself (same chat)
@@ -141,7 +141,7 @@ At the end of an implementation task, Builder (Opus) must:
 
 1. Create/update Evidence Bundle at `Docs/DevFramework/Devlog/Evidence/<task-id>.md`
 2. Stage everything: `git add -A`
-3. Read `Docs/DevFramework/Rules/ai-config.json`:
+3. Read `Docs/DevFramework/JustInTimeAgentRules/ai-config.json`:
    - If `switch_model_before_audit=true`:
      ```
      STOP: Switch model to GPT-5.2 Medium Reasoning and run /audit now.

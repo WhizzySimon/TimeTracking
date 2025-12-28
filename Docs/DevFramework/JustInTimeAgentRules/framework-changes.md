@@ -22,7 +22,7 @@
 | **Always-on rules**  | `.windsurf/rules/*.md`                         | Auto-loaded every session (code-quality, command-execution, etc.) |
 | **Workflows**        | `.windsurf/workflows/`                         | ONLY orchestrate — reference docs, never duplicate content        |
 | **Doc hierarchy**    | `Docs/INDEX.md`                                | Priority order when docs conflict                                 |
-| **Coding standards** | `Docs/DevFramework/Guidelines/`                | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc.                  |
+| **Coding standards** | `Docs/DevFramework/DeveloperGuidesAndStandards/`                | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc.                  |
 | **Tooling docs**     | `Docs/DevFramework/Tooling/`                   | Watcher, git workflow, bootstrap                                  |
 | **App specs**        | `Docs/AppDocs/Specs/`, `Plans/`, `Tasks/`      | Per-feature app documentation                                     |
 | **Framework specs**  | `Docs/DevFramework/Specs/`, `Plans/`, `Tasks/` | Per-feature framework documentation                               |
@@ -30,8 +30,8 @@
 | **Decisions**        | `Docs/DevFramework/Devlog/DECISIONS.md`        | Architecture/policy decisions (ADR-light)                         |
 | **Learnings**        | `Docs/DevFramework/Devlog/LEARNINGS.md`        | Proven preferences (max 30 bullets)                               |
 | **Learnings Inbox**  | `Docs/DevFramework/Devlog/LEARNINGS-INBOX.md`  | Raw feedback capture (unbounded, low priority)                    |
-| **Trigger rules**    | `Docs/DevFramework/Rules/`                     | Just-in-time rules loaded at specific triggers                    |
+| **Trigger rules**    | `Docs/DevFramework/JustInTimeAgentRules/`                     | Just-in-time rules loaded at specific triggers                    |
 
 ---
 
-**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to the appropriate `Docs/DevFramework/Rules/*.md` file, NOT to individual workflow files. Workflows should reference docs, not duplicate content.
+**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to the appropriate `Docs/DevFramework/JustInTimeAgentRules/*.md` file, NOT to individual workflow files. Workflows should reference docs, not duplicate content.
