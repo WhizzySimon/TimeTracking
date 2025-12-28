@@ -21,9 +21,9 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 1. Docs/AppDocs/Guidelines/UI_LOGIC_SPEC_V1.md (product truth)
 2. Docs/AppDocs/Guidelines/TECHNICAL_GUIDELINE_V1.md (architecture truth)
 3. Docs/AppDocs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md (platform constraints)
-4. Docs/DevFramework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md (coding/repo rules)
-5. Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md (how to write specs)
-6. Docs/DevFramework/JustInTimeAgentRules/\_entrypoint-jit-rule-map.md (JIT rule dispatcher)
+4. Docs/DevFramework/Guidelines/DEVELOPMENT_GUIDELINES.md (coding/repo rules)
+5. Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md (how to write specs)
+6. Docs/DevFramework/Rules/\_entrypoint-jit-rule-map.md (JIT rule dispatcher)
 
 ---
 
@@ -33,34 +33,30 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 
 ### JIT Rules System
 
-- Docs/DevFramework/JustInTimeAgentRules/\_entrypoint-jit-rule-map.md  
+- Docs/DevFramework/Rules/\_entrypoint-jit-rule-map.md  
   Purpose: **JIT Rule dispatcher** — trigger points for just-in-time rule loading.
-- Docs/DevFramework/JustInTimeAgentRules/\*.md  
+- Docs/DevFramework/Rules/\*.md  
   Purpose: **Trigger-based rules** — read at specific points (session-start, pre-commit, etc.)
 
-### Developer Guides and Standards
+### Development Guidelines
 
-- Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md  
+- Docs/DevFramework/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md  
   Purpose: **Complete workflow guide** — 4 Phasen, Task-Workflow, Progress Tracking, Commit-Regeln.
-- Docs/DevFramework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md  
+- Docs/DevFramework/Guidelines/DEVELOPMENT_GUIDELINES.md  
   Purpose: coding standards, practices, guardrails.
-- Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md  
+- Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md  
   Purpose: spec writing rules (FR/IG/DD), verification loop, self-documenting requirement.
-- Docs/DevFramework/DeveloperGuidesAndStandards/PROJECT_SCAFFOLD_CHECKLIST.md  
+- Docs/DevFramework/Guidelines/PROJECT_SCAFFOLD_CHECKLIST.md  
   Purpose: ensure project skeleton and tooling are complete.
-- Docs/DevFramework/DeveloperGuidesAndStandards/code-quality-standard.md  
-  Purpose: Code quality rules (formatting, linting, complexity, test stability).
 
-### Tool Setup
+### Cascade Tooling
 
-- Docs/DevFramework/ToolSetup/BOOTSTRAP.md  
+- Docs/DevFramework/Tooling/BOOTSTRAP.md  
   Purpose: **Single entry point** for all tooling docs. Quick start commands and links.
-- Docs/DevFramework/ToolSetup/CASCADE_WATCHER.md  
+- Docs/DevFramework/Tooling/CASCADE_WATCHER.md  
   Purpose: Multi-instance watcher system for command execution.
-- Docs/DevFramework/ToolSetup/GIT_WORKFLOW.md  
+- Docs/DevFramework/Tooling/GIT_WORKFLOW.md  
   Purpose: Git workflow, simple dev/main model, no PRs.
-- Docs/DevFramework/ToolSetup/rule-read-logging.md  
-  Purpose: Rule read logging system documentation.
 
 ### TaskQualityAssurance (formerly "Autonomy Stack")
 
@@ -79,22 +75,27 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 - scripts/ai/learning-extractor.cjs  
   Purpose: **Learning extraction** — propose principles from evidence.
 
-### Framework Self-Improvement Logs
+### Development History
 
-- Docs/DevFramework/FrameworkSelfImprovementLogs/CHANGELOG.md  
+- Docs/DevFramework/Devlog/CHANGELOG.md  
   Purpose: **Everything log** — one line per commit/session, quick scan of all changes.
-- Docs/DevFramework/FrameworkSelfImprovementLogs/DECISIONS.md  
+- Docs/DevFramework/Devlog/DECISIONS.md  
   Purpose: **Decision log** — significant design/architecture/policy decisions (ADR-light).
-- Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS.md  
+- Docs/DevFramework/Devlog/LEARNINGS.md  
   Purpose: **Learnings (Distillate)** — proven preferences, max 30 bullets, read at session start.
-- Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md  
+- Docs/DevFramework/Devlog/LEARNINGS-INBOX.md  
   Purpose: **Learnings Inbox** — raw feedback capture, unbounded, not read at session start.
 
-### Framework Feature Specs/Plans/Tasks
+### Code Quality
 
-- Docs/DevFramework/FrameworkFeatureSpecs/task-quality-assurance.md — TaskQualityAssurance system spec
-- Docs/DevFramework/FrameworkFeaturePlans/task-quality-assurance.md — TaskQualityAssurance implementation plan
-- Docs/DevFramework/FrameworkFeatureTasks/task-quality-assurance.md — TaskQualityAssurance task breakdown
+- Docs/DevFramework/Standards/code-quality-standard.md  
+  Purpose: Code quality rules (formatting, linting, complexity, test stability).
+
+### Framework Specs/Plans/Tasks
+
+- Docs/DevFramework/Specs/task-quality-assurance.md — TaskQualityAssurance system spec
+- Docs/DevFramework/Plans/task-quality-assurance.md — TaskQualityAssurance implementation plan
+- Docs/DevFramework/Tasks/task-quality-assurance.md — TaskQualityAssurance task breakdown
 
 ---
 

@@ -1,0 +1,3 @@
+{"timestamp":"2025-12-28T09:45:44.020Z","kind":"event","type":"test","message":"hello","box":null,"task":null,"plannedFiles":null}
+{"timestamp":"2025-12-28T09:45:46.383Z","kind":"error_fingerprint","fingerprint":"4ef8313b8c03","originalMessage":"Error at line 5","normalizedMessage":"Error at line N"}
+{"timestamp":"2025-12-28T09:45:53.154Z","kind":"error_fingerprint","fingerprint":"4ef8313b8c03","originalMessage":"Error at line 5","normalizedMessage":"Error at line N"}

@@ -22,7 +22,7 @@ $allPassed = $true
 
 # Step 0: Validate devlog tags
 "--- Step 0: Validate devlog tags ---" | Out-File -FilePath $outputFile -Append -Encoding utf8
-$tagOutput = node scripts/setup/validate-devlog-tags.js 2>&1 | Out-String
+$tagOutput = node scripts/build/validate-devlog-tags.js 2>&1 | Out-String
 $tagOutput | Out-File -FilePath $outputFile -Append -Encoding utf8
 if ($LASTEXITCODE -ne 0) { $allPassed = $false }
 "" | Out-File -FilePath $outputFile -Append -Encoding utf8

@@ -7,12 +7,13 @@ Read:
 
 - Docs/INDEX.md
 - .windsurf/cascade.md
-
-All other docs are loaded just-in-time via `Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md`.
+- Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/DevFramework/Tooling/BOOTSTRAP.md (tooling entry point — includes watcher + git workflow)
+- Docs/DevFramework/Devlog/LEARNINGS.md (proven preferences — read at session start)
 
 ## Health Checks (run after reading docs)
 
-1. **Check current branch:** Ensure on `dev` branch
+1. **Check current branch:** Ensure on `dev` branch (see `Docs/DevFramework/Tooling/GIT_WORKFLOW.md`)
 
 If not on dev, switch to dev before starting new work.
 

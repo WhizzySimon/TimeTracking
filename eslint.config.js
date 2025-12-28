@@ -39,5 +39,11 @@ export default defineConfig(
 				svelteConfig
 			}
 		}
+	},
+	{
+		files: ['**/*.cjs'],
+		rules: {
+			'@typescript-eslint/no-require-imports': 'off'
+		}
 	}
 );

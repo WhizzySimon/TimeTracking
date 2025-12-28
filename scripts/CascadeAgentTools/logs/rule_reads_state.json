@@ -1,0 +1,214 @@
+{
+	"test123": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 57,
+		"last_seen_ts": "2025-12-28T07:52:38.481680+00:00",
+		"last_consulted_by_file": {
+			"Docs/Rules/test.md": {
+				"ts": "2025-12-28T07:52:38.482357+00:00",
+				"cumulative_chars_total": 57
+			}
+		}
+	},
+	"": {
+		"cumulative_chars_in": 65184,
+		"cumulative_chars_out": 0,
+		"last_seen_ts": "2025-12-28T20:43:49.855220+00:00",
+		"last_consulted_by_file": {}
+	},
+	"e3df0220-16e3-4ea2-a5ef-06e552fc8cd1": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 810,
+		"last_seen_ts": "2025-12-28T08:14:48.043327+00:00",
+		"last_consulted_by_file": {
+			"Docs/Rules/_entrypoint-jit-rule-map.md": {
+				"ts": "2025-12-28T08:14:48.044327+00:00",
+				"cumulative_chars_total": 810
+			},
+			"Docs/Rules/session-start.md": {
+				"ts": "2025-12-28T08:14:48.044327+00:00",
+				"cumulative_chars_total": 810
+			}
+		}
+	},
+	"f56410a9-4a21-4251-ac72-35c0bce5f1d0": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 20187,
+		"last_seen_ts": "2025-12-28T08:52:19.437602+00:00",
+		"last_consulted_by_file": {}
+	},
+	"d648e0e2-355e-48a2-ab66-0ee7f037122a": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 827,
+		"last_seen_ts": "2025-12-28T08:26:57.023249+00:00",
+		"last_consulted_by_file": {}
+	},
+	"68f8d54f-5f27-49b2-a309-3eea23c5c47a": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 910,
+		"last_seen_ts": "2025-12-28T08:39:04.163501+00:00",
+		"last_consulted_by_file": {}
+	},
+	"4c67a3e7-2fab-428b-b7ce-0d081d53d993": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 9622,
+		"last_seen_ts": "2025-12-28T09:17:43.791561+00:00",
+		"last_consulted_by_file": {}
+	},
+	"79143743-0298-4414-ab66-d6bd3f575c7c": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 935,
+		"last_seen_ts": "2025-12-28T09:17:01.310247+00:00",
+		"last_consulted_by_file": {}
+	},
+	"510c9c1c-3715-4726-bb1f-5450d17b8ba4": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 6185,
+		"last_seen_ts": "2025-12-28T09:32:13.497916+00:00",
+		"last_consulted_by_file": {}
+	},
+	"8c8f5ec0-2419-4afa-86d3-7f4f1c57badf": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 12132,
+		"last_seen_ts": "2025-12-28T09:48:01.618599+00:00",
+		"last_consulted_by_file": {
+			"Docs/Rules/_entrypoint-jit-rule-map.md": {
+				"ts": "2025-12-28T09:41:10.829205+00:00",
+				"cumulative_chars_total": 6555
+			},
+			"Docs/Rules/session-start.md": {
+				"ts": "2025-12-28T09:41:10.829205+00:00",
+				"cumulative_chars_total": 6555
+			},
+			"Docs/Rules/implementation.md": {
+				"ts": "2025-12-28T09:41:10.829205+00:00",
+				"cumulative_chars_total": 6555
+			},
+			"Docs/Rules/pre-commit.md": {
+				"ts": "2025-12-28T09:41:10.829205+00:00",
+				"cumulative_chars_total": 6555
+			}
+		}
+	},
+	"b511de43-5deb-4683-8103-9493b73340e6": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 107681,
+		"last_seen_ts": "2025-12-28T18:33:42.321131+00:00",
+		"last_consulted_by_file": {
+			"Docs/Rules/_entrypoint-jit-rule-map.md": {
+				"ts": "2025-12-28T11:01:03.614637+00:00",
+				"cumulative_chars_total": 57962
+			},
+			"Docs/Rules/session-start.md": {
+				"ts": "2025-12-28T10:12:01.531976+00:00",
+				"cumulative_chars_total": 2090
+			},
+			"...": {
+				"ts": "2025-12-28T10:33:20.017207+00:00",
+				"cumulative_chars_total": 36980
+			},
+			"Docs/Rules/spec-writing.md": {
+				"ts": "2025-12-28T10:33:20.017207+00:00",
+				"cumulative_chars_total": 36980
+			},
+			"Docs/Rules/planning.md": {
+				"ts": "2025-12-28T10:33:20.017207+00:00",
+				"cumulative_chars_total": 36980
+			},
+			"Docs/Rules/command-execution.md": {
+				"ts": "2025-12-28T10:33:20.017207+00:00",
+				"cumulative_chars_total": 36980
+			},
+			"Docs/Rules/pre-commit.md": {
+				"ts": "2025-12-28T15:48:36.886085+00:00",
+				"cumulative_chars_total": 98126
+			},
+			"Docs/Rules/code-quality.md": {
+				"ts": "2025-12-28T10:33:20.017207+00:00",
+				"cumulative_chars_total": 36980
+			},
+			"Docs/Rules/implementation.md": {
+				"ts": "2025-12-28T10:33:20.017207+00:00",
+				"cumulative_chars_total": 36980
+			},
+			"Docs/Rules/framework-changes.md": {
+				"ts": "2025-12-28T11:01:03.614637+00:00",
+				"cumulative_chars_total": 57962
+			}
+		}
+	},
+	"4795eec5-f37a-47dd-82b2-6195390e44fc": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 30333,
+		"last_seen_ts": "2025-12-28T18:01:21.608094+00:00",
+		"last_consulted_by_file": {
+			"Docs/Rules/_entrypoint-jit-rule-map.md": {
+				"ts": "2025-12-28T17:01:00.679681+00:00",
+				"cumulative_chars_total": 2687
+			},
+			"Docs/Rules/session-start.md": {
+				"ts": "2025-12-28T17:01:00.679681+00:00",
+				"cumulative_chars_total": 2687
+			}
+		}
+	},
+	"211b6de6-61a8-4add-817a-de0d07bdb4ce": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 21950,
+		"last_seen_ts": "2025-12-28T18:37:44.146735+00:00",
+		"last_consulted_by_file": {
+			"Docs/DevFramework/Rules/pre-commit.md": {
+				"ts": "2025-12-28T18:29:37.814835+00:00",
+				"cumulative_chars_total": 15915
+			}
+		}
+	},
+	"a20e5eca-2301-498e-99bc-6d3fa3dd3c91": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 5664,
+		"last_seen_ts": "2025-12-28T18:59:35.169242+00:00",
+		"last_consulted_by_file": {}
+	},
+	"00a062a7-048f-4741-b5aa-e7455a01fc2a": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 78821,
+		"last_seen_ts": "2025-12-28T20:39:09.360026+00:00",
+		"last_consulted_by_file": {
+			"Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md": {
+				"ts": "2025-12-28T19:04:47.618858+00:00",
+				"cumulative_chars_total": 2285
+			},
+			"Docs/DevFramework/Rules/session-start.md": {
+				"ts": "2025-12-28T19:04:47.618858+00:00",
+				"cumulative_chars_total": 2285
+			}
+		}
+	},
+	"fbb7a64e-3542-43c6-8427-4f00a0364010": {
+		"cumulative_chars_in": 0,
+		"cumulative_chars_out": 12071,
+		"last_seen_ts": "2025-12-28T19:38:44.733582+00:00",
+		"last_consulted_by_file": {
+			"Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md": {
+				"ts": "2025-12-28T19:12:24.759690+00:00",
+				"cumulative_chars_total": 6753
+			},
+			"Docs/DevFramework/Rules/session-start.md": {
+				"ts": "2025-12-28T19:12:24.759690+00:00",
+				"cumulative_chars_total": 6753
+			},
+			"Docs/DevFramework/Rules/implementation.md": {
+				"ts": "2025-12-28T19:12:24.759690+00:00",
+				"cumulative_chars_total": 6753
+			},
+			"Docs/DevFramework/Rules/code-quality.md": {
+				"ts": "2025-12-28T19:12:24.759690+00:00",
+				"cumulative_chars_total": 6753
+			},
+			"Docs/DevFramework/Rules/pre-commit.md": {
+				"ts": "2025-12-28T19:12:24.759690+00:00",
+				"cumulative_chars_total": 6753
+			}
+		}
+	}
+}

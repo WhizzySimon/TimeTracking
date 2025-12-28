@@ -39,7 +39,7 @@ Proceed directly with the user's task. Use `code_search` or `grep_search` to fin
 
 ### 1. Verification
 
-Run `npm run verify`, fix any errors until ALL PASSED.
+Use watcher to run `npm run verify`, poll status, fix any errors until ALL PASSED. See `Docs/DevFramework/Tooling/CASCADE_WATCHER.md`.
 
 ### 2. UI Testing
 
@@ -47,7 +47,7 @@ Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) 
 
 ### 3. Git Commit & Push (REQUIRED - NEVER SKIP THIS)
 
-**Follow `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`** — includes changelog update, commit, and push.
+**Follow `Docs/DevFramework/Rules/pre-commit.md`** — includes changelog update, commit, and push.
 
 ---
 
@@ -59,8 +59,10 @@ Start your response with:
 # Doc Inventory
 - .windsurf/rules/* (all rules)
 - Docs/INDEX.md
+- RULE_MAP.md
 - .windsurf/cascade.md
-- [any additional docs read via JIT rule map]
+- Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
+- [any additional docs the user requested]
 
 Ready for your task.
 ```
