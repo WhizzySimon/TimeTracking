@@ -1,0 +1,148 @@
+# Rule Read Logging System
+
+Automated logging of when Cascade consults rule files, enabling analysis of rule re-reads and context freshness.
+
+## Overview
+
+This system tracks:
+- **rule_read**: Evidence-based events from `post_read_code` hook (file actually read by Cascade)
+- **rule_consulted**: High-confidence events from `<!-- RULE_CONSULTED: ... -->` markers
+- **rule_reference**: Heuristic events from path mentions in prompts/responses
+
+## Storage
+
+| File | Purpose |
+|------|---------|
+| `scripts/ai/logs/rule_reads.ndjson` | Append-only event log |
+| `scripts/ai/logs/rule_reads_state.json` | Per-trajectory state (cumulative chars, last consult times) |
+
+## How It Works
+
+1. **Windsurf hooks** (`.windsurf/hooks.json`) trigger on:
+   - `post_read_code`: When Cascade reads any file (evidence-based logging)
+   - `pre_user_prompt` / `post_cascade_response`: For marker/heuristic detection
+2. **Hook script** (`.windsurf/hooks/rule_read_logger.py`):
+   - For `post_read_code`: Checks if `file_path` is under `Docs/Rules/` or `.windsurf/rules/`
+   - For responses: Parses `<!-- RULE_CONSULTED: ... -->` markers and heuristic path mentions
+3. **NDJSON log** captures events with timestamps, trajectory IDs, and file paths
+4. **State file** tracks "last consulted" per file to calculate re-read distances
+
+### Performance
+
+The hook script filters early:
+- `post_read_code` events exit immediately if file is not a rule file
+- Path normalization uses `__file__` to compute repo root (no cwd assumption)
+
+## Marker Format
+
+When Cascade reads a rule file, it should emit at the end of its response:
+
+```html
+<!-- RULE_CONSULTED: Docs/Rules/code-quality.md, Docs/Rules/pre-commit.md -->
+```
+
+This marker is invisible in the chat UI but parsed by the hook.
+
+## Generating Reports
+
+```bash
+python scripts/report_rule_reads.py
+```
+
+Output includes:
+- Total consultations per file
+- Total references per file
+- Re-reads within 30 minutes
+- Re-reads within 20k chars
+- Top 10 most re-consulted files
+
+## How to Test
+
+### Quick Smoke Test
+
+A temporary smoke test is included to verify hooks are firing:
+
+1. **Reload Windsurf** (required after `hooks.json` changes)
+2. **Run `/new-task`** or any command that reads rule files
+3. **Check smoke test file**: `scripts/ai/logs/hook_smoke_test.txt`
+   - If lines appear with timestamps, hooks are working
+4. **Check NDJSON log**: `scripts/ai/logs/rule_reads.ndjson`
+   - Should contain `"event": "rule_read"` entries
+
+### Remove Smoke Test After Verification
+
+Once confirmed working:
+1. Edit `.windsurf/hooks.json`
+2. Remove the smoke test command block:
+   ```json
+   {
+     "command": "cmd /c echo ...",
+     "show_output": false
+   }
+   ```
+3. Optionally set `show_output: false` on the main logger command
+4. Delete `scripts/ai/logs/hook_smoke_test.txt`
+
+### Full Test
+
+1. **Start a new chat** with Cascade in this workspace
+2. **Ask a question** that requires consulting a rule file (e.g., "how should I format code?")
+3. **Verify marker** is present (view raw message if possible, or check log file)
+4. **Check log file** exists: `scripts/ai/logs/rule_reads.ndjson`
+5. **Run report**: `py -3 scripts/report_rule_reads.py`
+
+## Configuration
+
+Thresholds in `scripts/report_rule_reads.py`:
+- `REREAD_TIME_MINUTES = 30` — Re-read if same file consulted within this time
+- `REREAD_CHARS_THRESHOLD = 20000` — Re-read if same file consulted within this many chars
+
+## NDJSON Schema
+
+### rule_read (evidence-based)
+
+```json
+{
+  "ts": "2025-12-28T07:30:00+00:00",
+  "trajectory_id": "abc123",
+  "execution_id": "xyz789",
+  "event": "rule_read",
+  "file_path": "Docs/Rules/code-quality.md",
+  "signal": "post_read_code"
+}
+```
+
+### rule_consulted (marker-based)
+
+```json
+{
+  "ts_iso": "2025-12-28T07:30:00+00:00",
+  "trajectory_id": "abc123",
+  "event": "rule_consulted",
+  "direction": "out",
+  "files": ["Docs/Rules/code-quality.md"],
+  "signal": "marker",
+  "response_chars": 1500,
+  "cumulative_chars_total": 45000,
+  "since_last_consult_chars": {"Docs/Rules/code-quality.md": 12000},
+  "git_branch": "dev",
+  "git_commit": "abc1234"
+}
+```
+
+## Windows Notes
+
+- Use `py -3` instead of `python` or `python3` (Windows Python Launcher)
+- The `-u` flag ensures unbuffered output for debugging
+- Smoke test uses `cmd /c echo ... >> ...` for Windows compatibility
+- Path normalization handles both `\` and `/` separators
+
+## Files Changed
+
+| Path | Change |
+|------|--------|
+| `.windsurf/hooks.json` | Created — hook configuration (corrected schema 2025-12-28) |
+| `.windsurf/hooks/rule_read_logger.py` | Created — hook script (added post_read_code handler 2025-12-28) |
+| `Docs/Rules/_entrypoint-jit-rule-map.md` | Updated — added RULE_CONSULTED marker instruction |
+| `scripts/report_rule_reads.py` | Created — report generator (added rule_read support 2025-12-28) |
+| `Docs/Dev/rule-read-logging.md` | Created — this documentation |

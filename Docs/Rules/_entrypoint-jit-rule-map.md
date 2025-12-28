@@ -40,6 +40,21 @@
 
 ---
 
+## Rule Read Logging
+
+When you actually consult/read a rule file to guide your behavior, emit an invisible marker at the end of your response:
+
+```
+<!-- RULE_CONSULTED: Docs/Rules/code-quality.md, Docs/Rules/pre-commit.md -->
+```
+
+- Use relative paths from repo root
+- Comma-separate multiple files
+- Only include files you actually opened and read, not just mentioned
+- This marker is parsed by hooks for analytics; do not add any other explanation
+
+---
+
 ## Quick Reference
 
 | Need to...       | Location                         |
