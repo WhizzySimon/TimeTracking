@@ -3,21 +3,25 @@
     "post_read_code": [
       {
         "command": "py -3 -u .windsurf/hooks/rule_read_logger.py",
+        "working_directory": "${workspaceFolder}",
         "show_output": true
       },
       {
-        "command": "cmd /c echo [%DATE% %TIME%] post_read_code fired >> scripts\\ai\\logs\\hook_smoke_test.txt",
+        "command": "cmd /c mkdir scripts\\ai\\logs 2>nul & echo [%DATE% %TIME%] post_read_code >> scripts\\ai\\logs\\hook_smoke_test.txt",
+        "working_directory": "${workspaceFolder}",
         "show_output": false
       }
     ],
     "pre_user_prompt": [
       {
-        "command": "py -3 -u .windsurf/hooks/rule_read_logger.py"
+        "command": "py -3 -u .windsurf/hooks/rule_read_logger.py",
+        "working_directory": "${workspaceFolder}"
       }
     ],
     "post_cascade_response": [
       {
-        "command": "py -3 -u .windsurf/hooks/rule_read_logger.py"
+        "command": "py -3 -u .windsurf/hooks/rule_read_logger.py",
+        "working_directory": "${workspaceFolder}"
       }
     ]
   }
