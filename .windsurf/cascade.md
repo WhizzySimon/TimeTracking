@@ -38,6 +38,7 @@ Run `/project-start` before doing anything else.
 **One always-on rule** in `.windsurf/rules/always-on.md` points to the trigger table.
 
 **All rules** are in `Docs/Rules/`:
+
 - `_entrypoint-jit-rule-map.md` — trigger table (loaded first)
 - `code-quality.md`, `command-execution.md`, `pre-commit.md`, etc.
 

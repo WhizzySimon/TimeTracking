@@ -263,11 +263,11 @@ These tasks MUST be completed before any code implementation tasks.
 
 ### Phase 0: Framework Evolution Guardrails (Prerequisites)
 
-| Task  | Description            | Est.  | Status      |
-| ----- | ---------------------- | ----- | ----------- |
-| D5.0a | Framework VERSION.md   | 0.25h | Not started |
-| D5.0b | Framework CHANGELOG.md | 0.25h | Not started |
-| D5.0c | GTRS.md (Golden Tasks) | 1h    | Not started |
+| Task  | Description            | Est.  | Status |
+| ----- | ---------------------- | ----- | ------ |
+| D5.0a | Framework VERSION.md   | 0.25h | DONE   |
+| D5.0b | Framework CHANGELOG.md | 0.25h | DONE   |
+| D5.0c | GTRS.md (Golden Tasks) | 1h    | DONE   |
 
 ### Phase 1: Documentation & Box Router
 

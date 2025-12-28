@@ -3,6 +3,7 @@
 **This is the ONLY always-on rule.** Keep this table in mind.
 
 **Before EVERY action:**
+
 1. Re-read this file
 2. Check if your next action matches a trigger below
 3. If yes → read ONLY that specific rule file, output its canary

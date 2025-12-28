@@ -12,11 +12,12 @@ Run this when you lose track of what you were doing, or after fixing bugs/detour
 
 Review the current chat from the beginning. Create a table:
 
-| Time (approx) | Activity | Status |
-|---------------|----------|--------|
-| ... | What was attempted | ✅/❌/⏳ |
+| Time (approx) | Activity           | Status   |
+| ------------- | ------------------ | -------- |
+| ...           | What was attempted | ✅/❌/⏳ |
 
 Identify:
+
 - What task was originally assigned (if any)
 - What detours/bugs were fixed
 - What remains incomplete
@@ -28,6 +29,7 @@ Read: Docs/IMPLEMENTATION_PROGRESS.md
 ```
 
 Extract:
+
 - Current focus phase (from "Current Focus" line)
 - All tasks with status PENDING or "Not started" in that phase
 - Any BLOCKING items
@@ -35,21 +37,23 @@ Extract:
 ### 3. Check Task Files (if needed)
 
 If the current phase has a Tasks file, read it:
+
 - `Docs/Tasks/<phase-name>.md`
 
 ### 4. Cross-Reference Chat vs Docs
 
 Create a sync status table:
 
-| Area | In Sync? | Action Needed |
-|------|----------|---------------|
-| CHANGELOG.md | ✅/❌ | Add entry if work was done |
-| IMPLEMENTATION_PROGRESS.md | ✅/❌ | Update if tasks completed |
-| LEARNINGS-INBOX.md | ✅/❌ | Add lessons if any |
+| Area                       | In Sync? | Action Needed              |
+| -------------------------- | -------- | -------------------------- |
+| CHANGELOG.md               | ✅/❌    | Add entry if work was done |
+| IMPLEMENTATION_PROGRESS.md | ✅/❌    | Update if tasks completed  |
+| LEARNINGS-INBOX.md         | ✅/❌    | Add lessons if any         |
 
 ### 5. Report Next Actions
 
 Output:
+
 1. **Unfinished from this chat**: List any incomplete tasks from this session
 2. **Next documented task**: The next pending task per IMPLEMENTATION_PROGRESS.md
 3. **Options**: Give user 2-3 options to proceed

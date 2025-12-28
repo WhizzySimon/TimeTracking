@@ -21,6 +21,7 @@
 3. **If verification fails → STOP** — do not proceed to next task
 
 **This is mandatory.** Never skip verification for:
+
 - File edits (git, file creation/deletion)
 - Config changes
 - Build/test commands that should produce output

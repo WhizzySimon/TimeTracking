@@ -7,6 +7,7 @@ Offline-first time tracking app (SvelteKit PWA).
 This project uses a **Just-in-Time (JIT) rule system** for AI-assisted development with Windsurf/Cascade.
 
 **How it works:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  .windsurf/rules/always-on.md   ← THE ONLY always-on rule  │
@@ -25,8 +26,9 @@ This project uses a **Just-in-Time (JIT) rule system** for AI-assisted developme
 ```
 
 **Key files:**
+
 - **Docs/INDEX.md** — Doc hierarchy, priority order
-- **Docs/Rules/_entrypoint-jit-rule-map.md** — When to read which rule
+- **Docs/Rules/\_entrypoint-jit-rule-map.md** — When to read which rule
 - **Docs/Tooling/BOOTSTRAP.md** — Tooling setup
 
 **Trigger points:** session-start, writing code, executing commands, pre-commit, session-end, etc.

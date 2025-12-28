@@ -23,12 +23,12 @@
 
 ### Priority 1: Dev System Improvements (do first)
 
-| Phase | Name                           | Status   |
-| ----- | ------------------------------ | -------- |
-| D1    | Self-documenting Dev Framework | COMPLETE |
-| D2    | Self-learning Dev Framework    | COMPLETE |
-| D3    | Watcher Framework Improvement  | COMPLETE |
-| D4    | Just-in-Time Rules System      | COMPLETE |
+| Phase | Name                           | Status          |
+| ----- | ------------------------------ | --------------- |
+| D1    | Self-documenting Dev Framework | COMPLETE        |
+| D2    | Self-learning Dev Framework    | COMPLETE        |
+| D3    | Watcher Framework Improvement  | COMPLETE        |
+| D4    | Just-in-Time Rules System      | COMPLETE        |
 | D5    | Autonomy Stack v2              | Phase 0 pending |
 
 ### Priority 2: App Improvements (after Dev Framework)
@@ -57,26 +57,26 @@
 
 ### Phase 0: Framework Evolution Guardrails (Prerequisites)
 
-| #      | Task                  | Status  | Notes                                    |
-| ------ | --------------------- | ------- | ---------------------------------------- |
-| D5.0a  | VERSION.md            | PENDING | Framework versioning (start at 0.1.0)    |
-| D5.0b  | CHANGELOG.md          | PENDING | Framework changelog (not app changelog)  |
-| D5.0c  | GTRS.md               | PENDING | Golden Task Regression Suite (10 tasks)  |
+| #     | Task         | Status | Notes                                   |
+| ----- | ------------ | ------ | --------------------------------------- |
+| D5.0a | VERSION.md   | DONE   | Framework versioning (start at 0.1.0)   |
+| D5.0b | CHANGELOG.md | DONE   | Framework changelog (not app changelog) |
+| D5.0c | GTRS.md      | DONE   | Golden Task Regression Suite (10 tasks) |
 
 ### Phase 1+: Implementation (blocked by Phase 0)
 
-| #     | Task                     | Status  | Notes                                    |
-| ----- | ------------------------ | ------- | ---------------------------------------- |
-| D5.1  | Folder structure + INDEX | DONE    | Docs created                             |
-| D5.2  | Box checklists (6 files) | DONE    | Docs created                             |
-| D5.3  | ZOOM_OUT protocol        | DONE    | Docs created                             |
-| D5.4  | telemetry.js CLI         | REVERTED| Awaiting Phase 0 + approval              |
-| D5.5  | anomaly-detector.js      | REVERTED| Awaiting Phase 0 + approval              |
-| D5.6  | evidence-generator.js    | REVERTED| Awaiting Phase 0 + approval              |
-| D5.7  | learning-extractor.js    | REVERTED| Awaiting Phase 0 + approval              |
-| D5.8  | npm scripts              | REVERTED| Awaiting Phase 0 + approval              |
-| D5.9  | Update Docs/INDEX.md     | DONE    | Docs updated                             |
-| D5.10 | Verify + examples        | PENDING | Blocked until code implemented           |
+| #     | Task                     | Status   | Notes                          |
+| ----- | ------------------------ | -------- | ------------------------------ |
+| D5.1  | Folder structure + INDEX | DONE     | Docs created                   |
+| D5.2  | Box checklists (6 files) | DONE     | Docs created                   |
+| D5.3  | ZOOM_OUT protocol        | DONE     | Docs created                   |
+| D5.4  | telemetry.js CLI         | REVERTED | Awaiting Phase 0 + approval    |
+| D5.5  | anomaly-detector.js      | REVERTED | Awaiting Phase 0 + approval    |
+| D5.6  | evidence-generator.js    | REVERTED | Awaiting Phase 0 + approval    |
+| D5.7  | learning-extractor.js    | REVERTED | Awaiting Phase 0 + approval    |
+| D5.8  | npm scripts              | REVERTED | Awaiting Phase 0 + approval    |
+| D5.9  | Update Docs/INDEX.md     | DONE     | Docs updated                   |
+| D5.10 | Verify + examples        | PENDING  | Blocked until code implemented |
 
 ---
 
