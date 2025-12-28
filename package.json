@@ -24,7 +24,7 @@
 		"test": "npm run test:unit && npm run test:e2e",
 		"check:pwa": "node scripts/build/check-pwa.js",
 		"verify": "powershell -ExecutionPolicy Bypass -File scripts/build/verify-code.ps1",
-		"wb": "tsx devBrowser.ts",
+		"wb": "tsx scripts/dev/devBrowser.ts",
 		"ai:log-event": "node scripts/ai/telemetry.cjs log-event",
 		"ai:start-command": "node scripts/ai/telemetry.cjs start-command",
 		"ai:end-command": "node scripts/ai/telemetry.cjs end-command",

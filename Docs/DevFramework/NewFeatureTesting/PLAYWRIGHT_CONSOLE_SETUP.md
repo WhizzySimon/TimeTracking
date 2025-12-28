@@ -127,10 +127,10 @@ mcp0_browser_console_messages({ onlyErrors: true });
 
 ### **Method 2: Automatic on Error**
 
-We can modify `devBrowser.ts` to automatically capture console on errors:
+We can modify `scripts/dev/devBrowser.ts` to automatically capture console on errors:
 
 ```typescript
-// devBrowser.ts
+// scripts/dev/devBrowser.ts
 page.on('console', (msg) => {
 	const text = msg.text();
 	console.log(`[BROWSER ${msg.type()}] ${text}`);
@@ -164,7 +164,7 @@ async function captureConsoleSnapshot() {
 Modify the browser to track console history:
 
 ```typescript
-// devBrowser.ts - Add after page creation
+// scripts/dev/devBrowser.ts - Add after page creation
 await page.addInitScript(() => {
 	// Intercept console methods to build history
 	window.__console_history = [];
@@ -230,7 +230,7 @@ Cascade will use `mcp0_browser_console_messages()` automatically.
 
 ### **Option B: Enhanced devBrowser (Most Powerful)**
 
-Update `devBrowser.ts` to capture console history:
+Update `scripts/dev/devBrowser.ts` to capture console history:
 
 ```typescript
 import { chromium } from 'playwright';
@@ -437,7 +437,7 @@ Just ask Cascade:
 
 **Enhanced approach (5 min setup):**
 
-Replace `devBrowser.ts` with the enhanced version above, then:
+Replace `scripts/dev/devBrowser.ts` with the enhanced version above, then:
 
 ```
 "Read console-snapshot.json and analyze the errors"

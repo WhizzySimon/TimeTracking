@@ -13,7 +13,7 @@
 
 - `playwright` (^1.57.0) - Core Playwright library
 - `@playwright/test` (^1.57.0) - Playwright test runner
-- `tsx` (^4.20.6) - TypeScript execution for devBrowser.ts
+- `tsx` (^4.20.6) - TypeScript execution for scripts/dev/devBrowser.ts
 
 **Install command:**
 
