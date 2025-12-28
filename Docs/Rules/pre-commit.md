@@ -20,7 +20,8 @@
 [ ] DECISIONS.md — If decision was made, added entry
 [ ] Learning promotion — Check INBOX for items repeated 2+ times → promote to LEARNINGS.md
 [ ] IMPLEMENTATION_PROGRESS.md — If tasks added/changed/completed, update progress tracker
-[ ] Documentation — After changes, check if docs need updating (README, INDEX, rule files, etc.)
+[ ] Spec/Plan/Tasks sync — If Spec changed, check Plan; if Plan changed, check Tasks
+[ ] Documentation — After changes, check if Docs/INDEX.md, README, rule files need updating
 ```
 
 **This is not optional.** Violations: 2025-12-26, 2025-12-27.
