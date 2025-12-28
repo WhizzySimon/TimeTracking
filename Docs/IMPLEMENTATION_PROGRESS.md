@@ -29,7 +29,7 @@
 | D2    | Self-learning Dev Framework    | COMPLETE |
 | D3    | Watcher Framework Improvement  | COMPLETE |
 | D4    | Just-in-Time Rules System      | COMPLETE |
-| D5    | Autonomy Stack v2              | COMPLETE |
+| D5    | Autonomy Stack v2              | Phase 0 pending |
 
 ### Priority 2: App Improvements (after Dev Framework)
 
@@ -55,20 +55,28 @@
 **Plan:** `Docs/Plans/autonomy-stack-v2.md`  
 **Tasks:** `Docs/Tasks/autonomy-stack-v2.md`
 
-### Tasks
+### Phase 0: Framework Evolution Guardrails (Prerequisites)
 
-| #     | Task                     | Status | Notes |
-| ----- | ------------------------ | ------ | ----- |
-| D5.1  | Folder structure + INDEX | DONE   |       |
-| D5.2  | Box checklists (6 files) | DONE   |       |
-| D5.3  | ZOOM_OUT protocol        | DONE   |       |
-| D5.4  | telemetry.js CLI         | DONE   |       |
-| D5.5  | anomaly-detector.js      | DONE   |       |
-| D5.6  | evidence-generator.js    | DONE   |       |
-| D5.7  | learning-extractor.js    | DONE   |       |
-| D5.8  | npm scripts              | DONE   |       |
-| D5.9  | Update Docs/INDEX.md     | DONE   |       |
-| D5.10 | Verify + examples        | DONE   |       |
+| #      | Task                  | Status  | Notes                                    |
+| ------ | --------------------- | ------- | ---------------------------------------- |
+| D5.0a  | VERSION.md            | PENDING | Framework versioning (start at 0.1.0)    |
+| D5.0b  | CHANGELOG.md          | PENDING | Framework changelog (not app changelog)  |
+| D5.0c  | GTRS.md               | PENDING | Golden Task Regression Suite (10 tasks)  |
+
+### Phase 1+: Implementation (blocked by Phase 0)
+
+| #     | Task                     | Status  | Notes                                    |
+| ----- | ------------------------ | ------- | ---------------------------------------- |
+| D5.1  | Folder structure + INDEX | DONE    | Docs created                             |
+| D5.2  | Box checklists (6 files) | DONE    | Docs created                             |
+| D5.3  | ZOOM_OUT protocol        | DONE    | Docs created                             |
+| D5.4  | telemetry.js CLI         | REVERTED| Awaiting Phase 0 + approval              |
+| D5.5  | anomaly-detector.js      | REVERTED| Awaiting Phase 0 + approval              |
+| D5.6  | evidence-generator.js    | REVERTED| Awaiting Phase 0 + approval              |
+| D5.7  | learning-extractor.js    | REVERTED| Awaiting Phase 0 + approval              |
+| D5.8  | npm scripts              | REVERTED| Awaiting Phase 0 + approval              |
+| D5.9  | Update Docs/INDEX.md     | DONE    | Docs updated                             |
+| D5.10 | Verify + examples        | PENDING | Blocked until code implemented           |
 
 ---
 
