@@ -1,6 +1,14 @@
 # Just-in-Time Rule Map
 
-**This is the ONLY always-on rule.** At each trigger point, STOP and read the corresponding file.
+**This is the ONLY always-on rule.** Keep this table in mind.
+
+**Before EVERY action:**
+1. Re-read this file
+2. Check if your next action matches a trigger below
+3. If yes → read ONLY that specific rule file, output its canary
+4. If no → proceed
+
+**Do NOT read all rules at once.** Load rules just-in-time, one at a time, when the trigger fires.
 
 ---
 
