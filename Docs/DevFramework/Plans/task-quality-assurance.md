@@ -14,7 +14,7 @@
 │                           Autonomy Stack v2                                  │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  Docs/AI/                          scripts/ai/                              │
+│  Docs/DevFramework/TaskQualityAssurance/                          scripts/ai/                              │
 │  ├── INDEX.md (entry point)        ├── telemetry.js (CLI tool)              │
 │  ├── ZOOM_OUT.md (protocol)        ├── anomaly-detector.js                  │
 │  └── boxes/                        ├── evidence-generator.js                │
@@ -37,8 +37,8 @@
 | **Anomaly Detector**   | `scripts/ai/anomaly-detector.js`   | Read session log, detect patterns, output alerts   |
 | **Evidence Generator** | `scripts/ai/evidence-generator.js` | Compile task completion artifacts                  |
 | **Learning Extractor** | `scripts/ai/learning-extractor.js` | Propose principles from evidence/anomalies         |
-| **Box Definitions**    | `Docs/AI/boxes/*.md`               | Per-task-type checklists (human-readable)          |
-| **Zoom-Out Protocol**  | `Docs/AI/ZOOM_OUT.md`              | Recovery procedure when anomalies fire             |
+| **Box Definitions**    | `Docs/DevFramework/TaskQualityAssurance/boxes/*.md`               | Per-task-type checklists (human-readable)          |
+| **Zoom-Out Protocol**  | `Docs/DevFramework/TaskQualityAssurance/ZOOM_OUT.md`              | Recovery procedure when anomalies fire             |
 
 ### Dependencies
 
@@ -218,7 +218,7 @@ Docs/
 
 ### A) Framework Versioning
 
-**File:** `Docs/AI/VERSION.md`
+**File:** `Docs/DevFramework/TaskQualityAssurance/VERSION.md`
 
 **Content:**
 
@@ -238,14 +238,14 @@ FRAMEWORK_VERSION: 0.1.0
 
 1. Make framework change
 2. Bump version in VERSION.md according to semver rules
-3. Add entry to Docs/AI/CHANGELOG.md
+3. Add entry to Docs/DevFramework/TaskQualityAssurance/CHANGELOG.md
 4. Commit changes
 5. Create git tag: `git tag -a framework-v0.x.y -m "Framework: <summary>"`
 6. Push with tags: `git push && git push --tags`
 
 ### B) Framework-only CHANGELOG
 
-**File:** `Docs/AI/CHANGELOG.md`
+**File:** `Docs/DevFramework/TaskQualityAssurance/CHANGELOG.md`
 
 **Template:**
 
@@ -261,13 +261,13 @@ All changes to the development framework. Not for app features.
 - **Initial Autonomy Stack release** — Box router, telemetry, anomaly detection, evidence bundles
   - Risk: low
   - Evidence: `npm run verify` passes, all AC checks met
-  - Affected files: Docs/AI/_, scripts/ai/_
+  - Affected files: Docs/DevFramework/TaskQualityAssurance/_, scripts/ai/_
 ```
 
 ### C) Golden Task Regression Suite (GTRS)
 
-**Definition File:** `Docs/AI/GTRS.md`
-**Results Directory:** `Docs/AI/GTRS-runs/`
+**Definition File:** `Docs/DevFramework/TaskQualityAssurance/GTRS.md`
+**Results Directory:** `Docs/DevFramework/TaskQualityAssurance/GTRS-runs/`
 
 **Run Triggers:**
 

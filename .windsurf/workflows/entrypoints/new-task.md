@@ -26,7 +26,7 @@ Say: "Ready on dev. What would you like me to do?"
 
 If the user specifies docs to read (e.g., "read the UI spec" or "read the backup spec"):
 
-- Read the specified docs from `Docs/Guidelines/` or `Docs/Specs/`
+- Read the specified docs from `Docs/AppDocs/Guidelines/` or `Docs/AppDocs/Specs/`
 - Add them to your Doc Inventory
 
 ### If no specific docs requested
@@ -39,7 +39,7 @@ Proceed directly with the user's task. Use `code_search` or `grep_search` to fin
 
 ### 1. Verification
 
-Use watcher to run `npm run verify`, poll status, fix any errors until ALL PASSED. See `Docs/Tooling/CASCADE_WATCHER.md`.
+Use watcher to run `npm run verify`, poll status, fix any errors until ALL PASSED. See `Docs/DevFramework/Tooling/CASCADE_WATCHER.md`.
 
 ### 2. UI Testing
 
@@ -47,7 +47,7 @@ Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) 
 
 ### 3. Git Commit & Push (REQUIRED - NEVER SKIP THIS)
 
-**Follow `Docs/Rules/pre-commit.md`** — includes changelog update, commit, and push.
+**Follow `Docs/DevFramework/Rules/pre-commit.md`** — includes changelog update, commit, and push.
 
 ---
 
@@ -61,7 +61,7 @@ Start your response with:
 - Docs/INDEX.md
 - RULE_MAP.md
 - .windsurf/cascade.md
-- Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/DevFramework/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
 - [any additional docs the user requested]
 
 Ready for your task.

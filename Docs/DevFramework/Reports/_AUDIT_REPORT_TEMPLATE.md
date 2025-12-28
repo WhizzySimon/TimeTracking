@@ -32,7 +32,7 @@
   - `## Frozen Snapshot (staged-only)`
   - `## Verification Evidence`
   - `## Risks / Flags`
-- Box checklist: `Docs/AI/boxes/<box>.md`
+- Box checklist: `Docs/DevFramework/TaskQualityAssurance/boxes/<box>.md`
 - Verification artifact: `scripts/verify-code-output.txt`
 - Decisions (if any): `Docs/Devlog/DECISIONS.md`
 

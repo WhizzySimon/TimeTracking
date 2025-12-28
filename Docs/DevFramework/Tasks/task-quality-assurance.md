@@ -1,10 +1,10 @@
-# autonomy-stack-v2 - Tasks
+# TaskQualityAssurance - Tasks
 
 **Phase:** D5  
 **Created:** 2025-12-27  
-**Last Updated:** 2025-12-27  
-**Based on Spec:** `Docs/Specs/autonomy-stack-v2.md`  
-**Based on Plan:** `Docs/Plans/autonomy-stack-v2.md`
+**Last Updated:** 2025-12-28  
+**Based on Spec:** `Docs/DevFramework/Specs/task-quality-assurance.md`  
+**Based on Plan:** `Docs/DevFramework/Plans/task-quality-assurance.md`
 
 ---
 
@@ -17,7 +17,7 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.0a - Create Framework VERSION.md
 
 - **Files:**
-  - `Docs/AI/VERSION.md` (new)
+  - `Docs/DevFramework/TaskQualityAssurance/VERSION.md` (new)
 - **Done when:**
   - File contains `FRAMEWORK_VERSION: 0.1.0`
   - Includes versioning rules (major/minor/patch)
@@ -34,7 +34,7 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.0b - Create Framework CHANGELOG.md
 
 - **Files:**
-  - `Docs/AI/CHANGELOG.md` (new)
+  - `Docs/DevFramework/TaskQualityAssurance/CHANGELOG.md` (new)
 - **Done when:**
   - File contains changelog entry format documentation
   - Includes initial 0.1.0 entry template
@@ -51,8 +51,8 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.0c - Create GTRS.md (Golden Task Regression Suite)
 
 - **Files:**
-  - `Docs/AI/GTRS.md` (new)
-  - `Docs/AI/GTRS-runs/.gitkeep` (new)
+  - `Docs/DevFramework/TaskQualityAssurance/GTRS.md` (new)
+  - `Docs/DevFramework/TaskQualityAssurance/GTRS-runs/.gitkeep` (new)
 - **Done when:**
   - File defines all 10 golden tasks (GT-01 through GT-10)
   - Each task has: box, difficulty, expected duration, AC template, verification commands, evidence requirements, success metrics
@@ -75,8 +75,8 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.1 - Create folder structure and INDEX
 
 - **Files:**
-  - `Docs/AI/INDEX.md` (new)
-  - `Docs/AI/boxes/` (new directory)
+  - `Docs/DevFramework/TaskQualityAssurance/INDEX.md` (new)
+  - `Docs/DevFramework/TaskQualityAssurance/boxes/` (new directory)
   - `scripts/ai/` (new directory)
   - `scripts/ai/logs/.gitkeep` (new)
   - `Docs/Devlog/Evidence/.gitkeep` (new)
@@ -94,13 +94,13 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.2 - Create box template and 6 box checklists
 
 - **Files:**
-  - `Docs/AI/boxes/_template.md`
-  - `Docs/AI/boxes/feature.md`
-  - `Docs/AI/boxes/bugfix.md`
-  - `Docs/AI/boxes/refactor.md`
-  - `Docs/AI/boxes/infra-build.md`
-  - `Docs/AI/boxes/research-decision.md`
-  - `Docs/AI/boxes/ui-ux.md`
+  - `Docs/DevFramework/TaskQualityAssurance/boxes/_template.md`
+  - `Docs/DevFramework/TaskQualityAssurance/boxes/feature.md`
+  - `Docs/DevFramework/TaskQualityAssurance/boxes/bugfix.md`
+  - `Docs/DevFramework/TaskQualityAssurance/boxes/refactor.md`
+  - `Docs/DevFramework/TaskQualityAssurance/boxes/infra-build.md`
+  - `Docs/DevFramework/TaskQualityAssurance/boxes/research-decision.md`
+  - `Docs/DevFramework/TaskQualityAssurance/boxes/ui-ux.md`
 - **Done when:**
   - Each box file has: acceptance criteria format, verification commands, evidence requirements, risk class
   - All boxes reference existing npm commands
@@ -115,7 +115,7 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.3 - Create ZOOM_OUT protocol
 
 - **Files:**
-  - `Docs/AI/ZOOM_OUT.md`
+  - `Docs/DevFramework/TaskQualityAssurance/ZOOM_OUT.md`
 - **Done when:**
   - Protocol defines 5 steps: restate goal, propose alternatives, pick one, run experiment, log decision
   - Clear instructions for Cascade to follow
@@ -232,7 +232,7 @@ These tasks MUST be completed before any code implementation tasks.
   - `Docs/INDEX.md`
 - **Done when:**
   - Added section for Autonomy Stack / AI tooling
-  - Links to `Docs/AI/INDEX.md`
+  - Links to `Docs/DevFramework/TaskQualityAssurance/INDEX.md`
 - **Verify:**
   - Section appears in INDEX.md
 - **Guardrails:**
@@ -244,7 +244,7 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.10 - Verify and create usage examples
 
 - **Files:**
-  - `Docs/AI/INDEX.md` (update)
+  - `Docs/DevFramework/TaskQualityAssurance/INDEX.md` (update)
 - **Done when:**
   - INDEX.md includes example flows for Bugfix and Feature tasks
   - `npm run verify` passes

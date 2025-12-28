@@ -196,7 +196,7 @@ This file should be read at the start of every session via the `/rules-read-all`
 
 ## 🔄 Cascade Watcher System (Preferred)
 
-**See [Docs/Tooling/CASCADE_WATCHER.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Tooling/CASCADE_WATCHER.md:0:0-0:0) for complete watcher documentation.**
+**See `Docs/DevFramework/Tooling/CASCADE_WATCHER.md` for complete watcher documentation.**
 
 The watcher enables autonomous command execution:
 
@@ -223,7 +223,7 @@ If watcher is not running, fall back to manual workflow:
 
 ## 📦 Code Verification Script
 
-**`npm run verify`** runs [scripts/verify-code.ps1](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/scripts/verify-code.ps1:0:0-0:0) which:
+**`npm run verify`** runs `scripts/verify-code.ps1` which:
 
 1. Runs `npm run format` (auto-fix formatting)
 2. Runs `npm run check` (TypeScript)
@@ -268,7 +268,7 @@ Cascade MUST follow this complete workflow:
    - Confirm commit succeeded
 
 4. **Update progress tracker:**
-   - Mark task as `[x]` (done) in [Docs/IMPLEMENTATION_PROGRESS.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/IMPLEMENTATION_PROGRESS.md:0:0-0:0)
+   - Mark task as `[x]` (done) in `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md`
    - Add verification results
    - Note any deviations
    - Update "Tasks Completed" counter
@@ -289,7 +289,7 @@ When all tasks in a phase are complete:
 
 If approaching context limit mid-task:
 
-1. Save current progress in [Docs/IMPLEMENTATION_PROGRESS.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/IMPLEMENTATION_PROGRESS.md:0:0-0:0)
+1. Save current progress in `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md`
 2. Note exactly where work stopped
 3. Tell user: "Context limit reached. Start new chat with `/continue-work` to resume."
 
@@ -298,8 +298,8 @@ If approaching context limit mid-task:
 When user runs `/continue-work`:
 
 1. Read all rules and docs via workflows
-2. Read [Docs/IMPLEMENTATION_PROGRESS.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/IMPLEMENTATION_PROGRESS.md:0:0-0:0) to find current state
-3. Read [Docs/Tasks/timetracker-v1-implementation.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Tasks/timetracker-v1-implementation.md:0:0-0:0) for task details
+2. Read `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` to find current state
+3. Read the appropriate Tasks file for task details
 4. Resume from next incomplete task automatically
 
 ---
@@ -352,7 +352,7 @@ When making multiple edits to the same file:
 
 ### Watcher command file handling
 
-See [Docs/Tooling/CASCADE_WATCHER.md](cci:7://file:///e:/Private/Dev/Timekeeping/TimeTracker/Docs/Tooling/CASCADE_WATCHER.md:0:0-0:0) for watcher file locations and usage.
+See `Docs/DevFramework/Tooling/CASCADE_WATCHER.md` for watcher file locations and usage.
 
 ### Command Chaining Syntax (cmd.exe)
 
