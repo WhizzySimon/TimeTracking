@@ -20,22 +20,6 @@ All acceptance criteria for this box MUST:
 
 ## Required Verification Commands
 
-Before marking task complete:
-
-1) Ensure you have a frozen staged snapshot (required for `/audit`):
-- No unstaged changes:
-  - `git diff --name-only` must be empty
-- No untracked files:
-  - `git ls-files --others --exclude-standard` must be empty
-- Must have staged changes:
-  - `git diff --staged --name-only` must be non-empty
-- Evidence Bundle must be staged and included in:
-  - `git diff --staged --name-only`
-
-2) Run `/audit` and write an Audit Report after the verdict (report does not need to be staged during preconditions).
-
-3) Run verification commands:
-
 | Command             | Required | Notes                      |
 | ------------------- | -------- | -------------------------- |
 | `npm run verify`    | ✅ Yes   | Format + TypeScript + Lint |
@@ -45,26 +29,18 @@ Before marking task complete:
 
 ---
 
-## Evidence Bundle Requirements
+## Audit Gate Checklist
 
-The evidence bundle MUST include:
+Before marking task complete:
 
-- [ ] Box type declared
-- [ ] Acceptance criteria listed
-- [ ] Planned scope listed (or explicitly "NOT PROVIDED" + risk flag)
-- [ ] Preconditions captured (staged snapshot policy):
-  - [ ] `git diff --name-only` output pasted (must be empty)
-  - [ ] `git ls-files --others --exclude-standard` output pasted (must be empty)
-  - [ ] `git diff --staged --name-only` output pasted (must be non-empty)
-  - [ ] Evidence Bundle file appears in `git diff --staged --name-only`
-- [ ] Frozen snapshot captured (staged-only):
-  - [ ] `BASE_HEAD` (`git rev-parse HEAD`) recorded
-  - [ ] `STAGED_DIFF_HASH` recorded
-  - [ ] `git diff --staged --stat` pasted (recommended)
-  - [ ] `git diff --staged` pasted
-- [ ] Verification command results (minimum `npm run verify`)
-- [ ] Audit Report link added (report generated after verdict; references this bundle; no separate ACP file)
-- [ ] (additional box-specific requirements)
+- [ ] Evidence Bundle created and **staged** (`Docs/Devlog/Evidence/<task-id>.md`)
+- [ ] No unstaged changes (`git diff --name-only` empty)
+- [ ] No untracked files (`git ls-files --others --exclude-standard` empty)
+- [ ] `/audit` PASS (or FAIL remediated)
+
+**Model switch behavior** (see `Docs/Rules/ai-config.json`):
+- `switch_model_before_audit=true`: Builder stages and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
+- `switch_model_before_audit=false`: Builder runs `/audit` itself
 
 ---
 

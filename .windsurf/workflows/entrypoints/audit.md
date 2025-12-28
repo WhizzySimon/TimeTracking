@@ -4,138 +4,148 @@ description: Deterministic audit on a frozen staged snapshot (git diff --staged 
 
 # /audit — Deterministic Staged Audit (Frozen Snapshot)
 
-## Policy (single source of truth)
+**NON-INTERACTIVE:** This workflow asks no questions. If preconditions fail, output FAIL + remediation and STOP.
 
-- Audit input is a **frozen staged snapshot**.
-- Auditor uses **ONLY** `git diff --staged` (never working tree).
-- Preconditions enforce:
-  - No unstaged changes
-  - No untracked files
-  - Non-empty staged diff
-  - Evidence Bundle is staged and part of the audited snapshot
-- Audit Report is generated **after the verdict** and is **not required** to be staged during preconditions. It may be committed later (optional).
+## Config
 
-Any rerun (including X-High escalation rerun) MUST use the **exact same staged diff** (`STAGED_DIFF_HASH`) and the same staged Evidence Bundle. If staging changes, it is a new audit cycle.
+- **Flag location:** `Docs/Rules/ai-config.json`
+- **Key:** `switch_model_before_audit` (boolean)
+  - `true`: Builder stages changes and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
+  - `false`: Builder stages changes and runs `/audit` itself (same chat, same model)
 
-## Inputs (must be stated at start of the audit)
+## Policy
 
-- Task ID: `<TASK-ID>`
-- Box type: `<BOX>` (e.g. `bugfix`, `feature`, `refactor`, `infra-build`, `research-decision`, `ui-ux`)
-- Evidence Bundle: `Docs/Devlog/Evidence/<TASK-ID>.md`
-- Audit Report (write after verdict): `Docs/Reports/AUDIT-<YYYY-MM-DD>__<TASK-ID>.md`
+- Audit input is a **frozen staged snapshot** (`git diff --staged` only).
+- Auditor uses ONLY the staged diff and the staged Evidence Bundle.
+- Preconditions must all pass; any failure => output FAIL + remediation and STOP.
 
-## Step 1 — Preconditions (FAIL fast; staged snapshot)
+## Default Evidence Bundle Path
 
-Run these commands and paste outputs into the Evidence Bundle under `## Preconditions (clean working tree; staged snapshot)`.
+If not specified by user, use today's date:
+```
+Docs/Devlog/Evidence/AUD-YYYY-MM-DD-01.md
+```
+(Replace YYYY-MM-DD with current date. Increment -01 if file exists.)
 
-A) Must have **no unstaged changes**
+---
+
+## Step 1 — Preconditions (FAIL fast; no questions)
+
+Run these commands. If ANY check fails, output FAIL with the command output and remediation, then STOP.
+
+**A) No unstaged changes**
 ```bash
 git diff --name-only
 ```
-FAIL if output is non-empty.
+- PASS if empty
+- FAIL if non-empty → Remediation: `git add -A` or `git checkout -- <file>`
 
-B) Must have **no untracked files**
+**B) No untracked files**
 ```bash
 git ls-files --others --exclude-standard
 ```
-FAIL if output is non-empty.
+- PASS if empty
+- FAIL if non-empty → Remediation: `git add <file>` or add to `.gitignore`
 
-C) Must have **staged changes to audit**
+**C) Staged diff must be non-empty**
 ```bash
 git diff --staged --name-only
 ```
-FAIL if output is empty.
+- PASS if non-empty
+- FAIL if empty → Remediation: Stage changes with `git add -A`
 
-D) Evidence Bundle must be **staged**
-Using the output of `git diff --staged --name-only`, FAIL if it does not include:
-- `Docs/Devlog/Evidence/<TASK-ID>.md`
+**D) Evidence Bundle must be staged**
+- Check if Evidence Bundle path appears in `git diff --staged --name-only`
+- PASS if present
+- FAIL if missing → Remediation: Create from `Docs/Devlog/Evidence/_template.md` and stage it
 
-## Step 2 — Record immutable snapshot identifiers (required)
+---
 
-Paste into the Evidence Bundle under `## Frozen Snapshot (staged-only)`:
+## Step 2 — Compute Deterministic Identifiers
 
 ```bash
 git rev-parse HEAD
-git diff --staged | git hash-object --stdin
-git diff --staged --stat
-git diff --staged
 ```
+Record as `BASE_HEAD`.
 
-Record:
-- `BASE_HEAD` = output of `git rev-parse HEAD`
-- `STAGED_DIFF_HASH` = output of `git diff --staged | git hash-object --stdin`
-
-## Step 3 — Evidence Bundle completeness gate (FAIL if missing)
-
-The Evidence Bundle is the single source of truth (ACP fields embedded). It MUST include:
-- Box type
-- Acceptance criteria
-- Planned scope (or explicitly "NOT PROVIDED" + risk flag)
-- Preconditions outputs (A/B/C/D)
-- Frozen Snapshot section containing:
-  - `BASE_HEAD`
-  - `STAGED_DIFF_HASH`
-  - staged file list
-  - staged diff (`git diff --staged`)
-- Verification evidence (minimum: `npm run verify`) and reference to `scripts/verify-code-output.txt`
-- Decisions: reference `Docs/Devlog/DECISIONS.md` if relevant (or explicitly "none")
-
-If anything is missing: FAIL and output exactly what to add and where.
-
-## Step 4 — Required verification (box-driven)
-
-Re-read: `Docs/AI/boxes/<box>.md`
-
-Run the required commands from the box. Minimum expectation:
 ```bash
-npm run verify
+git diff --staged | git hash-object --stdin
 ```
+Record as `STAGED_DIFF_HASH`.
 
-Evidence requirement:
-- `scripts/verify-code-output.txt` is the canonical output artifact; reference it in the Evidence Bundle.
-- If you paste excerpts, paste only minimal summary lines.
+These identifiers uniquely identify the audit input. Any X-High escalation rerun MUST use the same values.
 
-## Step 5 — Audit checks (evidence-first; deterministic)
+---
 
-Use ONLY:
-- Evidence Bundle: `Docs/Devlog/Evidence/<TASK-ID>.md`
-- Staged diff: `git diff --staged`
-- Verification outputs (including `scripts/verify-code-output.txt`)
-- Box checklist: `Docs/AI/boxes/<box>.md`
-- Decisions (if any): `Docs/Devlog/DECISIONS.md`
+## Step 3 — Read Evidence Bundle
 
-Perform:
-- Box checklist compliance
-- Scope drift detection (planned scope vs staged diff)
-- Missing evidence detection (no-evidence-not-done)
-- Risk classification (low/medium/high) based on touched areas + diff size/complexity + tests/evidence
+Read the staged Evidence Bundle. It MUST contain:
+- **Box type** (default: `research-decision` if unspecified)
+- **Acceptance criteria** (REQUIRED; if empty => FAIL)
+- **Planned scope** (optional but recommended; if missing, flag as risk)
+- **Commands run + results** (manual paste section)
+- **Decision links** (repo-relative paths, optional)
 
-## Step 6 — Verdict then write Audit Report (report is post-verdict)
+If acceptance criteria are empty: FAIL with remediation "Fill in acceptance criteria in Evidence Bundle and re-stage."
 
-Write: `Docs/Reports/AUDIT-<YYYY-MM-DD>__<TASK-ID>.md`
+---
 
-The report MUST include:
-- Snapshot: Evidence Bundle path + `BASE_HEAD` + `STAGED_DIFF_HASH`
-- PASS/FAIL
-- Findings (evidence-tied)
-- Builder-actionable patch instructions
-- Required commands to run next
-- Evidence updates required before re-audit
-- Escalation section (always present; deterministic)
+## Step 4 — Audit (evidence-first)
 
-## Step 7 — Escalation (always present; deterministic)
+Audit inputs are ONLY:
+- `git diff --staged` output
+- Staged Evidence Bundle content
 
-In every audit output, include:
+Evaluate:
+- Does the staged diff satisfy the acceptance criteria?
+- Is there scope drift (files changed outside planned scope)?
+- Are there missing tests or documentation for the changes?
+- Risk classification: low / medium / high
 
-- **Escalate to X-High?** YES/NO
+---
+
+## Step 5 — Verdict + Output
+
+Output format (always include all sections):
+
+### Snapshot
+- Evidence Bundle: `<path>`
+- BASE_HEAD: `<hash>`
+- STAGED_DIFF_HASH: `<hash>`
+
+### Verdict
+**PASS** or **FAIL**
+
+### Missing Evidence (if any)
+- List what's missing and why it matters
+
+### Required Fixes (if FAIL)
+For each fix:
+1. **Target:** exact file path + anchor/search string
+2. **Operation:** INSERT / REPLACE / DELETE
+3. **Paste-ready content:**
+```
+<content>
+```
+4. **Alternatives:** (if any; mark one as default)
+
+### Commands to Run Next
+- List only commands that exist in the repo (e.g., `npm run verify`)
+- If unknown, write: "No standard verify command found"
+
+### Escalation (always present)
+- **Escalate to X-High Reasoning?** YES / NO
 - **Reasons (evidence-tied):**
-  - Risk surface
+  - Risk surface (high-risk areas touched)
   - Missing tests/evidence
-  - Ambiguity
-  - Diff size/complexity
+  - Ambiguity in requirements or implementation
+  - Diff complexity (large diff, many files)
   - Repeated failures
-- **X-High is expected to resolve:**
-  - (1–2 bullets)
-- **Rerun rule (strict):**
-  - X-High rerun MUST use the exact same staged diff (`STAGED_DIFF_HASH`) and the same Evidence Bundle.
-  - If staging changes, this is a new audit cycle.
+- **If YES:** "Switch to GPT-5.2 X-High Reasoning (8x) and rerun /audit using the SAME staged snapshot (BASE_HEAD + STAGED_DIFF_HASH must match)."
+
+---
+
+## After Audit
+
+- If PASS: Builder may commit.
+- If FAIL: Builder must fix issues, re-stage, and re-run /audit (new audit cycle with new STAGED_DIFF_HASH).

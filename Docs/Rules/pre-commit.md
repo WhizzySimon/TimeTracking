@@ -12,9 +12,22 @@
 
 ---
 
+## Audit Gate (required before commit)
+
+1. Read `Docs/Rules/ai-config.json` → `switch_model_before_audit`
+2. If `true` and you are Builder (Opus):
+   - Verify `/audit` was run by GPT-5.2 Medium Reasoning
+   - If not: **STOP** and instruct user to switch model and run `/audit`
+3. If `false`:
+   - Run `/audit` now if not already done
+4. Verify `/audit` **PASS** before proceeding to commit
+
+---
+
 ## STOP — Complete This Checklist First
 
 ```
+[ ] /audit PASS (see Audit Gate above)
 [ ] CHANGELOG.md — Added one-line entry for this work
 [ ] LEARNINGS-INBOX.md — Reviewed session for feedback (positive/corrective)
 [ ] DECISIONS.md — If decision was made, added entry

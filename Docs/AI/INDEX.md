@@ -64,31 +64,25 @@ After completing a task:
 npm run ai:evidence -- --task=D5.1 --box=infra-build
 ```
 
-### 5. Run `/audit` (Deterministic; staged-only frozen snapshot)
+### 5. Audit Gate (`/audit`)
 
-Before marking a task complete, you MUST run `/audit` with the staged snapshot policy:
+Before marking a task complete, run `/audit` on a frozen staged snapshot.
 
-- Evidence Bundle is created at `Docs/Devlog/Evidence/<task-id>.md` and **staged** alongside the code.
-- Preconditions:
-  - No unstaged changes:
-    - `git diff --name-only` must be empty
-  - No untracked files:
-    - `git ls-files --others --exclude-standard` must be empty
-  - Must have staged changes:
-    - `git diff --staged --name-only` must be non-empty
-  - Evidence Bundle must appear in `git diff --staged --name-only`
-- Auditor uses **ONLY** `git diff --staged` (never working tree).
+**Config flag:** `Docs/Rules/ai-config.json` → `switch_model_before_audit`
+- `true` (default): Builder stages changes and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
+- `false`: Builder stages changes and runs `/audit` itself (same chat)
 
-Record snapshot identifiers in the Evidence Bundle:
+**Preconditions (all must pass):**
+- `git diff --name-only` → empty (no unstaged changes)
+- `git ls-files --others --exclude-standard` → empty (no untracked files)
+- `git diff --staged --name-only` → non-empty (has staged changes)
+- Evidence Bundle must be staged
 
-```bash
-git rev-parse HEAD
-git diff --staged | git hash-object --stdin
-git diff --staged --stat
-git diff --staged
-```
+**Deterministic identifiers:**
+- `BASE_HEAD`: `git rev-parse HEAD`
+- `STAGED_DIFF_HASH`: `git diff --staged | git hash-object --stdin`
 
-Write the Audit Report to `Docs/Reports/` after the verdict and reference the Evidence Bundle (single source of truth).
+See: `.windsurf/workflows/entrypoints/audit.md`
 
 ### 6. Extract Learnings (Periodic)
 
@@ -137,6 +131,23 @@ Docs/Devlog/Evidence/
 | `npm run ai:detect-anomalies`  | Check session for anomalies      |
 | `npm run ai:evidence`          | Generate evidence bundle         |
 | `npm run ai:extract-learnings` | Propose principles from evidence |
+
+## Builder Handoff
+
+At the end of an implementation task, Builder (Opus) must:
+
+1. Create/update Evidence Bundle at `Docs/Devlog/Evidence/<task-id>.md`
+2. Stage everything: `git add -A`
+3. Read `Docs/Rules/ai-config.json`:
+   - If `switch_model_before_audit=true`:
+     ```
+     STOP: Switch model to GPT-5.2 Medium Reasoning and run /audit now.
+     Do not modify files before /audit.
+     ```
+   - If `switch_model_before_audit=false`:
+     Run `/audit` immediately (same chat) and present results.
+
+---
 
 ## Related Documentation
 
