@@ -15,6 +15,29 @@ This document defines file and folder naming conventions for the TimeTracker rep
 
 ---
 
+## Semantic Naming Principles
+
+Names must be **self-documenting** — no README needed to understand purpose.
+
+1. **Descriptive over short** — `FrameworkSelfImprovementLogs/` not `Logs/`
+2. **Max 5 words** — `JustInTimeAgentRules` ✓, `RulesForAgentsThatAreLoadedJustInTime` ✗
+3. **Specific over generic** — `DeveloperGuidesAndStandards/` not `Guidelines/`
+4. **No abbreviations** — `TaskQualityAssurance/` not `TQA/`
+5. **Name explains content** — like function naming in code
+6. **Never use generic names** — `misc/`, `utils/`, `stuff/` → find the actual purpose
+
+### Examples
+
+| ❌ Generic | ✓ Self-Explanatory |
+|-----------|---------------------|
+| `docs/` | `Docs/DevFramework/` |
+| `rules/` | `JustInTimeAgentRules/` |
+| `logs/` | `FrameworkSelfImprovementLogs/` |
+| `utils/` | `scripts/ai/` (purpose-specific) |
+| `misc/` | Never use — find the actual purpose |
+
+---
+
 ## Folder-Specific Conventions
 
 ### Docs/Guidelines/
@@ -133,6 +156,11 @@ When a document has versions, append `_V<N>` or `-v<n>` matching the folder conv
 ---
 
 ## Change Log
+
+**[2025-12-28 22:18]**
+
+- Added: Semantic Naming Principles section (self-documenting, max 5 words, no abbreviations)
+- Added: Examples table for generic vs self-explanatory names
 
 **[2025-12-24 13:50]**
 
