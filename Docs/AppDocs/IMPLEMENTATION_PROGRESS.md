@@ -343,7 +343,7 @@ Phase 4:
 ## Phase A2: Multi-Arbeitgeber
 
 **Target:** 18 tasks  
-**Status:** In progress (2/18)  
+**Status:** In progress (4/18 — 2 skipped)  
 **Spec:** `Docs/AppDocs/Specs/multi-arbeitgeber.md`  
 **Plan:** `Docs/AppDocs/Plans/multi-arbeitgeber.md`  
 **Tasks:** `Docs/AppDocs/Tasks/multi-arbeitgeber.md`
@@ -352,7 +352,7 @@ Phase 4:
 
 - [x] **Task A2.1** — IndexedDB migration: add employers store
 - [x] **Task A2.2** — IndexedDB migration: add employerId to entries/categories/models
-- [ ] **Task A2.3** — Supabase migration: employers table + columns
+- [x] **Task A2.3** — ~~Supabase migration~~ SKIPPED (snapshot-based sync)
 - [ ] **Task A2.4** — Employer store + CRUD operations
 - [ ] **Task A2.5** — EmployerSelector component
 - [ ] **Task A2.6** — Integrate selector into Header
@@ -366,7 +366,7 @@ Phase 4:
 - [ ] **Task A2.14** — StundenzettelExport component
 - [ ] **Task A2.15** — Export to Excel (.xlsx) per AG
 - [ ] **Task A2.16** — Export to PDF per AG
-- [ ] **Task A2.17** — Sync employers to Supabase
+- [x] **Task A2.17** — ~~Sync employers~~ SKIPPED (handled by backup flow)
 - [ ] **Task A2.18** — E2E tests for multi-AG
 
 ---

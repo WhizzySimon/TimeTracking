@@ -16,6 +16,19 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ---
 
+## Supabase Convention (IMPORTANT)
+
+**This project uses snapshot-based cloud sync:**
+
+- All data (entries, categories, work_time_models, employers) is stored in IndexedDB
+- Cloud backup stores the entire state as a JSON blob in `user_backups.snapshot`
+- **No separate Supabase tables** for categories, entries, models, or employers
+- Sync happens via the existing backup/restore flow in `src/lib/backup/cloud.ts`
+
+Tasks A2.3 and A2.17 were SKIPPED based on this convention.
+
+---
+
 ## Task A2.1 — IndexedDB migration: add employers store
 
 - **Files:**
@@ -56,20 +69,11 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ---
 
-## Task A2.3 — Supabase migration: employers table + columns
+## Task A2.3 — ~~Supabase migration: employers table + columns~~
 
-- **Files:**
-  - Supabase SQL migration
-- **Done when:**
-  - `employers` table created (id, user_id, name, created_at, updated_at, is_active)
-  - `employer_id` column added to categories, time_entries, work_time_models
-  - RLS policies configured
-- **Verify:**
-  - Supabase dashboard shows new schema
-- **Guardrails:**
-  - Existing data must remain intact
-- **Estimated:** 1h
-- **Status:** Pending
+**Status:** SKIPPED (architectural decision: use snapshot-based sync)
+
+**Decision:** Employers are stored in IndexedDB and synced via existing JSON snapshot in `user_backups` table, consistent with how categories/entries/models are handled. No separate Supabase table needed.
 
 ---
 
@@ -77,11 +81,10 @@ Key triggers during task execution: writing code, before commit, session end.
 
 - **Files:**
   - `src/lib/storage/employers.ts` (new)
-  - `src/lib/storage/operations.ts`
 - **Done when:**
   - `getAllEmployers()`, `getActiveEmployers()`, `saveEmployer()`, `deleteEmployer()` functions
-  - CRUD operations integrate with outbox for sync
   - Soft delete (isActive = false) implemented
+  - Employers included in backup snapshot export (update `src/lib/backup/snapshot.ts`)
 - **Verify:**
   - `npm run verify`
   - Unit test for CRUD operations
@@ -314,21 +317,11 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ---
 
-## Task A2.17 — Sync employers to Supabase
+## Task A2.17 — ~~Sync employers to Supabase~~
 
-- **Files:**
-  - `src/lib/sync/engine.ts`
-  - `src/lib/api/employers.ts` (new)
-- **Done when:**
-  - Employer CRUD syncs to Supabase for Pro users
-  - Outbox operations: employer_upsert, employer_delete
-  - Pull/push logic implemented
-- **Verify:**
-  - `npm run verify`
-  - Manual test: create employer → appears in Supabase
-- **Estimated:** 2h
-- **Status:** Pending
-- **Dependencies:** A2.3, A2.4
+**Status:** SKIPPED (handled by existing backup flow)
+
+**Decision:** Employers sync automatically via the JSON snapshot in `user_backups` table. No separate sync logic needed — the existing backup/restore flow handles it.
 
 ---
 
