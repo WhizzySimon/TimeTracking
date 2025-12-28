@@ -5,7 +5,7 @@
  */
 
 const DB_NAME = 'timetracker';
-const DB_VERSION = 8;
+const DB_VERSION = 9;
 
 let dbInstance: IDBDatabase | null = null;
 
@@ -80,6 +80,12 @@ export async function openDB(): Promise<IDBDatabase> {
 			// User preferences store (synced to cloud)
 			if (!db.objectStoreNames.contains('userPreferences')) {
 				db.createObjectStore('userPreferences', { keyPath: 'key' });
+			}
+
+			// Employers store (multi-arbeitgeber.md AG-FR-003, AG-IG-004)
+			if (!db.objectStoreNames.contains('employers')) {
+				const store = db.createObjectStore('employers', { keyPath: 'id' });
+				store.createIndex('isActive', 'isActive', { unique: false });
 			}
 		};
 

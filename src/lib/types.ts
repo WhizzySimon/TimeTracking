@@ -136,6 +136,18 @@ export interface AuthSession {
 export type UserPlan = 'free' | 'pro' | 'premium';
 
 /**
+ * Employer (Arbeitgeber) entity for multi-employer support.
+ * Spec refs: multi-arbeitgeber.md AG-FR-001 to AG-FR-004
+ */
+export interface Employer {
+	id: string;
+	name: string;
+	createdAt: number;
+	updatedAt: number;
+	isActive: boolean; // false = soft deleted
+}
+
+/**
  * User preference stored in IndexedDB for cloud sync.
  * Key-value store for preferences that should sync across devices.
  */

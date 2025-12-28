@@ -343,13 +343,14 @@ Phase 4:
 ## Phase A2: Multi-Arbeitgeber
 
 **Target:** 18 tasks  
-**Status:** Not started  
-**Spec:** `Docs/Specs/multi-arbeitgeber.md`  
-**Plan:** `Docs/Plans/multi-arbeitgeber.md`
+**Status:** In progress (1/18)  
+**Spec:** `Docs/AppDocs/Specs/multi-arbeitgeber.md`  
+**Plan:** `Docs/AppDocs/Plans/multi-arbeitgeber.md`  
+**Tasks:** `Docs/AppDocs/Tasks/multi-arbeitgeber.md`
 
 ### Tasks
 
-- [ ] **Task A2.1** — IndexedDB migration: add employers store
+- [x] **Task A2.1** — IndexedDB migration: add employers store
 - [ ] **Task A2.2** — IndexedDB migration: add employerId to entries/categories/models
 - [ ] **Task A2.3** — Supabase migration: employers table + columns
 - [ ] **Task A2.4** — Employer store + CRUD operations
