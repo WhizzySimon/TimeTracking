@@ -88,10 +88,10 @@ Docs/AI/
     └── ui-ux.md
 
 scripts/ai/
-├── telemetry.js          # Event logging CLI
-├── anomaly-detector.js   # Anomaly detection
-├── evidence-generator.js # Evidence bundle creation
-├── learning-extractor.js # Learning extraction
+├── telemetry.cjs          # Event logging CLI
+├── anomaly-detector.cjs   # Anomaly detection
+├── evidence-generator.cjs # Evidence bundle creation
+├── learning-extractor.cjs # Learning extraction
 └── logs/
     ├── session-*.jsonl   # Per-session telemetry
     └── baselines.json    # Command duration baselines

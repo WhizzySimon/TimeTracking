@@ -62,13 +62,13 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
   Purpose: **Anomaly recovery protocol** — 5-step procedure when stuck.
 - Docs/AI/boxes/\*.md  
   Purpose: **Task box checklists** — per-type verification requirements (feature, bugfix, refactor, etc.)
-- scripts/ai/telemetry.js  
+- scripts/ai/telemetry.cjs  
   Purpose: **Telemetry CLI** — log events, commands, errors (JSONL format).
-- scripts/ai/anomaly-detector.js  
+- scripts/ai/anomaly-detector.cjs  
   Purpose: **Anomaly detection** — repetition, churn, time, scope drift.
-- scripts/ai/evidence-generator.js  
+- scripts/ai/evidence-generator.cjs  
   Purpose: **Evidence bundles** — per-task completion artifacts.
-- scripts/ai/learning-extractor.js  
+- scripts/ai/learning-extractor.cjs  
   Purpose: **Learning extraction** — propose principles from evidence.
 
 ### Development history

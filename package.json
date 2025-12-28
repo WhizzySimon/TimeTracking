@@ -24,7 +24,14 @@
 		"test": "npm run test:unit && npm run test:e2e",
 		"check:pwa": "node scripts/build/check-pwa.js",
 		"verify": "powershell -ExecutionPolicy Bypass -File scripts/build/verify-code.ps1",
-		"wb": "tsx devBrowser.ts"
+		"wb": "tsx devBrowser.ts",
+		"ai:log-event": "node scripts/ai/telemetry.cjs log-event",
+		"ai:start-command": "node scripts/ai/telemetry.cjs start-command",
+		"ai:end-command": "node scripts/ai/telemetry.cjs end-command",
+		"ai:fingerprint-error": "node scripts/ai/telemetry.cjs fingerprint-error",
+		"ai:detect-anomalies": "node scripts/ai/anomaly-detector.cjs",
+		"ai:evidence": "node scripts/ai/evidence-generator.cjs",
+		"ai:extract-learnings": "node scripts/ai/learning-extractor.cjs"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.4.0",

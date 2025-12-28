@@ -271,28 +271,28 @@ These tasks MUST be completed before any code implementation tasks.
 
 ### Phase 1: Documentation & Box Router
 
-| Task | Description              | Est. | Status               |
-| ---- | ------------------------ | ---- | -------------------- |
-| D5.1 | Folder structure + INDEX | 0.5h | Created (unverified) |
-| D5.2 | Box checklists (6 files) | 1h   | Created (unverified) |
-| D5.3 | ZOOM_OUT protocol        | 0.5h | Created (unverified) |
+| Task | Description              | Est. | Status |
+| ---- | ------------------------ | ---- | ------ |
+| D5.1 | Folder structure + INDEX | 0.5h | DONE   |
+| D5.2 | Box checklists (6 files) | 1h   | DONE   |
+| D5.3 | ZOOM_OUT protocol        | 0.5h | DONE   |
 
 ### Phase 2: Telemetry & Scripts
 
-| Task | Description           | Est. | Status               |
-| ---- | --------------------- | ---- | -------------------- |
-| D5.4 | telemetry.js CLI      | 1.5h | Created (unverified) |
-| D5.5 | anomaly-detector.js   | 1.5h | Created (unverified) |
-| D5.6 | evidence-generator.js | 1h   | Created (unverified) |
-| D5.7 | learning-extractor.js | 1h   | Created (unverified) |
-| D5.8 | npm scripts           | 0.5h | Created (unverified) |
+| Task | Description           | Est. | Status |
+| ---- | --------------------- | ---- | ------ |
+| D5.4 | telemetry.js CLI      | 1.5h | DONE   |
+| D5.5 | anomaly-detector.js   | 1.5h | DONE   |
+| D5.6 | evidence-generator.js | 1h   | DONE   |
+| D5.7 | learning-extractor.js | 1h   | DONE   |
+| D5.8 | npm scripts           | 0.5h | DONE   |
 
 ### Phase 3: Integration & Verification
 
-| Task  | Description          | Est. | Status               |
-| ----- | -------------------- | ---- | -------------------- |
-| D5.9  | Update Docs/INDEX.md | 0.5h | Created (unverified) |
-| D5.10 | Verify + examples    | 1h   | Not started          |
+| Task  | Description          | Est. | Status |
+| ----- | -------------------- | ---- | ------ |
+| D5.9  | Update Docs/INDEX.md | 0.5h | DONE   |
+| D5.10 | Verify + examples    | 1h   | DONE   |
 
 **Total:** ~10.5h (was 9h, added 1.5h for guardrails)
 

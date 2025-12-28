@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date       | Type     | Summary                                                                                           | Ref     |
 | ---------- | -------- | ------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-28 | feat     | D5 COMPLETE: Autonomy Stack v2 — telemetry, anomaly detection, evidence bundles, learning extraction | —       |
 | 2025-12-28 | docs     | D5 Phase 0: Framework Evolution Guardrails — VERSION.md, CHANGELOG.md, GTRS.md (10 golden tasks)  | —       |
 | 2025-12-28 | feat     | Rule read logging: Windsurf hooks + post_read_code evidence-based logging + working_directory fix | —       |
 | 2025-12-27 | feat     | D5: Autonomy Stack v2 — task boxes, telemetry JSONL, anomaly detection, evidence bundles          | —       |
