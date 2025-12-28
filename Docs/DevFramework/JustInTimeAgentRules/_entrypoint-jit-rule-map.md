@@ -23,21 +23,21 @@
 
 ## Trigger Points
 
-| When                             | Read first                                                                        |
-| -------------------------------- | --------------------------------------------------------------------------------- |
-| **Session start**                | `Docs/DevFramework/JustInTimeAgentRules/session-start.md`                         |
-| **Writing/editing code**         | `Docs/DevFramework/JustInTimeAgentRules/code-quality.md`                          |
-| **Executing commands (watcher)** | `Docs/DevFramework/JustInTimeAgentRules/command-execution.md`                     |
-| **Working on UI (.svelte)**      | `Docs/DevFramework/JustInTimeAgentRules/ui-work.md`                               |
-| **Creating folders/files/docs**  | `Docs/DevFramework/JustInTimeAgentRules/naming-conventions.md`                    |
-| **Creating/updating spec**       | `Docs/DevFramework/JustInTimeAgentRules/spec-writing.md`                          |
-| **Creating/updating plan**       | `Docs/DevFramework/JustInTimeAgentRules/planning.md`                              |
-| **Before implementing**          | `Docs/DevFramework/JustInTimeAgentRules/implementation.md`                        |
-| **Before marking task complete** | Run `/audit` (GPT-5.2 Medium), ensure Evidence Bundle is staged                   |
-| **Before git commit**            | `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`                            |
-| **Starting a task**              | `Docs/DevFramework/TaskQualityAssurance/boxes/<box>.md` (choose box first)        |
-| **Session end**                  | `Docs/DevFramework/JustInTimeAgentRules/session-end.md`                           |
-| **Changing framework docs**      | `Docs/DevFramework/JustInTimeAgentRules/framework-changes.md`                     |
+| When                             | Read first                                                                 |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| **Session start**                | `Docs/DevFramework/JustInTimeAgentRules/session-start.md`                  |
+| **Writing/editing code**         | `Docs/DevFramework/JustInTimeAgentRules/code-quality.md`                   |
+| **Executing commands (watcher)** | `Docs/DevFramework/JustInTimeAgentRules/command-execution.md`              |
+| **Working on UI (.svelte)**      | `Docs/DevFramework/JustInTimeAgentRules/ui-work.md`                        |
+| **Creating folders/files/docs**  | `Docs/DevFramework/JustInTimeAgentRules/naming-conventions.md`             |
+| **Creating/updating spec**       | `Docs/DevFramework/JustInTimeAgentRules/spec-writing.md`                   |
+| **Creating/updating plan**       | `Docs/DevFramework/JustInTimeAgentRules/planning.md`                       |
+| **Before implementing**          | `Docs/DevFramework/JustInTimeAgentRules/implementation.md`                 |
+| **Before marking task complete** | Run `/audit` (GPT-5.2 Medium), ensure Evidence Bundle is staged            |
+| **Before git commit**            | `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`                     |
+| **Starting a task**              | `Docs/DevFramework/TaskQualityAssurance/boxes/<box>.md` (choose box first) |
+| **Session end**                  | `Docs/DevFramework/JustInTimeAgentRules/session-end.md`                    |
+| **Changing framework docs**      | `Docs/DevFramework/JustInTimeAgentRules/framework-changes.md`              |
 
 **Each file has a canary marker. Output it to prove you read it.**
 

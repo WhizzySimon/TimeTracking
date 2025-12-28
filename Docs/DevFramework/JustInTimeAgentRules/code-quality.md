@@ -76,12 +76,12 @@ Names must be **self-explanatory** — no comment needed to understand purpose.
 
 ### Examples
 
-| ❌ Unclear | ✓ Self-Explanatory |
-|-----------|---------------------|
-| `proc()` | `processTimeEntry()` |
-| `data` | `userSettings` |
-| `temp` | `unsavedDraft` |
-| `flag` | `isTimerRunning` |
+| ❌ Unclear | ✓ Self-Explanatory   |
+| ---------- | -------------------- |
+| `proc()`   | `processTimeEntry()` |
+| `data`     | `userSettings`       |
+| `temp`     | `unsavedDraft`       |
+| `flag`     | `isTimerRunning`     |
 
 ---
 

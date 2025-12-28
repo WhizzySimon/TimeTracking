@@ -51,7 +51,7 @@ Key triggers during task execution: writing code, before commit, session end.
   - Do NOT modify existing data in migration
   - null employerId = visible in all employers
 - **Estimated:** 1h
-- **Status:** Pending
+- **Status:** COMPLETE
 - **Dependencies:** A2.1
 
 ---

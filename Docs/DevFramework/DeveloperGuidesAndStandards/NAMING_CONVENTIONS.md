@@ -28,13 +28,13 @@ Names must be **self-documenting** — no README needed to understand purpose.
 
 ### Examples
 
-| ❌ Generic | ✓ Self-Explanatory |
-|-----------|---------------------|
-| `docs/` | `Docs/DevFramework/` |
-| `rules/` | `JustInTimeAgentRules/` |
-| `logs/` | `FrameworkSelfImprovementLogs/` |
-| `utils/` | `scripts/ai/` (purpose-specific) |
-| `misc/` | Never use — find the actual purpose |
+| ❌ Generic | ✓ Self-Explanatory                  |
+| ---------- | ----------------------------------- |
+| `docs/`    | `Docs/DevFramework/`                |
+| `rules/`   | `JustInTimeAgentRules/`             |
+| `logs/`    | `FrameworkSelfImprovementLogs/`     |
+| `utils/`   | `scripts/ai/` (purpose-specific)    |
+| `misc/`    | Never use — find the actual purpose |
 
 ---
 

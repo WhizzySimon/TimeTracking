@@ -17,6 +17,7 @@ export interface Category {
 	type: CategoryType;
 	countsAsWorkTime: boolean;
 	createdAt: number;
+	employerId?: string | null; // null = visible in all employers (AG-FR-030)
 }
 
 /** Shape of default-categories.de.json */
@@ -52,6 +53,7 @@ export interface TimeEntry {
 	description: string | null;
 	createdAt: number;
 	updatedAt: number;
+	employerId?: string | null; // null = visible in all employers (AG-FR-040)
 }
 
 /**
@@ -83,6 +85,7 @@ export interface WorkTimeModel {
 	sundayIsWorkday?: boolean;
 	createdAt: number;
 	updatedAt: number;
+	employerId?: string | null; // null = applies to all employers (AG-FR-020)
 }
 
 /** Sync status for outbox indicator */
