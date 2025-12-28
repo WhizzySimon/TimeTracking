@@ -2,14 +2,24 @@
 
 **This is the ONLY always-on rule.** Keep this table in mind.
 
-**Before EVERY action:**
+---
 
-1. Re-read this file
-2. Check if your next action matches a trigger below
-3. If yes → read ONLY that specific rule file, output its canary
-4. If no → proceed
+## When You Read This File
 
-**Do NOT read all rules at once.** Load rules just-in-time, one at a time, when the trigger fires.
+**Immediately scan your current context** (task file, workflow, user request) and identify which triggers from the table below will apply. **Read those rule files NOW**, before proceeding.
+
+Example: If you're about to implement a task, you will be writing code and committing. Pre-load:
+- `code-quality.md` (writing code trigger)
+- `implementation.md` (before implementing trigger)
+- `pre-commit.md` (before commit trigger)
+
+**This prevents forgetting rules mid-task.** Front-load what you'll need.
+
+---
+
+## During Execution
+
+If a NEW trigger fires that you didn't anticipate, read that rule file before the action.
 
 ---
 
