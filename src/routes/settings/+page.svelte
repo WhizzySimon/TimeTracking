@@ -77,7 +77,7 @@
 			.sort((a, b) => a.name.localeCompare(b.name, 'de'));
 	});
 
-	let arbeitskategorien = $derived(() => {
+	let taetigkeiten = $derived(() => {
 		return $categories
 			.filter((c) => c.countsAsWorkTime)
 			.sort((a, b) => a.name.localeCompare(b.name, 'de'));
@@ -594,7 +594,7 @@
 			{/if}
 		</section>
 
-		<!-- Arbeitskategorien Section -->
+		<!-- Tätigkeiten Section -->
 		<section class="section">
 			<div class="section-header">
 				<button
@@ -603,7 +603,7 @@
 					aria-expanded={expandedSections.arbeit}
 				>
 					<span class="toggle-icon" class:expanded={expandedSections.arbeit}>▶</span>
-					<h2>Arbeitskategorien</h2>
+					<h2>Tätigkeiten</h2>
 				</button>
 				<div class="header-buttons">
 					<div class="menu-container">
@@ -655,10 +655,10 @@
 			</div>
 			{#if expandedSections.arbeit}
 				<div class="list" data-testid="category-list">
-					{#if arbeitskategorien().length === 0}
-						<p class="empty">Keine Arbeitskategorien vorhanden</p>
+					{#if taetigkeiten().length === 0}
+						<p class="empty">Keine Tätigkeiten vorhanden</p>
 					{:else}
-						{#each arbeitskategorien() as category (category.id)}
+						{#each taetigkeiten() as category (category.id)}
 							<div
 								class="list-item clickable"
 								data-testid="category-item"
@@ -747,7 +747,7 @@
 <!-- Add Work Category Modal -->
 {#if showAddCategory}
 	<AddCategoryModal
-		title="Neue Arbeitskategorie"
+		title="Neue Tätigkeit"
 		countsAsWorkTime={true}
 		onsave={() => (showAddCategory = false)}
 		onclose={() => (showAddCategory = false)}

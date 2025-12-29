@@ -379,13 +379,13 @@ Phase 4:
 ## Phase A4: UX Improvements
 
 **Target:** 12 tasks  
-**Status:** Not started  
+**Status:** In progress (1/12)  
 **Spec:** `Docs/Archive/Specs/ux-improvements.md`  
 **Plan:** `Docs/Archive/Plans/ux-improvements.md`
 
 ### Tasks
 
-- [ ] **Task A4.1** — Rename "Arbeitskategorien" → "Tätigkeiten" globally
+- [x] **Task A4.1** — Rename "Arbeitskategorien" → "Tätigkeiten" globally
 - [ ] **Task A4.2** — Rename "Abwesenheitskategorien" → "Abwesenheit" globally
 - [ ] **Task A4.3** — CategoryBadge component
 - [ ] **Task A4.4** — Add badges to Settings category lists
