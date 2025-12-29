@@ -31,19 +31,33 @@
 
 **If session had detours or you're unsure what was completed:** Read `sync-check.md` first.
 
-**EXECUTE IN ORDER — do not skip ahead:**
+**EXECUTE IN ORDER — do not skip ahead.**
+
+**You MUST output this checklist with status for each step before committing:**
 
 ```
-[ ] 1. Sync check — If needed, run sync-check.md to verify what was done
-[ ] 2. Self-learning & improvement — Follow self-learning-system.md (Parts A, B, C)
-[ ] 3. CHANGELOG.md — Added one-line entry for this work
-[ ] 4. DECISIONS.md — If decision was made, added entry
-[ ] 5. IMPLEMENTATION_PROGRESS.md — If tasks added/changed/completed, update progress tracker
-[ ] 6. Spec/Plan/Tasks sync — If Spec changed, check Plan; if Plan changed, check Tasks
-[ ] 7. /audit PASS (see Audit Gate above) — requires steps 1-6 complete
+## Pre-Commit Checklist
+
+[x] 1. Sync check — Not needed (no detours) / Ran sync-check.md
+[x] 2. Self-learning & improvement — Followed self-learning-system.md
+[x] 3. CHANGELOG.md — Added entry for <task>
+[N/A] 4. DECISIONS.md — No decisions / Added entry
+[x] 5. IMPLEMENTATION_PROGRESS.md — Updated <task> status
+[N/A] 6. Spec/Plan/Tasks sync — No changes / Synced
+[x] 7. /audit PASS — Verdict: PASS
 ```
 
-**This is not optional.** Violations: 2025-12-26, 2025-12-27, 2025-12-29.
+**Steps:**
+
+1. **Sync check** — If needed, run sync-check.md to verify what was done
+2. **Self-learning & improvement** — Follow self-learning-system.md (Parts A, B, C)
+3. **CHANGELOG.md** — Add one-line entry for this work
+4. **DECISIONS.md** — If decision was made, add entry
+5. **IMPLEMENTATION_PROGRESS.md** — If tasks added/changed/completed, update tracker
+6. **Spec/Plan/Tasks sync** — If Spec changed, check Plan; if Plan changed, check Tasks
+7. **/audit PASS** — Run audit (see Audit Gate above); requires steps 1-6 complete
+
+**This is not optional.** Show your work.
 
 ---
 
