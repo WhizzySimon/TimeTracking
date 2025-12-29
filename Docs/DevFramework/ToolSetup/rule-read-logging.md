@@ -12,8 +12,8 @@ This system tracks:
 
 ## Storage
 
-| File                                    | Purpose                                                     |
-| --------------------------------------- | ----------------------------------------------------------- |
+| File                                                   | Purpose                                                     |
+| ------------------------------------------------------ | ----------------------------------------------------------- |
 | `scripts/CascadeAgentTools/logs/rule_reads.ndjson`     | Append-only event log                                       |
 | `scripts/CascadeAgentTools/logs/rule_reads_state.json` | Per-trajectory state (cumulative chars, last consult times) |
 
@@ -176,13 +176,14 @@ Experiments on 2025-12-28:
 
 ## Files Changed
 
-| Path                                     | Change                                                          |
-| ---------------------------------------- | --------------------------------------------------------------- |
-| `.windsurf/hooks.json`                   | Created — hook configuration (corrected schema 2025-12-28)      |
-| `.windsurf/hooks/rule_read_logger.py`    | Created — hook script (added post_read_code handler 2025-12-28) |
+| Path                                  | Change                                                          |
+| ------------------------------------- | --------------------------------------------------------------- |
+| `.windsurf/hooks.json`                | Created — hook configuration (corrected schema 2025-12-28)      |
+| `.windsurf/hooks/rule_read_logger.py` | Created — hook script (added post_read_code handler 2025-12-28) |
+
 | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/_entrypoint-jit-rule-map.md` | Updated — added RULE_CONSULTED marker instruction               |
-| `scripts/report_rule_reads.py`           | Created — report generator (added rule_read support 2025-12-28) |
+/_entrypoint-jit-rule-map.md` | Updated — added RULE_CONSULTED marker instruction |
+| `scripts/report_rule_reads.py` | Created — report generator (added rule_read support 2025-12-28) |
 | `Docs/DevFramework/ToolSetup
-/rule-read-logging.md`          | Created — this documentation                                    |
+/rule-read-logging.md` | Created — this documentation |

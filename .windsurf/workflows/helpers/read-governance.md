@@ -7,13 +7,13 @@ Read:
 
 - .windsurf/cascade.md
 - Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
+  Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
 - Docs/DevFramework/ToolSetup
-Framework/ToolSetup
-/BOOTSTRAP.md (tooling entry point — includes watcher + git workflow)
+  Framework/ToolSetup
+  /BOOTSTRAP.md (tooling entry point — includes watcher + git workflow)
 - Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/LEARNINGS.md (proven preferences — read at session start)
+  Framework/FrameworkSelfImprovementLogs
+  /LEARNINGS.md (proven preferences — read at session start)
 
 ## Health Checks (run after reading docs)
 

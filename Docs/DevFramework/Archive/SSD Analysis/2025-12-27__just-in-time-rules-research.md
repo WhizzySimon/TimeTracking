@@ -56,44 +56,45 @@ This approach is called **"just-in-time context fetching"** — load rules when 
 
 #### AGENTS.md (282 lines) — Current Sections
 
-| Section                      | Lines   | Trigger Point       | New Location                    |
-| ---------------------------- | ------- | ------------------- | ------------------------------- |
-| Start-of-session workflow    | 9-16    | Session start       | Docs/DevFramework/ToolSetup
+| Section                   | Lines | Trigger Point | New Location                |
+| ------------------------- | ----- | ------------- | --------------------------- |
+| Start-of-session workflow | 9-16  | Session start | Docs/DevFramework/ToolSetup |
+
 Framework/JustInTimeAgentRules
-/session-start.md     |
-| Mandatory doc loading        | 17-24   | Session start       | Docs/DevFramework/ToolSetup
+/session-start.md |
+| Mandatory doc loading | 17-24 | Session start | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/session-start.md     |
-| Source of truth              | 26-31   | Always (core)       | Keep in dispatcher              |
-| Phase 1-4 Process            | 32-128  | Before implementing | Docs/DevFramework/ToolSetup
+/session-start.md |
+| Source of truth | 26-31 | Always (core) | Keep in dispatcher |
+| Phase 1-4 Process | 32-128 | Before implementing | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/implementation.md    |
-| Git workflow                 | 130-147 | Before commit       | Docs/DevFramework/ToolSetup
+/implementation.md |
+| Git workflow | 130-147 | Before commit | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/pre-commit.md        |
-| Verification                 | 149-160 | After implementing  | Docs/DevFramework/ToolSetup
+/pre-commit.md |
+| Verification | 149-160 | After implementing | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/implementation.md    |
-| Coding rules                 | 162-167 | While implementing  | Docs/DevFramework/ToolSetup
+/implementation.md |
+| Coding rules | 162-167 | While implementing | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/implementation.md    |
-| PWA constraints              | 169-172 | While implementing  | Docs/DevFramework/ToolSetup
+/implementation.md |
+| PWA constraints | 169-172 | While implementing | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/implementation.md    |
-| Single Source of Truth table | 174-188 | Reference           | Keep in dispatcher              |
-| Self-Learning System         | 190-229 | After feedback      | Docs/DevFramework/ToolSetup
+/implementation.md |
+| Single Source of Truth table | 174-188 | Reference | Keep in dispatcher |
+| Self-Learning System | 190-229 | After feedback | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/session-end.md       |
-| Rules for framework changes  | 231-239 | When changing docs  | Docs/DevFramework/ToolSetup
+/session-end.md |
+| Rules for framework changes | 231-239 | When changing docs | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /framework-changes.md |
-| Pre-commit checklist         | 241-251 | Before commit       | Docs/DevFramework/ToolSetup
+| Pre-commit checklist | 241-251 | Before commit | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/pre-commit.md        |
-| Session-end rules            | 253-271 | Session end         | Docs/DevFramework/ToolSetup
+/pre-commit.md |
+| Session-end rules | 253-271 | Session end | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/session-end.md       |
-| Communication style          | 273-282 | Always (core)       | Keep in dispatcher              |
+/session-end.md |
+| Communication style | 273-282 | Always (core) | Keep in dispatcher |
 
 #### .windsurf/rules/ (Always-On Rules)
 
@@ -105,6 +106,7 @@ Framework/JustInTimeAgentRules
 | ui-design-rules.md                    | UI patterns      | Consider trigger-based (only when UI work) |
 
 #### Docs/DevFramework/ToolSetup
+
 Framework/DeveloperGuidesAndStandards
 / (Reference Docs)
 
@@ -119,6 +121,7 @@ Framework/DeveloperGuidesAndStandards
 | UI_LOGIC_SPEC_V1.md                   | Product spec     | When implementing UI           |
 
 #### Docs/DevFramework/ToolSetup
+
 Framework/ToolSetup
 / (Tool Docs)
 
@@ -132,30 +135,31 @@ Framework/ToolSetup
 
 ## Proposed Trigger Points
 
-| Trigger ID | When                          | Files to Read                                        |
-| ---------- | ----------------------------- | ---------------------------------------------------- |
-| T1         | Session start                 | Docs/DevFramework/ToolSetup
+| Trigger ID | When          | Files to Read               |
+| ---------- | ------------- | --------------------------- |
+| T1         | Session start | Docs/DevFramework/ToolSetup |
+
 Framework/JustInTimeAgentRules
-/session-start.md                          |
-| T2         | Before creating/updating spec | Docs/DevFramework/ToolSetup
+/session-start.md |
+| T2 | Before creating/updating spec | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/spec-writing.md                           |
-| T3         | Before creating/updating plan | Docs/DevFramework/ToolSetup
+/spec-writing.md |
+| T3 | Before creating/updating plan | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/planning.md                               |
-| T4         | Before implementing           | Docs/DevFramework/ToolSetup
+/planning.md |
+| T4 | Before implementing | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/implementation.md                         |
-| T5         | Before git commit             | Docs/DevFramework/ToolSetup
+/implementation.md |
+| T5 | Before git commit | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/pre-commit.md                             |
-| T6         | Session end                   | Docs/DevFramework/ToolSetup
+/pre-commit.md |
+| T6 | Session end | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/session-end.md                            |
-| T7         | When changing framework docs  | Docs/DevFramework/ToolSetup
+/session-end.md |
+| T7 | When changing framework docs | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/framework-changes.md                      |
-| T8         | When UI work                  | Docs/DevFramework/ToolSetup
+/framework-changes.md |
+| T8 | When UI work | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /ui-rules.md (or keep in .windsurf/rules/) |
 
@@ -193,26 +197,27 @@ RULE_DISPATCHER.md                   (replaces AGENTS.md, ~50 lines)
 
 ## Trigger Points
 
-| When                   | Read first                   |
-| ---------------------- | ---------------------------- |
-| Session start          | Docs/DevFramework/ToolSetup
+| When          | Read first                  |
+| ------------- | --------------------------- |
+| Session start | Docs/DevFramework/ToolSetup |
+
 Framework/JustInTimeAgentRules
-/session-start.md  |
+/session-start.md |
 | Creating/updating spec | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/spec-writing.md   |
+/spec-writing.md |
 | Creating/updating plan | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/planning.md       |
-| Before implementing    | Docs/DevFramework/ToolSetup
+/planning.md |
+| Before implementing | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /implementation.md |
-| Before git commit      | Docs/DevFramework/ToolSetup
+| Before git commit | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/pre-commit.md     |
-| Session end            | Docs/DevFramework/ToolSetup
+/pre-commit.md |
+| Session end | Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/session-end.md    |
+/session-end.md |
 
 ## Quick Reference
 
@@ -220,8 +225,8 @@ Framework/JustInTimeAgentRules
 - Plans: Docs/Features/Plans/<feature>.md
 - Tasks: Docs/Features/Tasks/<feature>.md
 - Changelog: Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/CHANGELOG.md
+  Framework/FrameworkSelfImprovementLogs
+  /CHANGELOG.md
 ```
 
 ---
@@ -275,8 +280,8 @@ When implementing, ensure nothing is lost:
 - [ ] code-quality-rules.md → KEEP (always-on, needed when coding)
 - [ ] command-execution-rules.md → KEEP (always-on, needed for watcher)
 - [ ] implementation-specification-rules.md → REVIEW (might merge into Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
-/)
+      Framework/JustInTimeAgentRules
+      /)
 - [ ] ui-design-rules.md → REVIEW (might trigger-based for UI work only)
 
 ---
@@ -292,5 +297,5 @@ See **`Docs/IMPLEMENTATION_PROGRESS.md`** → Phase D4 for detailed task breakdo
 - [x] Approve trigger points (T1-T7) — **APPROVED** (2025-12-27)
 - [x] Choose name for dispatcher file — **RULE_MAP.md** (2025-12-27)
 - [x] Confirm Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
-/ as location for trigger-based rules — **APPROVED** (2025-12-27)
+      Framework/JustInTimeAgentRules
+      / as location for trigger-based rules — **APPROVED** (2025-12-27)

@@ -11,8 +11,8 @@ Extract high-signal SDD practices from a transcript (not raw text).
 
 3. Create:
    - Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/TRANSCRIPT-INSIGHTS\_\_<OUTPUT_NAME>.md
+     Framework/FrameworkSelfImprovementLogs
+     /TRANSCRIPT-INSIGHTS\_\_<OUTPUT_NAME>.md
 
 Rules:
 

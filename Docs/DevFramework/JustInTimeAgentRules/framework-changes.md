@@ -15,34 +15,35 @@
 
 ## Single Source of Truth
 
-| Content Type         | Canonical Location                             | Notes                                                             |
-| -------------------- | ---------------------------------------------- | ----------------------------------------------------------------- |
-| **Process rules**    | `RULE_MAP.md`                                  | Session workflow, git rules, verification, coding rules           |
-| **Always-on rules**  | `.windsurf/rules/*.md`                         | Auto-loaded every session (code-quality, command-execution, etc.) |
-| **Workflows**        | `.windsurf/workflows/`                         | ONLY orchestrate — reference docs, never duplicate content        |
-| **Coding standards** | `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/`                | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc.                  |
-| **Tooling docs**     | `Docs/DevFramework/ToolSetup
+| Content Type                            | Canonical Location                               | Notes                                                             |
+| --------------------------------------- | ------------------------------------------------ | ----------------------------------------------------------------- |
+| **Process rules**                       | `RULE_MAP.md`                                    | Session workflow, git rules, verification, coding rules           |
+| **Always-on rules**                     | `.windsurf/rules/*.md`                           | Auto-loaded every session (code-quality, command-execution, etc.) |
+| **Workflows**                           | `.windsurf/workflows/`                           | ONLY orchestrate — reference docs, never duplicate content        |
+| **Coding standards**                    | `Docs/DevFramework/ToolSetup                     |
+| Framework/DeveloperGuidesAndStandards/` | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc. |
+| **Tooling docs**                        | `Docs/DevFramework/ToolSetup                     |
+
 Framework/ToolSetup
-/`                   | Watcher, git workflow, bootstrap                                  |
-| **App specs**        | `Docs/AppDocs/Features/Specs/`, `Plans/`, `Tasks/`      | Per-feature app documentation                                     |
-| **Framework specs**  | `Docs/DevFramework/ToolSetup
+/`                  | Watcher, git workflow, bootstrap                                  |
+| **App specs**        |`Docs/AppDocs/Features/Specs/`, `Plans/`, `Tasks/`     | Per-feature app documentation                                     |
+| **Framework specs**  |`Docs/DevFramework/ToolSetup
 Framework/FrameworkFeatureSpecs
-/`, `Plans/`, `Tasks/` | Per-feature framework documentation                               |
-| **Dev history**      | `Docs/DevFramework/ToolSetup
+/`, `Plans/`, `Tasks/`| Per-feature framework documentation                               |
+| **Dev history**      |`Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/CHANGELOG.md`        | One line per commit                                               |
-| **Decisions**        | `Docs/DevFramework/ToolSetup
+/CHANGELOG.md`       | One line per commit                                               |
+| **Decisions**        |`Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/DECISIONS.md`        | Architecture/policy decisions (ADR-light)                         |
-| **Learnings**        | `Docs/DevFramework/ToolSetup
+/DECISIONS.md`       | Architecture/policy decisions (ADR-light)                         |
+| **Learnings**        |`Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/LEARNINGS.md`        | Proven preferences (max 30 bullets)                               |
-| **Learnings Inbox**  | `Docs/DevFramework/ToolSetup
+/LEARNINGS.md`       | Proven preferences (max 30 bullets)                               |
+| **Learnings Inbox**  |`Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/LEARNINGS-INBOX.md`  | Raw feedback capture (unbounded, low priority)                    |
-| **Trigger rules**    | `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/`                     | Just-in-time rules loaded at specific triggers                    |
+/LEARNINGS-INBOX.md` | Raw feedback capture (unbounded, low priority)                    |
+| **Trigger rules**    |`Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/` | Just-in-time rules loaded at specific triggers |
 
 ---
 

@@ -66,7 +66,7 @@ Files inspected:
 6. **No E2E tests** — Only integration tests for external services (Azure, SharePoint)
 7. **No CI/CD pipeline** — All verification is manual
 8. **No mandatory doc inventory** — Workflows read files but no structured inventory in responses
-10. **No commit conventions** — No conventional commits format documented
+9. **No commit conventions** — No conventional commits format documented
 
 ## "Best-of" Adoptable Practices for TimeTracker (max 10)
 

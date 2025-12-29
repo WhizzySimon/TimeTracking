@@ -49,24 +49,24 @@ Categories: **Hard Rule** | **Preference** | **Reminder**
 
 When a Distillate item is categorized as **Hard Rule**, add it to the **appropriate trigger-based rule file**:
 
-| Rule is about...                      | Add to                                         |
-| ------------------------------------- | ---------------------------------------------- |
-| Session start workflow                | `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/session-start.md`     |
-| Writing specs                         | `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/spec-writing.md`      |
-| Creating plans                        | `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/planning.md`          |
-| Implementation/coding                 | `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/implementation.md`    |
-| Pre-commit checklist                  | `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/pre-commit.md`        |
-| Session end workflow                  | `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/session-end.md`       |
-| Framework doc changes                 | `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/framework-changes.md` |
-| Always needed (coding style, watcher) | `.windsurf/rules/`                             |
-| Core principles                       | `RULE_MAP.md`                                  |
+| Rule is about...                                     | Add to                       |
+| ---------------------------------------------------- | ---------------------------- |
+| Session start workflow                               | `Docs/DevFramework/ToolSetup |
+| Framework/JustInTimeAgentRules/session-start.md`     |
+| Writing specs                                        | `Docs/DevFramework/ToolSetup |
+| Framework/JustInTimeAgentRules/spec-writing.md`      |
+| Creating plans                                       | `Docs/DevFramework/ToolSetup |
+| Framework/JustInTimeAgentRules/planning.md`          |
+| Implementation/coding                                | `Docs/DevFramework/ToolSetup |
+| Framework/JustInTimeAgentRules/implementation.md`    |
+| Pre-commit checklist                                 | `Docs/DevFramework/ToolSetup |
+| Framework/JustInTimeAgentRules/pre-commit.md`        |
+| Session end workflow                                 | `Docs/DevFramework/ToolSetup |
+| Framework/JustInTimeAgentRules/session-end.md`       |
+| Framework doc changes                                | `Docs/DevFramework/ToolSetup |
+| Framework/JustInTimeAgentRules/framework-changes.md` |
+| Always needed (coding style, watcher)                | `.windsurf/rules/`           |
+| Core principles                                      | `RULE_MAP.md`                |
 
 **Do NOT add rules to a general location.** Route them to the specific trigger file so they are loaded at the right time.
 

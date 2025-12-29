@@ -30,14 +30,14 @@ All names must be **self-explanatory without opening the item**.
 
 ## Examples
 
-| ❌ Generic | ✓ Self-Explanatory                  |
-| ---------- | ----------------------------------- |
-| `docs/`    | `Docs/DevFramework/ToolSetup
-Framework/`                |
-| `rules/`   | `JustInTimeAgentRules/`             |
-| `logs/`    | `FrameworkSelfImprovementLogs/`     |
-| `utils/`   | `scripts/CascadeAgentTools/` (purpose-specific)    |
-| `misc/`    | Never use — find the actual purpose |
+| ❌ Generic  | ✓ Self-Explanatory                              |
+| ----------- | ----------------------------------------------- |
+| `docs/`     | `Docs/DevFramework/ToolSetup                    |
+| Framework/` |
+| `rules/`    | `JustInTimeAgentRules/`                         |
+| `logs/`     | `FrameworkSelfImprovementLogs/`                 |
+| `utils/`    | `scripts/CascadeAgentTools/` (purpose-specific) |
+| `misc/`     | Never use — find the actual purpose             |
 
 ---
 

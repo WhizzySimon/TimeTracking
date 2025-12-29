@@ -184,7 +184,7 @@ Status-Regel:
 
 - Created: <Devlog path>
 - Updated: Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/INDEX.md
+  Framework/FrameworkSelfImprovementLogs
+  /INDEX.md
 - Top Decisions: D1–D3
 - Top Follow-ups: F1–F3

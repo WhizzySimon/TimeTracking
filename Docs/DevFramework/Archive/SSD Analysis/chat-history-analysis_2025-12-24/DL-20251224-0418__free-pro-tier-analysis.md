@@ -12,8 +12,8 @@
 - Tasks: NONE
 - Progress: NONE
 - Other referenced docs: Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
-/ui-logic-spec-v1.md
+  Framework/DeveloperGuidesAndStandards
+  /ui-logic-spec-v1.md
 
 ## Decisions (aus Chat)
 

@@ -324,20 +324,21 @@ Framework/IMPLEMENTATION_PROGRESS.md` angelegt
 
 ## Quick Reference
 
-| Was               | Wo                                                                   |
-| ----------------- | -------------------------------------------------------------------- |
-| Spec Template     | `Docs/Features/Specs/_template.md`                                            |
-| Plan Template     | `Docs/Features/Plans/_template.md`                                            |
-| Tasks Template    | `Docs/Features/Tasks/_template.md`                                            |
-| Progress Tracker  | `Docs/DevFramework/ToolSetup
-Framework/IMPLEMENTATION_PROGRESS.md`                       |
-| FR/IG/DD Regeln   | `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md` |
-| Command Execution | `Docs/DevFramework/ToolSetup
+| Was                                                                          | Wo                                 |
+| ---------------------------------------------------------------------------- | ---------------------------------- |
+| Spec Template                                                                | `Docs/Features/Specs/_template.md` |
+| Plan Template                                                                | `Docs/Features/Plans/_template.md` |
+| Tasks Template                                                               | `Docs/Features/Tasks/_template.md` |
+| Progress Tracker                                                             | `Docs/DevFramework/ToolSetup       |
+| Framework/IMPLEMENTATION_PROGRESS.md`                                        |
+| FR/IG/DD Regeln                                                              | `Docs/DevFramework/ToolSetup       |
+| Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md` |
+| Command Execution                                                            | `Docs/DevFramework/ToolSetup       |
+
 Framework/ToolSetup
-/command-execution-rules.md`               |
-| Pre-Commit Rules  | `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/pre-commit.md`                              |
+/command-execution-rules.md`              |
+| Pre-Commit Rules  |`Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/pre-commit.md` |
 
 ---
 

@@ -61,9 +61,7 @@ Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Wo
    - Jeder Task hat: Files, Done when, Verify, Guardrails
 
 10. Füge neue Phase in `Docs/DevFramework/ToolSetup
-Framework/IMPLEMENTATION_PROGRESS.md` hinzu
-    - Phase-Header mit Status "Not started"
-    - Alle Tasks als [ ] (unchecked)
+Framework/IMPLEMENTATION_PROGRESS.md` hinzu - Phase-Header mit Status "Not started" - Alle Tasks als [ ] (unchecked)
 
 11. Checkpoint:
     - [ ] Alle Tasks haben klare "Done when" Kriterien
@@ -84,14 +82,7 @@ Framework/IMPLEMENTATION_PROGRESS.md` hinzu
 13. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. Soll ich mit Task 1 beginnen?"
 
 14. Bei "Ja": Starte Implementation gemäß Task-Workflow (see `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md`):
-    - Code implementieren
-    - `npm run verify`
-    - Unit Tests (wenn vorhanden)
-    - MCP Playwright Browser Test
-    - Progress Tracker updaten
-    - Changelog updaten
-    - Git Commit (follow `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md`): - Code implementieren - `npm run verify` - Unit Tests (wenn vorhanden) - MCP Playwright Browser Test - Progress Tracker updaten - Changelog updaten - Git Commit (follow `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules/pre-commit.md`)
 
 ---

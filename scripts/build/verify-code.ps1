@@ -27,6 +27,13 @@ $tagOutput | Out-File -FilePath $outputFile -Append -Encoding utf8
 if ($LASTEXITCODE -ne 0) { $allPassed = $false }
 "" | Out-File -FilePath $outputFile -Append -Encoding utf8
 
+# Step 0.5: Validate naming conventions
+"--- Step 0.5: Validate naming conventions ---" | Out-File -FilePath $outputFile -Append -Encoding utf8
+$namingOutput = node scripts/build/validate-naming.js 2>&1 | Out-String
+$namingOutput | Out-File -FilePath $outputFile -Append -Encoding utf8
+if ($LASTEXITCODE -ne 0) { $allPassed = $false }
+"" | Out-File -FilePath $outputFile -Append -Encoding utf8
+
 # Step 1: Format
 "--- Step 1: npm run format ---" | Out-File -FilePath $outputFile -Append -Encoding utf8
 $formatOutput = npm run format 2>&1 | Out-String

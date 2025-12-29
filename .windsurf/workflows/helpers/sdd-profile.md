@@ -9,11 +9,11 @@ Create a comparable SDD profile document for ONE target (repo root) using the st
 
 2. Read:
    - Docs/DevFramework/ToolSetup
-Framework/SDD/Profiles/SDD_PROFILE\_\_RUNBOOK.md
+     Framework/SDD/Profiles/SDD_PROFILE\_\_RUNBOOK.md
    - Docs/DevFramework/ToolSetup
-Framework/SDD/Profiles/SDD_PROFILE\_\_TEMPLATE.md
+     Framework/SDD/Profiles/SDD_PROFILE\_\_TEMPLATE.md
    - (Within TARGET root) any AGENTS.md, Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/, Docs/AppDocs/Features/Specs/\_template.md, Docs/AppDocs/Features/Tasks/\_template.md, .windsurf/workflows/*, scripts/*verify\*, package.json, test config, devlog files if present.
+     Framework/DeveloperGuidesAndStandards/, Docs/AppDocs/Features/Specs/\_template.md, Docs/AppDocs/Features/Tasks/\_template.md, .windsurf/workflows/*, scripts/*verify\*, package.json, test config, devlog files if present.
 
 3. Evidence rule (mandatory):
    - Every claim must include an evidence pointer: file path + brief snippet reference.
@@ -26,7 +26,7 @@ Framework/DeveloperGuidesAndStandards/, Docs/AppDocs/Features/Specs/\_template.m
 
 5. Write output:
    - Docs/DevFramework/ToolSetup
-Framework/SDD/Profiles/SDD_PROFILE\_\_<OUTPUT_NAME>.md
+     Framework/SDD/Profiles/SDD_PROFILE\_\_<OUTPUT_NAME>.md
 
 6. Final response (ONLY):
    - Created: <path>

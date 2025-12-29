@@ -119,6 +119,29 @@ Evaluate:
 - Are there missing tests or documentation for the changes?
 - Risk classification: low / medium / high
 
+### Naming Convention Review (semantic)
+
+For each new/modified identifier in the diff, check:
+
+1. **Clarity test:** "Would a new team member understand this without reading surrounding code?"
+   - If NO → flag as WARNING
+   - Examples of unclear: `data`, `temp`, `handler`, `process`
+   - Examples of clear: `userSettings`, `unsavedDraft`, `handleTimeEntrySubmit`
+
+2. **Boolean prefix:** Do boolean variables start with `is/has/can/should/will/was/did`?
+   - If missing → WARNING
+   - Example: `active` → should be `isActive`
+
+3. **Abbreviation check:** Does it use banned abbreviations?
+   - FAIL if found: `cfg`, `msg`, `err`, `tmp`, `val`, `str`, `btn`, `idx`, `fn`, `cb`, `ctx`, `util`, `misc`
+   - Allowed: `id`, `db`, `url`, `api`, `ui`, `html`, `css`, `json`, `pdf`
+
+4. **Length check:**
+   - < 3 chars (except `i`, `j`, `k`, `x`, `y`, `id`): FAIL
+   - > 5 words in identifier: WARNING
+
+**Reference:** `Docs/DevFramework/JustInTimeAgentRules/code-quality.md` § Code Naming
+
 ---
 
 ## Step 5 — Verdict + Output

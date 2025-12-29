@@ -9,85 +9,86 @@
 
 ### A. Instruction Surface Inventory
 
-| Path                                                    | Scope  | Trigger/Load Method            | Size       | Priority        |
-| ------------------------------------------------------- | ------ | ------------------------------ | ---------- | --------------- |
+| Path                                                    | Scope  | Trigger/Load Method         | Size      | Priority        |
+| ------------------------------------------------------- | ------ | --------------------------- | --------- | --------------- |
 | **Always-On Rules (.windsurf/rules/)**                  |
-| `.windsurf/rules/code-quality-rules.md`                 | Global | `trigger: always_on` (auto)    | 94 lines   | Core invariant  |
-| `.windsurf/rules/command-execution-rules.md`            | Global | `trigger: always_on` (auto)    | 16 lines   | Core invariant  |
-| `.windsurf/rules/implementation-specification-rules.md` | Global | `trigger: always_on` (auto)    | 38 lines   | Core invariant  |
-| `.windsurf/rules/ui-design-rules.md`                    | Global | `trigger: always_on` (auto)    | 109 lines  | Core invariant  |
+| `.windsurf/rules/code-quality-rules.md`                 | Global | `trigger: always_on` (auto) | 94 lines  | Core invariant  |
+| `.windsurf/rules/command-execution-rules.md`            | Global | `trigger: always_on` (auto) | 16 lines  | Core invariant  |
+| `.windsurf/rules/implementation-specification-rules.md` | Global | `trigger: always_on` (auto) | 38 lines  | Core invariant  |
+| `.windsurf/rules/ui-design-rules.md`                    | Global | `trigger: always_on` (auto) | 109 lines | Core invariant  |
 | **Rule Dispatcher**                                     |
-| `RULE_MAP.md`                                           | Global | Manual reference               | 52 lines   | Core dispatcher |
+| `RULE_MAP.md`                                           | Global | Manual reference            | 52 lines  | Core dispatcher |
+
 | **JIT Rules (Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/)**                             |
+/)** |
 | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/session-start.md`                           | Phase  | Manual (at session start)      | 33 lines   | Phase-specific  |
+/session-start.md` | Phase | Manual (at session start) | 33 lines | Phase-specific |
 | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/spec-writing.md`                            | Phase  | Manual (when creating spec)    | 38 lines   | Phase-specific  |
+/spec-writing.md` | Phase | Manual (when creating spec) | 38 lines | Phase-specific |
 | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/planning.md`                                | Phase  | Manual (when planning)         | 51 lines   | Phase-specific  |
+/planning.md` | Phase | Manual (when planning) | 51 lines | Phase-specific |
 | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/implementation.md`                          | Phase  | Manual (before coding)         | 66 lines   | Phase-specific  |
+/implementation.md` | Phase | Manual (before coding) | 66 lines | Phase-specific |
 | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/pre-commit.md`                              | Phase  | Manual (before commit)         | 50 lines   | Phase-specific  |
+/pre-commit.md` | Phase | Manual (before commit) | 50 lines | Phase-specific |
 | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/session-end.md`                             | Phase  | Manual (at session end)        | 85 lines   | Phase-specific  |
+/session-end.md` | Phase | Manual (at session end) | 85 lines | Phase-specific |
 | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/framework-changes.md`                       | Phase  | Manual (when changing docs)    | 37 lines   | Phase-specific  |
-| **Workflows (.windsurf/workflows/)**                    |
-| `entrypoints/new-task.md`                               | Entry  | `/new-task` slash command      | 69 lines   | Entry point     |
-| `entrypoints/new-feature.md`                            | Entry  | `/new-feature` slash command   | 121 lines  | Entry point     |
-| `entrypoints/continue-work.md`                          | Entry  | `/continue-work` slash command | 71 lines   | Entry point     |
-| `entrypoints/continue-work-auto-continue.md`            | Entry  | `/continue-work-auto-continue` | 89 lines   | Entry point     |
-| `helpers/read-governance.md`                            | Helper | Called by entrypoints          | 23 lines   | Internal        |
-| `helpers/rules-read-all.md`                             | Helper | Called by entrypoints          | 17 lines   | Internal        |
-| `helpers/read-core-docs-and-code.md`                    | Helper | Called by entrypoints          | 55 lines   | Internal        |
-| `helpers/sdd-profile.md`                                | Helper | Manual                         | 31 lines   | Utility         |
-| `helpers/sdd-transcript-insights.md`                    | Helper | Manual                         | —          | Utility         |
-| **Doc Hierarchy**                                       |
-| `Docs/INDEX.md`                                         | Global | Referenced as source of truth  | 116 lines  | Core invariant  |
-| `.windsurf/cascade.md`                                  | Global | Windsurf-specific config       | 44 lines   | Core invariant  |
-| `START_HERE.md`                                         | Info   | Human quickstart (non-auth)    | 49 lines   | Reference       |
-| **Guidelines (Reference Docs)**                         |
+/framework-changes.md` | Phase | Manual (when changing docs) | 37 lines | Phase-specific |
+| **Workflows (.windsurf/workflows/)** |
+| `entrypoints/new-task.md` | Entry | `/new-task` slash command | 69 lines | Entry point |
+| `entrypoints/new-feature.md` | Entry | `/new-feature` slash command | 121 lines | Entry point |
+| `entrypoints/continue-work.md` | Entry | `/continue-work` slash command | 71 lines | Entry point |
+| `entrypoints/continue-work-auto-continue.md` | Entry | `/continue-work-auto-continue` | 89 lines | Entry point |
+| `helpers/read-governance.md` | Helper | Called by entrypoints | 23 lines | Internal |
+| `helpers/rules-read-all.md` | Helper | Called by entrypoints | 17 lines | Internal |
+| `helpers/read-core-docs-and-code.md` | Helper | Called by entrypoints | 55 lines | Internal |
+| `helpers/sdd-profile.md` | Helper | Manual | 31 lines | Utility |
+| `helpers/sdd-transcript-insights.md` | Helper | Manual | — | Utility |
+| **Doc Hierarchy** |
+| `Docs/INDEX.md` | Global | Referenced as source of truth | 116 lines | Core invariant |
+| `.windsurf/cascade.md` | Global | Windsurf-specific config | 44 lines | Core invariant |
+| `START_HERE.md` | Info | Human quickstart (non-auth) | 49 lines | Reference |
+| **Guidelines (Reference Docs)** |
 | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/SPEC_DRIVEN_DEVELOPMENT.md`            | Ref    | Manual                         | 330 lines  | Reference       |
+/SPEC_DRIVEN_DEVELOPMENT.md` | Ref | Manual | 330 lines | Reference |
 | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/IMPLEMENTATION_SPECIFICATION_RULES.md` | Ref    | Manual                         | 118 lines  | Reference       |
+/IMPLEMENTATION_SPECIFICATION_RULES.md` | Ref | Manual | 118 lines | Reference |
 | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/DEVELOPMENT_GUIDELINES.md`             | Ref    | Manual                         | 6525 bytes | Reference       |
+/DEVELOPMENT_GUIDELINES.md` | Ref | Manual | 6525 bytes | Reference |
 | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/UI_LOGIC_SPEC_V1.md`                   | Ref    | Manual                         | 8032 bytes | Reference       |
+/UI_LOGIC_SPEC_V1.md` | Ref | Manual | 8032 bytes | Reference |
 | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/TECHNICAL_GUIDELINE_V1.md`             | Ref    | Manual                         | 9070 bytes | Reference       |
+/TECHNICAL_GUIDELINE_V1.md` | Ref | Manual | 9070 bytes | Reference |
 | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/SVELTEKIT_PWA_ADDENDUM.md`             | Ref    | Manual                         | 4748 bytes | Reference       |
-| **Learning/Memory Artifacts**                           |
+/SVELTEKIT_PWA_ADDENDUM.md` | Ref | Manual | 4748 bytes | Reference |
+| **Learning/Memory Artifacts** |
 | `Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/LEARNINGS.md`                              | Memory | Manual (session start)         | 31 lines   | Core memory     |
+/LEARNINGS.md` | Memory | Manual (session start) | 31 lines | Core memory |
 | `Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/LEARNINGS-INBOX.md`                        | Memory | Manual (session end)           | 40 lines   | Capture buffer  |
+/LEARNINGS-INBOX.md` | Memory | Manual (session end) | 40 lines | Capture buffer |
 | `Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/DECISIONS.md`                              | Memory | Manual                         | 94 lines   | Decision log    |
+/DECISIONS.md` | Memory | Manual | 94 lines | Decision log |
 | `Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/CHANGELOG.md`                              | Memory | Manual (pre-commit)            | 58 lines   | History         |
+/CHANGELOG.md` | Memory | Manual (pre-commit) | 58 lines | History |
 
 **Total Always-On Context:** ~257 lines (4 files in `.windsurf/rules/`)  
 **Total JIT Context:** ~360 lines (7 files in `Docs/DevFramework/ToolSetup
@@ -98,12 +99,13 @@ Framework/JustInTimeAgentRules
 
 ### B. Knowledge Box Map (Current vs Intended)
 
-| Trigger/Phase      | What SHOULD Load                                          | What CURRENTLY Loads                                                                       | Gap Analysis                                                                      |
-| ------------------ | --------------------------------------------------------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| **Session Start**  | `Docs/DevFramework/ToolSetup
+| Trigger/Phase     | What SHOULD Load             | What CURRENTLY Loads | Gap Analysis |
+| ----------------- | ---------------------------- | -------------------- | ------------ |
+| **Session Start** | `Docs/DevFramework/ToolSetup |
+
 Framework/JustInTimeAgentRules
-/session-start.md`, `LEARNINGS.md`, `INDEX.md` | Via `/new-task` or `/continue-work`: reads `.windsurf/rules/*`, `INDEX.md`, `LEARNINGS.md` | ✅ Mostly correct. Gap: Not all workflows call `/rules-read-all` first.           |
-| **Spec Writing**   | `Docs/DevFramework/ToolSetup
+/session-start.md`, `LEARNINGS.md`, `INDEX.md`| Via`/new-task`or`/continue-work`: reads `.windsurf/rules/\*`, `INDEX.md`, `LEARNINGS.md`| ✅ Mostly correct. Gap: Not all workflows call`/rules-read-all`first.           |
+| **Spec Writing**   |`Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /spec-writing.md`, spec template               | Manual — must remember to read                                                             | ⚠️ Gap: No automatic trigger. Relies on RULE_MAP reference in always-on rule.     |
 | **Planning**       | `Docs/DevFramework/ToolSetup
@@ -114,12 +116,12 @@ Framework/JustInTimeAgentRules
 /implementation.md`, relevant spec/plan/tasks  | Manual — must remember to read                                                             | ⚠️ Gap: No automatic trigger. Workflows reference it but don't enforce reading.   |
 | **Pre-commit**     | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/pre-commit.md`                                | Manual — must remember to read                                                             | ⚠️ Gap: Critical! Pre-commit rules forgotten (violations 2025-12-26, 2025-12-27). |
-| **Session End**    | `Docs/DevFramework/ToolSetup
+/pre-commit.md`                               | Manual — must remember to read                                                             | ⚠️ Gap: Critical! Pre-commit rules forgotten (violations 2025-12-26, 2025-12-27). |
+| **Session End**    |`Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/session-end.md`, `LEARNINGS-INBOX.md`         | Manual — must remember to read                                                             | ⚠️ Gap: Self-learning not reliably invoked.                                       |
+/session-end.md`, `LEARNINGS-INBOX.md`        | Manual — must remember to read                                                             | ⚠️ Gap: Self-learning not reliably invoked.                                       |
 | **Debugging**      | N/A (no specific rules)                                   | N/A                                                                                        | ✅ OK — uses general implementation rules.                                        |
-| **UI Work**        | `.windsurf/rules/ui-design-rules.md`                      | Always-on (auto-loaded)                                                                    | ⚠️ Overload: Loaded even for non-UI work. 109 lines always in context.            |
+| **UI Work**        |`.windsurf/rules/ui-design-rules.md` | Always-on (auto-loaded) | ⚠️ Overload: Loaded even for non-UI work. 109 lines always in context. |
 
 ---
 
@@ -185,6 +187,7 @@ Framework/JustInTimeAgentRules
 
 ```markdown
 ## Verification (add to top of each Docs/DevFramework/ToolSetup
+
 Framework/JustInTimeAgentRules
 /\*.md)
 
@@ -204,26 +207,28 @@ Framework/JustInTimeAgentRules
 
 ### B. Proposed Workflow Updates
 
-| Workflow           | Current Issue                            | Proposed Fix                                                                                           |
-| ------------------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `new-task.md`      | Duplicates "After task completion" steps | Remove lines 38-69, replace with: "Follow `Docs/DevFramework/ToolSetup
+| Workflow      | Current Issue                            | Proposed Fix                                                           |
+| ------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
+| `new-task.md` | Duplicates "After task completion" steps | Remove lines 38-69, replace with: "Follow `Docs/DevFramework/ToolSetup |
+
 Framework/JustInTimeAgentRules
-/pre-commit.md` then `Docs/DevFramework/ToolSetup
+/pre-commit.md`then`Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /session-end.md`" |
-| `continue-work.md` | Same duplication                         | Same fix                                                                                               |
-| `new-feature.md`   | Same duplication                         | Same fix                                                                                               |
+| `continue-work.md`| Same duplication                         | Same fix                                                                                               |
+|`new-feature.md` | Same duplication | Same fix |
 
 ### C. Proposed Rule Splitting/Summarization
 
-| File                                                    | Current Lines | Proposed Action                                                                       |
-| ------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------- |
-| `.windsurf/rules/ui-design-rules.md`                    | 109           | Move to `Docs/DevFramework/ToolSetup
+| File                                 | Current Lines | Proposed Action                      |
+| ------------------------------------ | ------------- | ------------------------------------ |
+| `.windsurf/rules/ui-design-rules.md` | 109           | Move to `Docs/DevFramework/ToolSetup |
+
 Framework/JustInTimeAgentRules
-/ui-work.md` (JIT), keep 10-line summary in always-on with pointer |
-| `.windsurf/rules/code-quality-rules.md`                 | 94            | Keep as-is (genuinely always needed)                                                  |
-| `.windsurf/rules/command-execution-rules.md`            | 16            | Keep as-is (critical for watcher)                                                     |
-| `.windsurf/rules/implementation-specification-rules.md` | 38            | Keep as-is (bootstrap pointer to JIT rules)                                           |
+/ui-work.md`(JIT), keep 10-line summary in always-on with pointer |
+|`.windsurf/rules/code-quality-rules.md`                | 94            | Keep as-is (genuinely always needed)                                                  |
+|`.windsurf/rules/command-execution-rules.md`           | 16            | Keep as-is (critical for watcher)                                                     |
+|`.windsurf/rules/implementation-specification-rules.md` | 38 | Keep as-is (bootstrap pointer to JIT rules) |
 
 **Net effect:** Always-on context reduced from ~257 to ~158 lines.
 
@@ -286,13 +291,14 @@ If this marker does not appear before a commit, the rule was not loaded.
 
 **Test Scenario:**
 
-| Step | Action                                             | Expected                                 |
-| ---- | -------------------------------------------------- | ---------------------------------------- |
-| 1    | User says "I want to commit my changes"            | Cascade reads `Docs/DevFramework/ToolSetup
+| Step | Action                                  | Expected                                   |
+| ---- | --------------------------------------- | ------------------------------------------ |
+| 1    | User says "I want to commit my changes" | Cascade reads `Docs/DevFramework/ToolSetup |
+
 Framework/JustInTimeAgentRules
-/pre-commit.md` |
-| 2    | Cascade outputs `[CANARY] pre-commit rules loaded` | Confirms rule was loaded                 |
-| 3    | Cascade follows pre-commit checklist               | Confirms rule was applied                |
+/pre-commit.md`|
+| 2    | Cascade outputs`[CANARY] pre-commit rules loaded` | Confirms rule was loaded |
+| 3 | Cascade follows pre-commit checklist | Confirms rule was applied |
 
 **Pass/Fail Criteria:**
 
@@ -322,15 +328,16 @@ Framework/JustInTimeAgentRules
 
 **Verdict: Partially implemented (70%)**
 
-| Concept                     | Implemented? | Notes                                                             |
-| --------------------------- | ------------ | ----------------------------------------------------------------- |
-| Knowledge boxes (JIT rules) | ✅ Yes       | `Docs/DevFramework/ToolSetup
+| Concept                     | Implemented? | Notes                        |
+| --------------------------- | ------------ | ---------------------------- |
+| Knowledge boxes (JIT rules) | ✅ Yes       | `Docs/DevFramework/ToolSetup |
+
 Framework/JustInTimeAgentRules
-/` folder with 7 trigger-based files                   |
-| Finite attention management | ⚠️ Partial   | Always-on rules at ~257 lines (borderline); UI rules could be JIT |
-| Learning loop               | ⚠️ Partial   | Capture works; promotion manual; enforcement unclear              |
-| Phase awareness             | ✅ Yes       | RULE_MAP.md defines 7 trigger points                              |
-| Verification (canary)       | ❌ No        | No mechanism exists                                               |
+/` folder with 7 trigger-based files |
+| Finite attention management | ⚠️ Partial | Always-on rules at ~257 lines (borderline); UI rules could be JIT |
+| Learning loop | ⚠️ Partial | Capture works; promotion manual; enforcement unclear |
+| Phase awareness | ✅ Yes | RULE_MAP.md defines 7 trigger points |
+| Verification (canary) | ❌ No | No mechanism exists |
 
 ### Priority Actions (in order)
 

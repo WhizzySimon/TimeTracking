@@ -26,8 +26,8 @@ Framework/NewFeatureTesting
 - D4: Add npm scripts for webkit and Mobile Safari testing — Reason: Provide convenient shortcuts for common test commands — Evidence: User request Step 3 "Add npm scripts (optional but recommended)"
 
 - D5: Create runbook documentation in Docs/DevFramework/ToolSetup
-Framework/NewFeatureTesting
-/ folder — Reason: Document exact watcher-triggered commands for future reference — Evidence: User request Step 4 "output a short 'Runbook' in a markdown file, e.g. docs/testing-safari-like.md"
+  Framework/NewFeatureTesting
+  / folder — Reason: Document exact watcher-triggered commands for future reference — Evidence: User request Step 4 "output a short 'Runbook' in a markdown file, e.g. docs/testing-safari-like.md"
 
 ## Deltas
 
@@ -46,8 +46,8 @@ Framework/NewFeatureTesting
 - `Docs/DevFramework/ToolSetup
 Framework/NewFeatureTesting
 /testing-safari-like.md` — Created runbook with watcher commands, npm scripts reference, and verification steps — Evidence: Chat implementation step (user moved from Docs/ to Docs/DevFramework/ToolSetup
-Framework/NewFeatureTesting
-/)
+  Framework/NewFeatureTesting
+  /)
 
 ### Repo-Verified Delta (optional, getrennt!)
 

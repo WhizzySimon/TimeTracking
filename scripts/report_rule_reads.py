@@ -22,7 +22,7 @@ from pathlib import Path
 
 # Configuration
 REPO_ROOT = Path(__file__).resolve().parent.parent
-LOG_FILE = REPO_ROOT / "scripts" / "ai" / "logs" / "rule_reads.ndjson"
+LOG_FILE = REPO_ROOT / "scripts" / "CascadeAgentTools" / "logs" / "rule_reads.ndjson"
 
 # Re-read detection thresholds
 REREAD_TIME_MINUTES = 30  # Re-read if same file consulted within this time

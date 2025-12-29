@@ -96,23 +96,24 @@ Framework/DeveloperGuidesAndStandards
 
 ## 2. Strengths (Keep These)
 
-| Strength                                 | Evidence                                                   | Why It Works                                             |
-| ---------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------- |
-| **Explicit priority order**              | `Docs/INDEX.md` lines 7-13                                 | Eliminates doc conflicts; single source of truth         |
-| **Numbered requirements (FR/IG/DD)**     | `Docs/DevFramework/ToolSetup
+| Strength                             | Evidence                     | Why It Works                                     |
+| ------------------------------------ | ---------------------------- | ------------------------------------------------ |
+| **Explicit priority order**          | `Docs/INDEX.md` lines 7-13   | Eliminates doc conflicts; single source of truth |
+| **Numbered requirements (FR/IG/DD)** | `Docs/DevFramework/ToolSetup |
+
 Framework/DeveloperGuidesAndStandards
-/IMPLEMENTATION_SPECIFICATION_RULES.md`    | Traceable, testable, unambiguous                         |
-| **Structured devlog format**             | 28 entries in `Docs/DevFramework/ToolSetup
+/IMPLEMENTATION_SPECIFICATION_RULES.md`   | Traceable, testable, unambiguous                         |
+| **Structured devlog format**             | 28 entries in`Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/` with identical template       | Decisions, deltas, verification, follow-ups all captured |
-| **Mandatory verification before commit** | `.windsurf/rules/COMMAND_EXECUTION_RULES.md` lines 283-303 | Catches errors before they enter codebase                |
-| **Phase-based progress tracking**        | `Docs/IMPLEMENTATION_PROGRESS.md`                          | 94 tasks tracked with checkboxes, visible progress       |
-| **Separation of spec/plan/tasks**        | `Docs/Features/Specs/`, `Docs/Features/Plans/`, `Docs/Features/Tasks/`                | Prevents scope creep; each doc has clear purpose         |
-| **Workflow automation**                  | 7 workflows in `.windsurf/workflows/`                      | Reduces manual steps; enforces process                   |
-| **Canonical tag system**                 | `Docs/DevFramework/ToolSetup
+/`with identical template       | Decisions, deltas, verification, follow-ups all captured |
+| **Mandatory verification before commit** |`.windsurf/rules/COMMAND_EXECUTION_RULES.md`lines 283-303 | Catches errors before they enter codebase                |
+| **Phase-based progress tracking**        |`Docs/IMPLEMENTATION_PROGRESS.md`                         | 94 tasks tracked with checkboxes, visible progress       |
+| **Separation of spec/plan/tasks**        |`Docs/Features/Specs/`, `Docs/Features/Plans/`, `Docs/Features/Tasks/`               | Prevents scope creep; each doc has clear purpose         |
+| **Workflow automation**                  | 7 workflows in`.windsurf/workflows/`                     | Reduces manual steps; enforces process                   |
+| **Canonical tag system**                 |`Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/TAGS.md`                                      | Consistent categorization across 28 devlogs              |
-| **Human-in-the-loop checkpoints**        | `AGENTS.md` Phase 1-3 checkpoints                          | User confirms spec/plan/tasks before implementation      |
+/TAGS.md`                                     | Consistent categorization across 28 devlogs              |
+| **Human-in-the-loop checkpoints**        |`AGENTS.md` Phase 1-3 checkpoints | User confirms spec/plan/tasks before implementation |
 
 ---
 
@@ -131,13 +132,14 @@ Framework/FrameworkSelfImprovementLogs
 
 ### From Workflows
 
-| Failure Mode                   | Evidence                                                                                  | Impact                                 |
-| ------------------------------ | ----------------------------------------------------------------------------------------- | -------------------------------------- |
-| **Commit step forgotten**      | Memory `066ef418` explicitly warns "most commonly forgotten step"                         | Uncommitted work lost between sessions |
-| **Spec template not enforced** | `Docs/Features/Specs/_template.md` exists but no validation                                        | Some specs missing sections            |
-| **Duplicate rules files**      | `implementation-specification-rules.md` in both `.windsurf/rules/` and `Docs/DevFramework/ToolSetup
+| Failure Mode                   | Evidence                                                                                            | Impact                                 |
+| ------------------------------ | --------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| **Commit step forgotten**      | Memory `066ef418` explicitly warns "most commonly forgotten step"                                   | Uncommitted work lost between sessions |
+| **Spec template not enforced** | `Docs/Features/Specs/_template.md` exists but no validation                                         | Some specs missing sections            |
+| **Duplicate rules files**      | `implementation-specification-rules.md` in both `.windsurf/rules/` and `Docs/DevFramework/ToolSetup |
+
 Framework/DeveloperGuidesAndStandards
-/` | Potential drift between copies         |
+/` | Potential drift between copies |
 
 ### Where Specs Are Ambiguous
 
@@ -160,15 +162,15 @@ Framework/DeveloperGuidesAndStandards
 
 ### TimeTracker SDD vs External Sources
 
-| Dimension                | TimeTracker                                           | GitHub Spec Kit                                                | Anthropic Claude Code                        | OpenAI Agents                    | Microsoft/Copilot SDD                                          |
-| ------------------------ | ----------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------- | -------------------------------- | -------------------------------------------------------------- |
-| **Spec format**          | FR/IG/DD numbered, template-based                     | PRD → Plan → Tasks, template-driven                            | CLAUDE.md per folder, iterative tuning       | Structured outputs (JSON schema) | Constitution + templates                                       |
+| Dimension                | TimeTracker                                                    | GitHub Spec Kit                                                | Anthropic Claude Code                        | OpenAI Agents                    | Microsoft/Copilot SDD                                          |
+| ------------------------ | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------- | -------------------------------- | -------------------------------------------------------------- |
+| **Spec format**          | FR/IG/DD numbered, template-based                              | PRD → Plan → Tasks, template-driven                            | CLAUDE.md per folder, iterative tuning       | Structured outputs (JSON schema) | Constitution + templates                                       |
 | **Planning phase**       | Docs/Features/Plans/ with architecture, data model, UI state   | `/speckit.plan` auto-generates from spec                       | "Explore, plan, code, commit" workflow       | Agent loops with guardrails      | Enterprise constitution enforcement                            |
 | **Task breakdown**       | Docs/Features/Tasks/ with Files, Done when, Verify, Guardrails | `/speckit.tasks` with parallelization markers `[P]`            | Checklists in Markdown, scratchpads          | Multi-agent handoffs             | Task derivation from contracts                                 |
-| **Implementation rules** | No free refactors, minimal diffs, test obligations    | Test-first imperative (Article III), library-first (Article I) | TDD: write tests → confirm fail → implement  | Structured outputs, guardrails   | Constitutional gates (simplicity, anti-abstraction)            |
-| **Quality gates**        | npm run verify, MCP Playwright, E2E                   | Pre-Implementation Gates (Phase -1)                            | Course correct early, /clear context         | Input/output guardrails          | Simplicity Gate, Anti-Abstraction Gate, Integration-First Gate |
-| **Logging/traceability** | Devlogs with Decisions, Deltas, Follow-ups            | Living specs in feature branches                               | Conversation history, /clear resets          | Tracing in Agents SDK            | Versioned specs in branches                                    |
-| **Human-in-the-loop**    | Phase checkpoints, user confirms spec/plan/tasks      | User reviews before code generation                            | Escape to interrupt, double-Escape to rewind | Human-in-the-loop demos          | Team-reviewed specs, branch merges                             |
+| **Implementation rules** | No free refactors, minimal diffs, test obligations             | Test-first imperative (Article III), library-first (Article I) | TDD: write tests → confirm fail → implement  | Structured outputs, guardrails   | Constitutional gates (simplicity, anti-abstraction)            |
+| **Quality gates**        | npm run verify, MCP Playwright, E2E                            | Pre-Implementation Gates (Phase -1)                            | Course correct early, /clear context         | Input/output guardrails          | Simplicity Gate, Anti-Abstraction Gate, Integration-First Gate |
+| **Logging/traceability** | Devlogs with Decisions, Deltas, Follow-ups                     | Living specs in feature branches                               | Conversation history, /clear resets          | Tracing in Agents SDK            | Versioned specs in branches                                    |
+| **Human-in-the-loop**    | Phase checkpoints, user confirms spec/plan/tasks               | User reviews before code generation                            | Escape to interrupt, double-Escape to rewind | Human-in-the-loop demos          | Team-reviewed specs, branch merges                             |
 
 ### Key Insights from Each Source
 
@@ -347,45 +349,48 @@ Framework/FrameworkSelfImprovementLogs
 
 ### Priority 1: Critical (Do First)
 
-| #   | File Path                                    | Exact Change                                                                            | Status                          | Why                                                                     |
-| --- | -------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------------------------- |
-| 1   | `Docs/DevFramework/ToolSetup
+| #   | File Path                    | Exact Change | Status | Why |
+| --- | ---------------------------- | ------------ | ------ | --- |
+| 1   | `Docs/DevFramework/ToolSetup |
+
 Framework/FrameworkSelfImprovementLogs
-/FOLLOW-UPS.md`                  | Centralized tracker with 84 follow-ups                                                  | ✅ DONE                         | Single view of all open work; prevents lost follow-ups                  |
-| 2   | `Docs/Features/Specs/_template.md`                    | Add "Completeness Checklist" section at bottom with all required sections as checkboxes | ✅ DONE                         | Self-documenting spec validation                                        |
-| 3   | `.windsurf/rules/*.md`                       | Keep pointer files; canonical rules live in `Docs/DevFramework/ToolSetup
+/FOLLOW-UPS.md`                 | Centralized tracker with 84 follow-ups                                                  | ✅ DONE                         | Single view of all open work; prevents lost follow-ups                  |
+| 2   |`Docs/Features/Specs/\_template.md`                   | Add "Completeness Checklist" section at bottom with all required sections as checkboxes | ✅ DONE                         | Self-documenting spec validation                                        |
+| 3   |`.windsurf/rules/\*.md`                      | Keep pointer files; canonical rules live in`Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/`                          | ✅ DONE (architecture decision) | Windsurf auto-loads .windsurf/rules/; pointers reference canonical docs |
-| 4   | `Docs/DevFramework/ToolSetup
+/`                         | ✅ DONE (architecture decision) | Windsurf auto-loads .windsurf/rules/; pointers reference canonical docs |
+| 4   |`Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/SPEC_DRIVEN_DEVELOPMENT.md` | Add "Phase -1 / Pre-Implementation Gates" section (≤5 checkboxes)                       | ✅ DONE                         | Catch over-engineering before coding                                    |
-| 5   | `Docs/Features/Tasks/_template.md`                    | Add `**Parallel:** [P] / blank` and `**Estimated:** 0.5h / 1h / 2h` fields              | ✅ DONE                         | Enable parallelization, better planning                                 |
+/SPEC_DRIVEN_DEVELOPMENT.md`| Add "Phase -1 / Pre-Implementation Gates" section (≤5 checkboxes)                       | ✅ DONE                         | Catch over-engineering before coding                                    |
+| 5   |`Docs/Features/Tasks/\_template.md`                   | Add`**Parallel:** [P] / blank`and`**Estimated:** 0.5h / 1h / 2h` fields | ✅ DONE | Enable parallelization, better planning |
 
 ### Priority 2: Important (Do Soon)
 
-| #   | File Path                              | Exact Change                                                                                            | Status  | Why                                         |
-| --- | -------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------- |
-| 6   | `Docs/IMPLEMENTATION_PROGRESS.md`      | Add "Test Coverage" column to phase headers                                                             | TODO    | Visibility into testing gaps                |
-| 7   | `Docs/DevFramework/ToolSetup
+| #   | File Path                         | Exact Change                                | Status | Why                          |
+| --- | --------------------------------- | ------------------------------------------- | ------ | ---------------------------- |
+| 6   | `Docs/IMPLEMENTATION_PROGRESS.md` | Add "Test Coverage" column to phase headers | TODO   | Visibility into testing gaps |
+| 7   | `Docs/DevFramework/ToolSetup      |
+
 Framework/FrameworkSelfImprovementLogs
-/chat-history-analysis.md` | Workflow field from enum `{/project-start, /continue-work, /new-feature, /new-task, NONE}` (no UNKNOWN) | ✅ DONE | Consistent, sortable devlogs                |
-| 8   | `AGENTS.md`                            | Add "Phase -1 / Pre-Implementation Gates" section (≤5 checkboxes)                                       | ✅ DONE | Block implementation until gates pass       |
-| 9   | `.windsurf/workflows/new-feature.md`   | Add step: "Verify Pre-Implementation Gates pass before starting Task 1"                                 | TODO    | Enforce gates in workflow                   |
-| 10  | `Docs/DevFramework/ToolSetup
+/chat-history-analysis.md`| Workflow field from enum`{/project-start, /continue-work, /new-feature, /new-task, NONE}`(no UNKNOWN) | ✅ DONE | Consistent, sortable devlogs                |
+| 8   |`AGENTS.md`                           | Add "Phase -1 / Pre-Implementation Gates" section (≤5 checkboxes)                                       | ✅ DONE | Block implementation until gates pass       |
+| 9   |`.windsurf/workflows/new-feature.md`  | Add step: "Verify Pre-Implementation Gates pass before starting Task 1"                                 | TODO    | Enforce gates in workflow                   |
+| 10  |`Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
-/TAGS.md`                  | All in-use tags reconciled                                                                              | ✅ DONE | 229 lines with comprehensive tag categories |
+/TAGS.md` | All in-use tags reconciled | ✅ DONE | 229 lines with comprehensive tag categories |
 
 ### Priority 3: Nice-to-Have (Do Later)
 
 | #   | File Path                         | Exact Change                                                | Status  | Why                                  |
 | --- | --------------------------------- | ----------------------------------------------------------- | ------- | ------------------------------------ |
 | 11  | `scripts/validate-devlog-tags.js` | Script validates DL-\*.md and INDEX.md tags against TAGS.md | ✅ DONE | Automated tag validation (178 lines) |
-| 12  | `Docs/DevFramework/ToolSetup
+| 12  | `Docs/DevFramework/ToolSetup      |
+
 Framework/FrameworkSelfImprovementLogs
-/PHASE-HISTORY.md`    | Create file documenting what P02-P05 covered (retroactive)  | TODO    | Historical clarity                   |
-| 13  | `Docs/Features/Plans/_template.md`         | Add "Pre-Implementation Gates" section with checkboxes      | TODO    | Template enforcement                 |
-| 14  | `.windsurf/cascade.md`            | Add "Constitution" section with immutable principles        | TODO    | Architectural discipline             |
-| 15  | `scripts/verify-code.ps1`         | Devlog tag validation integrated into `npm run verify`      | ✅ DONE | Runs as Step 0 in verify-code.ps1    |
+/PHASE-HISTORY.md`   | Create file documenting what P02-P05 covered (retroactive)  | TODO    | Historical clarity                   |
+| 13  |`Docs/Features/Plans/\_template.md`        | Add "Pre-Implementation Gates" section with checkboxes      | TODO    | Template enforcement                 |
+| 14  |`.windsurf/cascade.md`           | Add "Constitution" section with immutable principles        | TODO    | Architectural discipline             |
+| 15  |`scripts/verify-code.ps1`        | Devlog tag validation integrated into`npm run verify` | ✅ DONE | Runs as Step 0 in verify-code.ps1 |
 
 ---
 

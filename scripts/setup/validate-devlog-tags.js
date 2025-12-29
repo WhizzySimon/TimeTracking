@@ -2,14 +2,12 @@
 
 /**
  * Devlog Tag Validator
- * Validates that all DL-*.md files and INDEX.md use valid tags from TAGS.md
  *
  * Checks:
  * 1. Every DL-*.md has "## Tags" section with comma-separated tags (no brackets)
  *    Format: tags: a, b, c
  * 2. Each DL has 3-7 tags
  * 3. Each tag exists in TAGS.md (aliases auto-mapped to canonical)
- * 4. INDEX.md tags column uses comma-separated tags that exist in TAGS.md
  *
  * Exit code 1 on any violation
  */
@@ -106,59 +104,6 @@ function validateDevlogFile(filePath, validTags) {
 	}
 }
 
-function validateIndexMd(validTags) {
-	const indexPath = join(
-		projectRoot,
-		'Docs',
-		'DevFramework',
-		'Reports',
-		'SSD Analysis',
-		'INDEX.md'
-	);
-	let content;
-	try {
-		content = readFileSync(indexPath, 'utf-8');
-	} catch {
-		console.log('[SKIP] INDEX.md not found, skipping validation');
-		return;
-	}
-	const lines = content.split('\n');
-
-	for (let i = 2; i < lines.length; i++) {
-		const line = lines[i];
-		if (!line.trim() || line.startsWith('|--') || line.startsWith('| ---')) continue;
-
-		const columns = line.split('|').map((c) => c.trim());
-		if (columns.length < 6) continue;
-
-		const tagsColumn = columns[5];
-		if (!tagsColumn) continue;
-
-		if (tagsColumn.includes('[') || tagsColumn.includes(']')) {
-			error(`INDEX.md line ${i + 1}: Tags should be comma-separated without brackets`);
-			continue;
-		}
-
-		const tags = tagsColumn
-			.split(',')
-			.map((t) => t.trim().toLowerCase())
-			.filter((t) => t);
-
-		if (tags.length < 3) {
-			error(`INDEX.md line ${i + 1}: Has ${tags.length} tags, minimum is 3`);
-		}
-		if (tags.length > 7) {
-			error(`INDEX.md line ${i + 1}: Has ${tags.length} tags, maximum is 7`);
-		}
-
-		for (const tag of tags) {
-			if (!validTags.has(tag)) {
-				error(`INDEX.md line ${i + 1}: Unknown tag "${tag}" not in TAGS.md`);
-			}
-		}
-	}
-}
-
 function main() {
 	console.log('Validating devlog tags...\n');
 
@@ -174,9 +119,6 @@ function main() {
 	for (const file of devlogFiles) {
 		validateDevlogFile(join(devlogDir, file), validTags);
 	}
-
-	console.log('\nChecking INDEX.md...\n');
-	validateIndexMd(validTags);
 
 	if (hasErrors) {
 		console.log('\n[FAILED] Validation FAILED - see errors above');

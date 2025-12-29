@@ -89,22 +89,23 @@ Framework/FrameworkSelfImprovementLogs
 
 ### Tasks
 
-| #     | Task                               | Status | Notes                              |
-| ----- | ---------------------------------- | ------ | ---------------------------------- |
-| D4.1  | Create `Docs/DevFramework/ToolSetup
+| #    | Task                                | Status | Notes |
+| ---- | ----------------------------------- | ------ | ----- |
+| D4.1 | Create `Docs/DevFramework/ToolSetup |
+
 Framework/JustInTimeAgentRules
-/` folder        | DONE   | New folder for trigger-based rules |
-| D4.2  | Create `session-start.md`          | DONE   | T1: Session start rules            |
-| D4.3  | Create `spec-writing.md`           | DONE   | T2: Spec creation rules            |
-| D4.4  | Create `planning.md`               | DONE   | T3: Plan creation rules            |
-| D4.5  | Create `implementation.md`         | DONE   | T4: Implementation rules           |
-| D4.6  | Create `pre-commit.md`             | DONE   | T5: Pre-commit checklist           |
-| D4.7  | Create `session-end.md`            | DONE   | T6: Session end rules              |
-| D4.8  | Create `framework-changes.md`      | DONE   | T7: Framework doc rules            |
-| D4.9  | Create `RULE_MAP.md` dispatcher    | DONE   | Replaces AGENTS.md                 |
-| D4.11 | Update `.windsurf/rules/` pointers | DONE   | User updated manually              |
-| D4.12 | Keep AGENTS.md as backup           | DONE   | Can delete later                   |
-| D4.13 | Test with real session             | DONE   | PASS — all content covered         |
+/`folder        | DONE   | New folder for trigger-based rules |
+| D4.2  | Create`session-start.md`         | DONE   | T1: Session start rules            |
+| D4.3  | Create`spec-writing.md`          | DONE   | T2: Spec creation rules            |
+| D4.4  | Create`planning.md`              | DONE   | T3: Plan creation rules            |
+| D4.5  | Create`implementation.md`        | DONE   | T4: Implementation rules           |
+| D4.6  | Create`pre-commit.md`            | DONE   | T5: Pre-commit checklist           |
+| D4.7  | Create`session-end.md`           | DONE   | T6: Session end rules              |
+| D4.8  | Create`framework-changes.md`     | DONE   | T7: Framework doc rules            |
+| D4.9  | Create`RULE_MAP.md`dispatcher    | DONE   | Replaces AGENTS.md                 |
+| D4.11 | Update`.windsurf/rules/` pointers | DONE | User updated manually |
+| D4.12 | Keep AGENTS.md as backup | DONE | Can delete later |
+| D4.13 | Test with real session | DONE | PASS — all content covered |
 
 ---
 

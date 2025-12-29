@@ -28,20 +28,21 @@ Names must be **self-documenting** — no README needed to understand purpose.
 
 ### Examples
 
-| ❌ Generic | ✓ Self-Explanatory                  |
-| ---------- | ----------------------------------- |
-| `docs/`    | `Docs/DevFramework/ToolSetup
-Framework/`                |
-| `rules/`   | `JustInTimeAgentRules/`             |
-| `logs/`    | `FrameworkSelfImprovementLogs/`     |
-| `utils/`   | `scripts/CascadeAgentTools/` (purpose-specific)    |
-| `misc/`    | Never use — find the actual purpose |
+| ❌ Generic  | ✓ Self-Explanatory                              |
+| ----------- | ----------------------------------------------- |
+| `docs/`     | `Docs/DevFramework/ToolSetup                    |
+| Framework/` |
+| `rules/`    | `JustInTimeAgentRules/`                         |
+| `logs/`     | `FrameworkSelfImprovementLogs/`                 |
+| `utils/`    | `scripts/CascadeAgentTools/` (purpose-specific) |
+| `misc/`     | Never use — find the actual purpose             |
 
 ---
 
 ## Folder-Specific Conventions
 
 ### Docs/DevFramework/ToolSetup
+
 Framework/DeveloperGuidesAndStandards
 /
 
@@ -76,6 +77,7 @@ Framework/DeveloperGuidesAndStandards
 ---
 
 ### Docs/DevFramework/ToolSetup
+
 Framework/FrameworkSelfImprovementLogs
 /
 

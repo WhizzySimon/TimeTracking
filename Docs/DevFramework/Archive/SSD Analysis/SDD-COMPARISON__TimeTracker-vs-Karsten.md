@@ -124,8 +124,8 @@ Framework/FrameworkSelfImprovementLogs
 #### Devlog/Decision Tracking
 
 - **No Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/** folder
+  Framework/FrameworkSelfImprovementLogs
+  /** folder
 - **No follow-up tracking**
 - **No metrics tracking**
 - Spec Changes sections in individual specs serve as changelog
@@ -272,8 +272,8 @@ Framework/DeveloperGuidesAndStandards
 - **No AGENTS.md** — could not compare process governance
 - **No Docs/Features/Tasks/ folder** — could not compare task decomposition
 - **No Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/ folder** — could not compare decision tracking
+  Framework/FrameworkSelfImprovementLogs
+  / folder** — could not compare decision tracking
 - **No package.json or test scripts** — could not compare verification automation
 - **No CI/CD configuration** — could not compare continuous integration
 

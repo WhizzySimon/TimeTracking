@@ -35,25 +35,26 @@
 
 ### Canonical Sources of Truth (Priority Order per `Docs/INDEX.md`)
 
-| Priority | Document                                                | Purpose                           |
-| -------- | ------------------------------------------------------- | --------------------------------- |
-| 0        | `Docs/INDEX.md`                                         | Master index, conflict resolution |
-| 1        | `Docs/DevFramework/ToolSetup
+| Priority | Document                     | Purpose                           |
+| -------- | ---------------------------- | --------------------------------- |
+| 0        | `Docs/INDEX.md`              | Master index, conflict resolution |
+| 1        | `Docs/DevFramework/ToolSetup |
+
 Framework/DeveloperGuidesAndStandards
-/UI_LOGIC_SPEC_V1.md`                   | Product truth (screens, flows)    |
-| 2        | `Docs/DevFramework/ToolSetup
+/UI_LOGIC_SPEC_V1.md`                  | Product truth (screens, flows)    |
+| 2        |`Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/TECHNICAL_GUIDELINE_V1.md`             | Architecture truth                |
-| 3        | `Docs/DevFramework/ToolSetup
+/TECHNICAL_GUIDELINE_V1.md`            | Architecture truth                |
+| 3        |`Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/SVELTEKIT_PWA_ADDENDUM.md`             | Platform constraints              |
-| 4        | `Docs/DevFramework/ToolSetup
+/SVELTEKIT_PWA_ADDENDUM.md`            | Platform constraints              |
+| 4        |`Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/DEVELOPMENT_GUIDELINES.md`             | Coding/repo rules                 |
-| 5        | `Docs/DevFramework/ToolSetup
+/DEVELOPMENT_GUIDELINES.md`            | Coding/repo rules                 |
+| 5        |`Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/IMPLEMENTATION_SPECIFICATION_RULES.md` | Spec writing rules                |
-| 6        | `AGENTS.md`                                             | Cascade process rules             |
+/IMPLEMENTATION_SPECIFICATION_RULES.md`| Spec writing rules                |
+| 6        |`AGENTS.md` | Cascade process rules |
 
 ### Additional Rule Sources
 
@@ -64,12 +65,13 @@ Framework/DeveloperGuidesAndStandards
 | `.windsurf/rules/implementation-specification-rules.md` | FR/IG/DD format                  |
 | `.windsurf/rules/ui-design-rules.md`                    | Dialog policy, error handling    |
 | `.windsurf/cascade.md`                                  | Project instructions for Cascade |
+
 | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/SPEC_DRIVEN_DEVELOPMENT.md`            | 4-phase workflow guide           |
+/SPEC_DRIVEN_DEVELOPMENT.md` | 4-phase workflow guide |
 | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/NAMING_CONVENTIONS.md`                 | File/variable naming             |
+/NAMING_CONVENTIONS.md` | File/variable naming |
 
 ### Workflow Files
 
@@ -88,13 +90,14 @@ Framework/DeveloperGuidesAndStandards
 
 ### Spec Coverage
 
-| Feature        | Spec                                               | Plan                                        | Tasks                                       | Status      |
-| -------------- | -------------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ----------- |
-| TimeTracker v1 | `Docs/DevFramework/ToolSetup
+| Feature        | Spec                         | Plan | Tasks | Status |
+| -------------- | ---------------------------- | ---- | ----- | ------ |
+| TimeTracker v1 | `Docs/DevFramework/ToolSetup |
+
 Framework/DeveloperGuidesAndStandards
-/UI_LOGIC_SPEC_V1.md`              | `Docs/Features/Plans/P01-20251220-timetracker-v1.md` | `Docs/Features/Tasks/P01-20251220-timetracker-v1.md` | ✅ Complete |
-| Cloud Sync     | `Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md` | `Docs/Features/Plans/P06-20251222-cloud-sync.md`     | `Docs/Features/Tasks/P06-20251222-cloud-sync.md`     | ✅ Complete |
-| Quick-Start UX | `Docs/Features/Specs/P07-20251223-quick-start-ux.md`        | `Docs/Features/Plans/P07-20251223-quick-start-ux.md` | `Docs/Features/Tasks/P07-20251223-quick-start-ux.md` | ✅ Complete |
+/UI_LOGIC_SPEC_V1.md`             |`Docs/Features/Plans/P01-20251220-timetracker-v1.md`|`Docs/Features/Tasks/P01-20251220-timetracker-v1.md`| ✅ Complete |
+| Cloud Sync     |`Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md`|`Docs/Features/Plans/P06-20251222-cloud-sync.md`    |`Docs/Features/Tasks/P06-20251222-cloud-sync.md`    | ✅ Complete |
+| Quick-Start UX |`Docs/Features/Specs/P07-20251223-quick-start-ux.md`       |`Docs/Features/Plans/P07-20251223-quick-start-ux.md`|`Docs/Features/Tasks/P07-20251223-quick-start-ux.md` | ✅ Complete |
 
 ### Findings
 

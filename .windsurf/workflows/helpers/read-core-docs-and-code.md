@@ -9,18 +9,18 @@ Step A (docs):
 Read:
 
 - Docs/AppDocs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
-/UI_LOGIC_SPEC_V1.md
+  Framework/DeveloperGuidesAndStandards
+  /UI_LOGIC_SPEC_V1.md
 - Docs/AppDocs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
-/TECHNICAL_GUIDELINE_V1.md
+  Framework/DeveloperGuidesAndStandards
+  /TECHNICAL_GUIDELINE_V1.md
 - Docs/AppDocs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
-/SVELTEKIT_PWA_ADDENDUM.md
+  Framework/DeveloperGuidesAndStandards
+  /SVELTEKIT_PWA_ADDENDUM.md
 - Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md
+  Framework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md
 - Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
+  Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
 
 Step B (code):
 Read all:

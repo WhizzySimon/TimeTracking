@@ -129,8 +129,8 @@ AGENTS.md (Priority 6 — Cascade process rules)
 9. **Testing coverage not tracked** — No metric for unit/e2e test coverage per phase. Evidence: Devlogs mention tests but no coverage numbers.
 
 10. **Duplicate doc references** — Some guidelines duplicated between .windsurf/rules/ and Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
-/. Evidence: implementation-specification-rules.md exists in both locations.
+    Framework/DeveloperGuidesAndStandards
+    /. Evidence: implementation-specification-rules.md exists in both locations.
 
 ---
 
@@ -231,16 +231,16 @@ Framework/FrameworkSelfImprovementLogs
 ### 8. Deduplicate Rules Files
 
 - **Problem:** implementation-specification-rules.md exists in both .windsurf/rules/ and Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
-/
+  Framework/DeveloperGuidesAndStandards
+  /
 - **Smallest change:** Delete .windsurf/rules/implementation-specification-rules.md, keep Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
-/ version
+  Framework/DeveloperGuidesAndStandards
+  / version
 - **Where:** `.windsurf/rules/implementation-specification-rules.md` (delete)
 - **Expected benefit:** Single source of truth
 - **Tradeoff:** Requires Cascade to read from Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
-/
+  Framework/DeveloperGuidesAndStandards
+  /
 
 ### 9. Add Test Coverage Tracking
 
@@ -278,17 +278,17 @@ Read these files first (no output):
 - [ ] Docs/INDEX.md (or equivalent priority doc)
 - [ ] AGENTS.md (or equivalent process doc)
 - [ ] Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/INDEX.md
+      Framework/FrameworkSelfImprovementLogs
+      /INDEX.md
 - [ ] Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/TAGS.md
+      Framework/FrameworkSelfImprovementLogs
+      /TAGS.md
 - [ ] All Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/DL-\*.md files
+      Framework/FrameworkSelfImprovementLogs
+      /DL-\*.md files
 - [ ] Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
-/\*.md
+      Framework/DeveloperGuidesAndStandards
+      /\*.md
 - [ ] .windsurf/workflows/\*.md (if present)
 - [ ] .windsurf/rules/\*.md (if present)
 

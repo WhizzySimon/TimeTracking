@@ -12,8 +12,8 @@
 - Tasks: NONE
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Cross-Browser Testing Summary section)
 - Other referenced docs: Docs/DevFramework/ToolSetup
-Framework/NewFeatureTesting
-/cross-browser-testing.md (formerly testing-safari-like.md)
+  Framework/NewFeatureTesting
+  /cross-browser-testing.md (formerly testing-safari-like.md)
 
 ## Decisions (aus Chat)
 

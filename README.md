@@ -29,10 +29,10 @@ Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md       │
 **Key files:**
 
 - **Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md** — When to read which rule
+  Framework/JustInTimeAgentRules/\_entrypoint-jit-rule-map.md** — When to read which rule
 - **Docs/DevFramework/ToolSetup
-Framework/ToolSetup
-/BOOTSTRAP.md** — Tooling setup
+  Framework/ToolSetup
+  /BOOTSTRAP.md** — Tooling setup
 
 **Trigger points:** session-start, writing code, executing commands, pre-commit, session-end, etc.
 

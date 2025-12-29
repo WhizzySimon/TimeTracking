@@ -12,10 +12,10 @@
 - Tasks: Docs/Features/Tasks/P01-20251220-timetracker-v1.md
 - Progress: NONE
 - Other referenced docs: Docs/DevFramework/ToolSetup
-Framework/NewFeatureTesting
-/MODERN_BROWSER_TESTING.md, Docs/DevFramework/ToolSetup
-Framework/NewFeatureTesting
-/PLAYWRIGHT_CONSOLE_SETUP.md, COMMAND_EXECUTION_RULES.md, devBrowser.ts, package.json
+  Framework/NewFeatureTesting
+  /MODERN_BROWSER_TESTING.md, Docs/DevFramework/ToolSetup
+  Framework/NewFeatureTesting
+  /PLAYWRIGHT_CONSOLE_SETUP.md, COMMAND_EXECUTION_RULES.md, devBrowser.ts, package.json
 
 ## Decisions (aus Chat)
 
@@ -38,11 +38,11 @@ Framework/NewFeatureTesting
 - src/app.html — Added <link rel="icon" type="image/png" href="/favicon.png" /> — Evidence: "Add favicon link to prevent 404 error"
 - .gitignore — Added /.pw-chrome-profile — Evidence: User action log shows modification
 - Docs/DevFramework/ToolSetup
-Framework/NewFeatureTesting
-/MODERN_BROWSER_TESTING.md — Adapted from SharePoint to TimeTracker, added Windsurf restart requirement, added dependency installation steps — Evidence: Multiple edits documented
+  Framework/NewFeatureTesting
+  /MODERN_BROWSER_TESTING.md — Adapted from SharePoint to TimeTracker, added Windsurf restart requirement, added dependency installation steps — Evidence: Multiple edits documented
 - Docs/DevFramework/ToolSetup
-Framework/NewFeatureTesting
-/PLAYWRIGHT_CONSOLE_SETUP.md — Adapted from SharePoint to TimeTracker, added prerequisites section — Evidence: Edit documented
+  Framework/NewFeatureTesting
+  /PLAYWRIGHT_CONSOLE_SETUP.md — Adapted from SharePoint to TimeTracker, added prerequisites section — Evidence: Edit documented
 - .windsurf/workflows/rules-read-all.md — Removed project-specific COMMAND_EXECUTION_RULES reference (now auto-loaded from .windsurf/rules) — Evidence: "Remove project-specific COMMAND_EXECUTION_RULES reference"
 - Docs/INDEX.md — Removed "Cascade operational rules" section (moved to general .windsurf/rules) — Evidence: "Remove project-specific reference to COMMAND_EXECUTION_RULES"
 
@@ -50,8 +50,8 @@ Framework/NewFeatureTesting
 
 - COMMAND_EXECUTION_RULES.md — File exists in .windsurf/rules/ directory — Evidence: User action log shows file at e:\Private\Dev\Timekeeping\TimeTracker\.windsurf\rules\COMMAND_EXECUTION_RULES.md
 - Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
-/INDEX.md — Contains separator line "--- | --- | --- | --- | ---" — Evidence: read_file output shows line 2
+  Framework/FrameworkSelfImprovementLogs
+  /INDEX.md — Contains separator line "--- | --- | --- | --- | ---" — Evidence: read_file output shows line 2
 - e2e/milestone1.test.ts — File exists (5 E2E tests for Milestone 1) — Evidence: Referenced in chat as verification method
 - static/favicon.png — File exists (70 bytes) — Evidence: list_dir output shows file
 
