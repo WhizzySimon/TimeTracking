@@ -14,9 +14,7 @@
 
 Before planning or coding, ALWAYS:
 
-1. Read: `Docs/INDEX.md`
-2. Read ONLY the docs referenced in `Docs/INDEX.md` that are relevant to the task
-3. Start every response with a "Doc Inventory" section listing exactly what was read (exact file paths + headings/sections used)
+Start every response with a "Doc Inventory" section listing exactly what was read (exact file paths + headings/sections used)
 
 If required info is missing, STOP and propose an update to the relevant doc (spec/plan/tasks) before coding.
 

@@ -10,7 +10,6 @@
 2. **Workflows only orchestrate** — Workflows tell Cascade which docs to read. They must NOT contain rules or commands that could go stale
 3. **Process rules go in RULE_MAP.md** — Not in workflows, not in guidelines
 4. **Always-on rules go in `.windsurf/rules/`** — These auto-load every session
-5. **If unsure, check `Docs/INDEX.md`** — It defines the priority order
 
 ---
 
@@ -21,7 +20,6 @@
 | **Process rules**    | `RULE_MAP.md`                                  | Session workflow, git rules, verification, coding rules           |
 | **Always-on rules**  | `.windsurf/rules/*.md`                         | Auto-loaded every session (code-quality, command-execution, etc.) |
 | **Workflows**        | `.windsurf/workflows/`                         | ONLY orchestrate — reference docs, never duplicate content        |
-| **Doc hierarchy**    | `Docs/INDEX.md`                                | Priority order when docs conflict                                 |
 | **Coding standards** | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards/`                | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc.                  |
 | **Tooling docs**     | `Docs/DevFramework/ToolSetup

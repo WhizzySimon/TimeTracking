@@ -107,7 +107,3 @@ Framework/FrameworkSelfImprovementLogs
 /LEARNINGS.md`       |
 
 ---
-
-## Source of Truth
-
-- **Doc hierarchy:** `Docs/INDEX.md` (priority order when docs conflict)

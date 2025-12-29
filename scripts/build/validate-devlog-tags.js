@@ -2,14 +2,12 @@
 
 /**
  * Devlog Tag Validator
- * Validates that all DL-*.md files and INDEX.md use valid tags from TAGS.md
  *
  * Checks:
  * 1. Every DL-*.md has "## Tags" section with comma-separated tags (no brackets)
  *    Format: tags: a, b, c
  * 2. Each DL has 3-7 tags
  * 3. Each tag exists in TAGS.md (aliases auto-mapped to canonical)
- * 4. INDEX.md tags column uses comma-separated tags that exist in TAGS.md
  *
  * Exit code 1 on any violation
  */
@@ -112,8 +110,7 @@ function validateIndexMd(validTags) {
 		'Docs',
 		'DevFramework',
 		'Archive',
-		'SSD Analysis',
-		'INDEX.md'
+		'SSD Analysis'
 	);
 	let content;
 	try {

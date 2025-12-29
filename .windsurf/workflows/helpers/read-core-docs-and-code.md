@@ -8,8 +8,6 @@ Make sure you have no duplicates in your read list.
 Step A (docs):
 Read:
 
-- Docs/INDEX.md
-- RULE_MAP.md
 - Docs/AppDocs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /UI_LOGIC_SPEC_V1.md

@@ -103,7 +103,6 @@ Nach Phase 0-3:
 ```
 # Doc Inventory
 - .windsurf/rules/* (all rules)
-- Docs/INDEX.md, RULE_MAP.md
 - Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md
 

@@ -63,7 +63,6 @@ Start your response with:
 ```
 # Doc Inventory
 - .windsurf/rules/* (all rules)
-- Docs/INDEX.md
 - RULE_MAP.md
 - .windsurf/cascade.md
 - Docs/DevFramework/ToolSetup

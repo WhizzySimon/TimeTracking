@@ -6,7 +6,6 @@ For the complete development process, see:
 
 - **JIT Rule Map:** `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md` (loaded via always-on.md)
-- **Doc hierarchy:** `Docs/INDEX.md`
 - **Tooling setup:** `Docs/DevFramework/ToolSetup
 Framework/ToolSetup
 /BOOTSTRAP.md`

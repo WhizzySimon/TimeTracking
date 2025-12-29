@@ -42,7 +42,6 @@ Framework/FrameworkSelfImprovementLogs/Evidence/AUD-YYYY-MM-DD-01.md`
 [ ] Learning promotion — Check INBOX for items repeated 2+ times → promote to LEARNINGS.md
 [ ] IMPLEMENTATION_PROGRESS.md — If tasks added/changed/completed, update progress tracker
 [ ] Spec/Plan/Tasks sync — If Spec changed, check Plan; if Plan changed, check Tasks
-[ ] Documentation — After changes, check if Docs/INDEX.md, README, rule files need updating
 ```
 
 **This is not optional.** Violations: 2025-12-26, 2025-12-27.

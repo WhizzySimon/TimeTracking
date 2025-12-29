@@ -10,7 +10,6 @@
 Files inspected:
 
 - `AGENTS.md` — Spec-driven development guide for Cascade
-- `Docs/INDEX.md` — Authoritative doc index with priority order
 - `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md` — Complete 4-phase workflow
@@ -49,7 +48,6 @@ Framework/DeveloperGuidesAndStandards
 | 4. Code quality rules    |           5 | High       | `package.json:14-16`, `scripts/verify-code.ps1`, `.windsurf/rules/code-quality-rules.md` | Enforced via `npm run verify` (format + check + lint) with output capture                                 |
 | 5. Testing strategy      |           4 | High       | `package.json:16-23`, `playwright.config.ts`, `e2e/*.test.ts`                            | Unit (Vitest) + E2E (Playwright, 3 browsers); 57 unit tests, 27 E2E tests; no coverage gates              |
 | 6. Tooling & automation  |           5 | High       | `scripts/cascade-watcher.ps1`, `.windsurf/rules/COMMAND_EXECUTION_RULES.md`              | Cascade watcher enables autonomous verification loop; MCP Playwright for UI testing                       |
-| 7. Context bootstrapping |           5 | High       | `.windsurf/workflows/project-start.md`, `Docs/INDEX.md`                                  | `/project-start` chains 3 workflows; INDEX.md defines priority order; mandatory doc inventory             |
 | 8. Iteration loop        |           5 | High       | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md:169-214`                                     | 7-step task workflow: code → verify → unit test → UI test → progress → commit → next                      |

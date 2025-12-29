@@ -103,7 +103,6 @@ npm run ai:extract-learnings
 ```
 Docs/DevFramework/ToolSetup
 Framework/TaskQualityAssurance/
-├── INDEX.md              # This file
 ├── ZOOM_OUT.md           # Anomaly recovery protocol
 └── boxes/
     ├── _template.md      # Box checklist template

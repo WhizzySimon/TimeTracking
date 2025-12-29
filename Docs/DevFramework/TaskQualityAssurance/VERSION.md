@@ -45,12 +45,3 @@ Framework/TaskQualityAssurance/CHANGELOG.md`
 | 0.1.0   | 2025-12-28 | Initial framework structure (Phase 0 setup) |
 
 ---
-
-## Related Files
-
-- `Docs/DevFramework/ToolSetup
-Framework/TaskQualityAssurance/CHANGELOG.md` — Detailed change log
-- `Docs/DevFramework/ToolSetup
-Framework/TaskQualityAssurance/GTRS.md` — Golden Task Regression Suite
-- `Docs/DevFramework/ToolSetup
-Framework/TaskQualityAssurance/INDEX.md` — Framework entry point

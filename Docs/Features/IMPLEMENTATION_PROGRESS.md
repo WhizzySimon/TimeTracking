@@ -75,7 +75,6 @@
 | D5.6  | evidence-generator.cjs   | DONE   | Scripts implemented                       |
 | D5.7  | learning-extractor.cjs   | DONE   | Scripts implemented                       |
 | D5.8  | npm scripts              | DONE   | 7 ai:\* scripts added                     |
-| D5.9  | Update Docs/INDEX.md     | DONE   | Docs updated                              |
 | D5.10 | Verify + examples        | DONE   | All scripts verified working              |
 
 ---
@@ -103,7 +102,6 @@ Framework/JustInTimeAgentRules
 | D4.7  | Create `session-end.md`            | DONE   | T6: Session end rules              |
 | D4.8  | Create `framework-changes.md`      | DONE   | T7: Framework doc rules            |
 | D4.9  | Create `RULE_MAP.md` dispatcher    | DONE   | Replaces AGENTS.md                 |
-| D4.10 | Update `Docs/INDEX.md`             | DONE   | Add Rules section                  |
 | D4.11 | Update `.windsurf/rules/` pointers | DONE   | User updated manually              |
 | D4.12 | Keep AGENTS.md as backup           | DONE   | Can delete later                   |
 | D4.13 | Test with real session             | DONE   | PASS — all content covered         |
@@ -196,7 +194,6 @@ Framework/FrameworkSelfImprovementLogs
 - [x] `Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /DECISIONS.md` — Decision log (ADR-light)
-- [x] `Docs/INDEX.md` — Added Development history section
 - [x] `AGENTS.md` — Added changelog to session-end rules
 - [x] `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
@@ -219,7 +216,6 @@ Framework/FrameworkSelfImprovementLogs
 Framework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` — Inbox (raw feedback capture)
 - [x] `AGENTS.md` — Added Self-Learning System section
-- [x] `Docs/INDEX.md` — Added learnings files to Development history
 - [x] `.windsurf/workflows/helpers/read-governance.md` — Added LEARNINGS.md to session-start reading
 
 ---

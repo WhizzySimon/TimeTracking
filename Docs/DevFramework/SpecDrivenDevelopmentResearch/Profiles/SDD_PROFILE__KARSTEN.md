@@ -37,7 +37,6 @@ Files inspected:
 | 4. Code quality rules    |           4 | High       | `.windsurf/rules/python-rules.md`, `src/pyproject.toml:43-44`                                | Detailed Python rules (imports, logging, naming); ruff configured (line-length=200); no enforced pre-commit |
 | 5. Testing strategy      |           2 | Med        | `src/pyproject.toml:26-29`, `src/test_*.py`                                                  | pytest in dev deps, 3 integration test files; no unit tests, no E2E, no coverage                            |
 | 6. Tooling & automation  |           2 | Med        | `.vscode/tasks.json`, `InstallAndCompileDependencies.bat`                                    | VS Code tasks for dev server; batch scripts for Azure deploy; no CI/CD, no verification script              |
-| 7. Context bootstrapping |           3 | Med        | `.windsurf/workflows/read-all-md-files.md`, `.windsurf/workflows/rules-read-all.md`          | Workflows to read md files and rules; no mandatory doc inventory, no INDEX.md                               |
 | 8. Iteration loop        |           1 | Low        | UNKNOWN                                                                                      | No task workflow documented, no progress tracker, no commit conventions                                     |
 | 9. Operational safety    |           3 | Med        | `.windsurf/rules/python-rules.md:26-38`                                                      | "Do not rename existing symbols", "re-use existing code"; no explicit run_command ban                       |
 | 10. Cost/time efficiency |           2 | Low        | `.windsurf/rules/implementation-specification-rules.md:29`                                   | Spec length guidelines (500-2500 lines); no task sizing, no token tracking                                  |
@@ -67,7 +66,6 @@ Files inspected:
 6. **No E2E tests** — Only integration tests for external services (Azure, SharePoint)
 7. **No CI/CD pipeline** — All verification is manual
 8. **No mandatory doc inventory** — Workflows read files but no structured inventory in responses
-9. **No INDEX.md** — No authoritative doc priority order
 10. **No commit conventions** — No conventional commits format documented
 
 ## "Best-of" Adoptable Practices for TimeTracker (max 10)
@@ -100,5 +98,4 @@ Framework/DeveloperGuidesAndStandards
 - This repo has strong spec-writing conventions but weak process enforcement
 - Specs are detailed (1000+ lines) but no task breakdown or progress tracking
 - Python rules are comprehensive but not enforced via automation
-- Good documentation structure but missing central orchestration (AGENTS.md, INDEX.md)
 - Comparison: TimeTracker scores 46/50, Karsten scores 26/50 — main gaps are iteration loop, testing, and tooling automation

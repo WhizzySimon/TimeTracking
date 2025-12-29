@@ -28,7 +28,6 @@ Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md       │
 
 **Key files:**
 
-- **Docs/INDEX.md** — Doc hierarchy, priority order
 - **Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md** — When to read which rule
 - **Docs/DevFramework/ToolSetup

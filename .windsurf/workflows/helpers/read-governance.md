@@ -5,7 +5,6 @@ auto_execution_mode: 1
 
 Read:
 
-- Docs/INDEX.md
 - .windsurf/cascade.md
 - Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
