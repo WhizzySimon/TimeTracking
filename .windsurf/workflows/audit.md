@@ -68,6 +68,19 @@ git diff --staged --name-only
 - PASS if present
 - FAIL if missing → Remediation: Create from `Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/_template.md` and stage it
 
+**E) Self-Learning Log must be staged**
+
+- Check if `Docs/DevFramework/FrameworkSelfImprovementLogs/SELF-LEARNING-LOG.md` appears in `git diff --staged --name-only`
+- PASS if present
+- FAIL if missing → Remediation: Run `self-learning-system.md` workflow (all steps log to SELF-LEARNING-LOG.md)
+
+**F) Self-Learning Log entry must be for today**
+
+- Read the staged SELF-LEARNING-LOG.md
+- Check that the most recent entry header starts with today's date (YYYY-MM-DD)
+- PASS if today's date found
+- FAIL if missing or outdated → Remediation: Re-run `self-learning-system.md` workflow
+
 ---
 
 ## Step 2 — Compute Deterministic Identifiers

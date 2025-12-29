@@ -7,10 +7,11 @@ This folder contains documentation and tools for evidence-based Cascade developm
 TaskQualityAssurance provides:
 
 1. **Task Boxes** — Per-task-type checklists with verification requirements
-2. **Telemetry** — Machine-readable event logging (JSONL)
-3. **Anomaly Detection** — Automatic detection of repetition, churn, scope drift
-4. **Evidence Bundles** — Per-task completion artifacts
-5. **Learning Extraction** — Pipeline to propose principles from evidence
+2. **Evidence Bundles** — Per-task completion artifacts
+3. **Anomaly Detection** — At pre-commit via chat analysis (see self-learning-system.md)
+4. **Telemetry (Optional)** — Machine-readable event logging for advanced analysis
+
+**Primary workflow:** At pre-commit, Cascade analyzes the chat session for patterns (repeated errors, file churn, scope drift) via `self-learning-system.md`. No during-work telemetry required.
 
 ## Quick Start
 
@@ -29,34 +30,27 @@ Before starting work, identify your task type:
 
 Read the box checklist: `Docs/DevFramework/TaskQualityAssurance/boxes/<box-type>.md`
 
-### 2. Log Events
+### 2. Work Normally
 
-During development, log significant events:
+No special telemetry commands needed during work. Cascade will analyze the chat at pre-commit.
+
+### 3. Pre-Commit Analysis
+
+At commit time, follow `pre-commit.md` → `self-learning-system.md` which includes:
+- **Part A:** Capture user feedback (self-learning)
+- **Part B:** Detect patterns — repeated errors, file churn, scope drift, long sessions (self-improvement)
+- **Part C:** Promote learnings and enforce hard rules
+
+### 4. Optional: Manual Telemetry
+
+For advanced analysis, you can optionally log events during work:
 
 ```bash
-# Log a custom event
 npm run ai:log-event -- --type=custom --message="Started task D5.1"
-
-# Log command execution
-npm run ai:start-command -- --command="npm run verify"
-# ... command runs ...
-npm run ai:end-command -- --command="npm run verify" --exit-code=0 --duration=5000
-
-# Fingerprint an error for tracking
-npm run ai:fingerprint-error -- "TypeError: Cannot read property 'x' of undefined"
+npm run ai:detect-anomalies  # Analyze logged events
 ```
 
-### 3. Check for Anomalies
-
-After repeated failures or long tasks:
-
-```bash
-npm run ai:detect-anomalies
-```
-
-If anomalies are detected, follow: `Docs/DevFramework/TaskQualityAssurance/ZOOM_OUT.md`
-
-### 4. Generate Evidence Bundle
+### 5. Generate Evidence Bundle
 
 After completing a task:
 
@@ -64,7 +58,7 @@ After completing a task:
 npm run ai:evidence -- --task=D5.1 --box=infra-build
 ```
 
-### 5. Audit Gate (`/audit`)
+### 6. Audit Gate (`/audit`)
 
 Before marking a task complete, run `/audit` on a frozen staged snapshot.
 

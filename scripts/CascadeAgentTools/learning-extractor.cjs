@@ -13,8 +13,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const EVIDENCE_DIR = path.join(__dirname, '..', '..', 'Docs', 'Devlog', 'Evidence');
-const LEARNINGS_INBOX = path.join(__dirname, '..', '..', 'Docs', 'Devlog', 'LEARNINGS-INBOX.md');
+const EVIDENCE_DIR = path.join(__dirname, '..', '..', 'Docs', 'DevFramework', 'FrameworkSelfImprovementLogs', 'Evidence');
+const LEARNINGS_INBOX = path.join(__dirname, '..', '..', 'Docs', 'DevFramework', 'FrameworkSelfImprovementLogs', 'LEARNINGS-INBOX.md');
 const LOGS_DIR = path.join(__dirname, 'logs');
 
 function readEvidenceBundles() {

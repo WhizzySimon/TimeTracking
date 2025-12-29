@@ -35,8 +35,8 @@
 [ ] Sync check — If needed, run sync-check.md to verify what was done
 [ ] /audit PASS (see Audit Gate above)
 [ ] CHANGELOG.md — Added one-line entry for this work
-[ ] Self-learning — Follow self-learning-system.md (read, capture, promote)
 [ ] DECISIONS.md — If decision was made, added entry
+[ ] Self-learning & improvement — Follow self-learning-system.md (Parts A, B, C)
 [ ] IMPLEMENTATION_PROGRESS.md — If tasks added/changed/completed, update progress tracker
 [ ] Spec/Plan/Tasks sync — If Spec changed, check Plan; if Plan changed, check Tasks
 ```

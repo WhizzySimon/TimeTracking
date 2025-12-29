@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 const LOGS_DIR = path.join(__dirname, 'logs');
-const EVIDENCE_DIR = path.join(__dirname, '..', '..', 'Docs', 'Devlog', 'Evidence');
+const EVIDENCE_DIR = path.join(__dirname, '..', '..', 'Docs', 'DevFramework', 'FrameworkSelfImprovementLogs', 'Evidence');
 
 function getSessionFile(sessionDate) {
 	if (sessionDate) {

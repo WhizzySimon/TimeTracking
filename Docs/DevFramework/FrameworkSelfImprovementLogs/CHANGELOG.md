@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-29                                         | refactor | Unify self-learning + self-improvement into single pre-commit system; fix CascadeAgentTools paths    | —       |
 | 2025-12-29                                         | docs     | Add "No Hardcoded Values" rule to code-quality.md (URLs, paths, secrets, magic numbers)              | —       |
 | 2025-12-29                                         | docs     | Simplify command-execution-rules.md: integrated terminal primary, watcher fallback                   | —       |
 | 2025-12-29                                         | feat     | Naming convention validation: ESLint id-length + validate-naming.js + /audit checklist               | —       |
