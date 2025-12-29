@@ -35,7 +35,6 @@
 
 | Phase | Name                                 | Status      |
 | ----- | ------------------------------------ | ----------- |
-| 10    | Free/Pro Feature-Flags + Paywall     | DEPRECATED  |
 | 11    | AI Import (Premium Feature)          | Blocked     |
 | A1    | Subscription Plans                   | COMPLETE    |
 | A1c   | Payment System (Stripe/etc)          | Future      |
@@ -243,22 +242,6 @@ Phase 4:
 
 ---
 
-## Phase 10: Free/Pro Feature-Flags + Paywall + User Profile
-
-**Target:** 11 tasks  
-**Status:** BLOCKED (9/11 tasks done, waiting for DevFramework)  
-**Spec:** `Docs/Archive/Specs/P10-monetising.md`
-
-### Remaining Tasks
-
-- [ ] **Task 10.10** — PlanSelector Modal
-  - Files: `src/lib/components/PlanSelector.svelte`
-
-- [ ] **Task 10.11** — E2E Tests
-  - Files: `e2e/paywall.test.ts`
-
----
-
 ## Phase 11: AI Import (Premium Feature)
 
 **Target:** 25 tasks  
@@ -430,12 +413,12 @@ Phase 4:
 - [ ] **Task A5.2** — Translate login error messages
 - [ ] **Task A5.3** — Translate form validation messages
 - [ ] **Task A5.4** — Translate remaining UI text
-- [ ] **Task A5.5** — Define color scheme constants (5 schemes)
-- [ ] **Task A5.6** — Color calculation utilities (HSL variants)
-- [ ] **Task A5.7** — CSS custom properties for theming
-- [ ] **Task A5.8** — Color scheme picker in Settings
-- [ ] **Task A5.9** — Persist scheme to localStorage
-- [ ] **Task A5.10** — Sync scheme to Supabase for Pro
+- [x] **Task A5.5** — ~~Define color scheme constants (5 schemes)~~ SKIPPED (single scheme)
+- [x] **Task A5.6** — ~~Color calculation utilities (HSL variants)~~ SKIPPED
+- [x] **Task A5.7** — ~~CSS custom properties for theming~~ SKIPPED
+- [x] **Task A5.8** — ~~Color scheme picker in Settings~~ SKIPPED
+- [x] **Task A5.9** — ~~Persist scheme to localStorage~~ SKIPPED
+- [x] **Task A5.10** — ~~Sync scheme to Supabase for Pro~~ SKIPPED
 - [ ] **Task A5.11** — Contrast ratio validation
 - [ ] **Task A5.12** — E2E tests
 
