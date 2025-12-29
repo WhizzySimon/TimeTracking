@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-29                                         | test     | A3.7: E2E tests for kleine-aenderungen — category creation, password toggle                          | —       |
 | 2025-12-29                                         | feat     | A3.1,3,5,6: CategoryDialog create mode, Add tab button, PasswordInput component, Login integration   | —       |
 | 2025-12-29                                         | test     | A2.18: E2E tests for multi-AG — employer CRUD, selector filtering, Stundenzettel export dialog       | —       |
 | 2025-12-29                                         | feat     | A2.16: PDF export for Stundenzettel — exportStundenzettelPdf() with jsPDF/autoTable                  | —       |

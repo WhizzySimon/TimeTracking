@@ -377,7 +377,7 @@ Phase 4:
 ## Phase A3: Kleine Änderungen
 
 **Target:** 7 tasks  
-**Status:** In progress (6/7)  
+**Status:** Complete (7/7)  
 **Spec:** `Docs/Archive/Specs/kleine-aenderungen.md`  
 **Plan:** `Docs/Archive/Plans/kleine-aenderungen.md`
 
@@ -389,7 +389,7 @@ Phase 4:
 - [x] **Task A3.4** — Make categories clickable in Settings — already done in A2.12
 - [x] **Task A3.5** — PasswordInput component with toggle
 - [x] **Task A3.6** — Integrate PasswordInput into LoginForm
-- [ ] **Task A3.7** — E2E tests
+- [x] **Task A3.7** — E2E tests
 
 ---
 
