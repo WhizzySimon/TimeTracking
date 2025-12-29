@@ -229,6 +229,7 @@ Tasks A2.3 and A2.17 were SKIPPED based on this convention.
 
 - **Files:**
   - `src/routes/settings/+page.svelte`
+  - `src/lib/components/CategoryDialog.svelte`
 - **Done when:**
   - Categories section shows employer groupings
   - User can assign category to specific employer or "Alle"
@@ -236,7 +237,7 @@ Tasks A2.3 and A2.17 were SKIPPED based on this convention.
   - `npm run verify`
   - Visual test
 - **Estimated:** 1h
-- **Status:** Pending
+- **Status:** COMPLETE
 - **Dependencies:** A2.7
 
 ---

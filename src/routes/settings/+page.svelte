@@ -41,6 +41,7 @@
 	import ExportDialog from '$lib/components/ExportDialog.svelte';
 	import PlanComparison from '$lib/components/PlanComparison.svelte';
 	import EmployerDialog from '$lib/components/EmployerDialog.svelte';
+	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
 		const days = [
@@ -81,6 +82,13 @@
 			.sort((a, b) => a.name.localeCompare(b.name, 'de'));
 	});
 
+	// Get employer name by ID for display
+	function getEmployerName(employerId: string | null | undefined): string {
+		if (!employerId) return 'Alle';
+		const employer = employers.find((emp) => emp.id === employerId);
+		return employer?.name ?? 'Unbekannt';
+	}
+
 	let loading = $state(true);
 	let appVersion = $state('');
 	let buildTime = $state('');
@@ -104,6 +112,8 @@
 	let showDeleteEmployerConfirm = $state(false);
 	let employerToDelete: Employer | null = $state(null);
 	let employers = $state<Employer[]>([]);
+	let showCategoryDialog = $state(false);
+	let categoryToEdit: Category | null = $state(null);
 	let logoutInProgress = $state(false);
 	let expandedSections = $state({
 		employers: true,
@@ -154,6 +164,16 @@
 	function closeModelModal() {
 		showAddWorkTimeModel = false;
 		modelToEdit = null;
+	}
+
+	function handleEditCategory(category: Category) {
+		categoryToEdit = category;
+		showCategoryDialog = true;
+	}
+
+	function closeCategoryDialog() {
+		showCategoryDialog = false;
+		categoryToEdit = null;
 	}
 
 	function handleDeleteCategory(category: Category) {
@@ -539,20 +559,30 @@
 					{:else}
 						{#each abwesenheitskategorien() as category (category.id)}
 							<div
-								class="list-item"
+								class="list-item clickable"
 								data-testid="category-item"
 								data-category-type={category.type}
 								data-counts-as-work="false"
+								role="button"
+								tabindex="0"
+								onclick={() => handleEditCategory(category)}
+								onkeydown={(event) => event.key === 'Enter' && handleEditCategory(category)}
 							>
 								<div class="item-info">
 									<span class="item-name" data-testid="category-name">{category.name}</span>
+									{#if category.employerId}
+										<span class="item-employer">{getEmployerName(category.employerId)}</span>
+									{/if}
 								</div>
 								{#if category.type !== 'system'}
 									<button
 										class="delete-btn"
 										aria-label="Löschen"
 										data-testid="delete-category-btn"
-										onclick={() => handleDeleteCategory(category)}>×</button
+										onclick={(event) => {
+											event.stopPropagation();
+											handleDeleteCategory(category);
+										}}>×</button
 									>
 								{/if}
 							</div>
@@ -628,20 +658,30 @@
 					{:else}
 						{#each arbeitskategorien() as category (category.id)}
 							<div
-								class="list-item"
+								class="list-item clickable"
 								data-testid="category-item"
 								data-category-type={category.type}
 								data-counts-as-work="true"
+								role="button"
+								tabindex="0"
+								onclick={() => handleEditCategory(category)}
+								onkeydown={(event) => event.key === 'Enter' && handleEditCategory(category)}
 							>
 								<div class="item-info">
 									<span class="item-name" data-testid="category-name">{category.name}</span>
+									{#if category.employerId}
+										<span class="item-employer">{getEmployerName(category.employerId)}</span>
+									{/if}
 								</div>
 								{#if category.type !== 'system'}
 									<button
 										class="delete-btn"
 										aria-label="Löschen"
 										data-testid="delete-category-btn"
-										onclick={() => handleDeleteCategory(category)}>×</button
+										onclick={(event) => {
+											event.stopPropagation();
+											handleDeleteCategory(category);
+										}}>×</button
 									>
 								{/if}
 							</div>
@@ -808,6 +848,15 @@
 		confirmStyle="danger"
 		onconfirm={confirmDeleteEmployer}
 		oncancel={cancelDeleteEmployer}
+	/>
+{/if}
+
+<!-- Category Dialog (Edit) -->
+{#if showCategoryDialog && categoryToEdit}
+	<CategoryDialog
+		category={categoryToEdit}
+		onsave={closeCategoryDialog}
+		onclose={closeCategoryDialog}
 	/>
 {/if}
 
@@ -1056,6 +1105,12 @@
 	.item-detail {
 		font-size: 0.85rem;
 		color: var(--muted);
+	}
+
+	.item-employer {
+		font-size: 0.8rem;
+		color: var(--accent);
+		font-weight: 400;
 	}
 
 	.delete-btn {

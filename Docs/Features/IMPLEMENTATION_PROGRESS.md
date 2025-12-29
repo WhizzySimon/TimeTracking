@@ -346,7 +346,7 @@ Phase 4:
 ## Phase A2: Multi-Arbeitgeber
 
 **Target:** 18 tasks  
-**Status:** In progress (11/18 — 2 skipped)  
+**Status:** In progress (12/18 — 2 skipped)  
 **Spec:** `Docs/Archive/Specs/multi-arbeitgeber.md`  
 **Plan:** `Docs/Archive/Plans/multi-arbeitgeber.md`  
 **Tasks:** `Docs/Archive/Tasks/multi-arbeitgeber.md`
@@ -364,7 +364,7 @@ Phase 4:
 - [x] **Task A2.9** — Update Analysis tab for AG filtering
 - [x] **Task A2.10** — Update Add tab: group categories by AG
 - [x] **Task A2.11** — Update Settings: AG management section
-- [ ] **Task A2.12** — Update Settings: categories grouped by AG
+- [x] **Task A2.12** — Update Settings: categories grouped by AG
 - [ ] **Task A2.13** — Update WorkTimeModelDialog for AG
 - [ ] **Task A2.14** — StundenzettelExport component
 - [ ] **Task A2.15** — Export to Excel (.xlsx) per AG

@@ -31,6 +31,21 @@ Each entry follows this format:
 
 (newest first)
 
+## 2025-12-29 14:20 — A2.12 Settings Categories with Employer Assignment
+
+| Step                 | Result | Notes                                                   |
+| -------------------- | ------ | ------------------------------------------------------- |
+| A1: Capture feedback | none   | No corrective feedback in session                       |
+| B1: Repeated errors  | none   | No repeated errors                                      |
+| B2: File churn       | none   | settings/+page.svelte + CategoryDialog once each        |
+| B3: Scope drift      | none   | Only settings + new dialog — matches A2.12 scope        |
+| B4: Session duration | ~10m   | normal                                                  |
+| C1: Promotions       | none   | No items meet promotion criteria                        |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                                 |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                              |
+
+---
+
 ## 2025-12-29 14:10 — A2.11 Settings AG Management Section
 
 | Step                 | Result | Notes                                            |

@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-29                                         | feat     | A2.12: CategoryDialog for editing categories with employer assignment + clickable category items     | —       |
 | 2025-12-29                                         | feat     | A2.11: Settings Arbeitgeber section + EmployerDialog component (create/edit/delete employers)        | —       |
 | 2025-12-29                                         | docs     | pre-commit.md: Add "Final Verification Gate" section requiring visible summary block before commit   | —       |
 | 2025-12-29                                         | feat     | A2.10: Add tab categories grouped by employer + new entries inherit employerId                       | —       |
