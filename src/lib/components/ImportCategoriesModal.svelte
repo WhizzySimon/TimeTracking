@@ -5,11 +5,13 @@
   Spec ref: ui-logic-spec-v1.md Section 11.2
 -->
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { categories } from '$lib/stores';
 	import { addUserCategory, SYSTEM_CATEGORIES } from '$lib/storage/categories';
 	import { prepareImport } from '$lib/utils/categoryIO';
 	import { getAll } from '$lib/storage/db';
-	import type { Category } from '$lib/types';
+	import { getAllEmployers } from '$lib/storage/employers';
+	import type { Category, Employer } from '$lib/types';
 	import Modal from './Modal.svelte';
 
 	interface Props {
@@ -23,6 +25,12 @@
 	let importing = $state(false);
 	let result: { imported: number; skipped: number } | null = $state(null);
 	let error = $state('');
+	let employers = $state<Employer[]>([]);
+	let selectedEmployerId = $state<string>('');
+
+	onMount(async () => {
+		employers = await getAllEmployers();
+	});
 
 	async function handleFileUpload(event: Event) {
 		const input = event.target as HTMLInputElement;
@@ -51,12 +59,21 @@
 		try {
 			const existingCategories = await getAll<Category>('categories');
 			const systemNames = SYSTEM_CATEGORIES.map((c) => c.name);
-			const { toImport, skippedCount } = prepareImport(textInput, existingCategories, systemNames);
+			const { toImport, skippedCount } = prepareImport(
+				textInput,
+				existingCategories,
+				systemNames,
+				selectedEmployerId || undefined
+			);
 
 			let importedCount = 0;
 			for (const cat of toImport) {
 				try {
-					await addUserCategory(cat.name, cat.countsAsWorkTime);
+					await addUserCategory(
+						cat.name,
+						cat.countsAsWorkTime,
+						selectedEmployerId || undefined
+					);
 					importedCount++;
 				} catch (e) {
 					console.warn(`Failed to import category "${cat.name}":`, e);
@@ -87,6 +104,18 @@
 <Modal title="Kategorien importieren" {onclose}>
 	<div class="import-form">
 		<div class="hint">Komma-getrennte Liste (z.B. Meeting, Projekt A, Verwaltung)</div>
+
+		{#if employers.filter((e) => e.isActive).length > 0}
+			<div class="employer-select">
+				<label for="employer-dropdown">Arbeitgeber</label>
+				<select id="employer-dropdown" class="employer-dropdown" bind:value={selectedEmployerId}>
+					<option value="">Alle Arbeitgeber</option>
+					{#each employers.filter((e) => e.isActive) as employer (employer.id)}
+						<option value={employer.id}>{employer.name}</option>
+					{/each}
+				</select>
+			</div>
+		{/if}
 
 		<div class="file-upload">
 			<label class="file-label">
@@ -153,6 +182,32 @@
 		background: var(--surface-hover);
 		padding: 0.75rem;
 		border-radius: var(--r-input);
+	}
+
+	.employer-select {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.employer-select label {
+		font-size: 0.9rem;
+		color: var(--text);
+	}
+
+	.employer-dropdown {
+		padding: 0.75rem;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
+		background: var(--input-bg);
+		color: var(--input-text);
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	.employer-dropdown:focus {
+		outline: none;
+		border-color: var(--input-focus-border);
 	}
 
 	.file-upload {

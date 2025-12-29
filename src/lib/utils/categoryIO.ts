@@ -59,30 +59,37 @@ export function parseCategoriesFromString(input: string): string[] {
 
 /**
  * Import categories from a comma-separated string.
- * Skips duplicates (case-insensitive) and system category names.
+ * Skips duplicates (case-insensitive, same employerId) and system category names.
  * All imported categories have countsAsWorkTime: true.
  * @param input Comma-separated string
  * @param existingCategories Current categories for duplicate checking
  * @param systemCategoryNames Names of system categories to skip
+ * @param employerId Optional employer ID to assign to imported categories
  * @returns Object with imported and skipped counts, and new categories to add
  */
 export function prepareImport(
 	input: string,
 	existingCategories: Category[],
-	systemCategoryNames: string[]
+	systemCategoryNames: string[],
+	employerId?: string
 ): {
 	toImport: { name: string; countsAsWorkTime: boolean }[];
 	skippedCount: number;
 } {
 	const names = parseCategoriesFromString(input);
-	const existingNames = new Set(existingCategories.map((c) => c.name.toLowerCase()));
 	const systemNames = new Set(systemCategoryNames.map((n) => n.toLowerCase()));
+
+	// Build set of existing name+employerId combinations
+	const existingKeys = new Set(
+		existingCategories.map((c) => `${c.name.toLowerCase()}|${c.employerId ?? ''}`)
+	);
 
 	const toImport: { name: string; countsAsWorkTime: boolean }[] = [];
 	let skippedCount = 0;
 
 	for (const name of names) {
 		const lowerName = name.toLowerCase();
+		const key = `${lowerName}|${employerId ?? ''}`;
 
 		// Skip system category names
 		if (systemNames.has(lowerName)) {
@@ -90,14 +97,14 @@ export function prepareImport(
 			continue;
 		}
 
-		// Skip duplicates
-		if (existingNames.has(lowerName)) {
+		// Skip duplicates (same name AND same employerId)
+		if (existingKeys.has(key)) {
 			skippedCount++;
 			continue;
 		}
 
 		toImport.push({ name, countsAsWorkTime: true });
-		existingNames.add(lowerName); // Prevent duplicates within import
+		existingKeys.add(key); // Prevent duplicates within import
 	}
 
 	return { toImport, skippedCount };

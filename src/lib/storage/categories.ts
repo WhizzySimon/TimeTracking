@@ -92,10 +92,20 @@ export async function getAllCategories(): Promise<Category[]> {
  * Add a new user category.
  * @throws if name conflicts with existing category
  */
-export async function addUserCategory(name: string, countsAsWorkTime: boolean): Promise<Category> {
+export async function addUserCategory(
+	name: string,
+	countsAsWorkTime: boolean,
+	employerId?: string
+): Promise<Category> {
 	const existing = await getAll<Category>(CATEGORIES_STORE);
-	if (existing.some((c) => c.name.toLowerCase() === name.toLowerCase())) {
-		throw new Error(`Category "${name}" already exists`);
+	// Check for duplicate: same name AND same employerId
+	const isDuplicate = existing.some(
+		(c) =>
+			c.name.toLowerCase() === name.toLowerCase() &&
+			(c.employerId ?? '') === (employerId ?? '')
+	);
+	if (isDuplicate) {
+		throw new Error(`Category "${name}" already exists for this employer`);
 	}
 
 	const newCat: Category = {
@@ -103,7 +113,8 @@ export async function addUserCategory(name: string, countsAsWorkTime: boolean): 
 		name,
 		type: 'user',
 		countsAsWorkTime,
-		createdAt: Date.now()
+		createdAt: Date.now(),
+		...(employerId && { employerId })
 	};
 	await saveUserCategory(newCat);
 	return newCat;
