@@ -10,7 +10,7 @@ description: Commit workflow - runs pre-commit checklist then commits and pushes
 
 ## Step 1 — Pre-Commit Checklist
 
-**Read and follow:** `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`
+**Read and follow:** `DevFramework/JustInTimeAgentRules/pre-commit.md`
 
 This includes:
 - Sync check (if needed)

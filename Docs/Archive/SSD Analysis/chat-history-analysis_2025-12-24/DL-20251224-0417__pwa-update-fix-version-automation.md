@@ -11,7 +11,7 @@
 - Plan: NONE
 - Tasks: NONE
 - Progress: NONE
-- Other referenced docs: Docs/DevFramework/ToolSetup
+- Other referenced docs: DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /SVELTEKIT_PWA_ADDENDUM.md, static/sw.js, scripts/update-version.js, netlify.toml
 

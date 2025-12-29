@@ -85,7 +85,7 @@ Spec quality · Scope control · Traceability · Code quality rules · Testing s
    - Axis: Tooling & automation
 
 2. **Add a “Self-documenting” principle to SDD guidelines (system must explain itself)**
-   - Target: `Docs/DevFramework/ToolSetup
+   - Target: `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md`
    - Change: 1 short bullet: “Prefer artifacts that re-teach context without chat history (docs, templates, checklists, examples).”

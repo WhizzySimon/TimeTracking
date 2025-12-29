@@ -50,7 +50,7 @@
   - npm run lint — Result: PASS — Evidence: "Checking formatting... All matched files use Prettier code style!"
   - Git commits — Result: SUCCESS — Evidence: Multiple commit messages shown: "fix: make backup button reactive with store, fix cursor and tooltip", "feat: collapsible sections in analysis page, remove tooltips, fix redundant dialog", "feat: clickable period items in analysis page navigate to week/month tab", "feat: auto-create missing categories on Excel import"
 - Verified now in repo (static only):
-  - Docs/DevFramework/ToolSetup
+  - DevFramework/ToolSetup
     Framework/FrameworkSelfImprovementLogs
     /INDEX.md — File exists with 20 entries, has proper header and separator line — Evidence: File read shows table structure with Date/Time | Title | Path | Status | Tags
 

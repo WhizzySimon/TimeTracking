@@ -8,7 +8,7 @@ description: Deterministic audit on a frozen staged snapshot (git diff --staged 
 
 ## Config
 
-- **Flag location:** `Docs/DevFramework/JustInTimeAgentRules/ai-config.json`
+- **Flag location:** `DevFramework/JustInTimeAgentRules/ai-config.json`
 - **Key:** `switch_model_before_audit` (boolean)
   - `true`: Builder stages changes and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
   - `false`: Builder stages changes and runs `/audit` itself (same chat, same model)
@@ -24,7 +24,7 @@ description: Deterministic audit on a frozen staged snapshot (git diff --staged 
 If not specified by user, use today's date:
 
 ```
-Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/AUD-YYYY-MM-DD-01.md
+DevFramework/FrameworkSelfImprovementLogs/Evidence/AUD-YYYY-MM-DD-01.md
 ```
 
 (Replace YYYY-MM-DD with current date. Increment -01 if file exists.)
@@ -66,11 +66,11 @@ git diff --staged --name-only
 
 - Check if Evidence Bundle path appears in `git diff --staged --name-only`
 - PASS if present
-- FAIL if missing → Remediation: Create from `Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/_template.md` and stage it
+- FAIL if missing → Remediation: Create from `DevFramework/FrameworkSelfImprovementLogs/Evidence/_template.md` and stage it
 
 **E) Self-Learning Log must be staged**
 
-- Check if `Docs/DevFramework/FrameworkSelfImprovementLogs/SELF-LEARNING-LOG.md` appears in `git diff --staged --name-only`
+- Check if `DevFramework/FrameworkSelfImprovementLogs/SELF-LEARNING-LOG.md` appears in `git diff --staged --name-only`
 - PASS if present
 - FAIL if missing → Remediation: Run `self-learning-system.md` workflow (all steps log to SELF-LEARNING-LOG.md)
 
@@ -150,7 +150,7 @@ For each new/modified identifier in the diff, check:
    - < 3 chars (except `i`, `j`, `k`, `x`, `y`, `id`): FAIL
    - > 5 words in identifier: WARNING
 
-**Reference:** `Docs/DevFramework/JustInTimeAgentRules/code-quality.md` § Code Naming
+**Reference:** `DevFramework/JustInTimeAgentRules/code-quality.md` § Code Naming
 
 ---
 

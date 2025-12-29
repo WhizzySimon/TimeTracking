@@ -19,28 +19,28 @@
 | **Rule Dispatcher**                                     |
 | `RULE_MAP.md`                                           | Global | Manual reference            | 52 lines  | Core dispatcher |
 
-| **JIT Rules (Docs/DevFramework/ToolSetup
+| **JIT Rules (DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /)** |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /session-start.md` | Phase | Manual (at session start) | 33 lines | Phase-specific |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /spec-writing.md` | Phase | Manual (when creating spec) | 38 lines | Phase-specific |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /planning.md` | Phase | Manual (when planning) | 51 lines | Phase-specific |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /implementation.md` | Phase | Manual (before coding) | 66 lines | Phase-specific |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /pre-commit.md` | Phase | Manual (before commit) | 50 lines | Phase-specific |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /session-end.md` | Phase | Manual (at session end) | 85 lines | Phase-specific |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /framework-changes.md` | Phase | Manual (when changing docs) | 37 lines | Phase-specific |
 | **Workflows (.windsurf/workflows/)** |
@@ -58,40 +58,40 @@ Framework/JustInTimeAgentRules
 | `.windsurf/cascade.md` | Global | Windsurf-specific config | 44 lines | Core invariant |
 | `START_HERE.md` | Info | Human quickstart (non-auth) | 49 lines | Reference |
 | **Guidelines (Reference Docs)** |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md` | Ref | Manual | 330 lines | Reference |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md` | Ref | Manual | 118 lines | Reference |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /DEVELOPMENT_GUIDELINES.md` | Ref | Manual | 6525 bytes | Reference |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /UI_LOGIC_SPEC_V1.md` | Ref | Manual | 8032 bytes | Reference |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /TECHNICAL_GUIDELINE_V1.md` | Ref | Manual | 9070 bytes | Reference |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SVELTEKIT_PWA_ADDENDUM.md` | Ref | Manual | 4748 bytes | Reference |
 | **Learning/Memory Artifacts** |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` | Memory | Manual (session start) | 31 lines | Core memory |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` | Memory | Manual (session end) | 40 lines | Capture buffer |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /DECISIONS.md` | Memory | Manual | 94 lines | Decision log |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /CHANGELOG.md` | Memory | Manual (pre-commit) | 58 lines | History |
 
 **Total Always-On Context:** ~257 lines (4 files in `.windsurf/rules/`)  
-**Total JIT Context:** ~360 lines (7 files in `Docs/DevFramework/ToolSetup
+**Total JIT Context:** ~360 lines (7 files in `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /`)
 
@@ -101,23 +101,23 @@ Framework/JustInTimeAgentRules
 
 | Trigger/Phase     | What SHOULD Load             | What CURRENTLY Loads | Gap Analysis |
 | ----------------- | ---------------------------- | -------------------- | ------------ |
-| **Session Start** | `Docs/DevFramework/ToolSetup |
+| **Session Start** | `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
 /session-start.md`, `LEARNINGS.md`, `INDEX.md`| Via`/new-task`or`/continue-work`: reads `.windsurf/rules/\*`, `INDEX.md`, `LEARNINGS.md`| ✅ Mostly correct. Gap: Not all workflows call`/rules-read-all`first.           |
-| **Spec Writing**   |`Docs/DevFramework/ToolSetup
+| **Spec Writing**   |`DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /spec-writing.md`, spec template               | Manual — must remember to read                                                             | ⚠️ Gap: No automatic trigger. Relies on RULE_MAP reference in always-on rule.     |
-| **Planning**       | `Docs/DevFramework/ToolSetup
+| **Planning**       | `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /planning.md`, plan template                   | Manual — must remember to read                                                             | ⚠️ Gap: No automatic trigger.                                                     |
-| **Implementation** | `Docs/DevFramework/ToolSetup
+| **Implementation** | `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /implementation.md`, relevant spec/plan/tasks  | Manual — must remember to read                                                             | ⚠️ Gap: No automatic trigger. Workflows reference it but don't enforce reading.   |
-| **Pre-commit**     | `Docs/DevFramework/ToolSetup
+| **Pre-commit**     | `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /pre-commit.md`                               | Manual — must remember to read                                                             | ⚠️ Gap: Critical! Pre-commit rules forgotten (violations 2025-12-26, 2025-12-27). |
-| **Session End**    |`Docs/DevFramework/ToolSetup
+| **Session End**    |`DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /session-end.md`, `LEARNINGS-INBOX.md`        | Manual — must remember to read                                                             | ⚠️ Gap: Self-learning not reliably invoked.                                       |
 | **Debugging**      | N/A (no specific rules)                                   | N/A                                                                                        | ✅ OK — uses general implementation rules.                                        |
@@ -130,14 +130,14 @@ Framework/JustInTimeAgentRules
 ### Must-Fix (Causing Rule Ignoring, Overload, Repeated Mistakes)
 
 1. **Pre-commit rules not enforced at trigger point**
-   - **Evidence:** `Docs/DevFramework/ToolSetup
+   - **Evidence:** `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` line 17: "ESCALATED: Added mandatory pre-commit checklist to AGENTS.md after violations on 2025-12-26 and 2025-12-27"
    - **Problem:** AGENTS.md was replaced by RULE_MAP.md, but pre-commit rules still require manual lookup
    - **Impact:** Changelog/learnings updates forgotten repeatedly
 
 2. **JIT rules rely on manual memory, not automatic injection**
-   - **Evidence:** All `Docs/DevFramework/ToolSetup
+   - **Evidence:** All `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /*.md` files say "Read X before doing Y" but there's no mechanism to enforce this
    - **Problem:** "Context rot" — by the time commit happens, session-start rules are forgotten
@@ -152,7 +152,7 @@ Framework/JustInTimeAgentRules
 
 4. **Workflows contain process instructions that duplicate doc content**
    - **Evidence:** `new-task.md` lines 38-69 duplicate "After task completion" steps
-   - **Problem:** Violates `Docs/DevFramework/ToolSetup
+   - **Problem:** Violates `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /framework-changes.md` line 10: "Workflows only orchestrate"
    - **Impact:** Stale instructions when docs are updated
@@ -186,7 +186,7 @@ Framework/JustInTimeAgentRules
 **Proposed:** Add "Rule Loading Verification" section to each JIT rule file:
 
 ```markdown
-## Verification (add to top of each Docs/DevFramework/ToolSetup
+## Verification (add to top of each DevFramework/ToolSetup
 
 Framework/JustInTimeAgentRules
 /\*.md)
@@ -200,7 +200,7 @@ This confirms the rule was loaded at the correct trigger.
 
 **Implementation:**
 
-- Add 3-line "Verification" header to each `Docs/DevFramework/ToolSetup
+- Add 3-line "Verification" header to each `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /*.md` file
 - Cascade outputs marker when rule is loaded, enabling audit trail
@@ -209,10 +209,10 @@ Framework/JustInTimeAgentRules
 
 | Workflow      | Current Issue                            | Proposed Fix                                                           |
 | ------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
-| `new-task.md` | Duplicates "After task completion" steps | Remove lines 38-69, replace with: "Follow `Docs/DevFramework/ToolSetup |
+| `new-task.md` | Duplicates "After task completion" steps | Remove lines 38-69, replace with: "Follow `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
-/pre-commit.md`then`Docs/DevFramework/ToolSetup
+/pre-commit.md`then`DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /session-end.md`" |
 | `continue-work.md`| Same duplication                         | Same fix                                                                                               |
@@ -222,7 +222,7 @@ Framework/JustInTimeAgentRules
 
 | File                                 | Current Lines | Proposed Action                      |
 | ------------------------------------ | ------------- | ------------------------------------ |
-| `.windsurf/rules/ui-design-rules.md` | 109           | Move to `Docs/DevFramework/ToolSetup |
+| `.windsurf/rules/ui-design-rules.md` | 109           | Move to `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
 /ui-work.md`(JIT), keep 10-line summary in always-on with pointer |
@@ -253,7 +253,7 @@ Framework/JustInTimeAgentRules
 │  └─ If yes: Add to LEARNINGS.md with category                       │
 │                                                                     │
 │  ENFORCE (if category = "Hard Rule")                                │
-│  └─ Add to the appropriate Docs/DevFramework/ToolSetup
+│  └─ Add to the appropriate DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /*.md file                     │
 │  └─ NOT to .windsurf/rules/ (those are always-on, limited budget)   │
@@ -275,7 +275,7 @@ Framework/JustInTimeAgentRules
 
 **Purpose:** Prove that JIT rule loading works at the correct trigger point.
 
-**Marker Rule:** Add to `Docs/DevFramework/ToolSetup
+**Marker Rule:** Add to `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /pre-commit.md`:
 
@@ -293,7 +293,7 @@ If this marker does not appear before a commit, the rule was not loaded.
 
 | Step | Action                                  | Expected                                   |
 | ---- | --------------------------------------- | ------------------------------------------ |
-| 1    | User says "I want to commit my changes" | Cascade reads `Docs/DevFramework/ToolSetup |
+| 1    | User says "I want to commit my changes" | Cascade reads `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
 /pre-commit.md`|
@@ -330,7 +330,7 @@ Framework/JustInTimeAgentRules
 
 | Concept                     | Implemented? | Notes                        |
 | --------------------------- | ------------ | ---------------------------- |
-| Knowledge boxes (JIT rules) | ✅ Yes       | `Docs/DevFramework/ToolSetup |
+| Knowledge boxes (JIT rules) | ✅ Yes       | `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
 /` folder with 7 trigger-based files |
@@ -341,9 +341,9 @@ Framework/JustInTimeAgentRules
 
 ### Priority Actions (in order)
 
-1. **Add canary markers** to `Docs/DevFramework/ToolSetup
+1. **Add canary markers** to `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
-/pre-commit.md` and `Docs/DevFramework/ToolSetup
+/pre-commit.md` and `DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /session-end.md`
 2. **Move `ui-design-rules.md`** from always-on to JIT (reduces context by 109 lines)

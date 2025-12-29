@@ -11,7 +11,7 @@ For any non-trivial change, create a spec file from template:
 | Type | Template |
 |------|----------|
 | App feature | `Docs/Features/Specs/_template.md` |
-| Framework feature | `Docs/DevFramework/FrameworkFeatureSpecs/_template.md` |
+| Framework feature | `DevFramework/FrameworkFeatureSpecs/_template.md` |
 
 **The template contains all rules:** length guidelines, prefix conventions, required sections, and completeness checklist.
 
@@ -27,4 +27,4 @@ Before moving to planning:
 
 ---
 
-**Next:** When spec is approved → Read `Docs/DevFramework/JustInTimeAgentRules/planning.md`
+**Next:** When spec is approved → Read `DevFramework/JustInTimeAgentRules/planning.md`

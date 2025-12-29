@@ -10,7 +10,7 @@ This unified system handles both:
 
 ## Execution Logging
 
-**Log file:** `Docs/DevFramework/FrameworkSelfImprovementLogs/SELF-LEARNING-LOG.md`
+**Log file:** `DevFramework/FrameworkSelfImprovementLogs/SELF-LEARNING-LOG.md`
 
 At the START of workflow, create a new log entry header:
 ```
@@ -34,7 +34,7 @@ Execute ALL steps in order:
 
 #### Step A1: Capture User Feedback
 
-Review the chat for user feedback. Add entries to `Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`.
+Review the chat for user feedback. Add entries to `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`.
 
 **What to capture:**
 - **Corrective:** "Don't do X", "Always do Y instead", mistakes to avoid
@@ -113,7 +113,7 @@ Categories: **Hard Rule** | **Preference** | **Reminder**
 
 #### Step C2: Read LEARNINGS.md
 
-Read `Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS.md` to apply proven preferences.
+Read `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS.md` to apply proven preferences.
 
 **Log:** `| C2: Read LEARNINGS | ✓ read | X items in file |`
 

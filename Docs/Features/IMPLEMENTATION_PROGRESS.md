@@ -83,14 +83,14 @@
 
 **Goal:** Restructure AGENTS.md (282 lines) into a slim dispatcher (~50 lines) + trigger-based rule files.
 
-**Research:** `Docs/DevFramework/FrameworkSelfImprovementLogs
+**Research:** `DevFramework/FrameworkSelfImprovementLogs
 /SSD Analysis/2025-12-27__just-in-time-rules-research.md`
 
 ### Tasks
 
 | #    | Task                                | Status | Notes |
 | ---- | ----------------------------------- | ------ | ----- |
-| D4.1 | Create `Docs/DevFramework/ToolSetup |
+| D4.1 | Create `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules/`folder        | DONE   | New folder for trigger-based rules |
 | D4.2  | Create`session-start.md`         | DONE   | T1: Session start rules            |
@@ -187,12 +187,12 @@ Phase 4:
 
 ### Deliverables
 
-- [x] `Docs/DevFramework/FrameworkSelfImprovementLogs
+- [x] `DevFramework/FrameworkSelfImprovementLogs
 /CHANGELOG.md` — Everything log (one line per commit)
-- [x] `Docs/DevFramework/FrameworkSelfImprovementLogs
+- [x] `DevFramework/FrameworkSelfImprovementLogs
 /DECISIONS.md` — Decision log (ADR-light)
 - [x] `AGENTS.md` — Added changelog to session-end rules
-- [x] `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` — Added changelog step to workflow
+- [x] `DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` — Added changelog step to workflow
 
 ---
 
@@ -204,9 +204,9 @@ Phase 4:
 
 ### Deliverables
 
-- [x] `Docs/DevFramework/FrameworkSelfImprovementLogs
+- [x] `DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` — Distillate (proven preferences, max 30 bullets)
-- [x] `Docs/DevFramework/FrameworkSelfImprovementLogs
+- [x] `DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` — Inbox (raw feedback capture)
 - [x] `AGENTS.md` — Added Self-Learning System section
 - [x] `.windsurf/workflows/helpers/read-governance.md` — Added LEARNINGS.md to session-start reading
@@ -235,7 +235,7 @@ Phase 4:
 
 - `scripts/watcher-main.ps1` — Main watcher orchestrator (new)
 - `scripts/watcher.ps1` — Updated child watcher with SessionId support
-- `Docs/DevFramework/ToolSetup/CASCADE_WATCHER.md` — Complete documentation rewrite
+- `DevFramework/ToolSetup/CASCADE_WATCHER.md` — Complete documentation rewrite
 
 ---
 

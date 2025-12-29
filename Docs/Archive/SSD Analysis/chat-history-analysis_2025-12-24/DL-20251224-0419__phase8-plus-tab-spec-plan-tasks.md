@@ -11,7 +11,7 @@
 - Plan: Docs/Features/Plans/P07-20251223-quick-start-ux.md (Phase 8 section)
 - Tasks: Docs/Features/Tasks/P07-20251223-quick-start-ux.md (Phase 8 tasks 8.1-8.8)
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 8 section added, 86/94 tasks, 91%)
-- Other referenced docs: Docs/DevFramework/ToolSetup
+- Other referenced docs: DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /SPEC_DRIVEN_DEVELOPMENT.md (naming convention added)
 
@@ -39,7 +39,7 @@
 
 - Docs/Features/Tasks/P07-20251223-quick-start-ux.md — Added Phase 8 tasks 8.1-8.8 (Plus-Tab route, CategoryList, Ein-Klick-Start, Navigation, Default-Tab logic, Cleanup Tag-Tab, Cleanup Settings, E2E tests) — Evidence: Chat shows task breakdown
 
-- Docs/DevFramework/ToolSetup
+- DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /SPEC_DRIVEN_DEVELOPMENT.md — Added "Namenskonvention für Dokumente" section with P<phase>-<YYYYMMDD>-<slug>.md format — Evidence: Chat shows guideline update
 
@@ -59,7 +59,7 @@
 
 - Docs/IMPLEMENTATION_PROGRESS.md — File exists, Phase 8 section exists at line 959, header shows 86/94 tasks — Evidence: File read shows Phase 8 tracker
 
-- Docs/DevFramework/ToolSetup
+- DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /SPEC_DRIVEN_DEVELOPMENT.md — File exists, naming convention section exists at line 273 — Evidence: File read shows "Namenskonvention für Dokumente"
 

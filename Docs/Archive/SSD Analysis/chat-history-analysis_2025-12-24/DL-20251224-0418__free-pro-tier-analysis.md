@@ -11,7 +11,7 @@
 - Plan: NONE
 - Tasks: NONE
 - Progress: NONE
-- Other referenced docs: Docs/DevFramework/ToolSetup
+- Other referenced docs: DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /ui-logic-spec-v1.md
 

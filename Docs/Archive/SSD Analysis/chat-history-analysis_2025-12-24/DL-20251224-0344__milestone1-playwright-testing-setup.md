@@ -11,9 +11,9 @@
 - Plan: Docs/Features/Plans/P01-20251220-timetracker-v1.md
 - Tasks: Docs/Features/Tasks/P01-20251220-timetracker-v1.md
 - Progress: NONE
-- Other referenced docs: Docs/DevFramework/ToolSetup
+- Other referenced docs: DevFramework/ToolSetup
   Framework/NewFeatureTesting
-  /MODERN_BROWSER_TESTING.md, Docs/DevFramework/ToolSetup
+  /MODERN_BROWSER_TESTING.md, DevFramework/ToolSetup
   Framework/NewFeatureTesting
   /PLAYWRIGHT_CONSOLE_SETUP.md, COMMAND_EXECUTION_RULES.md, devBrowser.ts, package.json
 
@@ -37,10 +37,10 @@
 - package.json — Added playwright, @playwright/test, tsx dependencies + wb script — Evidence: "Added 'tsx' and 'playwright' to devDependencies and added 'wb' script"
 - src/app.html — Added <link rel="icon" type="image/png" href="/favicon.png" /> — Evidence: "Add favicon link to prevent 404 error"
 - .gitignore — Added /.pw-chrome-profile — Evidence: User action log shows modification
-- Docs/DevFramework/ToolSetup
+- DevFramework/ToolSetup
   Framework/NewFeatureTesting
   /MODERN_BROWSER_TESTING.md — Adapted from SharePoint to TimeTracker, added Windsurf restart requirement, added dependency installation steps — Evidence: Multiple edits documented
-- Docs/DevFramework/ToolSetup
+- DevFramework/ToolSetup
   Framework/NewFeatureTesting
   /PLAYWRIGHT_CONSOLE_SETUP.md — Adapted from SharePoint to TimeTracker, added prerequisites section — Evidence: Edit documented
 - .windsurf/workflows/rules-read-all.md — Removed project-specific COMMAND_EXECUTION_RULES reference (now auto-loaded from .windsurf/rules) — Evidence: "Remove project-specific COMMAND_EXECUTION_RULES reference"
@@ -49,7 +49,7 @@
 ### Repo-Verified Delta (optional, getrennt!)
 
 - COMMAND_EXECUTION_RULES.md — File exists in .windsurf/rules/ directory — Evidence: User action log shows file at e:\Private\Dev\Timekeeping\TimeTracker\.windsurf\rules\COMMAND_EXECUTION_RULES.md
-- Docs/DevFramework/ToolSetup
+- DevFramework/ToolSetup
   Framework/FrameworkSelfImprovementLogs
   /INDEX.md — Contains separator line "--- | --- | --- | --- | ---" — Evidence: read_file output shows line 2
 - e2e/milestone1.test.ts — File exists (5 E2E tests for Milestone 1) — Evidence: Referenced in chat as verification method

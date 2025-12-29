@@ -45,4 +45,4 @@ Use MCP Playwright browser to test the implemented functionality.
 
 ### 3. Git Commit & Push (REQUIRED)
 
-**Follow `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`** — includes changelog update, commit, and push.
+**Follow `DevFramework/JustInTimeAgentRules/pre-commit.md`** — includes changelog update, commit, and push.

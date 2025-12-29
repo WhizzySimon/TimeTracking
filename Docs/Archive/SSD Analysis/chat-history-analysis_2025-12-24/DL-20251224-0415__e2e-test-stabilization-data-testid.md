@@ -46,7 +46,7 @@
 
 ### Repo-Verified Delta (optional, getrennt!)
 
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /INDEX.md` — Contains 15 existing devlog entries with proper table format (header + separator + entries) — Evidence: Read file shows table structure with Date/Time | Title | Path | Status | Tags columns
 

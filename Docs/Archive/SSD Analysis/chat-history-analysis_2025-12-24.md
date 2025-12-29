@@ -18,7 +18,7 @@ Lies diese Dateien:
 
 - `Docs/INDEX.md`
 - `AGENTS.md`
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md`
 
@@ -30,14 +30,14 @@ Gib am Anfang deiner Antwort eine Sektion **Doc Inventory** aus (nur Pfade, je Z
 
 Stelle sicher, dass existiert:
 
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /`
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /INDEX.md`
 
-Wenn `Docs/DevFramework/ToolSetup
+Wenn `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /INDEX.md` nur die Header-Zeile hat:
 `Date/Time | Title | Path | Status | Tags`
@@ -61,7 +61,7 @@ Wenn im Chat konkrete Doc-Dateien erwähnt werden (z.B. `SVELTEKIT_PWA_ADDENDUM.
 
 Erzeuge eine neue Datei in:
 
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /`
 
@@ -140,7 +140,7 @@ Rule: Alles, was aus Terminal-/Script-Output stammt, zählt als "Claimed in chat
 Regeln:
 
 - **3–7 Tags pro Eintrag** — nicht weniger, nicht mehr
-- **Tags MÜSSEN aus `Docs/DevFramework/ToolSetup
+- **Tags MÜSSEN aus `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /TAGS.md` stammen** — wenn keiner passt, verwende `misc`
 - **Format:** Komma-getrennt, KEINE Klammern (z.B. `ui, ux, bugfix`)
@@ -160,15 +160,15 @@ tags: ui, ux, bugfix, settings, playwright
 
 ## STEP 5 — INDEX aktualisieren
 
-Füge in `Docs/DevFramework/ToolSetup
+Füge in `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /INDEX.md` eine neue Zeile hinzu:
 
-`<Chat Date/Time oder UNKNOWN> | <Title> | Docs/DevFramework/ToolSetup
+`<Chat Date/Time oder UNKNOWN> | <Title> | DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /<filename> | <DONE/OPEN/PARTIAL> | <tag1>, <tag2>, <tag3>`
 
-**WICHTIG:** Tags OHNE Klammern, komma-getrennt. Siehe `Docs/DevFramework/ToolSetup
+**WICHTIG:** Tags OHNE Klammern, komma-getrennt. Siehe `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /TAGS.md` für erlaubte Tags.
 
@@ -183,7 +183,7 @@ Status-Regel:
 ## STEP 6 — Antworte am Ende NUR mit
 
 - Created: <Devlog path>
-- Updated: Docs/DevFramework/ToolSetup
+- Updated: DevFramework/ToolSetup
   Framework/FrameworkSelfImprovementLogs
   /INDEX.md
 - Top Decisions: D1–D3

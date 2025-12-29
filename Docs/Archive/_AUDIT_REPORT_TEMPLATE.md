@@ -10,7 +10,7 @@
 
 ## Snapshot (must match Evidence Bundle)
 
-- **Evidence Bundle:** `Docs/DevFramework/ToolSetup
+- **Evidence Bundle:** `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /Evidence/<TASK-ID>.md`
 - **BASE_HEAD:** <paste from Evidence Bundle>
@@ -34,10 +34,10 @@ Framework/FrameworkSelfImprovementLogs
   - `## Frozen Snapshot (staged-only)`
   - `## Verification Evidence`
   - `## Risks / Flags`
-- Box checklist: `Docs/DevFramework/ToolSetup
+- Box checklist: `DevFramework/ToolSetup
 Framework/TaskQualityAssurance/boxes/<box>.md`
 - Verification artifact: `scripts/verify-code-output.txt`
-- Decisions (if any): `Docs/DevFramework/ToolSetup
+- Decisions (if any): `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /DECISIONS.md`
 

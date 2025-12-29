@@ -12,7 +12,7 @@
 - Tasks: Docs/Features/Tasks/P07-20251223-quick-start-ux.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 7 → Phase 8, Quick-Start UX)
 - Other referenced docs:
-  - Docs/DevFramework/ToolSetup
+  - DevFramework/ToolSetup
     Framework/DeveloperGuidesAndStandards
     /SPEC_DRIVEN_DEVELOPMENT.md (created in this session)
   - Docs/INDEX.md (updated)
@@ -48,7 +48,7 @@
 
 ### Repo-Verified Delta (optional, getrennt!)
 
-- Docs/DevFramework/ToolSetup
+- DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /SPEC_DRIVEN_DEVELOPMENT.md — File created with complete workflow guide (321 lines) — Evidence: write_to_file tool created file, list_dir confirms existence
 
@@ -58,7 +58,7 @@
 
 - .windsurf/workflows/continue-work.md — Updated to find tasks file based on current phase from IMPLEMENTATION_PROGRESS.md — Evidence: edit tool modified lines 35-39
 
-- Docs/DevFramework/ToolSetup
+- DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /SPEC_DRIVEN_DEVELOPMENT.md — Contains workflow decision tree at beginning of document — Evidence: edit tool added decision tree diagram in lines 7-42
 
@@ -70,7 +70,7 @@
   - Docs/Features/Specs/P07-20251223-quick-start-ux.md exists (16167 bytes) — Evidence: list_dir output
   - Docs/Features/Plans/P07-20251223-quick-start-ux.md exists (16707 bytes) — Evidence: list_dir output
   - Docs/Features/Tasks/P07-20251223-quick-start-ux.md exists (11885 bytes) — Evidence: list_dir output
-  - Docs/DevFramework/ToolSetup
+  - DevFramework/ToolSetup
     Framework/DeveloperGuidesAndStandards
     /SPEC_DRIVEN_DEVELOPMENT.md exists — Evidence: file created via write_to_file
   - .windsurf/workflows/new-feature.md exists (2951 bytes) — Evidence: list_dir output

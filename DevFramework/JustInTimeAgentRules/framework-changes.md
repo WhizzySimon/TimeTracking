@@ -20,9 +20,9 @@
 | **Process rules**   | `JustInTimeAgentRules/_entrypoint-jit-rule-map.md`           | Session workflow, git rules, verification          |
 | **Always-on rules** | `.windsurf/rules/*.md`                                       | Auto-loaded every session                          |
 | **Workflows**       | `.windsurf/workflows/`                                       | ONLY orchestrate — reference docs, never duplicate |
-| **Tooling docs**    | `Docs/DevFramework/DeveloperGuidesAndStandards/`             | Git workflow, coding standards                     |
+| **Tooling docs**    | `DevFramework/DeveloperGuidesAndStandards/`             | Git workflow, coding standards                     |
 | **App specs**       | `Docs/Features/Specs/`, `Plans/`, `Tasks/`                   | Per-feature app documentation                      |
-| **Framework specs** | `Docs/DevFramework/FrameworkFeatureSpecs/`                   | Per-feature framework documentation                |
+| **Framework specs** | `DevFramework/FrameworkFeatureSpecs/`                   | Per-feature framework documentation                |
 | **Dev history**     | `FrameworkSelfImprovementLogs/CHANGELOG.md`                  | One line per commit                                |
 | **Decisions**       | `FrameworkSelfImprovementLogs/DECISIONS.md`                  | Architecture/policy decisions (ADR-light)          |
 | **Learnings**       | `FrameworkSelfImprovementLogs/LEARNINGS.md`                  | Proven preferences (max 30 bullets)                |
@@ -31,4 +31,4 @@
 
 ---
 
-**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to the appropriate `Docs/DevFramework/JustInTimeAgentRules/*.md` file, NOT to individual workflow files. Workflows should reference docs, not duplicate content.
+**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to the appropriate `DevFramework/JustInTimeAgentRules/*.md` file, NOT to individual workflow files. Workflows should reference docs, not duplicate content.

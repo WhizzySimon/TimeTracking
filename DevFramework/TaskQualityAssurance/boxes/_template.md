@@ -33,13 +33,13 @@ All acceptance criteria for this box MUST:
 
 Before marking task complete:
 
-- [ ] Evidence Bundle created and **staged** (`Docs/DevFramework/FrameworkSelfImprovementLogs
+- [ ] Evidence Bundle created and **staged** (`DevFramework/FrameworkSelfImprovementLogs
 /Evidence/<task-id>.md`)
 - [ ] No unstaged changes (`git diff --name-only` empty)
 - [ ] No untracked files (`git ls-files --others --exclude-standard` empty)
 - [ ] `/audit` PASS (or FAIL remediated)
 
-**Model switch behavior** (see `Docs/DevFramework/JustInTimeAgentRules/ai-config.json`):
+**Model switch behavior** (see `DevFramework/JustInTimeAgentRules/ai-config.json`):
 
 - `switch_model_before_audit=true`: Builder stages and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
 - `switch_model_before_audit=false`: Builder runs `/audit` itself

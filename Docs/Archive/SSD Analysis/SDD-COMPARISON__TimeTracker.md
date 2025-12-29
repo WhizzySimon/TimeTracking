@@ -21,7 +21,7 @@ The system provides three workflow entry points based on context:
 
 ### 4-Phase Process
 
-**Source:** `AGENTS.md`, `Docs/DevFramework/ToolSetup
+**Source:** `AGENTS.md`, `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md`
 
@@ -52,7 +52,7 @@ Phase 4: IMPLEMENT (one task at a time)
 
 ### Requirement Format (FR/IG/DD)
 
-**Source:** `Docs/DevFramework/ToolSetup
+**Source:** `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md`
 
@@ -75,19 +75,19 @@ Framework/DeveloperGuidesAndStandards
 
 Priority order (0 = highest): 0. `Docs/INDEX.md` (single source of truth)
 
-1. `Docs/DevFramework/ToolSetup
+1. `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /ui-logic-spec-v1.md` (product truth)
-2. `Docs/DevFramework/ToolSetup
+2. `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /technical-guideline-v1.md` (architecture)
-3. `Docs/DevFramework/ToolSetup
+3. `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SVELTEKIT_PWA_ADDENDUM.md` (platform)
-4. `Docs/DevFramework/ToolSetup
+4. `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /DEVELOPMENT_GUIDELINES.md` (coding rules)
-5. `Docs/DevFramework/ToolSetup
+5. `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md` (spec format)
 6. `AGENTS.md` (Cascade process rules)
@@ -99,18 +99,18 @@ Framework/DeveloperGuidesAndStandards
 | Strength                             | Evidence                     | Why It Works                                     |
 | ------------------------------------ | ---------------------------- | ------------------------------------------------ |
 | **Explicit priority order**          | `Docs/INDEX.md` lines 7-13   | Eliminates doc conflicts; single source of truth |
-| **Numbered requirements (FR/IG/DD)** | `Docs/DevFramework/ToolSetup |
+| **Numbered requirements (FR/IG/DD)** | `DevFramework/ToolSetup |
 
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md`   | Traceable, testable, unambiguous                         |
-| **Structured devlog format**             | 28 entries in`Docs/DevFramework/ToolSetup
+| **Structured devlog format**             | 28 entries in`DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /`with identical template       | Decisions, deltas, verification, follow-ups all captured |
 | **Mandatory verification before commit** |`.windsurf/rules/COMMAND_EXECUTION_RULES.md`lines 283-303 | Catches errors before they enter codebase                |
 | **Phase-based progress tracking**        |`Docs/IMPLEMENTATION_PROGRESS.md`                         | 94 tasks tracked with checkboxes, visible progress       |
 | **Separation of spec/plan/tasks**        |`Docs/Features/Specs/`, `Docs/Features/Plans/`, `Docs/Features/Tasks/`               | Prevents scope creep; each doc has clear purpose         |
 | **Workflow automation**                  | 7 workflows in`.windsurf/workflows/`                     | Reduces manual steps; enforces process                   |
-| **Canonical tag system**                 |`Docs/DevFramework/ToolSetup
+| **Canonical tag system**                 |`DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /TAGS.md`                                     | Consistent categorization across 28 devlogs              |
 | **Human-in-the-loop checkpoints**        |`AGENTS.md` Phase 1-3 checkpoints | User confirms spec/plan/tasks before implementation |
@@ -136,7 +136,7 @@ Framework/FrameworkSelfImprovementLogs
 | ------------------------------ | --------------------------------------------------------------------------------------------------- | -------------------------------------- |
 | **Commit step forgotten**      | Memory `066ef418` explicitly warns "most commonly forgotten step"                                   | Uncommitted work lost between sessions |
 | **Spec template not enforced** | `Docs/Features/Specs/_template.md` exists but no validation                                         | Some specs missing sections            |
-| **Duplicate rules files**      | `implementation-specification-rules.md` in both `.windsurf/rules/` and `Docs/DevFramework/ToolSetup |
+| **Duplicate rules files**      | `implementation-specification-rules.md` in both `.windsurf/rules/` and `DevFramework/ToolSetup |
 
 Framework/DeveloperGuidesAndStandards
 /` | Potential drift between copies |
@@ -327,7 +327,7 @@ Framework/DeveloperGuidesAndStandards
 ### Logging/Traceability (Merged)
 
 1. **Devlog per session** — Decisions, Deltas, Verification, Bugs, Follow-ups
-2. **Centralized follow-up tracker** — `Docs/DevFramework/ToolSetup
+2. **Centralized follow-up tracker** — `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /FOLLOW-UPS.md` with rollup
 3. **Progress tracker** — `Docs/IMPLEMENTATION_PROGRESS.md` with task checkboxes
@@ -351,15 +351,15 @@ Framework/FrameworkSelfImprovementLogs
 
 | #   | File Path                    | Exact Change | Status | Why |
 | --- | ---------------------------- | ------------ | ------ | --- |
-| 1   | `Docs/DevFramework/ToolSetup |
+| 1   | `DevFramework/ToolSetup |
 
 Framework/FrameworkSelfImprovementLogs
 /FOLLOW-UPS.md`                 | Centralized tracker with 84 follow-ups                                                  | ✅ DONE                         | Single view of all open work; prevents lost follow-ups                  |
 | 2   |`Docs/Features/Specs/\_template.md`                   | Add "Completeness Checklist" section at bottom with all required sections as checkboxes | ✅ DONE                         | Self-documenting spec validation                                        |
-| 3   |`.windsurf/rules/\*.md`                      | Keep pointer files; canonical rules live in`Docs/DevFramework/ToolSetup
+| 3   |`.windsurf/rules/\*.md`                      | Keep pointer files; canonical rules live in`DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /`                         | ✅ DONE (architecture decision) | Windsurf auto-loads .windsurf/rules/; pointers reference canonical docs |
-| 4   |`Docs/DevFramework/ToolSetup
+| 4   |`DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md`| Add "Phase -1 / Pre-Implementation Gates" section (≤5 checkboxes)                       | ✅ DONE                         | Catch over-engineering before coding                                    |
 | 5   |`Docs/Features/Tasks/\_template.md`                   | Add`**Parallel:** [P] / blank`and`**Estimated:** 0.5h / 1h / 2h` fields | ✅ DONE | Enable parallelization, better planning |
@@ -369,13 +369,13 @@ Framework/DeveloperGuidesAndStandards
 | #   | File Path                         | Exact Change                                | Status | Why                          |
 | --- | --------------------------------- | ------------------------------------------- | ------ | ---------------------------- |
 | 6   | `Docs/IMPLEMENTATION_PROGRESS.md` | Add "Test Coverage" column to phase headers | TODO   | Visibility into testing gaps |
-| 7   | `Docs/DevFramework/ToolSetup      |
+| 7   | `DevFramework/ToolSetup      |
 
 Framework/FrameworkSelfImprovementLogs
 /chat-history-analysis.md`| Workflow field from enum`{/project-start, /continue-work, /new-feature, /new-task, NONE}`(no UNKNOWN) | ✅ DONE | Consistent, sortable devlogs                |
 | 8   |`AGENTS.md`                           | Add "Phase -1 / Pre-Implementation Gates" section (≤5 checkboxes)                                       | ✅ DONE | Block implementation until gates pass       |
 | 9   |`.windsurf/workflows/new-feature.md`  | Add step: "Verify Pre-Implementation Gates pass before starting Task 1"                                 | TODO    | Enforce gates in workflow                   |
-| 10  |`Docs/DevFramework/ToolSetup
+| 10  |`DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /TAGS.md` | All in-use tags reconciled | ✅ DONE | 229 lines with comprehensive tag categories |
 
@@ -384,7 +384,7 @@ Framework/FrameworkSelfImprovementLogs
 | #   | File Path                         | Exact Change                                                | Status  | Why                                  |
 | --- | --------------------------------- | ----------------------------------------------------------- | ------- | ------------------------------------ |
 | 11  | `scripts/validate-devlog-tags.js` | Script validates DL-\*.md and INDEX.md tags against TAGS.md | ✅ DONE | Automated tag validation (178 lines) |
-| 12  | `Docs/DevFramework/ToolSetup      |
+| 12  | `DevFramework/ToolSetup      |
 
 Framework/FrameworkSelfImprovementLogs
 /PHASE-HISTORY.md`   | Create file documenting what P02-P05 covered (retroactive)  | TODO    | Historical clarity                   |
@@ -420,7 +420,7 @@ Once Karsten repo is present locally, run the same audit:
 1. Read Karsten's equivalent files:
    - `Docs/INDEX.md` or equivalent priority doc
    - `AGENTS.md` or equivalent process doc
-   - `Docs/DevFramework/ToolSetup
+   - `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /` or equivalent logging
    - `.windsurf/workflows/` if present

@@ -11,7 +11,7 @@
 - Plan: NONE
 - Tasks: NONE
 - Progress: NONE
-- Other referenced docs: Docs/INDEX.md, AGENTS.md, .windsurf/cascade.md, Docs/DevFramework/ToolSetup
+- Other referenced docs: Docs/INDEX.md, AGENTS.md, .windsurf/cascade.md, DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /IMPLEMENTATION_SPECIFICATION_RULES.md, Docs/Features/Specs/\_template.md, .windsurf/rules/implementation-specification-rules.md, .windsurf/workflows/rules-read-all.md, .windsurf/workflows/read-core-docs-and-code.md
 
@@ -46,7 +46,7 @@
 - AGENTS.md — Added workflow references at start — Evidence: Chat "Added workflow references (lines 6-11)"
 - AGENTS.md — Updated Phase 1 SPEC with FR/IG/DD requirements — Evidence: Chat "Updated Phase 1 SPEC with FR/IG/DD (lines 33-48)"
 - AGENTS.md — Fixed path casing (docs → Docs) — Evidence: Chat "Fixed path casing - Plans (line 54), Tasks (line 71), Knowledge location (line 118)"
-- Docs/DevFramework/ToolSetup
+- DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /technical-guideline-v1.md — Added route vs component architecture decision rule — Evidence: Chat "Added 'Route vs Component Architecture' section"
 - .windsurf/cascade.md — Updated workflow instruction format — Evidence: Chat "Restructured workflow instruction to match AGENTS.md format"
@@ -62,9 +62,9 @@
 - .windsurf/workflows/rules-read-all.md — Exists and contains "Return only a single line" requirement — Evidence: .windsurf/workflows/rules-read-all.md line 14-15
 - .windsurf/workflows/read-core-docs-and-code.md — Exists and contains "Return only a single line" requirement — Evidence: .windsurf/workflows/read-core-docs-and-code.md line 25-26
 - Docs/Features/Specs/\_template.md — Contains FR/IG/DD sections with TT-FR-001, TT-IG-001, TT-DD-001 format — Evidence: Docs/Features/Specs/\_template.md lines 13-22
-- Docs/DevFramework/ToolSetup
+- DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
-  /IMPLEMENTATION_SPECIFICATION_RULES.md — Defines FR/IG/DD + verification loop + self-documenting — Evidence: Docs/DevFramework/ToolSetup
+  /IMPLEMENTATION_SPECIFICATION_RULES.md — Defines FR/IG/DD + verification loop + self-documenting — Evidence: DevFramework/ToolSetup
   Framework/DeveloperGuidesAndStandards
   /IMPLEMENTATION_SPECIFICATION_RULES.md lines 13-56
 
@@ -80,9 +80,9 @@
   - AGENTS.md line 20-22 defers to INDEX.md — Evidence: AGENTS.md lines 20-22
   - .windsurf/cascade.md lines 78-83 defer to INDEX.md — Evidence: .windsurf/cascade.md lines 78-83
   - Both workflow files exist in .windsurf/workflows/ — Evidence: File existence confirmed via find_by_name
-  - Docs/DevFramework/ToolSetup
+  - DevFramework/ToolSetup
     Framework/FrameworkSelfImprovementLogs
-    /INDEX.md exists with separator line — Evidence: Docs/DevFramework/ToolSetup
+    /INDEX.md exists with separator line — Evidence: DevFramework/ToolSetup
     Framework/FrameworkSelfImprovementLogs
     /INDEX.md line 2
 

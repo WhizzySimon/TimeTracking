@@ -38,20 +38,20 @@
 | Priority | Document                     | Purpose                           |
 | -------- | ---------------------------- | --------------------------------- |
 | 0        | `Docs/INDEX.md`              | Master index, conflict resolution |
-| 1        | `Docs/DevFramework/ToolSetup |
+| 1        | `DevFramework/ToolSetup |
 
 Framework/DeveloperGuidesAndStandards
 /UI_LOGIC_SPEC_V1.md`                  | Product truth (screens, flows)    |
-| 2        |`Docs/DevFramework/ToolSetup
+| 2        |`DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /TECHNICAL_GUIDELINE_V1.md`            | Architecture truth                |
-| 3        |`Docs/DevFramework/ToolSetup
+| 3        |`DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SVELTEKIT_PWA_ADDENDUM.md`            | Platform constraints              |
-| 4        |`Docs/DevFramework/ToolSetup
+| 4        |`DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /DEVELOPMENT_GUIDELINES.md`            | Coding/repo rules                 |
-| 5        |`Docs/DevFramework/ToolSetup
+| 5        |`DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md`| Spec writing rules                |
 | 6        |`AGENTS.md` | Cascade process rules |
@@ -66,10 +66,10 @@ Framework/DeveloperGuidesAndStandards
 | `.windsurf/rules/ui-design-rules.md`                    | Dialog policy, error handling    |
 | `.windsurf/cascade.md`                                  | Project instructions for Cascade |
 
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md` | 4-phase workflow guide |
-| `Docs/DevFramework/ToolSetup
+| `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /NAMING_CONVENTIONS.md` | File/variable naming |
 
@@ -92,7 +92,7 @@ Framework/DeveloperGuidesAndStandards
 
 | Feature        | Spec                         | Plan | Tasks | Status |
 | -------------- | ---------------------------- | ---- | ----- | ------ |
-| TimeTracker v1 | `Docs/DevFramework/ToolSetup |
+| TimeTracker v1 | `DevFramework/ToolSetup |
 
 Framework/DeveloperGuidesAndStandards
 /UI_LOGIC_SPEC_V1.md`             |`Docs/Features/Plans/P01-20251220-timetracker-v1.md`|`Docs/Features/Tasks/P01-20251220-timetracker-v1.md`| ✅ Complete |
@@ -165,7 +165,7 @@ Framework/DeveloperGuidesAndStandards
 #### Finding C.3: Naming inconsistency in Guidelines folder
 
 - **Severity:** Nice-to-have
-- **File:** `Docs/DevFramework/ToolSetup
+- **File:** `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /`
 - **Evidence:** Mixed naming: `UI_LOGIC_SPEC_V1.md` (UPPER_SNAKE) vs `technical-guideline-v1.md` (kebab-case) — actually file is `TECHNICAL_GUIDELINE_V1.md`
@@ -403,7 +403,7 @@ Framework/DeveloperGuidesAndStandards
 - `.windsurf/workflows/*.md` (9 files)
 - `AGENTS.md`
 - `Docs/INDEX.md`
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /*.md` (9 files)
 

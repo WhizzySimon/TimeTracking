@@ -35,7 +35,7 @@
 
 ## Decision Links (optional)
 
-- `Docs/DevFramework/FrameworkSelfImprovementLogs
+- `DevFramework/FrameworkSelfImprovementLogs
 /DECISIONS.md` — relevant entries: (or "none")
 - Related specs/plans: (repo-relative paths)
 

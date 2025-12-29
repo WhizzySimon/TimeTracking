@@ -46,7 +46,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | **Before implementing**       | `implementation.md`                                             |
 | **Before marking complete**   | Run `/audit`, ensure Evidence Bundle is staged                  |
 | **Before git commit**         | `pre-commit.md`                                                 |
-| **Starting a task**           | `Docs/DevFramework/TaskQualityAssurance/boxes/<box>.md`         |
+| **Starting a task**           | `DevFramework/TaskQualityAssurance/boxes/<box>.md`         |
 | **Changing framework docs**   | `framework-changes.md`                                          |
 
 **Each file has a canary marker. Output it to prove you read it.**
@@ -58,7 +58,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 When you actually consult/read a rule file to guide your behavior, emit an invisible marker at the end of your response:
 
 ```
-<!-- RULE_CONSULTED: Docs/DevFramework/JustInTimeAgentRules/code-quality.md, Docs/DevFramework/JustInTimeAgentRules/pre-commit.md -->
+<!-- RULE_CONSULTED: DevFramework/JustInTimeAgentRules/code-quality.md, DevFramework/JustInTimeAgentRules/pre-commit.md -->
 ```
 
 - Use relative paths from repo root
@@ -75,10 +75,10 @@ When you actually consult/read a rule file to guide your behavior, emit an invis
 | Find app spec       | `Docs/AppDocs/Features/Specs/<feature>.md`                     |
 | Find app plan       | `Docs/AppDocs/Features/Plans/<feature>.md`                     |
 | Find app tasks      | `Docs/Features/Tasks/<feature>.md`                             |
-| Find framework spec | `Docs/DevFramework/FrameworkFeatureSpecs/<feature>.md`         |
-| Log a change        | `Docs/DevFramework/FrameworkSelfImprovementLogs/CHANGELOG.md`  |
-| Log a decision      | `Docs/DevFramework/FrameworkSelfImprovementLogs/DECISIONS.md`  |
-| Capture feedback    | `Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md` |
-| Check learnings     | `Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS.md`  |
+| Find framework spec | `DevFramework/FrameworkFeatureSpecs/<feature>.md`         |
+| Log a change        | `DevFramework/FrameworkSelfImprovementLogs/CHANGELOG.md`  |
+| Log a decision      | `DevFramework/FrameworkSelfImprovementLogs/DECISIONS.md`  |
+| Capture feedback    | `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md` |
+| Check learnings     | `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS.md`  |
 
 ---

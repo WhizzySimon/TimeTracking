@@ -34,7 +34,7 @@
 
 - `src/lib/types.ts` lines 61-74 — WorkTimeModel interface exists with fields: id, name, validFrom, monday-sunday (number|null), createdAt, updatedAt — Evidence: Read from repo file
 - `src/routes/analysis/+page.svelte` lines 174-265 — Contains new calculation logic with functions getWeekdayKey, isWeekdayActiveInModel, getWorkDaysPerWeekFromModel, countWorkDaysInRange, calculateEffectiveWeeks — Evidence: Read from repo file after edit
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /INDEX.md` — Contains 16 existing devlog entries — Evidence: Read from repo file
 

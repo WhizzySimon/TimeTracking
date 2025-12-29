@@ -76,7 +76,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 12. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. Soll ich mit Task 1 beginnen?"
 
-13. Bei "Ja": Code implementieren - `npm run verify` - Unit Tests (wenn vorhanden) - MCP Playwright Browser Test - Progress Tracker updaten - Changelog updaten - Git Commit (follow `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`)
+13. Bei "Ja": Code implementieren - `npm run verify` - Unit Tests (wenn vorhanden) - MCP Playwright Browser Test - Progress Tracker updaten - Changelog updaten - Git Commit (follow `DevFramework/JustInTimeAgentRules/pre-commit.md`)
 
 ---
 

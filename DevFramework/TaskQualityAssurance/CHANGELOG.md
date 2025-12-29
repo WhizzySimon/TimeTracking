@@ -1,6 +1,6 @@
 # Autonomy Stack Framework Changelog
 
-This changelog tracks changes to the **Autonomy Stack framework** (Docs/DevFramework/TaskQualityAssurance/, scripts/CascadeAgentTools/).
+This changelog tracks changes to the **Autonomy Stack framework** (DevFramework/TaskQualityAssurance/, scripts/CascadeAgentTools/).
 
 **Format:** Append new entries at top (newest first).
 

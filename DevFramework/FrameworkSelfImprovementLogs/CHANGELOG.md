@@ -2,7 +2,7 @@
 
 All notable changes to this project. One line per commit/session. Most recent first.
 
-**Update rule:** Add an entry before each `git push`. See _entrypoint-jit-rule-map.md → Docs/DevFramework/JustInTimeAgentRules/pre-commit.md.
+**Update rule:** Add an entry before each `git push`. See _entrypoint-jit-rule-map.md → DevFramework/JustInTimeAgentRules/pre-commit.md.
 
 ---
 
@@ -17,7 +17,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 | 2025-12-28                                         | refactor | Scripts cleanup: e2e→AutomatedUITests, ai→CascadeAgentTools, validate-tags→build, eslint .cjs fix    | —       |
 | 2025-12-28                                         | docs     | Add template references to planning.md (Plans + Tasks templates)                                     | —       |
 | 2025-12-28                                         | feat     | A2.1: IndexedDB employers store + Employer type (Phase A2 Multi-Arbeitgeber start)                   | —       |
-| 2025-12-28                                         | docs     | Fix doc paths after restructure (AppDocs/DevFramework/ToolSetup                                      |
+| 2025-12-28                                         | docs     | Fix doc paths after restructure (AppDevFramework/ToolSetup                                      |
 | Framework), run_command primary + watcher fallback | —        |
 | 2025-12-28                                         | docs     | Auditor system: /audit workflow + Evidence Bundle template + Audit Report template + JIT trigger     | —       |
 | 2025-12-28                                         | feat     | D5 COMPLETE: Autonomy Stack v2 — telemetry, anomaly detection, evidence bundles, learning extraction | —       |
@@ -36,10 +36,10 @@ All notable changes to this project. One line per commit/session. Most recent fi
 | 2025-12-27                                         | docs     | Self-learning: route Hard Rules to specific trigger files, not general locations                     | —       |
 | 2025-12-27                                         | fix      | Watcher exit code — use System.Diagnostics.Process for reliable capture                              | 5e7c2d8 |
 | 2025-12-27                                         | fix      | Watcher exit code bug — add WaitForExit() before reading ExitCode                                    | —       |
-| 2025-12-27                                         | chore    | Delete AGENTS.md — replaced by _entrypoint-jit-rule-map.md + Docs/DevFramework/ToolSetup                             |
+| 2025-12-27                                         | chore    | Delete AGENTS.md — replaced by _entrypoint-jit-rule-map.md + DevFramework/ToolSetup                             |
 
 Framework/JustInTimeAgentRules/ | — |
-| 2025-12-27 | feat | D4: Just-in-time rules system — _entrypoint-jit-rule-map.md + Docs/DevFramework/JustInTimeAgentRules/ (7 trigger files) | — |
+| 2025-12-27 | feat | D4: Just-in-time rules system — _entrypoint-jit-rule-map.md + DevFramework/JustInTimeAgentRules/ (7 trigger files) | — |
 | 2025-12-27 | docs | Escalate pre-commit checklist to AGENTS.md after 2 violations | — |
 | 2025-12-27 | feat | Versioning: git describe format (v1.0.0-N-ghash), bump-version + release scripts | 12e0bd9 |
 | 2025-12-27 | feat | A1.12: PlanComparison modal with Free/Pro/Premium comparison | — |

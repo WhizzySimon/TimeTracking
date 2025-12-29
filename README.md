@@ -13,7 +13,7 @@ This project uses a **Just-in-Time (JIT) rule system** for AI-assisted developme
 │  .windsurf/rules/always-on.md   ← THE ONLY always-on rule  │
 │         │                                                   │
 │         ▼                                                   │
-│  Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md       │
+│  DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md       │
 │         │                                                   │
 │         ├──► session-start.md, code-quality.md             │
 │         ├──► command-execution.md, pre-commit.md           │
@@ -27,7 +27,7 @@ This project uses a **Just-in-Time (JIT) rule system** for AI-assisted developme
 
 **Key files:**
 
-- **Docs/DevFramework/JustInTimeAgentRules/\_entrypoint-jit-rule-map.md** — When to read which rule
+- **DevFramework/JustInTimeAgentRules/\_entrypoint-jit-rule-map.md** — When to read which rule
 
 **Trigger points:** session-start, writing code, executing commands, pre-commit, session-end, etc.
 

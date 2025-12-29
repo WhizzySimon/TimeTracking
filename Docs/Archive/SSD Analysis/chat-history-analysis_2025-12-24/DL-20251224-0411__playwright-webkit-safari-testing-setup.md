@@ -11,7 +11,7 @@
 - Plan: NONE
 - Tasks: NONE
 - Progress: NONE
-- Other referenced docs: `scripts/cascade-watcher.ps1`, `Docs/DevFramework/ToolSetup
+- Other referenced docs: `scripts/cascade-watcher.ps1`, `DevFramework/ToolSetup
 Framework/NewFeatureTesting
 /testing-safari-like.md` (created)
 
@@ -25,7 +25,7 @@ Framework/NewFeatureTesting
 
 - D4: Add npm scripts for webkit and Mobile Safari testing — Reason: Provide convenient shortcuts for common test commands — Evidence: User request Step 3 "Add npm scripts (optional but recommended)"
 
-- D5: Create runbook documentation in Docs/DevFramework/ToolSetup
+- D5: Create runbook documentation in DevFramework/ToolSetup
   Framework/NewFeatureTesting
   / folder — Reason: Document exact watcher-triggered commands for future reference — Evidence: User request Step 4 "output a short 'Runbook' in a markdown file, e.g. docs/testing-safari-like.md"
 
@@ -43,9 +43,9 @@ Framework/NewFeatureTesting
 
 - `package.json` — Added four npm scripts: test:webkit, test:ios, test:webkit:ui, test:ios:ui — Evidence: Chat implementation step
 
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/NewFeatureTesting
-/testing-safari-like.md` — Created runbook with watcher commands, npm scripts reference, and verification steps — Evidence: Chat implementation step (user moved from Docs/ to Docs/DevFramework/ToolSetup
+/testing-safari-like.md` — Created runbook with watcher commands, npm scripts reference, and verification steps — Evidence: Chat implementation step (user moved from Docs/ to DevFramework/ToolSetup
   Framework/NewFeatureTesting
   /)
 
@@ -57,7 +57,7 @@ Framework/NewFeatureTesting
 
 - `package.json` — Contains test:webkit, test:ios, test:webkit:ui, test:ios:ui scripts — Evidence: File modified during chat session
 
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/NewFeatureTesting
 /testing-safari-like.md` — File exists (user moved it to Testing folder) — Evidence: User action log shows file move
 

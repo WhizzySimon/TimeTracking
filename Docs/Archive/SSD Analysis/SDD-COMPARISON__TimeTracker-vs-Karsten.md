@@ -70,13 +70,13 @@
 
 #### Devlog/Decision Tracking
 
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /INDEX.md` — 28 devlog entries with Date, Title, Path, Status, Tags
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /FOLLOW-UPS.md` — 84 follow-ups with FollowUpID, SourceDL, Priority, Owner, Status
-- `Docs/DevFramework/ToolSetup
+- `DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /DEVLOG_METRICS.json` — automated metrics (113 decisions, 84 follow-ups)
 
@@ -123,7 +123,7 @@ Framework/FrameworkSelfImprovementLogs
 
 #### Devlog/Decision Tracking
 
-- **No Docs/DevFramework/ToolSetup
+- **No DevFramework/ToolSetup
   Framework/FrameworkSelfImprovementLogs
   /** folder
 - **No follow-up tracking**
@@ -165,7 +165,7 @@ Framework/FrameworkSelfImprovementLogs
 ### 2. Spec Length Guidelines — APPLIED 2025-12-24
 
 **What:** Add recommended spec length by complexity  
-**Target:** `Docs/DevFramework/ToolSetup
+**Target:** `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md`  
 **Change:** Add section:
@@ -181,7 +181,7 @@ Framework/DeveloperGuidesAndStandards
 ### 3. Domain Prefix for FR/IG/DD — APPLIED 2025-12-24
 
 **What:** Use feature-specific prefixes instead of generic TT-  
-**Target:** `Docs/DevFramework/ToolSetup
+**Target:** `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md`  
 **Change:** Added "Domain Prefix Convention" section with examples and usage guidance.
@@ -195,7 +195,7 @@ Framework/DeveloperGuidesAndStandards
 ### 5. Logging Format Standardization
 
 **What:** Define iteration `[ x / n ]` and retry `( x / n )` log format  
-**Target:** `Docs/DevFramework/ToolSetup
+**Target:** `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /DEVELOPMENT_GUIDELINES.md`  
 **Change:** Add logging section with format rules
@@ -229,7 +229,7 @@ Use markers for related functions:
 ### 8. Layer Architecture Diagrams
 
 **What:** Encourage ASCII box diagrams for multi-layer systems  
-**Target:** `Docs/DevFramework/ToolSetup
+**Target:** `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md`  
 **Change:** Add diagram example section
@@ -237,7 +237,7 @@ Framework/DeveloperGuidesAndStandards
 ### 9. Spec Changes Timestamp Format — APPLIED 2025-12-24
 
 **What:** Use `**[YYYY-MM-DD HH:MM]**` format with action prefixes  
-**Target:** `Docs/Features/Specs/_template.md` + `Docs/DevFramework/ToolSetup
+**Target:** `Docs/Features/Specs/_template.md` + `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md`  
 **Change:** Updated Change log section in template and added "Change Log Format" section in guidelines.
@@ -261,7 +261,7 @@ Avoid: "1 item(s)"
 
 1. ~~**Update `Docs/Features/Specs/_template.md`**~~ — DONE 2025-12-24: Added dependency declarations, "What we don't want" section, and timestamped changelog format
 2. **Expand `.windsurf/rules/code-quality-rules.md`** — Add BAD/GOOD examples, function grouping markers, logging format, singular/plural rules (NOT DONE - .windsurf/rules protected)
-3. ~~**Add spec length guidelines**~~ — DONE 2025-12-24: Added to `Docs/DevFramework/ToolSetup
+3. ~~**Add spec length guidelines**~~ — DONE 2025-12-24: Added to `DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md` with complexity-based recommendations + domain prefix convention
 
@@ -271,7 +271,7 @@ Framework/DeveloperGuidesAndStandards
 
 - **No AGENTS.md** — could not compare process governance
 - **No Docs/Features/Tasks/ folder** — could not compare task decomposition
-- **No Docs/DevFramework/ToolSetup
+- **No DevFramework/ToolSetup
   Framework/FrameworkSelfImprovementLogs
   / folder** — could not compare decision tracking
 - **No package.json or test scripts** — could not compare verification automation
