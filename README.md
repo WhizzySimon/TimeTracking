@@ -27,11 +27,7 @@ This project uses a **Just-in-Time (JIT) rule system** for AI-assisted developme
 
 **Key files:**
 
-- **Docs/DevFramework/ToolSetup
-  Framework/JustInTimeAgentRules/\_entrypoint-jit-rule-map.md** — When to read which rule
-- **Docs/DevFramework/ToolSetup
-  Framework/ToolSetup
-  /BOOTSTRAP.md** — Tooling setup
+- **Docs/DevFramework/JustInTimeAgentRules/\_entrypoint-jit-rule-map.md** — When to read which rule
 
 **Trigger points:** session-start, writing code, executing commands, pre-commit, session-end, etc.
 
@@ -114,10 +110,6 @@ npm run test:e2e     # Browser tests (9 tests, ~30s)
 - Category management (system vs user categories)
 - Data persistence across reload
 - Files: `e2e/basic-flow.test.ts`, `e2e/milestone1.test.ts`
-
-### Testing Documentation
-
-See `Docs/DevFramework/NewFeatureTesting/` for detailed testing guides.
 
 ## Developer Guide
 

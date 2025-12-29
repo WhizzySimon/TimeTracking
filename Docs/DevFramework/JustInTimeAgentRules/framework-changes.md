@@ -20,7 +20,7 @@
 | **Process rules**   | `JustInTimeAgentRules/_entrypoint-jit-rule-map.md`           | Session workflow, git rules, verification          |
 | **Always-on rules** | `.windsurf/rules/*.md`                                       | Auto-loaded every session                          |
 | **Workflows**       | `.windsurf/workflows/`                                       | ONLY orchestrate — reference docs, never duplicate |
-| **Tooling docs**    | `Docs/DevFramework/ToolSetup/`                               | Git workflow, bootstrap                            |
+| **Tooling docs**    | `Docs/DevFramework/DeveloperGuidesAndStandards/`             | Git workflow, coding standards                     |
 | **App specs**       | `Docs/Features/Specs/`, `Plans/`, `Tasks/`                   | Per-feature app documentation                      |
 | **Framework specs** | `Docs/DevFramework/FrameworkFeatureSpecs/`                   | Per-feature framework documentation                |
 | **Dev history**     | `FrameworkSelfImprovementLogs/CHANGELOG.md`                  | One line per commit                                |

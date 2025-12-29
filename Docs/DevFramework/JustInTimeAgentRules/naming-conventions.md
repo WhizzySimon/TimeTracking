@@ -32,8 +32,7 @@ All names must be **self-explanatory without opening the item**.
 
 | ❌ Generic  | ✓ Self-Explanatory                              |
 | ----------- | ----------------------------------------------- |
-| `docs/`     | `Docs/DevFramework/ToolSetup                    |
-| Framework/` |
+| `docs/`     | `Docs/DevFramework/`                            |
 | `rules/`    | `JustInTimeAgentRules/`                         |
 | `logs/`     | `FrameworkSelfImprovementLogs/`                 |
 | `utils/`    | `scripts/CascadeAgentTools/` (purpose-specific) |
