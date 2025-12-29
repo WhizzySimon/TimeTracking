@@ -24,7 +24,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
    git checkout dev
    git pull origin dev
    ```
-4. Read `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Workflow-Guide)
+4. Read `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Workflow-Guide)
 
 ### Phase 1: SPEC erstellen
 
@@ -59,7 +59,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
    - Kleine Tasks (0.5-2h)
    - Jeder Task hat: Files, Done when, Verify, Guardrails
 
-10. Füge neue Phase in `Docs/DevFramework/DevFramework/IMPLEMENTATION_PROGRESS.md` hinzu - Phase-Header mit Status "Not started" - Alle Tasks als [ ] (unchecked)
+10. Füge neue Phase in `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` hinzu - Phase-Header mit Status "Not started" - Alle Tasks als [ ] (unchecked)
 
 11. Checkpoint:
     - [ ] Alle Tasks haben klare "Done when" Kriterien
@@ -79,7 +79,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 13. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. Soll ich mit Task 1 beginnen?"
 
-14. Bei "Ja": Starte Implementation gemäß Task-Workflow (see `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md`): - Code implementieren - `npm run verify` - Unit Tests (wenn vorhanden) - MCP Playwright Browser Test - Progress Tracker updaten - Changelog updaten - Git Commit (follow `Docs/DevFramework/DevFramework/JustInTimeAgentRules/pre-commit.md`)
+14. Bei "Ja": Starte Implementation gemäß Task-Workflow (see `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md`): - Code implementieren - `npm run verify` - Unit Tests (wenn vorhanden) - MCP Playwright Browser Test - Progress Tracker updaten - Changelog updaten - Git Commit (follow `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`)
 
 ---
 
@@ -90,7 +90,7 @@ Nach Phase 0-3:
 ```
 # Doc Inventory
 - .windsurf/rules/* (all rules)
-- Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md
+- Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md
 
 # Feature: <name>
 - Spec: Docs/AppDocs/Features/Specs/<feature>.md ✅

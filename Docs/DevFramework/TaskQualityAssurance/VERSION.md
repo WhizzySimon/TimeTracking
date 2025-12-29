@@ -6,7 +6,7 @@
 
 ## Versioning Rules
 
-This version tracks the **Autonomy Stack framework** (Docs/DevFramework/DevFramework/TaskQualityAssurance/, scripts/CascadeAgentTools/), NOT the TimeTracker app.
+This version tracks the **Autonomy Stack framework** (Docs/DevFramework/TaskQualityAssurance/, scripts/CascadeAgentTools/), NOT the TimeTracker app.
 
 ### Semantic Versioning
 
@@ -27,7 +27,7 @@ This version tracks the **Autonomy Stack framework** (Docs/DevFramework/DevFrame
 ## Tagging Workflow
 
 1. Update `FRAMEWORK_VERSION` in this file
-2. Add entry to `Docs/DevFramework/DevFramework/TaskQualityAssurance/CHANGELOG.md`
+2. Add entry to `Docs/DevFramework/TaskQualityAssurance/CHANGELOG.md`
 3. Commit with message: `chore(ai): bump framework to X.Y.Z`
 4. Tag: `git tag ai-vX.Y.Z`
 5. Push: `git push origin ai-vX.Y.Z`

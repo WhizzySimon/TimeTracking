@@ -71,7 +71,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 When you actually consult/read a rule file to guide your behavior, emit an invisible marker at the end of your response:
 
 ```
-<!-- RULE_CONSULTED: Docs/DevFramework/DevFramework/JustInTimeAgentRules/code-quality.md, Docs/DevFramework/DevFramework/JustInTimeAgentRules/pre-commit.md -->
+<!-- RULE_CONSULTED: Docs/DevFramework/JustInTimeAgentRules/code-quality.md, Docs/DevFramework/JustInTimeAgentRules/pre-commit.md -->
 ```
 
 - Use relative paths from repo root
@@ -92,13 +92,13 @@ When you actually consult/read a rule file to guide your behavior, emit an invis
 
 Framework/FrameworkFeatureSpecs
 /<feature>.md`       |
-| Log a change        |`Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+| Log a change        |`Docs/DevFramework/FrameworkSelfImprovementLogs
 /CHANGELOG.md`      |
-| Log a decision      |`Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+| Log a decision      |`Docs/DevFramework/FrameworkSelfImprovementLogs
 /DECISIONS.md`      |
-| Capture feedback    |`Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+| Capture feedback    |`Docs/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md`|
-| Check learnings     |`Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+| Check learnings     |`Docs/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` |
 
 ---

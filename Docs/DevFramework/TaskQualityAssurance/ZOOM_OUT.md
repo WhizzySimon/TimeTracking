@@ -112,7 +112,7 @@ EVIDENCE: [What proved it doesn't work]
 LEARNING: [What did I learn?]
 ```
 
-Log to `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+Log to `Docs/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` if the learning is reusable.
 
 ---

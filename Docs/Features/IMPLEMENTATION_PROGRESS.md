@@ -83,7 +83,7 @@
 
 **Goal:** Restructure AGENTS.md (282 lines) into a slim dispatcher (~50 lines) + trigger-based rule files.
 
-**Research:** `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+**Research:** `Docs/DevFramework/FrameworkSelfImprovementLogs
 /SSD Analysis/2025-12-27__just-in-time-rules-research.md`
 
 ### Tasks
@@ -92,8 +92,7 @@
 | ---- | ----------------------------------- | ------ | ----- |
 | D4.1 | Create `Docs/DevFramework/ToolSetup |
 
-Framework/JustInTimeAgentRules
-/`folder        | DONE   | New folder for trigger-based rules |
+Framework/JustInTimeAgentRules/`folder        | DONE   | New folder for trigger-based rules |
 | D4.2  | Create`session-start.md`         | DONE   | T1: Session start rules            |
 | D4.3  | Create`spec-writing.md`          | DONE   | T2: Spec creation rules            |
 | D4.4  | Create`planning.md`              | DONE   | T3: Plan creation rules            |
@@ -101,7 +100,7 @@ Framework/JustInTimeAgentRules
 | D4.6  | Create`pre-commit.md`            | DONE   | T5: Pre-commit checklist           |
 | D4.7  | Create`session-end.md`           | DONE   | T6: Session end rules              |
 | D4.8  | Create`framework-changes.md`     | DONE   | T7: Framework doc rules            |
-| D4.9  | Create`RULE_MAP.md`dispatcher    | DONE   | Replaces AGENTS.md                 |
+| D4.9  | Create`_entrypoint-jit-rule-map.md`dispatcher    | DONE   | Replaces AGENTS.md                 |
 | D4.11 | Update`.windsurf/rules/` pointers | DONE | User updated manually |
 | D4.12 | Keep AGENTS.md as backup | DONE | Can delete later |
 | D4.13 | Test with real session | DONE | PASS — all content covered |
@@ -188,13 +187,12 @@ Phase 4:
 
 ### Deliverables
 
-- [x] `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+- [x] `Docs/DevFramework/FrameworkSelfImprovementLogs
 /CHANGELOG.md` — Everything log (one line per commit)
-- [x] `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+- [x] `Docs/DevFramework/FrameworkSelfImprovementLogs
 /DECISIONS.md` — Decision log (ADR-light)
 - [x] `AGENTS.md` — Added changelog to session-end rules
-- [x] `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
-/SPEC_DRIVEN_DEVELOPMENT.md` — Added changelog step to workflow
+- [x] `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` — Added changelog step to workflow
 
 ---
 
@@ -206,9 +204,9 @@ Phase 4:
 
 ### Deliverables
 
-- [x] `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+- [x] `Docs/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` — Distillate (proven preferences, max 30 bullets)
-- [x] `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+- [x] `Docs/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` — Inbox (raw feedback capture)
 - [x] `AGENTS.md` — Added Self-Learning System section
 - [x] `.windsurf/workflows/helpers/read-governance.md` — Added LEARNINGS.md to session-start reading
@@ -237,7 +235,7 @@ Phase 4:
 
 - `scripts/watcher-main.ps1` — Main watcher orchestrator (new)
 - `scripts/watcher.ps1` — Updated child watcher with SessionId support
-- `Docs/DevFramework/DevFramework/ToolSetup/CASCADE_WATCHER.md` — Complete documentation rewrite
+- `Docs/DevFramework/ToolSetup/CASCADE_WATCHER.md` — Complete documentation rewrite
 
 ---
 

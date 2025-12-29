@@ -8,9 +8,9 @@
 
 Goal: Choose architecture/approach and write it down before code.
 
-Location: `Docs/AppDocs/Features/Plans/<feature-slug>.md` or `Docs/DevFramework/DevFramework/FrameworkFeaturePlans
+Location: `Docs/AppDocs/Features/Plans/<feature-slug>.md` or `Docs/DevFramework/FrameworkFeaturePlans
 /<feature-slug>.md`  
-Template: `Docs/AppDocs/Features/Plans/_template.md` or `Docs/DevFramework/DevFramework/FrameworkFeaturePlans
+Template: `Docs/AppDocs/Features/Plans/_template.md` or `Docs/DevFramework/FrameworkFeaturePlans
 /_template.md`
 
 ### Required Sections
@@ -34,9 +34,9 @@ Each plan MUST contain:
 
 Goal: Break plan into reviewable, independently testable units.
 
-Location: `Docs/AppDocs/Features/Tasks/<feature-slug>.md` or `Docs/DevFramework/DevFramework/FrameworkFeatureTasks
+Location: `Docs/AppDocs/Features/Tasks/<feature-slug>.md` or `Docs/DevFramework/FrameworkFeatureTasks
 /<feature-slug>.md`  
-Template: `Docs/AppDocs/Features/Tasks/_template.md` or `Docs/DevFramework/DevFramework/FrameworkFeatureTasks
+Template: `Docs/AppDocs/Features/Tasks/_template.md` or `Docs/DevFramework/FrameworkFeatureTasks
 /_template.md`
 
 ### Rules
@@ -53,4 +53,4 @@ Template: `Docs/AppDocs/Features/Tasks/_template.md` or `Docs/DevFramework/DevFr
 
 ---
 
-**Next:** When tasks are defined → Read `Docs/DevFramework/DevFramework/JustInTimeAgentRules/implementation.md`
+**Next:** When tasks are defined → Read `Docs/DevFramework/JustInTimeAgentRules/implementation.md`

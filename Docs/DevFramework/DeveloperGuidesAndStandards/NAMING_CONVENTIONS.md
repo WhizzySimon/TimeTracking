@@ -43,8 +43,7 @@ Names must be **self-documenting** — no README needed to understand purpose.
 
 ### Docs/DevFramework/ToolSetup
 
-Framework/DeveloperGuidesAndStandards
-/
+Framework/DeveloperGuidesAndStandards/
 
 **Convention:** `SCREAMING_SNAKE_CASE.md`
 

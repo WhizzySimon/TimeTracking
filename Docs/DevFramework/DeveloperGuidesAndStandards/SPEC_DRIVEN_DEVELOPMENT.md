@@ -197,13 +197,13 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 │     └─ Deviations notieren (falls vorhanden)                        │
 │                                                                     │
 │  6. CHANGELOG UPDATEN                                               │
-│     └─ Eine Zeile in Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+│     └─ Eine Zeile in Docs/DevFramework/FrameworkSelfImprovementLogs
 /CHANGELOG.md          │
 │     └─ Format: | Date | Type | Summary | Ref |                      │
 │                                                                     │
 │  7. JIT RULE: BEFORE COMMIT                                         │
 │     └─ Follow JIT rule map trigger "Before git commit"              │
-│     └─ (See: Docs/DevFramework/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md)   │
+│     └─ (See: Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md)   │
 │                                                                     │
 │  8. GIT COMMIT                                                      │
 │     └─ git commit -m "feat: description"                            │
@@ -219,7 +219,7 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 
 1. **Erst** alle Tests bestehen lassen
 2. **Dann** Progress Tracker updaten
-3. **Dann** Changelog updaten (eine Zeile in `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+3. **Dann** Changelog updaten (eine Zeile in `Docs/DevFramework/FrameworkSelfImprovementLogs
 /CHANGELOG.md`)
 4. **Dann** JIT rule map: "Before git commit" trigger
 5. **Zuletzt** Git Commit (damit alles im Commit ist)
@@ -246,7 +246,7 @@ feat: kurze Beschreibung
 
 ## Progress Tracker
 
-**Datei:** `Docs/DevFramework/DevFramework/IMPLEMENTATION_PROGRESS.md`
+**Datei:** `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md`
 
 ### Format pro Task
 
@@ -293,7 +293,7 @@ Bevor du mit der Implementierung beginnst:
 - [ ] **Spec existiert:** `Docs/Features/Specs/<feature>.md`
 - [ ] **Plan existiert:** `Docs/Features/Plans/<feature>.md`
 - [ ] **Tasks existieren:** `Docs/Features/Tasks/<feature>.md`
-- [ ] **Progress Tracker:** Phase in `Docs/DevFramework/DevFramework/IMPLEMENTATION_PROGRESS.md` angelegt
+- [ ] **Progress Tracker:** Phase in `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` angelegt
 - [ ] **Alle Checkpoints** der Phasen 1-3 erfüllt
 
 ---
@@ -331,7 +331,7 @@ Bevor du mit der Implementierung beginnst:
 | Command Execution                                                            | `Docs/DevFramework/ToolSetup       |
 
 Framework/ToolSetup/command-execution-rules.md`              |
-| Pre-Commit Rules  |`Docs/DevFramework/DevFramework/JustInTimeAgentRules/pre-commit.md` |
+| Pre-Commit Rules  |`Docs/DevFramework/JustInTimeAgentRules/pre-commit.md` |
 
 ---
 

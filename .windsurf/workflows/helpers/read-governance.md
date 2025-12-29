@@ -17,7 +17,7 @@ Read:
 
 ## Health Checks (run after reading docs)
 
-1. **Check current branch:** Ensure on `dev` branch (see `Docs/DevFramework/DevFramework/ToolSetup/GIT_WORKFLOW.md`)
+1. **Check current branch:** Ensure on `dev` branch (see `Docs/DevFramework/ToolSetup/GIT_WORKFLOW.md`)
 
 If not on dev, switch to dev before starting new work.
 

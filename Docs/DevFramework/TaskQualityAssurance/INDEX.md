@@ -27,7 +27,7 @@ Before starting work, identify your task type:
 | `research-decision` | Investigation, ADR, spike                  |
 | `ui-ux`             | Visual/interaction changes                 |
 
-Read the box checklist: `Docs/DevFramework/DevFramework/TaskQualityAssurance/boxes/<box-type>.md`
+Read the box checklist: `Docs/DevFramework/TaskQualityAssurance/boxes/<box-type>.md`
 
 ### 2. Log Events
 
@@ -54,7 +54,7 @@ After repeated failures or long tasks:
 npm run ai:detect-anomalies
 ```
 
-If anomalies are detected, follow: `Docs/DevFramework/DevFramework/TaskQualityAssurance/ZOOM_OUT.md`
+If anomalies are detected, follow: `Docs/DevFramework/TaskQualityAssurance/ZOOM_OUT.md`
 
 ### 4. Generate Evidence Bundle
 
@@ -68,7 +68,7 @@ npm run ai:evidence -- --task=D5.1 --box=infra-build
 
 Before marking a task complete, run `/audit` on a frozen staged snapshot.
 
-**Config flag:** `Docs/DevFramework/DevFramework/JustInTimeAgentRules/ai-config.json` → `switch_model_before_audit`
+**Config flag:** `Docs/DevFramework/JustInTimeAgentRules/ai-config.json` → `switch_model_before_audit`
 
 - `true` (default): Builder stages changes and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
 - `false`: Builder stages changes and runs `/audit` itself (same chat)
@@ -98,7 +98,7 @@ npm run ai:extract-learnings
 ## File Structure
 
 ```
-Docs/DevFramework/DevFramework/TaskQualityAssurance/
+Docs/DevFramework/TaskQualityAssurance/
 ├── ZOOM_OUT.md           # Anomaly recovery protocol
 └── boxes/
     ├── _template.md      # Box checklist template
@@ -118,7 +118,7 @@ scripts/CascadeAgentTools/
     ├── session-*.jsonl   # Per-session telemetry
     └── baselines.json    # Command duration baselines
 
-Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+Docs/DevFramework/FrameworkSelfImprovementLogs
 /Evidence/
 └── <task-id>.md          # Per-task evidence bundles
 ```
@@ -139,10 +139,10 @@ Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 
 At the end of an implementation task, Builder (Opus) must:
 
-1. Create/update Evidence Bundle at `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+1. Create/update Evidence Bundle at `Docs/DevFramework/FrameworkSelfImprovementLogs
 /Evidence/<task-id>.md`
 2. Stage everything: `git add -A`
-3. Read `Docs/DevFramework/DevFramework/JustInTimeAgentRules/ai-config.json`:
+3. Read `Docs/DevFramework/JustInTimeAgentRules/ai-config.json`:
    - If `switch_model_before_audit=true`:
      ```
      STOP: Switch model to GPT-5.2 Medium Reasoning and run /audit now.
@@ -155,13 +155,13 @@ At the end of an implementation task, Builder (Opus) must:
 
 ## Related Documentation
 
-- **Spec:** `Docs/DevFramework/DevFramework/FrameworkFeatureSpecs
+- **Spec:** `Docs/DevFramework/FrameworkFeatureSpecs
 /task-quality-assurance.md`
-- **Plan:** `Docs/DevFramework/DevFramework/FrameworkFeaturePlans
+- **Plan:** `Docs/DevFramework/FrameworkFeaturePlans
 /task-quality-assurance.md`
-- **Tasks:** `Docs/DevFramework/DevFramework/FrameworkFeatureTasks
+- **Tasks:** `Docs/DevFramework/FrameworkFeatureTasks
 /task-quality-assurance.md`
-- **Devlog:** `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+- **Devlog:** `Docs/DevFramework/FrameworkSelfImprovementLogs
 /` (CHANGELOG, DECISIONS, LEARNINGS)
 
 ---
@@ -171,7 +171,7 @@ At the end of an implementation task, Builder (Opus) must:
 ### Bugfix Flow
 
 ```
-1. Read box checklist: Docs/DevFramework/DevFramework/TaskQualityAssurance/boxes/bugfix.md
+1. Read box checklist: Docs/DevFramework/TaskQualityAssurance/boxes/bugfix.md
 2. Log start: npm run ai:log-event -- --type=task_start --box=bugfix --message="Fix sync error"
 3. Implement fix
 4. Run verification: npm run verify
@@ -183,7 +183,7 @@ At the end of an implementation task, Builder (Opus) must:
 ### Feature Flow
 
 ```
-1. Read box checklist: Docs/DevFramework/DevFramework/TaskQualityAssurance/boxes/feature.md
+1. Read box checklist: Docs/DevFramework/TaskQualityAssurance/boxes/feature.md
 2. Log plan: npm run ai:log-event -- --type=plan_created --box=feature --message="Multi-employer support" --planned-files="src/lib/stores/employers.ts,src/routes/settings/+page.svelte"
 3. Implement tasks
 4. Run verification + unit tests + E2E

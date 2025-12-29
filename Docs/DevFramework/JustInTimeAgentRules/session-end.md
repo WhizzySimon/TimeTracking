@@ -6,7 +6,7 @@
 
 ## Pre-Commit Covers Most Checks
 
-The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/DevFramework/DevFramework/JustInTimeAgentRules/pre-commit.md`.
+The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`.
 
 **If you committed and pushed, session-end checks are already done.**
 
@@ -18,9 +18,9 @@ This file documents the self-learning system for reference.
 
 Cascade learns from maintainer feedback via a two-tier system:
 
-- **Inbox:** `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+- **Inbox:** `Docs/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` — raw capture, unbounded, not read at session start
-- **Distillate:** `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
+- **Distillate:** `Docs/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` — proven preferences, max 30 bullets, read at session start
 
 ### When to Update
@@ -63,7 +63,7 @@ When a Distillate item is categorized as **Hard Rule**, add it to the **appropri
 | Framework doc changes                                | `Docs/DevFramework/ToolSetup |
 | Framework/JustInTimeAgentRules/framework-changes.md` |
 | Always needed (coding style, watcher)                | `.windsurf/rules/`           |
-| Core principles                                      | `RULE_MAP.md`                |
+| Core principles                                      | `_entrypoint-jit-rule-map.md`                |
 
 **Do NOT add rules to a general location.** Route them to the specific trigger file so they are loaded at the right time.
 
