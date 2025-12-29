@@ -12,16 +12,24 @@
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import type { Category, TimeEntry } from '$lib/types';
+	import type { Category, TimeEntry, Employer } from '$lib/types';
 	import { getSmartTopCategories } from '$lib/utils/frequency';
 
 	interface Props {
 		categories: Category[];
 		entries: TimeEntry[];
 		onselect: (categoryId: string) => void;
+		employers?: Employer[];
+		selectedEmployerId?: string | null;
 	}
 
-	let { categories, entries, onselect }: Props = $props();
+	let {
+		categories,
+		entries,
+		onselect,
+		employers = [],
+		selectedEmployerId = null
+	}: Props = $props();
 
 	// Filter input state
 	let filterText = $state('');
@@ -45,6 +53,60 @@
 			? remainingCategories.filter((c) => c.name.toLowerCase().includes(filterText.toLowerCase()))
 			: remainingCategories
 	);
+
+	// Check if we have multiple employers for grouping
+	let hasMultipleEmployers = $derived(employers.length > 1);
+
+	// Group remaining categories by employer when "Alle" is selected
+	interface CategoryGroup {
+		employerId: string | null;
+		employerName: string;
+		categories: Category[];
+	}
+
+	let groupedCategories = $derived.by(() => {
+		if (!hasMultipleEmployers || selectedEmployerId !== null) {
+			return null;
+		}
+
+		const groups: CategoryGroup[] = [];
+		const globalCats = remainingCategories.filter(
+			(cat) => cat.employerId === null || cat.employerId === undefined
+		);
+		if (globalCats.length > 0) {
+			groups.push({
+				employerId: null,
+				employerName: 'Allgemein',
+				categories: globalCats.sort((a, b) => a.name.localeCompare(b.name, 'de'))
+			});
+		}
+
+		for (const employer of employers) {
+			const employerCats = remainingCategories.filter((cat) => cat.employerId === employer.id);
+			if (employerCats.length > 0) {
+				groups.push({
+					employerId: employer.id,
+					employerName: employer.name,
+					categories: employerCats.sort((a, b) => a.name.localeCompare(b.name, 'de'))
+				});
+			}
+		}
+
+		return groups;
+	});
+
+	// For filtered display when filter is active
+	let filteredGroupedCategories = $derived.by(() => {
+		if (!groupedCategories || !filterText.trim()) return groupedCategories;
+
+		const filterLower = filterText.toLowerCase();
+		return groupedCategories
+			.map((group) => ({
+				...group,
+				categories: group.categories.filter((cat) => cat.name.toLowerCase().includes(filterLower))
+			}))
+			.filter((group) => group.categories.length > 0);
+	});
 
 	// Check if we have any categories
 	let hasCategories = $derived(allUserCategories.length > 0);
@@ -75,22 +137,44 @@
 			</section>
 		{/if}
 
-		<!-- Remaining categories A-Z -->
+		<!-- Remaining categories A-Z (grouped by employer when multiple employers exist) -->
 		{#if remainingCategories.length > 0}
 			<section class="section all-section" data-testid="all-categories-section">
 				<h2 class="section-title" data-testid="all-categories-heading">Alle Kategorien</h2>
 				<input type="text" class="filter-input" placeholder="Filtern..." bind:value={filterText} />
-				<div class="category-list-vertical">
-					{#each filteredCategories as category (category.id)}
-						<button
-							class="category-btn list-btn"
-							onclick={() => onselect(category.id)}
-							aria-label={`${category.name} starten`}
-						>
-							{category.name}
-						</button>
+
+				{#if filteredGroupedCategories}
+					<!-- Grouped view: multiple employers, "Alle" selected -->
+					{#each filteredGroupedCategories as group (group.employerId ?? 'global')}
+						<div class="employer-group">
+							<h3 class="group-title">{group.employerName}</h3>
+							<div class="category-list-vertical">
+								{#each group.categories as category (category.id)}
+									<button
+										class="category-btn list-btn"
+										onclick={() => onselect(category.id)}
+										aria-label={`${category.name} starten`}
+									>
+										{category.name}
+									</button>
+								{/each}
+							</div>
+						</div>
 					{/each}
-				</div>
+				{:else}
+					<!-- Flat view: single employer or specific employer selected -->
+					<div class="category-list-vertical">
+						{#each filteredCategories as category (category.id)}
+							<button
+								class="category-btn list-btn"
+								onclick={() => onselect(category.id)}
+								aria-label={`${category.name} starten`}
+							>
+								{category.name}
+							</button>
+						{/each}
+					</div>
+				{/if}
 			</section>
 		{/if}
 	{/if}
@@ -142,6 +226,21 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
+	}
+
+	.employer-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: 0.5rem;
+	}
+
+	.group-title {
+		font-size: 0.8125rem;
+		font-weight: 500;
+		color: var(--text-secondary, #6b7280);
+		margin: 0;
+		padding-left: 0.25rem;
 	}
 
 	.filter-input {
@@ -220,6 +319,10 @@
 	}
 
 	:global(.dark) .section-title {
+		color: var(--text-secondary-dark, #9ca3af);
+	}
+
+	:global(.dark) .group-title {
 		color: var(--text-secondary-dark, #9ca3af);
 	}
 

@@ -362,7 +362,7 @@ Phase 4:
 - [x] **Task A2.7** — Filter logic for all stores
 - [x] **Task A2.8** — Update Day/Week/Month tabs for AG filtering
 - [x] **Task A2.9** — Update Analysis tab for AG filtering
-- [ ] **Task A2.10** — Update Add tab: group categories by AG
+- [x] **Task A2.10** — Update Add tab: group categories by AG
 - [ ] **Task A2.11** — Update Settings: AG management section
 - [ ] **Task A2.12** — Update Settings: categories grouped by AG
 - [ ] **Task A2.13** — Update WorkTimeModelDialog for AG

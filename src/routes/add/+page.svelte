@@ -13,10 +13,18 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { categories, timeEntries } from '$lib/stores';
+	import {
+		categories,
+		timeEntries,
+		employers,
+		activeEmployers,
+		selectedEmployerId,
+		filteredCategories
+	} from '$lib/stores';
 	import { initializeCategories, getAllCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
 	import { saveTimeEntry } from '$lib/storage/operations';
+	import { getAllEmployers } from '$lib/storage/employers';
 	import { formatDate, formatTime } from '$lib/utils/date';
 	import type { TimeEntry } from '$lib/types';
 	import CategoryList from '$lib/components/CategoryList.svelte';
@@ -48,6 +56,8 @@
 		}
 
 		// TT-FR-003: Create new task with startTime=now, endTime=null (running)
+		// AG-FR-040: New entry inherits current employer selection
+		const currentEmployerId = $selectedEmployerId;
 		const newEntry: TimeEntry = {
 			id: `entry-${crypto.randomUUID()}`,
 			date: currentDateStr,
@@ -56,7 +66,8 @@
 			endTime: null,
 			description: null,
 			createdAt: Date.now(),
-			updatedAt: Date.now()
+			updatedAt: Date.now(),
+			employerId: currentEmployerId
 		};
 		await saveTimeEntry(newEntry);
 
@@ -80,6 +91,10 @@
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
 
+		// Load all employers into store
+		const allEmployers = await getAllEmployers();
+		employers.set(allEmployers);
+
 		loading = false;
 	});
 </script>
@@ -90,7 +105,13 @@
 	{#if loading}
 		<p class="loading">Laden...</p>
 	{:else}
-		<CategoryList categories={$categories} entries={$timeEntries} onselect={handleCategorySelect} />
+		<CategoryList
+			categories={$filteredCategories}
+			entries={$timeEntries}
+			onselect={handleCategorySelect}
+			employers={$activeEmployers}
+			selectedEmployerId={$selectedEmployerId}
+		/>
 	{/if}
 </div>
 
