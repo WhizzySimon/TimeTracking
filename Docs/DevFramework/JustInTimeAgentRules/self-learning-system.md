@@ -1,34 +1,28 @@
 # Self-Learning System
 
-**Reference document** — loaded from pre-commit when promoting learnings.
+**Trigger:** Before commit (from pre-commit.md)
 
 ---
 
-## Two-Tier System
+## Pre-Commit Workflow
 
-Cascade learns from maintainer feedback via:
+Execute these steps in order:
 
-- **Inbox:** `Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md` — raw capture, unbounded, not read at session start
-- **Distillate:** `Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS.md` — proven preferences, max 30 bullets, read at session start
+### Step 1: Capture New Feedback to INBOX
 
----
+Review this session for feedback (positive or corrective). Add new entries to `Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`.
 
-## What to Capture
+**What to capture:**
+- **Corrective:** "Don't do X", "Always do Y instead", mistakes to avoid
+- **Positive:** "Good job on X", "I like how you did Y" — reinforces good patterns
 
-- **Corrective feedback:** "Don't do X", "Always do Y instead", mistakes to avoid
-- **Positive feedback:** "Good job on X", "I like how you did Y" — reinforces good patterns
+### Step 2: Promote from INBOX → LEARNINGS.md
 
----
-
-## Promotion Criteria
-
-Promote from Inbox → Distillate when:
+Check INBOX for items that meet promotion criteria:
 - Repeated 2+ times across sessions, OR
-- Explicitly marked by maintainer
+- Explicitly marked by maintainer as high-impact
 
----
-
-## Distillate Entry Format
+If criteria met, promote using this format:
 
 ```
 - **[Category]** Short statement (1-2 lines)
@@ -37,24 +31,31 @@ Promote from Inbox → Distillate when:
 
 Categories: **Hard Rule** | **Preference** | **Reminder**
 
+### Step 3: Read LEARNINGS.md
+
+Read `Docs/DevFramework/FrameworkSelfImprovementLogs/LEARNINGS.md` to apply proven preferences (now includes any new promotions).
+
+### Step 4: Enforce Hard Rules
+
+When promoting a **Hard Rule**, also add it to the appropriate JIT rule file:
+
+| Rule is about...        | Add to                        |
+| ----------------------- | ----------------------------- |
+| Session start           | `session-start.md`            |
+| Writing specs           | `spec-writing.md`             |
+| Creating plans          | `planning.md`                 |
+| Implementation/coding   | `implementation.md`           |
+| Pre-commit checklist    | `pre-commit.md`               |
+| Framework doc changes   | `framework-changes.md`        |
+| Always needed           | `.windsurf/rules/`            |
+| Core principles         | `_entrypoint-jit-rule-map.md` |
+
 ---
 
-## Hard Rule → Enforcement
+## Two-Tier System
 
-When a Distillate item is **Hard Rule**, add it to the appropriate JIT rule file:
-
-| Rule is about...        | Add to                                   |
-| ----------------------- | ---------------------------------------- |
-| Session start           | `session-start.md`                       |
-| Writing specs           | `spec-writing.md`                        |
-| Creating plans          | `planning.md`                            |
-| Implementation/coding   | `implementation.md`                      |
-| Pre-commit checklist    | `pre-commit.md`                          |
-| Framework doc changes   | `framework-changes.md`                   |
-| Always needed           | `.windsurf/rules/`                       |
-| Core principles         | `_entrypoint-jit-rule-map.md`            |
-
-**Route rules to specific trigger files** — do not add to general locations.
+- **Inbox:** `LEARNINGS-INBOX.md` — raw capture, unbounded
+- **Distillate:** `LEARNINGS.md` — proven preferences, max 30 bullets
 
 ---
 

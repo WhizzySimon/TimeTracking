@@ -35,9 +35,8 @@
 [ ] Sync check — If needed, run sync-check.md to verify what was done
 [ ] /audit PASS (see Audit Gate above)
 [ ] CHANGELOG.md — Added one-line entry for this work
-[ ] LEARNINGS-INBOX.md — Reviewed session for feedback (positive/corrective)
+[ ] Self-learning — Follow self-learning-system.md (read, capture, promote)
 [ ] DECISIONS.md — If decision was made, added entry
-[ ] Learning promotion — Check INBOX for items repeated 2+ times → promote to LEARNINGS.md
 [ ] IMPLEMENTATION_PROGRESS.md — If tasks added/changed/completed, update progress tracker
 [ ] Spec/Plan/Tasks sync — If Spec changed, check Plan; if Plan changed, check Tasks
 ```
@@ -89,6 +88,3 @@ If either check fails, fix before ending the session.
 - `chore:` — Maintenance, dependencies, config
 - `test:` — Test additions or fixes
 
----
-
-**Self-Learning System:** See `self-learning-system.md` for promotion rules and the two-tier system (Inbox → Distillate).
