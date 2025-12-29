@@ -197,7 +197,8 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 │     └─ Deviations notieren (falls vorhanden)                        │
 │                                                                     │
 │  6. CHANGELOG UPDATEN                                               │
-│     └─ Eine Zeile in Docs/DevFramework/Devlog/CHANGELOG.md          │
+│     └─ Eine Zeile in Docs/DevFramework/FrameworkSelfImprovementLogs
+/CHANGELOG.md          │
 │     └─ Format: | Date | Type | Summary | Ref |                      │
 │                                                                     │
 │  7. JIT RULE: BEFORE COMMIT                                         │
@@ -218,7 +219,8 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 
 1. **Erst** alle Tests bestehen lassen
 2. **Dann** Progress Tracker updaten
-3. **Dann** Changelog updaten (eine Zeile in `Docs/DevFramework/Devlog/CHANGELOG.md`)
+3. **Dann** Changelog updaten (eine Zeile in `Docs/DevFramework/FrameworkSelfImprovementLogs
+/CHANGELOG.md`)
 4. **Dann** JIT rule map: "Before git commit" trigger
 5. **Zuletzt** Git Commit (damit alles im Commit ist)
 

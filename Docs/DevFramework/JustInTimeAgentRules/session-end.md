@@ -18,8 +18,10 @@ This file documents the self-learning system for reference.
 
 Cascade learns from maintainer feedback via a two-tier system:
 
-- **Inbox:** `Docs/DevFramework/Devlog/LEARNINGS-INBOX.md` — raw capture, unbounded, not read at session start
-- **Distillate:** `Docs/DevFramework/Devlog/LEARNINGS.md` — proven preferences, max 30 bullets, read at session start
+- **Inbox:** `Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS-INBOX.md` — raw capture, unbounded, not read at session start
+- **Distillate:** `Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS.md` — proven preferences, max 30 bullets, read at session start
 
 ### When to Update
 

@@ -77,10 +77,14 @@ When you actually consult/read a rule file to guide your behavior, emit an invis
 | Find app plan       | `Docs/AppDocs/Plans/<feature>.md`             |
 | Find app tasks      | `Docs/AppDocs/Tasks/<feature>.md`             |
 | Find framework spec | `Docs/DevFramework/Specs/<feature>.md`        |
-| Log a change        | `Docs/DevFramework/Devlog/CHANGELOG.md`       |
-| Log a decision      | `Docs/DevFramework/Devlog/DECISIONS.md`       |
-| Capture feedback    | `Docs/DevFramework/Devlog/LEARNINGS-INBOX.md` |
-| Check learnings     | `Docs/DevFramework/Devlog/LEARNINGS.md`       |
+| Log a change        | `Docs/DevFramework/FrameworkSelfImprovementLogs
+/CHANGELOG.md`       |
+| Log a decision      | `Docs/DevFramework/FrameworkSelfImprovementLogs
+/DECISIONS.md`       |
+| Capture feedback    | `Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS-INBOX.md` |
+| Check learnings     | `Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS.md`       |
 
 ---
 

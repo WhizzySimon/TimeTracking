@@ -119,7 +119,8 @@ scripts/ai/
     ├── session-*.jsonl   # Per-session telemetry
     └── baselines.json    # Command duration baselines
 
-Docs/DevFramework/Devlog/Evidence/
+Docs/DevFramework/FrameworkSelfImprovementLogs
+/Evidence/
 └── <task-id>.md          # Per-task evidence bundles
 ```
 
@@ -139,7 +140,8 @@ Docs/DevFramework/Devlog/Evidence/
 
 At the end of an implementation task, Builder (Opus) must:
 
-1. Create/update Evidence Bundle at `Docs/DevFramework/Devlog/Evidence/<task-id>.md`
+1. Create/update Evidence Bundle at `Docs/DevFramework/FrameworkSelfImprovementLogs
+/Evidence/<task-id>.md`
 2. Stage everything: `git add -A`
 3. Read `Docs/DevFramework/JustInTimeAgentRules/ai-config.json`:
    - If `switch_model_before_audit=true`:
@@ -157,7 +159,8 @@ At the end of an implementation task, Builder (Opus) must:
 - **Spec:** `Docs/DevFramework/Specs/task-quality-assurance.md`
 - **Plan:** `Docs/DevFramework/Plans/task-quality-assurance.md`
 - **Tasks:** `Docs/DevFramework/Tasks/task-quality-assurance.md`
-- **Devlog:** `Docs/DevFramework/Devlog/` (CHANGELOG, DECISIONS, LEARNINGS)
+- **Devlog:** `Docs/DevFramework/FrameworkSelfImprovementLogs
+/` (CHANGELOG, DECISIONS, LEARNINGS)
 
 ---
 

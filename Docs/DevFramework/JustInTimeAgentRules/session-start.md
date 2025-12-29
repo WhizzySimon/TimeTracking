@@ -22,12 +22,14 @@ If required info is missing, STOP and propose an update to the relevant doc (spe
 
 ## Learnings Check
 
-Read `Docs/DevFramework/Devlog/LEARNINGS.md` (max 30 bullets of proven preferences).
+Read `Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS.md` (max 30 bullets of proven preferences).
 
 ## Memory Policy
 
 - **Do NOT use `create_memory` tool** — this project uses file-based documentation
-- All learnings go to `Docs/DevFramework/Devlog/LEARNINGS-INBOX.md`
+- All learnings go to `Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS-INBOX.md`
 - All rules go to `Docs/DevFramework/JustInTimeAgentRules/` or `.windsurf/rules/`
 - IDE-independent system — no reliance on Cascade memories
 

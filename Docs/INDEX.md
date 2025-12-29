@@ -77,13 +77,17 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 
 ### Development History
 
-- Docs/DevFramework/Devlog/CHANGELOG.md  
+- Docs/DevFramework/FrameworkSelfImprovementLogs
+/CHANGELOG.md  
   Purpose: **Everything log** — one line per commit/session, quick scan of all changes.
-- Docs/DevFramework/Devlog/DECISIONS.md  
+- Docs/DevFramework/FrameworkSelfImprovementLogs
+/DECISIONS.md  
   Purpose: **Decision log** — significant design/architecture/policy decisions (ADR-light).
-- Docs/DevFramework/Devlog/LEARNINGS.md  
+- Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS.md  
   Purpose: **Learnings (Distillate)** — proven preferences, max 30 bullets, read at session start.
-- Docs/DevFramework/Devlog/LEARNINGS-INBOX.md  
+- Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS-INBOX.md  
   Purpose: **Learnings Inbox** — raw feedback capture, unbounded, not read at session start.
 
 ### Code Quality

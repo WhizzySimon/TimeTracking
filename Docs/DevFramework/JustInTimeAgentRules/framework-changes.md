@@ -26,10 +26,14 @@
 | **Tooling docs**     | `Docs/DevFramework/Tooling/`                   | Watcher, git workflow, bootstrap                                  |
 | **App specs**        | `Docs/AppDocs/Specs/`, `Plans/`, `Tasks/`      | Per-feature app documentation                                     |
 | **Framework specs**  | `Docs/DevFramework/Specs/`, `Plans/`, `Tasks/` | Per-feature framework documentation                               |
-| **Dev history**      | `Docs/DevFramework/Devlog/CHANGELOG.md`        | One line per commit                                               |
-| **Decisions**        | `Docs/DevFramework/Devlog/DECISIONS.md`        | Architecture/policy decisions (ADR-light)                         |
-| **Learnings**        | `Docs/DevFramework/Devlog/LEARNINGS.md`        | Proven preferences (max 30 bullets)                               |
-| **Learnings Inbox**  | `Docs/DevFramework/Devlog/LEARNINGS-INBOX.md`  | Raw feedback capture (unbounded, low priority)                    |
+| **Dev history**      | `Docs/DevFramework/FrameworkSelfImprovementLogs
+/CHANGELOG.md`        | One line per commit                                               |
+| **Decisions**        | `Docs/DevFramework/FrameworkSelfImprovementLogs
+/DECISIONS.md`        | Architecture/policy decisions (ADR-light)                         |
+| **Learnings**        | `Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS.md`        | Proven preferences (max 30 bullets)                               |
+| **Learnings Inbox**  | `Docs/DevFramework/FrameworkSelfImprovementLogs
+/LEARNINGS-INBOX.md`  | Raw feedback capture (unbounded, low priority)                    |
 | **Trigger rules**    | `Docs/DevFramework/JustInTimeAgentRules/`                     | Just-in-time rules loaded at specific triggers                    |
 
 ---
