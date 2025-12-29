@@ -11,10 +11,12 @@
   - Edit mode when model prop is provided
 -->
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { saveWorkTimeModel } from '$lib/storage/operations';
 	import { workTimeModels } from '$lib/stores';
+	import { getActiveEmployers } from '$lib/storage/employers';
 	import { formatDate, parseDate } from '$lib/utils/date';
-	import type { WorkTimeModel } from '$lib/types';
+	import type { WorkTimeModel, Employer } from '$lib/types';
 	import Modal from './Modal.svelte';
 
 	interface Props {
@@ -86,8 +88,19 @@
 	);
 	let error = $state('');
 	let saving = $state(false);
+	let employers = $state<Employer[]>([]);
+
+	// Employer selection - initialize from model
+	function getInitialEmployerId() {
+		return initialModel?.employerId ?? '';
+	}
+	let selectedEmployerId = $state(getInitialEmployerId());
 
 	let isEditMode = initialModel !== null;
+
+	onMount(async () => {
+		employers = await getActiveEmployers();
+	});
 
 	// Calculate total hours
 	let totalHours = $derived(() => {
@@ -184,6 +197,7 @@
 				fridayIsWorkday,
 				saturdayIsWorkday,
 				sundayIsWorkday,
+				employerId: selectedEmployerId === '' ? null : selectedEmployerId,
 				createdAt: initialModel?.createdAt ?? Date.now(),
 				updatedAt: Date.now()
 			};
@@ -244,6 +258,23 @@
 				class="text-input"
 				disabled={saving}
 			/>
+		</div>
+
+		<!-- Employer -->
+		<div class="field">
+			<label for="model-employer">Arbeitgeber:</label>
+			<select
+				id="model-employer"
+				data-testid="model-employer-select"
+				bind:value={selectedEmployerId}
+				class="select-input"
+				disabled={saving}
+			>
+				<option value="">Alle Arbeitgeber</option>
+				{#each employers as employer (employer.id)}
+					<option value={employer.id}>{employer.name}</option>
+				{/each}
+			</select>
 		</div>
 
 		<!-- Total Summary -->
@@ -435,6 +466,26 @@
 	}
 
 	.text-input:disabled {
+		background: var(--surface-hover);
+		color: var(--muted);
+	}
+
+	.select-input {
+		padding: 0.75rem;
+		border: 1px solid var(--input-border);
+		border-radius: var(--r-input);
+		font-size: 1rem;
+		background: var(--input-bg);
+		color: var(--input-text);
+	}
+
+	.select-input:focus {
+		outline: none;
+		border-color: var(--input-focus-border);
+		box-shadow: 0 0 0 2px var(--accent-light);
+	}
+
+	.select-input:disabled {
 		background: var(--surface-hover);
 		color: var(--muted);
 	}

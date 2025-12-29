@@ -245,7 +245,7 @@ Tasks A2.3 and A2.17 were SKIPPED based on this convention.
 ## Task A2.13 — Update WorkTimeModelDialog for AG
 
 - **Files:**
-  - `src/lib/components/WorkTimeModelDialog.svelte`
+  - `src/lib/components/AddWorkTimeModelModal.svelte`
 - **Done when:**
   - Dialog has employer dropdown (optional)
   - Model can be assigned to specific employer or "Alle"
@@ -254,7 +254,7 @@ Tasks A2.3 and A2.17 were SKIPPED based on this convention.
   - `npm run verify`
   - Visual test
 - **Estimated:** 1h
-- **Status:** Pending
+- **Status:** COMPLETE
 - **Dependencies:** A2.2
 
 ---
