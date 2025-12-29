@@ -31,18 +31,33 @@ Each entry follows this format:
 
 (newest first)
 
+## 2025-12-29 12:55 — A2.8 Day/Week/Month Tabs AG Filtering
+
+| Step                 | Result | Notes                                              |
+| -------------------- | ------ | -------------------------------------------------- |
+| A1: Capture feedback | none   | No corrective feedback in session                  |
+| B1: Repeated errors  | none   | No repeated errors                                 |
+| B2: File churn       | none   | Each file edited once                              |
+| B3: Scope drift      | none   | Only Day/Week/Month tabs + stores — matches scope  |
+| B4: Session duration | ~10m   | normal                                             |
+| C1: Promotions       | none   | No items meet promotion criteria                   |
+| C2: Read LEARNINGS   | ✓ read | Per previous session                               |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                         |
+
+---
+
 ## 2025-12-29 12:40 — A2.7 Filter Logic for All Stores
 
-| Step                 | Result   | Notes                                                    |
-| -------------------- | -------- | -------------------------------------------------------- |
-| A1: Capture feedback | none     | No corrective feedback in session                        |
-| B1: Repeated errors  | none     | No repeated errors                                       |
-| B2: File churn       | none     | Only src/lib/stores/index.ts edited once                 |
-| B3: Scope drift      | none     | Only stores/index.ts + doc updates — matches A2.7 scope  |
-| B4: Session duration | ~10m     | normal                                                   |
-| C1: Promotions       | none     | No items meet promotion criteria                         |
-| C2: Read LEARNINGS   | ✓ read   | 5 items                                                  |
-| C3: Hard Rule → JIT  | none     | No new Hard Rules proposed                               |
+| Step                 | Result | Notes                                                   |
+| -------------------- | ------ | ------------------------------------------------------- |
+| A1: Capture feedback | none   | No corrective feedback in session                       |
+| B1: Repeated errors  | none   | No repeated errors                                      |
+| B2: File churn       | none   | Only src/lib/stores/index.ts edited once                |
+| B3: Scope drift      | none   | Only stores/index.ts + doc updates — matches A2.7 scope |
+| B4: Session duration | ~10m   | normal                                                  |
+| C1: Promotions       | none   | No items meet promotion criteria                        |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                                 |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                              |
 
 ---
 

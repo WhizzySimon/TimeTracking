@@ -8,7 +8,8 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| 2025-12-29                                         | feat     | A2.7: Filter logic for all stores — filteredEntries, filteredCategories, filteredModels             | —       |
+| 2025-12-29                                         | feat     | A2.8: Day/Week/Month tabs use employer-filtered stores for entries, categories, work time models     | —       |
+| 2025-12-29                                         | feat     | A2.7: Filter logic for all stores — filteredEntries, filteredCategories, filteredModels              | —       |
 | 2025-12-29                                         | feat     | A2.6: Integrate EmployerSelector into Header + pre-commit sequential execution rule                  | —       |
 | 2025-12-29                                         | feat     | A2.5: EmployerSelector component + employer stores (Phase A2 Multi-Arbeitgeber)                      | —       |
 | 2025-12-29                                         | refactor | Unify self-learning + self-improvement into single pre-commit system; fix CascadeAgentTools paths    | —       |

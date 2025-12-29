@@ -18,10 +18,12 @@
 	import {
 		currentDate,
 		currentWeek,
-		activeWorkTimeModel,
 		timeEntries,
 		categories,
-		workTimeModels
+		workTimeModels,
+		filteredEntries,
+		filteredCategories,
+		filteredActiveWorkTimeModel
 	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll, getByKey } from '$lib/storage/db';
@@ -61,12 +63,12 @@
 		isThisCurrentWeek ? `Aktuelle KW ${weekNumber}/${weekYear}` : `KW ${weekNumber}/${weekYear}`
 	);
 
-	// Filter entries for current week
+	// Filter entries for current week (respects employer filter)
 	let weekEntries = $derived(
-		$timeEntries.filter((e) => {
+		$filteredEntries.filter((entry) => {
 			const startStr = formatDate($currentWeek.start, 'ISO');
 			const endStr = formatDate($currentWeek.end, 'ISO');
-			return e.date >= startStr && e.date <= endStr;
+			return entry.date >= startStr && entry.date <= endStr;
 		})
 	);
 
@@ -89,8 +91,8 @@
 		})
 	);
 
-	// Calculate week totals - only include days up to today
-	let weekIst = $derived(calculateIst(weekEntriesUpToToday, $categories));
+	// Calculate week totals - only include days up to today (respects employer filter)
+	let weekIst = $derived(calculateIst(weekEntriesUpToToday, $filteredCategories));
 
 	let weekSoll = $derived(() => {
 		let total = 0;
@@ -99,7 +101,7 @@
 			if (isFutureDay(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-			total += calculateSoll(date, dayType, $activeWorkTimeModel);
+			total += calculateSoll(date, dayType, $filteredActiveWorkTimeModel);
 		}
 		return total;
 	});
@@ -150,25 +152,25 @@
 		return weekEntries.filter((e) => e.date === dateKey);
 	}
 
-	// Check if a day is active in the work time model
+	// Check if a day is active in the work time model (respects employer filter)
 	function isDayActiveInModel(date: Date): boolean {
-		if (!$activeWorkTimeModel) return true; // Show all days if no model
+		if (!$filteredActiveWorkTimeModel) return true; // Show all days if no model
 		const weekday = getDayOfWeek(date);
-		const hours = $activeWorkTimeModel[weekday];
+		const hours = $filteredActiveWorkTimeModel[weekday];
 		return hours !== null;
 	}
 
-	// Get Ist for a specific day
+	// Get Ist for a specific day (respects employer filter)
 	function getDayIst(date: Date): number {
 		const entries = getDayEntries(date);
-		return calculateIst(entries, $categories);
+		return calculateIst(entries, $filteredCategories);
 	}
 
-	// Get Soll for a specific day
+	// Get Soll for a specific day (respects employer filter)
 	function getDaySoll(date: Date): number {
 		const dateKey = formatDate(date, 'ISO');
 		const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-		return calculateSoll(date, dayType, $activeWorkTimeModel);
+		return calculateSoll(date, dayType, $filteredActiveWorkTimeModel);
 	}
 
 	// Get day type label

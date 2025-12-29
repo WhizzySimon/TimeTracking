@@ -346,7 +346,7 @@ Phase 4:
 ## Phase A2: Multi-Arbeitgeber
 
 **Target:** 18 tasks  
-**Status:** In progress (8/18 — 2 skipped)  
+**Status:** In progress (9/18 — 2 skipped)  
 **Spec:** `Docs/Archive/Specs/multi-arbeitgeber.md`  
 **Plan:** `Docs/Archive/Plans/multi-arbeitgeber.md`  
 **Tasks:** `Docs/Archive/Tasks/multi-arbeitgeber.md`
@@ -360,7 +360,7 @@ Phase 4:
 - [x] **Task A2.5** — EmployerSelector component
 - [x] **Task A2.6** — Integrate selector into Header
 - [x] **Task A2.7** — Filter logic for all stores
-- [ ] **Task A2.8** — Update Day/Week/Month tabs for AG filtering
+- [x] **Task A2.8** — Update Day/Week/Month tabs for AG filtering
 - [ ] **Task A2.9** — Update Analysis tab for AG filtering
 - [ ] **Task A2.10** — Update Add tab: group categories by AG
 - [ ] **Task A2.11** — Update Settings: AG management section

@@ -15,10 +15,13 @@
 	import { initializeCategories } from '$lib/storage/categories';
 	import {
 		currentDate,
-		activeWorkTimeModel,
 		timeEntries,
 		categories,
-		runningEntry
+		filteredEntries,
+		filteredCategories,
+		filteredActiveWorkTimeModel,
+		filteredRunningEntry,
+		selectedEmployerId
 	} from '$lib/stores';
 	import { formatDate, isToday, addDays, formatTime } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
@@ -47,14 +50,16 @@
 	let entryToDelete: TimeEntry | null = $state(null);
 	let showDayPicker = $state(false);
 
-	// Filter entries for current date
-	let dayEntries = $derived($timeEntries.filter((e) => e.date === formatDate($currentDate, 'ISO')));
+	// Filter entries for current date (respects employer filter)
+	let dayEntries = $derived(
+		$filteredEntries.filter((entry) => entry.date === formatDate($currentDate, 'ISO'))
+	);
 
 	// Calculate Ist from day entries (only completed tasks with countsAsWorkTime categories)
-	let ist = $derived(calculateIst(dayEntries, $categories));
+	let ist = $derived(calculateIst(dayEntries, $filteredCategories));
 
-	// Soll calculated from day type and work time model
-	let soll = $derived(calculateSoll($currentDate, dayType, $activeWorkTimeModel));
+	// Soll calculated from day type and work time model (respects employer filter)
+	let soll = $derived(calculateSoll($currentDate, dayType, $filteredActiveWorkTimeModel));
 
 	// Saldo = Ist - Soll
 	let saldo = $derived(calculateSaldo(ist, soll));
@@ -175,9 +180,9 @@
 		const currentDateStr = formatDate(now, 'ISO');
 
 		// TT-FR-015: If a task is already running, end it first
-		if ($runningEntry) {
+		if ($filteredRunningEntry) {
 			const endedEntry: TimeEntry = {
-				...$runningEntry,
+				...$filteredRunningEntry,
 				endTime: currentTimeStr,
 				updatedAt: Date.now()
 			};
@@ -185,10 +190,12 @@
 		}
 
 		// TT-FR-014: Create new task with same category
+		// Inherit employerId from original entry or current selection
 		const newEntry: TimeEntry = {
 			id: `entry-${crypto.randomUUID()}`,
 			date: currentDateStr,
 			categoryId: entry.categoryId,
+			employerId: entry.employerId ?? $selectedEmployerId,
 			startTime: currentTimeStr,
 			endTime: null,
 			description: null,

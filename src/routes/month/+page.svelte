@@ -14,10 +14,12 @@
 	import { SvelteMap } from 'svelte/reactivity';
 	import {
 		currentDate,
-		activeWorkTimeModel,
 		timeEntries,
 		categories,
-		workTimeModels
+		workTimeModels,
+		filteredEntries,
+		filteredCategories,
+		filteredActiveWorkTimeModel
 	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll, getByKey } from '$lib/storage/db';
@@ -101,10 +103,10 @@
 
 	let weeksInMonth = $derived(getWeeksInMonth(monthDates));
 
-	// Filter entries for current month
+	// Filter entries for current month (respects employer filter)
 	let monthEntries = $derived(
-		$timeEntries.filter((e) => {
-			const entryDate = parseDate(e.date);
+		$filteredEntries.filter((entry) => {
+			const entryDate = parseDate(entry.date);
 			if (!entryDate) return false;
 			return entryDate.getMonth() === currentMonth && entryDate.getFullYear() === currentYear;
 		})
@@ -129,8 +131,8 @@
 		})
 	);
 
-	// Calculate month totals
-	let monthIst = $derived(calculateIst(monthEntriesUpToToday, $categories));
+	// Calculate month totals (respects employer filter)
+	let monthIst = $derived(calculateIst(monthEntriesUpToToday, $filteredCategories));
 
 	let monthSoll = $derived(() => {
 		let total = 0;
@@ -139,7 +141,7 @@
 			if (!isDayActiveInModel(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-			total += calculateSoll(date, dayType, $activeWorkTimeModel);
+			total += calculateSoll(date, dayType, $filteredActiveWorkTimeModel);
 		}
 		return total;
 	});
@@ -191,27 +193,27 @@
 		}
 	}
 
-	// Check if a day is active in the work time model
+	// Check if a day is active in the work time model (respects employer filter)
 	function isDayActiveInModel(date: Date): boolean {
-		if (!$activeWorkTimeModel) return true;
+		if (!$filteredActiveWorkTimeModel) return true;
 		const weekday = getDayOfWeek(date);
-		const hours = $activeWorkTimeModel[weekday];
+		const hours = $filteredActiveWorkTimeModel[weekday];
 		return hours !== null;
 	}
 
-	// Get Ist for a specific week's dates (within current month)
+	// Get Ist for a specific week's dates (within current month, respects employer filter)
 	function getWeekIst(dates: Date[]): number {
-		const entries = monthEntries.filter((e) => {
-			const entryDate = parseDate(e.date);
+		const entries = monthEntries.filter((entry) => {
+			const entryDate = parseDate(entry.date);
 			if (!entryDate) return false;
 			// Only count entries up to today
 			if (startOfDay(entryDate) > today) return false;
-			return dates.some((d) => formatDate(d, 'ISO') === e.date);
+			return dates.some((d) => formatDate(d, 'ISO') === entry.date);
 		});
-		return calculateIst(entries, $categories);
+		return calculateIst(entries, $filteredCategories);
 	}
 
-	// Get Soll for a specific week's dates (within current month)
+	// Get Soll for a specific week's dates (within current month, respects employer filter)
 	function getWeekSoll(dates: Date[]): number {
 		let total = 0;
 		for (const date of dates) {
@@ -219,7 +221,7 @@
 			if (!isDayActiveInModel(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-			total += calculateSoll(date, dayType, $activeWorkTimeModel);
+			total += calculateSoll(date, dayType, $filteredActiveWorkTimeModel);
 		}
 		return total;
 	}

@@ -189,3 +189,37 @@ export const filteredModels = derived<
 export const activeEmployers = derived<typeof employers, Employer[]>(employers, ($employers) =>
 	$employers.filter((employer) => employer.isActive)
 );
+
+/**
+ * Active work time model filtered by selected employer.
+ * Returns the latest model where validFrom <= currentDate and matches employer filter.
+ */
+export const filteredActiveWorkTimeModel = derived<
+	[typeof filteredModels, typeof currentDate],
+	WorkTimeModel | null
+>([filteredModels, currentDate], ([$filteredModels, $currentDate]) => {
+	const dateStr = $currentDate.toISOString().split('T')[0];
+	const validModels = $filteredModels
+		.filter((model) => model.validFrom <= dateStr)
+		.sort((a, b) => b.validFrom.localeCompare(a.validFrom));
+	return validModels[0] ?? null;
+});
+
+/**
+ * Running entries filtered by selected employer.
+ */
+export const filteredRunningEntries = derived<typeof filteredEntries, TimeEntry[]>(
+	filteredEntries,
+	($filteredEntries) =>
+		$filteredEntries
+			.filter((entry) => entry.endTime === null)
+			.sort((a, b) => a.createdAt - b.createdAt)
+);
+
+/**
+ * Oldest running entry for selected employer.
+ */
+export const filteredRunningEntry = derived<typeof filteredRunningEntries, TimeEntry | null>(
+	filteredRunningEntries,
+	($filteredRunningEntries) => $filteredRunningEntries[0] ?? null
+);
