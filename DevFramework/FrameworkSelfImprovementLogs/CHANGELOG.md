@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-29                                         | test     | A2.18: E2E tests for multi-AG — employer CRUD, selector filtering, Stundenzettel export dialog       | —       |
 | 2025-12-29                                         | feat     | A2.16: PDF export for Stundenzettel — exportStundenzettelPdf() with jsPDF/autoTable                  | —       |
 | 2025-12-29                                         | feat     | A2.15: Excel export (.xlsx) for Stundenzettel — exportStundenzettelExcel() with formatted columns    | —       |
 | 2025-12-29                                         | feat     | A2.14: StundenzettelExport component — employer selector, date range, column checkboxes, preview     | —       |

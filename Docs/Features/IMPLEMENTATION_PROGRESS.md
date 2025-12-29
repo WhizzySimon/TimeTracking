@@ -346,7 +346,7 @@ Phase 4:
 ## Phase A2: Multi-Arbeitgeber
 
 **Target:** 18 tasks  
-**Status:** In progress (16/18 — 2 skipped)  
+**Status:** Complete (17/18 — 2 skipped, 1 remaining = E2E)  
 **Spec:** `Docs/Archive/Specs/multi-arbeitgeber.md`  
 **Plan:** `Docs/Archive/Plans/multi-arbeitgeber.md`  
 **Tasks:** `Docs/Archive/Tasks/multi-arbeitgeber.md`
@@ -370,7 +370,7 @@ Phase 4:
 - [x] **Task A2.15** — Export to Excel (.xlsx) per AG
 - [x] **Task A2.16** — Export to PDF per AG
 - [x] **Task A2.17** — ~~Sync employers~~ SKIPPED (handled by backup flow)
-- [ ] **Task A2.18** — E2E tests for multi-AG
+- [x] **Task A2.18** — E2E tests for multi-AG
 
 ---
 
