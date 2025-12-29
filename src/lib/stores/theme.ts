@@ -17,7 +17,13 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-export type ThemeValue = 'cool' | 'warm';
+/** Available color themes - add new themes here */
+export const THEME_OPTIONS = [
+	{ value: 'cool', label: 'Cool' },
+	{ value: 'warm', label: 'Warm' }
+] as const;
+
+export type ThemeValue = (typeof THEME_OPTIONS)[number]['value'];
 export type ShapeValue = 'sharp' | 'soft';
 export type CategorySortValue = 'frequency' | 'alphabetical';
 
@@ -63,8 +69,9 @@ function loadTheme(): ThemeValue {
 	if (!browser) return DEFAULT_THEME;
 
 	const stored = localStorage.getItem(THEME_STORAGE_KEY);
-	if (stored === 'cool' || stored === 'warm') {
-		return stored;
+	const validThemes = THEME_OPTIONS.map((t) => t.value) as readonly string[];
+	if (stored && validThemes.includes(stored)) {
+		return stored as ThemeValue;
 	}
 	return DEFAULT_THEME;
 }

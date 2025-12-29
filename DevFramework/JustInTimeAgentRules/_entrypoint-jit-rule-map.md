@@ -46,6 +46,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | **Before implementing**     | `implementation.md`                                |
 | **Before marking complete** | Run `/audit`, ensure Evidence Bundle is staged     |
 | **Before git commit**       | `pre-commit.md`                                    |
+| **Before commit (detours)** | `sync-check.md`                                    |
 | **Starting a task**         | `DevFramework/TaskQualityAssurance/boxes/<box>.md` |
 | **Changing framework docs** | `framework-changes.md`                             |
 

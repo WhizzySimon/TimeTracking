@@ -23,6 +23,7 @@
 		shape,
 		setTheme,
 		setShape,
+		THEME_OPTIONS,
 		type ThemeValue,
 		type ShapeValue
 	} from '$lib/stores/theme';
@@ -397,22 +398,15 @@
 			</div>
 			<div class="theme-selector">
 				<span class="theme-label">Farben</span>
-				<div class="theme-toggle">
-					<button
-						class="theme-option"
-						class:active={currentTheme === 'cool'}
-						onclick={() => handleThemeChange('cool')}
-					>
-						Cool
-					</button>
-					<button
-						class="theme-option"
-						class:active={currentTheme === 'warm'}
-						onclick={() => handleThemeChange('warm')}
-					>
-						Warm
-					</button>
-				</div>
+				<select
+					class="theme-dropdown"
+					value={currentTheme}
+					onchange={(e) => handleThemeChange(e.currentTarget.value as ThemeValue)}
+				>
+					{#each THEME_OPTIONS as option (option.value)}
+						<option value={option.value}>{option.label}</option>
+					{/each}
+				</select>
 			</div>
 			<div class="theme-selector">
 				<span class="theme-label">Ecken</span>
@@ -910,6 +904,32 @@
 	.theme-label {
 		font-weight: 500;
 		color: var(--text);
+	}
+
+	.theme-dropdown {
+		padding: 0.5rem 2rem 0.5rem 0.75rem;
+		border: 1px solid var(--border);
+		border-radius: var(--r-input);
+		background: var(--input-bg);
+		color: var(--text);
+		font-size: 0.9rem;
+		font-weight: 500;
+		cursor: pointer;
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0.5rem center;
+		min-width: 100px;
+	}
+
+	.theme-dropdown:hover {
+		border-color: var(--input-border-hover, var(--border));
+	}
+
+	.theme-dropdown:focus {
+		outline: none;
+		border-color: var(--input-focus-border);
+		box-shadow: var(--focus-ring);
 	}
 
 	.theme-toggle {
