@@ -17,7 +17,7 @@ const path = require('path');
 
 const LOGS_DIR = path.join(__dirname, 'logs');
 const BASELINES_FILE = path.join(LOGS_DIR, 'baselines.json');
-const ZOOM_OUT_PATH = 'Docs/AI/ZOOM_OUT.md';
+const ZOOM_OUT_PATH = 'Docs/DevFramework/TaskQualityAssurance/ZOOM_OUT.md';
 
 const THRESHOLDS = {
 	repetition: 3,
