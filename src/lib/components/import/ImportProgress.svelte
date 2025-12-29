@@ -6,7 +6,7 @@
   - Current file/step indicator
   - Cancel button
   
-  Spec ref: Docs/Specs/ai-import.md Section 6 (Screen B)
+  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen B)
 -->
 <script lang="ts">
 	interface Props {

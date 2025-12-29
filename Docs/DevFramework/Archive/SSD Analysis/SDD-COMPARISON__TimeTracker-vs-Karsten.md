@@ -49,12 +49,12 @@
 
 #### Spec Structure
 
-- `Docs/Specs/_template.md` — 73 lines with Goal, Scope, FR, IG, DD, Edge cases, Data & privacy, Acceptance checks, Change log, Completeness checklist
+- `Docs/Features/Specs/_template.md` — 73 lines with Goal, Scope, FR, IG, DD, Edge cases, Data & privacy, Acceptance checks, Change log, Completeness checklist
 - FR/IG/DD numbering: `TT-FR-001`, `TT-IG-001`, `TT-DD-001`
 
 #### Task Decomposition
 
-- `Docs/Tasks/_template.md` — 38 lines with Files, Done when, Verify, Guardrails, Parallel marker, Estimated duration
+- `Docs/Features/Tasks/_template.md` — 38 lines with Files, Done when, Verify, Guardrails, Parallel marker, Estimated duration
 - Task granularity: 0.5-2h human-sized
 
 #### Workflow Bootstrapping
@@ -106,7 +106,7 @@ Framework/FrameworkSelfImprovementLogs
 
 #### Task Decomposition
 
-- **No task templates** — no Docs/Tasks/ folder
+- **No task templates** — no Docs/Features/Tasks/ folder
 - **No task granularity rules** — work is spec-driven but not task-decomposed
 
 #### Workflow Bootstrapping
@@ -149,7 +149,7 @@ Framework/FrameworkSelfImprovementLogs
 ### 1. Spec Dependency Declarations — APPLIED 2025-12-24
 
 **What:** Add "Depends on" / "Does not depend on" sections to spec template  
-**Target:** `Docs/Specs/_template.md`  
+**Target:** `Docs/Features/Specs/_template.md`  
 **Change:** Add after header block:
 
 ```markdown
@@ -217,7 +217,7 @@ Use markers for related functions:
 ### 7. "What we don't want" Section — APPLIED 2025-12-24
 
 **What:** Add explicit anti-patterns section to spec template  
-**Target:** `Docs/Specs/_template.md`  
+**Target:** `Docs/Features/Specs/_template.md`  
 **Change:** Add after Scope section:
 
 ```markdown
@@ -237,7 +237,7 @@ Framework/DeveloperGuidesAndStandards
 ### 9. Spec Changes Timestamp Format — APPLIED 2025-12-24
 
 **What:** Use `**[YYYY-MM-DD HH:MM]**` format with action prefixes  
-**Target:** `Docs/Specs/_template.md` + `Docs/DevFramework/ToolSetup
+**Target:** `Docs/Features/Specs/_template.md` + `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md`  
 **Change:** Updated Change log section in template and added "Change Log Format" section in guidelines.
@@ -259,7 +259,7 @@ Avoid: "1 item(s)"
 
 ## 5) Next Actions (exactly 3 bullets)
 
-1. ~~**Update `Docs/Specs/_template.md`**~~ — DONE 2025-12-24: Added dependency declarations, "What we don't want" section, and timestamped changelog format
+1. ~~**Update `Docs/Features/Specs/_template.md`**~~ — DONE 2025-12-24: Added dependency declarations, "What we don't want" section, and timestamped changelog format
 2. **Expand `.windsurf/rules/code-quality-rules.md`** — Add BAD/GOOD examples, function grouping markers, logging format, singular/plural rules (NOT DONE - .windsurf/rules protected)
 3. ~~**Add spec length guidelines**~~ — DONE 2025-12-24: Added to `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
@@ -270,7 +270,7 @@ Framework/DeveloperGuidesAndStandards
 ## Missing Files in Karsten Repo (blocked comparison)
 
 - **No AGENTS.md** — could not compare process governance
-- **No Docs/Tasks/ folder** — could not compare task decomposition
+- **No Docs/Features/Tasks/ folder** — could not compare task decomposition
 - **No Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 / folder** — could not compare decision tracking

@@ -8,7 +8,7 @@
   - File list with remove buttons
   - File type and size validation
   
-  Spec ref: Docs/Specs/ai-import.md Section 6 (Screen A)
+  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen A)
 -->
 <script lang="ts">
 	import type { ImportSource } from '$lib/import/types';

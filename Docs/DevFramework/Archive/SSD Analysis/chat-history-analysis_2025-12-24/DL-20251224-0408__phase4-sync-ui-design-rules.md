@@ -7,9 +7,9 @@
 
 **Related Docs:**
 
-- Spec: Docs/Specs/P06-20251222-cloud-backup-and-auth.md
-- Plan: Docs/Plans/P06-20251222-cloud-sync.md
-- Tasks: Docs/Tasks/P06-20251222-cloud-sync.md
+- Spec: Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md
+- Plan: Docs/Features/Plans/P06-20251222-cloud-sync.md
+- Tasks: Docs/Features/Tasks/P06-20251222-cloud-sync.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 4 - Sync & Polish, Tasks 4.1-4.4 completed, Ad-hoc ConfirmDialog added)
 - Other referenced docs: .windsurf/rules/COMMAND_EXECUTION_RULES.md, .windsurf/rules/code-quality-rules.md, .windsurf/rules/ui-design-rules.md (NEW)
 

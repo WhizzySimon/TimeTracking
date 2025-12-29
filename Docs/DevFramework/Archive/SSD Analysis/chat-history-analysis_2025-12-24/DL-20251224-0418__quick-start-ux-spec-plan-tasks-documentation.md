@@ -7,9 +7,9 @@
 
 **Related Docs:**
 
-- Spec: Docs/Specs/P07-20251223-quick-start-ux.md
-- Plan: Docs/Plans/P07-20251223-quick-start-ux.md
-- Tasks: Docs/Tasks/P07-20251223-quick-start-ux.md
+- Spec: Docs/Features/Specs/P07-20251223-quick-start-ux.md
+- Plan: Docs/Features/Plans/P07-20251223-quick-start-ux.md
+- Tasks: Docs/Features/Tasks/P07-20251223-quick-start-ux.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 7 → Phase 8, Quick-Start UX)
 - Other referenced docs:
   - Docs/DevFramework/ToolSetup
@@ -36,7 +36,7 @@ Framework/DeveloperGuidesAndStandards
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
 
-- Docs/Tasks/P07-20251223-quick-start-ux.md — Added verification workflow header with mandatory steps (npm run verify, unit tests, MCP Playwright, git commit, progress update) — Evidence: Chat shows edit adding "Verification Workflow (MANDATORY for each task)" section
+- Docs/Features/Tasks/P07-20251223-quick-start-ux.md — Added verification workflow header with mandatory steps (npm run verify, unit tests, MCP Playwright, git commit, progress update) — Evidence: Chat shows edit adding "Verification Workflow (MANDATORY for each task)" section
 
 - Docs/IMPLEMENTATION_PROGRESS.md — Added Phase 7 section with 10 tasks (7.1-7.10) grouped by feature area, each with verification checkboxes — Evidence: Chat shows edit adding complete Phase 7 tracker structure
 
@@ -67,9 +67,9 @@ Framework/DeveloperGuidesAndStandards
 - Claimed in chat:
   - Quick-Start UX documentation complete — Result: PASS (user confirmed) — Evidence: "Alles dokumentiert. Du kannst jetzt einen neuen Chat starten."
 - Verified now in repo (static only):
-  - Docs/Specs/P07-20251223-quick-start-ux.md exists (16167 bytes) — Evidence: list_dir output
-  - Docs/Plans/P07-20251223-quick-start-ux.md exists (16707 bytes) — Evidence: list_dir output
-  - Docs/Tasks/P07-20251223-quick-start-ux.md exists (11885 bytes) — Evidence: list_dir output
+  - Docs/Features/Specs/P07-20251223-quick-start-ux.md exists (16167 bytes) — Evidence: list_dir output
+  - Docs/Features/Plans/P07-20251223-quick-start-ux.md exists (16707 bytes) — Evidence: list_dir output
+  - Docs/Features/Tasks/P07-20251223-quick-start-ux.md exists (11885 bytes) — Evidence: list_dir output
   - Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md exists — Evidence: file created via write_to_file

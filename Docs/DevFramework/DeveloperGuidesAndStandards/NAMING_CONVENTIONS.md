@@ -59,7 +59,7 @@ Framework/DeveloperGuidesAndStandards
 
 ---
 
-### Docs/Specs/, Docs/Plans/, Docs/Tasks/
+### Docs/Features/Specs/, Docs/Features/Plans/, Docs/Features/Tasks/
 
 **Convention:** `kebab-case.md`
 

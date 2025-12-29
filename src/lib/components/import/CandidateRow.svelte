@@ -6,7 +6,7 @@
   - Status indicator
   - Selection checkbox
   
-  Spec ref: Docs/Specs/ai-import.md Section 6 (Screen C)
+  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen C)
 -->
 <script lang="ts">
 	import type { TimeEntryCandidate } from '$lib/import/types';

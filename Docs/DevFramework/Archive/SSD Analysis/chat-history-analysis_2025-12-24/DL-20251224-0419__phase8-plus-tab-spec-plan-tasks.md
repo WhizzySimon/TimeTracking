@@ -7,9 +7,9 @@
 
 **Related Docs:**
 
-- Spec: Docs/Specs/P07-20251223-quick-start-ux.md (Phase 8 section)
-- Plan: Docs/Plans/P07-20251223-quick-start-ux.md (Phase 8 section)
-- Tasks: Docs/Tasks/P07-20251223-quick-start-ux.md (Phase 8 tasks 8.1-8.8)
+- Spec: Docs/Features/Specs/P07-20251223-quick-start-ux.md (Phase 8 section)
+- Plan: Docs/Features/Plans/P07-20251223-quick-start-ux.md (Phase 8 section)
+- Tasks: Docs/Features/Tasks/P07-20251223-quick-start-ux.md (Phase 8 tasks 8.1-8.8)
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 8 section added, 86/94 tasks, 91%)
 - Other referenced docs: Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
@@ -33,11 +33,11 @@ Framework/DeveloperGuidesAndStandards
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
 
-- Docs/Specs/P07-20251223-quick-start-ux.md — Added Phase 8 section with FR-020 to FR-032, updated scope, added cleanup requirements — Evidence: Chat shows spec updates with Plus-Tab requirements
+- Docs/Features/Specs/P07-20251223-quick-start-ux.md — Added Phase 8 section with FR-020 to FR-032, updated scope, added cleanup requirements — Evidence: Chat shows spec updates with Plus-Tab requirements
 
-- Docs/Plans/P07-20251223-quick-start-ux.md — Added Phase 8 architecture section with new route /add, CategoryList component, cleanup items — Evidence: Chat shows plan creation with 8-step implementation order
+- Docs/Features/Plans/P07-20251223-quick-start-ux.md — Added Phase 8 architecture section with new route /add, CategoryList component, cleanup items — Evidence: Chat shows plan creation with 8-step implementation order
 
-- Docs/Tasks/P07-20251223-quick-start-ux.md — Added Phase 8 tasks 8.1-8.8 (Plus-Tab route, CategoryList, Ein-Klick-Start, Navigation, Default-Tab logic, Cleanup Tag-Tab, Cleanup Settings, E2E tests) — Evidence: Chat shows task breakdown
+- Docs/Features/Tasks/P07-20251223-quick-start-ux.md — Added Phase 8 tasks 8.1-8.8 (Plus-Tab route, CategoryList, Ein-Klick-Start, Navigation, Default-Tab logic, Cleanup Tag-Tab, Cleanup Settings, E2E tests) — Evidence: Chat shows task breakdown
 
 - Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
@@ -51,11 +51,11 @@ Framework/DeveloperGuidesAndStandards
 
 ### Repo-Verified Delta (optional, getrennt!)
 
-- Docs/Specs/P07-20251223-quick-start-ux.md — File exists, contains Phase 8 metadata (Phase 7+8, Created 2025-12-23, Last Updated 2025-12-23) — Evidence: File read shows metadata header
+- Docs/Features/Specs/P07-20251223-quick-start-ux.md — File exists, contains Phase 8 metadata (Phase 7+8, Created 2025-12-23, Last Updated 2025-12-23) — Evidence: File read shows metadata header
 
-- Docs/Plans/P07-20251223-quick-start-ux.md — File exists, contains Phase 8 section starting at line 181 — Evidence: File read shows "# Phase 8: Plus-Tab (Ein-Klick-Workflow)"
+- Docs/Features/Plans/P07-20251223-quick-start-ux.md — File exists, contains Phase 8 section starting at line 181 — Evidence: File read shows "# Phase 8: Plus-Tab (Ein-Klick-Workflow)"
 
-- Docs/Tasks/P07-20251223-quick-start-ux.md — File exists, contains Phase 8 tasks 8.1-8.8 starting at line 190 — Evidence: File read shows task list
+- Docs/Features/Tasks/P07-20251223-quick-start-ux.md — File exists, contains Phase 8 tasks 8.1-8.8 starting at line 190 — Evidence: File read shows task list
 
 - Docs/IMPLEMENTATION_PROGRESS.md — File exists, Phase 8 section exists at line 959, header shows 86/94 tasks — Evidence: File read shows Phase 8 tracker
 
@@ -75,9 +75,9 @@ Framework/DeveloperGuidesAndStandards
   - File renames via cascade-watcher — Result: PASS (all files renamed successfully) — Evidence: Multiple cascade-output.txt reads showing exit code 0
 
 - Verified now in repo (static only):
-  - Docs/Specs/P07-20251223-quick-start-ux.md exists — Evidence: find_by_name result
-  - Docs/Plans/P07-20251223-quick-start-ux.md exists — Evidence: find_by_name result
-  - Docs/Tasks/P07-20251223-quick-start-ux.md exists — Evidence: find_by_name result
+  - Docs/Features/Specs/P07-20251223-quick-start-ux.md exists — Evidence: find_by_name result
+  - Docs/Features/Plans/P07-20251223-quick-start-ux.md exists — Evidence: find_by_name result
+  - Docs/Features/Tasks/P07-20251223-quick-start-ux.md exists — Evidence: find_by_name result
   - Phase 8 section exists in all three files — Evidence: read_file results show Phase 8 content
   - Naming convention documented in SPEC_DRIVEN_DEVELOPMENT.md — Evidence: read_file shows section at line 273
 

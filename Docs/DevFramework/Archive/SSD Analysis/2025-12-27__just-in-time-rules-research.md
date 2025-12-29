@@ -216,9 +216,9 @@ Framework/JustInTimeAgentRules
 
 ## Quick Reference
 
-- Specs: Docs/Specs/<feature>.md
-- Plans: Docs/Plans/<feature>.md
-- Tasks: Docs/Tasks/<feature>.md
+- Specs: Docs/Features/Specs/<feature>.md
+- Plans: Docs/Features/Plans/<feature>.md
+- Tasks: Docs/Features/Tasks/<feature>.md
 - Changelog: Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /CHANGELOG.md

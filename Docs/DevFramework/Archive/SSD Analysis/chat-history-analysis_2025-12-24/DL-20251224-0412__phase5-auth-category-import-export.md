@@ -7,9 +7,9 @@
 
 **Related Docs:**
 
-- Spec: Docs/Specs/P06-20251222-cloud-backup-and-auth.md (auth referenced)
+- Spec: Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md (auth referenced)
 - Plan: NONE (Phase 5 was added to existing v1 implementation)
-- Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md (Phase 5 tasks)
+- Tasks: Docs/Features/Tasks/P01-20251220-timetracker-v1.md (Phase 5 tasks)
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 5 - Extended Features, Tasks 5.1-5.10)
 - Other referenced docs: Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
@@ -27,7 +27,7 @@ Framework/DeveloperGuidesAndStandards
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
 
-- Docs/Tasks/P01-20251220-timetracker-v1.md — Added Phase 5 tasks (5.1-5.10) for default work time model, category import/export, and authentication — Evidence: "Added Phase 5 tasks (Extended Features) including Default Work Time Model, Category Import/Export, and Authentication tasks"
+- Docs/Features/Tasks/P01-20251220-timetracker-v1.md — Added Phase 5 tasks (5.1-5.10) for default work time model, category import/export, and authentication — Evidence: "Added Phase 5 tasks (Extended Features) including Default Work Time Model, Category Import/Export, and Authentication tasks"
 - Docs/IMPLEMENTATION_PROGRESS.md — Added Phase 5 section with 10 tasks, updated progress to 70/70 (100%) — Evidence: "Added the detailed tasks for Phase 5 (Extended Features) to the implementation progress document"
 - Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards

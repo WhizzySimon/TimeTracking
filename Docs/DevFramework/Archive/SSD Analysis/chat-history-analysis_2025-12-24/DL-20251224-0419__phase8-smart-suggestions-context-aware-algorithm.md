@@ -7,9 +7,9 @@
 
 **Related Docs:**
 
-- Spec: Docs/Specs/P07-20251223-quick-start-ux.md
-- Plan: Docs/Plans/P07-20251223-quick-start-ux.md
-- Tasks: Docs/Tasks/P07-20251223-quick-start-ux.md
+- Spec: Docs/Features/Specs/P07-20251223-quick-start-ux.md
+- Plan: Docs/Features/Plans/P07-20251223-quick-start-ux.md
+- Tasks: Docs/Features/Tasks/P07-20251223-quick-start-ux.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 8: Plus-Tab, Not Started 0/9 tasks)
 - Other referenced docs: data supabase.json (user data for analysis)
 
@@ -25,9 +25,9 @@
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
 
-- Docs/Specs/P07-20251223-quick-start-ux.md — Added FR-033 to FR-038 (context-aware algorithm requirements), IG-009 to IG-011 (performance/calculation guarantees), DD-009 to DD-012 (design decisions for 2h slots, weekend separation, scoring), AC-032 to AC-036 (acceptance checks) — Evidence: Spec file updated with new sections
-- Docs/Plans/P07-20251223-quick-start-ux.md — Added getSmartTopCategories() and calculateContextScore() function signatures, detailed algorithm implementation with constants (SLOT_HOURS=2, CONTEXT_MULTIPLIER=1000, LOOKBACK_DAYS=30), example scenarios, timeslot mapping table — Evidence: Plan file updated with Phase 8 Smart Suggestions section
-- Docs/Tasks/P07-20251223-quick-start-ux.md — Renumbered tasks from 8 to 9, inserted new Task 8.2 "Smart Suggestions Algorithmus implementieren" between route creation and CategoryList component, updated task descriptions to reference smart/context-aware functionality — Evidence: Tasks file shows 9 tasks (8.1-8.9) with Task 8.2 as new entry
+- Docs/Features/Specs/P07-20251223-quick-start-ux.md — Added FR-033 to FR-038 (context-aware algorithm requirements), IG-009 to IG-011 (performance/calculation guarantees), DD-009 to DD-012 (design decisions for 2h slots, weekend separation, scoring), AC-032 to AC-036 (acceptance checks) — Evidence: Spec file updated with new sections
+- Docs/Features/Plans/P07-20251223-quick-start-ux.md — Added getSmartTopCategories() and calculateContextScore() function signatures, detailed algorithm implementation with constants (SLOT_HOURS=2, CONTEXT_MULTIPLIER=1000, LOOKBACK_DAYS=30), example scenarios, timeslot mapping table — Evidence: Plan file updated with Phase 8 Smart Suggestions section
+- Docs/Features/Tasks/P07-20251223-quick-start-ux.md — Renumbered tasks from 8 to 9, inserted new Task 8.2 "Smart Suggestions Algorithmus implementieren" between route creation and CategoryList component, updated task descriptions to reference smart/context-aware functionality — Evidence: Tasks file shows 9 tasks (8.1-8.9) with Task 8.2 as new entry
 
 ### Code Delta (nur aus Chat)
 
@@ -35,9 +35,9 @@
 
 ### Repo-Verified Delta (optional, getrennt!)
 
-- Docs/Specs/P07-20251223-quick-start-ux.md — File exists, contains FR-033 to FR-038, IG-009 to IG-011, DD-009 to DD-012, AC-032 to AC-036 in correct sections — Evidence: File read shows all new requirements present
-- Docs/Plans/P07-20251223-quick-start-ux.md — File exists, contains Phase 8 Smart Suggestions section with algorithm code, constants, and example scenarios — Evidence: File read shows complete algorithm implementation details
-- Docs/Tasks/P07-20251223-quick-start-ux.md — File exists, contains 9 tasks (8.1-8.9), Task 8.2 describes Smart Suggestions implementation with correct verification steps — Evidence: File read shows updated task structure
+- Docs/Features/Specs/P07-20251223-quick-start-ux.md — File exists, contains FR-033 to FR-038, IG-009 to IG-011, DD-009 to DD-012, AC-032 to AC-036 in correct sections — Evidence: File read shows all new requirements present
+- Docs/Features/Plans/P07-20251223-quick-start-ux.md — File exists, contains Phase 8 Smart Suggestions section with algorithm code, constants, and example scenarios — Evidence: File read shows complete algorithm implementation details
+- Docs/Features/Tasks/P07-20251223-quick-start-ux.md — File exists, contains 9 tasks (8.1-8.9), Task 8.2 describes Smart Suggestions implementation with correct verification steps — Evidence: File read shows updated task structure
 - Docs/IMPLEMENTATION_PROGRESS.md — File exists, Phase 8 section updated to show "9 tasks, ~5 hours" and includes Task 8.2 with Notes field — Evidence: File read shows synced task count and descriptions
 
 ## Verification (strict)
@@ -47,9 +47,9 @@
   - git commit (adcf38b) — Result: SUCCESS — Evidence: "docs: sync IMPLEMENTATION_PROGRESS with updated Phase 8 tasks (8.1-8.9)" with 3 files changed
   - Data analysis completed — Result: PASS — Evidence: User confirmed "Geile Analyse" after receiving parameter recommendations
 - Verified now in repo (static only):
-  - Docs/Specs/P07-20251223-quick-start-ux.md contains FR-033 to FR-038 — Evidence: File lines 91-100 show new functional requirements
-  - Docs/Plans/P07-20251223-quick-start-ux.md contains algorithm code — Evidence: File lines 332-446 show complete implementation details
-  - Docs/Tasks/P07-20251223-quick-start-ux.md has 9 tasks — Evidence: File shows tasks 8.1 through 8.9 with Task 8.2 for Smart Suggestions
+  - Docs/Features/Specs/P07-20251223-quick-start-ux.md contains FR-033 to FR-038 — Evidence: File lines 91-100 show new functional requirements
+  - Docs/Features/Plans/P07-20251223-quick-start-ux.md contains algorithm code — Evidence: File lines 332-446 show complete implementation details
+  - Docs/Features/Tasks/P07-20251223-quick-start-ux.md has 9 tasks — Evidence: File shows tasks 8.1 through 8.9 with Task 8.2 for Smart Suggestions
   - Docs/IMPLEMENTATION_PROGRESS.md shows Phase 8 with 9 tasks — Evidence: File lines 959-1019 show updated phase information
 
 ## Bugs / Issues mentioned

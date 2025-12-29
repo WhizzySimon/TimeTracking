@@ -27,18 +27,18 @@ Framework/DeveloperGuidesAndStandards
 
 ```
 Phase 1: SPEC (what/why)
-├── Create: Docs/Specs/<feature-slug>.md
-├── Template: Docs/Specs/_template.md
+├── Create: Docs/Features/Specs/<feature-slug>.md
+├── Template: Docs/Features/Specs/_template.md
 ├── Required: Goal, Scope, FR/IG/DD, Edge cases, Data & privacy, Acceptance checks
 └── Checkpoint: No ambiguous terms, all FR/IG/DD numbered and testable
 
 Phase 2: PLAN (how)
-├── Create: Docs/Plans/<feature-slug>.md
+├── Create: Docs/Features/Plans/<feature-slug>.md
 ├── Required: Architecture, Data model, UI state, Error handling, Testing strategy
 └── Checkpoint: Plan executable as tasks without new decisions
 
 Phase 3: TASKS (small steps)
-├── Create: Docs/Tasks/<feature-slug>.md
+├── Create: Docs/Features/Tasks/<feature-slug>.md
 ├── Format: Files, Done when, Verify, Guardrails
 ├── Size: 0.5-2h per task
 └── Checkpoint: No task depends on "figure it out while coding"
@@ -107,7 +107,7 @@ Framework/FrameworkSelfImprovementLogs
 /` with identical template       | Decisions, deltas, verification, follow-ups all captured |
 | **Mandatory verification before commit** | `.windsurf/rules/COMMAND_EXECUTION_RULES.md` lines 283-303 | Catches errors before they enter codebase                |
 | **Phase-based progress tracking**        | `Docs/IMPLEMENTATION_PROGRESS.md`                          | 94 tasks tracked with checkboxes, visible progress       |
-| **Separation of spec/plan/tasks**        | `Docs/Specs/`, `Docs/Plans/`, `Docs/Tasks/`                | Prevents scope creep; each doc has clear purpose         |
+| **Separation of spec/plan/tasks**        | `Docs/Features/Specs/`, `Docs/Features/Plans/`, `Docs/Features/Tasks/`                | Prevents scope creep; each doc has clear purpose         |
 | **Workflow automation**                  | 7 workflows in `.windsurf/workflows/`                      | Reduces manual steps; enforces process                   |
 | **Canonical tag system**                 | `Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
@@ -134,7 +134,7 @@ Framework/FrameworkSelfImprovementLogs
 | Failure Mode                   | Evidence                                                                                  | Impact                                 |
 | ------------------------------ | ----------------------------------------------------------------------------------------- | -------------------------------------- |
 | **Commit step forgotten**      | Memory `066ef418` explicitly warns "most commonly forgotten step"                         | Uncommitted work lost between sessions |
-| **Spec template not enforced** | `Docs/Specs/_template.md` exists but no validation                                        | Some specs missing sections            |
+| **Spec template not enforced** | `Docs/Features/Specs/_template.md` exists but no validation                                        | Some specs missing sections            |
 | **Duplicate rules files**      | `implementation-specification-rules.md` in both `.windsurf/rules/` and `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /` | Potential drift between copies         |
@@ -163,8 +163,8 @@ Framework/DeveloperGuidesAndStandards
 | Dimension                | TimeTracker                                           | GitHub Spec Kit                                                | Anthropic Claude Code                        | OpenAI Agents                    | Microsoft/Copilot SDD                                          |
 | ------------------------ | ----------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------- | -------------------------------- | -------------------------------------------------------------- |
 | **Spec format**          | FR/IG/DD numbered, template-based                     | PRD → Plan → Tasks, template-driven                            | CLAUDE.md per folder, iterative tuning       | Structured outputs (JSON schema) | Constitution + templates                                       |
-| **Planning phase**       | Docs/Plans/ with architecture, data model, UI state   | `/speckit.plan` auto-generates from spec                       | "Explore, plan, code, commit" workflow       | Agent loops with guardrails      | Enterprise constitution enforcement                            |
-| **Task breakdown**       | Docs/Tasks/ with Files, Done when, Verify, Guardrails | `/speckit.tasks` with parallelization markers `[P]`            | Checklists in Markdown, scratchpads          | Multi-agent handoffs             | Task derivation from contracts                                 |
+| **Planning phase**       | Docs/Features/Plans/ with architecture, data model, UI state   | `/speckit.plan` auto-generates from spec                       | "Explore, plan, code, commit" workflow       | Agent loops with guardrails      | Enterprise constitution enforcement                            |
+| **Task breakdown**       | Docs/Features/Tasks/ with Files, Done when, Verify, Guardrails | `/speckit.tasks` with parallelization markers `[P]`            | Checklists in Markdown, scratchpads          | Multi-agent handoffs             | Task derivation from contracts                                 |
 | **Implementation rules** | No free refactors, minimal diffs, test obligations    | Test-first imperative (Article III), library-first (Article I) | TDD: write tests → confirm fail → implement  | Structured outputs, guardrails   | Constitutional gates (simplicity, anti-abstraction)            |
 | **Quality gates**        | npm run verify, MCP Playwright, E2E                   | Pre-Implementation Gates (Phase -1)                            | Course correct early, /clear context         | Input/output guardrails          | Simplicity Gate, Anti-Abstraction Gate, Integration-First Gate |
 | **Logging/traceability** | Devlogs with Decisions, Deltas, Follow-ups            | Living specs in feature branches                               | Conversation history, /clear resets          | Tracing in Agents SDK            | Versioned specs in branches                                    |
@@ -259,7 +259,7 @@ Framework/DeveloperGuidesAndStandards
 
 ### Planning/Task Breakdown Format (Merged)
 
-**Plan (Docs/Plans/):**
+**Plan (Docs/Features/Plans/):**
 
 ```markdown
 ## Architecture
@@ -289,7 +289,7 @@ Framework/DeveloperGuidesAndStandards
 - [ ] Integration-first: Contracts defined before implementation?
 ```
 
-**Tasks (Docs/Tasks/):**
+**Tasks (Docs/Features/Tasks/):**
 
 ```markdown
 ## Task X - <description>
@@ -352,14 +352,14 @@ Framework/FrameworkSelfImprovementLogs
 | 1   | `Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /FOLLOW-UPS.md`                  | Centralized tracker with 84 follow-ups                                                  | ✅ DONE                         | Single view of all open work; prevents lost follow-ups                  |
-| 2   | `Docs/Specs/_template.md`                    | Add "Completeness Checklist" section at bottom with all required sections as checkboxes | ✅ DONE                         | Self-documenting spec validation                                        |
+| 2   | `Docs/Features/Specs/_template.md`                    | Add "Completeness Checklist" section at bottom with all required sections as checkboxes | ✅ DONE                         | Self-documenting spec validation                                        |
 | 3   | `.windsurf/rules/*.md`                       | Keep pointer files; canonical rules live in `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /`                          | ✅ DONE (architecture decision) | Windsurf auto-loads .windsurf/rules/; pointers reference canonical docs |
 | 4   | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md` | Add "Phase -1 / Pre-Implementation Gates" section (≤5 checkboxes)                       | ✅ DONE                         | Catch over-engineering before coding                                    |
-| 5   | `Docs/Tasks/_template.md`                    | Add `**Parallel:** [P] / blank` and `**Estimated:** 0.5h / 1h / 2h` fields              | ✅ DONE                         | Enable parallelization, better planning                                 |
+| 5   | `Docs/Features/Tasks/_template.md`                    | Add `**Parallel:** [P] / blank` and `**Estimated:** 0.5h / 1h / 2h` fields              | ✅ DONE                         | Enable parallelization, better planning                                 |
 
 ### Priority 2: Important (Do Soon)
 
@@ -383,7 +383,7 @@ Framework/FrameworkSelfImprovementLogs
 | 12  | `Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
 /PHASE-HISTORY.md`    | Create file documenting what P02-P05 covered (retroactive)  | TODO    | Historical clarity                   |
-| 13  | `Docs/Plans/_template.md`         | Add "Pre-Implementation Gates" section with checkboxes      | TODO    | Template enforcement                 |
+| 13  | `Docs/Features/Plans/_template.md`         | Add "Pre-Implementation Gates" section with checkboxes      | TODO    | Template enforcement                 |
 | 14  | `.windsurf/cascade.md`            | Add "Constitution" section with immutable principles        | TODO    | Architectural discipline             |
 | 15  | `scripts/verify-code.ps1`         | Devlog tag validation integrated into `npm run verify`      | ✅ DONE | Runs as Step 0 in verify-code.ps1    |
 

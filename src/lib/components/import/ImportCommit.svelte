@@ -6,7 +6,7 @@
   - Warning for skipped entries
   - Confirm/Cancel buttons
   
-  Spec ref: Docs/Specs/ai-import.md Section 6 (Screen D)
+  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen D)
 -->
 <script lang="ts">
 	import type { TimeEntryCandidate } from '$lib/import/types';

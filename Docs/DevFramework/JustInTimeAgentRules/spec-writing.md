@@ -8,10 +8,10 @@
 
 For any non-trivial change, create/update a spec file:
 
-- Location: `Docs/AppDocs/Specs/<feature-slug>.md` or `Docs/DevFramework/ToolSetup
+- Location: `Docs/AppDocs/Features/Specs/<feature-slug>.md` or `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeatureSpecs
 /<feature-slug>.md`
-- Template: `Docs/AppDocs/Specs/_template.md` or `Docs/DevFramework/ToolSetup
+- Template: `Docs/AppDocs/Features/Specs/_template.md` or `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeatureSpecs
 /_template.md`
 - Rules: `Docs/DevFramework/ToolSetup

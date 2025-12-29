@@ -6,7 +6,7 @@
   - Round durations
   - Select/deselect all
   
-  Spec ref: Docs/Specs/ai-import.md Section 6 (Screen C)
+  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen C)
 -->
 <script lang="ts">
 	import type { Category } from '$lib/types';

@@ -5,7 +5,7 @@
   - Imported count, skipped count, errors
   - Navigation buttons
   
-  Spec ref: Docs/Specs/ai-import.md Section 6 (Screen E)
+  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen E)
 -->
 <script lang="ts">
 	import { goto } from '$app/navigation';

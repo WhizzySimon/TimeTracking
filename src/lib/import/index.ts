@@ -1,7 +1,7 @@
 /**
  * Import module for TimeTracker.
  * Provides functions to import data from various formats.
- * Spec refs: Docs/Specs/subscription-plans.md
+ * Spec refs: Docs/Features/Specs/subscription-plans.md
  */
 
 export {

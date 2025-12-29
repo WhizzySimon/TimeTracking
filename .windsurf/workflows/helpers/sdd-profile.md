@@ -13,7 +13,7 @@ Framework/SDD/Profiles/SDD_PROFILE\_\_RUNBOOK.md
    - Docs/DevFramework/ToolSetup
 Framework/SDD/Profiles/SDD_PROFILE\_\_TEMPLATE.md
    - (Within TARGET root) any AGENTS.md, Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/, Docs/AppDocs/Specs/\_template.md, Docs/AppDocs/Tasks/\_template.md, .windsurf/workflows/*, scripts/*verify\*, package.json, test config, devlog files if present.
+Framework/DeveloperGuidesAndStandards/, Docs/AppDocs/Features/Specs/\_template.md, Docs/AppDocs/Features/Tasks/\_template.md, .windsurf/workflows/*, scripts/*verify\*, package.json, test config, devlog files if present.
 
 3. Evidence rule (mandatory):
    - Every claim must include an evidence pointer: file path + brief snippet reference.

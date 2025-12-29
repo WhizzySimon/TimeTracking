@@ -4,7 +4,7 @@
  * Suggests column mappings for CSV/Excel headers using AI.
  * Premium-only endpoint.
  *
- * Spec ref: Docs/Specs/ai-import.md Section 8
+ * Spec ref: Docs/Features/Specs/ai-import.md Section 8
  */
 
 import { json, error } from '@sveltejs/kit';

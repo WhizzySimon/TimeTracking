@@ -43,5 +43,5 @@
 ## Adoptable improvements for TimeTracker (max 10)
 
 1. Add “codebase readability helps the agent” to `.windsurf/rules/code-quality-rules.md`.
-2. Make “review + verify” a mandatory checkbox in `Docs/Tasks/_template.md` (if not already enforced).
+2. Make “review + verify” a mandatory checkbox in `Docs/Features/Tasks/_template.md` (if not already enforced).
 3. Add a short human prompt checklist (goal, constraints, examples, output format).

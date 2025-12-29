@@ -4,7 +4,7 @@
  * Parses plain text content into structured data for import.
  * Uses pattern matching to extract time entries from unstructured text.
  *
- * Spec ref: Docs/Specs/ai-import.md Section 8
+ * Spec ref: Docs/Features/Specs/ai-import.md Section 8
  */
 
 import type { TimeEntryCandidate } from '../types';

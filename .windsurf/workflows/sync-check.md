@@ -39,7 +39,7 @@ Extract:
 
 If the current phase has a Tasks file, read it:
 
-- `Docs/AppDocs/Tasks/<phase-name>.md` or `Docs/DevFramework/ToolSetup
+- `Docs/AppDocs/Features/Tasks/<phase-name>.md` or `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeatureTasks
 /<phase-name>.md`
 

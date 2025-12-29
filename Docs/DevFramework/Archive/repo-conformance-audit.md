@@ -92,24 +92,24 @@ Framework/DeveloperGuidesAndStandards
 | -------------- | -------------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ----------- |
 | TimeTracker v1 | `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/UI_LOGIC_SPEC_V1.md`              | `Docs/Plans/P01-20251220-timetracker-v1.md` | `Docs/Tasks/P01-20251220-timetracker-v1.md` | ✅ Complete |
-| Cloud Sync     | `Docs/Specs/P06-20251222-cloud-backup-and-auth.md` | `Docs/Plans/P06-20251222-cloud-sync.md`     | `Docs/Tasks/P06-20251222-cloud-sync.md`     | ✅ Complete |
-| Quick-Start UX | `Docs/Specs/P07-20251223-quick-start-ux.md`        | `Docs/Plans/P07-20251223-quick-start-ux.md` | `Docs/Tasks/P07-20251223-quick-start-ux.md` | ✅ Complete |
+/UI_LOGIC_SPEC_V1.md`              | `Docs/Features/Plans/P01-20251220-timetracker-v1.md` | `Docs/Features/Tasks/P01-20251220-timetracker-v1.md` | ✅ Complete |
+| Cloud Sync     | `Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md` | `Docs/Features/Plans/P06-20251222-cloud-sync.md`     | `Docs/Features/Tasks/P06-20251222-cloud-sync.md`     | ✅ Complete |
+| Quick-Start UX | `Docs/Features/Specs/P07-20251223-quick-start-ux.md`        | `Docs/Features/Plans/P07-20251223-quick-start-ux.md` | `Docs/Features/Tasks/P07-20251223-quick-start-ux.md` | ✅ Complete |
 
 ### Findings
 
 #### Finding B.1: Tasks doc shows Phase 8 tasks as "Not Started" but Progress Tracker shows Complete
 
 - **Severity:** Minor
-- **File:** `Docs/Tasks/P07-20251223-quick-start-ux.md:334-344`
+- **File:** `Docs/Features/Tasks/P07-20251223-quick-start-ux.md:334-344`
 - **Evidence:** "Task 8.1 | Plus-Tab Route erstellen | Not Started" but `Docs/IMPLEMENTATION_PROGRESS.md:969` shows "[x] Task 8.1"
 - **Recommendation:**
-  - [ ] Update `Docs/Tasks/P07-20251223-quick-start-ux.md` Task-Übersicht table to reflect completed status
+  - [ ] Update `Docs/Features/Tasks/P07-20251223-quick-start-ux.md` Task-Übersicht table to reflect completed status
 
 #### Finding B.2: Spec template exists but is minimal
 
 - **Severity:** Nice-to-have
-- **File:** `Docs/Specs/_template.md`
+- **File:** `Docs/Features/Specs/_template.md`
 - **Evidence:** Template exists (good), but could include more guidance on FR/IG/DD numbering
 - **Recommendation:**
   - [ ] Enhance `_template.md` with example FR/IG/DD entries and acceptance check format
@@ -347,7 +347,7 @@ Framework/DeveloperGuidesAndStandards
 ### Priority 2: Minor Issues (Do Next)
 
 3. **Sync Tasks doc status** (Finding B.1)
-   - Update Task-Übersicht table in `Docs/Tasks/P07-20251223-quick-start-ux.md`
+   - Update Task-Übersicht table in `Docs/Features/Tasks/P07-20251223-quick-start-ux.md`
    - Estimated: 10 min
 
 4. **Delete unused QuickStartButtons** (Finding C.2)
@@ -381,7 +381,7 @@ Framework/DeveloperGuidesAndStandards
 1. [ ] Add `data-testid="running-task-warning"` to WarningBanner and update E2E tests
 2. [ ] Evaluate `xlsx` package security and document decision
 3. [ ] Create `.nvmrc` file with Node version `20`
-4. [ ] Update `Docs/Tasks/P07-20251223-quick-start-ux.md` task status table
+4. [ ] Update `Docs/Features/Tasks/P07-20251223-quick-start-ux.md` task status table
 5. [ ] Delete unused `QuickStartButtons.svelte` component
 6. [ ] Add `npm audit --audit-level=high` step to CI workflow
 7. [ ] Complete or defer Netlify SPA routing manual test checklist
@@ -406,9 +406,9 @@ Framework/DeveloperGuidesAndStandards
 
 ### Specs & Plans
 
-- `Docs/Specs/*.md` (3 files)
-- `Docs/Plans/*.md` (4 files)
-- `Docs/Tasks/*.md` (5 files)
+- `Docs/Features/Specs/*.md` (3 files)
+- `Docs/Features/Plans/*.md` (4 files)
+- `Docs/Features/Tasks/*.md` (5 files)
 
 ### Source Code
 

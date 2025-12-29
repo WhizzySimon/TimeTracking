@@ -20,8 +20,8 @@ Framework/DeveloperGuidesAndStandards
 - `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /DEVELOPMENT_GUIDELINES.md` — PWA development rules
-- `Docs/Specs/_template.md` — Spec template with 10 sections
-- `Docs/Tasks/_template.md` — Task template with verification fields
+- `Docs/Features/Specs/_template.md` — Spec template with 10 sections
+- `Docs/Features/Tasks/_template.md` — Task template with verification fields
 - `Docs/IMPLEMENTATION_PROGRESS.md` — Progress tracker (94/94 tasks complete)
 - `.windsurf/workflows/*.md` — 9 workflow files (project-start, new-feature, continue-work, etc.)
 - `.windsurf/rules/COMMAND_EXECUTION_RULES.md` — Cascade watcher system
@@ -41,11 +41,11 @@ Framework/DeveloperGuidesAndStandards
 
 | Axis                     | Score (0-5) | Confidence | Evidence Pointers                                                                        | 1-line Rationale                                                                                          |
 | ------------------------ | ----------: | ---------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| 1. Spec quality          |           5 | High       | `Docs/Specs/_template.md`, `AGENTS.md:42-52`                                             | Template enforces FR/IG/DD numbering, scope, edge cases, acceptance checks, change log                    |
+| 1. Spec quality          |           5 | High       | `Docs/Features/Specs/_template.md`, `AGENTS.md:42-52`                                             | Template enforces FR/IG/DD numbering, scope, edge cases, acceptance checks, change log                    |
 | 2. Scope control         |           5 | High       | `AGENTS.md:54-57`, `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md:96-101`                   | Checkpoints require "no ambiguous terms", scope-lock gate before implementation                           |
-| 3. Traceability          |           4 | High       | `Docs/IMPLEMENTATION_PROGRESS.md`, `Docs/Tasks/_template.md`                             | Tasks link to spec/plan, progress tracker logs verification + deviations; no automated FR-to-test mapping |
+| 3. Traceability          |           4 | High       | `Docs/IMPLEMENTATION_PROGRESS.md`, `Docs/Features/Tasks/_template.md`                             | Tasks link to spec/plan, progress tracker logs verification + deviations; no automated FR-to-test mapping |
 | 4. Code quality rules    |           5 | High       | `package.json:14-16`, `scripts/verify-code.ps1`, `.windsurf/rules/code-quality-rules.md` | Enforced via `npm run verify` (format + check + lint) with output capture                                 |
 | 5. Testing strategy      |           4 | High       | `package.json:16-23`, `playwright.config.ts`, `e2e/*.test.ts`                            | Unit (Vitest) + E2E (Playwright, 3 browsers); 57 unit tests, 27 E2E tests; no coverage gates              |
 | 6. Tooling & automation  |           5 | High       | `scripts/cascade-watcher.ps1`, `.windsurf/rules/COMMAND_EXECUTION_RULES.md`              | Cascade watcher enables autonomous verification loop; MCP Playwright for UI testing                       |
@@ -54,7 +54,7 @@ Framework/DeveloperGuidesAndStandards
 Framework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md:169-214`                                     | 7-step task workflow: code → verify → unit test → UI test → progress → commit → next                      |
 | 9. Operational safety    |           4 | High       | `.windsurf/rules/COMMAND_EXECUTION_RULES.md:9-32`, `AGENTS.md:140-144`                   | Absolute ban on run_command; no broad refactors; but no rollback/backup automation                        |
-| 10. Cost/time efficiency |           4 | Med        | `Docs/Tasks/_template.md:24`, `AGENTS.md:88`                                             | Tasks sized 0.5-2h; parallel task marking; but no explicit token/cost tracking                            |
+| 10. Cost/time efficiency |           4 | Med        | `Docs/Features/Tasks/_template.md:24`, `AGENTS.md:88`                                             | Tasks sized 0.5-2h; parallel task marking; but no explicit token/cost tracking                            |
 
 **Total Score:** 46/50
 
@@ -68,7 +68,7 @@ Framework/DeveloperGuidesAndStandards
 4. **Cascade watcher system** — Autonomous command execution via file-based IPC (`scripts/cascade-watcher.ps1`)
 5. **Mandatory doc inventory** — Every response starts with "Doc Inventory" listing exact paths read (`AGENTS.md:16-21`)
 6. **Progress tracker with verification** — Each task logs: verified commands, deviations, notes (`Docs/IMPLEMENTATION_PROGRESS.md:93-98`)
-7. **Structured task template** — Files, Done when, Verify, Guardrails, Parallel, Estimated (`Docs/Tasks/_template.md:11-24`)
+7. **Structured task template** — Files, Done when, Verify, Guardrails, Parallel, Estimated (`Docs/Features/Tasks/_template.md:11-24`)
 8. **Cross-browser E2E testing** — Playwright with Chromium, WebKit, Mobile Safari (`playwright.config.ts:6-19`)
 9. **Conventional commits** — Enforced format: `feat:`, `fix:`, `refactor:`, etc. (`Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
@@ -92,13 +92,13 @@ Framework/DeveloperGuidesAndStandards
 
 Since this IS the TimeTracker repo, this section lists practices that could be improved:
 
-1. **Add automated FR-to-test mapping** — Target: `Docs/Specs/_template.md` add "Test file" column to acceptance checks
+1. **Add automated FR-to-test mapping** — Target: `Docs/Features/Specs/_template.md` add "Test file" column to acceptance checks
 2. **Add coverage gates** — Target: `vite.config.ts` add coverage threshold; `package.json` add `test:coverage` script
 3. **Add CI/CD workflow** — Target: `.github/workflows/verify.yml` run `npm run verify` + `npm run test` on push
 4. **Document devlog format** — Target: `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /DEVLOG_FORMAT.md` explain tag validation rules
-5. **Add spec versioning** — Target: `Docs/Specs/_template.md` add "Version: 1.0.0" field
+5. **Add spec versioning** — Target: `Docs/Features/Specs/_template.md` add "Version: 1.0.0" field
 6. **Automate progress tracker updates** — Target: `scripts/update-progress.js` parse task completion from git commits
 7. **Add rollback workflow** — Target: `.windsurf/workflows/rollback.md` document git revert procedure
 8. **Standardize language** — Target: All `Docs/DevFramework/ToolSetup

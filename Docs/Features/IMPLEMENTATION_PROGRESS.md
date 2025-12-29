@@ -51,9 +51,9 @@
 
 **Goal:** Add structured task routing, telemetry, anomaly detection, and evidence bundles for higher-quality Cascade development.
 
-**Spec:** `Docs/Specs/autonomy-stack-v2.md`  
-**Plan:** `Docs/Plans/autonomy-stack-v2.md`  
-**Tasks:** `Docs/Tasks/autonomy-stack-v2.md`
+**Spec:** `Docs/Features/Specs/autonomy-stack-v2.md`  
+**Plan:** `Docs/Features/Plans/autonomy-stack-v2.md`  
+**Tasks:** `Docs/Features/Tasks/autonomy-stack-v2.md`
 
 ### Phase 0: Framework Evolution Guardrails (Prerequisites)
 
@@ -228,9 +228,9 @@ Framework/FrameworkSelfImprovementLogs
 
 **Target:** 7 tasks  
 **Status:** COMPLETE  
-**Spec:** `Docs/Specs/D3-watcher-framework-improvement.md`  
-**Plan:** `Docs/Plans/D3-watcher-framework-improvement.md`  
-**Tasks:** `Docs/Tasks/D3-watcher-framework-improvement.md`
+**Spec:** `Docs/Features/Specs/D3-watcher-framework-improvement.md`  
+**Plan:** `Docs/Features/Plans/D3-watcher-framework-improvement.md`  
+**Tasks:** `Docs/Features/Tasks/D3-watcher-framework-improvement.md`
 
 ### Tasks
 
@@ -260,7 +260,7 @@ Framework/ToolSetup
 
 **Target:** 11 tasks  
 **Status:** BLOCKED (9/11 tasks done, waiting for Dev Framework)  
-**Spec:** `Docs/Specs/P10-monetising.md`
+**Spec:** `Docs/Features/Specs/P10-monetising.md`
 
 ### Remaining Tasks
 
@@ -276,9 +276,9 @@ Framework/ToolSetup
 
 **Target:** 25 tasks  
 **Status:** BLOCKED (0/25 tasks, waiting for Dev Framework)  
-**Spec:** `Docs/Specs/ai-import.md`  
-**Plan:** `Docs/Plans/ai-import.md`  
-**Tasks:** `Docs/Tasks/ai-import.md`
+**Spec:** `Docs/Features/Specs/ai-import.md`  
+**Plan:** `Docs/Features/Plans/ai-import.md`  
+**Tasks:** `Docs/Features/Tasks/ai-import.md`
 
 ### Phase 11.1: Foundation
 
@@ -334,9 +334,9 @@ Framework/ToolSetup
 
 **Target:** 13 tasks  
 **Status:** COMPLETE (13/13)  
-**Spec:** `Docs/Specs/subscription-plans.md`  
-**Plan:** `Docs/Plans/subscription-plans.md`  
-**Tasks:** `Docs/Tasks/subscription-plans.md`
+**Spec:** `Docs/Features/Specs/subscription-plans.md`  
+**Plan:** `Docs/Features/Plans/subscription-plans.md`  
+**Tasks:** `Docs/Features/Tasks/subscription-plans.md`
 
 ### Tasks
 
@@ -360,9 +360,9 @@ Framework/ToolSetup
 
 **Target:** 18 tasks  
 **Status:** In progress (5/18 — 2 skipped)  
-**Spec:** `Docs/AppDocs/Specs/multi-arbeitgeber.md`  
-**Plan:** `Docs/AppDocs/Plans/multi-arbeitgeber.md`  
-**Tasks:** `Docs/AppDocs/Tasks/multi-arbeitgeber.md`
+**Spec:** `Docs/AppDocs/Features/Specs/multi-arbeitgeber.md`  
+**Plan:** `Docs/AppDocs/Features/Plans/multi-arbeitgeber.md`  
+**Tasks:** `Docs/AppDocs/Features/Tasks/multi-arbeitgeber.md`
 
 ### Tasks
 
@@ -391,8 +391,8 @@ Framework/ToolSetup
 
 **Target:** 7 tasks  
 **Status:** Not started  
-**Spec:** `Docs/Specs/kleine-aenderungen.md`  
-**Plan:** `Docs/Plans/kleine-aenderungen.md`
+**Spec:** `Docs/Features/Specs/kleine-aenderungen.md`  
+**Plan:** `Docs/Features/Plans/kleine-aenderungen.md`
 
 ### Tasks
 
@@ -410,8 +410,8 @@ Framework/ToolSetup
 
 **Target:** 12 tasks  
 **Status:** Not started  
-**Spec:** `Docs/Specs/ux-improvements.md`  
-**Plan:** `Docs/Plans/ux-improvements.md`
+**Spec:** `Docs/Features/Specs/ux-improvements.md`  
+**Plan:** `Docs/Features/Plans/ux-improvements.md`
 
 ### Tasks
 
@@ -434,8 +434,8 @@ Framework/ToolSetup
 
 **Target:** 12 tasks  
 **Status:** Not started  
-**Spec:** `Docs/Specs/ui-improvements.md`  
-**Plan:** `Docs/Plans/ui-improvements.md`
+**Spec:** `Docs/Features/Specs/ui-improvements.md`  
+**Plan:** `Docs/Features/Plans/ui-improvements.md`
 
 ### Tasks
 
@@ -458,8 +458,8 @@ Framework/ToolSetup
 
 **Target:** 11 tasks  
 **Status:** Not started  
-**Spec:** `Docs/Specs/bug-fixes.md`  
-**Plan:** `Docs/Plans/bug-fixes.md`
+**Spec:** `Docs/Features/Specs/bug-fixes.md`  
+**Plan:** `Docs/Features/Plans/bug-fixes.md`
 
 ### Tasks
 

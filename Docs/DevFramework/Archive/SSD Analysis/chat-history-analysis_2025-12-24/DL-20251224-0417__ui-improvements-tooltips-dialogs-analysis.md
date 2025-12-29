@@ -7,7 +7,7 @@
 
 **Related Docs:**
 
-- Spec: Docs/Specs/P06-20251222-cloud-backup-and-auth.md (cloud backup button UX)
+- Spec: Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md (cloud backup button UX)
 - Plan: NONE
 - Tasks: NONE
 - Progress: NONE
@@ -25,7 +25,7 @@
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
 
-- Docs/Specs/P06-20251222-cloud-backup-and-auth.md — Updated UX section with smart sync status button behavior (label changes, state logic, timestamp removal) — Evidence: Chat mentions updating spec with new backup button behavior
+- Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md — Updated UX section with smart sync status button behavior (label changes, state logic, timestamp removal) — Evidence: Chat mentions updating spec with new backup button behavior
 
 ### Code Delta (nur aus Chat)
 

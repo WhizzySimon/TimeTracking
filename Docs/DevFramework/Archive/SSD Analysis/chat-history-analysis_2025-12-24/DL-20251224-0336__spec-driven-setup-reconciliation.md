@@ -13,7 +13,7 @@
 - Progress: NONE
 - Other referenced docs: Docs/INDEX.md, AGENTS.md, .windsurf/cascade.md, Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/IMPLEMENTATION_SPECIFICATION_RULES.md, Docs/Specs/\_template.md, .windsurf/rules/implementation-specification-rules.md, .windsurf/workflows/rules-read-all.md, .windsurf/workflows/read-core-docs-and-code.md
+/IMPLEMENTATION_SPECIFICATION_RULES.md, Docs/Features/Specs/\_template.md, .windsurf/rules/implementation-specification-rules.md, .windsurf/workflows/rules-read-all.md, .windsurf/workflows/read-core-docs-and-code.md
 
 ## Decisions (aus Chat)
 
@@ -25,7 +25,7 @@ Framework/DeveloperGuidesAndStandards
 
 - D4: FR/IG/DD spec format must be explicitly referenced in AGENTS.md — Reason: Enforce structured requirements format for AI implementation — Evidence: Chat instruction "add FR/IG/DD as mandatory sections OR explicitly say: 'Use the spec template...'"
 
-- D5: Path casing must be consistent (Docs/ not docs/) — Reason: Prevent path resolution issues and maintain consistency — Evidence: Chat instruction "Fix path casing and paths: Replace any 'docs/plans/' with 'Docs/Plans/'"
+- D5: Path casing must be consistent (Docs/ not docs/) — Reason: Prevent path resolution issues and maintain consistency — Evidence: Chat instruction "Fix path casing and paths: Replace any 'Docs/Features/Plans/' with 'Docs/Features/Plans/'"
 
 - D6: Code language English, UI text German — Reason: Maintain code readability while preserving German UI for end users — Evidence: User confirmation "we should keep everything in english in the code and just for the ui use only german"
 
@@ -33,11 +33,11 @@ Framework/DeveloperGuidesAndStandards
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
 
-- Docs/Plans/timetracker-v1-implementation.md — Created 13-section implementation plan with architecture, data model, component hierarchy — Evidence: Chat "I've created two documents following the AGENTS.md spec-driven process"
-- Docs/Tasks/timetracker-v1-implementation.md — Created 60 tasks across 4 phases (~40-50h) — Evidence: Chat "60 tasks across 4 phases"
+- Docs/Features/Plans/timetracker-v1-implementation.md — Created 13-section implementation plan with architecture, data model, component hierarchy — Evidence: Chat "I've created two documents following the AGENTS.md spec-driven process"
+- Docs/Features/Tasks/timetracker-v1-implementation.md — Created 60 tasks across 4 phases (~40-50h) — Evidence: Chat "60 tasks across 4 phases"
 - Docs/IMPLEMENTATION_PROGRESS.md — Created progress tracker with task checkboxes and verification sections — Evidence: Chat "Created implementation progress checklist that updates after each task"
 - Docs/TESTING_STRATEGY.md — Created unit testing strategy with Vitest setup — Evidence: Chat "Created automated unit tests for business logic"
-- Docs/Tasks/task-0-setup-testing.md — Created prerequisite testing setup task — Evidence: Chat "Task 0 (PREREQUISITE)"
+- Docs/Features/Tasks/task-0-setup-testing.md — Created prerequisite testing setup task — Evidence: Chat "Task 0 (PREREQUISITE)"
 
 ### Code Delta (nur aus Chat)
 
@@ -61,7 +61,7 @@ Framework/DeveloperGuidesAndStandards
 - .windsurf/cascade.md — Lines 78-83 show simplified source of truth section — Evidence: .windsurf/cascade.md lines 78-83
 - .windsurf/workflows/rules-read-all.md — Exists and contains "Return only a single line" requirement — Evidence: .windsurf/workflows/rules-read-all.md line 14-15
 - .windsurf/workflows/read-core-docs-and-code.md — Exists and contains "Return only a single line" requirement — Evidence: .windsurf/workflows/read-core-docs-and-code.md line 25-26
-- Docs/Specs/\_template.md — Contains FR/IG/DD sections with TT-FR-001, TT-IG-001, TT-DD-001 format — Evidence: Docs/Specs/\_template.md lines 13-22
+- Docs/Features/Specs/\_template.md — Contains FR/IG/DD sections with TT-FR-001, TT-IG-001, TT-DD-001 format — Evidence: Docs/Features/Specs/\_template.md lines 13-22
 - Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md — Defines FR/IG/DD + verification loop + self-documenting — Evidence: Docs/DevFramework/ToolSetup
@@ -104,7 +104,7 @@ Framework/FrameworkSelfImprovementLogs
 
 - F4: Test workflow enforcement (rules-read-all, read-core-docs-and-code) in new chat — Owner: Cascade (next chat) — Priority: Medium
 
-- F5: Implement 60 tasks from Docs/Tasks/timetracker-v1-implementation.md — Owner: Cascade (next chat) — Priority: High
+- F5: Implement 60 tasks from Docs/Features/Tasks/timetracker-v1-implementation.md — Owner: Cascade (next chat) — Priority: High
 
 ## Tags
 

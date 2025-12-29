@@ -7,9 +7,9 @@
 
 **Related Docs:**
 
-- Spec: Docs/Specs/P01-20251220-timetracker-v1.md (implied, not explicitly read in chat)
-- Plan: Docs/Plans/P01-20251220-timetracker-v1.md
-- Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
+- Spec: Docs/Features/Specs/P01-20251220-timetracker-v1.md (implied, not explicitly read in chat)
+- Plan: Docs/Features/Plans/P01-20251220-timetracker-v1.md
+- Tasks: Docs/Features/Tasks/P01-20251220-timetracker-v1.md
 - Progress: NONE
 - Other referenced docs: Docs/DevFramework/ToolSetup
 Framework/NewFeatureTesting

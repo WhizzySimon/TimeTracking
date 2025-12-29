@@ -2,7 +2,7 @@
   Import Page
   
   State machine: upload -> processing -> review -> commit -> report
-  Spec ref: Docs/Specs/subscription-plans.md (Pro feature)
+  Spec ref: Docs/Features/Specs/subscription-plans.md (Pro feature)
   
   Pro-only feature (requires Pro plan)
 -->

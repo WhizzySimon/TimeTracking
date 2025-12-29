@@ -75,9 +75,9 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 
 **Ziel:** Festhalten, WAS gebaut werden soll und WARUM.
 
-**Datei:** `Docs/Specs/<feature-slug>.md`
+**Datei:** `Docs/Features/Specs/<feature-slug>.md`
 
-**Template:** `Docs/Specs/_template.md`
+**Template:** `Docs/Features/Specs/_template.md`
 
 ### Pflichtinhalte
 
@@ -105,9 +105,9 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 
 **Ziel:** Festhalten, WIE es gebaut werden soll (Architektur).
 
-**Datei:** `Docs/Plans/<feature-slug>.md`
+**Datei:** `Docs/Features/Plans/<feature-slug>.md`
 
-**Template:** `Docs/Plans/_template.md`
+**Template:** `Docs/Features/Plans/_template.md`
 
 ### Pflichtinhalte
 
@@ -131,9 +131,9 @@ Vor dem Start von Phase 4 (Implementation) müssen alle Gates bestanden sein:
 
 **Ziel:** Plan in kleine, verifizierbare Schritte aufteilen.
 
-**Datei:** `Docs/Tasks/<feature-slug>.md`
+**Datei:** `Docs/Features/Tasks/<feature-slug>.md`
 
-**Template:** `Docs/Tasks/_template.md`
+**Template:** `Docs/Features/Tasks/_template.md`
 
 ### Task-Format
 
@@ -294,9 +294,9 @@ npm run test:e2e
 
 Bevor du mit der Implementierung beginnst:
 
-- [ ] **Spec existiert:** `Docs/Specs/<feature>.md`
-- [ ] **Plan existiert:** `Docs/Plans/<feature>.md`
-- [ ] **Tasks existieren:** `Docs/Tasks/<feature>.md`
+- [ ] **Spec existiert:** `Docs/Features/Specs/<feature>.md`
+- [ ] **Plan existiert:** `Docs/Features/Plans/<feature>.md`
+- [ ] **Tasks existieren:** `Docs/Features/Tasks/<feature>.md`
 - [ ] **Progress Tracker:** Phase in `Docs/DevFramework/ToolSetup
 Framework/IMPLEMENTATION_PROGRESS.md` angelegt
 - [ ] **Alle Checkpoints** der Phasen 1-3 erfüllt
@@ -305,14 +305,14 @@ Framework/IMPLEMENTATION_PROGRESS.md` angelegt
 
 ## Namenskonvention für Dokumente (optional)
 
-**Standard:** `Docs/Specs/<feature-slug>.md` (empfohlen)
+**Standard:** `Docs/Features/Specs/<feature-slug>.md` (empfohlen)
 
-**Optional:** `Docs/Specs/P<phase>-<YYYYMMDD>-<feature-slug>.md` (nur wenn chronologische Sortierung gewünscht)
+**Optional:** `Docs/Features/Specs/P<phase>-<YYYYMMDD>-<feature-slug>.md` (nur wenn chronologische Sortierung gewünscht)
 
 ### Beispiele
 
-- **Standard:** `Docs/Specs/quick-start-ux.md`
-- **Optional:** `Docs/Specs/P08-20251223-quick-start-ux.md`
+- **Standard:** `Docs/Features/Specs/quick-start-ux.md`
+- **Optional:** `Docs/Features/Specs/P08-20251223-quick-start-ux.md`
 
 ### Hinweise
 
@@ -326,9 +326,9 @@ Framework/IMPLEMENTATION_PROGRESS.md` angelegt
 
 | Was               | Wo                                                                   |
 | ----------------- | -------------------------------------------------------------------- |
-| Spec Template     | `Docs/Specs/_template.md`                                            |
-| Plan Template     | `Docs/Plans/_template.md`                                            |
-| Tasks Template    | `Docs/Tasks/_template.md`                                            |
+| Spec Template     | `Docs/Features/Specs/_template.md`                                            |
+| Plan Template     | `Docs/Features/Plans/_template.md`                                            |
+| Tasks Template    | `Docs/Features/Tasks/_template.md`                                            |
 | Progress Tracker  | `Docs/DevFramework/ToolSetup
 Framework/IMPLEMENTATION_PROGRESS.md`                       |
 | FR/IG/DD Regeln   | `Docs/DevFramework/ToolSetup

@@ -50,7 +50,7 @@ dann füge direkt darunter die Markdown-Separator-Zeile hinzu:
 
 Versuche, diesen Chat bestehenden Artefakten zuzuordnen (nur lesen, nichts ändern):
 
-- Suche in `Docs/Specs/`, `Docs/Plans/`, `Docs/Tasks/` nach passenden Dateien (z.B. Pxx-YYYYMMDD-... oder thematisch passend).
+- Suche in `Docs/Features/Specs/`, `Docs/Features/Plans/`, `Docs/Features/Tasks/` nach passenden Dateien (z.B. Pxx-YYYYMMDD-... oder thematisch passend).
 - Wenn nichts passt: `Related Docs = NONE`.
 
 Wenn im Chat konkrete Doc-Dateien erwähnt werden (z.B. `SVELTEKIT_PWA_ADDENDUM.md`), müssen sie als Pfade unter **Other referenced docs** aufgeführt werden.

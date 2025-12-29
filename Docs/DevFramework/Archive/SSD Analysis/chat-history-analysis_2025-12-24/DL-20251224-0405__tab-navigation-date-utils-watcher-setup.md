@@ -8,8 +8,8 @@
 **Related Docs:**
 
 - Spec: NONE
-- Plan: Docs/Plans/P01-20251220-timetracker-v1.md
-- Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
+- Plan: Docs/Features/Plans/P01-20251220-timetracker-v1.md
+- Tasks: Docs/Features/Tasks/P01-20251220-timetracker-v1.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 2 - Core UI / Day Tab, Tasks 2.1-2.3)
 - Other referenced docs: .windsurf/rules/COMMAND_EXECUTION_RULES.md, .windsurf/workflows/continue-work.md, README.md
 
@@ -29,7 +29,7 @@
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
 
-- Docs/Tasks/P01-20251220-timetracker-v1.md — Tasks 2.1, 2.2, 2.3 marked complete — Evidence: Chat completion confirmations
+- Docs/Features/Tasks/P01-20251220-timetracker-v1.md — Tasks 2.1, 2.2, 2.3 marked complete — Evidence: Chat completion confirmations
 
 ### Code Delta (nur aus Chat)
 

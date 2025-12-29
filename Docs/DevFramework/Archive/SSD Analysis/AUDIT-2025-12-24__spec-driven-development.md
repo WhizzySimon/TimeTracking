@@ -20,9 +20,9 @@ Framework/DeveloperGuidesAndStandards
 │   ├── IMPLEMENTATION_SPECIFICATION_RULES.md (Priority 5 — spec format)
 │   ├── SPEC_DRIVEN_DEVELOPMENT.md (workflow guide)
 │   └── PROJECT_SCAFFOLD_CHECKLIST.md (setup checklist)
-├── Docs/Specs/ (Phase specs: P01, P06, P07)
-├── Docs/Plans/ (Phase plans: P01, P06, P07)
-├── Docs/Tasks/ (Phase tasks: P01, P06, P07)
+├── Docs/Features/Specs/ (Phase specs: P01, P06, P07)
+├── Docs/Features/Plans/ (Phase plans: P01, P06, P07)
+├── Docs/Features/Tasks/ (Phase tasks: P01, P06, P07)
 ├── Docs/IMPLEMENTATION_PROGRESS.md (progress tracker)
 └── Docs/DevFramework/ToolSetup
 Framework/FrameworkSelfImprovementLogs
@@ -114,7 +114,7 @@ AGENTS.md (Priority 6 — Cascade process rules)
 
 2. **Inconsistent workflow usage** — 10/28 devlogs show "Workflow used: UNKNOWN". Evidence: DL-\* files with UNKNOWN workflow field.
 
-3. **Phase numbering gaps** — Phase 6 exists but no Phase 0 spec. Evidence: Docs/Specs/ contains P01, P06, P07 but no P00, P02-P05.
+3. **Phase numbering gaps** — Phase 6 exists but no Phase 0 spec. Evidence: Docs/Features/Specs/ contains P01, P06, P07 but no P00, P02-P05.
 
 4. **Follow-up tracking not centralized** — 84 follow-ups scattered across 28 devlogs with no rollup. Evidence: Each DL-\* has F1-Fn but no aggregated view.
 
@@ -124,7 +124,7 @@ AGENTS.md (Priority 6 — Cascade process rules)
 
 7. **No automated devlog generation** — Devlogs created manually via chat-history-analysis.md prompt. Evidence: chat-history-analysis.md is a manual extraction guide.
 
-8. **Spec template not enforced** — Docs/Specs/\_template.md exists but no validation. Evidence: Some specs missing sections (e.g., "Data & privacy notes").
+8. **Spec template not enforced** — Docs/Features/Specs/\_template.md exists but no validation. Evidence: Some specs missing sections (e.g., "Data & privacy notes").
 
 9. **Testing coverage not tracked** — No metric for unit/e2e test coverage per phase. Evidence: Devlogs mention tests but no coverage numbers.
 
@@ -223,8 +223,8 @@ Framework/FrameworkSelfImprovementLogs
 ### 7. Add Spec Completeness Checklist
 
 - **Problem:** Some specs missing template sections
-- **Smallest change:** Add checklist to Docs/Specs/\_template.md footer with all required sections
-- **Where:** `Docs/Specs/_template.md`
+- **Smallest change:** Add checklist to Docs/Features/Specs/\_template.md footer with all required sections
+- **Where:** `Docs/Features/Specs/_template.md`
 - **Expected benefit:** Self-documenting completeness check
 - **Tradeoff:** None
 

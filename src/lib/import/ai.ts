@@ -4,7 +4,7 @@
  * Client-side wrapper for AI import functionality.
  * All AI calls go through server endpoints to protect API keys.
  *
- * Spec ref: Docs/Specs/ai-import.md Section 8 (AI Integration)
+ * Spec ref: Docs/Features/Specs/ai-import.md Section 8 (AI Integration)
  */
 
 import type { TimeEntryCandidate, ImportSource } from './types';

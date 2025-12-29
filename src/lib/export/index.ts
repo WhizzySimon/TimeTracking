@@ -1,7 +1,7 @@
 /**
  * Export module for TimeTracker.
  * Provides functions to export data in various formats.
- * Spec refs: Docs/Specs/subscription-plans.md
+ * Spec refs: Docs/Features/Specs/subscription-plans.md
  */
 
 export { exportToJson, type JsonExportOptions, type ExportData } from './json-export';

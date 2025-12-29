@@ -27,7 +27,7 @@ Framework/DeveloperGuidesAndStandards/`                | DEVELOPMENT_GUIDELINES,
 | **Tooling docs**     | `Docs/DevFramework/ToolSetup
 Framework/ToolSetup
 /`                   | Watcher, git workflow, bootstrap                                  |
-| **App specs**        | `Docs/AppDocs/Specs/`, `Plans/`, `Tasks/`      | Per-feature app documentation                                     |
+| **App specs**        | `Docs/AppDocs/Features/Specs/`, `Plans/`, `Tasks/`      | Per-feature app documentation                                     |
 | **Framework specs**  | `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeatureSpecs
 /`, `Plans/`, `Tasks/` | Per-feature framework documentation                               |

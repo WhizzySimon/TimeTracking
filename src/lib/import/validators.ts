@@ -1,6 +1,6 @@
 /**
  * Validation module for AI Import
- * Spec ref: Docs/Specs/ai-import.md Section 9 (Guardrails / Validations)
+ * Spec ref: Docs/Features/Specs/ai-import.md Section 9 (Guardrails / Validations)
  */
 
 import type { TimeEntryCandidate, CandidateFlag, ImportIssue, IssueType } from './types';

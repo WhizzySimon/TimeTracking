@@ -87,9 +87,9 @@ Framework/JustInTimeAgentRules/pre-commit.md -->
 
 | Need to...          | Location                                      |
 | ------------------- | --------------------------------------------- |
-| Find app spec       | `Docs/AppDocs/Specs/<feature>.md`             |
-| Find app plan       | `Docs/AppDocs/Plans/<feature>.md`             |
-| Find app tasks      | `Docs/AppDocs/Tasks/<feature>.md`             |
+| Find app spec       | `Docs/AppDocs/Features/Specs/<feature>.md`             |
+| Find app plan       | `Docs/AppDocs/Features/Plans/<feature>.md`             |
+| Find app tasks      | `Docs/AppDocs/Features/Tasks/<feature>.md`             |
 | Find framework spec | `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeatureSpecs
 /<feature>.md`        |

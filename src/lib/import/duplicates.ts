@@ -1,6 +1,6 @@
 /**
  * Duplicate Detection Module
- * Spec ref: Docs/Specs/ai-import.md Section 9
+ * Spec ref: Docs/Features/Specs/ai-import.md Section 9
  */
 
 import type { TimeEntryCandidate, CandidateFlag } from './types';

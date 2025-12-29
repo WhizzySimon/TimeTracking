@@ -47,7 +47,7 @@ Then:
 Framework/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
 6. Find the relevant Tasks file:
    - Check "Current Phase" in IMPLEMENTATION_PROGRESS.md
-   - Read the corresponding `Docs/AppDocs/Tasks/<feature>.md` or `Docs/DevFramework/ToolSetup
+   - Read the corresponding `Docs/AppDocs/Features/Tasks/<feature>.md` or `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeatureTasks
 /<feature>.md` file
 7. Start implementing the next incomplete task following the Task-Workflow from `Docs/DevFramework/ToolSetup

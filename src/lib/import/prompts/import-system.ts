@@ -1,6 +1,6 @@
 /**
  * System prompt for AI Import parsing
- * Spec ref: Docs/Specs/ai-import.md Section 8
+ * Spec ref: Docs/Features/Specs/ai-import.md Section 8
  */
 
 export const IMPORT_SYSTEM_PROMPT = `You are a time entry extraction assistant. Your task is to parse time tracking data from various formats (CSV, Excel exports, plain text, etc.) and return structured JSON.

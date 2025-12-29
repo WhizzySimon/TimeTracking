@@ -7,9 +7,9 @@
 
 **Related Docs:**
 
-- Spec: Docs/Specs/P06-20251222-cloud-backup-and-auth.md
-- Plan: Docs/Plans/P06-20251222-cloud-sync.md
-- Tasks: Docs/Tasks/P06-20251222-cloud-sync.md
+- Spec: Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md
+- Plan: Docs/Features/Plans/P06-20251222-cloud-sync.md
+- Tasks: Docs/Features/Tasks/P06-20251222-cloud-sync.md
 - Progress: NONE (no explicit progress tracker entry mentioned in chat)
 - Other referenced docs: NONE
 
@@ -29,9 +29,9 @@
 
 ### Spec/Plan/Tasks Delta (nur aus Chat)
 
-- Docs/Specs/P06-20251222-cloud-backup-and-auth.md — Updated to reflect 2-way sync logic with conflict detection — Evidence: Chat mentions spec was already updated in previous session
-- Docs/Plans/P06-20251222-cloud-sync.md — Created/updated with sync decision algorithm — Evidence: Referenced in chat as existing
-- Docs/Tasks/P06-20251222-cloud-sync.md — Created task list for 2-way sync implementation — Evidence: Referenced in chat as existing with 10 tasks
+- Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md — Updated to reflect 2-way sync logic with conflict detection — Evidence: Chat mentions spec was already updated in previous session
+- Docs/Features/Plans/P06-20251222-cloud-sync.md — Created/updated with sync decision algorithm — Evidence: Referenced in chat as existing
+- Docs/Features/Tasks/P06-20251222-cloud-sync.md — Created task list for 2-way sync implementation — Evidence: Referenced in chat as existing with 10 tasks
 
 ### Code Delta (nur aus Chat)
 
@@ -44,9 +44,9 @@
 
 - src/lib/backup/cloud.ts — File exists with determineSyncAction function at lines 34-74, syncWithCloud at lines 255-323, needsSync at lines 186-194 — Evidence: read_file tool output
 - src/lib/backup/restore.ts — File exists with importSnapshot function — Evidence: Mentioned in git commit output
-- Docs/Specs/P06-20251222-cloud-backup-and-auth.md — File exists — Evidence: find_by_name tool output
-- Docs/Plans/P06-20251222-cloud-sync.md — File exists — Evidence: find_by_name tool output
-- Docs/Tasks/P06-20251222-cloud-sync.md — File exists — Evidence: find_by_name tool output
+- Docs/Features/Specs/P06-20251222-cloud-backup-and-auth.md — File exists — Evidence: find_by_name tool output
+- Docs/Features/Plans/P06-20251222-cloud-sync.md — File exists — Evidence: find_by_name tool output
+- Docs/Features/Tasks/P06-20251222-cloud-sync.md — File exists — Evidence: find_by_name tool output
 
 ## Verification (strict)
 

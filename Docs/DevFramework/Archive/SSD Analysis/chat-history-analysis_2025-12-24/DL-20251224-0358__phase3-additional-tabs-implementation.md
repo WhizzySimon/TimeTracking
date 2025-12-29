@@ -8,8 +8,8 @@
 **Related Docs:**
 
 - Spec: NONE (Phase 3 uses existing ui-logic-spec-v1.md)
-- Plan: Docs/Plans/P01-20251220-timetracker-v1.md
-- Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
+- Plan: Docs/Features/Plans/P01-20251220-timetracker-v1.md
+- Tasks: Docs/Features/Tasks/P01-20251220-timetracker-v1.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 3 - Additional Tabs)
 - Other referenced docs: NONE
 

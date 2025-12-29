@@ -72,10 +72,10 @@ Files inspected:
 
 ## "Best-of" Adoptable Practices for TimeTracker (max 10)
 
-1. **Add "Depends on" / "Does not depend on" headers** — Target: `Docs/Specs/_template.md` add dependency declaration section
-2. **Add "What we don't want" section** — Target: `Docs/Specs/_template.md` add anti-patterns section after Scope
-3. **Add spec change log format** — Target: `Docs/Specs/_template.md` use timestamped `**[YYYY-MM-DD HH:MM]**` format with Added/Changed/Fixed prefixes
-4. **Add layer architecture diagrams** — Target: `Docs/Plans/_template.md` add ASCII box diagram section for multi-layer systems
+1. **Add "Depends on" / "Does not depend on" headers** — Target: `Docs/Features/Specs/_template.md` add dependency declaration section
+2. **Add "What we don't want" section** — Target: `Docs/Features/Specs/_template.md` add anti-patterns section after Scope
+3. **Add spec change log format** — Target: `Docs/Features/Specs/_template.md` use timestamped `**[YYYY-MM-DD HH:MM]**` format with Added/Changed/Fixed prefixes
+4. **Add layer architecture diagrams** — Target: `Docs/Features/Plans/_template.md` add ASCII box diagram section for multi-layer systems
 5. **Add structured logging rules** — Target: `.windsurf/rules/` add logging format rules (`[ x / n ]`, `OK/ERROR/FAIL`)
 6. **Add domain prefix convention** — Target: `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
@@ -86,8 +86,8 @@ Framework/DeveloperGuidesAndStandards
 8. **Add ASCII UI diagram convention** — Target: `Docs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md` document component boundary diagrams
-9. **Add "Scenario" section with Problem/Solution** — Target: `Docs/Specs/_template.md` add structured scenario section
-10. **Add event flow documentation** — Target: `Docs/Plans/_template.md` add call flow diagrams with `+->` notation
+9. **Add "Scenario" section with Problem/Solution** — Target: `Docs/Features/Specs/_template.md` add structured scenario section
+10. **Add event flow documentation** — Target: `Docs/Features/Plans/_template.md` add call flow diagrams with `+->` notation
 
 ## Open Questions / Gaps
 

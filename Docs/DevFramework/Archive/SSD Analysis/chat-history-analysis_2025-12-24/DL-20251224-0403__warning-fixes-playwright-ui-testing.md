@@ -8,8 +8,8 @@
 **Related Docs:**
 
 - Spec: NONE
-- Plan: Docs/Plans/P01-20251220-timetracker-v1.md
-- Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
+- Plan: Docs/Features/Plans/P01-20251220-timetracker-v1.md
+- Tasks: Docs/Features/Tasks/P01-20251220-timetracker-v1.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 2 - Day Tab, Tasks 2.12-2.15)
 - Other referenced docs:
   - Docs/DevFramework/ToolSetup

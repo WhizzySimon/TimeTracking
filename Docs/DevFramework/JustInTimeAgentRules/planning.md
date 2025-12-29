@@ -8,10 +8,10 @@
 
 Goal: Choose architecture/approach and write it down before code.
 
-Location: `Docs/AppDocs/Plans/<feature-slug>.md` or `Docs/DevFramework/ToolSetup
+Location: `Docs/AppDocs/Features/Plans/<feature-slug>.md` or `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeaturePlans
 /<feature-slug>.md`  
-Template: `Docs/AppDocs/Plans/_template.md` or `Docs/DevFramework/ToolSetup
+Template: `Docs/AppDocs/Features/Plans/_template.md` or `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeaturePlans
 /_template.md`
 
@@ -36,10 +36,10 @@ Each plan MUST contain:
 
 Goal: Break plan into reviewable, independently testable units.
 
-Location: `Docs/AppDocs/Tasks/<feature-slug>.md` or `Docs/DevFramework/ToolSetup
+Location: `Docs/AppDocs/Features/Tasks/<feature-slug>.md` or `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeatureTasks
 /<feature-slug>.md`  
-Template: `Docs/AppDocs/Tasks/_template.md` or `Docs/DevFramework/ToolSetup
+Template: `Docs/AppDocs/Features/Tasks/_template.md` or `Docs/DevFramework/ToolSetup
 Framework/FrameworkFeatureTasks
 /_template.md`
 

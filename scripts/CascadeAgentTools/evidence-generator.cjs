@@ -177,7 +177,7 @@ function generateEvidence(taskId, boxType, events, sessionDate) {
 
 ## Links
 
-- **Task Definition:** \`Docs/Tasks/*.md\` (search for ${taskId})
+- **Task Definition:** \`Docs/Features/Tasks/*.md\` (search for ${taskId})
 - **Box Checklist:** \`Docs/DevFramework/TaskQualityAssurance/boxes/${boxType}.md\`
 - **Session Log:** \`scripts/ai/logs/session-${sessionDate}.jsonl\`
 `;

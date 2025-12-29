@@ -8,8 +8,8 @@
 **Related Docs:**
 
 - Spec: NONE
-- Plan: Docs/Plans/P01-20251220-timetracker-v1.md
-- Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
+- Plan: Docs/Features/Plans/P01-20251220-timetracker-v1.md
+- Tasks: Docs/Features/Tasks/P01-20251220-timetracker-v1.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Post-v1 Improvements section)
 - Other referenced docs: NONE
 

@@ -1,6 +1,6 @@
 /**
  * Server-side API route for AI Import parsing
- * Spec ref: Docs/Specs/ai-import.md Section 8
+ * Spec ref: Docs/Features/Specs/ai-import.md Section 8
  *
  * Premium-only endpoint that calls OpenAI Responses API.
  */

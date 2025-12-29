@@ -28,7 +28,7 @@ If the user specifies docs to read (e.g., "read the UI spec" or "read the backup
 
 - Read the specified docs from `Docs/AppDocs/DevFramework/ToolSetup
 Framework/DeveloperGuidesAndStandards
-/` or `Docs/AppDocs/Specs/`
+/` or `Docs/AppDocs/Features/Specs/`
 - Add them to your Doc Inventory
 
 ### If no specific docs requested

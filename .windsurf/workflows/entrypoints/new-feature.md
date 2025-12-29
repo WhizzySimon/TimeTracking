@@ -32,7 +32,7 @@ Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Wo
 4. Frage den User: "Beschreibe das Feature, das du implementieren willst."
 
 5. Nach User-Input:
-   - Erstelle `Docs/AppDocs/Specs/<feature-slug>.md` basierend auf `Docs/AppDocs/Specs/_template.md`
+   - Erstelle `Docs/AppDocs/Features/Specs/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Specs/_template.md`
    - Fülle aus: Goal, Scope, FR, IG, DD, Edge cases, Data & privacy, Acceptance checks
    - Zeige dem User die Spec zur Bestätigung
 
@@ -43,7 +43,7 @@ Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Wo
 
 ### Phase 2: PLAN erstellen
 
-7. Erstelle `Docs/AppDocs/Plans/<feature-slug>.md` basierend auf `Docs/AppDocs/Plans/_template.md`
+7. Erstelle `Docs/AppDocs/Features/Plans/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Plans/_template.md`
    - Architecture/modules
    - Data model
    - UI state model
@@ -56,7 +56,7 @@ Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Wo
 
 ### Phase 3: TASKS erstellen
 
-9. Erstelle `Docs/AppDocs/Tasks/<feature-slug>.md` basierend auf `Docs/AppDocs/Tasks/_template.md`
+9. Erstelle `Docs/AppDocs/Features/Tasks/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Tasks/_template.md`
    - Kleine Tasks (0.5-2h)
    - Jeder Task hat: Files, Done when, Verify, Guardrails
 
@@ -108,9 +108,9 @@ Nach Phase 0-3:
 Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md
 
 # Feature: <name>
-- Spec: Docs/AppDocs/Specs/<feature>.md ✅
-- Plan: Docs/AppDocs/Plans/<feature>.md ✅
-- Tasks: Docs/AppDocs/Tasks/<feature>.md ✅
+- Spec: Docs/AppDocs/Features/Specs/<feature>.md ✅
+- Plan: Docs/AppDocs/Features/Plans/<feature>.md ✅
+- Tasks: Docs/AppDocs/Features/Tasks/<feature>.md ✅
 - Progress Tracker: Updated ✅
 
 Bereit für Implementation. Soll ich mit Task 1 beginnen?

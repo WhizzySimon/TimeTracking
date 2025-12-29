@@ -1,6 +1,6 @@
 /**
  * Unit tests for text parser
- * Spec ref: Docs/Specs/ai-import.md Section 8
+ * Spec ref: Docs/Features/Specs/ai-import.md Section 8
  */
 
 import { describe, it, expect } from 'vitest';
