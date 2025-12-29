@@ -61,6 +61,45 @@
 
 ---
 
+## Final Verification Gate (MANDATORY)
+
+**Before running `git commit`, output this exact block:**
+
+```
+═══════════════════════════════════════════════════════════
+                    FINAL VERIFICATION GATE
+═══════════════════════════════════════════════════════════
+
+## Audit Summary
+- Evidence Bundle: <path>
+- Verdict: PASS / FAIL
+- Risk: low / medium / high
+
+## Pre-Commit Checklist
+[x] 1. Sync check — <status>
+[x] 2. Self-learning — <status>
+[x] 3. CHANGELOG.md — <status>
+[x] 4. DECISIONS.md — <status>
+[x] 5. IMPLEMENTATION_PROGRESS.md — <status>
+[x] 6. Spec/Plan/Tasks sync — <status>
+[x] 7. /audit PASS — <status>
+
+## Verification Commands Run
+- npm run verify: <result>
+- UI tested: <yes/no, method>
+
+═══════════════════════════════════════════════════════════
+                      OK TO COMMIT
+═══════════════════════════════════════════════════════════
+```
+
+**Rules:**
+1. This block MUST appear as a single, uninterrupted output
+2. Do NOT run `git commit` in the same tool call — wait for the gate to be visible
+3. Only proceed to commit if ALL items show success status
+
+---
+
 ## Git Workflow
 
 We use a simple dev/main model:
