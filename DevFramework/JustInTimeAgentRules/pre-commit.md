@@ -135,6 +135,27 @@ After pushing, verify:
 
 If either check fails, fix before ending the session.
 
+## Post-Push Success Message (REQUIRED)
+
+After successful push, ALWAYS output:
+
+```
+═══════════════════════════════════════════════════════════
+✅ ALL PASSED — Task Complete
+═══════════════════════════════════════════════════════════
+
+## What was implemented
+[1-2 sentence summary of the changes]
+
+## How to test (if UI-related)
+- [Step 1: Navigate to X]
+- [Step 2: Click Y]
+- [Step 3: Verify Z]
+═══════════════════════════════════════════════════════════
+```
+
+If not UI-related, omit the "How to test" section.
+
 ## Commit Message Format
 
 - `feat:` — New feature or capability
