@@ -15,7 +15,15 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { SvelteMap } from 'svelte/reactivity';
-	import { timeEntries, categories, workTimeModels, currentDate } from '$lib/stores';
+	import {
+		timeEntries,
+		categories,
+		workTimeModels,
+		currentDate,
+		filteredEntries,
+		filteredCategories,
+		filteredModels
+	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll, getByKey, put } from '$lib/storage/db';
 	import { markLocalChanged } from '$lib/backup/cloud';
@@ -96,15 +104,15 @@
 	// Format range for display
 	let rangeDisplay = $derived(`${formatDate(rangeStart, 'DE')} – ${formatDate(rangeEnd, 'DE')}`);
 
-	// Filter entries within date range
+	// Filter entries within date range, respecting employer filter
 	let rangeEntries = $derived(
-		$timeEntries.filter((e) => {
-			return e.date >= rangeStartStr && e.date <= rangeEndStr;
+		$filteredEntries.filter((entry) => {
+			return entry.date >= rangeStartStr && entry.date <= rangeEndStr;
 		})
 	);
 
 	// Calculate totals for the range
-	let totalIst = $derived(calculateIst(rangeEntries, $categories));
+	let totalIst = $derived(calculateIst(rangeEntries, $filteredCategories));
 
 	// Calculate total Soll by iterating through dates
 	function calculateTotalSoll(): number {
@@ -126,10 +134,10 @@
 	let totalSoll = $derived(calculateTotalSoll());
 	let totalSaldo = $derived(calculateSaldo(totalIst, totalSoll));
 
-	// Get active work time model for a specific date
+	// Get active work time model for a specific date, respecting employer filter
 	function getActiveModelForDate(date: Date): WorkTimeModel | null {
 		const dateStr = formatDate(date, 'ISO');
-		const validModels = $workTimeModels
+		const validModels = $filteredModels
 			.filter((model) => model.validFrom <= dateStr)
 			.sort((a, b) => b.validFrom.localeCompare(a.validFrom));
 		return validModels[0] ?? null;
@@ -311,7 +319,7 @@
 		const weeks = effectiveWeeks > 0 ? effectiveWeeks : 1; // Avoid division by zero
 
 		for (const [categoryId, hours] of categoryHours) {
-			const category = $categories.find((c) => c.id === categoryId);
+			const category = $filteredCategories.find((cat) => cat.id === categoryId);
 			if (category) {
 				result.push({
 					name: category.name,
@@ -380,7 +388,7 @@
 
 		for (const key of sortedKeys) {
 			const group = groups.get(key)!;
-			const ist = calculateIst(group.entries, $categories);
+			const ist = calculateIst(group.entries, $filteredCategories);
 
 			let soll = 0;
 			for (const dateStr of group.dates) {

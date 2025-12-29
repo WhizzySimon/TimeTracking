@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-29                                         | feat     | A2.9: Analysis tab uses employer-filtered stores for entries, categories, work time models           | —       |
 | 2025-12-29                                         | docs     | pre-commit.md: Require visible checklist output before committing (show your work)                   | —       |
 | 2025-12-29                                         | feat     | A2.8: Day/Week/Month tabs use employer-filtered stores for entries, categories, work time models     | —       |
 | 2025-12-29                                         | feat     | A2.7: Filter logic for all stores — filteredEntries, filteredCategories, filteredModels              | —       |

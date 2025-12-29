@@ -31,33 +31,48 @@ Each entry follows this format:
 
 (newest first)
 
+## 2025-12-29 13:15 — A2.9 Analysis Tab AG Filtering
+
+| Step                 | Result | Notes                                      |
+| -------------------- | ------ | ------------------------------------------ |
+| A1: Capture feedback | none   | No corrective feedback in session          |
+| B1: Repeated errors  | none   | No repeated errors                         |
+| B2: File churn       | none   | Only analysis/+page.svelte edited once     |
+| B3: Scope drift      | none   | Only analysis tab — matches A2.9 scope     |
+| B4: Session duration | ~10m   | normal                                     |
+| C1: Promotions       | none   | No items meet promotion criteria           |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                    |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                 |
+
+---
+
 ## 2025-12-29 13:05 — pre-commit.md Instruction Fix
 
-| Step                 | Result   | Notes                                                         |
-| -------------------- | -------- | ------------------------------------------------------------- |
-| A1: Capture feedback | 1 item   | User feedback: checklist not shown before commit              |
-| B1: Repeated errors  | none     | No repeated errors                                            |
-| B2: File churn       | none     | Single file edited                                            |
-| B3: Scope drift      | none     | Only pre-commit.md — matches scope                            |
-| B4: Session duration | ~5m      | normal                                                        |
-| C1: Promotions       | none     | Fix applied directly to JIT rule file                         |
-| C2: Read LEARNINGS   | ✓ read   | Per previous session                                          |
-| C3: Hard Rule → JIT  | approved | Added "show your work" requirement to pre-commit.md           |
+| Step                 | Result   | Notes                                               |
+| -------------------- | -------- | --------------------------------------------------- |
+| A1: Capture feedback | 1 item   | User feedback: checklist not shown before commit    |
+| B1: Repeated errors  | none     | No repeated errors                                  |
+| B2: File churn       | none     | Single file edited                                  |
+| B3: Scope drift      | none     | Only pre-commit.md — matches scope                  |
+| B4: Session duration | ~5m      | normal                                              |
+| C1: Promotions       | none     | Fix applied directly to JIT rule file               |
+| C2: Read LEARNINGS   | ✓ read   | Per previous session                                |
+| C3: Hard Rule → JIT  | approved | Added "show your work" requirement to pre-commit.md |
 
 ---
 
 ## 2025-12-29 12:55 — A2.8 Day/Week/Month Tabs AG Filtering
 
-| Step                 | Result | Notes                                              |
-| -------------------- | ------ | -------------------------------------------------- |
-| A1: Capture feedback | none   | No corrective feedback in session                  |
-| B1: Repeated errors  | none   | No repeated errors                                 |
-| B2: File churn       | none   | Each file edited once                              |
-| B3: Scope drift      | none   | Only Day/Week/Month tabs + stores — matches scope  |
-| B4: Session duration | ~10m   | normal                                             |
-| C1: Promotions       | none   | No items meet promotion criteria                   |
-| C2: Read LEARNINGS   | ✓ read | Per previous session                               |
-| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                         |
+| Step                 | Result | Notes                                             |
+| -------------------- | ------ | ------------------------------------------------- |
+| A1: Capture feedback | none   | No corrective feedback in session                 |
+| B1: Repeated errors  | none   | No repeated errors                                |
+| B2: File churn       | none   | Each file edited once                             |
+| B3: Scope drift      | none   | Only Day/Week/Month tabs + stores — matches scope |
+| B4: Session duration | ~10m   | normal                                            |
+| C1: Promotions       | none   | No items meet promotion criteria                  |
+| C2: Read LEARNINGS   | ✓ read | Per previous session                              |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                        |
 
 ---
 
