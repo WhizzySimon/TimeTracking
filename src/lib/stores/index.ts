@@ -132,3 +132,60 @@ export const activeWorkTimeModel = derived<
 		.sort((a, b) => b.validFrom.localeCompare(a.validFrom));
 	return validModels[0] ?? null;
 });
+
+// ============================================================================
+// Employer-Filtered Derived Stores (AG-FR-030, AG-FR-040)
+// ============================================================================
+
+/**
+ * Filter helper: returns true if item should be visible for the selected employer.
+ * - If selectedEmployerId is null (Alle): show all items
+ * - If selectedEmployerId is set: show items where employerId matches OR employerId is null (global)
+ */
+function matchesEmployerFilter(
+	itemEmployerId: string | null | undefined,
+	selectedId: string | null
+): boolean {
+	if (selectedId === null) return true;
+	return itemEmployerId === selectedId || itemEmployerId === null || itemEmployerId === undefined;
+}
+
+/**
+ * Time entries filtered by selected employer.
+ * Items with employerId === null are visible in all employers.
+ */
+export const filteredEntries = derived<
+	[typeof timeEntries, typeof selectedEmployerId],
+	TimeEntry[]
+>([timeEntries, selectedEmployerId], ([$timeEntries, $selectedEmployerId]) =>
+	$timeEntries.filter((entry) => matchesEmployerFilter(entry.employerId, $selectedEmployerId))
+);
+
+/**
+ * Categories filtered by selected employer.
+ * Items with employerId === null are visible in all employers.
+ */
+export const filteredCategories = derived<
+	[typeof categories, typeof selectedEmployerId],
+	Category[]
+>([categories, selectedEmployerId], ([$categories, $selectedEmployerId]) =>
+	$categories.filter((category) => matchesEmployerFilter(category.employerId, $selectedEmployerId))
+);
+
+/**
+ * Work time models filtered by selected employer.
+ * Items with employerId === null apply to all employers.
+ */
+export const filteredModels = derived<
+	[typeof workTimeModels, typeof selectedEmployerId],
+	WorkTimeModel[]
+>([workTimeModels, selectedEmployerId], ([$workTimeModels, $selectedEmployerId]) =>
+	$workTimeModels.filter((model) => matchesEmployerFilter(model.employerId, $selectedEmployerId))
+);
+
+/**
+ * Active employers only (not soft-deleted).
+ */
+export const activeEmployers = derived<typeof employers, Employer[]>(employers, ($employers) =>
+	$employers.filter((employer) => employer.isActive)
+);

@@ -51,9 +51,9 @@
 
 **Goal:** Add structured task routing, telemetry, anomaly detection, and evidence bundles for higher-quality Cascade development.
 
-**Spec:** `Docs/Features/Specs/autonomy-stack-v2.md`  
-**Plan:** `Docs/Features/Plans/autonomy-stack-v2.md`  
-**Tasks:** `Docs/Features/Tasks/autonomy-stack-v2.md`
+**Spec:** `Docs/Archive/Specs/autonomy-stack-v2.md`  
+**Plan:** `Docs/Archive/Plans/autonomy-stack-v2.md`  
+**Tasks:** `Docs/Archive/Tasks/autonomy-stack-v2.md`
 
 ### Phase 0: Framework Evolution Guardrails (Prerequisites)
 
@@ -217,9 +217,9 @@ Phase 4:
 
 **Target:** 7 tasks  
 **Status:** COMPLETE  
-**Spec:** `Docs/Features/Specs/D3-watcher-framework-improvement.md`  
-**Plan:** `Docs/Features/Plans/D3-watcher-framework-improvement.md`  
-**Tasks:** `Docs/Features/Tasks/D3-watcher-framework-improvement.md`
+**Spec:** `Docs/Archive/Specs/D3-watcher-framework-improvement.md`  
+**Plan:** `Docs/Archive/Plans/D3-watcher-framework-improvement.md`  
+**Tasks:** `Docs/Archive/Tasks/D3-watcher-framework-improvement.md`
 
 ### Tasks
 
@@ -247,7 +247,7 @@ Phase 4:
 
 **Target:** 11 tasks  
 **Status:** BLOCKED (9/11 tasks done, waiting for DevFramework)  
-**Spec:** `Docs/Features/Specs/P10-monetising.md`
+**Spec:** `Docs/Archive/Specs/P10-monetising.md`
 
 ### Remaining Tasks
 
@@ -263,9 +263,9 @@ Phase 4:
 
 **Target:** 25 tasks  
 **Status:** BLOCKED (0/25 tasks, waiting for DevFramework)  
-**Spec:** `Docs/Features/Specs/ai-import.md`  
-**Plan:** `Docs/Features/Plans/ai-import.md`  
-**Tasks:** `Docs/Features/Tasks/ai-import.md`
+**Spec:** `Docs/Archive/Specs/ai-import.md`  
+**Plan:** `Docs/Archive/Plans/ai-import.md`  
+**Tasks:** `Docs/Archive/Tasks/ai-import.md`
 
 ### Phase 11.1: Foundation
 
@@ -321,9 +321,9 @@ Phase 4:
 
 **Target:** 13 tasks  
 **Status:** COMPLETE (13/13)  
-**Spec:** `Docs/Features/Specs/subscription-plans.md`  
-**Plan:** `Docs/Features/Plans/subscription-plans.md`  
-**Tasks:** `Docs/Features/Tasks/subscription-plans.md`
+**Spec:** `Docs/Archive/Specs/subscription-plans.md`  
+**Plan:** `Docs/Archive/Plans/subscription-plans.md`  
+**Tasks:** `Docs/Archive/Tasks/subscription-plans.md`
 
 ### Tasks
 
@@ -346,10 +346,10 @@ Phase 4:
 ## Phase A2: Multi-Arbeitgeber
 
 **Target:** 18 tasks  
-**Status:** In progress (7/18 — 2 skipped)  
-**Spec:** `Docs/AppDocs/Features/Specs/multi-arbeitgeber.md`  
-**Plan:** `Docs/AppDocs/Features/Plans/multi-arbeitgeber.md`  
-**Tasks:** `Docs/AppDocs/Features/Tasks/multi-arbeitgeber.md`
+**Status:** In progress (8/18 — 2 skipped)  
+**Spec:** `Docs/Archive/Specs/multi-arbeitgeber.md`  
+**Plan:** `Docs/Archive/Plans/multi-arbeitgeber.md`  
+**Tasks:** `Docs/Archive/Tasks/multi-arbeitgeber.md`
 
 ### Tasks
 
@@ -359,7 +359,7 @@ Phase 4:
 - [x] **Task A2.4** — Employer store + CRUD operations
 - [x] **Task A2.5** — EmployerSelector component
 - [x] **Task A2.6** — Integrate selector into Header
-- [ ] **Task A2.7** — Filter logic for all stores
+- [x] **Task A2.7** — Filter logic for all stores
 - [ ] **Task A2.8** — Update Day/Week/Month tabs for AG filtering
 - [ ] **Task A2.9** — Update Analysis tab for AG filtering
 - [ ] **Task A2.10** — Update Add tab: group categories by AG
@@ -378,8 +378,8 @@ Phase 4:
 
 **Target:** 7 tasks  
 **Status:** Not started  
-**Spec:** `Docs/Features/Specs/kleine-aenderungen.md`  
-**Plan:** `Docs/Features/Plans/kleine-aenderungen.md`
+**Spec:** `Docs/Archive/Specs/kleine-aenderungen.md`  
+**Plan:** `Docs/Archive/Plans/kleine-aenderungen.md`
 
 ### Tasks
 
@@ -397,8 +397,8 @@ Phase 4:
 
 **Target:** 12 tasks  
 **Status:** Not started  
-**Spec:** `Docs/Features/Specs/ux-improvements.md`  
-**Plan:** `Docs/Features/Plans/ux-improvements.md`
+**Spec:** `Docs/Archive/Specs/ux-improvements.md`  
+**Plan:** `Docs/Archive/Plans/ux-improvements.md`
 
 ### Tasks
 
@@ -421,8 +421,8 @@ Phase 4:
 
 **Target:** 12 tasks  
 **Status:** Not started  
-**Spec:** `Docs/Features/Specs/ui-improvements.md`  
-**Plan:** `Docs/Features/Plans/ui-improvements.md`
+**Spec:** `Docs/Archive/Specs/ui-improvements.md`  
+**Plan:** `Docs/Archive/Plans/ui-improvements.md`
 
 ### Tasks
 
@@ -445,8 +445,8 @@ Phase 4:
 
 **Target:** 11 tasks  
 **Status:** Not started  
-**Spec:** `Docs/Features/Specs/bug-fixes.md`  
-**Plan:** `Docs/Features/Plans/bug-fixes.md`
+**Spec:** `Docs/Archive/Specs/bug-fixes.md`  
+**Plan:** `Docs/Archive/Plans/bug-fixes.md`
 
 ### Tasks
 

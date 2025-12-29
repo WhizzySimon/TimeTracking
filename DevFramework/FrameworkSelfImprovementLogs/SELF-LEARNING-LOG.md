@@ -31,18 +31,33 @@ Each entry follows this format:
 
 (newest first)
 
+## 2025-12-29 12:40 — A2.7 Filter Logic for All Stores
+
+| Step                 | Result   | Notes                                                    |
+| -------------------- | -------- | -------------------------------------------------------- |
+| A1: Capture feedback | none     | No corrective feedback in session                        |
+| B1: Repeated errors  | none     | No repeated errors                                       |
+| B2: File churn       | none     | Only src/lib/stores/index.ts edited once                 |
+| B3: Scope drift      | none     | Only stores/index.ts + doc updates — matches A2.7 scope  |
+| B4: Session duration | ~10m     | normal                                                   |
+| C1: Promotions       | none     | No items meet promotion criteria                         |
+| C2: Read LEARNINGS   | ✓ read   | 5 items                                                  |
+| C3: Hard Rule → JIT  | none     | No new Hard Rules proposed                               |
+
+---
+
 ## 2025-12-29 12:20 — A2.6 EmployerSelector Header Integration
 
-| Step                 | Result     | Notes                                                                   |
-| -------------------- | ---------- | ----------------------------------------------------------------------- |
+| Step                 | Result     | Notes                                                                     |
+| -------------------- | ---------- | ------------------------------------------------------------------------- |
 | A1: Capture feedback | 1 added    | Pre-commit skip (4th violation) — Builder read checklist but skipped step |
-| B1: Repeated errors  | none       | No repeated errors in session                                           |
-| B2: File churn       | none       | No file edited 5+ times                                                 |
-| B3: Scope drift      | none       | Only +layout.svelte changed — matches A2.6 scope                        |
-| B4: Session duration | ~30m       | normal                                                                  |
-| C1: Promotions       | 1 proposed | Pre-commit checklist execution (4th violation → Hard Rule candidate)    |
-| C2: Read LEARNINGS   | ✓ read     | 5 items                                                                 |
-| C3: Hard Rule → JIT  | approved   | Added sequential execution + reordered checklist in pre-commit.md       |
+| B1: Repeated errors  | none       | No repeated errors in session                                             |
+| B2: File churn       | none       | No file edited 5+ times                                                   |
+| B3: Scope drift      | none       | Only +layout.svelte changed — matches A2.6 scope                          |
+| B4: Session duration | ~30m       | normal                                                                    |
+| C1: Promotions       | 1 proposed | Pre-commit checklist execution (4th violation → Hard Rule candidate)      |
+| C2: Read LEARNINGS   | ✓ read     | 5 items                                                                   |
+| C3: Hard Rule → JIT  | approved   | Added sequential execution + reordered checklist in pre-commit.md         |
 
 ---
 
