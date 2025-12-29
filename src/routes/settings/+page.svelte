@@ -702,7 +702,11 @@
 				<button class="data-btn" onclick={() => (showExportDialog = true)} data-testid="export-btn">
 					Exportieren
 				</button>
-				<button class="data-btn" onclick={() => (showStundenzettelExport = true)} data-testid="stundenzettel-export-btn">
+				<button
+					class="data-btn"
+					onclick={() => (showStundenzettelExport = true)}
+					data-testid="stundenzettel-export-btn"
+				>
 					Stundenzettel
 				</button>
 				<button class="data-btn" onclick={() => goto(resolve('/import'))} data-testid="import-btn">

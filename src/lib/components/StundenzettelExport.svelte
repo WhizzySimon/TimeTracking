@@ -18,6 +18,11 @@
 	import type { Employer, TimeEntry, Category } from '$lib/types';
 	import { SvelteSet } from 'svelte/reactivity';
 	import Modal from './Modal.svelte';
+	import {
+		exportStundenzettelExcel,
+		type ExportData,
+		type ProcessedEntry
+	} from '$lib/export/stundenzettel-export';
 
 	interface Props {
 		onclose: () => void;
@@ -38,26 +43,6 @@
 
 	type ColumnId = (typeof AVAILABLE_COLUMNS)[number]['id'];
 
-	interface ExportData {
-		employerId: string;
-		employerName: string;
-		startDate: string;
-		endDate: string;
-		columns: ColumnId[];
-		entries: ProcessedEntry[];
-	}
-
-	export type { ExportData };
-
-	interface ProcessedEntry {
-		date: string;
-		category: string;
-		startTime: string;
-		endTime: string;
-		duration: string;
-		description: string;
-	}
-
 	// State
 	let employers = $state<Employer[]>([]);
 	let categories = $state<Category[]>([]);
@@ -70,6 +55,7 @@
 	let entries = $state<TimeEntry[]>([]);
 	let processedEntries = $state<ProcessedEntry[]>([]);
 	let loading = $state(false);
+	let isExporting = $state(false);
 	let error = $state('');
 
 	function getDefaultStartDate(): string {
@@ -182,18 +168,8 @@
 		return employer?.name ?? '';
 	}
 
-	function handleExport() {
-		if (!selectedEmployerId) {
-			error = 'Bitte wähle einen Arbeitgeber aus';
-			return;
-		}
-
-		if (selectedColumns.size === 0) {
-			error = 'Bitte wähle mindestens eine Spalte aus';
-			return;
-		}
-
-		const exportData: ExportData = {
+	function buildExportData(): ExportData {
+		return {
 			employerId: selectedEmployerId,
 			employerName: getSelectedEmployerName(),
 			startDate,
@@ -201,8 +177,25 @@
 			columns: Array.from(selectedColumns),
 			entries: processedEntries
 		};
+	}
 
-		onexport?.(exportData);
+	async function handleExcelExport() {
+		if (!selectedEmployerId || processedEntries.length === 0) {
+			return;
+		}
+
+		isExporting = true;
+		try {
+			const exportData = buildExportData();
+			await exportStundenzettelExcel(exportData);
+			console.log('[StundenzettelExport] Excel export completed');
+			onexport?.(exportData);
+		} catch (err) {
+			console.error('[StundenzettelExport] Excel export failed:', err);
+			error = 'Export fehlgeschlagen. Bitte erneut versuchen.';
+		} finally {
+			isExporting = false;
+		}
 	}
 
 	// Load data on mount
@@ -351,10 +344,10 @@
 			<button
 				type="button"
 				class="btn-primary"
-				onclick={handleExport}
-				disabled={employers.length === 0 || loading || processedEntries.length === 0}
+				onclick={handleExcelExport}
+				disabled={employers.length === 0 || loading || isExporting || processedEntries.length === 0}
 			>
-				Exportieren
+				{isExporting ? 'Exportiere...' : 'Excel exportieren'}
 			</button>
 		</div>
 	</div>
