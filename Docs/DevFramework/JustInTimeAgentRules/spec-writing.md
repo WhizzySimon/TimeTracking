@@ -4,36 +4,26 @@
 
 ---
 
-## When to Create a Spec
+## Create Spec from Template
 
-For any non-trivial change, create/update a spec file:
+For any non-trivial change, create a spec file from template:
 
-- Location: `Docs/AppDocs/Features/Specs/<feature-slug>.md` or `Docs/DevFramework/FrameworkFeatureSpecs
-/<feature-slug>.md`
-- Template: `Docs/AppDocs/Features/Specs/_template.md` or `Docs/DevFramework/FrameworkFeatureSpecs
-/_template.md`
-- Rules: `Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md`
+| Type | Template |
+|------|----------|
+| App feature | `Docs/Features/Specs/_template.md` |
+| Framework feature | `Docs/DevFramework/FrameworkFeatureSpecs/_template.md` |
 
-## Required Sections
+**The template contains all rules:** length guidelines, prefix conventions, required sections, and completeness checklist.
 
-Each spec MUST contain:
-
-- **Problem statement** (1–3 sentences)
-- **Explicit scope** (in scope / out of scope)
-- **Functional Requirements (FR)** — user-observable behavior (TT-FR-001, TT-FR-002, ...)
-- **Implementation Guarantees (IG)** — constraints/outcomes that must hold (TT-IG-001, TT-IG-002, ...)
-- **Design Decisions (DD)** — deliberate choices to lock in (TT-DD-001, TT-DD-002, ...) (optional)
-- **Edge cases + failure states**
-- **Data & privacy notes** (what is stored, where, retention)
-- **Acceptance checks** (testable, mapped to FR/IG/DD)
-- **Change log**
-
-## Checkpoint to Proceed
+## Quick Checklist
 
 Before moving to planning:
 
-- [ ] No ambiguous terms remain (e.g., "fast", "simple", "works offline") without a measurable definition
-- [ ] All FR/IG/DD are numbered and testable
+- [ ] Created from template (not blank file)
+- [ ] All template sections filled
+- [ ] No ambiguous terms without measurable definition
+- [ ] All FR/IG/DD numbered and testable
+- [ ] Completeness checklist at bottom passes
 
 ---
 

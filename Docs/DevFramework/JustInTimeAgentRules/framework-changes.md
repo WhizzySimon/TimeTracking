@@ -15,28 +15,19 @@
 
 ## Single Source of Truth
 
-| Content Type                            | Canonical Location                               | Notes                                                             |
-| --------------------------------------- | ------------------------------------------------ | ----------------------------------------------------------------- |
-| **Process rules**                       | `_entrypoint-jit-rule-map.md`                                    | Session workflow, git rules, verification, coding rules           |
-| **Always-on rules**                     | `.windsurf/rules/*.md`                           | Auto-loaded every session (code-quality, command-execution, etc.) |
-| **Workflows**                           | `.windsurf/workflows/`                           | ONLY orchestrate — reference docs, never duplicate content        |
-| **Coding standards**                    | `Docs/DevFramework/ToolSetup                     |
-| Framework/DeveloperGuidesAndStandards/` | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc. |
-| **Tooling docs**                        | `Docs/DevFramework/ToolSetup                     |
-
-Framework/ToolSetup/`                  | Git workflow, bootstrap                                           |
-| **App specs**        |`Docs/AppDocs/Features/Specs/`, `Plans/`, `Tasks/`     | Per-feature app documentation                                     |
-| **Framework specs**  |`Docs/DevFramework/FrameworkFeatureSpecs
-/`, `Plans/`, `Tasks/`| Per-feature framework documentation                               |
-| **Dev history**      |`Docs/DevFramework/FrameworkSelfImprovementLogs
-/CHANGELOG.md`       | One line per commit                                               |
-| **Decisions**        |`Docs/DevFramework/FrameworkSelfImprovementLogs
-/DECISIONS.md`       | Architecture/policy decisions (ADR-light)                         |
-| **Learnings**        |`Docs/DevFramework/FrameworkSelfImprovementLogs
-/LEARNINGS.md`       | Proven preferences (max 30 bullets)                               |
-| **Learnings Inbox**  |`Docs/DevFramework/FrameworkSelfImprovementLogs
-/LEARNINGS-INBOX.md` | Raw feedback capture (unbounded, low priority)                    |
-| **Trigger rules**    |`Docs/DevFramework/JustInTimeAgentRules/` | Just-in-time rules loaded at specific triggers |
+| Content Type        | Canonical Location                                           | Notes                                              |
+| ------------------- | ------------------------------------------------------------ | -------------------------------------------------- |
+| **Process rules**   | `JustInTimeAgentRules/_entrypoint-jit-rule-map.md`           | Session workflow, git rules, verification          |
+| **Always-on rules** | `.windsurf/rules/*.md`                                       | Auto-loaded every session                          |
+| **Workflows**       | `.windsurf/workflows/`                                       | ONLY orchestrate — reference docs, never duplicate |
+| **Tooling docs**    | `Docs/DevFramework/ToolSetup/`                               | Git workflow, bootstrap                            |
+| **App specs**       | `Docs/Features/Specs/`, `Plans/`, `Tasks/`                   | Per-feature app documentation                      |
+| **Framework specs** | `Docs/DevFramework/FrameworkFeatureSpecs/`                   | Per-feature framework documentation                |
+| **Dev history**     | `FrameworkSelfImprovementLogs/CHANGELOG.md`                  | One line per commit                                |
+| **Decisions**       | `FrameworkSelfImprovementLogs/DECISIONS.md`                  | Architecture/policy decisions (ADR-light)          |
+| **Learnings**       | `FrameworkSelfImprovementLogs/LEARNINGS.md`                  | Proven preferences (max 30 bullets)                |
+| **Learnings Inbox** | `FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`            | Raw feedback capture                               |
+| **Trigger rules**   | `JustInTimeAgentRules/*.md`                                  | Just-in-time rules at specific triggers            |
 
 ---
 

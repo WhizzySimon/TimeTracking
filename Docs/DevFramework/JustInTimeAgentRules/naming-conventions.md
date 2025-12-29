@@ -41,7 +41,6 @@ All names must be **self-explanatory without opening the item**.
 
 ---
 
-## Full Reference
+## Note
 
-For casing conventions, prefixes, and folder-specific patterns:
-`Docs/DevFramework/DeveloperGuidesAndStandards/NAMING_CONVENTIONS.md`
+This JIT rule is the single source of truth for naming conventions. No separate reference document exists.

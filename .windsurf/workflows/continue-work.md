@@ -24,7 +24,6 @@ git checkout dev && git pull origin dev
 4. Find the relevant Tasks file:
    - Check "Current Phase" in IMPLEMENTATION_PROGRESS.md
    - Read the corresponding `Docs/Features/Tasks/<feature>.md` file
-5. Start implementing the next incomplete task following `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md`
 
 Report:
 

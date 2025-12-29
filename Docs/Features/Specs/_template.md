@@ -1,5 +1,16 @@
 ﻿# <feature-slug> — Spec
 
+<!--
+SPEC LENGTH GUIDELINES:
+- Small task: ~100-200 lines (single component, minor feature)
+- Medium task: ~300-500 lines (multi-component feature, integration)
+- Complex task: ~800-1500 lines (cross-cutting feature, major subsystem)
+Write as much as necessary, but not more.
+
+SPEC DRIFT RULE:
+If code behavior changes, update this spec in the same commit.
+-->
+
 **Phase:** <Phase-Nummer aus IMPLEMENTATION_PROGRESS.md>  
 **Created:** YYYY-MM-DD  
 **Last Updated:** YYYY-MM-DD  
@@ -34,6 +45,12 @@
 - (explicit anti-patterns and rejected approaches)
 
 ## 3) Functional Requirements (FR)
+
+<!--
+PREFIX CONVENTION:
+- Default: TT-FR-001, TT-IG-001, TT-DD-001
+- For large features: Use domain prefix (QS-, CS-, AN-) when feature spans multiple specs
+-->
 
 - **TT-FR-001**: ...
 - **TT-FR-002**: ...
