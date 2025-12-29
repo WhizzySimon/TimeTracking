@@ -28,8 +28,10 @@
 	import { formatDate, formatTime } from '$lib/utils/date';
 	import type { TimeEntry } from '$lib/types';
 	import CategoryList from '$lib/components/CategoryList.svelte';
+	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
 
 	let loading = $state(true);
+	let showCreateCategoryDialog = $state(false);
 
 	// Check if there's a running task (no end time)
 	let runningEntry = $derived($timeEntries.find((e) => e.endTime === null) ?? null);
@@ -79,6 +81,10 @@
 		goto(resolve('/day'));
 	}
 
+	function handleCategoryCreated() {
+		showCreateCategoryDialog = false;
+	}
+
 	onMount(async () => {
 		// Initialize categories if needed
 		await initializeCategories();
@@ -112,8 +118,22 @@
 			employers={$activeEmployers}
 			selectedEmployerId={$selectedEmployerId}
 		/>
+
+		<button class="create-category-btn" onclick={() => (showCreateCategoryDialog = true)}>
+			+ Kategorie erstellen
+		</button>
 	{/if}
 </div>
+
+{#if showCreateCategoryDialog}
+	<CategoryDialog
+		mode="create"
+		categoryType="user"
+		defaultEmployerId={$selectedEmployerId ?? undefined}
+		onsave={handleCategoryCreated}
+		onclose={() => (showCreateCategoryDialog = false)}
+	/>
+{/if}
 
 <style>
 	.add-page {
@@ -142,5 +162,36 @@
 
 	:global(.dark) .loading {
 		color: var(--text-secondary-dark, #9ca3af);
+	}
+
+	.create-category-btn {
+		display: block;
+		width: 100%;
+		margin-top: 1.5rem;
+		padding: 0.75rem 1rem;
+		border: 2px dashed var(--border, #e5e7eb);
+		border-radius: var(--r-btn, 0.5rem);
+		background: transparent;
+		color: var(--text-secondary, #6b7280);
+		font-size: 1rem;
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.create-category-btn:hover {
+		border-color: var(--accent, #3b82f6);
+		color: var(--accent, #3b82f6);
+		background: var(--accent-light, #eff6ff);
+	}
+
+	:global(.dark) .create-category-btn {
+		border-color: var(--border-dark, #374151);
+		color: var(--text-secondary-dark, #9ca3af);
+	}
+
+	:global(.dark) .create-category-btn:hover {
+		border-color: var(--accent, #3b82f6);
+		color: var(--accent, #3b82f6);
+		background: rgba(59, 130, 246, 0.1);
 	}
 </style>

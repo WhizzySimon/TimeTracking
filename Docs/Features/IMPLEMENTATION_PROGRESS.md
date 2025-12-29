@@ -377,18 +377,18 @@ Phase 4:
 ## Phase A3: Kleine Änderungen
 
 **Target:** 7 tasks  
-**Status:** Not started  
+**Status:** In progress (6/7)  
 **Spec:** `Docs/Archive/Specs/kleine-aenderungen.md`  
 **Plan:** `Docs/Archive/Plans/kleine-aenderungen.md`
 
 ### Tasks
 
-- [ ] **Task A3.1** — CategoryDialog component (create mode)
-- [ ] **Task A3.2** — CategoryDialog component (edit mode)
-- [ ] **Task A3.3** — Add "Kategorie erstellen" button to Add tab
-- [ ] **Task A3.4** — Make categories clickable in Settings
-- [ ] **Task A3.5** — PasswordInput component with toggle
-- [ ] **Task A3.6** — Integrate PasswordInput into LoginForm
+- [x] **Task A3.1** — CategoryDialog component (create mode)
+- [x] **Task A3.2** — CategoryDialog component (edit mode) — already done in A2.12
+- [x] **Task A3.3** — Add "Kategorie erstellen" button to Add tab
+- [x] **Task A3.4** — Make categories clickable in Settings — already done in A2.12
+- [x] **Task A3.5** — PasswordInput component with toggle
+- [x] **Task A3.6** — Integrate PasswordInput into LoginForm
 - [ ] **Task A3.7** — E2E tests
 
 ---

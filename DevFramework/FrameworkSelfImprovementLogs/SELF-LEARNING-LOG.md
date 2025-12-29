@@ -192,18 +192,31 @@ Each entry follows this format:
 | C2: Read LEARNINGS   | ✓ read | 5 items                                      |
 | C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                   |
 
-## 2025-12-29 18:00 — Task A2.18
+## 2025-12-29 18:10 — Tasks A3.1, A3.3, A3.5, A3.6
 
 | Step                 | Result | Notes                                        |
 | -------------------- | ------ | -------------------------------------------- |
 | A1: Capture feedback | none   | No corrective feedback in session            |
 | B1: Repeated errors  | none   | No repeated errors                           |
-| B2: File churn       | none   | New test file created                        |
-| B3: Scope drift      | none   | Files match Task A2.18 scope                 |
-| B4: Session duration | ~10m   | normal                                       |
+| B2: File churn       | none   | New components, minor type fixes             |
+| B3: Scope drift      | none   | Files match A3 task scope                    |
+| B4: Session duration | ~15m   | normal                                       |
 | C1: Promotions       | none   | No items meet promotion criteria             |
 | C2: Read LEARNINGS   | ✓ read | 5 items                                      |
 | C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                   |
+
+## 2025-12-29 18:00 — Task A2.18
+
+| Step                 | Result | Notes                             |
+| -------------------- | ------ | --------------------------------- |
+| A1: Capture feedback | none   | No corrective feedback in session |
+| B1: Repeated errors  | none   | No repeated errors                |
+| B2: File churn       | none   | New test file created             |
+| B3: Scope drift      | none   | Files match Task A2.18 scope      |
+| B4: Session duration | ~10m   | normal                            |
+| C1: Promotions       | none   | No items meet promotion criteria  |
+| C2: Read LEARNINGS   | ✓ read | 5 items                           |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed        |
 
 ## 2025-12-29 17:50 — Task A2.16
 

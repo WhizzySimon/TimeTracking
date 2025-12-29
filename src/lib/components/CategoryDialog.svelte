@@ -1,11 +1,13 @@
 <!--
-  CategoryDialog component - modal for editing categories with employer assignment
+  CategoryDialog component - modal for creating/editing categories with employer assignment
   
   Spec refs:
   - multi-arbeitgeber.md A2.12 (categories grouped by AG)
+  - kleine-aenderungen.md A3.1, A3.2 (create/edit modes)
   
   Features:
-  - Edit category name
+  - Create new category (mode='create')
+  - Edit category name (mode='edit')
   - Assign to employer or "Alle"
   - System categories cannot be edited
 -->
@@ -18,31 +20,40 @@
 	import { onMount } from 'svelte';
 
 	interface Props {
-		/** Category to edit */
-		category: Category;
+		/** Mode: 'create' for new category, 'edit' for existing */
+		mode?: 'create' | 'edit';
+		/** Category to edit (required for edit mode) */
+		category?: Category;
+		/** Default category type for create mode */
+		categoryType?: 'user';
+		/** Default employer ID for create mode */
+		defaultEmployerId?: string;
 		/** Callback when category is saved */
 		onsave?: (category: Category) => void;
 		/** Callback when modal is closed */
 		onclose?: () => void;
 	}
 
-	let { category, onsave, onclose }: Props = $props();
+	let {
+		mode = 'edit',
+		category,
+		categoryType = 'user',
+		defaultEmployerId,
+		onsave,
+		onclose
+	}: Props = $props();
 
-	// Form state
-	function getInitialName() {
-		return category.name;
-	}
-	function getInitialEmployerId() {
-		return category.employerId ?? '';
-	}
-	let name = $state(getInitialName());
-	let selectedEmployerId = $state(getInitialEmployerId());
+	// Computed values for mode handling
+	let isCreateMode = $derived(mode === 'create');
+	let isSystemCategory = $derived(!isCreateMode && category?.type === 'system');
+	let dialogTitle = $derived(isCreateMode ? 'Kategorie erstellen' : 'Kategorie bearbeiten');
+
+	// Form state - initialize based on mode
+	let name = $state(category?.name ?? '');
+	let selectedEmployerId = $state(category?.employerId ?? defaultEmployerId ?? '');
 	let error = $state('');
 	let saving = $state(false);
 	let employers = $state<Employer[]>([]);
-
-	// System categories cannot be edited
-	let isSystemCategory = $derived(category.type === 'system');
 
 	onMount(async () => {
 		employers = await getActiveEmployers();
@@ -56,9 +67,10 @@
 			return;
 		}
 
-		// Check for duplicates (excluding current category)
+		// Check for duplicates (excluding current category in edit mode)
+		const currentId = isCreateMode ? null : category?.id;
 		const existingNames = $categories
-			.filter((cat) => cat.id !== category.id)
+			.filter((cat) => cat.id !== currentId)
 			.map((cat) => cat.name.toLowerCase());
 		if (existingNames.includes(trimmedName.toLowerCase())) {
 			error = 'Eine Kategorie mit diesem Namen existiert bereits';
@@ -69,20 +81,34 @@
 		saving = true;
 
 		try {
-			const updatedCategory: Category = {
-				...category,
-				name: trimmedName,
-				employerId: selectedEmployerId === '' ? null : selectedEmployerId
-			};
+			let savedCategory: Category;
 
-			await put('categories', updatedCategory);
+			if (isCreateMode) {
+				// Create new category
+				savedCategory = {
+					id: crypto.randomUUID(),
+					name: trimmedName,
+					type: categoryType,
+					countsAsWorkTime: categoryType === 'user',
+					employerId: selectedEmployerId === '' ? null : selectedEmployerId,
+					createdAt: Date.now()
+				};
+				await put('categories', savedCategory);
+				categories.update((cats) => [...cats, savedCategory]);
+			} else {
+				// Update existing category
+				savedCategory = {
+					...category!,
+					name: trimmedName,
+					employerId: selectedEmployerId === '' ? null : selectedEmployerId
+				};
+				await put('categories', savedCategory);
+				categories.update((cats) =>
+					cats.map((cat) => (cat.id === category!.id ? savedCategory : cat))
+				);
+			}
 
-			// Update store
-			categories.update((cats) =>
-				cats.map((cat) => (cat.id === category.id ? updatedCategory : cat))
-			);
-
-			onsave?.(updatedCategory);
+			onsave?.(savedCategory);
 		} catch (err) {
 			error = 'Fehler beim Speichern';
 			console.error('[CategoryDialog] Save failed:', err);
@@ -96,7 +122,7 @@
 	}
 </script>
 
-<Modal title="Kategorie bearbeiten" onclose={handleClose}>
+<Modal title={dialogTitle} onclose={handleClose}>
 	<div class="category-form">
 		<div class="field">
 			<label for="category-name">Name:</label>

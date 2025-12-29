@@ -5,6 +5,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import PasswordInput from '$lib/components/PasswordInput.svelte';
 
 	let email = $state('');
 	let password = $state('');
@@ -73,12 +74,10 @@
 
 			<div class="field">
 				<label for="password">Passwort</label>
-				<input
-					type="password"
+				<PasswordInput
 					id="password"
-					name="password"
-					autocomplete="current-password"
 					bind:value={password}
+					autocomplete="current-password"
 					disabled={loading}
 				/>
 			</div>
