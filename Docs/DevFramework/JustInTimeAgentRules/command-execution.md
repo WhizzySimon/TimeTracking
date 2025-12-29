@@ -50,28 +50,8 @@ run_command with:
 
 ---
 
-## Fallback: Cascade Watcher (deprecated)
+## If Terminal Doesn't Work
 
-Use only if the integrated terminal doesn't work.
-
-**If watcher is needed:** See `Docs/DevFramework/ToolSetup/CASCADE_WATCHER.md` for setup.
-
-**Watcher uses cmd.exe:** Use `&&` not `;` to chain commands
-
----
-
-## If Terminal Doesn't Work → Try Watcher
-
-If `run_command` fails consistently:
-
-1. Ask user to start the watcher: `powershell -File scripts/watcher-main.ps1`
-2. Use watcher file-based command execution (see CASCADE_WATCHER.md)
-3. If watcher also fails, inform user and wait for fix
+If `run_command` fails consistently, inform user and wait for fix.
 
 **Rationale:** Proceeding without working commands leads to unverified work and silent failures.
-
----
-
-## Full Documentation
-
-See `Docs/DevFramework/ToolSetup/CASCADE_WATCHER.md` for watcher fallback setup.

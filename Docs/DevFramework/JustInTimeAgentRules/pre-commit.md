@@ -29,7 +29,10 @@
 
 ## STOP — Complete This Checklist First
 
+**If session had detours or you're unsure what was completed:** Read `sync-check.md` first.
+
 ```
+[ ] Sync check — If needed, run sync-check.md to verify what was done
 [ ] /audit PASS (see Audit Gate above)
 [ ] CHANGELOG.md — Added one-line entry for this work
 [ ] LEARNINGS-INBOX.md — Reviewed session for feedback (positive/corrective)
@@ -88,4 +91,4 @@ If either check fails, fix before ending the session.
 
 ---
 
-**Self-Learning System:** See `Docs/DevFramework/JustInTimeAgentRules/session-end.md` for learning promotion rules and the two-tier system (Inbox → Distillate).
+**Self-Learning System:** See `self-learning-system.md` for promotion rules and the two-tier system (Inbox → Distillate).

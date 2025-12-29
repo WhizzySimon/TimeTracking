@@ -6,9 +6,10 @@
 
 ## Workflow
 
-1. Run `/project-start` workflow
-2. Follow its instructions and paste the requested one-line outputs
-3. If anything is missing/fails, STOP and fix that first
+1. Check you're on `dev` branch: `git branch --show-current`
+2. If not on dev, switch: `git checkout dev && git pull origin dev`
+
+(Rules are loaded automatically via `.windsurf/rules/always-on.md` → JIT rule map)
 
 ## Mandatory Doc Loading
 

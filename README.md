@@ -47,12 +47,6 @@ Terminal 1 - Dev Server:
 npm run dev
 ```
 
-Terminal 2 - Cascade Watcher (optional fallback):
-
-The integrated PowerShell terminal works directly. The watcher is only needed as fallback if `run_command` fails.
-
-See `Docs/DevFramework/ToolSetup/BOOTSTRAP.md` for watcher setup if needed.
-
 **Step 2:** Start a new chat with:
 
 ```
@@ -81,8 +75,6 @@ No PRs, no branch protection, no CI blocking. Just commit and push.
 
 | Script                          | Purpose                                               |
 | ------------------------------- | ----------------------------------------------------- |
-| `scripts/watcher-main.ps1`      | Main watcher orchestrator (start once)                |
-| `scripts/watcher.ps1`           | Child watcher (spawned automatically by main)         |
 | `scripts/build/verify-code.ps1` | Runs format, check, lint (called by `npm run verify`) |
 
 ## Commands

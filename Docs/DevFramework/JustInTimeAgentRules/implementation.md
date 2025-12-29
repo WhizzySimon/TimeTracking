@@ -57,8 +57,7 @@ If any gate fails, update the spec/plan/tasks first.
 
 **Use the integrated PowerShell terminal** (`run_command` tool) for all commands.
 
-The Cascade Watcher is deprecated and only used as fallback if the integrated terminal doesn't work.
-See `Docs/DevFramework/ToolSetup/CASCADE_WATCHER.md` for fallback instructions.
+If `run_command` fails consistently, inform user and wait for fix.
 
 ## Verification
 

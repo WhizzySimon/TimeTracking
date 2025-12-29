@@ -17,58 +17,56 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 ### Phase 0: Setup
 
-1. /rules-read-all
-2. /read-governance
-3. Ensure on dev branch:
+1. Ensure on dev branch:
    ```
    git checkout dev
    git pull origin dev
    ```
-4. Read `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Workflow-Guide)
+2. Read `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md` (kompletter Workflow-Guide)
 
 ### Phase 1: SPEC erstellen
 
-4. Frage den User: "Beschreibe das Feature, das du implementieren willst."
+3. Frage den User: "Beschreibe das Feature, das du implementieren willst."
 
-5. Nach User-Input:
+4. Nach User-Input:
    - Erstelle `Docs/AppDocs/Features/Specs/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Specs/_template.md`
    - Fülle aus: Goal, Scope, FR, IG, DD, Edge cases, Data & privacy, Acceptance checks
    - Zeige dem User die Spec zur Bestätigung
 
-6. Checkpoint:
+5. Checkpoint:
    - [ ] Keine mehrdeutigen Begriffe
    - [ ] Alle FR/IG/DD nummeriert und testbar
    - [ ] User hat Spec bestätigt
 
 ### Phase 2: PLAN erstellen
 
-7. Erstelle `Docs/AppDocs/Features/Plans/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Plans/_template.md`
+6. Erstelle `Docs/AppDocs/Features/Plans/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Plans/_template.md`
    - Architecture/modules
    - Data model
    - UI state model
    - Error handling
    - Testing strategy
 
-8. Checkpoint:
+7. Checkpoint:
    - [ ] Plan kann als Tasks ausgeführt werden ohne neue Entscheidungen
    - [ ] User hat Plan bestätigt
 
 ### Phase 3: TASKS erstellen
 
-9. Erstelle `Docs/AppDocs/Features/Tasks/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Tasks/_template.md`
+8. Erstelle `Docs/Features/Tasks/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Tasks/_template.md`
    - Kleine Tasks (0.5-2h)
    - Jeder Task hat: Files, Done when, Verify, Guardrails
 
-10. Füge neue Phase in `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` hinzu - Phase-Header mit Status "Not started" - Alle Tasks als [ ] (unchecked)
+9. Füge neue Phase in `Docs/Features/IMPLEMENTATION_PROGRESS.md` hinzu - Phase-Header mit Status "Not started" - Alle Tasks als [ ] (unchecked)
 
-11. Checkpoint:
+10. Checkpoint:
     - [ ] Alle Tasks haben klare "Done when" Kriterien
     - [ ] Progress Tracker aktualisiert
     - [ ] User hat Tasks bestätigt
 
 ### Phase -1: Pre-Implementation Gates
 
-12. **Verify Phase -1 / Pre-Implementation Gates are checked PASS** in spec/plan/tasks before Task 1 implementation:
+11. **Verify Phase -1 / Pre-Implementation Gates are checked PASS** in spec/plan/tasks before Task 1 implementation:
     - [ ] Simplicity: ≤3 neue Dateien für initiale Implementierung?
     - [ ] Anti-Abstraction: Framework direkt nutzen, keine unnötigen Wrapper?
     - [ ] Integration-First: Contracts/Interfaces vor Implementierung definiert?
@@ -77,9 +75,9 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 ### Phase 4: IMPLEMENT
 
-13. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. Soll ich mit Task 1 beginnen?"
+12. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. Soll ich mit Task 1 beginnen?"
 
-14. Bei "Ja": Starte Implementation gemäß Task-Workflow (see `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md`): - Code implementieren - `npm run verify` - Unit Tests (wenn vorhanden) - MCP Playwright Browser Test - Progress Tracker updaten - Changelog updaten - Git Commit (follow `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`)
+13. Bei "Ja": Starte Implementation gemäß Task-Workflow (see `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md`): - Code implementieren - `npm run verify` - Unit Tests (wenn vorhanden) - MCP Playwright Browser Test - Progress Tracker updaten - Changelog updaten - Git Commit (follow `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`)
 
 ---
 

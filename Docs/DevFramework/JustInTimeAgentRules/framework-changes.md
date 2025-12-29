@@ -24,7 +24,7 @@
 | Framework/DeveloperGuidesAndStandards/` | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc. |
 | **Tooling docs**                        | `Docs/DevFramework/ToolSetup                     |
 
-Framework/ToolSetup/`                  | Watcher, git workflow, bootstrap                                  |
+Framework/ToolSetup/`                  | Git workflow, bootstrap                                           |
 | **App specs**        |`Docs/AppDocs/Features/Specs/`, `Plans/`, `Tasks/`     | Per-feature app documentation                                     |
 | **Framework specs**  |`Docs/DevFramework/FrameworkFeatureSpecs
 /`, `Plans/`, `Tasks/`| Per-feature framework documentation                               |
