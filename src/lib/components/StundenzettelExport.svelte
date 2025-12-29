@@ -20,6 +20,7 @@
 	import Modal from './Modal.svelte';
 	import {
 		exportStundenzettelExcel,
+		exportStundenzettelPdf,
 		type ExportData,
 		type ProcessedEntry
 	} from '$lib/export/stundenzettel-export';
@@ -198,6 +199,25 @@
 		}
 	}
 
+	async function handlePdfExport() {
+		if (!selectedEmployerId || processedEntries.length === 0) {
+			return;
+		}
+
+		isExporting = true;
+		try {
+			const exportData = buildExportData();
+			await exportStundenzettelPdf(exportData);
+			console.log('[StundenzettelExport] PDF export completed');
+			onexport?.(exportData);
+		} catch (err) {
+			console.error('[StundenzettelExport] PDF export failed:', err);
+			error = 'Export fehlgeschlagen. Bitte erneut versuchen.';
+		} finally {
+			isExporting = false;
+		}
+	}
+
 	// Load data on mount
 	onMount(() => {
 		loadEmployers();
@@ -341,6 +361,14 @@
 		<!-- Actions -->
 		<div class="actions">
 			<button type="button" class="btn-secondary" onclick={onclose}> Abbrechen </button>
+			<button
+				type="button"
+				class="btn-primary"
+				onclick={handlePdfExport}
+				disabled={employers.length === 0 || loading || isExporting || processedEntries.length === 0}
+			>
+				{isExporting ? 'Exportiere...' : 'PDF exportieren'}
+			</button>
 			<button
 				type="button"
 				class="btn-primary"
