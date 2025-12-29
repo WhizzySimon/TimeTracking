@@ -33,14 +33,13 @@ Each entry follows this format:
 
 ## 2025-12-29 10:20
 
-| Step | Result | Notes |
-|------|--------|-------|
-| A1: Capture feedback | none | No corrective feedback; praise was vague ("good", "impressed") |
-| B1: Repeated errors | none | No repeated errors in session |
-| B2: File churn | none | No file edited 5+ times |
-| B3: Scope drift | none | No plan — framework refactoring session |
-| B4: Session duration | ~1h | normal |
-| C1: Promotions | 1 promoted | Meta-insight → Hard Rule (understanding vs avoiding) |
-| C2: Read LEARNINGS | ✓ read | 5 items |
-| C3: Hard Rule → JIT | none | No new Hard Rules proposed for JIT |
-
+| Step                 | Result     | Notes                                                          |
+| -------------------- | ---------- | -------------------------------------------------------------- |
+| A1: Capture feedback | none       | No corrective feedback; praise was vague ("good", "impressed") |
+| B1: Repeated errors  | none       | No repeated errors in session                                  |
+| B2: File churn       | none       | No file edited 5+ times                                        |
+| B3: Scope drift      | none       | No plan — framework refactoring session                        |
+| B4: Session duration | ~1h        | normal                                                         |
+| C1: Promotions       | 1 promoted | Meta-insight → Hard Rule (understanding vs avoiding)           |
+| C2: Read LEARNINGS   | ✓ read     | 5 items                                                        |
+| C3: Hard Rule → JIT  | none       | No new Hard Rules proposed for JIT                             |

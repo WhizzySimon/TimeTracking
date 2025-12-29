@@ -88,8 +88,8 @@
 
 ### Tasks
 
-| #    | Task                                | Status | Notes |
-| ---- | ----------------------------------- | ------ | ----- |
+| #    | Task                           | Status | Notes |
+| ---- | ------------------------------ | ------ | ----- |
 | D4.1 | Create `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules/`folder        | DONE   | New folder for trigger-based rules |
@@ -100,7 +100,7 @@ Framework/JustInTimeAgentRules/`folder        | DONE   | New folder for trigger-
 | D4.6  | Create`pre-commit.md`            | DONE   | T5: Pre-commit checklist           |
 | D4.7  | Create`session-end.md`           | DONE   | T6: Session end rules              |
 | D4.8  | Create`framework-changes.md`     | DONE   | T7: Framework doc rules            |
-| D4.9  | Create`_entrypoint-jit-rule-map.md`dispatcher    | DONE   | Replaces AGENTS.md                 |
+| D4.9  | Create`\_entrypoint-jit-rule-map.md`dispatcher    | DONE   | Replaces AGENTS.md                 |
 | D4.11 | Update`.windsurf/rules/` pointers | DONE | User updated manually |
 | D4.12 | Keep AGENTS.md as backup | DONE | Can delete later |
 | D4.13 | Test with real session | DONE | PASS — all content covered |
@@ -346,7 +346,7 @@ Phase 4:
 ## Phase A2: Multi-Arbeitgeber
 
 **Target:** 18 tasks  
-**Status:** In progress (5/18 — 2 skipped)  
+**Status:** In progress (6/18 — 2 skipped)  
 **Spec:** `Docs/AppDocs/Features/Specs/multi-arbeitgeber.md`  
 **Plan:** `Docs/AppDocs/Features/Plans/multi-arbeitgeber.md`  
 **Tasks:** `Docs/AppDocs/Features/Tasks/multi-arbeitgeber.md`
@@ -357,7 +357,7 @@ Phase 4:
 - [x] **Task A2.2** — IndexedDB migration: add employerId to entries/categories/models
 - [x] **Task A2.3** — ~~Supabase migration~~ SKIPPED (snapshot-based sync)
 - [x] **Task A2.4** — Employer store + CRUD operations
-- [ ] **Task A2.5** — EmployerSelector component
+- [x] **Task A2.5** — EmployerSelector component
 - [ ] **Task A2.6** — Integrate selector into Header
 - [ ] **Task A2.7** — Filter logic for all stores
 - [ ] **Task A2.8** — Update Day/Week/Month tabs for AG filtering

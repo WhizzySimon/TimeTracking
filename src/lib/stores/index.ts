@@ -5,7 +5,14 @@
  */
 
 import { writable, derived } from 'svelte/store';
-import type { Category, TimeEntry, WorkTimeModel, SyncStatus, WeekBounds } from '$lib/types';
+import type {
+	Category,
+	TimeEntry,
+	WorkTimeModel,
+	SyncStatus,
+	WeekBounds,
+	Employer
+} from '$lib/types';
 
 /**
  * Get ISO week bounds (Monday to Sunday) for a given date.
@@ -38,6 +45,12 @@ export const timeEntries = writable<TimeEntry[]>([]);
 
 /** All work time models */
 export const workTimeModels = writable<WorkTimeModel[]>([]);
+
+/** All employers (Arbeitgeber) */
+export const employers = writable<Employer[]>([]);
+
+/** Currently selected employer ID (null = show all employers) */
+export const selectedEmployerId = writable<string | null>(null);
 
 /** Current sync status for outbox indicator */
 export const syncStatus = writable<SyncStatus>('synced');

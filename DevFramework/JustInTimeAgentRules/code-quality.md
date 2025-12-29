@@ -73,6 +73,7 @@ Names must be **self-explanatory** — no comment needed to understand purpose.
 4. **Max 4-5 words** — `getUserActiveTimeEntries` ✓, `getTheCurrentlyActiveUserTimeEntryRecords` ✗
 5. **No abbreviations** — `category` not `cat`, `configuration` not `cfg`
 6. **No single-letter names** — except `i`, `j`, `k` for loop indices
+   - **Includes arrow function parameters:** `.filter((e) => ...)` ✗ → `.filter((emp) => ...)` ✓
 
 ### Examples
 
