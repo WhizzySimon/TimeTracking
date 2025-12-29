@@ -46,7 +46,9 @@
 
 ### Repo-Verified Delta (optional, getrennt!)
 
-- `Docs/Devlog/INDEX.md` — Contains 15 existing devlog entries with proper table format (header + separator + entries) — Evidence: Read file shows table structure with Date/Time | Title | Path | Status | Tags columns
+- `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md` — Contains 15 existing devlog entries with proper table format (header + separator + entries) — Evidence: Read file shows table structure with Date/Time | Title | Path | Status | Tags columns
 
 - `src/lib/components/SyncIndicator.svelte` — File exists with data-testid attributes on lines 56-57 — Evidence: File read after edit shows `data-testid="sync-indicator"` and `data-sync-status={$syncStatus}`
 

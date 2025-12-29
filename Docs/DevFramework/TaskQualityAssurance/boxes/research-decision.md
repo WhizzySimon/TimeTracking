@@ -28,7 +28,9 @@ All acceptance criteria for research MUST:
 ```
 AC-001: Question: Which PDF library to use for export?
 AC-002: Options evaluated: jspdf, pdfmake, @react-pdf/renderer
-AC-003: Decision documented in Docs/Devlog/DECISIONS.md
+AC-003: Decision documented in Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/DECISIONS.md
 AC-004: Includes: pros/cons, bundle size, API complexity
 ```
 
@@ -55,7 +57,9 @@ AC-004: Includes: pros/cons, bundle size, API complexity
 - [ ] Rationale (why this option)
 - [ ] Rejected alternatives (why not)
 - [ ] Document location (DECISIONS.md or spec)
-- [ ] Decision logged in `Docs/Devlog/DECISIONS.md` with ADR format
+- [ ] Decision logged in `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/DECISIONS.md` with ADR format
 - [ ] Follow-up tasks identified (if any)
 
 ---

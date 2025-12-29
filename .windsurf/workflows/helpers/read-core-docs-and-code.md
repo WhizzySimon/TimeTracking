@@ -10,11 +10,19 @@ Read:
 
 - Docs/INDEX.md
 - RULE_MAP.md
-- Docs/AppDocs/Guidelines/UI_LOGIC_SPEC_V1.md
-- Docs/AppDocs/Guidelines/TECHNICAL_GUIDELINE_V1.md
-- Docs/AppDocs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md
-- Docs/DevFramework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md
-- Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/UI_LOGIC_SPEC_V1.md
+- Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/TECHNICAL_GUIDELINE_V1.md
+- Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SVELTEKIT_PWA_ADDENDUM.md
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
 
 Step B (code):
 Read all:

@@ -8,7 +8,8 @@
 
 ## JIT Rules (MANDATORY)
 
-**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 
 Key triggers during task execution: writing code, before commit, session end.
 
@@ -151,7 +152,9 @@ Key triggers during task execution: writing code, before commit, session end.
 
 **Files:**
 
-- `Docs/Tooling/BOOTSTRAP.md`
+- `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md`
 - Any other files referencing workflow paths
 
 **Done when:**

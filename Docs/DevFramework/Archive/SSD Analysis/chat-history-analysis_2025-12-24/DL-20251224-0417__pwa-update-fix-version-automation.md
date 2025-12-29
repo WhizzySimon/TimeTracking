@@ -11,7 +11,9 @@
 - Plan: NONE
 - Tasks: NONE
 - Progress: NONE
-- Other referenced docs: Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md, static/sw.js, scripts/update-version.js, netlify.toml
+- Other referenced docs: Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SVELTEKIT_PWA_ADDENDUM.md, static/sw.js, scripts/update-version.js, netlify.toml
 
 ## Decisions (aus Chat)
 

@@ -46,6 +46,8 @@
 
 ## Adoptable improvements for TimeTracker (max 10)
 
-1. Add a “Harness” concept to `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` (what artifacts must exist so future chats start fast).
+1. Add a “Harness” concept to `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md` (what artifacts must exist so future chats start fast).
 2. Add a standard “Rules conformance review” step (you already added gates; keep it explicit).
 3. Define tool contracts for your watcher/verify workflow (what’s allowed, what’s destructive, what must be confirmed).

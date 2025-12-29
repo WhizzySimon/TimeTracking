@@ -22,21 +22,27 @@ If required info is missing, STOP and propose an update to the relevant doc (spe
 
 ## Learnings Check
 
-Read `Docs/DevFramework/FrameworkSelfImprovementLogs
+Read `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` (max 30 bullets of proven preferences).
 
 ## Memory Policy
 
 - **Do NOT use `create_memory` tool** — this project uses file-based documentation
-- All learnings go to `Docs/DevFramework/FrameworkSelfImprovementLogs
+- All learnings go to `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md`
-- All rules go to `Docs/DevFramework/JustInTimeAgentRules/` or `.windsurf/rules/`
+- All rules go to `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/` or `.windsurf/rules/`
 - IDE-independent system — no reliance on Cascade memories
 
 ---
 
 **Next:** After session start, proceed to appropriate trigger:
 
-- Creating spec? → Read `Docs/DevFramework/JustInTimeAgentRules/spec-writing.md`
-- Creating plan? → Read `Docs/DevFramework/JustInTimeAgentRules/planning.md`
-- Implementing? → Read `Docs/DevFramework/JustInTimeAgentRules/implementation.md`
+- Creating spec? → Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/spec-writing.md`
+- Creating plan? → Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/planning.md`
+- Implementing? → Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/implementation.md`

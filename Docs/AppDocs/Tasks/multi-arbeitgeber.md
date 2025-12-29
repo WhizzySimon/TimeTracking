@@ -10,7 +10,8 @@
 
 ## JIT Rules
 
-**Read:** `Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
+**Read:** `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 
 ---
 

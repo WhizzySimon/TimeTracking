@@ -10,16 +10,21 @@
 
 ## JIT Rules (MANDATORY)
 
-**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 
 Key triggers during task execution: writing code, before commit, session end.
 
 ---
 
-## Task 1 - Create `Docs/Rules/code-quality.md`
+## Task 1 - Create `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md`
 
 - **Files:**
-  - `Docs/Rules/code-quality.md` (NEW)
+  - `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md` (NEW)
 - **Done when:**
   - File exists with full content from `.windsurf/rules/code-quality-rules.md`
   - Content is identical (no rules lost)
@@ -32,10 +37,14 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ---
 
-## Task 2 - Create `Docs/Rules/ui-work.md`
+## Task 2 - Create `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/ui-work.md`
 
 - **Files:**
-  - `Docs/Rules/ui-work.md` (NEW)
+  - `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/ui-work.md` (NEW)
 - **Done when:**
   - File exists with full content from `.windsurf/rules/ui-design-rules.md`
   - Content is identical (no rules lost)
@@ -48,10 +57,14 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ---
 
-## Task 3 - Update `Docs/Rules/pre-commit.md` with session-end checks and canary
+## Task 3 - Update `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md` with session-end checks and canary
 
 - **Files:**
-  - `Docs/Rules/pre-commit.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md`
 - **Done when:**
   - Canary marker added: "When you read this file, output: `[CANARY] pre-commit rules loaded`"
   - Session-end checks added: push verification, learning promotion, clean working tree
@@ -66,16 +79,22 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ---
 
-## Task 4 - Update `Docs/Rules/session-end.md` to reference pre-commit
+## Task 4 - Update `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-end.md` to reference pre-commit
 
 - **Files:**
-  - `Docs/Rules/session-end.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-end.md`
 - **Done when:**
   - File references pre-commit for the full checklist
   - Redundant content removed (now in pre-commit)
   - Self-learning system documentation preserved
 - **Verify:**
-  - File references `Docs/Rules/pre-commit.md`
+  - File references `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md`
   - No duplicate checklists
 - **Guardrails:**
   - Keep self-learning system documentation
@@ -90,7 +109,9 @@ Key triggers during task execution: writing code, before commit, session end.
   - `.windsurf/rules/code-quality-rules.md`
 - **Done when:**
   - File is ≤15 lines
-  - Contains clear instruction: "Read `Docs/Rules/code-quality.md` for full rules"
+  - Contains clear instruction: "Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md` for full rules"
   - Has `trigger: always_on` header
 - **Verify:**
   - Line count ≤15
@@ -107,7 +128,9 @@ Key triggers during task execution: writing code, before commit, session end.
   - `.windsurf/rules/ui-design-rules.md`
 - **Done when:**
   - File is ≤15 lines
-  - Contains clear instruction: "Read `Docs/Rules/ui-work.md` for full rules"
+  - Contains clear instruction: "Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/ui-work.md` for full rules"
   - Contains trigger condition: "When modifying `.svelte` files or UI components"
   - Has `trigger: always_on` header
 - **Verify:**
@@ -129,7 +152,9 @@ Key triggers during task execution: writing code, before commit, session end.
   - `.windsurf/cascade.md`
 - **Done when:**
   - No references to `AGENTS.md` remain
-  - References updated to `RULE_MAP.md` or `Docs/Rules/pre-commit.md`
+  - References updated to `RULE_MAP.md` or `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md`
 - **Verify:**
   - `grep -r "AGENTS.md" .windsurf/` returns no matches
 - **Guardrails:**
@@ -149,7 +174,9 @@ Key triggers during task execution: writing code, before commit, session end.
   - AC-003: Each `.windsurf/rules/` file ≤15 lines
   - AC-004: Total `.windsurf/rules/*.md` ≤60 lines
   - AC-005: No `AGENTS.md` references
-  - AC-006: All rules editable in `Docs/Rules/`
+  - AC-006: All rules editable in `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/`
   - AC-007: Full integration test passes
 - **Verify:**
   - All 7 acceptance checks pass
@@ -163,8 +190,12 @@ Key triggers during task execution: writing code, before commit, session end.
 
 | Task | Description                                    | Est. |
 | ---- | ---------------------------------------------- | ---- |
-| 1    | Create `Docs/Rules/code-quality.md`            | 0.5h |
-| 2    | Create `Docs/Rules/ui-work.md`                 | 0.5h |
+| 1    | Create `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md`            | 0.5h |
+| 2    | Create `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/ui-work.md`                 | 0.5h |
 | 3    | Update `pre-commit.md` (canary + session-end)  | 0.5h |
 | 4    | Update `session-end.md` (reference pre-commit) | 0.5h |
 | 5    | Replace `code-quality-rules.md` with pointer   | 0.5h |

@@ -7,7 +7,9 @@
 
 **Depends on:**
 
-- Existing devlog system (`Docs/Devlog/`)
+- Existing devlog system (`Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/`)
 - Existing watcher system (`scripts/watcher*.ps1`)
 - Existing verification commands (`npm run verify`)
 
@@ -53,7 +55,8 @@ Cascade-driven development currently lacks evidence-based completion verificatio
 
 - **TT-FR-001**: System provides 6 task boxes: Feature, Bugfix, Refactor, Infra/Build, Research/Decision, UI/UX
 - **TT-FR-002**: Each box has a checklist defining required acceptance criteria format, minimum verification commands, evidence requirements, and risk class
-- **TT-FR-003**: Cascade can read box definitions from `Docs/DevFramework/TaskQualityAssurance/boxes/` to determine which checks apply
+- **TT-FR-003**: Cascade can read box definitions from `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/` to determine which checks apply
 
 ### Telemetry
 
@@ -87,13 +90,17 @@ Cascade-driven development currently lacks evidence-based completion verificatio
   - What was not tested and why
   - Links to specs/docs used
   - Commit hash (after changes committed)
-- **TT-FR-014**: Evidence bundles are stored in `Docs/Devlog/Evidence/`
+- **TT-FR-014**: Evidence bundles are stored in `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/Evidence/`
 
 ### Learning Extraction
 
 - **TT-FR-015**: A pipeline command reads recent evidence bundles + anomalies
 - **TT-FR-016**: Pipeline proposes candidate principles with: evidence links, counter-pattern, generalization
-- **TT-FR-017**: Output appends to `Docs/Devlog/LEARNINGS-INBOX.md` (does not overwrite)
+- **TT-FR-017**: Output appends to `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/LEARNINGS-INBOX.md` (does not overwrite)
 - **TT-FR-028**: LEARNINGS-INBOX reviewed weekly; items older than 14 days archived or promoted
 
 ## 4) Implementation Guarantees (IG)
@@ -110,9 +117,12 @@ Cascade-driven development currently lacks evidence-based completion verificatio
 
 - **TT-DD-001**: Use JSONL over structured JSON files for append-friendly logging
 - **TT-DD-002**: Store AI tooling in `scripts/ai/` to parallel existing `scripts/build/`, `scripts/git/`
-- **TT-DD-003**: Store AI docs in `Docs/DevFramework/TaskQualityAssurance/` to keep separate from Guidelines
+- **TT-DD-003**: Store AI docs in `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/` to keep separate from Guidelines
 - **TT-DD-004**: Use SHA-256 truncated to 8 chars for error fingerprints (collision-resistant, readable)
-- **TT-DD-005**: Evidence bundles go in `Docs/Devlog/Evidence/` to integrate with existing devlog system
+- **TT-DD-005**: Evidence bundles go in `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/Evidence/` to integrate with existing devlog system
 - **TT-DD-006**: Anomaly thresholds are configurable via constants at top of detector script
 
 ## 6) Edge cases
@@ -128,7 +138,9 @@ Cascade-driven development currently lacks evidence-based completion verificatio
 ## 7) Data & privacy
 
 - **What is stored?** Command names, file paths, exit codes, error messages, durations, timestamps
-- **Where?** Local files in `scripts/ai/logs/` and `Docs/Devlog/Evidence/`
+- **Where?** Local files in `scripts/ai/logs/` and `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/Evidence/`
 - **Retention?** Manual cleanup; old logs can be deleted or archived
 - **Export/delete?** Plain text files, easy to delete or exclude from version control
 - **Sensitive data?** No API keys or user data in telemetry; only dev process metadata
@@ -139,7 +151,8 @@ This section defines mechanisms to ensure the Autonomy Stack framework can evolv
 
 ### 8.1) Framework Versioning (Task A)
 
-**Canonical Location:** `Docs/DevFramework/TaskQualityAssurance/VERSION.md`
+**Canonical Location:** `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/VERSION.md`
 
 **Version Format:** `FRAMEWORK_VERSION: 0.x.y`
 
@@ -168,7 +181,8 @@ This section defines mechanisms to ensure the Autonomy Stack framework can evolv
 
 ### 8.2) Framework-only CHANGELOG (Task B)
 
-**Canonical Location:** `Docs/DevFramework/TaskQualityAssurance/CHANGELOG.md`
+**Canonical Location:** `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/CHANGELOG.md`
 
 **Purpose:** Track all changes to the development framework (not app features).
 
@@ -209,7 +223,9 @@ This section defines mechanisms to ensure the Autonomy Stack framework can evolv
 
 **Purpose:** Define reference tasks to measure framework effectiveness over time.
 
-**Canonical Location:** `Docs/DevFramework/TaskQualityAssurance/GTRS.md` (definition) + `Docs/DevFramework/TaskQualityAssurance/GTRS-runs/` (results)
+**Canonical Location:** `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/GTRS.md` (definition) + `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/GTRS-runs/` (results)
 
 #### Golden Tasks (10 defined)
 
@@ -272,7 +288,8 @@ Each golden task specifies:
 
 #### Results Recording
 
-**Location:** `Docs/DevFramework/TaskQualityAssurance/GTRS-runs/YYYY-MM-DD.md`
+**Location:** `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/GTRS-runs/YYYY-MM-DD.md`
 
 **Format:**
 
@@ -312,7 +329,8 @@ Each golden task specifies:
 
 ### Box Router
 
-- [ ] AC-001: `Docs/DevFramework/TaskQualityAssurance/boxes/` contains 6 box definition files
+- [ ] AC-001: `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/` contains 6 box definition files
 - [ ] AC-002: Each box file has: acceptance criteria format, verification commands, evidence requirements, risk class
 
 ### Telemetry
@@ -329,7 +347,9 @@ Each golden task specifies:
 
 ### Evidence Bundle
 
-- [ ] AC-009: Running `npm run ai:evidence` generates Markdown file in `Docs/Devlog/Evidence/`
+- [ ] AC-009: Running `npm run ai:evidence` generates Markdown file in `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/Evidence/`
 - [ ] AC-010: Generated file contains all required sections (box, criteria, files, commands, gaps, links)
 
 ### Learning Extraction
@@ -344,10 +364,14 @@ Each golden task specifies:
 
 ### Framework Evolution Guardrails
 
-- [ ] AC-015: `Docs/DevFramework/TaskQualityAssurance/VERSION.md` exists with FRAMEWORK_VERSION in format `0.x.y`
-- [ ] AC-016: `Docs/DevFramework/TaskQualityAssurance/CHANGELOG.md` exists with required entry format documented
-- [ ] AC-017: `Docs/DevFramework/TaskQualityAssurance/GTRS.md` exists with all 10 golden tasks defined
-- [ ] AC-018: `Docs/DevFramework/TaskQualityAssurance/GTRS-runs/` directory exists for storing run results
+- [ ] AC-015: `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/VERSION.md` exists with FRAMEWORK_VERSION in format `0.x.y`
+- [ ] AC-016: `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/CHANGELOG.md` exists with required entry format documented
+- [ ] AC-017: `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/GTRS.md` exists with all 10 golden tasks defined
+- [ ] AC-018: `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/GTRS-runs/` directory exists for storing run results
 - [ ] AC-019: Each golden task in GTRS.md has: box, difficulty, duration, AC template, verification commands, evidence requirements, success metrics
 
 ## 10) Change log

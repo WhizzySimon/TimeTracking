@@ -82,7 +82,9 @@ Files that reference workflow paths:
 
 1. **AGENTS.md** — mentions workflows folder
 2. **Docs/INDEX.md** — may list workflow paths
-3. **Docs/Tooling/BOOTSTRAP.md** — may reference workflows
+3. **Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md** — may reference workflows
 4. **Workflow files themselves** — call each other (e.g., `/rules-read-all`)
 
 ## System Naming

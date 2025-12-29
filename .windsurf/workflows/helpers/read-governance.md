@@ -7,14 +7,20 @@ Read:
 
 - Docs/INDEX.md
 - .windsurf/cascade.md
-- Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
-- Docs/DevFramework/Tooling/BOOTSTRAP.md (tooling entry point — includes watcher + git workflow)
-- Docs/DevFramework/FrameworkSelfImprovementLogs
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md (tooling entry point — includes watcher + git workflow)
+- Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
 /LEARNINGS.md (proven preferences — read at session start)
 
 ## Health Checks (run after reading docs)
 
-1. **Check current branch:** Ensure on `dev` branch (see `Docs/DevFramework/Tooling/GIT_WORKFLOW.md`)
+1. **Check current branch:** Ensure on `dev` branch (see `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/GIT_WORKFLOW.md`)
 
 If not on dev, switch to dev before starting new work.
 

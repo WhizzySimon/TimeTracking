@@ -15,7 +15,9 @@ npm run dev
 **Terminal 2 - Cascade Watcher (optional):**
 
 The watcher is only needed as fallback if the integrated terminal doesn't work.
-See `Docs/DevFramework/Tooling/BOOTSTRAP.md` for watcher setup if needed.
+See `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md` for watcher setup if needed.
 
 Then tell Cascade "done" to begin.
 
@@ -41,11 +43,15 @@ git checkout dev && git pull origin dev
 
 Then:
 
-5. Read `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
+5. Read `Docs/DevFramework/ToolSetup
+Framework/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
 6. Find the relevant Tasks file:
    - Check "Current Phase" in IMPLEMENTATION_PROGRESS.md
-   - Read the corresponding `Docs/AppDocs/Tasks/<feature>.md` or `Docs/DevFramework/Tasks/<feature>.md` file
-7. Start implementing the next incomplete task following the Task-Workflow from `Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md`
+   - Read the corresponding `Docs/AppDocs/Tasks/<feature>.md` or `Docs/DevFramework/ToolSetup
+Framework/FrameworkFeatureTasks
+/<feature>.md` file
+7. Start implementing the next incomplete task following the Task-Workflow from `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md`
 
 Report:
 
@@ -67,4 +73,5 @@ Use MCP Playwright browser to test the implemented functionality.
 
 ### 3. Git Commit & Push (REQUIRED)
 
-**Follow `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`** — includes changelog update, commit, and push.
+**Follow `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/pre-commit.md`** — includes changelog update, commit, and push.

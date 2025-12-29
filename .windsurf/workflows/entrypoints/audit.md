@@ -8,7 +8,8 @@ description: Deterministic audit on a frozen staged snapshot (git diff --staged 
 
 ## Config
 
-- **Flag location:** `Docs/DevFramework/JustInTimeAgentRules/ai-config.json`
+- **Flag location:** `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/ai-config.json`
 - **Key:** `switch_model_before_audit` (boolean)
   - `true`: Builder stages changes and STOPs; user switches to GPT-5.2 Medium Reasoning and runs `/audit`
   - `false`: Builder stages changes and runs `/audit` itself (same chat, same model)
@@ -24,7 +25,8 @@ description: Deterministic audit on a frozen staged snapshot (git diff --staged 
 If not specified by user, use today's date:
 
 ```
-Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/AUD-YYYY-MM-DD-01.md
+Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs/Evidence/AUD-YYYY-MM-DD-01.md
 ```
 
 (Replace YYYY-MM-DD with current date. Increment -01 if file exists.)
@@ -66,7 +68,8 @@ git diff --staged --name-only
 
 - Check if Evidence Bundle path appears in `git diff --staged --name-only`
 - PASS if present
-- FAIL if missing → Remediation: Create from `Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/_template.md` and stage it
+- FAIL if missing → Remediation: Create from `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs/Evidence/_template.md` and stage it
 
 ---
 

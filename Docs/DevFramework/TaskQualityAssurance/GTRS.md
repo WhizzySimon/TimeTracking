@@ -19,7 +19,8 @@ The GTRS is a fixed set of 10 representative tasks used to measure framework eff
 
 ## Results Format
 
-Store results in `Docs/DevFramework/TaskQualityAssurance/GTRS-runs/<YYYY-MM-DD>-<version>.md`
+Store results in `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/GTRS-runs/<YYYY-MM-DD>-<version>.md`
 
 Each run file includes:
 
@@ -314,7 +315,9 @@ npm run verify
 
 ```bash
 # Check DECISIONS.md updated
-git diff Docs/Devlog/DECISIONS.md
+git diff Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/DECISIONS.md
 ```
 
 **Evidence Requirements:**

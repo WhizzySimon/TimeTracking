@@ -35,13 +35,17 @@ STATE_FILE = LOG_DIR / "rule_reads_state.json"
 
 # Rule file path prefixes (normalized with forward slashes)
 RULE_PATH_PREFIXES = (
-    "Docs/Rules/",
+    "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/",
     ".windsurf/rules/",
 )
 
 # Known rule file patterns for heuristic extraction from text
 RULE_PATTERNS = [
-    r"Docs/Rules/[\w\-_]+\.md",
+    r"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/[\w\-_]+\.md",
     r"\.windsurf/rules/[\w\-_]+\.md",
 ]
 

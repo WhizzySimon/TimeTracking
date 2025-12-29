@@ -11,7 +11,9 @@
 - Plan: Docs/Plans/P07-20251223-quick-start-ux.md (Phase 8 section)
 - Tasks: Docs/Tasks/P07-20251223-quick-start-ux.md (Phase 8 tasks 8.1-8.8)
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 8 section added, 86/94 tasks, 91%)
-- Other referenced docs: Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md (naming convention added)
+- Other referenced docs: Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md (naming convention added)
 
 ## Decisions (aus Chat)
 
@@ -37,7 +39,9 @@
 
 - Docs/Tasks/P07-20251223-quick-start-ux.md — Added Phase 8 tasks 8.1-8.8 (Plus-Tab route, CategoryList, Ein-Klick-Start, Navigation, Default-Tab logic, Cleanup Tag-Tab, Cleanup Settings, E2E tests) — Evidence: Chat shows task breakdown
 
-- Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md — Added "Namenskonvention für Dokumente" section with P<phase>-<YYYYMMDD>-<slug>.md format — Evidence: Chat shows guideline update
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md — Added "Namenskonvention für Dokumente" section with P<phase>-<YYYYMMDD>-<slug>.md format — Evidence: Chat shows guideline update
 
 - Docs/IMPLEMENTATION_PROGRESS.md — Added Phase 8 section with 8 tasks, updated header to 86/94 tasks (91%) — Evidence: Chat shows progress tracker update
 
@@ -55,7 +59,9 @@
 
 - Docs/IMPLEMENTATION_PROGRESS.md — File exists, Phase 8 section exists at line 959, header shows 86/94 tasks — Evidence: File read shows Phase 8 tracker
 
-- Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md — File exists, naming convention section exists at line 273 — Evidence: File read shows "Namenskonvention für Dokumente"
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md — File exists, naming convention section exists at line 273 — Evidence: File read shows "Namenskonvention für Dokumente"
 
 - All P07 files renamed from original names (quick-start-ux.md → P07-20251223-quick-start-ux.md) — Evidence: find_by_name results show P07-20251223-quick-start-ux.md in Specs, Plans, Tasks
 

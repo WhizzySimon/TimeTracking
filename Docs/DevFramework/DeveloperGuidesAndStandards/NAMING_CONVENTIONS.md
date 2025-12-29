@@ -30,7 +30,8 @@ Names must be **self-documenting** — no README needed to understand purpose.
 
 | ❌ Generic | ✓ Self-Explanatory                  |
 | ---------- | ----------------------------------- |
-| `docs/`    | `Docs/DevFramework/`                |
+| `docs/`    | `Docs/DevFramework/ToolSetup
+Framework/`                |
 | `rules/`   | `JustInTimeAgentRules/`             |
 | `logs/`    | `FrameworkSelfImprovementLogs/`     |
 | `utils/`   | `scripts/ai/` (purpose-specific)    |
@@ -40,7 +41,9 @@ Names must be **self-documenting** — no README needed to understand purpose.
 
 ## Folder-Specific Conventions
 
-### Docs/Guidelines/
+### Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/
 
 **Convention:** `SCREAMING_SNAKE_CASE.md`
 
@@ -72,7 +75,9 @@ Names must be **self-documenting** — no README needed to understand purpose.
 
 ---
 
-### Docs/Devlog/
+### Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/
 
 **Convention:** `PREFIX-YYYYMMDD-HHMM__description.md`
 

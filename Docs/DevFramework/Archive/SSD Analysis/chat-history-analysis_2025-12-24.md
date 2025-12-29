@@ -18,7 +18,9 @@ Lies diese Dateien:
 
 - `Docs/INDEX.md`
 - `AGENTS.md`
-- `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md`
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md`
 
 Gib am Anfang deiner Antwort eine Sektion **Doc Inventory** aus (nur Pfade, je Zeile).
 
@@ -28,10 +30,16 @@ Gib am Anfang deiner Antwort eine Sektion **Doc Inventory** aus (nur Pfade, je Z
 
 Stelle sicher, dass existiert:
 
-- `Docs/Devlog/`
-- `Docs/Devlog/INDEX.md`
+- `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/`
+- `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md`
 
-Wenn `Docs/Devlog/INDEX.md` nur die Header-Zeile hat:
+Wenn `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md` nur die Header-Zeile hat:
 `Date/Time | Title | Path | Status | Tags`
 dann füge direkt darunter die Markdown-Separator-Zeile hinzu:
 `--- | --- | --- | --- | ---`
@@ -53,7 +61,9 @@ Wenn im Chat konkrete Doc-Dateien erwähnt werden (z.B. `SVELTEKIT_PWA_ADDENDUM.
 
 Erzeuge eine neue Datei in:
 
-- `Docs/Devlog/`
+- `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/`
 
 **Dateiname (immer):**
 `DL-<YYYYMMDD>-<HHMM>__<slug>.md`
@@ -130,7 +140,9 @@ Rule: Alles, was aus Terminal-/Script-Output stammt, zählt als "Claimed in chat
 Regeln:
 
 - **3–7 Tags pro Eintrag** — nicht weniger, nicht mehr
-- **Tags MÜSSEN aus `Docs/Devlog/TAGS.md` stammen** — wenn keiner passt, verwende `misc`
+- **Tags MÜSSEN aus `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/TAGS.md` stammen** — wenn keiner passt, verwende `misc`
 - **Format:** Komma-getrennt, KEINE Klammern (z.B. `ui, ux, bugfix`)
 - **Schreibweise:** immer lowercase
 
@@ -148,11 +160,17 @@ tags: ui, ux, bugfix, settings, playwright
 
 ## STEP 5 — INDEX aktualisieren
 
-Füge in `Docs/Devlog/INDEX.md` eine neue Zeile hinzu:
+Füge in `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md` eine neue Zeile hinzu:
 
-`<Chat Date/Time oder UNKNOWN> | <Title> | Docs/Devlog/<filename> | <DONE/OPEN/PARTIAL> | <tag1>, <tag2>, <tag3>`
+`<Chat Date/Time oder UNKNOWN> | <Title> | Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/<filename> | <DONE/OPEN/PARTIAL> | <tag1>, <tag2>, <tag3>`
 
-**WICHTIG:** Tags OHNE Klammern, komma-getrennt. Siehe `Docs/Devlog/TAGS.md` für erlaubte Tags.
+**WICHTIG:** Tags OHNE Klammern, komma-getrennt. Siehe `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/TAGS.md` für erlaubte Tags.
 
 Status-Regel:
 
@@ -165,6 +183,8 @@ Status-Regel:
 ## STEP 6 — Antworte am Ende NUR mit
 
 - Created: <Devlog path>
-- Updated: Docs/Devlog/INDEX.md
+- Updated: Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md
 - Top Decisions: D1–D3
 - Top Follow-ups: F1–F3

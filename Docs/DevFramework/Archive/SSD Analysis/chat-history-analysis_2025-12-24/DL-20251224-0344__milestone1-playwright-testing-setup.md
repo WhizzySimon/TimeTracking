@@ -11,7 +11,11 @@
 - Plan: Docs/Plans/P01-20251220-timetracker-v1.md
 - Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
 - Progress: NONE
-- Other referenced docs: Docs/Testing/MODERN_BROWSER_TESTING.md, Docs/Testing/PLAYWRIGHT_CONSOLE_SETUP.md, COMMAND_EXECUTION_RULES.md, devBrowser.ts, package.json
+- Other referenced docs: Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/MODERN_BROWSER_TESTING.md, Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/PLAYWRIGHT_CONSOLE_SETUP.md, COMMAND_EXECUTION_RULES.md, devBrowser.ts, package.json
 
 ## Decisions (aus Chat)
 
@@ -33,15 +37,21 @@
 - package.json — Added playwright, @playwright/test, tsx dependencies + wb script — Evidence: "Added 'tsx' and 'playwright' to devDependencies and added 'wb' script"
 - src/app.html — Added <link rel="icon" type="image/png" href="/favicon.png" /> — Evidence: "Add favicon link to prevent 404 error"
 - .gitignore — Added /.pw-chrome-profile — Evidence: User action log shows modification
-- Docs/Testing/MODERN_BROWSER_TESTING.md — Adapted from SharePoint to TimeTracker, added Windsurf restart requirement, added dependency installation steps — Evidence: Multiple edits documented
-- Docs/Testing/PLAYWRIGHT_CONSOLE_SETUP.md — Adapted from SharePoint to TimeTracker, added prerequisites section — Evidence: Edit documented
+- Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/MODERN_BROWSER_TESTING.md — Adapted from SharePoint to TimeTracker, added Windsurf restart requirement, added dependency installation steps — Evidence: Multiple edits documented
+- Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/PLAYWRIGHT_CONSOLE_SETUP.md — Adapted from SharePoint to TimeTracker, added prerequisites section — Evidence: Edit documented
 - .windsurf/workflows/rules-read-all.md — Removed project-specific COMMAND_EXECUTION_RULES reference (now auto-loaded from .windsurf/rules) — Evidence: "Remove project-specific COMMAND_EXECUTION_RULES reference"
 - Docs/INDEX.md — Removed "Cascade operational rules" section (moved to general .windsurf/rules) — Evidence: "Remove project-specific reference to COMMAND_EXECUTION_RULES"
 
 ### Repo-Verified Delta (optional, getrennt!)
 
 - COMMAND_EXECUTION_RULES.md — File exists in .windsurf/rules/ directory — Evidence: User action log shows file at e:\Private\Dev\Timekeeping\TimeTracker\.windsurf\rules\COMMAND_EXECUTION_RULES.md
-- Docs/Devlog/INDEX.md — Contains separator line "--- | --- | --- | --- | ---" — Evidence: read_file output shows line 2
+- Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md — Contains separator line "--- | --- | --- | --- | ---" — Evidence: read_file output shows line 2
 - e2e/milestone1.test.ts — File exists (5 E2E tests for Milestone 1) — Evidence: Referenced in chat as verification method
 - static/favicon.png — File exists (70 bytes) — Evidence: list_dir output shows file
 

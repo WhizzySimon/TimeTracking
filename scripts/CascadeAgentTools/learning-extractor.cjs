@@ -3,7 +3,9 @@
  * Learning Extractor for Autonomy Stack v2
  *
  * Analyzes evidence bundles and anomaly history to propose candidate principles.
- * Appends proposals to Docs/Devlog/LEARNINGS-INBOX.md
+ * Appends proposals to Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/LEARNINGS-INBOX.md
  *
  * Usage:
  *   node learning-extractor.js [--dry-run]

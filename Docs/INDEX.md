@@ -8,7 +8,8 @@ This is the **authoritative index for the Docs/ folder**. It lists all documenta
 
 Documentation is organized into two main buckets:
 
-- **`Docs/DevFramework/`** — Development framework (process, rules, QA system, devlog, tooling)
+- **`Docs/DevFramework/ToolSetup
+Framework/`** — Development framework (process, rules, QA system, devlog, tooling)
 - **`Docs/AppDocs/`** — Application documentation (features, UI, product specs)
 
 ## Rule
@@ -18,53 +19,78 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 ## Priority order (when conflicts exist)
 
 0. Docs/INDEX.md (this file)
-1. Docs/AppDocs/Guidelines/UI_LOGIC_SPEC_V1.md (product truth)
-2. Docs/AppDocs/Guidelines/TECHNICAL_GUIDELINE_V1.md (architecture truth)
-3. Docs/AppDocs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md (platform constraints)
-4. Docs/DevFramework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md (coding/repo rules)
-5. Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md (how to write specs)
-6. Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md (JIT rule dispatcher)
+1. Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/UI_LOGIC_SPEC_V1.md (product truth)
+2. Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/TECHNICAL_GUIDELINE_V1.md (architecture truth)
+3. Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SVELTEKIT_PWA_ADDENDUM.md (platform constraints)
+4. Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md (coding/repo rules)
+5. Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md (how to write specs)
+6. Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md (JIT rule dispatcher)
 
 ---
 
 ## DevFramework — Development Process Documentation
 
-**Entry point:** `Docs/DevFramework/INDEX.md`
+**Entry point:** `Docs/DevFramework/ToolSetup
+Framework/INDEX.md`
 
 ### JIT Rules System
 
-- Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md  
+- Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md  
   Purpose: **JIT Rule dispatcher** — trigger points for just-in-time rule loading.
-- Docs/DevFramework/JustInTimeAgentRules/*.md  
+- Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/*.md  
   Purpose: **Trigger-based rules** — read at specific points (session-start, pre-commit, etc.)
 
 ### Development Guidelines
 
-- Docs/DevFramework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md  
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md  
   Purpose: **Complete workflow guide** — 4 Phasen, Task-Workflow, Progress Tracking, Commit-Regeln.
-- Docs/DevFramework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md  
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/DEVELOPMENT_GUIDELINES.md  
   Purpose: coding standards, practices, guardrails.
-- Docs/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md  
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md  
   Purpose: spec writing rules (FR/IG/DD), verification loop, self-documenting requirement.
-- Docs/DevFramework/DeveloperGuidesAndStandards/PROJECT_SCAFFOLD_CHECKLIST.md  
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/PROJECT_SCAFFOLD_CHECKLIST.md  
   Purpose: ensure project skeleton and tooling are complete.
 
 ### Cascade Tooling
 
-- Docs/DevFramework/Tooling/BOOTSTRAP.md  
+- Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md  
   Purpose: **Single entry point** for all tooling docs. Quick start commands and links.
-- Docs/DevFramework/Tooling/CASCADE_WATCHER.md  
+- Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/CASCADE_WATCHER.md  
   Purpose: Multi-instance watcher system for command execution.
-- Docs/DevFramework/Tooling/GIT_WORKFLOW.md  
+- Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/GIT_WORKFLOW.md  
   Purpose: Git workflow, simple dev/main model, no PRs.
 
 ### TaskQualityAssurance (formerly "Autonomy Stack")
 
-- Docs/DevFramework/TaskQualityAssurance/INDEX.md  
+- Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/INDEX.md  
   Purpose: **Entry point for TaskQualityAssurance** — task boxes, telemetry, anomaly detection, evidence bundles.
-- Docs/DevFramework/TaskQualityAssurance/ZOOM_OUT.md  
+- Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/ZOOM_OUT.md  
   Purpose: **Anomaly recovery protocol** — 5-step procedure when stuck.
-- Docs/DevFramework/TaskQualityAssurance/boxes/\*.md  
+- Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/\*.md  
   Purpose: **Task box checklists** — per-type verification requirements (feature, bugfix, refactor, etc.)
 - scripts/ai/telemetry.cjs  
   Purpose: **Telemetry CLI** — log events, commands, errors (JSONL format).
@@ -77,29 +103,40 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 
 ### Development History
 
-- Docs/DevFramework/FrameworkSelfImprovementLogs
+- Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
 /CHANGELOG.md  
   Purpose: **Everything log** — one line per commit/session, quick scan of all changes.
-- Docs/DevFramework/FrameworkSelfImprovementLogs
+- Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
 /DECISIONS.md  
   Purpose: **Decision log** — significant design/architecture/policy decisions (ADR-light).
-- Docs/DevFramework/FrameworkSelfImprovementLogs
+- Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
 /LEARNINGS.md  
   Purpose: **Learnings (Distillate)** — proven preferences, max 30 bullets, read at session start.
-- Docs/DevFramework/FrameworkSelfImprovementLogs
+- Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md  
   Purpose: **Learnings Inbox** — raw feedback capture, unbounded, not read at session start.
 
 ### Code Quality
 
-- Docs/DevFramework/Standards/code-quality-standard.md  
+- Docs/DevFramework/ToolSetup
+Framework/Standards/code-quality-standard.md  
   Purpose: Code quality rules (formatting, linting, complexity, test stability).
 
 ### Framework Specs/Plans/Tasks
 
-- Docs/DevFramework/Specs/task-quality-assurance.md — TaskQualityAssurance system spec
-- Docs/DevFramework/Plans/task-quality-assurance.md — TaskQualityAssurance implementation plan
-- Docs/DevFramework/Tasks/task-quality-assurance.md — TaskQualityAssurance task breakdown
+- Docs/DevFramework/ToolSetup
+Framework/FrameworkFeatureSpecs
+/task-quality-assurance.md — TaskQualityAssurance system spec
+- Docs/DevFramework/ToolSetup
+Framework/FrameworkFeaturePlans
+/task-quality-assurance.md — TaskQualityAssurance implementation plan
+- Docs/DevFramework/ToolSetup
+Framework/FrameworkFeatureTasks
+/task-quality-assurance.md — TaskQualityAssurance task breakdown
 
 ---
 
@@ -109,16 +146,24 @@ Cascade reads this via `/read-governance` helper. Only docs listed here are auth
 
 ### Product Spec (what we build)
 
-- Docs/AppDocs/Guidelines/UI_LOGIC_SPEC_V1.md  
+- Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/UI_LOGIC_SPEC_V1.md  
   Purpose: screens, flows, rules, acceptance criteria for the app.
 
 ### Architecture
 
-- Docs/AppDocs/Guidelines/TECHNICAL_GUIDELINE_V1.md  
+- Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/TECHNICAL_GUIDELINE_V1.md  
   Purpose: project structure, module boundaries, data model, decisions.
-- Docs/AppDocs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md  
+- Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SVELTEKIT_PWA_ADDENDUM.md  
   Purpose: SvelteKit + PWA constraints (offline-first, Safari behavior, etc.)
-- Docs/AppDocs/Guidelines/THEMING.md  
+- Docs/AppDocs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/THEMING.md  
   Purpose: App theming and styling guidelines.
 
 ### Feature Specs (A1 — Subscription Plans)

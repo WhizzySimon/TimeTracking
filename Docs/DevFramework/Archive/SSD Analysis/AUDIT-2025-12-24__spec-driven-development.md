@@ -10,7 +10,9 @@
 
 ```
 Docs/INDEX.md (Priority 0 — single source of truth)
-├── Docs/Guidelines/
+├── Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/
 │   ├── ui-logic-spec-v1.md (Priority 1 — product truth)
 │   ├── technical-guideline-v1.md (Priority 2 — architecture)
 │   ├── SVELTEKIT_PWA_ADDENDUM.md (Priority 3 — platform)
@@ -22,7 +24,9 @@ Docs/INDEX.md (Priority 0 — single source of truth)
 ├── Docs/Plans/ (Phase plans: P01, P06, P07)
 ├── Docs/Tasks/ (Phase tasks: P01, P06, P07)
 ├── Docs/IMPLEMENTATION_PROGRESS.md (progress tracker)
-└── Docs/Devlog/ (28 devlog entries + INDEX + TAGS)
+└── Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/ (28 devlog entries + INDEX + TAGS)
 
 AGENTS.md (Priority 6 — Cascade process rules)
 ├── 4-phase process: SPEC → PLAN → TASKS → IMPLEMENT
@@ -124,7 +128,9 @@ AGENTS.md (Priority 6 — Cascade process rules)
 
 9. **Testing coverage not tracked** — No metric for unit/e2e test coverage per phase. Evidence: Devlogs mention tests but no coverage numbers.
 
-10. **Duplicate doc references** — Some guidelines duplicated between .windsurf/rules/ and Docs/Guidelines/. Evidence: implementation-specification-rules.md exists in both locations.
+10. **Duplicate doc references** — Some guidelines duplicated between .windsurf/rules/ and Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/. Evidence: implementation-specification-rules.md exists in both locations.
 
 ---
 
@@ -157,8 +163,12 @@ AGENTS.md (Priority 6 — Cascade process rules)
 ### 1. Centralize Follow-up Tracking
 
 - **Problem:** 84 follow-ups scattered across 28 devlogs, no visibility into open items
-- **Smallest change:** Add `Docs/Devlog/FOLLOW-UPS.md` with table: ID | Source DL | Description | Owner | Priority | Status
-- **Where:** `Docs/Devlog/FOLLOW-UPS.md` (new file)
+- **Smallest change:** Add `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/FOLLOW-UPS.md` with table: ID | Source DL | Description | Owner | Priority | Status
+- **Where:** `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/FOLLOW-UPS.md` (new file)
 - **Expected benefit:** Single view of all open work, prevents lost follow-ups
 - **Tradeoff:** Manual maintenance overhead
 
@@ -174,7 +184,9 @@ AGENTS.md (Priority 6 — Cascade process rules)
 
 - **Problem:** Inconsistent timestamp formats (ISO, UNKNOWN, ranges)
 - **Smallest change:** Update chat-history-analysis.md to require ISO 8601 format or explicit "UNKNOWN"
-- **Where:** `Docs/Devlog/chat-history-analysis.md` line 72
+- **Where:** `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/chat-history-analysis.md` line 72
 - **Expected benefit:** Consistent, sortable timestamps
 - **Tradeoff:** None
 
@@ -189,8 +201,12 @@ AGENTS.md (Priority 6 — Cascade process rules)
 ### 5. Fill Phase Numbering Gaps
 
 - **Problem:** P02-P05 missing, unclear what they covered
-- **Smallest change:** Add `Docs/Devlog/PHASE-HISTORY.md` documenting what each phase covered (even if no spec existed)
-- **Where:** `Docs/Devlog/PHASE-HISTORY.md` (new file)
+- **Smallest change:** Add `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/PHASE-HISTORY.md` documenting what each phase covered (even if no spec existed)
+- **Where:** `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/PHASE-HISTORY.md` (new file)
 - **Expected benefit:** Historical clarity
 - **Tradeoff:** Retroactive documentation effort
 
@@ -198,7 +214,9 @@ AGENTS.md (Priority 6 — Cascade process rules)
 
 - **Problem:** 10/28 devlogs have "Workflow used: UNKNOWN"
 - **Smallest change:** Update chat-history-analysis.md to require workflow field from {/project-start, /continue-work, /new-feature, /new-task, NONE}
-- **Where:** `Docs/Devlog/chat-history-analysis.md` line 75
+- **Where:** `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/chat-history-analysis.md` line 75
 - **Expected benefit:** Better workflow usage tracking
 - **Tradeoff:** Requires chat context awareness
 
@@ -212,11 +230,17 @@ AGENTS.md (Priority 6 — Cascade process rules)
 
 ### 8. Deduplicate Rules Files
 
-- **Problem:** implementation-specification-rules.md exists in both .windsurf/rules/ and Docs/Guidelines/
-- **Smallest change:** Delete .windsurf/rules/implementation-specification-rules.md, keep Docs/Guidelines/ version
+- **Problem:** implementation-specification-rules.md exists in both .windsurf/rules/ and Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/
+- **Smallest change:** Delete .windsurf/rules/implementation-specification-rules.md, keep Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/ version
 - **Where:** `.windsurf/rules/implementation-specification-rules.md` (delete)
 - **Expected benefit:** Single source of truth
-- **Tradeoff:** Requires Cascade to read from Docs/Guidelines/
+- **Tradeoff:** Requires Cascade to read from Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/
 
 ### 9. Add Test Coverage Tracking
 
@@ -253,10 +277,18 @@ Read these files first (no output):
 
 - [ ] Docs/INDEX.md (or equivalent priority doc)
 - [ ] AGENTS.md (or equivalent process doc)
-- [ ] Docs/Devlog/INDEX.md
-- [ ] Docs/Devlog/TAGS.md
-- [ ] All Docs/Devlog/DL-\*.md files
-- [ ] Docs/Guidelines/\*.md
+- [ ] Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md
+- [ ] Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/TAGS.md
+- [ ] All Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/DL-\*.md files
+- [ ] Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/\*.md
 - [ ] .windsurf/workflows/\*.md (if present)
 - [ ] .windsurf/rules/\*.md (if present)
 

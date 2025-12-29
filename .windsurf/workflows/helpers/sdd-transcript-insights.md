@@ -10,7 +10,9 @@ Extract high-signal SDD practices from a transcript (not raw text).
 2. Read TRANSCRIPT_PATH.
 
 3. Create:
-   - Docs/Devlog/TRANSCRIPT-INSIGHTS\_\_<OUTPUT_NAME>.md
+   - Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/TRANSCRIPT-INSIGHTS\_\_<OUTPUT_NAME>.md
 
 Rules:
 

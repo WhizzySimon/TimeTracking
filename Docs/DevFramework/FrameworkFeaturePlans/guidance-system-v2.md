@@ -15,14 +15,22 @@ This is a documentation refactoring — no code changes. The architecture involv
 
 | Current Location                                                   | Action               | New Location                          |
 | ------------------------------------------------------------------ | -------------------- | ------------------------------------- |
-| `.windsurf/rules/code-quality-rules.md` (94 lines)                 | Extract content      | `Docs/Rules/code-quality.md`          |
+| `.windsurf/rules/code-quality-rules.md` (94 lines)                 | Extract content      | `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md`          |
 | `.windsurf/rules/code-quality-rules.md`                            | Replace with pointer | (10 lines)                            |
-| `.windsurf/rules/ui-design-rules.md` (109 lines)                   | Extract content      | `Docs/Rules/ui-work.md`               |
+| `.windsurf/rules/ui-design-rules.md` (109 lines)                   | Extract content      | `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/ui-work.md`               |
 | `.windsurf/rules/ui-design-rules.md`                               | Replace with pointer | (10 lines)                            |
 | `.windsurf/rules/command-execution-rules.md` (16 lines)            | Keep as-is           | Already reference-only                |
 | `.windsurf/rules/implementation-specification-rules.md` (41 lines) | Minor edit           | Remove any duplicated content         |
-| `Docs/Rules/pre-commit.md`                                         | Add content          | Merge session-end checks + canary     |
-| `Docs/Rules/session-end.md`                                        | Update               | Reference pre-commit, minimal content |
+| `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md`                                         | Add content          | Merge session-end checks + canary     |
+| `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-end.md`                                        | Update               | Reference pre-commit, minimal content |
 | Workflow files (3)                                                 | Fix references       | Replace `AGENTS.md` → `RULE_MAP.md`   |
 | `.windsurf/cascade.md`                                             | Fix reference        | Replace `AGENTS.md` → `RULE_MAP.md`   |
 
@@ -52,7 +60,9 @@ Not applicable — no UI changes.
 
 | Risk                                  | Mitigation                                                                      |
 | ------------------------------------- | ------------------------------------------------------------------------------- |
-| Cascade doesn't read the pointer file | Pointer format must be clear: "STOP. Read `Docs/Rules/X.md` before proceeding." |
+| Cascade doesn't read the pointer file | Pointer format must be clear: "STOP. Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/X.md` before proceeding." |
 | Content lost during move              | Verify line counts before/after; no content deletion without copy first         |
 | Broken references                     | Grep for old file paths after changes; fix any remaining references             |
 
@@ -81,8 +91,12 @@ If implementation fails mid-way:
 
 | Check          | How                                                     |
 | -------------- | ------------------------------------------------------- |
-| File exists    | `test -f Docs/Rules/code-quality.md`                    |
-| Pointer format | Grep for "Read `Docs/Rules/" in `.windsurf/rules/\*.md` |
+| File exists    | `test -f Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md`                    |
+| Pointer format | Grep for "Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/" in `.windsurf/rules/\*.md` |
 
 ### E2E test
 
@@ -95,7 +109,9 @@ Not applicable — this is framework configuration, not app functionality.
 | Risk                                  | Likelihood | Impact | Mitigation                                        |
 | ------------------------------------- | ---------- | ------ | ------------------------------------------------- |
 | Cascade ignores pointer files         | Low        | High   | Test immediately after first pointer is created   |
-| Too many files in `Docs/Rules/`       | Low        | Low    | Already have 7 files; adding 2 more is acceptable |
+| Too many files in `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/`       | Low        | Low    | Already have 7 files; adding 2 more is acceptable |
 | User confusion about where rules live | Medium     | Medium | Update `Docs/INDEX.md` to explain the structure   |
 
 ### Constraints
@@ -108,9 +124,13 @@ Not applicable — this is framework configuration, not app functionality.
 
 ## Implementation order
 
-1. **Create new `Docs/Rules/` files first** (safe — only additions)
+1. **Create new `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/` files first** (safe — only additions)
 2. **Update pointer files in `.windsurf/rules/`** (replace content)
-3. **Update `Docs/Rules/pre-commit.md`** (merge session-end + canary)
+3. **Update `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md`** (merge session-end + canary)
 4. **Fix stale references** (AGENTS.md → RULE_MAP.md)
 5. **Verify all acceptance checks**
 

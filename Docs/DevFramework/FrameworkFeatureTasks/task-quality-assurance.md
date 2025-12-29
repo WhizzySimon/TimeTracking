@@ -3,14 +3,19 @@
 **Phase:** D5  
 **Created:** 2025-12-27  
 **Last Updated:** 2025-12-28  
-**Based on Spec:** `Docs/DevFramework/Specs/task-quality-assurance.md`  
-**Based on Plan:** `Docs/DevFramework/Plans/task-quality-assurance.md`
+**Based on Spec:** `Docs/DevFramework/ToolSetup
+Framework/FrameworkFeatureSpecs
+/task-quality-assurance.md`  
+**Based on Plan:** `Docs/DevFramework/ToolSetup
+Framework/FrameworkFeaturePlans
+/task-quality-assurance.md`
 
 ---
 
 ## JIT Rules (MANDATORY)
 
-**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 
 Key triggers during task execution: writing code, before commit, session end.
 
@@ -25,7 +30,8 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.0a - Create Framework VERSION.md
 
 - **Files:**
-  - `Docs/DevFramework/TaskQualityAssurance/VERSION.md` (new)
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/VERSION.md` (new)
 - **Done when:**
   - File contains `FRAMEWORK_VERSION: 0.1.0`
   - Includes versioning rules (major/minor/patch)
@@ -42,7 +48,8 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.0b - Create Framework CHANGELOG.md
 
 - **Files:**
-  - `Docs/DevFramework/TaskQualityAssurance/CHANGELOG.md` (new)
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/CHANGELOG.md` (new)
 - **Done when:**
   - File contains changelog entry format documentation
   - Includes initial 0.1.0 entry template
@@ -59,8 +66,10 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.0c - Create GTRS.md (Golden Task Regression Suite)
 
 - **Files:**
-  - `Docs/DevFramework/TaskQualityAssurance/GTRS.md` (new)
-  - `Docs/DevFramework/TaskQualityAssurance/GTRS-runs/.gitkeep` (new)
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/GTRS.md` (new)
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/GTRS-runs/.gitkeep` (new)
 - **Done when:**
   - File defines all 10 golden tasks (GT-01 through GT-10)
   - Each task has: box, difficulty, expected duration, AC template, verification commands, evidence requirements, success metrics
@@ -83,11 +92,15 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.1 - Create folder structure and INDEX
 
 - **Files:**
-  - `Docs/DevFramework/TaskQualityAssurance/INDEX.md` (new)
-  - `Docs/DevFramework/TaskQualityAssurance/boxes/` (new directory)
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/INDEX.md` (new)
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/` (new directory)
   - `scripts/ai/` (new directory)
   - `scripts/ai/logs/.gitkeep` (new)
-  - `Docs/Devlog/Evidence/.gitkeep` (new)
+  - `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/Evidence/.gitkeep` (new)
 - **Done when:**
   - All directories exist
   - INDEX.md explains the Autonomy Stack purpose and links to components
@@ -102,13 +115,20 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.2 - Create box template and 6 box checklists
 
 - **Files:**
-  - `Docs/DevFramework/TaskQualityAssurance/boxes/_template.md`
-  - `Docs/DevFramework/TaskQualityAssurance/boxes/feature.md`
-  - `Docs/DevFramework/TaskQualityAssurance/boxes/bugfix.md`
-  - `Docs/DevFramework/TaskQualityAssurance/boxes/refactor.md`
-  - `Docs/DevFramework/TaskQualityAssurance/boxes/infra-build.md`
-  - `Docs/DevFramework/TaskQualityAssurance/boxes/research-decision.md`
-  - `Docs/DevFramework/TaskQualityAssurance/boxes/ui-ux.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/_template.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/feature.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/bugfix.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/refactor.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/infra-build.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/research-decision.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/ui-ux.md`
 - **Done when:**
   - Each box file has: acceptance criteria format, verification commands, evidence requirements, risk class
   - All boxes reference existing npm commands
@@ -123,7 +143,8 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.3 - Create ZOOM_OUT protocol
 
 - **Files:**
-  - `Docs/DevFramework/TaskQualityAssurance/ZOOM_OUT.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/ZOOM_OUT.md`
 - **Done when:**
   - Protocol defines 5 steps: restate goal, propose alternatives, pick one, run experiment, log decision
   - Clear instructions for Cascade to follow
@@ -185,10 +206,14 @@ These tasks MUST be completed before any code implementation tasks.
   - `scripts/ai/evidence-generator.js`
 - **Done when:**
   - Reads session log and task metadata
-  - Generates Markdown file in `Docs/Devlog/Evidence/`
+  - Generates Markdown file in `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/Evidence/`
   - Includes: box type, acceptance criteria, changed files, commands run, gaps, links
 - **Verify:**
-  - Running generator creates `Docs/Devlog/Evidence/<task-id>.md`
+  - Running generator creates `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/Evidence/<task-id>.md`
   - Generated file contains all required sections
 - **Guardrails:**
   - Does not overwrite existing evidence files (appends timestamp if conflict)
@@ -203,7 +228,9 @@ These tasks MUST be completed before any code implementation tasks.
 - **Done when:**
   - Reads recent evidence bundles and anomaly history
   - Proposes candidate principles with evidence links, counter-pattern, generalization
-  - Appends to `Docs/Devlog/LEARNINGS-INBOX.md`
+  - Appends to `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/LEARNINGS-INBOX.md`
 - **Verify:**
   - Running extractor adds new row to LEARNINGS-INBOX.md
   - Proposed principle includes evidence link
@@ -240,7 +267,8 @@ These tasks MUST be completed before any code implementation tasks.
   - `Docs/INDEX.md`
 - **Done when:**
   - Added section for Autonomy Stack / AI tooling
-  - Links to `Docs/DevFramework/TaskQualityAssurance/INDEX.md`
+  - Links to `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/INDEX.md`
 - **Verify:**
   - Section appears in INDEX.md
 - **Guardrails:**
@@ -252,7 +280,8 @@ These tasks MUST be completed before any code implementation tasks.
 ## Task D5.10 - Verify and create usage examples
 
 - **Files:**
-  - `Docs/DevFramework/TaskQualityAssurance/INDEX.md` (update)
+  - `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/INDEX.md` (update)
 - **Done when:**
   - INDEX.md includes example flows for Bugfix and Feature tasks
   - `npm run verify` passes

@@ -4,7 +4,9 @@
 		"cumulative_chars_out": 57,
 		"last_seen_ts": "2025-12-28T07:52:38.481680+00:00",
 		"last_consulted_by_file": {
-			"Docs/Rules/test.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/test.md": {
 				"ts": "2025-12-28T07:52:38.482357+00:00",
 				"cumulative_chars_total": 57
 			}
@@ -21,11 +23,15 @@
 		"cumulative_chars_out": 810,
 		"last_seen_ts": "2025-12-28T08:14:48.043327+00:00",
 		"last_consulted_by_file": {
-			"Docs/Rules/_entrypoint-jit-rule-map.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T08:14:48.044327+00:00",
 				"cumulative_chars_total": 810
 			},
-			"Docs/Rules/session-start.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": {
 				"ts": "2025-12-28T08:14:48.044327+00:00",
 				"cumulative_chars_total": 810
 			}
@@ -72,19 +78,27 @@
 		"cumulative_chars_out": 12132,
 		"last_seen_ts": "2025-12-28T09:48:01.618599+00:00",
 		"last_consulted_by_file": {
-			"Docs/Rules/_entrypoint-jit-rule-map.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T09:41:10.829205+00:00",
 				"cumulative_chars_total": 6555
 			},
-			"Docs/Rules/session-start.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": {
 				"ts": "2025-12-28T09:41:10.829205+00:00",
 				"cumulative_chars_total": 6555
 			},
-			"Docs/Rules/implementation.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md": {
 				"ts": "2025-12-28T09:41:10.829205+00:00",
 				"cumulative_chars_total": 6555
 			},
-			"Docs/Rules/pre-commit.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md": {
 				"ts": "2025-12-28T09:41:10.829205+00:00",
 				"cumulative_chars_total": 6555
 			}
@@ -95,11 +109,15 @@
 		"cumulative_chars_out": 107681,
 		"last_seen_ts": "2025-12-28T18:33:42.321131+00:00",
 		"last_consulted_by_file": {
-			"Docs/Rules/_entrypoint-jit-rule-map.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T11:01:03.614637+00:00",
 				"cumulative_chars_total": 57962
 			},
-			"Docs/Rules/session-start.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": {
 				"ts": "2025-12-28T10:12:01.531976+00:00",
 				"cumulative_chars_total": 2090
 			},
@@ -107,31 +125,45 @@
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/Rules/spec-writing.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/spec-writing.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/Rules/planning.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/planning.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/Rules/command-execution.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/command-execution.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/Rules/pre-commit.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md": {
 				"ts": "2025-12-28T15:48:36.886085+00:00",
 				"cumulative_chars_total": 98126
 			},
-			"Docs/Rules/code-quality.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/Rules/implementation.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/Rules/framework-changes.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/framework-changes.md": {
 				"ts": "2025-12-28T11:01:03.614637+00:00",
 				"cumulative_chars_total": 57962
 			}
@@ -142,11 +174,15 @@
 		"cumulative_chars_out": 30333,
 		"last_seen_ts": "2025-12-28T18:01:21.608094+00:00",
 		"last_consulted_by_file": {
-			"Docs/Rules/_entrypoint-jit-rule-map.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T17:01:00.679681+00:00",
 				"cumulative_chars_total": 2687
 			},
-			"Docs/Rules/session-start.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": {
 				"ts": "2025-12-28T17:01:00.679681+00:00",
 				"cumulative_chars_total": 2687
 			}
@@ -157,7 +193,9 @@
 		"cumulative_chars_out": 21950,
 		"last_seen_ts": "2025-12-28T18:37:44.146735+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/Rules/pre-commit.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md": {
 				"ts": "2025-12-28T18:29:37.814835+00:00",
 				"cumulative_chars_total": 15915
 			}
@@ -174,11 +212,15 @@
 		"cumulative_chars_out": 78821,
 		"last_seen_ts": "2025-12-28T20:39:09.360026+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T19:04:47.618858+00:00",
 				"cumulative_chars_total": 2285
 			},
-			"Docs/DevFramework/Rules/session-start.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": {
 				"ts": "2025-12-28T19:04:47.618858+00:00",
 				"cumulative_chars_total": 2285
 			}
@@ -189,23 +231,33 @@
 		"cumulative_chars_out": 12071,
 		"last_seen_ts": "2025-12-28T19:38:44.733582+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753
 			},
-			"Docs/DevFramework/Rules/session-start.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753
 			},
-			"Docs/DevFramework/Rules/implementation.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753
 			},
-			"Docs/DevFramework/Rules/code-quality.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753
 			},
-			"Docs/DevFramework/Rules/pre-commit.md": {
+			"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753
 			}

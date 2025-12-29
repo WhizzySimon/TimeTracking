@@ -10,7 +10,9 @@
 
 ## Snapshot (must match Evidence Bundle)
 
-- **Evidence Bundle:** `Docs/Devlog/Evidence/<TASK-ID>.md`
+- **Evidence Bundle:** `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/Evidence/<TASK-ID>.md`
 - **BASE_HEAD:** <paste from Evidence Bundle>
 - **STAGED_DIFF_HASH:** <paste from Evidence Bundle>
 - **Audit Input:** staged-only (`git diff --staged`) — frozen snapshot required
@@ -32,9 +34,12 @@
   - `## Frozen Snapshot (staged-only)`
   - `## Verification Evidence`
   - `## Risks / Flags`
-- Box checklist: `Docs/DevFramework/TaskQualityAssurance/boxes/<box>.md`
+- Box checklist: `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/boxes/<box>.md`
 - Verification artifact: `scripts/verify-code-output.txt`
-- Decisions (if any): `Docs/Devlog/DECISIONS.md`
+- Decisions (if any): `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/DECISIONS.md`
 
 ---
 

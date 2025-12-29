@@ -32,7 +32,8 @@ All names must be **self-explanatory without opening the item**.
 
 | ❌ Generic | ✓ Self-Explanatory                  |
 | ---------- | ----------------------------------- |
-| `docs/`    | `Docs/DevFramework/`                |
+| `docs/`    | `Docs/DevFramework/ToolSetup
+Framework/`                |
 | `rules/`   | `JustInTimeAgentRules/`             |
 | `logs/`    | `FrameworkSelfImprovementLogs/`     |
 | `utils/`   | `scripts/ai/` (purpose-specific)    |
@@ -43,4 +44,5 @@ All names must be **self-explanatory without opening the item**.
 ## Full Reference
 
 For casing conventions, prefixes, and folder-specific patterns:
-`Docs/DevFramework/DeveloperGuidesAndStandards/NAMING_CONVENTIONS.md`
+`Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards/NAMING_CONVENTIONS.md`

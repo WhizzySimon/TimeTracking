@@ -7,7 +7,8 @@
 
 **Depends on:**
 
-- Docs/Reports/SCHUBLADENDENKEN-AUDIT-2025-12-27.md (audit findings)
+- Docs/DevFramework/Archive
+/SCHUBLADENDENKEN-AUDIT-2025-12-27.md (audit findings)
 
 **Does not depend on:**
 
@@ -29,7 +30,9 @@ The current guidance system has three issues:
 
 - Add canary marker to `pre-commit.md` to verify rule loading
 - Merge session-end checks INTO pre-commit (eliminate separate session-end trigger)
-- Make `.windsurf/rules/` files reference-only, move actual rules to editable `Docs/Rules/`
+- Make `.windsurf/rules/` files reference-only, move actual rules to editable `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/`
 - Fix stale `AGENTS.md` references in workflow files
 
 ### Out of scope
@@ -46,23 +49,35 @@ The current guidance system has three issues:
 
 ## 3) Functional Requirements (FR)
 
-- **GS-FR-001**: When Cascade reads `Docs/Rules/pre-commit.md`, it MUST output `[CANARY] pre-commit rules loaded` before any commit-related action.
+- **GS-FR-001**: When Cascade reads `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md`, it MUST output `[CANARY] pre-commit rules loaded` before any commit-related action.
 - **GS-FR-002**: Pre-commit rules MUST include all critical session-end checks (push verification, learning promotion, clean working tree) so every commit completes the full cycle.
-- **GS-FR-003**: All `.windsurf/rules/*.md` files MUST be reference-only (≤15 lines each), pointing to editable files in `Docs/Rules/`.
-- **GS-FR-004**: Actual rule content MUST live in `Docs/Rules/` where Cascade can edit it.
-- **GS-FR-005**: All workflow files MUST reference `RULE_MAP.md` or `Docs/Rules/*.md` instead of `AGENTS.md`.
+- **GS-FR-003**: All `.windsurf/rules/*.md` files MUST be reference-only (≤15 lines each), pointing to editable files in `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/`.
+- **GS-FR-004**: Actual rule content MUST live in `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/` where Cascade can edit it.
+- **GS-FR-005**: All workflow files MUST reference `RULE_MAP.md` or `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/*.md` instead of `AGENTS.md`.
 
 ## 4) Implementation Guarantees (IG)
 
 - **GS-IG-001**: Total `.windsurf/rules/*.md` content MUST be ≤60 lines after implementation (currently ~260 lines).
-- **GS-IG-002**: Existing rule content MUST NOT be lost — only moved to `Docs/Rules/`.
+- **GS-IG-002**: Existing rule content MUST NOT be lost — only moved to `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/`.
 - **GS-IG-003**: Canary marker MUST be visible in chat output (not hidden or conditional).
 - **GS-IG-004**: After implementation, all rules MUST be editable by Cascade (no rules locked in uneditable files).
 
 ## 5) Design Decisions (DD)
 
 - **GS-DD-001**: Canary format is `[CANARY] <filename> loaded` — simple, grep-able, unambiguous.
-- **GS-DD-002**: `.windsurf/rules/` files become 10-15 line pointers with format: "Read `Docs/Rules/<name>.md` for full rules."
+- **GS-DD-002**: `.windsurf/rules/` files become 10-15 line pointers with format: "Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/<name>.md` for full rules."
 - **GS-DD-003**: Session-end is eliminated as a separate trigger; its checks merge into pre-commit.
 - **GS-DD-004**: Domain prefix `GS-` (Guidance System) used for this spec.
 
@@ -85,7 +100,9 @@ The current guidance system has three issues:
 - [ ] **AC-003**: Each file in `.windsurf/rules/` is ≤15 lines (maps to GS-FR-003)
 - [ ] **AC-004**: Total `.windsurf/rules/*.md` is ≤60 lines (maps to GS-IG-001)
 - [ ] **AC-005**: `grep -r "AGENTS.md" .windsurf/` returns no matches (maps to GS-FR-005)
-- [ ] **AC-006**: All rule content exists in `Docs/Rules/` and is editable (maps to GS-IG-004)
+- [ ] **AC-006**: All rule content exists in `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/` and is editable (maps to GS-IG-004)
 - [ ] **AC-007**: Full test: complete a task, commit, verify canary appears and all checks pass
 
 ## 9) Change log

@@ -38,11 +38,21 @@
 | Priority | Document                                                | Purpose                           |
 | -------- | ------------------------------------------------------- | --------------------------------- |
 | 0        | `Docs/INDEX.md`                                         | Master index, conflict resolution |
-| 1        | `Docs/Guidelines/UI_LOGIC_SPEC_V1.md`                   | Product truth (screens, flows)    |
-| 2        | `Docs/Guidelines/TECHNICAL_GUIDELINE_V1.md`             | Architecture truth                |
-| 3        | `Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md`             | Platform constraints              |
-| 4        | `Docs/Guidelines/DEVELOPMENT_GUIDELINES.md`             | Coding/repo rules                 |
-| 5        | `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` | Spec writing rules                |
+| 1        | `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/UI_LOGIC_SPEC_V1.md`                   | Product truth (screens, flows)    |
+| 2        | `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/TECHNICAL_GUIDELINE_V1.md`             | Architecture truth                |
+| 3        | `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SVELTEKIT_PWA_ADDENDUM.md`             | Platform constraints              |
+| 4        | `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/DEVELOPMENT_GUIDELINES.md`             | Coding/repo rules                 |
+| 5        | `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/IMPLEMENTATION_SPECIFICATION_RULES.md` | Spec writing rules                |
 | 6        | `AGENTS.md`                                             | Cascade process rules             |
 
 ### Additional Rule Sources
@@ -54,8 +64,12 @@
 | `.windsurf/rules/implementation-specification-rules.md` | FR/IG/DD format                  |
 | `.windsurf/rules/ui-design-rules.md`                    | Dialog policy, error handling    |
 | `.windsurf/cascade.md`                                  | Project instructions for Cascade |
-| `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md`            | 4-phase workflow guide           |
-| `Docs/Guidelines/NAMING_CONVENTIONS.md`                 | File/variable naming             |
+| `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md`            | 4-phase workflow guide           |
+| `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/NAMING_CONVENTIONS.md`                 | File/variable naming             |
 
 ### Workflow Files
 
@@ -76,7 +90,9 @@
 
 | Feature        | Spec                                               | Plan                                        | Tasks                                       | Status      |
 | -------------- | -------------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ----------- |
-| TimeTracker v1 | `Docs/Guidelines/UI_LOGIC_SPEC_V1.md`              | `Docs/Plans/P01-20251220-timetracker-v1.md` | `Docs/Tasks/P01-20251220-timetracker-v1.md` | ✅ Complete |
+| TimeTracker v1 | `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/UI_LOGIC_SPEC_V1.md`              | `Docs/Plans/P01-20251220-timetracker-v1.md` | `Docs/Tasks/P01-20251220-timetracker-v1.md` | ✅ Complete |
 | Cloud Sync     | `Docs/Specs/P06-20251222-cloud-backup-and-auth.md` | `Docs/Plans/P06-20251222-cloud-sync.md`     | `Docs/Tasks/P06-20251222-cloud-sync.md`     | ✅ Complete |
 | Quick-Start UX | `Docs/Specs/P07-20251223-quick-start-ux.md`        | `Docs/Plans/P07-20251223-quick-start-ux.md` | `Docs/Tasks/P07-20251223-quick-start-ux.md` | ✅ Complete |
 
@@ -146,7 +162,9 @@
 #### Finding C.3: Naming inconsistency in Guidelines folder
 
 - **Severity:** Nice-to-have
-- **File:** `Docs/Guidelines/`
+- **File:** `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/`
 - **Evidence:** Mixed naming: `UI_LOGIC_SPEC_V1.md` (UPPER_SNAKE) vs `technical-guideline-v1.md` (kebab-case) — actually file is `TECHNICAL_GUIDELINE_V1.md`
 - **Recommendation:**
   - [ ] Standardize on one naming convention for Guidelines files (UPPER_SNAKE_CASE preferred per existing pattern)
@@ -382,7 +400,9 @@
 - `.windsurf/workflows/*.md` (9 files)
 - `AGENTS.md`
 - `Docs/INDEX.md`
-- `Docs/Guidelines/*.md` (9 files)
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/*.md` (9 files)
 
 ### Specs & Plans
 

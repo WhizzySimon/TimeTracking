@@ -1,6 +1,7 @@
 # JIT Rules (MANDATORY)
 
-**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 
 Key triggers during task execution: writing code, before commit, session end.
 
@@ -23,7 +24,8 @@ Constraints:
 
 Create/update these files:
 
-1. Docs/Reports/code-quality-style-audit.md
+1. Docs/DevFramework/Archive
+/code-quality-style-audit.md
    - Tooling inventory: prettier/eslint/tsconfig/CI gates
    - Evidence-based hotspots: big functions, deep nesting, god files, and over-fragmentation
    - Each finding: severity + file paths + short excerpt + checklist recommendation

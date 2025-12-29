@@ -12,8 +12,12 @@
 - Tasks: Docs/Tasks/P01-20251220-timetracker-v1.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 2 - Day Tab, Tasks 2.12-2.15)
 - Other referenced docs:
-  - Docs/Testing/MODERN_BROWSER_TESTING.md
-  - Docs/Testing/PLAYWRIGHT_CONSOLE_SETUP.md
+  - Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/MODERN_BROWSER_TESTING.md
+  - Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/PLAYWRIGHT_CONSOLE_SETUP.md
   - .windsurf/rules/code-quality-rules.md (created in this chat)
 
 ## Decisions (aus Chat)

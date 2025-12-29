@@ -11,7 +11,9 @@
 - Plan: NONE
 - Tasks: NONE
 - Progress: NONE
-- Other referenced docs: Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md
+- Other referenced docs: Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SVELTEKIT_PWA_ADDENDUM.md
 
 ## Decisions (aus Chat)
 

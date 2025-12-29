@@ -27,7 +27,9 @@ All follow-ups extracted from devlog entries. Default status is OPEN unless expl
 | FU-20251224-0353-03          | DL-20251224-0353          | Low      | User         | OPEN   | Consider v2 features (user asked about v2 planning)                                                                                |
 | FU-20251224-0355-01          | DL-20251224-0355          | High     | User         | OPEN   | Use AGENTS.md for project-level Cascade instructions                                                                               |
 | FU-20251224-0355-02          | DL-20251224-0355          | Med      | User         | OPEN   | Manually edit .windsurf/rules/ files when needed                                                                                   |
-| FU-20251224-0355-03          | DL-20251224-0355          | Low      | User         | OPEN   | Consider keeping source rules in Docs/Guidelines/ and manually copying to .windsurf/rules/                                         |
+| FU-20251224-0355-03          | DL-20251224-0355          | Low      | User         | OPEN   | Consider keeping source rules in Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/ and manually copying to .windsurf/rules/                                         |
 | FU-20251224-0358-01          | DL-20251224-0358          | Med      | User/Cascade | OPEN   | Continue with Phase 4 (Sync & Polish)                                                                                              |
 | FU-20251224-0358-02          | DL-20251224-0358          | Low      | User         | OPEN   | No v2 discussion in this chat                                                                                                      |
 | FU-20251224-0358-03          | DL-20251224-0358          | Low      | Cascade      | OPEN   | Work time model validFrom displays in ISO format (minor UX: could format as German date)                                           |
@@ -62,7 +64,9 @@ All follow-ups extracted from devlog entries. Default status is OPEN unless expl
 | FU-20251224-0416-analysis-02 | DL-20251224-0416-analysis | High     | Cascade      | OPEN   | Verify calculation with real 2024 data after WorkTimeModel is created                                                              |
 | FU-20251224-0416-analysis-03 | DL-20251224-0416-analysis | Low      | Cascade      | OPEN   | Consider handling multiple WorkTimeModels across a date range (currently uses model at range start)                                |
 | FU-20251224-0416-new-task-01 | DL-20251224-0416-new-task | Med      | User         | OPEN   | User should test /new-task workflow in next chat session to verify it works as expected                                            |
-| FU-20251224-0416-new-task-02 | DL-20251224-0416-new-task | Low      | Cascade      | OPEN   | Consider if Docs/Devlog/INDEX.md separator line needs to be added (file already has separator)                                     |
+| FU-20251224-0416-new-task-02 | DL-20251224-0416-new-task | Low      | Cascade      | OPEN   | Consider if Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md separator line needs to be added (file already has separator)                                     |
 | FU-20251224-0416-new-task-03 | DL-20251224-0416-new-task | Low      | User         | OPEN   | Monitor if /new-task workflow needs adjustments based on actual usage patterns                                                     |
 | FU-20251224-0416-ui-01       | DL-20251224-0416-ui       | Low      | Cascade      | OPEN   | Consider adding E2E test for week type selector behavior across week navigation                                                    |
 | FU-20251224-0416-ui-02       | DL-20251224-0416-ui       | Low      | Cascade      | OPEN   | Consider documenting ISO week year calculation edge cases in date utils                                                            |

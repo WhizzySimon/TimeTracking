@@ -46,14 +46,30 @@
 
 **Guidelines (detail docs):**
 
-- `Docs/Guidelines/CASCADE_WATCHER.md` — Watcher system (tooling)
-- `Docs/Guidelines/GIT_WORKFLOW.md` — Git workflow (tooling)
-- `Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md` — SDD complete workflow
-- `Docs/Guidelines/DEVELOPMENT_GUIDELINES.md` — Coding standards
-- `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` — Spec rules
-- `Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md` — Platform constraints
-- `Docs/Guidelines/ui-logic-spec-v1.md` — Product spec
-- `Docs/Guidelines/technical-guideline-v1.md` — Architecture
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/CASCADE_WATCHER.md` — Watcher system (tooling)
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/GIT_WORKFLOW.md` — Git workflow (tooling)
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md` — SDD complete workflow
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/DEVELOPMENT_GUIDELINES.md` — Coding standards
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/IMPLEMENTATION_SPECIFICATION_RULES.md` — Spec rules
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SVELTEKIT_PWA_ADDENDUM.md` — Platform constraints
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/ui-logic-spec-v1.md` — Product spec
+- `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/technical-guideline-v1.md` — Architecture
 
 ---
 
@@ -68,9 +84,15 @@
    └─ Docs/INDEX.md
    └─ AGENTS.md
    └─ .windsurf/cascade.md
-   └─ Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md
-   └─ Docs/Guidelines/GIT_WORKFLOW.md          <-- Tooling
-   └─ Docs/Guidelines/CASCADE_WATCHER.md       <-- Tooling
+   └─ Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/IMPLEMENTATION_SPECIFICATION_RULES.md
+   └─ Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/GIT_WORKFLOW.md          <-- Tooling
+   └─ Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/CASCADE_WATCHER.md       <-- Tooling
 └─ /read-core-docs-and-code
 ```
 
@@ -83,8 +105,12 @@
 └─ /read-core-docs-and-code
 └─ Reads IMPLEMENTATION_PROGRESS.md
 └─ References:
-   └─ Docs/Guidelines/CASCADE_WATCHER.md       <-- Tooling (again)
-   └─ Docs/Guidelines/GIT_WORKFLOW.md          <-- Tooling (again)
+   └─ Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/CASCADE_WATCHER.md       <-- Tooling (again)
+   └─ Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/GIT_WORKFLOW.md          <-- Tooling (again)
    └─ AGENTS.md                                <-- (already loaded)
 ```
 
@@ -222,10 +248,14 @@ Docs/
 .windsurf/
 ├── cascade.md                         # Simplified: points to INDEX.md + AGENTS.md
 ├── rules/                             # Stays lean, high-level
-│   ├── command-execution-rules.md     # Points to Docs/Tooling/
+│   ├── command-execution-rules.md     # Points to Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/
 │   └── ...
 └── workflows/                         # Orchestration only
-    ├── read-governance.md             # Points to Docs/Tooling/BOOTSTRAP.md
+    ├── read-governance.md             # Points to Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md
     └── ...
 ```
 
@@ -265,7 +295,9 @@ command-execution-rules.md → CASCADE_WATCHER.md
 **After:**
 
 ```
-read-governance.md → Docs/Tooling/BOOTSTRAP.md
+read-governance.md → Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md
 └─ BOOTSTRAP.md → CASCADE_WATCHER.md (if needed)
 └─ BOOTSTRAP.md → GIT_WORKFLOW.md (if needed)
 ```
@@ -276,24 +308,42 @@ read-governance.md → Docs/Tooling/BOOTSTRAP.md
 
 ### Phase 1: Create New Structure (no breaking changes)
 
-- [x] **Task 1.1**: Create `Docs/Tooling/` folder
-- [x] **Task 1.2**: Create `Docs/Tooling/BOOTSTRAP.md` (single entry point)
-- [x] **Task 1.3**: Copy CASCADE_WATCHER.md to Docs/Tooling/ (keep original temporarily)
-- [x] **Task 1.4**: Copy GIT_WORKFLOW.md to Docs/Tooling/ (keep original temporarily)
-- [x] **Task 1.5**: Update INDEX.md to list Docs/Tooling/
+- [x] **Task 1.1**: Create `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/` folder
+- [x] **Task 1.2**: Create `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md` (single entry point)
+- [x] **Task 1.3**: Copy CASCADE_WATCHER.md to Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/ (keep original temporarily)
+- [x] **Task 1.4**: Copy GIT_WORKFLOW.md to Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/ (keep original temporarily)
+- [x] **Task 1.5**: Update INDEX.md to list Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/
 
 ### Phase 2: Update References (one at a time)
 
 - [x] **Task 2.1**: Update `read-governance.md` to reference BOOTSTRAP.md instead of individual docs
 - [x] **Task 2.2**: Update `continue-work.md` to reference BOOTSTRAP.md
 - [x] **Task 2.3**: Update `new-task.md` to reference BOOTSTRAP.md
-- [x] **Task 2.4**: Update `command-execution-rules.md` to reference Docs/Tooling/
-- [x] **Task 2.5**: Update AGENTS.md to reference Docs/Tooling/
+- [x] **Task 2.4**: Update `command-execution-rules.md` to reference Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/
+- [x] **Task 2.5**: Update AGENTS.md to reference Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/
 
 ### Phase 3: Cleanup
 
-- [x] **Task 3.1**: Remove Docs/Guidelines/CASCADE_WATCHER.md (now in Tooling/)
-- [x] **Task 3.2**: Remove Docs/Guidelines/GIT_WORKFLOW.md (now in Tooling/)
+- [x] **Task 3.1**: Remove Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/CASCADE_WATCHER.md (now in Tooling/)
+- [x] **Task 3.2**: Remove Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/GIT_WORKFLOW.md (now in Tooling/)
 - [x] **Task 3.3**: Verify no broken references (grep for old paths)
 
 ### Phase 4: Documentation
@@ -317,7 +367,9 @@ read-governance.md → Docs/Tooling/BOOTSTRAP.md
 
 - [ ] CASCADE_WATCHER.md referenced from exactly 1 location (BOOTSTRAP.md)
 - [ ] GIT_WORKFLOW.md referenced from exactly 1 location (BOOTSTRAP.md)
-- [ ] All workflows reference Docs/Tooling/BOOTSTRAP.md for tooling
+- [ ] All workflows reference Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md for tooling
 - [ ] No duplicate instructions between AGENTS.md and GIT_WORKFLOW.md
 - [ ] grep for "Guidelines/CASCADE_WATCHER" returns 0 results
 - [ ] grep for "Guidelines/GIT_WORKFLOW" returns 0 results

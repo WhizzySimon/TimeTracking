@@ -11,7 +11,9 @@
 - Plan: NONE
 - Tasks: NONE
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Cross-Browser Testing Summary section)
-- Other referenced docs: Docs/Testing/cross-browser-testing.md (formerly testing-safari-like.md)
+- Other referenced docs: Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/cross-browser-testing.md (formerly testing-safari-like.md)
 
 ## Decisions (aus Chat)
 
@@ -37,11 +39,15 @@
 
 ### Repo-Verified Delta (optional, getrennt!)
 
-- `Docs/Testing/cross-browser-testing.md` — File exists, contains full 5-browser MCP config JSON, tool mapping table, and UI test checklist — Evidence: Read file after rename from testing-safari-like.md
+- `Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/cross-browser-testing.md` — File exists, contains full 5-browser MCP config JSON, tool mapping table, and UI test checklist — Evidence: Read file after rename from testing-safari-like.md
 
 - `Docs/IMPLEMENTATION_PROGRESS.md` — Contains "Cross-Browser Testing Summary" section with tables for automated E2E tests and interactive MCP browser testing, lists all 5 browsers tested — Evidence: Read file lines 10-53
 
-- `Docs/Devlog/INDEX.md` — Contains 15 devlog entries, has proper table header with separator line — Evidence: Read file, lines 1-15
+- `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md` — Contains 15 devlog entries, has proper table header with separator line — Evidence: Read file, lines 1-15
 
 ## Verification (strict)
 
@@ -55,7 +61,9 @@
 
 - Verified now in repo (static only):
   - `src/routes/analysis/+page.svelte` contains `.saldo-value` span wrapper and `.saldo-value.negative` CSS selector — Evidence: Code changes visible in file
-  - `Docs/Testing/cross-browser-testing.md` exists and contains 5-browser config — Evidence: File read successful
+  - `Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/cross-browser-testing.md` exists and contains 5-browser config — Evidence: File read successful
   - `Docs/IMPLEMENTATION_PROGRESS.md` contains updated cross-browser testing section — Evidence: File read lines 10-53
 
 ## Bugs / Issues mentioned

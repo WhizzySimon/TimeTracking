@@ -77,9 +77,15 @@ Files inspected:
 3. **Add spec change log format** — Target: `Docs/Specs/_template.md` use timestamped `**[YYYY-MM-DD HH:MM]**` format with Added/Changed/Fixed prefixes
 4. **Add layer architecture diagrams** — Target: `Docs/Plans/_template.md` add ASCII box diagram section for multi-layer systems
 5. **Add structured logging rules** — Target: `.windsurf/rules/` add logging format rules (`[ x / n ]`, `OK/ERROR/FAIL`)
-6. **Add domain prefix convention** — Target: `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` document domain prefix convention (e.g., V2UI, V2EP)
-7. **Add spec length guidelines** — Target: `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` add "small: ~500 lines, medium: ~1000 lines, complex: ~2500 lines"
-8. **Add ASCII UI diagram convention** — Target: `Docs/Guidelines/IMPLEMENTATION_SPECIFICATION_RULES.md` document component boundary diagrams
+6. **Add domain prefix convention** — Target: `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/IMPLEMENTATION_SPECIFICATION_RULES.md` document domain prefix convention (e.g., V2UI, V2EP)
+7. **Add spec length guidelines** — Target: `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/IMPLEMENTATION_SPECIFICATION_RULES.md` add "small: ~500 lines, medium: ~1000 lines, complex: ~2500 lines"
+8. **Add ASCII UI diagram convention** — Target: `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/IMPLEMENTATION_SPECIFICATION_RULES.md` document component boundary diagrams
 9. **Add "Scenario" section with Problem/Solution** — Target: `Docs/Specs/_template.md` add structured scenario section
 10. **Add event flow documentation** — Target: `Docs/Plans/_template.md` add call flow diagrams with `+->` notation
 

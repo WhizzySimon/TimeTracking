@@ -14,10 +14,18 @@
 - Other referenced docs:
   - .windsurf/rules/COMMAND_EXECUTION_RULES.md
   - .windsurf/workflows/continue-work.md
-  - Docs/Guidelines/ui-logic-spec-v1.md
-  - Docs/Guidelines/technical-guideline-v1.md
-  - Docs/Guidelines/SVELTEKIT_PWA_ADDENDUM.md
-  - Docs/Guidelines/DEVELOPMENT_GUIDELINES.md
+  - Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/ui-logic-spec-v1.md
+  - Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/technical-guideline-v1.md
+  - Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SVELTEKIT_PWA_ADDENDUM.md
+  - Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/DEVELOPMENT_GUIDELINES.md
 
 ## Decisions (aus Chat)
 

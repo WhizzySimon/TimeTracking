@@ -15,7 +15,9 @@ npm run dev
 **Terminal 2 - Cascade Watcher (optional):**
 
 The watcher is only needed as fallback if the integrated terminal doesn't work.
-See `Docs/DevFramework/Tooling/BOOTSTRAP.md` for watcher setup if needed.
+See `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md` for watcher setup if needed.
 
 Then tell Cascade "done" to begin.
 
@@ -48,10 +50,13 @@ git pull origin dev
 
 Then:
 
-5. Read `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
+5. Read `Docs/DevFramework/ToolSetup
+Framework/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
 6. Find the relevant Tasks file:
    - Check "Current Phase" in IMPLEMENTATION_PROGRESS.md
-   - Read the corresponding `Docs/AppDocs/Tasks/<feature>.md` or `Docs/DevFramework/Tasks/<feature>.md` file
+   - Read the corresponding `Docs/AppDocs/Tasks/<feature>.md` or `Docs/DevFramework/ToolSetup
+Framework/FrameworkFeatureTasks
+/<feature>.md` file
 7. Start implementing the next incomplete task
 
 **DO NOT ASK** which task to work on. Pick the next incomplete task in order.
@@ -65,8 +70,10 @@ For each task:
 1. **Implement** - Write the code
 2. **Verify** - Run `npm run verify` via watcher, fix errors
 3. **Test UI** - Use MCP Playwright if applicable
-4. **Update progress** - Mark task complete in `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md`
-5. **Session-end** - Follow `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md` (changelog, commit, push)
+4. **Update progress** - Mark task complete in `Docs/DevFramework/ToolSetup
+Framework/IMPLEMENTATION_PROGRESS.md`
+5. **Session-end** - Follow `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/pre-commit.md` (changelog, commit, push)
 6. **Continue to next task** - Do NOT stop to ask if you should continue
 
 **STOP ONLY when:**
@@ -79,6 +86,7 @@ For each task:
 
 ## After ALL tasks complete
 
-1. Update `Docs/DevFramework/IMPLEMENTATION_PROGRESS.md` with all completed tasks
+1. Update `Docs/DevFramework/ToolSetup
+Framework/IMPLEMENTATION_PROGRESS.md` with all completed tasks
 2. Final commit and push
 3. Report summary of what was completed

@@ -29,7 +29,9 @@ The documentation/workflow system has grown organically and now has duplication,
 
 - Changing any functionality (code, tests, build)
 - Adding new workflows
-- Modifying content of guidelines in `Docs/Guidelines/`
+- Modifying content of guidelines in `Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/`
 - Changing the SDD profile system
 
 ### What we don't want

@@ -63,7 +63,9 @@
 
 - F1: **Use AGENTS.md for project-level Cascade instructions** — Owner: User — Priority: High
 - F2: **Manually edit `.windsurf/rules/` files when needed** — Owner: User — Priority: Med
-- F3: **Consider keeping source rules in Docs/Guidelines/ and manually copying to .windsurf/rules/** — Owner: User — Priority: Low
+- F3: **Consider keeping source rules in Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/ and manually copying to .windsurf/rules/** — Owner: User — Priority: Low
 
 ## Tags
 

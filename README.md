@@ -13,7 +13,8 @@ This project uses a **Just-in-Time (JIT) rule system** for AI-assisted developme
 │  .windsurf/rules/always-on.md   ← THE ONLY always-on rule  │
 │         │                                                   │
 │         ▼                                                   │
-│  Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md       │
+│  Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md       │
 │         │                                                   │
 │         ├──► session-start.md, code-quality.md             │
 │         ├──► command-execution.md, pre-commit.md           │
@@ -28,8 +29,11 @@ This project uses a **Just-in-Time (JIT) rule system** for AI-assisted developme
 **Key files:**
 
 - **Docs/INDEX.md** — Doc hierarchy, priority order
-- **Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md** — When to read which rule
-- **Docs/DevFramework/Tooling/BOOTSTRAP.md** — Tooling setup
+- **Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md** — When to read which rule
+- **Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md** — Tooling setup
 
 **Trigger points:** session-start, writing code, executing commands, pre-commit, session-end, etc.
 
@@ -49,7 +53,9 @@ Terminal 2 - Cascade Watcher (optional fallback):
 
 The integrated PowerShell terminal works directly. The watcher is only needed as fallback if `run_command` fails.
 
-See `Docs/DevFramework/Tooling/BOOTSTRAP.md` for watcher setup if needed.
+See `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md` for watcher setup if needed.
 
 **Step 2:** Start a new chat with:
 
@@ -123,7 +129,9 @@ npm run test:e2e     # Browser tests (9 tests, ~30s)
 
 ### Testing Documentation
 
-See `Docs/Testing/` for detailed testing guides.
+See `Docs/DevFramework/ToolSetup
+Framework/NewFeatureTesting
+/` for detailed testing guides.
 
 ## Developer Guide
 

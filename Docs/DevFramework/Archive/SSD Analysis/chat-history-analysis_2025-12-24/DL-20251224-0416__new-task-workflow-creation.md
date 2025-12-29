@@ -63,7 +63,9 @@
 ## Follow-ups
 
 - F1: User should test `/new-task` workflow in next chat session to verify it works as expected — Owner: User — Priority: Med
-- F2: Consider if Docs/Devlog/INDEX.md separator line needs to be added (file already has separator) — Owner: Cascade — Priority: Low
+- F2: Consider if Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md separator line needs to be added (file already has separator) — Owner: Cascade — Priority: Low
 - F3: Monitor if `/new-task` workflow needs adjustments based on actual usage patterns — Owner: User — Priority: Low
 
 ## Tags

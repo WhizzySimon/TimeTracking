@@ -6,7 +6,8 @@
 
 ## Versioning Rules
 
-This version tracks the **Autonomy Stack framework** (Docs/DevFramework/TaskQualityAssurance/, scripts/ai/), NOT the TimeTracker app.
+This version tracks the **Autonomy Stack framework** (Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/, scripts/ai/), NOT the TimeTracker app.
 
 ### Semantic Versioning
 
@@ -27,7 +28,8 @@ This version tracks the **Autonomy Stack framework** (Docs/DevFramework/TaskQual
 ## Tagging Workflow
 
 1. Update `FRAMEWORK_VERSION` in this file
-2. Add entry to `Docs/DevFramework/TaskQualityAssurance/CHANGELOG.md`
+2. Add entry to `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/CHANGELOG.md`
 3. Commit with message: `chore(ai): bump framework to X.Y.Z`
 4. Tag: `git tag ai-vX.Y.Z`
 5. Push: `git push origin ai-vX.Y.Z`
@@ -46,6 +48,9 @@ This version tracks the **Autonomy Stack framework** (Docs/DevFramework/TaskQual
 
 ## Related Files
 
-- `Docs/DevFramework/TaskQualityAssurance/CHANGELOG.md` — Detailed change log
-- `Docs/DevFramework/TaskQualityAssurance/GTRS.md` — Golden Task Regression Suite
-- `Docs/DevFramework/TaskQualityAssurance/INDEX.md` — Framework entry point
+- `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/CHANGELOG.md` — Detailed change log
+- `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/GTRS.md` — Golden Task Regression Suite
+- `Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/INDEX.md` — Framework entry point

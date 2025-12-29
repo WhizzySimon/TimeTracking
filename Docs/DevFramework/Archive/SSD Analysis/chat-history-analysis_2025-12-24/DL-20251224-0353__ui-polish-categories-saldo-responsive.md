@@ -43,7 +43,9 @@
 ### Repo-Verified Delta (optional, getrennt!)
 
 - `src/lib/utils/calculations.ts` — formatHours function returns values without "Std" suffix — Evidence: Repo file line 187 returns `formatted` without " Std"
-- `Docs/Devlog/INDEX.md` — Exists with proper table format — Evidence: Repo file has header and separator rows
+- `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md` — Exists with proper table format — Evidence: Repo file has header and separator rows
 
 ## Verification (strict)
 

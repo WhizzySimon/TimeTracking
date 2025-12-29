@@ -298,8 +298,12 @@ These files contained CI/branch workflow documentation that was removed:
 
 - `AGENTS.md` - Git workflow section, session-end rules
 - `README.md` - Scripts table, manual source control section
-- `Docs/Tooling/GIT_WORKFLOW.md` - Full PR workflow documentation
-- `Docs/Tooling/BOOTSTRAP.md` - Watcher setup for CI checks
+- `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/GIT_WORKFLOW.md` - Full PR workflow documentation
+- `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/BOOTSTRAP.md` - Watcher setup for CI checks
 - `.windsurf/workflows/entrypoints/new-task.md` - Safe-switch check
 - `.windsurf/workflows/entrypoints/continue-work.md` - Safe-switch check
 - `.windsurf/workflows/entrypoints/new-feature.md` - Safe-switch check

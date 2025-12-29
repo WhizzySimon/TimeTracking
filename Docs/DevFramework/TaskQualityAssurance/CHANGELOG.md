@@ -1,6 +1,7 @@
 # Autonomy Stack Framework Changelog
 
-This changelog tracks changes to the **Autonomy Stack framework** (Docs/DevFramework/TaskQualityAssurance/, scripts/ai/).
+This changelog tracks changes to the **Autonomy Stack framework** (Docs/DevFramework/ToolSetup
+Framework/TaskQualityAssurance/, scripts/ai/).
 
 **Format:** Append new entries at top (newest first).
 

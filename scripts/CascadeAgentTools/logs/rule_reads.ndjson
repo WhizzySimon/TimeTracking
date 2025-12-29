@@ -1,86 +1,370 @@
-{"ts_iso": "2025-12-28T07:52:38.482357+00:00", "trajectory_id": "test123", "event": "rule_consulted", "direction": "out", "files": ["Docs/Rules/test.md"], "signal": "marker", "response_chars": 57, "cumulative_chars_total": 57, "since_last_consult_chars": {"Docs/Rules/test.md": null}, "git_branch": "dev", "git_commit": "0ab1066"}
-{"ts": "2025-12-28T08:12:06.086687+00:00", "trajectory_id": "test456", "execution_id": "", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T08:14:39.463086+00:00", "trajectory_id": "e3df0220-16e3-4ea2-a5ef-06e552fc8cd1", "execution_id": "4db094a2-7824-492a-bbad-5fdec6822100", "event": "rule_read", "file_path": "Docs/Rules/session-start.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T08:14:48.044327+00:00", "trajectory_id": "e3df0220-16e3-4ea2-a5ef-06e552fc8cd1", "event": "rule_consulted", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md", "Docs/Rules/session-start.md"], "signal": "marker", "response_chars": 810, "cumulative_chars_total": 810, "since_last_consult_chars": {"Docs/Rules/_entrypoint-jit-rule-map.md": null, "Docs/Rules/session-start.md": null}, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts_iso": "2025-12-28T08:15:52.315788+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 1774, "cumulative_chars_total": 1774, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts_iso": "2025-12-28T08:21:24.622354+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 6107, "cumulative_chars_total": 7881, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts_iso": "2025-12-28T08:26:39.188968+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "prompt_chars": 34, "cumulative_chars_total": 3581, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts": "2025-12-28T08:26:44.422993+00:00", "trajectory_id": "d648e0e2-355e-48a2-ab66-0ee7f037122a", "execution_id": "5187ea3e-3f82-4d9d-9462-4397c7c81637", "event": "rule_read", "file_path": "Docs/Rules/session-start.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T08:26:57.023249+00:00", "trajectory_id": "d648e0e2-355e-48a2-ab66-0ee7f037122a", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 827, "cumulative_chars_total": 827, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts_iso": "2025-12-28T08:27:58.561020+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 766, "cumulative_chars_total": 8647, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts_iso": "2025-12-28T08:30:22.286566+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 899, "cumulative_chars_total": 9546, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts_iso": "2025-12-28T08:37:48.312399+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 3804, "cumulative_chars_total": 13350, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts_iso": "2025-12-28T08:38:48.755309+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "prompt_chars": 33, "cumulative_chars_total": 6683, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts": "2025-12-28T08:38:54.707731+00:00", "trajectory_id": "68f8d54f-5f27-49b2-a309-3eea23c5c47a", "execution_id": "12af9129-d1a6-4bd0-bb26-eae664d3cc4c", "event": "rule_read", "file_path": "Docs/Rules/session-start.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T08:39:04.163501+00:00", "trajectory_id": "68f8d54f-5f27-49b2-a309-3eea23c5c47a", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 910, "cumulative_chars_total": 910, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts_iso": "2025-12-28T08:40:29.920151+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 1586, "cumulative_chars_total": 14936, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
-{"ts": "2025-12-28T08:42:04.124131+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "execution_id": "b276e6a1-b393-420d-b973-b8fda32dce16", "event": "rule_read", "file_path": "Docs/Rules/pre-commit.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T08:43:25.205315+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/pre-commit.md"], "signal": "heuristic", "response_chars": 1585, "cumulative_chars_total": 16521, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3706d2c"}
-{"ts": "2025-12-28T08:50:22.071991+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "execution_id": "8043a14d-35ee-4d86-8e7a-d0a67d629ae1", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T08:50:46.421949+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 3110, "cumulative_chars_total": 3110, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3706d2c"}
-{"ts": "2025-12-28T09:16:01.769039+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "execution_id": "46d56316-6ca6-44c1-8c97-260276a23683", "event": "rule_read", "file_path": "Docs/Rules/session-start.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T09:16:02.321296+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "execution_id": "46d56316-6ca6-44c1-8c97-260276a23683", "event": "rule_read", "file_path": "Docs/Rules/pre-commit.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T09:16:19.957344+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-start.md", "Docs/Rules/pre-commit.md"], "signal": "heuristic", "response_chars": 1421, "cumulative_chars_total": 9159, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "0b16c41"}
-{"ts": "2025-12-28T09:16:44.086303+00:00", "trajectory_id": "79143743-0298-4414-ab66-d6bd3f575c7c", "execution_id": "ed288cbb-2458-49ea-988e-436bad7a28c8", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T09:17:01.310867+00:00", "trajectory_id": "79143743-0298-4414-ab66-d6bd3f575c7c", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 935, "cumulative_chars_total": 935, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "0b16c41"}
-{"ts": "2025-12-28T09:18:37.105137+00:00", "trajectory_id": "510c9c1c-3715-4726-bb1f-5450d17b8ba4", "execution_id": "b67ec2f6-60fb-4963-91a0-45d2cd47df80", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T09:18:47.087434+00:00", "trajectory_id": "510c9c1c-3715-4726-bb1f-5450d17b8ba4", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 778, "cumulative_chars_total": 778, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "2de4fe6"}
-{"ts": "2025-12-28T09:33:41.141547+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T09:33:45.829696+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T09:33:51.928077+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/Rules/session-start.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T09:34:21.362464+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/Rules/implementation.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T09:40:07.590712+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/Rules/pre-commit.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T09:41:10.829205+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "event": "rule_consulted", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md", "Docs/Rules/session-start.md", "Docs/Rules/implementation.md", "Docs/Rules/pre-commit.md"], "signal": "marker", "response_chars": 6555, "cumulative_chars_total": 6555, "since_last_consult_chars": {"Docs/Rules/_entrypoint-jit-rule-map.md": null, "Docs/Rules/session-start.md": null, "Docs/Rules/implementation.md": null, "Docs/Rules/pre-commit.md": null}, "git_branch": "dev", "git_commit": "74b08c3"}
-{"ts": "2025-12-28T10:11:33.178056+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "01f5abbc-a0be-41ab-8cf5-4aba71620bb6", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T10:11:42.129171+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "01f5abbc-a0be-41ab-8cf5-4aba71620bb6", "event": "rule_read", "file_path": "Docs/Rules/session-start.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T10:12:01.531976+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_consulted", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md", "Docs/Rules/session-start.md"], "signal": "marker", "response_chars": 2090, "cumulative_chars_total": 2090, "since_last_consult_chars": {"Docs/Rules/_entrypoint-jit-rule-map.md": null, "Docs/Rules/session-start.md": null}, "git_branch": "dev", "git_commit": "109c202"}
-{"ts": "2025-12-28T10:27:36.494181+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/Rules/planning.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T10:27:36.494181+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/Rules/spec-writing.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T10:29:15.859878+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/Rules/code-quality.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T10:29:15.865427+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/Rules/implementation.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T10:29:15.865427+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/Rules/command-execution.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T10:29:15.866442+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/Rules/pre-commit.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T10:29:48.965019+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/Rules/session-end.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T10:29:49.761355+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/Rules/ui-work.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T10:33:20.017207+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_consulted", "direction": "out", "files": ["...", "Docs/Rules/_entrypoint-jit-rule-map.md", "Docs/Rules/spec-writing.md", "Docs/Rules/planning.md", "Docs/Rules/command-execution.md", "Docs/Rules/pre-commit.md", "Docs/Rules/code-quality.md", "Docs/Rules/implementation.md"], "signal": "marker", "response_chars": 34890, "cumulative_chars_total": 36980, "since_last_consult_chars": {"...": null, "Docs/Rules/_entrypoint-jit-rule-map.md": 34890, "Docs/Rules/spec-writing.md": null, "Docs/Rules/planning.md": null, "Docs/Rules/command-execution.md": null, "Docs/Rules/pre-commit.md": null, "Docs/Rules/code-quality.md": null, "Docs/Rules/implementation.md": null}, "git_branch": "dev", "git_commit": "109c202"}
-{"ts_iso": "2025-12-28T10:33:20.017207+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/session-end.md", "Docs/Rules/ui-work.md", "Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 34890, "cumulative_chars_total": 36980, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
-{"ts_iso": "2025-12-28T10:55:00.365801+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "prompt_chars": 2210, "cumulative_chars_total": 27824, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
-{"ts": "2025-12-28T10:55:11.984238+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "6a8d1b0b-e740-4fc5-915e-2c2f1de35db0", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T10:55:54.730886+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "6a8d1b0b-e740-4fc5-915e-2c2f1de35db0", "event": "rule_read", "file_path": "Docs/Rules/framework-changes.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T11:01:03.614637+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_consulted", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md", "Docs/Rules/framework-changes.md"], "signal": "marker", "response_chars": 20982, "cumulative_chars_total": 57962, "since_last_consult_chars": {"Docs/Rules/_entrypoint-jit-rule-map.md": 20982, "Docs/Rules/framework-changes.md": null}, "git_branch": "dev", "git_commit": "109c202"}
-{"ts_iso": "2025-12-28T11:01:03.614637+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/code-quality.md", "Docs/Rules/ui-work.md", "Docs/Rules/spec-writing.md", "Docs/Rules/planning.md", "Docs/Rules/pre-commit.md", "Docs/Rules/session-end.md", "Docs/Rules/session-start.md", "Docs/Rules/command-execution.md", "Docs/Rules/implementation.md"], "signal": "heuristic", "response_chars": 20982, "cumulative_chars_total": 57962, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
-{"ts_iso": "2025-12-28T11:18:01.355341+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "prompt_chars": 2564, "cumulative_chars_total": 30388, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
-{"ts_iso": "2025-12-28T11:19:39.161512+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 18363, "cumulative_chars_total": 76325, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
-{"ts_iso": "2025-12-28T14:41:58.126506+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "prompt_chars": 1960, "cumulative_chars_total": 32348, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
-{"ts_iso": "2025-12-28T14:44:29.614639+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 17646, "cumulative_chars_total": 93971, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
-{"ts": "2025-12-28T14:47:02.513392+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "c146d3df-8720-40f4-a07a-8442dd3b9199", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T14:47:48.243437+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 2023, "cumulative_chars_total": 95994, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
-{"ts": "2025-12-28T15:47:21.845730+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "a545c057-9dd3-48a4-8a9f-fcfa105c11de", "event": "rule_read", "file_path": "Docs/Rules/pre-commit.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T15:48:36.886085+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_consulted", "direction": "out", "files": ["Docs/Rules/pre-commit.md"], "signal": "marker", "response_chars": 2132, "cumulative_chars_total": 98126, "since_last_consult_chars": {"Docs/Rules/pre-commit.md": 61146}, "git_branch": "dev", "git_commit": "06505e7"}
-{"ts_iso": "2025-12-28T15:48:36.886085+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 2132, "cumulative_chars_total": 98126, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "06505e7"}
-{"ts_iso": "2025-12-28T16:35:55.127730+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "prompt_chars": 7363, "cumulative_chars_total": 39740, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "06505e7"}
-{"ts": "2025-12-28T16:38:14.327681+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "b4d4e384-9536-496c-b69c-498580389978", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T16:40:16.837151+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 3192, "cumulative_chars_total": 103372, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "162a497"}
-{"ts": "2025-12-28T16:54:02.240385+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "8fd63b6b-eee8-4820-9f6d-d3a735aa08f6", "event": "rule_read", "file_path": "Docs/Rules/pre-commit.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T16:54:14.315112+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/pre-commit.md"], "signal": "heuristic", "response_chars": 1581, "cumulative_chars_total": 104953, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "162a497"}
-{"ts_iso": "2025-12-28T16:55:47.640507+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/pre-commit.md"], "signal": "heuristic", "response_chars": 928, "cumulative_chars_total": 105881, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "1f10d50"}
-{"ts": "2025-12-28T17:00:22.348970+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "execution_id": "98674ced-dd6d-4749-b3d8-dce3b40b1208", "event": "rule_read", "file_path": "Docs/Rules/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T07:52:38.482357+00:00", "trajectory_id": "test123", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/test.md"], "signal": "marker", "response_chars": 57, "cumulative_chars_total": 57, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/test.md": null}, "git_branch": "dev", "git_commit": "0ab1066"}
+{"ts": "2025-12-28T08:12:06.086687+00:00", "trajectory_id": "test456", "execution_id": "", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T08:14:39.463086+00:00", "trajectory_id": "e3df0220-16e3-4ea2-a5ef-06e552fc8cd1", "execution_id": "4db094a2-7824-492a-bbad-5fdec6822100", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T08:14:48.044327+00:00", "trajectory_id": "e3df0220-16e3-4ea2-a5ef-06e552fc8cd1", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "marker", "response_chars": 810, "cumulative_chars_total": 810, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": null}, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts_iso": "2025-12-28T08:15:52.315788+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 1774, "cumulative_chars_total": 1774, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts_iso": "2025-12-28T08:21:24.622354+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 6107, "cumulative_chars_total": 7881, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts_iso": "2025-12-28T08:26:39.188968+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "prompt_chars": 34, "cumulative_chars_total": 3581, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts": "2025-12-28T08:26:44.422993+00:00", "trajectory_id": "d648e0e2-355e-48a2-ab66-0ee7f037122a", "execution_id": "5187ea3e-3f82-4d9d-9462-4397c7c81637", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T08:26:57.023249+00:00", "trajectory_id": "d648e0e2-355e-48a2-ab66-0ee7f037122a", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 827, "cumulative_chars_total": 827, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts_iso": "2025-12-28T08:27:58.561020+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 766, "cumulative_chars_total": 8647, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts_iso": "2025-12-28T08:30:22.286566+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 899, "cumulative_chars_total": 9546, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts_iso": "2025-12-28T08:37:48.312399+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 3804, "cumulative_chars_total": 13350, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts_iso": "2025-12-28T08:38:48.755309+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "prompt_chars": 33, "cumulative_chars_total": 6683, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts": "2025-12-28T08:38:54.707731+00:00", "trajectory_id": "68f8d54f-5f27-49b2-a309-3eea23c5c47a", "execution_id": "12af9129-d1a6-4bd0-bb26-eae664d3cc4c", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T08:39:04.163501+00:00", "trajectory_id": "68f8d54f-5f27-49b2-a309-3eea23c5c47a", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 910, "cumulative_chars_total": 910, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts_iso": "2025-12-28T08:40:29.920151+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 1586, "cumulative_chars_total": 14936, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3829ab4"}
+{"ts": "2025-12-28T08:42:04.124131+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "execution_id": "b276e6a1-b393-420d-b973-b8fda32dce16", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T08:43:25.205315+00:00", "trajectory_id": "f56410a9-4a21-4251-ac72-35c0bce5f1d0", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md"], "signal": "heuristic", "response_chars": 1585, "cumulative_chars_total": 16521, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3706d2c"}
+{"ts": "2025-12-28T08:50:22.071991+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "execution_id": "8043a14d-35ee-4d86-8e7a-d0a67d629ae1", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T08:50:46.421949+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 3110, "cumulative_chars_total": 3110, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "3706d2c"}
+{"ts": "2025-12-28T09:16:01.769039+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "execution_id": "46d56316-6ca6-44c1-8c97-260276a23683", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T09:16:02.321296+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "execution_id": "46d56316-6ca6-44c1-8c97-260276a23683", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T09:16:19.957344+00:00", "trajectory_id": "4c67a3e7-2fab-428b-b7ce-0d081d53d993", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md"], "signal": "heuristic", "response_chars": 1421, "cumulative_chars_total": 9159, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "0b16c41"}
+{"ts": "2025-12-28T09:16:44.086303+00:00", "trajectory_id": "79143743-0298-4414-ab66-d6bd3f575c7c", "execution_id": "ed288cbb-2458-49ea-988e-436bad7a28c8", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T09:17:01.310867+00:00", "trajectory_id": "79143743-0298-4414-ab66-d6bd3f575c7c", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 935, "cumulative_chars_total": 935, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "0b16c41"}
+{"ts": "2025-12-28T09:18:37.105137+00:00", "trajectory_id": "510c9c1c-3715-4726-bb1f-5450d17b8ba4", "execution_id": "b67ec2f6-60fb-4963-91a0-45d2cd47df80", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T09:18:47.087434+00:00", "trajectory_id": "510c9c1c-3715-4726-bb1f-5450d17b8ba4", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 778, "cumulative_chars_total": 778, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "2de4fe6"}
+{"ts": "2025-12-28T09:33:41.141547+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T09:33:45.829696+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T09:33:51.928077+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T09:34:21.362464+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T09:40:07.590712+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "execution_id": "52d00e8f-6200-4536-af4a-e94347843dd3", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T09:41:10.829205+00:00", "trajectory_id": "8c8f5ec0-2419-4afa-86d3-7f4f1c57badf", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md"], "signal": "marker", "response_chars": 6555, "cumulative_chars_total": 6555, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md": null}, "git_branch": "dev", "git_commit": "74b08c3"}
+{"ts": "2025-12-28T10:11:33.178056+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "01f5abbc-a0be-41ab-8cf5-4aba71620bb6", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T10:11:42.129171+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "01f5abbc-a0be-41ab-8cf5-4aba71620bb6", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T10:12:01.531976+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "marker", "response_chars": 2090, "cumulative_chars_total": 2090, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": null}, "git_branch": "dev", "git_commit": "109c202"}
+{"ts": "2025-12-28T10:27:36.494181+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/planning.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T10:27:36.494181+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/spec-writing.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T10:29:15.859878+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T10:29:15.865427+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T10:29:15.865427+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/command-execution.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T10:29:15.866442+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T10:29:48.965019+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-end.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T10:29:49.761355+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "f9a10695-27f5-44f1-822c-573c6d6d02c9", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/ui-work.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T10:33:20.017207+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_consulted", "direction": "out", "files": ["...", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/spec-writing.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/planning.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/command-execution.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md"], "signal": "marker", "response_chars": 34890, "cumulative_chars_total": 36980, "since_last_consult_chars": {"...": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": 34890, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/spec-writing.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/planning.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/command-execution.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md": null}, "git_branch": "dev", "git_commit": "109c202"}
+{"ts_iso": "2025-12-28T10:33:20.017207+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-end.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/ui-work.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 34890, "cumulative_chars_total": 36980, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
+{"ts_iso": "2025-12-28T10:55:00.365801+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "prompt_chars": 2210, "cumulative_chars_total": 27824, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
+{"ts": "2025-12-28T10:55:11.984238+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "6a8d1b0b-e740-4fc5-915e-2c2f1de35db0", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts": "2025-12-28T10:55:54.730886+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "6a8d1b0b-e740-4fc5-915e-2c2f1de35db0", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/framework-changes.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T11:01:03.614637+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/framework-changes.md"], "signal": "marker", "response_chars": 20982, "cumulative_chars_total": 57962, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": 20982, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/framework-changes.md": null}, "git_branch": "dev", "git_commit": "109c202"}
+{"ts_iso": "2025-12-28T11:01:03.614637+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/ui-work.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/spec-writing.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/planning.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-end.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/command-execution.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md"], "signal": "heuristic", "response_chars": 20982, "cumulative_chars_total": 57962, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
+{"ts_iso": "2025-12-28T11:18:01.355341+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "prompt_chars": 2564, "cumulative_chars_total": 30388, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
+{"ts_iso": "2025-12-28T11:19:39.161512+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 18363, "cumulative_chars_total": 76325, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
+{"ts_iso": "2025-12-28T14:41:58.126506+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "prompt_chars": 1960, "cumulative_chars_total": 32348, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
+{"ts_iso": "2025-12-28T14:44:29.614639+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 17646, "cumulative_chars_total": 93971, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
+{"ts": "2025-12-28T14:47:02.513392+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "c146d3df-8720-40f4-a07a-8442dd3b9199", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T14:47:48.243437+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 2023, "cumulative_chars_total": 95994, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "109c202"}
+{"ts": "2025-12-28T15:47:21.845730+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "a545c057-9dd3-48a4-8a9f-fcfa105c11de", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T15:48:36.886085+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md"], "signal": "marker", "response_chars": 2132, "cumulative_chars_total": 98126, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md": 61146}, "git_branch": "dev", "git_commit": "06505e7"}
+{"ts_iso": "2025-12-28T15:48:36.886085+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 2132, "cumulative_chars_total": 98126, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "06505e7"}
+{"ts_iso": "2025-12-28T16:35:55.127730+00:00", "trajectory_id": "", "event": "rule_reference", "direction": "in", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "prompt_chars": 7363, "cumulative_chars_total": 39740, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "06505e7"}
+{"ts": "2025-12-28T16:38:14.327681+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "b4d4e384-9536-496c-b69c-498580389978", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T16:40:16.837151+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 3192, "cumulative_chars_total": 103372, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "162a497"}
+{"ts": "2025-12-28T16:54:02.240385+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "execution_id": "8fd63b6b-eee8-4820-9f6d-d3a735aa08f6", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T16:54:14.315112+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md"], "signal": "heuristic", "response_chars": 1581, "cumulative_chars_total": 104953, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "162a497"}
+{"ts_iso": "2025-12-28T16:55:47.640507+00:00", "trajectory_id": "b511de43-5deb-4683-8103-9493b73340e6", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md"], "signal": "heuristic", "response_chars": 928, "cumulative_chars_total": 105881, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "1f10d50"}
+{"ts": "2025-12-28T17:00:22.348970+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "execution_id": "98674ced-dd6d-4749-b3d8-dce3b40b1208", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "signal": "post_read_code"}
 {"ts": "2025-12-28T17:00:33.268753+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "execution_id": "98674ced-dd6d-4749-b3d8-dce3b40b1208", "event": "rule_read", "file_path": ".windsurf/rules/always-on.md", "signal": "post_read_code"}
-{"ts": "2025-12-28T17:00:43.194252+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "execution_id": "98674ced-dd6d-4749-b3d8-dce3b40b1208", "event": "rule_read", "file_path": "Docs/Rules/session-start.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T17:01:00.679681+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "event": "rule_consulted", "direction": "out", "files": ["Docs/Rules/_entrypoint-jit-rule-map.md", "Docs/Rules/session-start.md"], "signal": "marker", "response_chars": 2687, "cumulative_chars_total": 2687, "since_last_consult_chars": {"Docs/Rules/_entrypoint-jit-rule-map.md": null, "Docs/Rules/session-start.md": null}, "git_branch": "dev", "git_commit": "1f10d50"}
+{"ts": "2025-12-28T17:00:43.194252+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "execution_id": "98674ced-dd6d-4749-b3d8-dce3b40b1208", "event": "rule_read", "file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "signal": "post_read_code"}
+{"ts_iso": "2025-12-28T17:01:00.679681+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "marker", "response_chars": 2687, "cumulative_chars_total": 2687, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": null}, "git_branch": "dev", "git_commit": "1f10d50"}
 {"ts_iso": "2025-12-28T17:01:00.679681+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "event": "rule_reference", "direction": "out", "files": [".windsurf/rules/always-on.md"], "signal": "heuristic", "response_chars": 2687, "cumulative_chars_total": 2687, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "1f10d50"}
-{"ts_iso": "2025-12-28T17:02:59.553487+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "event": "rule_reference", "direction": "out", "files": ["Docs/Rules/framework-changes.md", "Docs/Rules/spec-writing.md", "Docs/Rules/code-quality.md", "Docs/Rules/implementation.md", "Docs/Rules/pre-commit.md", "Docs/Rules/ui-work.md", "Docs/Rules/session-end.md", "Docs/Rules/planning.md", "Docs/Rules/_entrypoint-jit-rule-map.md", "Docs/Rules/command-execution.md", "Docs/Rules/session-start.md"], "signal": "heuristic", "response_chars": 11313, "cumulative_chars_total": 14000, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "1f10d50"}
+{"ts_iso": "2025-12-28T17:02:59.553487+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "event": "rule_reference", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/framework-changes.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/spec-writing.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/ui-work.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-end.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/planning.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/command-execution.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "heuristic", "response_chars": 11313, "cumulative_chars_total": 14000, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "1f10d50"}
 {"ts": "2025-12-28T17:46:51.293333+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "execution_id": "fd721432-1b87-46c1-ba42-f5f83217840c", "event": "rule_read", "file_path": ".windsurf/rules/always-on.md", "signal": "post_read_code"}
 {"ts_iso": "2025-12-28T17:52:16.929255+00:00", "trajectory_id": "4795eec5-f37a-47dd-82b2-6195390e44fc", "event": "rule_reference", "direction": "out", "files": [".windsurf/rules/always-on.md"], "signal": "heuristic", "response_chars": 8996, "cumulative_chars_total": 29077, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "4ce9197"}
-{"ts_iso": "2025-12-28T18:29:37.814835+00:00", "trajectory_id": "211b6de6-61a8-4add-817a-de0d07bdb4ce", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/Rules/pre-commit.md"], "signal": "marker", "response_chars": 2672, "cumulative_chars_total": 15915, "since_last_consult_chars": {"Docs/DevFramework/Rules/pre-commit.md": null}, "git_branch": "dev", "git_commit": "4ce9197"}
+{"ts_iso": "2025-12-28T18:29:37.814835+00:00", "trajectory_id": "211b6de6-61a8-4add-817a-de0d07bdb4ce", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md"], "signal": "marker", "response_chars": 2672, "cumulative_chars_total": 15915, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md": null}, "git_branch": "dev", "git_commit": "4ce9197"}
 {"ts": "2025-12-28T18:40:30.513740+00:00", "trajectory_id": "3c03fae2-2559-4d77-80d9-659852e72f6b", "execution_id": "985bf5b4-f94b-4506-9792-45412842f485", "event": "rule_read", "file_path": ".windsurf/rules/always-on.md", "signal": "post_read_code"}
 {"ts": "2025-12-28T18:51:53.193464+00:00", "trajectory_id": "a20e5eca-2301-498e-99bc-6d3fa3dd3c91", "execution_id": "c423b534-b1f0-4743-a0a2-65665f93f455", "event": "rule_read", "file_path": ".windsurf/rules/always-on.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T18:59:35.169242+00:00", "trajectory_id": "a20e5eca-2301-498e-99bc-6d3fa3dd3c91", "event": "rule_reference", "direction": "out", "files": [".windsurf/rules/always-on.md", "Docs/Rules/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 5664, "cumulative_chars_total": 5664, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "c08dcc8"}
+{"ts_iso": "2025-12-28T18:59:35.169242+00:00", "trajectory_id": "a20e5eca-2301-498e-99bc-6d3fa3dd3c91", "event": "rule_reference", "direction": "out", "files": [".windsurf/rules/always-on.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md"], "signal": "heuristic", "response_chars": 5664, "cumulative_chars_total": 5664, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "c08dcc8"}
 {"ts": "2025-12-28T19:04:19.127922+00:00", "trajectory_id": "00a062a7-048f-4741-b5aa-e7455a01fc2a", "execution_id": "ce273a25-3e39-4505-9317-5611d1adb907", "event": "rule_read", "file_path": ".windsurf/rules/always-on.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T19:04:47.618858+00:00", "trajectory_id": "00a062a7-048f-4741-b5aa-e7455a01fc2a", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md", "Docs/DevFramework/Rules/session-start.md"], "signal": "marker", "response_chars": 2285, "cumulative_chars_total": 2285, "since_last_consult_chars": {"Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md": null, "Docs/DevFramework/Rules/session-start.md": null}, "git_branch": "dev", "git_commit": "c08dcc8"}
+{"ts_iso": "2025-12-28T19:04:47.618858+00:00", "trajectory_id": "00a062a7-048f-4741-b5aa-e7455a01fc2a", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md"], "signal": "marker", "response_chars": 2285, "cumulative_chars_total": 2285, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": null}, "git_branch": "dev", "git_commit": "c08dcc8"}
 {"ts_iso": "2025-12-28T19:04:47.618858+00:00", "trajectory_id": "00a062a7-048f-4741-b5aa-e7455a01fc2a", "event": "rule_reference", "direction": "out", "files": [".windsurf/rules/always-on.md"], "signal": "heuristic", "response_chars": 2285, "cumulative_chars_total": 2285, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "c08dcc8"}
 {"ts": "2025-12-28T19:06:13.200349+00:00", "trajectory_id": "fbb7a64e-3542-43c6-8427-4f00a0364010", "execution_id": "edf8d44a-ced3-403a-bf11-562e6a8d9d5d", "event": "rule_read", "file_path": ".windsurf/rules/always-on.md", "signal": "post_read_code"}
-{"ts_iso": "2025-12-28T19:12:24.759690+00:00", "trajectory_id": "fbb7a64e-3542-43c6-8427-4f00a0364010", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md", "Docs/DevFramework/Rules/session-start.md", "Docs/DevFramework/Rules/implementation.md", "Docs/DevFramework/Rules/code-quality.md", "Docs/DevFramework/Rules/pre-commit.md"], "signal": "marker", "response_chars": 6753, "cumulative_chars_total": 6753, "since_last_consult_chars": {"Docs/DevFramework/Rules/_entrypoint-jit-rule-map.md": null, "Docs/DevFramework/Rules/session-start.md": null, "Docs/DevFramework/Rules/implementation.md": null, "Docs/DevFramework/Rules/code-quality.md": null, "Docs/DevFramework/Rules/pre-commit.md": null}, "git_branch": "dev", "git_commit": "2a7312d"}
+{"ts_iso": "2025-12-28T19:12:24.759690+00:00", "trajectory_id": "fbb7a64e-3542-43c6-8427-4f00a0364010", "event": "rule_consulted", "direction": "out", "files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md", "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md"], "signal": "marker", "response_chars": 6753, "cumulative_chars_total": 6753, "since_last_consult_chars": {"Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/session-start.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/implementation.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md": null, "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md": null}, "git_branch": "dev", "git_commit": "2a7312d"}
 {"ts_iso": "2025-12-28T19:12:24.759690+00:00", "trajectory_id": "fbb7a64e-3542-43c6-8427-4f00a0364010", "event": "rule_reference", "direction": "out", "files": [".windsurf/rules/always-on.md"], "signal": "heuristic", "response_chars": 6753, "cumulative_chars_total": 6753, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "2a7312d"}
 {"ts_iso": "2025-12-28T20:12:43.001651+00:00", "trajectory_id": "00a062a7-048f-4741-b5aa-e7455a01fc2a", "event": "rule_reference", "direction": "out", "files": [".windsurf/rules/always-on.md"], "signal": "heuristic", "response_chars": 2954, "cumulative_chars_total": 49299, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "94502ca"}
 {"ts_iso": "2025-12-28T20:19:48.608979+00:00", "trajectory_id": "00a062a7-048f-4741-b5aa-e7455a01fc2a", "event": "rule_reference", "direction": "out", "files": [".windsurf/rules/always-on.md"], "signal": "heuristic", "response_chars": 4557, "cumulative_chars_total": 63159, "since_last_consult_chars": null, "git_branch": "dev", "git_commit": "94502ca"}

@@ -58,7 +58,9 @@ If any gate fails, update the spec/plan/tasks first.
 **Use the integrated PowerShell terminal** (`run_command` tool) for all commands.
 
 The Cascade Watcher is deprecated and only used as fallback if the integrated terminal doesn't work.
-See `Docs/DevFramework/Tooling/CASCADE_WATCHER.md` for fallback instructions.
+See `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/CASCADE_WATCHER.md` for fallback instructions.
 
 ## Verification
 
@@ -80,8 +82,10 @@ When reporting completion:
 - Code changes completed
 - Verification executed
 - Notes written back into the relevant spec/plan/tasks if reality differed from assumptions
-- Git commit & push (see `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`)
+- Git commit & push (see `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/pre-commit.md`)
 
 ---
 
-**Next:** Before committing → Read `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`
+**Next:** Before committing → Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/pre-commit.md`

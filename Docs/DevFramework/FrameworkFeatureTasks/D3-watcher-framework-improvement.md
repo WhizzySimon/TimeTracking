@@ -10,7 +10,8 @@
 
 ## JIT Rules (MANDATORY)
 
-**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
+**Follow the JIT rule map at each trigger point:** `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 
 Key triggers during task execution: writing code, before commit, session end.
 
@@ -114,7 +115,9 @@ Key triggers during task execution: writing code, before commit, session end.
 ## Task D3.6 — Update Documentation
 
 - **Files:**
-  - `Docs/Tooling/CASCADE_WATCHER.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/ToolSetup
+/CASCADE_WATCHER.md`
   - `.windsurf/rules/command-execution-rules.md` (if needed)
 - **Done when:**
   - Documentation includes:
@@ -135,7 +138,9 @@ Key triggers during task execution: writing code, before commit, session end.
 
 - **Files:**
   - `Docs/IMPLEMENTATION_PROGRESS.md`
-  - `Docs/Devlog/CHANGELOG.md`
+  - `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/CHANGELOG.md`
 - **Done when:**
   - D3 marked as COMPLETE in progress tracker
   - Changelog entry added

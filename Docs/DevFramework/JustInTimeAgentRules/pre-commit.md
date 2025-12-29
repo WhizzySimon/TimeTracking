@@ -14,11 +14,14 @@
 
 ## Audit Gate (required before commit)
 
-1. Read `Docs/DevFramework/JustInTimeAgentRules/ai-config.json` → `switch_model_before_audit`
+1. Read `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/ai-config.json` → `switch_model_before_audit`
 2. **Prepare for audit (Builder does this BEFORE switching models):**
    - Run `git add -A` to stage all changes
-   - Create Evidence Bundle from `Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/_template.md`
-     - Path: `Docs/DevFramework/FrameworkSelfImprovementLogs/Evidence/AUD-YYYY-MM-DD-01.md`
+   - Create Evidence Bundle from `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs/Evidence/_template.md`
+     - Path: `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs/Evidence/AUD-YYYY-MM-DD-01.md`
      - Fill in: acceptance criteria, commands run, planned scope
    - Stage the Evidence Bundle: `git add <evidence-bundle-path>`
 3. If `switch_model_before_audit` is `true` and you are Builder:
@@ -91,4 +94,5 @@ If either check fails, fix before ending the session.
 
 ---
 
-**Self-Learning System:** See `Docs/DevFramework/JustInTimeAgentRules/session-end.md` for learning promotion rules and the two-tier system (Inbox → Distillate).
+**Self-Learning System:** See `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/session-end.md` for learning promotion rules and the two-tier system (Inbox → Distillate).

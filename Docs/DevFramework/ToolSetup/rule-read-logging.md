@@ -23,7 +23,9 @@ This system tracks:
    - `post_read_code`: When Cascade reads any file (evidence-based logging)
    - `pre_user_prompt` / `post_cascade_response`: For marker/heuristic detection
 2. **Hook script** (`.windsurf/hooks/rule_read_logger.py`):
-   - For `post_read_code`: Checks if `file_path` is under `Docs/Rules/` or `.windsurf/rules/`
+   - For `post_read_code`: Checks if `file_path` is under `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/` or `.windsurf/rules/`
    - For responses: Parses `<!-- RULE_CONSULTED: ... -->` markers and heuristic path mentions
 3. **NDJSON log** captures events with timestamps, trajectory IDs, and file paths
 4. **State file** tracks "last consulted" per file to calculate re-read distances
@@ -40,7 +42,11 @@ The hook script filters early:
 When Cascade reads a rule file, it should emit at the end of its response:
 
 ```html
-<!-- RULE_CONSULTED: Docs/Rules/code-quality.md, Docs/Rules/pre-commit.md -->
+<!-- RULE_CONSULTED: Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md, Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/pre-commit.md -->
 ```
 
 This marker is invisible in the chat UI but parsed by the hook.
@@ -112,7 +118,9 @@ Thresholds in `scripts/report_rule_reads.py`:
 	"trajectory_id": "abc123",
 	"execution_id": "xyz789",
 	"event": "rule_read",
-	"file_path": "Docs/Rules/code-quality.md",
+	"file_path": "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md",
 	"signal": "post_read_code"
 }
 ```
@@ -125,11 +133,15 @@ Thresholds in `scripts/report_rule_reads.py`:
 	"trajectory_id": "abc123",
 	"event": "rule_consulted",
 	"direction": "out",
-	"files": ["Docs/Rules/code-quality.md"],
+	"files": ["Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md"],
 	"signal": "marker",
 	"response_chars": 1500,
 	"cumulative_chars_total": 45000,
-	"since_last_consult_chars": { "Docs/Rules/code-quality.md": 12000 },
+	"since_last_consult_chars": { "Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/code-quality.md": 12000 },
 	"git_branch": "dev",
 	"git_commit": "abc1234"
 }
@@ -168,6 +180,9 @@ Experiments on 2025-12-28:
 | ---------------------------------------- | --------------------------------------------------------------- |
 | `.windsurf/hooks.json`                   | Created — hook configuration (corrected schema 2025-12-28)      |
 | `.windsurf/hooks/rule_read_logger.py`    | Created — hook script (added post_read_code handler 2025-12-28) |
-| `Docs/Rules/_entrypoint-jit-rule-map.md` | Updated — added RULE_CONSULTED marker instruction               |
+| `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules
+/_entrypoint-jit-rule-map.md` | Updated — added RULE_CONSULTED marker instruction               |
 | `scripts/report_rule_reads.py`           | Created — report generator (added rule_read support 2025-12-28) |
-| `Docs/Dev/rule-read-logging.md`          | Created — this documentation                                    |
+| `Docs/DevFramework/ToolSetup
+/rule-read-logging.md`          | Created — this documentation                                    |

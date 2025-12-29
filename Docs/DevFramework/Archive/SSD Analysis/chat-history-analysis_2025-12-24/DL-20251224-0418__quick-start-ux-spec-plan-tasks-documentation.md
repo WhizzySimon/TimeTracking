@@ -12,7 +12,9 @@
 - Tasks: Docs/Tasks/P07-20251223-quick-start-ux.md
 - Progress: Docs/IMPLEMENTATION_PROGRESS.md (Phase 7 → Phase 8, Quick-Start UX)
 - Other referenced docs:
-  - Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md (created in this session)
+  - Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md (created in this session)
   - Docs/INDEX.md (updated)
   - .windsurf/workflows/new-feature.md (created)
   - .windsurf/workflows/continue-work.md (updated)
@@ -46,7 +48,9 @@
 
 ### Repo-Verified Delta (optional, getrennt!)
 
-- Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md — File created with complete workflow guide (321 lines) — Evidence: write_to_file tool created file, list_dir confirms existence
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md — File created with complete workflow guide (321 lines) — Evidence: write_to_file tool created file, list_dir confirms existence
 
 - Docs/INDEX.md — Updated to reference new SPEC_DRIVEN_DEVELOPMENT.md under "Development process" section — Evidence: edit tool added line 23-24 referencing new doc
 
@@ -54,7 +58,9 @@
 
 - .windsurf/workflows/continue-work.md — Updated to find tasks file based on current phase from IMPLEMENTATION_PROGRESS.md — Evidence: edit tool modified lines 35-39
 
-- Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md — Contains workflow decision tree at beginning of document — Evidence: edit tool added decision tree diagram in lines 7-42
+- Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md — Contains workflow decision tree at beginning of document — Evidence: edit tool added decision tree diagram in lines 7-42
 
 ## Verification (strict)
 
@@ -64,7 +70,9 @@
   - Docs/Specs/P07-20251223-quick-start-ux.md exists (16167 bytes) — Evidence: list_dir output
   - Docs/Plans/P07-20251223-quick-start-ux.md exists (16707 bytes) — Evidence: list_dir output
   - Docs/Tasks/P07-20251223-quick-start-ux.md exists (11885 bytes) — Evidence: list_dir output
-  - Docs/Guidelines/SPEC_DRIVEN_DEVELOPMENT.md exists — Evidence: file created via write_to_file
+  - Docs/DevFramework/ToolSetup
+Framework/DeveloperGuidesAndStandards
+/SPEC_DRIVEN_DEVELOPMENT.md exists — Evidence: file created via write_to_file
   - .windsurf/workflows/new-feature.md exists (2951 bytes) — Evidence: list_dir output
   - Docs/IMPLEMENTATION_PROGRESS.md shows "Current Phase: Phase 8" (not Phase 7 as expected from chat) — Evidence: read_file shows Phase 8 in header
 

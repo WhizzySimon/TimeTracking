@@ -73,7 +73,9 @@
 - Verified now in repo (static only):
   - src/routes/+layout.svelte no longer contains "import favicon from" or "<svelte:head>" with icon link — Evidence: File read after edits shows no favicon import or svelte:head block
   - All Svelte components searched have no remaining hardcoded "border-radius: \d+px" patterns — Evidence: grep_search returned "No results found"
-  - Docs/Devlog/INDEX.md contains separator line "--- | --- | --- | --- | ---" on line 2 — Evidence: read_file output line 2
+  - Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
+/INDEX.md contains separator line "--- | --- | --- | --- | ---" on line 2 — Evidence: read_file output line 2
 
 ## Bugs / Issues mentioned
 

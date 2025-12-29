@@ -6,7 +6,8 @@
 
 ## Pre-Commit Covers Most Checks
 
-The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`.
+The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/pre-commit.md`.
 
 **If you committed and pushed, session-end checks are already done.**
 
@@ -18,9 +19,11 @@ This file documents the self-learning system for reference.
 
 Cascade learns from maintainer feedback via a two-tier system:
 
-- **Inbox:** `Docs/DevFramework/FrameworkSelfImprovementLogs
+- **Inbox:** `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` — raw capture, unbounded, not read at session start
-- **Distillate:** `Docs/DevFramework/FrameworkSelfImprovementLogs
+- **Distillate:** `Docs/DevFramework/ToolSetup
+Framework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` — proven preferences, max 30 bullets, read at session start
 
 ### When to Update
@@ -48,13 +51,20 @@ When a Distillate item is categorized as **Hard Rule**, add it to the **appropri
 
 | Rule is about...                      | Add to                                         |
 | ------------------------------------- | ---------------------------------------------- |
-| Session start workflow                | `Docs/DevFramework/JustInTimeAgentRules/session-start.md`     |
-| Writing specs                         | `Docs/DevFramework/JustInTimeAgentRules/spec-writing.md`      |
-| Creating plans                        | `Docs/DevFramework/JustInTimeAgentRules/planning.md`          |
-| Implementation/coding                 | `Docs/DevFramework/JustInTimeAgentRules/implementation.md`    |
-| Pre-commit checklist                  | `Docs/DevFramework/JustInTimeAgentRules/pre-commit.md`        |
-| Session end workflow                  | `Docs/DevFramework/JustInTimeAgentRules/session-end.md`       |
-| Framework doc changes                 | `Docs/DevFramework/JustInTimeAgentRules/framework-changes.md` |
+| Session start workflow                | `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/session-start.md`     |
+| Writing specs                         | `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/spec-writing.md`      |
+| Creating plans                        | `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/planning.md`          |
+| Implementation/coding                 | `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/implementation.md`    |
+| Pre-commit checklist                  | `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/pre-commit.md`        |
+| Session end workflow                  | `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/session-end.md`       |
+| Framework doc changes                 | `Docs/DevFramework/ToolSetup
+Framework/JustInTimeAgentRules/framework-changes.md` |
 | Always needed (coding style, watcher) | `.windsurf/rules/`                             |
 | Core principles                       | `RULE_MAP.md`                                  |
 
