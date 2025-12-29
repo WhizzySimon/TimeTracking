@@ -10,6 +10,7 @@ Framework/JustInTimeAgentRules
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-29                                         | docs     | Simplify command-execution-rules.md: integrated terminal primary, watcher fallback                   | —       |
 | 2025-12-29                                         | feat     | Naming convention validation: ESLint id-length + validate-naming.js + /audit checklist               | —       |
 | 2025-12-28                                         | feat     | A2.4: Employer store + CRUD operations (employers.ts) + backup snapshot integration                  | —       |
 | 2025-12-28                                         | feat     | A2.2: Add employerId field to TimeEntry, Category, WorkTimeModel interfaces                          | —       |

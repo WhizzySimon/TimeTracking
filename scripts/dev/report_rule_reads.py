@@ -5,7 +5,7 @@ Rule Read Report Generator
 Analyzes rule_reads.ndjson to produce facts about rule consultation patterns.
 
 Usage:
-    python scripts/report_rule_reads.py
+    python scripts/dev/report_rule_reads.py
 
 Output:
     - Total rule_read count per file (evidence-based, from post_read_code hook)

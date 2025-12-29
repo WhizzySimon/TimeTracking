@@ -54,7 +54,7 @@ This marker is invisible in the chat UI but parsed by the hook.
 ## Generating Reports
 
 ```bash
-python scripts/report_rule_reads.py
+python scripts/dev/report_rule_reads.py
 ```
 
 Output includes:
@@ -99,11 +99,11 @@ Once confirmed working:
 2. **Ask a question** that requires consulting a rule file (e.g., "how should I format code?")
 3. **Verify marker** is present (view raw message if possible, or check log file)
 4. **Check log file** exists: `scripts/CascadeAgentTools/logs/rule_reads.ndjson`
-5. **Run report**: `py -3 scripts/report_rule_reads.py`
+5. **Run report**: `py -3 scripts/dev/report_rule_reads.py`
 
 ## Configuration
 
-Thresholds in `scripts/report_rule_reads.py`:
+Thresholds in `scripts/dev/report_rule_reads.py`:
 
 - `REREAD_TIME_MINUTES = 30` — Re-read if same file consulted within this time
 - `REREAD_CHARS_THRESHOLD = 20000` — Re-read if same file consulted within this many chars
@@ -184,6 +184,6 @@ Experiments on 2025-12-28:
 | `Docs/DevFramework/ToolSetup
 Framework/JustInTimeAgentRules
 /_entrypoint-jit-rule-map.md` | Updated — added RULE_CONSULTED marker instruction |
-| `scripts/report_rule_reads.py` | Created — report generator (added rule_read support 2025-12-28) |
+| `scripts/dev/report_rule_reads.py` | Created — report generator (added rule_read support 2025-12-28) |
 | `Docs/DevFramework/ToolSetup
 /rule-read-logging.md` | Created — this documentation |
