@@ -42,6 +42,7 @@
 	import PlanComparison from '$lib/components/PlanComparison.svelte';
 	import EmployerDialog from '$lib/components/EmployerDialog.svelte';
 	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
+	import StundenzettelExport from '$lib/components/StundenzettelExport.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
 		const days = [
@@ -98,6 +99,7 @@
 	let showImportCategories = $state(false);
 	let showImportExcel = $state(false);
 	let showExportDialog = $state(false);
+	let showStundenzettelExport = $state(false);
 	let showPlanComparison = $state(false);
 	let showDeleteConfirm = $state(false);
 	let showDeleteModelConfirm = $state(false);
@@ -700,6 +702,9 @@
 				<button class="data-btn" onclick={() => (showExportDialog = true)} data-testid="export-btn">
 					Exportieren
 				</button>
+				<button class="data-btn" onclick={() => (showStundenzettelExport = true)} data-testid="stundenzettel-export-btn">
+					Stundenzettel
+				</button>
 				<button class="data-btn" onclick={() => goto(resolve('/import'))} data-testid="import-btn">
 					Importieren
 				</button>
@@ -823,6 +828,17 @@
 <!-- Export Dialog -->
 {#if showExportDialog}
 	<ExportDialog onclose={() => (showExportDialog = false)} />
+{/if}
+
+<!-- Stundenzettel Export Dialog -->
+{#if showStundenzettelExport}
+	<StundenzettelExport
+		onclose={() => (showStundenzettelExport = false)}
+		onexport={(data) => {
+			console.log('[Settings] Stundenzettel export data:', data);
+			showStundenzettelExport = false;
+		}}
+	/>
 {/if}
 
 <!-- Plan Comparison Modal -->

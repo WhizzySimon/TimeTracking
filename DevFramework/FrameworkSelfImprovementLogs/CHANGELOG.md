@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-29                                         | feat     | A2.14: StundenzettelExport component — employer selector, date range, column checkboxes, preview     | —       |
 | 2025-12-29                                         | feat     | A2.13: WorkTimeModelDialog employer dropdown for assigning models to employers                       | —       |
 | 2025-12-29                                         | feat     | A2.12: CategoryDialog for editing categories with employer assignment + clickable category items     | —       |
 | 2025-12-29                                         | feat     | A2.11: Settings Arbeitgeber section + EmployerDialog component (create/edit/delete employers)        | —       |
