@@ -26,8 +26,7 @@ Say: "Ready on dev. What would you like me to do?"
 
 If the user specifies docs to read (e.g., "read the UI spec" or "read the backup spec"):
 
-- Read the specified docs from `Docs/AppDocs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+- Read the specified docs from `Docs/AppDocs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /` or `Docs/AppDocs/Features/Specs/`
 - Add them to your Doc Inventory
 
@@ -41,9 +40,7 @@ Proceed directly with the user's task. Use `code_search` or `grep_search` to fin
 
 ### 1. Verification
 
-Use watcher to run `npm run verify`, poll status, fix any errors until ALL PASSED. See `Docs/DevFramework/ToolSetup
-Framework/ToolSetup
-/CASCADE_WATCHER.md`.
+Use watcher to run `npm run verify`, poll status, fix any errors until ALL PASSED. See `Docs/DevFramework/DevFramework/ToolSetup/CASCADE_WATCHER.md`.
 
 ### 2. UI Testing
 
@@ -51,8 +48,7 @@ Use MCP Playwright browser (`mcp1_browser_navigate` to `http://localhost:5173`) 
 
 ### 3. Git Commit & Push (REQUIRED - NEVER SKIP THIS)
 
-**Follow `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/pre-commit.md`** — includes changelog update, commit, and push.
+**Follow `Docs/DevFramework/DevFramework/JustInTimeAgentRules/pre-commit.md`** — includes changelog update, commit, and push.
 
 ---
 
@@ -65,8 +61,7 @@ Start your response with:
 - .windsurf/rules/* (all rules)
 - RULE_MAP.md
 - .windsurf/cascade.md
-- Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
+- Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md
 - [any additional docs the user requested]
 
 Ready for your task.

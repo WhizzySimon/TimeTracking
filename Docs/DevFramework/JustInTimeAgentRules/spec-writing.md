@@ -8,14 +8,11 @@
 
 For any non-trivial change, create/update a spec file:
 
-- Location: `Docs/AppDocs/Features/Specs/<feature-slug>.md` or `Docs/DevFramework/ToolSetup
-Framework/FrameworkFeatureSpecs
+- Location: `Docs/AppDocs/Features/Specs/<feature-slug>.md` or `Docs/DevFramework/DevFramework/FrameworkFeatureSpecs
 /<feature-slug>.md`
-- Template: `Docs/AppDocs/Features/Specs/_template.md` or `Docs/DevFramework/ToolSetup
-Framework/FrameworkFeatureSpecs
+- Template: `Docs/AppDocs/Features/Specs/_template.md` or `Docs/DevFramework/DevFramework/FrameworkFeatureSpecs
 /_template.md`
-- Rules: `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md`
+- Rules: `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md`
 
 ## Required Sections
 
@@ -40,5 +37,4 @@ Before moving to planning:
 
 ---
 
-**Next:** When spec is approved → Read `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/planning.md`
+**Next:** When spec is approved → Read `Docs/DevFramework/DevFramework/JustInTimeAgentRules/planning.md`

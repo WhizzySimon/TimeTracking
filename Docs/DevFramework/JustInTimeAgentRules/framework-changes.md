@@ -4,7 +4,7 @@
 
 ---
 
-## Rules for Adding/Changing Dev Framework Content
+## Rules for Adding/Changing DevFramework Content
 
 1. **Never duplicate** — If content exists in one location, reference it, don't copy it
 2. **Workflows only orchestrate** — Workflows tell Cascade which docs to read. They must NOT contain rules or commands that could go stale
@@ -24,28 +24,20 @@
 | Framework/DeveloperGuidesAndStandards/` | DEVELOPMENT_GUIDELINES, NAMING_CONVENTIONS, etc. |
 | **Tooling docs**                        | `Docs/DevFramework/ToolSetup                     |
 
-Framework/ToolSetup
-/`                  | Watcher, git workflow, bootstrap                                  |
+Framework/ToolSetup/`                  | Watcher, git workflow, bootstrap                                  |
 | **App specs**        |`Docs/AppDocs/Features/Specs/`, `Plans/`, `Tasks/`     | Per-feature app documentation                                     |
-| **Framework specs**  |`Docs/DevFramework/ToolSetup
-Framework/FrameworkFeatureSpecs
+| **Framework specs**  |`Docs/DevFramework/DevFramework/FrameworkFeatureSpecs
 /`, `Plans/`, `Tasks/`| Per-feature framework documentation                               |
-| **Dev history**      |`Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+| **Dev history**      |`Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /CHANGELOG.md`       | One line per commit                                               |
-| **Decisions**        |`Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+| **Decisions**        |`Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /DECISIONS.md`       | Architecture/policy decisions (ADR-light)                         |
-| **Learnings**        |`Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+| **Learnings**        |`Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS.md`       | Proven preferences (max 30 bullets)                               |
-| **Learnings Inbox**  |`Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+| **Learnings Inbox**  |`Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` | Raw feedback capture (unbounded, low priority)                    |
-| **Trigger rules**    |`Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/` | Just-in-time rules loaded at specific triggers |
+| **Trigger rules**    |`Docs/DevFramework/DevFramework/JustInTimeAgentRules/` | Just-in-time rules loaded at specific triggers |
 
 ---
 
-**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to the appropriate `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/*.md` file, NOT to individual workflow files. Workflows should reference docs, not duplicate content.
+**CRITICAL:** When adding new process rules (e.g., "always do X after task completion"), add them to the appropriate `Docs/DevFramework/DevFramework/JustInTimeAgentRules/*.md` file, NOT to individual workflow files. Workflows should reference docs, not duplicate content.

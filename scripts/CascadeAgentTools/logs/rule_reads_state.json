@@ -4,8 +4,7 @@
 		"cumulative_chars_out": 57,
 		"last_seen_ts": "2025-12-28T07:52:38.481680+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /test.md": {
 				"ts": "2025-12-28T07:52:38.482357+00:00",
 				"cumulative_chars_total": 57
@@ -23,14 +22,12 @@ Framework/JustInTimeAgentRules
 		"cumulative_chars_out": 810,
 		"last_seen_ts": "2025-12-28T08:14:48.043327+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T08:14:48.044327+00:00",
 				"cumulative_chars_total": 810
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /session-start.md": {
 				"ts": "2025-12-28T08:14:48.044327+00:00",
 				"cumulative_chars_total": 810
@@ -78,26 +75,22 @@ Framework/JustInTimeAgentRules
 		"cumulative_chars_out": 12132,
 		"last_seen_ts": "2025-12-28T09:48:01.618599+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T09:41:10.829205+00:00",
 				"cumulative_chars_total": 6555
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /session-start.md": {
 				"ts": "2025-12-28T09:41:10.829205+00:00",
 				"cumulative_chars_total": 6555
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /implementation.md": {
 				"ts": "2025-12-28T09:41:10.829205+00:00",
 				"cumulative_chars_total": 6555
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /pre-commit.md": {
 				"ts": "2025-12-28T09:41:10.829205+00:00",
 				"cumulative_chars_total": 6555
@@ -109,14 +102,12 @@ Framework/JustInTimeAgentRules
 		"cumulative_chars_out": 107681,
 		"last_seen_ts": "2025-12-28T18:33:42.321131+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T11:01:03.614637+00:00",
 				"cumulative_chars_total": 57962
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /session-start.md": {
 				"ts": "2025-12-28T10:12:01.531976+00:00",
 				"cumulative_chars_total": 2090
@@ -125,44 +116,37 @@ Framework/JustInTimeAgentRules
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /spec-writing.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /planning.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /command-execution.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /pre-commit.md": {
 				"ts": "2025-12-28T15:48:36.886085+00:00",
 				"cumulative_chars_total": 98126
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /code-quality.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /implementation.md": {
 				"ts": "2025-12-28T10:33:20.017207+00:00",
 				"cumulative_chars_total": 36980
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /framework-changes.md": {
 				"ts": "2025-12-28T11:01:03.614637+00:00",
 				"cumulative_chars_total": 57962
@@ -174,14 +158,12 @@ Framework/JustInTimeAgentRules
 		"cumulative_chars_out": 30333,
 		"last_seen_ts": "2025-12-28T18:01:21.608094+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T17:01:00.679681+00:00",
 				"cumulative_chars_total": 2687
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /session-start.md": {
 				"ts": "2025-12-28T17:01:00.679681+00:00",
 				"cumulative_chars_total": 2687
@@ -193,8 +175,7 @@ Framework/JustInTimeAgentRules
 		"cumulative_chars_out": 21950,
 		"last_seen_ts": "2025-12-28T18:37:44.146735+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /pre-commit.md": {
 				"ts": "2025-12-28T18:29:37.814835+00:00",
 				"cumulative_chars_total": 15915
@@ -212,14 +193,12 @@ Framework/JustInTimeAgentRules
 		"cumulative_chars_out": 78821,
 		"last_seen_ts": "2025-12-28T20:39:09.360026+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T19:04:47.618858+00:00",
 				"cumulative_chars_total": 2285
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /session-start.md": {
 				"ts": "2025-12-28T19:04:47.618858+00:00",
 				"cumulative_chars_total": 2285
@@ -231,32 +210,27 @@ Framework/JustInTimeAgentRules
 		"cumulative_chars_out": 12071,
 		"last_seen_ts": "2025-12-28T19:38:44.733582+00:00",
 		"last_consulted_by_file": {
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /_entrypoint-jit-rule-map.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /session-start.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /implementation.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /code-quality.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753
 			},
-			"Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+			"Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /pre-commit.md": {
 				"ts": "2025-12-28T19:12:24.759690+00:00",
 				"cumulative_chars_total": 6753

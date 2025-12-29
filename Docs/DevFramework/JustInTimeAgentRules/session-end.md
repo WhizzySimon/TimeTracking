@@ -6,8 +6,7 @@
 
 ## Pre-Commit Covers Most Checks
 
-The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/pre-commit.md`.
+The critical checks (changelog, INBOX review, push, clean tree) are now in `Docs/DevFramework/DevFramework/JustInTimeAgentRules/pre-commit.md`.
 
 **If you committed and pushed, session-end checks are already done.**
 
@@ -19,11 +18,9 @@ This file documents the self-learning system for reference.
 
 Cascade learns from maintainer feedback via a two-tier system:
 
-- **Inbox:** `Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+- **Inbox:** `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` — raw capture, unbounded, not read at session start
-- **Distillate:** `Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+- **Distillate:** `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` — proven preferences, max 30 bullets, read at session start
 
 ### When to Update

@@ -2,7 +2,7 @@
 
 Offline-first time tracking app (SvelteKit PWA).
 
-## Dev Framework
+## DevFramework
 
 This project uses a **Just-in-Time (JIT) rule system** for AI-assisted development with Windsurf/Cascade.
 
@@ -13,8 +13,7 @@ This project uses a **Just-in-Time (JIT) rule system** for AI-assisted developme
 │  .windsurf/rules/always-on.md   ← THE ONLY always-on rule  │
 │         │                                                   │
 │         ▼                                                   │
-│  Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md       │
+│  Docs/DevFramework/DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md       │
 │         │                                                   │
 │         ├──► session-start.md, code-quality.md             │
 │         ├──► command-execution.md, pre-commit.md           │
@@ -52,9 +51,7 @@ Terminal 2 - Cascade Watcher (optional fallback):
 
 The integrated PowerShell terminal works directly. The watcher is only needed as fallback if `run_command` fails.
 
-See `Docs/DevFramework/ToolSetup
-Framework/ToolSetup
-/BOOTSTRAP.md` for watcher setup if needed.
+See `Docs/DevFramework/DevFramework/ToolSetup/BOOTSTRAP.md` for watcher setup if needed.
 
 **Step 2:** Start a new chat with:
 
@@ -128,8 +125,7 @@ npm run test:e2e     # Browser tests (9 tests, ~30s)
 
 ### Testing Documentation
 
-See `Docs/DevFramework/ToolSetup
-Framework/NewFeatureTesting
+See `Docs/DevFramework/DevFramework/NewFeatureTesting
 /` for detailed testing guides.
 
 ## Developer Guide

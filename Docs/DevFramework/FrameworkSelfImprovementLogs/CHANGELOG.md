@@ -2,14 +2,14 @@
 
 All notable changes to this project. One line per commit/session. Most recent first.
 
-**Update rule:** Add an entry before each `git push`. See RULE_MAP.md → Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+**Update rule:** Add an entry before each `git push`. See RULE_MAP.md → Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /pre-commit.md.
 
 ---
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-29                                         | docs     | Add "No Hardcoded Values" rule to code-quality.md (URLs, paths, secrets, magic numbers)              | —       |
 | 2025-12-29                                         | docs     | Simplify command-execution-rules.md: integrated terminal primary, watcher fallback                   | —       |
 | 2025-12-29                                         | feat     | Naming convention validation: ESLint id-length + validate-naming.js + /audit checklist               | —       |
 | 2025-12-28                                         | feat     | A2.4: Employer store + CRUD operations (employers.ts) + backup snapshot integration                  | —       |
@@ -40,8 +40,7 @@ Framework/JustInTimeAgentRules
 
 Framework/JustInTimeAgentRules
 / | — |
-| 2025-12-27 | feat | D4: Just-in-time rules system — RULE_MAP.md + Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+| 2025-12-27 | feat | D4: Just-in-time rules system — RULE_MAP.md + Docs/DevFramework/DevFramework/JustInTimeAgentRules
 / (7 trigger files) | — |
 | 2025-12-27 | docs | Escalate pre-commit checklist to AGENTS.md after 2 violations | — |
 | 2025-12-27 | feat | Versioning: git describe format (v1.0.0-N-ghash), bump-version + release scripts | 12e0bd9 |

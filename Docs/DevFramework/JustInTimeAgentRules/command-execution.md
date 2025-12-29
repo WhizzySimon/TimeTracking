@@ -54,9 +54,7 @@ run_command with:
 
 Use only if the integrated terminal doesn't work.
 
-**If watcher is needed:** See `Docs/DevFramework/ToolSetup
-Framework/ToolSetup
-/CASCADE_WATCHER.md` for setup.
+**If watcher is needed:** See `Docs/DevFramework/DevFramework/ToolSetup/CASCADE_WATCHER.md` for setup.
 
 **Watcher uses cmd.exe:** Use `&&` not `;` to chain commands
 
@@ -76,6 +74,4 @@ If `run_command` fails consistently:
 
 ## Full Documentation
 
-See `Docs/DevFramework/ToolSetup
-Framework/ToolSetup
-/CASCADE_WATCHER.md` for watcher fallback setup.
+See `Docs/DevFramework/DevFramework/ToolSetup/CASCADE_WATCHER.md` for watcher fallback setup.

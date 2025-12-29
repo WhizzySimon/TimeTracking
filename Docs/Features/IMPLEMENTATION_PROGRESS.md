@@ -1,7 +1,7 @@
 # TimeTracker v1 — Implementation Progress (Current)
 
 **Last Updated:** 2025-12-27  
-**Current Focus:** Dev Framework Improvements (Phases D1-D3), then App Improvements
+**Current Focus:** DevFramework Improvements (Phases D1-D3), then App Improvements
 
 ---
 
@@ -23,15 +23,15 @@
 
 ### Priority 1: Dev System Improvements (do first)
 
-| Phase | Name                           | Status          |
-| ----- | ------------------------------ | --------------- |
-| D1    | Self-documenting Dev Framework | COMPLETE        |
-| D2    | Self-learning Dev Framework    | COMPLETE        |
-| D3    | Watcher Framework Improvement  | COMPLETE        |
-| D4    | Just-in-Time Rules System      | COMPLETE        |
-| D5    | Autonomy Stack v2              | Phase 0 pending |
+| Phase | Name                          | Status          |
+| ----- | ----------------------------- | --------------- |
+| D1    | Self-documenting DevFramework | COMPLETE        |
+| D2    | Self-learning DevFramework    | COMPLETE        |
+| D3    | Watcher Framework Improvement | COMPLETE        |
+| D4    | Just-in-Time Rules System     | COMPLETE        |
+| D5    | Autonomy Stack v2             | Phase 0 pending |
 
-### Priority 2: App Improvements (after Dev Framework)
+### Priority 2: App Improvements (after DevFramework)
 
 | Phase | Name                                 | Status      |
 | ----- | ------------------------------------ | ----------- |
@@ -83,8 +83,7 @@
 
 **Goal:** Restructure AGENTS.md (282 lines) into a slim dispatcher (~50 lines) + trigger-based rule files.
 
-**Research:** `Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+**Research:** `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /SSD Analysis/2025-12-27__just-in-time-rules-research.md`
 
 ### Tasks
@@ -181,7 +180,7 @@ Phase 4:
 
 ---
 
-## Phase D1: Self-documenting Dev Framework
+## Phase D1: Self-documenting DevFramework
 
 **Target:** 5 files  
 **Status:** COMPLETE  
@@ -189,20 +188,17 @@ Phase 4:
 
 ### Deliverables
 
-- [x] `Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+- [x] `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /CHANGELOG.md` — Everything log (one line per commit)
-- [x] `Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+- [x] `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /DECISIONS.md` — Decision log (ADR-light)
 - [x] `AGENTS.md` — Added changelog to session-end rules
-- [x] `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+- [x] `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md` — Added changelog step to workflow
 
 ---
 
-## Phase D2: Self-learning Dev Framework
+## Phase D2: Self-learning DevFramework
 
 **Target:** 4 files  
 **Status:** COMPLETE  
@@ -210,11 +206,9 @@ Framework/DeveloperGuidesAndStandards
 
 ### Deliverables
 
-- [x] `Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+- [x] `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS.md` — Distillate (proven preferences, max 30 bullets)
-- [x] `Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+- [x] `Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md` — Inbox (raw feedback capture)
 - [x] `AGENTS.md` — Added Self-Learning System section
 - [x] `.windsurf/workflows/helpers/read-governance.md` — Added LEARNINGS.md to session-start reading
@@ -243,20 +237,18 @@ Framework/FrameworkSelfImprovementLogs
 
 - `scripts/watcher-main.ps1` — Main watcher orchestrator (new)
 - `scripts/watcher.ps1` — Updated child watcher with SessionId support
-- `Docs/DevFramework/ToolSetup
-Framework/ToolSetup
-/CASCADE_WATCHER.md` — Complete documentation rewrite
+- `Docs/DevFramework/DevFramework/ToolSetup/CASCADE_WATCHER.md` — Complete documentation rewrite
 
 ---
 
-# App Improvements (Priority 2 — blocked until Dev Framework done)
+# App Improvements (Priority 2 — blocked until DevFramework done)
 
 ---
 
 ## Phase 10: Free/Pro Feature-Flags + Paywall + User Profile
 
 **Target:** 11 tasks  
-**Status:** BLOCKED (9/11 tasks done, waiting for Dev Framework)  
+**Status:** BLOCKED (9/11 tasks done, waiting for DevFramework)  
 **Spec:** `Docs/Features/Specs/P10-monetising.md`
 
 ### Remaining Tasks
@@ -272,7 +264,7 @@ Framework/ToolSetup
 ## Phase 11: AI Import (Premium Feature)
 
 **Target:** 25 tasks  
-**Status:** BLOCKED (0/25 tasks, waiting for Dev Framework)  
+**Status:** BLOCKED (0/25 tasks, waiting for DevFramework)  
 **Spec:** `Docs/Features/Specs/ai-import.md`  
 **Plan:** `Docs/Features/Plans/ai-import.md`  
 **Tasks:** `Docs/Features/Tasks/ai-import.md`

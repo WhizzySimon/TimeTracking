@@ -8,11 +8,9 @@
 
 Goal: Choose architecture/approach and write it down before code.
 
-Location: `Docs/AppDocs/Features/Plans/<feature-slug>.md` or `Docs/DevFramework/ToolSetup
-Framework/FrameworkFeaturePlans
+Location: `Docs/AppDocs/Features/Plans/<feature-slug>.md` or `Docs/DevFramework/DevFramework/FrameworkFeaturePlans
 /<feature-slug>.md`  
-Template: `Docs/AppDocs/Features/Plans/_template.md` or `Docs/DevFramework/ToolSetup
-Framework/FrameworkFeaturePlans
+Template: `Docs/AppDocs/Features/Plans/_template.md` or `Docs/DevFramework/DevFramework/FrameworkFeaturePlans
 /_template.md`
 
 ### Required Sections
@@ -36,11 +34,9 @@ Each plan MUST contain:
 
 Goal: Break plan into reviewable, independently testable units.
 
-Location: `Docs/AppDocs/Features/Tasks/<feature-slug>.md` or `Docs/DevFramework/ToolSetup
-Framework/FrameworkFeatureTasks
+Location: `Docs/AppDocs/Features/Tasks/<feature-slug>.md` or `Docs/DevFramework/DevFramework/FrameworkFeatureTasks
 /<feature-slug>.md`  
-Template: `Docs/AppDocs/Features/Tasks/_template.md` or `Docs/DevFramework/ToolSetup
-Framework/FrameworkFeatureTasks
+Template: `Docs/AppDocs/Features/Tasks/_template.md` or `Docs/DevFramework/DevFramework/FrameworkFeatureTasks
 /_template.md`
 
 ### Rules
@@ -57,5 +53,4 @@ Framework/FrameworkFeatureTasks
 
 ---
 
-**Next:** When tasks are defined → Read `Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules/implementation.md`
+**Next:** When tasks are defined → Read `Docs/DevFramework/DevFramework/JustInTimeAgentRules/implementation.md`

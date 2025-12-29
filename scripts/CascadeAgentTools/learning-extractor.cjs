@@ -3,8 +3,7 @@
  * Learning Extractor for Autonomy Stack v2
  *
  * Analyzes evidence bundles and anomaly history to propose candidate principles.
- * Appends proposals to Docs/DevFramework/ToolSetup
-Framework/FrameworkSelfImprovementLogs
+ * Appends proposals to Docs/DevFramework/DevFramework/FrameworkSelfImprovementLogs
 /LEARNINGS-INBOX.md
  *
  * Usage:

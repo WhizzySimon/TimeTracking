@@ -47,8 +47,7 @@
 
 ## Adoptable improvements for TimeTracker (max 10)
 
-1. Add a small “Evals mindset” section to `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+1. Add a small “Evals mindset” section to `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md` (treat acceptance checks like an eval suite).
 2. For agent tools you control, require strict schemas (mirror the “Structured Outputs” intent).
 3. Add a lightweight “gold questions” benchmark file to validate prompts/workflows after changes.

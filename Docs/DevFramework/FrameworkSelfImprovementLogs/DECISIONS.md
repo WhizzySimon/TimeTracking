@@ -6,6 +6,17 @@ Significant design, architecture, and policy decisions. Newest first.
 
 ---
 
+## DEC-2025-008: No hardcoded URLs/paths rule for LLM code quality
+
+**Date:** 2025-12-29  
+**Context:** Research on LLM code quality assurance identified common issues: hardcoded URLs, file system paths, secrets, and magic numbers. These make code less portable, less secure, and harder to maintain.  
+**Decision:** Add explicit rules to code-quality.md prohibiting hardcoded service URLs (except standard API endpoints), absolute file paths, secrets, and unexplained magic numbers. Use environment variables and named constants instead.  
+**Alternatives:** Static analysis only (rejected — needs rule documentation for LLM guidance), ESLint rules only (rejected — doesn't cover all cases, LLM needs explicit guidance).  
+**Consequences:** Clearer expectations for LLM-generated code; easier to catch violations in review; improved security posture.  
+**Source:** This commit
+
+---
+
 ## DEC-2025-007: Deterministic staged-only audit policy (Auditor System)
 
 **Date:** 2025-12-28  
@@ -21,8 +32,7 @@ Significant design, architecture, and policy decisions. Newest first.
 
 **Date:** 2025-12-27  
 **Context:** D4's JIT system still had 4 always-on rules in .windsurf/rules/ that were context-specific (code-quality, command-execution, ui-design, implementation-specification). Pre-commit checklist was still being skipped (3rd violation).  
-**Decision:** Reduce to ONE always-on file (always-on.md) that points to editable jit-rule-map.md in Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+**Decision:** Reduce to ONE always-on file (always-on.md) that points to editable jit-rule-map.md in Docs/DevFramework/DevFramework/JustInTimeAgentRules
 /. Delete all other .windsurf/rules/ files.  
 **Alternatives:** Add more always-on rules (rejected — context overload), hardcode jit-rule-map in workflows (rejected — loses Windsurf native loading).  
 **Consequences:** Minimal always-on context; jit-rule-map is editable; Windsurf auto-loads the pointer which chains to trigger table.  
@@ -34,8 +44,7 @@ Framework/JustInTimeAgentRules
 
 **Date:** 2025-12-27  
 **Context:** AGENTS.md was 282 lines. Rules loaded at session start were forgotten by commit time (violations on 2025-12-26, 2025-12-27). Research confirmed: "context rot" — LLMs lose focus as context grows.  
-**Decision:** Replace AGENTS.md with RULE_MAP.md (50 lines) + Docs/DevFramework/ToolSetup
-Framework/JustInTimeAgentRules
+**Decision:** Replace AGENTS.md with RULE_MAP.md (50 lines) + Docs/DevFramework/DevFramework/JustInTimeAgentRules
 / (7 trigger-based files). Load rules at trigger points, not upfront.  
 **Alternatives:** Keep growing AGENTS.md (rejected — proven to fail), use only .windsurf/rules/ (rejected — can't edit those files).  
 **Consequences:** Reduced cognitive load; rules fresh when needed; easier to maintain and extend.  

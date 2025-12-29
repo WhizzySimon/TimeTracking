@@ -152,12 +152,46 @@ Always use correct grammar:
 
 Avoid: "1 item(s)"
 
+## No Hardcoded Values (required)
+
+LLMs often generate hardcoded values that should be configurable. Enforce these rules:
+
+### URLs
+
+- **No hardcoded service URLs** — use environment variables (`PUBLIC_API_URL`, `VITE_API_URL`, etc.)
+- **Exception:** Standard API endpoints that never change (e.g., `https://api.openai.com/v1/`) are acceptable
+- **Exception:** Protocol-relative paths within the app (e.g., `/api/import`) are acceptable
+
+### File System Paths
+
+- **No absolute paths** — never hardcode `/Users/...`, `C:\...`, `/home/...`
+- **Use relative paths** or path utilities (`path.join`, `import.meta.url`)
+- **Exception:** Well-known system paths in comments/docs are acceptable
+
+### Configuration Values
+
+- **No hardcoded secrets** — API keys, tokens, passwords must come from env vars
+- **No hardcoded ports** — use env vars or config files
+- **Magic numbers** — extract to named constants with clear meaning
+
+### Examples
+
+| ❌ Hardcoded                                 | ✓ Configurable                                                |
+| -------------------------------------------- | ------------------------------------------------------------- |
+| `fetch('https://api.myservice.com/v1/data')` | `fetch(\`${PUBLIC_API_URL}/data\`)`                           |
+| `const DB_PATH = '/home/user/data.db'`       | `const DB_PATH = env.DATABASE_PATH`                           |
+| `if (port === 3000)`                         | `if (port === config.defaultPort)`                            |
+| `const API_KEY = 'sk-abc123'`                | `const API_KEY = import.meta.env.VITE_API_KEY`                |
+| `setTimeout(fn, 5000)`                       | `setTimeout(fn, DEBOUNCE_MS)` with `const DEBOUNCE_MS = 5000` |
+
+---
+
 ## BAD/GOOD Pattern
 
 BAD:
 
-- Huge functions, nested conditionals, unclear names, suppressed warnings
+- Huge functions, nested conditionals, unclear names, suppressed warnings, hardcoded URLs/paths
 
 GOOD:
 
-- Small functions, early returns, explicit names, minimal abstraction, fixed warnings
+- Small functions, early returns, explicit names, minimal abstraction, fixed warnings, externalized config

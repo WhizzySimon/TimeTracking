@@ -10,14 +10,11 @@
 Files inspected:
 
 - `AGENTS.md` — Spec-driven development guide for Cascade
-- `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+- `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md` — Complete 4-phase workflow
-- `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+- `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md` — FR/IG/DD writing rules
-- `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+- `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /DEVELOPMENT_GUIDELINES.md` — PWA development rules
 - `Docs/Features/Specs/_template.md` — Spec template with 10 sections
 - `Docs/Features/Tasks/_template.md` — Task template with verification fields
@@ -49,8 +46,7 @@ Framework/DeveloperGuidesAndStandards
 | 4. Code quality rules    |           5 | High       |`package.json:14-16`, `scripts/verify-code.ps1`, `.windsurf/rules/code-quality-rules.md`| Enforced via`npm run verify`(format + check + lint) with output capture                                 |
 | 5. Testing strategy      |           4 | High       |`package.json:16-23`, `playwright.config.ts`, `e2e/\*.test.ts`                           | Unit (Vitest) + E2E (Playwright, 3 browsers); 57 unit tests, 27 E2E tests; no coverage gates              |
 | 6. Tooling & automation  |           5 | High       |`scripts/cascade-watcher.ps1`, `.windsurf/rules/COMMAND_EXECUTION_RULES.md`             | Cascade watcher enables autonomous verification loop; MCP Playwright for UI testing                       |
-| 8. Iteration loop        |           5 | High       |`Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+| 8. Iteration loop        |           5 | High       |`Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md:169-214`                                    | 7-step task workflow: code → verify → unit test → UI test → progress → commit → next                      |
 | 9. Operational safety    |           4 | High       |`.windsurf/rules/COMMAND_EXECUTION_RULES.md:9-32`, `AGENTS.md:140-144`                  | Absolute ban on run_command; no broad refactors; but no rollback/backup automation                        |
 | 10. Cost/time efficiency |           4 | Med        |`Docs/Features/Tasks/\_template.md:24`, `AGENTS.md:88` | Tasks sized 0.5-2h; parallel task marking; but no explicit token/cost tracking |
@@ -60,8 +56,7 @@ Framework/DeveloperGuidesAndStandards
 ## Key Practices (max 10)
 
 1. **4-phase workflow (Spec → Plan → Tasks → Implement)** — No code without explicit spec approval (`AGENTS.md:29-31`)
-2. **FR/IG/DD numbering** — All requirements numbered and testable (`Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+2. **FR/IG/DD numbering** — All requirements numbered and testable (`Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md:19-48`)
 3. **Pre-implementation gates** — 5 gates (simplicity, anti-abstraction, integration-first, scope-lock, test-ready) before coding (`AGENTS.md:98-108`)
 4. **Cascade watcher system** — Autonomous command execution via file-based IPC (`scripts/cascade-watcher.ps1`)
@@ -69,8 +64,7 @@ Framework/DeveloperGuidesAndStandards
 6. **Progress tracker with verification** — Each task logs: verified commands, deviations, notes (`Docs/IMPLEMENTATION_PROGRESS.md:93-98`)
 7. **Structured task template** — Files, Done when, Verify, Guardrails, Parallel, Estimated (`Docs/Features/Tasks/_template.md:11-24`)
 8. **Cross-browser E2E testing** — Playwright with Chromium, WebKit, Mobile Safari (`playwright.config.ts:6-19`)
-9. **Conventional commits** — Enforced format: `feat:`, `fix:`, `refactor:`, etc. (`Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+9. **Conventional commits** — Enforced format: `feat:`, `fix:`, `refactor:`, etc. (`Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /SPEC_DRIVEN_DEVELOPMENT.md:215-232`)
 10. **Workflow chaining** — `/project-start` → `/rules-read-all` → `/read-governance` → `/read-core-docs-and-code` (`.windsurf/workflows/project-start.md`)
 
@@ -94,17 +88,14 @@ Since this IS the TimeTracker repo, this section lists practices that could be i
 1. **Add automated FR-to-test mapping** — Target: `Docs/Features/Specs/_template.md` add "Test file" column to acceptance checks
 2. **Add coverage gates** — Target: `vite.config.ts` add coverage threshold; `package.json` add `test:coverage` script
 3. **Add CI/CD workflow** — Target: `.github/workflows/verify.yml` run `npm run verify` + `npm run test` on push
-4. **Document devlog format** — Target: `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+4. **Document devlog format** — Target: `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /DEVLOG_FORMAT.md` explain tag validation rules
 5. **Add spec versioning** — Target: `Docs/Features/Specs/_template.md` add "Version: 1.0.0" field
 6. **Automate progress tracker updates** — Target: `scripts/update-progress.js` parse task completion from git commits
 7. **Add rollback workflow** — Target: `.windsurf/workflows/rollback.md` document git revert procedure
-8. **Standardize language** — Target: All `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+8. **Standardize language** — Target: All `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /*.md` use English consistently
-9. **Add token tracking** — Target: `Docs/DevFramework/ToolSetup
-Framework/DeveloperGuidesAndStandards
+9. **Add token tracking** — Target: `Docs/DevFramework/DevFramework/DeveloperGuidesAndStandards
 /COST_TRACKING.md` document token usage per session
 10. **Create E2E test fixtures** — Target: `e2e/fixtures/auth.ts` extract mock auth setup from tests
 
