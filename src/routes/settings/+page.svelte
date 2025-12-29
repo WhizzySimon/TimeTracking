@@ -15,6 +15,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { categories, workTimeModels } from '$lib/stores';
+	import { getAllEmployers, deleteEmployer } from '$lib/storage/employers';
 	import { userProfile, userPlan } from '$lib/stores/user';
 	import { logout } from '$lib/api/auth';
 	import {
@@ -31,7 +32,7 @@
 	import { downloadCategoriesFile } from '$lib/utils/categoryIO';
 	import { deleteAccount } from '$lib/api/auth';
 	import { clearSession } from '$lib/stores/auth';
-	import type { Category, WorkTimeModel } from '$lib/types';
+	import type { Category, WorkTimeModel, Employer } from '$lib/types';
 	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
 	import ImportCategoriesModal from '$lib/components/ImportCategoriesModal.svelte';
@@ -39,6 +40,7 @@
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import ExportDialog from '$lib/components/ExportDialog.svelte';
 	import PlanComparison from '$lib/components/PlanComparison.svelte';
+	import EmployerDialog from '$lib/components/EmployerDialog.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
 		const days = [
@@ -97,8 +99,14 @@
 	let showCategoryMenu = $state(false);
 	let showDeleteAccountConfirm = $state(false);
 	let showLogoutConfirm = $state(false);
+	let showEmployerDialog = $state(false);
+	let employerToEdit: Employer | undefined = $state(undefined);
+	let showDeleteEmployerConfirm = $state(false);
+	let employerToDelete: Employer | null = $state(null);
+	let employers = $state<Employer[]>([]);
 	let logoutInProgress = $state(false);
 	let expandedSections = $state({
+		employers: true,
 		workTimeModels: true,
 		abwesenheit: true,
 		arbeit: true
@@ -213,6 +221,7 @@
 		categories.set(allCategories);
 		const allModels = await getAll<WorkTimeModel>('workTimeModels');
 		workTimeModels.set(allModels);
+		employers = await getAllEmployers();
 		loading = false;
 
 		if (browser) {
@@ -241,6 +250,60 @@
 
 	function handlePlanChange() {
 		showPlanComparison = true;
+	}
+
+	function handleAddEmployer() {
+		employerToEdit = undefined;
+		showEmployerDialog = true;
+	}
+
+	function handleEditEmployer(employer: Employer) {
+		employerToEdit = employer;
+		showEmployerDialog = true;
+	}
+
+	function handleDeleteEmployer(employer: Employer) {
+		employerToDelete = employer;
+		showDeleteEmployerConfirm = true;
+	}
+
+	async function confirmDeleteEmployer() {
+		if (!employerToDelete) return;
+		const employerId = employerToDelete.id;
+
+		try {
+			await deleteEmployer(employerId);
+			employers = employers.map((emp) =>
+				emp.id === employerId ? { ...emp, isActive: false } : emp
+			);
+			showDeleteEmployerConfirm = false;
+			employerToDelete = null;
+		} catch (err) {
+			console.error('[Settings] Delete employer failed:', err);
+			showDeleteEmployerConfirm = false;
+			employerToDelete = null;
+		}
+	}
+
+	function cancelDeleteEmployer() {
+		showDeleteEmployerConfirm = false;
+		employerToDelete = null;
+	}
+
+	async function handleEmployerSaved(savedEmployer: Employer) {
+		const existingIndex = employers.findIndex((emp) => emp.id === savedEmployer.id);
+		if (existingIndex >= 0) {
+			employers = employers.map((emp) => (emp.id === savedEmployer.id ? savedEmployer : emp));
+		} else {
+			employers = [...employers, savedEmployer];
+		}
+		showEmployerDialog = false;
+		employerToEdit = undefined;
+	}
+
+	function closeEmployerDialog() {
+		showEmployerDialog = false;
+		employerToEdit = undefined;
 	}
 
 	async function handleDeleteAccount() {
@@ -348,6 +411,57 @@
 					</button>
 				</div>
 			</div>
+		</section>
+
+		<!-- Arbeitgeber Section -->
+		<section class="section" data-testid="employer-section">
+			<div class="section-header">
+				<button
+					class="section-toggle"
+					onclick={() => (expandedSections.employers = !expandedSections.employers)}
+					aria-expanded={expandedSections.employers}
+				>
+					<span class="toggle-icon" class:expanded={expandedSections.employers}>▶</span>
+					<h2>Arbeitgeber</h2>
+				</button>
+				<button
+					class="icon-btn"
+					onclick={handleAddEmployer}
+					aria-label="Arbeitgeber hinzufügen"
+					data-testid="add-employer-btn">+</button
+				>
+			</div>
+			{#if expandedSections.employers}
+				<div class="list" data-testid="employer-list">
+					{#if employers.filter((emp) => emp.isActive).length === 0}
+						<p class="empty">Keine Arbeitgeber vorhanden</p>
+					{:else}
+						{#each employers.filter((emp) => emp.isActive) as employer (employer.id)}
+							<div
+								class="list-item clickable"
+								role="button"
+								tabindex="0"
+								data-testid="employer-item"
+								onclick={() => handleEditEmployer(employer)}
+								onkeydown={(event) => event.key === 'Enter' && handleEditEmployer(employer)}
+							>
+								<div class="item-info">
+									<span class="item-name" data-testid="employer-name">{employer.name}</span>
+								</div>
+								<button
+									class="delete-btn"
+									aria-label="Löschen"
+									data-testid="delete-employer-btn"
+									onclick={(event) => {
+										event.stopPropagation();
+										handleDeleteEmployer(employer);
+									}}>×</button
+								>
+							</div>
+						{/each}
+					{/if}
+				</div>
+			{/if}
 		</section>
 
 		<!-- Arbeitszeitmodelle Section (first - shorter list) -->
@@ -674,6 +788,27 @@
 <!-- Plan Comparison Modal -->
 {#if showPlanComparison}
 	<PlanComparison onclose={() => (showPlanComparison = false)} />
+{/if}
+
+<!-- Employer Dialog (Add/Edit) -->
+{#if showEmployerDialog}
+	<EmployerDialog
+		employer={employerToEdit}
+		onsave={handleEmployerSaved}
+		onclose={closeEmployerDialog}
+	/>
+{/if}
+
+<!-- Delete Employer Confirmation -->
+{#if showDeleteEmployerConfirm && employerToDelete}
+	<ConfirmDialog
+		title="Arbeitgeber löschen"
+		message={`Arbeitgeber "${employerToDelete.name}" wirklich löschen?`}
+		confirmLabel="Löschen"
+		confirmStyle="danger"
+		onconfirm={confirmDeleteEmployer}
+		oncancel={cancelDeleteEmployer}
+	/>
 {/if}
 
 <style>

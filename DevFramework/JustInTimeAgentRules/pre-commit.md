@@ -94,6 +94,7 @@
 ```
 
 **Rules:**
+
 1. This block MUST appear as a single, uninterrupted output
 2. Do NOT run `git commit` in the same tool call — wait for the gate to be visible
 3. Only proceed to commit if ALL items show success status

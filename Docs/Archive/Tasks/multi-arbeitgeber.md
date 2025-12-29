@@ -220,7 +220,7 @@ Tasks A2.3 and A2.17 were SKIPPED based on this convention.
   - `npm run verify`
   - E2E test: create, edit, delete employer
 - **Estimated:** 2h
-- **Status:** Pending
+- **Status:** COMPLETE
 - **Dependencies:** A2.4
 
 ---
