@@ -34,7 +34,7 @@ Names must be **self-documenting** — no README needed to understand purpose.
 Framework/`                |
 | `rules/`   | `JustInTimeAgentRules/`             |
 | `logs/`    | `FrameworkSelfImprovementLogs/`     |
-| `utils/`   | `scripts/ai/` (purpose-specific)    |
+| `utils/`   | `scripts/CascadeAgentTools/` (purpose-specific)    |
 | `misc/`    | Never use — find the actual purpose |
 
 ---

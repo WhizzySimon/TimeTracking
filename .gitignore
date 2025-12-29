@@ -39,7 +39,7 @@ scripts/watcher/*/
 
 # AI tooling (not yet implemented - prevents IDE from creating stubs)
 # Remove this line when autonomy-stack-v2 implementation is approved
-scripts/ai/
+scripts/CascadeAgentTools/
 scripts/watcher/main.lock
 scripts/watcher/main-control.txt
 scripts/watcher/main-status.txt

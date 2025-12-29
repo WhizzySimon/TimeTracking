@@ -28,7 +28,7 @@ All acceptance criteria for infra/build MUST:
 ```
 AC-001: Add `ai:log-event` script to package.json
 AC-002: Running `npm run ai:log-event -- --help` exits with code 0
-AC-003: Script creates JSONL file in scripts/ai/logs/
+AC-003: Script creates JSONL file in scripts/CascadeAgentTools/logs/
 AC-004: Existing `npm run verify` still passes
 ```
 

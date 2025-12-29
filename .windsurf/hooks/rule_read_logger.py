@@ -13,8 +13,8 @@ Events logged:
 - rule_reference: Heuristic, from path mentions in text
 
 Storage:
-- scripts/ai/logs/rule_reads.ndjson (append-only log)
-- scripts/ai/logs/rule_reads_state.json (per-trajectory state)
+- scripts/CascadeAgentTools/logs/rule_reads.ndjson (append-only log)
+- scripts/CascadeAgentTools/logs/rule_reads_state.json (per-trajectory state)
 
 Note: Repo root is computed from __file__ location for robustness.
 """

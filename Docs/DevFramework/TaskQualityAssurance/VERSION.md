@@ -7,7 +7,7 @@
 ## Versioning Rules
 
 This version tracks the **Autonomy Stack framework** (Docs/DevFramework/ToolSetup
-Framework/TaskQualityAssurance/, scripts/ai/), NOT the TimeTracker app.
+Framework/TaskQualityAssurance/, scripts/CascadeAgentTools/), NOT the TimeTracker app.
 
 ### Semantic Versioning
 

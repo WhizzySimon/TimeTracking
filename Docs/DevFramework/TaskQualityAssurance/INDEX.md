@@ -114,7 +114,7 @@ Framework/TaskQualityAssurance/
     ├── research-decision.md
     └── ui-ux.md
 
-scripts/ai/
+scripts/CascadeAgentTools/
 ├── telemetry.cjs          # Event logging CLI
 ├── anomaly-detector.cjs   # Anomaly detection
 ├── evidence-generator.cjs # Evidence bundle creation

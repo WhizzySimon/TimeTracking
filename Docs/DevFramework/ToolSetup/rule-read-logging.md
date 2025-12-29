@@ -14,8 +14,8 @@ This system tracks:
 
 | File                                    | Purpose                                                     |
 | --------------------------------------- | ----------------------------------------------------------- |
-| `scripts/ai/logs/rule_reads.ndjson`     | Append-only event log                                       |
-| `scripts/ai/logs/rule_reads_state.json` | Per-trajectory state (cumulative chars, last consult times) |
+| `scripts/CascadeAgentTools/logs/rule_reads.ndjson`     | Append-only event log                                       |
+| `scripts/CascadeAgentTools/logs/rule_reads_state.json` | Per-trajectory state (cumulative chars, last consult times) |
 
 ## How It Works
 
@@ -73,9 +73,9 @@ A temporary smoke test is included to verify hooks are firing:
 
 1. **Reload Windsurf** (required after `hooks.json` changes)
 2. **Run `/new-task`** or any command that reads rule files
-3. **Check smoke test file**: `scripts/ai/logs/hook_smoke_test.txt`
+3. **Check smoke test file**: `scripts/CascadeAgentTools/logs/hook_smoke_test.txt`
    - If lines appear with timestamps, hooks are working
-4. **Check NDJSON log**: `scripts/ai/logs/rule_reads.ndjson`
+4. **Check NDJSON log**: `scripts/CascadeAgentTools/logs/rule_reads.ndjson`
    - Should contain `"event": "rule_read"` entries
 
 ### Remove Smoke Test After Verification
@@ -91,14 +91,14 @@ Once confirmed working:
    }
    ```
 3. Optionally set `show_output: false` on the main logger command
-4. Delete `scripts/ai/logs/hook_smoke_test.txt`
+4. Delete `scripts/CascadeAgentTools/logs/hook_smoke_test.txt`
 
 ### Full Test
 
 1. **Start a new chat** with Cascade in this workspace
 2. **Ask a question** that requires consulting a rule file (e.g., "how should I format code?")
 3. **Verify marker** is present (view raw message if possible, or check log file)
-4. **Check log file** exists: `scripts/ai/logs/rule_reads.ndjson`
+4. **Check log file** exists: `scripts/CascadeAgentTools/logs/rule_reads.ndjson`
 5. **Run report**: `py -3 scripts/report_rule_reads.py`
 
 ## Configuration

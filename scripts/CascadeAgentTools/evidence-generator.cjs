@@ -179,7 +179,7 @@ function generateEvidence(taskId, boxType, events, sessionDate) {
 
 - **Task Definition:** \`Docs/Features/Tasks/*.md\` (search for ${taskId})
 - **Box Checklist:** \`Docs/DevFramework/TaskQualityAssurance/boxes/${boxType}.md\`
-- **Session Log:** \`scripts/ai/logs/session-${sessionDate}.jsonl\`
+- **Session Log:** \`scripts/CascadeAgentTools/logs/session-${sessionDate}.jsonl\`
 `;
 
 	return content;
