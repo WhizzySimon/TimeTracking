@@ -56,8 +56,8 @@ This approach is called **"just-in-time context fetching"** — load rules when 
 
 #### AGENTS.md (282 lines) — Current Sections
 
-| Section                   | Lines | Trigger Point | New Location                |
-| ------------------------- | ----- | ------------- | --------------------------- |
+| Section                   | Lines | Trigger Point | New Location           |
+| ------------------------- | ----- | ------------- | ---------------------- |
 | Start-of-session workflow | 9-16  | Session start | DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
@@ -135,8 +135,8 @@ Framework/ToolSetup
 
 ## Proposed Trigger Points
 
-| Trigger ID | When          | Files to Read               |
-| ---------- | ------------- | --------------------------- |
+| Trigger ID | When          | Files to Read          |
+| ---------- | ------------- | ---------------------- |
 | T1         | Session start | DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
@@ -197,8 +197,8 @@ RULE_DISPATCHER.md                   (replaces AGENTS.md, ~50 lines)
 
 ## Trigger Points
 
-| When          | Read first                  |
-| ------------- | --------------------------- |
+| When          | Read first             |
+| ------------- | ---------------------- |
 | Session start | DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules

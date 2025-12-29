@@ -3,6 +3,7 @@
 **Trigger:** Before commit (from pre-commit.md)
 
 This unified system handles both:
+
 - **Self-Learning:** Behavioral feedback from user
 - **Self-Improvement:** Process patterns from session analysis
 
@@ -13,6 +14,7 @@ This unified system handles both:
 **Log file:** `DevFramework/FrameworkSelfImprovementLogs/SELF-LEARNING-LOG.md`
 
 At the START of workflow, create a new log entry header:
+
 ```
 ## YYYY-MM-DD HH:MM
 
@@ -37,6 +39,7 @@ Execute ALL steps in order:
 Review the chat for user feedback. Add entries to `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`.
 
 **What to capture:**
+
 - **Corrective:** "Don't do X", "Always do Y instead", mistakes to avoid
 - **Positive (specific only):** "Good job on X", "I like how you did Y" — where X/Y is identifiable behavior
   - Skip vague praise: "ok", "good", "thanks", "well done" (no actionable content)
@@ -50,6 +53,7 @@ Review the chat for user feedback. Add entries to `DevFramework/FrameworkSelfImp
 #### Step B1: Detect Repeated Errors
 
 Scan the chat for errors that occurred 3+ times. If found, add to INBOX:
+
 ```
 | Date | Context | Feedback | Status |
 | YYYY-MM-DD | repeated-error | Error X occurred N times - investigate root cause | Pending |
@@ -62,6 +66,7 @@ Scan the chat for errors that occurred 3+ times. If found, add to INBOX:
 Run: `git diff --stat`
 
 If any file was edited 5+ times in this session (visible in chat), add to INBOX:
+
 ```
 | YYYY-MM-DD | file-churn | File X edited N times - consider refactoring approach | Pending |
 ```
@@ -73,6 +78,7 @@ If any file was edited 5+ times in this session (visible in chat), add to INBOX:
 Compare changed files (`git diff --name-only`) against the plan/task file.
 
 If files were touched outside planned scope, add to INBOX:
+
 ```
 | YYYY-MM-DD | scope-drift | File X not in plan - scope creep detected | Pending |
 ```
@@ -84,6 +90,7 @@ If files were touched outside planned scope, add to INBOX:
 Note approximate session duration from chat timestamps (first message → now).
 
 If session exceeded 2 hours on a single task, add to INBOX:
+
 ```
 | YYYY-MM-DD | long-session | Task X took >2h - consider breaking into smaller tasks | Pending |
 ```
@@ -97,6 +104,7 @@ If session exceeded 2 hours on a single task, add to INBOX:
 #### Step C1: Promote from INBOX → LEARNINGS.md
 
 Check INBOX for items that meet promotion criteria:
+
 - Repeated 2+ times across sessions, OR
 - Explicitly marked by maintainer as high-impact
 
@@ -122,21 +130,22 @@ Read `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS.md` to apply proven pr
 When promoting a **Hard Rule** to a JIT rule file, **user approval is mandatory**.
 
 **Process:**
+
 1. Propose the rule and target JIT file to the user
 2. Explain: why needed, what it improves, when it triggers
 3. **STOP and wait for explicit "yes"**
 4. Only after approval, add to the JIT file
 
-| Rule is about...        | Add to                        |
-| ----------------------- | ----------------------------- |
-| Session start           | `session-start.md`            |
-| Writing specs           | `spec-writing.md`             |
-| Creating plans          | `planning.md`                 |
-| Implementation/coding   | `implementation.md`           |
-| Pre-commit checklist    | `pre-commit.md`               |
-| Framework doc changes   | `framework-changes.md`        |
-| Always needed           | `.windsurf/rules/`            |
-| Core principles         | `_entrypoint-jit-rule-map.md` |
+| Rule is about...      | Add to                        |
+| --------------------- | ----------------------------- |
+| Session start         | `session-start.md`            |
+| Writing specs         | `spec-writing.md`             |
+| Creating plans        | `planning.md`                 |
+| Implementation/coding | `implementation.md`           |
+| Pre-commit checklist  | `pre-commit.md`               |
+| Framework doc changes | `framework-changes.md`        |
+| Always needed         | `.windsurf/rules/`            |
+| Core principles       | `_entrypoint-jit-rule-map.md` |
 
 **Log:** `| C3: Hard Rule → JIT | proposed / approved / none | target file if any |`
 

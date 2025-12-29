@@ -27,7 +27,7 @@ All follow-ups extracted from devlog entries. Default status is OPEN unless expl
 | FU-20251224-0353-03 | DL-20251224-0353 | Low      | User         | OPEN   | Consider v2 features (user asked about v2 planning)                                      |
 | FU-20251224-0355-01 | DL-20251224-0355 | High     | User         | OPEN   | Use AGENTS.md for project-level Cascade instructions                                     |
 | FU-20251224-0355-02 | DL-20251224-0355 | Med      | User         | OPEN   | Manually edit .windsurf/rules/ files when needed                                         |
-| FU-20251224-0355-03 | DL-20251224-0355 | Low      | User         | OPEN   | Consider keeping source rules in DevFramework/ToolSetup                             |
+| FU-20251224-0355-03 | DL-20251224-0355 | Low      | User         | OPEN   | Consider keeping source rules in DevFramework/ToolSetup                                  |
 
 Framework/DeveloperGuidesAndStandards
 / and manually copying to .windsurf/rules/ |

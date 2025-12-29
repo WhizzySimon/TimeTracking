@@ -99,8 +99,8 @@ Framework/JustInTimeAgentRules
 
 ### B. Knowledge Box Map (Current vs Intended)
 
-| Trigger/Phase     | What SHOULD Load             | What CURRENTLY Loads | Gap Analysis |
-| ----------------- | ---------------------------- | -------------------- | ------------ |
+| Trigger/Phase     | What SHOULD Load        | What CURRENTLY Loads | Gap Analysis |
+| ----------------- | ----------------------- | -------------------- | ------------ |
 | **Session Start** | `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
@@ -207,8 +207,8 @@ Framework/JustInTimeAgentRules
 
 ### B. Proposed Workflow Updates
 
-| Workflow      | Current Issue                            | Proposed Fix                                                           |
-| ------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
+| Workflow      | Current Issue                            | Proposed Fix                                                      |
+| ------------- | ---------------------------------------- | ----------------------------------------------------------------- |
 | `new-task.md` | Duplicates "After task completion" steps | Remove lines 38-69, replace with: "Follow `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
@@ -220,8 +220,8 @@ Framework/JustInTimeAgentRules
 
 ### C. Proposed Rule Splitting/Summarization
 
-| File                                 | Current Lines | Proposed Action                      |
-| ------------------------------------ | ------------- | ------------------------------------ |
+| File                                 | Current Lines | Proposed Action                 |
+| ------------------------------------ | ------------- | ------------------------------- |
 | `.windsurf/rules/ui-design-rules.md` | 109           | Move to `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
@@ -291,8 +291,8 @@ If this marker does not appear before a commit, the rule was not loaded.
 
 **Test Scenario:**
 
-| Step | Action                                  | Expected                                   |
-| ---- | --------------------------------------- | ------------------------------------------ |
+| Step | Action                                  | Expected                              |
+| ---- | --------------------------------------- | ------------------------------------- |
 | 1    | User says "I want to commit my changes" | Cascade reads `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules
@@ -328,8 +328,8 @@ Framework/JustInTimeAgentRules
 
 **Verdict: Partially implemented (70%)**
 
-| Concept                     | Implemented? | Notes                        |
-| --------------------------- | ------------ | ---------------------------- |
+| Concept                     | Implemented? | Notes                   |
+| --------------------------- | ------------ | ----------------------- |
 | Knowledge boxes (JIT rules) | ✅ Yes       | `DevFramework/ToolSetup |
 
 Framework/JustInTimeAgentRules

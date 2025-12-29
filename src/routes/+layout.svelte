@@ -6,9 +6,17 @@
 	import { resolve } from '$app/paths';
 	import '$lib/styles/theme.css';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
+	import EmployerSelector from '$lib/components/EmployerSelector.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
-	import { isOnline, syncInProgress, runningEntry, currentDate } from '$lib/stores';
+	import {
+		isOnline,
+		syncInProgress,
+		runningEntry,
+		currentDate,
+		employers,
+		selectedEmployerId
+	} from '$lib/stores';
 	import { saveTimeEntry } from '$lib/storage/operations';
 	import { formatTime, isToday } from '$lib/utils/date';
 	import WarningBanner from '$lib/components/WarningBanner.svelte';
@@ -323,6 +331,12 @@
 	<div class="app-container">
 		<header class="app-header">
 			<div class="header-left">
+				<EmployerSelector
+					employers={$employers}
+					value={$selectedEmployerId}
+					onchange={(id) => selectedEmployerId.set(id)}
+					compact
+				/>
 				<button
 					class="header-btn sync-btn"
 					class:synced={!syncNeeded && !$syncInProgress}

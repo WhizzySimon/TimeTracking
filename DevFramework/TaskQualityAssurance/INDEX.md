@@ -37,6 +37,7 @@ No special telemetry commands needed during work. Cascade will analyze the chat 
 ### 3. Pre-Commit Analysis
 
 At commit time, follow `pre-commit.md` → `self-learning-system.md` which includes:
+
 - **Part A:** Capture user feedback (self-learning)
 - **Part B:** Detect patterns — repeated errors, file churn, scope drift, long sessions (self-improvement)
 - **Part C:** Promote learnings and enforce hard rules

@@ -35,9 +35,9 @@
 
 ### Canonical Sources of Truth (Priority Order per `Docs/INDEX.md`)
 
-| Priority | Document                     | Purpose                           |
-| -------- | ---------------------------- | --------------------------------- |
-| 0        | `Docs/INDEX.md`              | Master index, conflict resolution |
+| Priority | Document                | Purpose                           |
+| -------- | ----------------------- | --------------------------------- |
+| 0        | `Docs/INDEX.md`         | Master index, conflict resolution |
 | 1        | `DevFramework/ToolSetup |
 
 Framework/DeveloperGuidesAndStandards
@@ -90,8 +90,8 @@ Framework/DeveloperGuidesAndStandards
 
 ### Spec Coverage
 
-| Feature        | Spec                         | Plan | Tasks | Status |
-| -------------- | ---------------------------- | ---- | ----- | ------ |
+| Feature        | Spec                    | Plan | Tasks | Status |
+| -------------- | ----------------------- | ---- | ----- | ------ |
 | TimeTracker v1 | `DevFramework/ToolSetup |
 
 Framework/DeveloperGuidesAndStandards

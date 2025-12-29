@@ -43,7 +43,7 @@ Significant design, architecture, and policy decisions. Newest first.
 
 **Date:** 2025-12-27  
 **Context:** AGENTS.md was 282 lines. Rules loaded at session start were forgotten by commit time (violations on 2025-12-26, 2025-12-27). Research confirmed: "context rot" — LLMs lose focus as context grows.  
-**Decision:** Replace AGENTS.md with _entrypoint-jit-rule-map.md (50 lines) + DevFramework/JustInTimeAgentRules/ (7 trigger-based files). Load rules at trigger points, not upfront.  
+**Decision:** Replace AGENTS.md with \_entrypoint-jit-rule-map.md (50 lines) + DevFramework/JustInTimeAgentRules/ (7 trigger-based files). Load rules at trigger points, not upfront.  
 **Alternatives:** Keep growing AGENTS.md (rejected — proven to fail), use only .windsurf/rules/ (rejected — can't edit those files).  
 **Consequences:** Reduced cognitive load; rules fresh when needed; easier to maintain and extend.  
 **Source:** c76e30d, 5113584

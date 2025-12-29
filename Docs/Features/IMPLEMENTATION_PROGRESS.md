@@ -346,7 +346,7 @@ Phase 4:
 ## Phase A2: Multi-Arbeitgeber
 
 **Target:** 18 tasks  
-**Status:** In progress (6/18 — 2 skipped)  
+**Status:** In progress (7/18 — 2 skipped)  
 **Spec:** `Docs/AppDocs/Features/Specs/multi-arbeitgeber.md`  
 **Plan:** `Docs/AppDocs/Features/Plans/multi-arbeitgeber.md`  
 **Tasks:** `Docs/AppDocs/Features/Tasks/multi-arbeitgeber.md`
@@ -358,7 +358,7 @@ Phase 4:
 - [x] **Task A2.3** — ~~Supabase migration~~ SKIPPED (snapshot-based sync)
 - [x] **Task A2.4** — Employer store + CRUD operations
 - [x] **Task A2.5** — EmployerSelector component
-- [ ] **Task A2.6** — Integrate selector into Header
+- [x] **Task A2.6** — Integrate selector into Header
 - [ ] **Task A2.7** — Filter logic for all stores
 - [ ] **Task A2.8** — Update Day/Week/Month tabs for AG filtering
 - [ ] **Task A2.9** — Update Analysis tab for AG filtering

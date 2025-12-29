@@ -324,11 +324,11 @@ Bevor du mit der Implementierung beginnst:
 | Spec Template                                                                | `Docs/Features/Specs/_template.md` |
 | Plan Template                                                                | `Docs/Features/Plans/_template.md` |
 | Tasks Template                                                               | `Docs/Features/Tasks/_template.md` |
-| Progress Tracker                                                             | `DevFramework/ToolSetup       |
+| Progress Tracker                                                             | `DevFramework/ToolSetup            |
 | Framework/IMPLEMENTATION_PROGRESS.md`                                        |
-| FR/IG/DD Regeln                                                              | `DevFramework/ToolSetup       |
+| FR/IG/DD Regeln                                                              | `DevFramework/ToolSetup            |
 | Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md` |
-| Command Execution                                                            | `DevFramework/ToolSetup       |
+| Command Execution                                                            | `DevFramework/ToolSetup            |
 
 Framework/ToolSetup/command-execution-rules.md`              |
 | Pre-Commit Rules  |`DevFramework/JustInTimeAgentRules/pre-commit.md` |

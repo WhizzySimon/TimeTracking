@@ -31,17 +31,19 @@
 
 **If session had detours or you're unsure what was completed:** Read `sync-check.md` first.
 
+**EXECUTE IN ORDER — do not skip ahead:**
+
 ```
-[ ] Sync check — If needed, run sync-check.md to verify what was done
-[ ] /audit PASS (see Audit Gate above)
-[ ] CHANGELOG.md — Added one-line entry for this work
-[ ] DECISIONS.md — If decision was made, added entry
-[ ] Self-learning & improvement — Follow self-learning-system.md (Parts A, B, C)
-[ ] IMPLEMENTATION_PROGRESS.md — If tasks added/changed/completed, update progress tracker
-[ ] Spec/Plan/Tasks sync — If Spec changed, check Plan; if Plan changed, check Tasks
+[ ] 1. Sync check — If needed, run sync-check.md to verify what was done
+[ ] 2. Self-learning & improvement — Follow self-learning-system.md (Parts A, B, C)
+[ ] 3. CHANGELOG.md — Added one-line entry for this work
+[ ] 4. DECISIONS.md — If decision was made, added entry
+[ ] 5. IMPLEMENTATION_PROGRESS.md — If tasks added/changed/completed, update progress tracker
+[ ] 6. Spec/Plan/Tasks sync — If Spec changed, check Plan; if Plan changed, check Tasks
+[ ] 7. /audit PASS (see Audit Gate above) — requires steps 1-6 complete
 ```
 
-**This is not optional.** Violations: 2025-12-26, 2025-12-27.
+**This is not optional.** Violations: 2025-12-26, 2025-12-27, 2025-12-29.
 
 ---
 
@@ -87,4 +89,3 @@ If either check fails, fix before ending the session.
 - `refactor:` — Code restructuring without behavior change
 - `chore:` — Maintenance, dependencies, config
 - `test:` — Test additions or fixes
-

@@ -11,6 +11,7 @@ The Self-Learning System enables Cascade to improve its behavior over time by ca
 **Problem:** Cascade makes the same mistakes repeatedly across sessions because it has no persistent memory of corrections.
 
 **Solution:** A file-based feedback loop that:
+
 1. Captures corrections and positive feedback
 2. Detects process patterns (errors, churn, drift)
 3. Promotes proven learnings to permanent rules
@@ -22,10 +23,10 @@ The Self-Learning System enables Cascade to improve its behavior over time by ca
 
 ### Two Systems, One Workflow
 
-| System | What it analyzes | Purpose |
-|--------|------------------|---------|
-| **Self-Learning** | User feedback in chat | Behavioral corrections |
-| **Self-Improvement** | Session patterns (errors, churn) | Process improvements |
+| System               | What it analyzes                 | Purpose                |
+| -------------------- | -------------------------------- | ---------------------- |
+| **Self-Learning**    | User feedback in chat            | Behavioral corrections |
+| **Self-Improvement** | Session patterns (errors, churn) | Process improvements   |
 
 Both feed into the same pipeline: **INBOX → LEARNINGS → JIT Rules**
 
@@ -61,13 +62,13 @@ Both feed into the same pipeline: **INBOX → LEARNINGS → JIT Rules**
 
 ## File Locations
 
-| File | Location | Purpose |
-|------|----------|---------|
-| **Workflow rules** | `JustInTimeAgentRules/self-learning-system.md` | Step-by-step execution instructions |
-| **Inbox** | `FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md` | Raw capture, pending review |
-| **Distillate** | `FrameworkSelfImprovementLogs/LEARNINGS.md` | Proven rules (max 30) |
-| **Execution log** | `FrameworkSelfImprovementLogs/SELF-LEARNING-LOG.md` | Audit trail of each run |
-| **This overview** | `DeveloperGuidesAndStandards/SELF_LEARNING_SYSTEM.md` | Conceptual documentation |
+| File               | Location                                              | Purpose                             |
+| ------------------ | ----------------------------------------------------- | ----------------------------------- |
+| **Workflow rules** | `JustInTimeAgentRules/self-learning-system.md`        | Step-by-step execution instructions |
+| **Inbox**          | `FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`     | Raw capture, pending review         |
+| **Distillate**     | `FrameworkSelfImprovementLogs/LEARNINGS.md`           | Proven rules (max 30)               |
+| **Execution log**  | `FrameworkSelfImprovementLogs/SELF-LEARNING-LOG.md`   | Audit trail of each run             |
+| **This overview**  | `DeveloperGuidesAndStandards/SELF_LEARNING_SYSTEM.md` | Conceptual documentation            |
 
 ---
 
@@ -75,17 +76,18 @@ Both feed into the same pipeline: **INBOX → LEARNINGS → JIT Rules**
 
 Learnings are categorized when promoted:
 
-| Category | Meaning | Enforcement |
-|----------|---------|-------------|
-| **Hard Rule** | Must always follow | Added to JIT rule files (requires user approval) |
-| **Preference** | Preferred approach | In LEARNINGS.md only |
-| **Reminder** | Easy to forget | In LEARNINGS.md only |
+| Category       | Meaning            | Enforcement                                      |
+| -------------- | ------------------ | ------------------------------------------------ |
+| **Hard Rule**  | Must always follow | Added to JIT rule files (requires user approval) |
+| **Preference** | Preferred approach | In LEARNINGS.md only                             |
+| **Reminder**   | Easy to forget     | In LEARNINGS.md only                             |
 
 ---
 
 ## Promotion Criteria
 
 Items move from INBOX → LEARNINGS when:
+
 - Repeated 2+ times across sessions, OR
 - Explicitly marked by maintainer as high-impact
 
@@ -96,6 +98,7 @@ Items move from INBOX → LEARNINGS when:
 **Hard Rules → JIT integration requires user approval.**
 
 Cascade must:
+
 1. Propose the rule and target file
 2. Explain: why needed, what it improves, when it triggers
 3. **STOP and wait for explicit "yes"**
@@ -107,10 +110,10 @@ Cascade must:
 
 The `/audit` workflow verifies self-learning execution:
 
-| Check | What it verifies |
-|-------|------------------|
-| **E) Log staged** | SELF-LEARNING-LOG.md is in staged changes |
-| **F) Today's entry** | Most recent entry has today's date |
+| Check                | What it verifies                          |
+| -------------------- | ----------------------------------------- |
+| **E) Log staged**    | SELF-LEARNING-LOG.md is in staged changes |
+| **F) Today's entry** | Most recent entry has today's date        |
 
 If either fails, audit FAILs with remediation instructions.
 

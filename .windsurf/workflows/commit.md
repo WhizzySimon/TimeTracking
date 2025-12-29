@@ -13,6 +13,7 @@ description: Commit workflow - runs pre-commit checklist then commits and pushes
 **Read and follow:** `DevFramework/JustInTimeAgentRules/pre-commit.md`
 
 This includes:
+
 - Sync check (if needed)
 - /audit PASS
 - CHANGELOG.md entry

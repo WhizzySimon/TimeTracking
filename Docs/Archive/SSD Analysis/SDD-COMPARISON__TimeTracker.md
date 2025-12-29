@@ -96,10 +96,10 @@ Framework/DeveloperGuidesAndStandards
 
 ## 2. Strengths (Keep These)
 
-| Strength                             | Evidence                     | Why It Works                                     |
-| ------------------------------------ | ---------------------------- | ------------------------------------------------ |
-| **Explicit priority order**          | `Docs/INDEX.md` lines 7-13   | Eliminates doc conflicts; single source of truth |
-| **Numbered requirements (FR/IG/DD)** | `DevFramework/ToolSetup |
+| Strength                             | Evidence                   | Why It Works                                     |
+| ------------------------------------ | -------------------------- | ------------------------------------------------ |
+| **Explicit priority order**          | `Docs/INDEX.md` lines 7-13 | Eliminates doc conflicts; single source of truth |
+| **Numbered requirements (FR/IG/DD)** | `DevFramework/ToolSetup    |
 
 Framework/DeveloperGuidesAndStandards
 /IMPLEMENTATION_SPECIFICATION_RULES.md`   | Traceable, testable, unambiguous                         |
@@ -132,10 +132,10 @@ Framework/FrameworkSelfImprovementLogs
 
 ### From Workflows
 
-| Failure Mode                   | Evidence                                                                                            | Impact                                 |
-| ------------------------------ | --------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| **Commit step forgotten**      | Memory `066ef418` explicitly warns "most commonly forgotten step"                                   | Uncommitted work lost between sessions |
-| **Spec template not enforced** | `Docs/Features/Specs/_template.md` exists but no validation                                         | Some specs missing sections            |
+| Failure Mode                   | Evidence                                                                                       | Impact                                 |
+| ------------------------------ | ---------------------------------------------------------------------------------------------- | -------------------------------------- |
+| **Commit step forgotten**      | Memory `066ef418` explicitly warns "most commonly forgotten step"                              | Uncommitted work lost between sessions |
+| **Spec template not enforced** | `Docs/Features/Specs/_template.md` exists but no validation                                    | Some specs missing sections            |
 | **Duplicate rules files**      | `implementation-specification-rules.md` in both `.windsurf/rules/` and `DevFramework/ToolSetup |
 
 Framework/DeveloperGuidesAndStandards
@@ -349,8 +349,8 @@ Framework/FrameworkSelfImprovementLogs
 
 ### Priority 1: Critical (Do First)
 
-| #   | File Path                    | Exact Change | Status | Why |
-| --- | ---------------------------- | ------------ | ------ | --- |
+| #   | File Path               | Exact Change | Status | Why |
+| --- | ----------------------- | ------------ | ------ | --- |
 | 1   | `DevFramework/ToolSetup |
 
 Framework/FrameworkSelfImprovementLogs
@@ -369,7 +369,7 @@ Framework/DeveloperGuidesAndStandards
 | #   | File Path                         | Exact Change                                | Status | Why                          |
 | --- | --------------------------------- | ------------------------------------------- | ------ | ---------------------------- |
 | 6   | `Docs/IMPLEMENTATION_PROGRESS.md` | Add "Test Coverage" column to phase headers | TODO   | Visibility into testing gaps |
-| 7   | `DevFramework/ToolSetup      |
+| 7   | `DevFramework/ToolSetup           |
 
 Framework/FrameworkSelfImprovementLogs
 /chat-history-analysis.md`| Workflow field from enum`{/project-start, /continue-work, /new-feature, /new-task, NONE}`(no UNKNOWN) | ✅ DONE | Consistent, sortable devlogs                |
@@ -384,7 +384,7 @@ Framework/FrameworkSelfImprovementLogs
 | #   | File Path                         | Exact Change                                                | Status  | Why                                  |
 | --- | --------------------------------- | ----------------------------------------------------------- | ------- | ------------------------------------ |
 | 11  | `scripts/validate-devlog-tags.js` | Script validates DL-\*.md and INDEX.md tags against TAGS.md | ✅ DONE | Automated tag validation (178 lines) |
-| 12  | `DevFramework/ToolSetup      |
+| 12  | `DevFramework/ToolSetup           |
 
 Framework/FrameworkSelfImprovementLogs
 /PHASE-HISTORY.md`   | Create file documenting what P02-P05 covered (retroactive)  | TODO    | Historical clarity                   |
