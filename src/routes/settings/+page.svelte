@@ -119,10 +119,10 @@
 	let categoryToEdit: Category | null = $state(null);
 	let logoutInProgress = $state(false);
 	let expandedSections = $state({
-		employers: true,
-		workTimeModels: true,
-		abwesenheit: true,
-		arbeit: true
+		employers: false,
+		workTimeModels: false,
+		abwesenheit: false,
+		arbeit: false
 	});
 	let currentTheme = $state<ThemeValue>('cool');
 	let currentShape = $state<ShapeValue>('soft');
