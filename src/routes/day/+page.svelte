@@ -255,12 +255,12 @@
 	{:else}
 		<!-- Date Navigation -->
 		<header class="date-nav">
-			<button class="nav-btn" onclick={goToPreviousDay} aria-label="Vorheriger Tag">
-				← {previousDayLabel()}
+			<button class="nav-btn nav-btn-prev" onclick={goToPreviousDay} aria-label="Vorheriger Tag">
+				{previousDayLabel()}
 			</button>
 			<button class="date-title" onclick={openDayPicker}>{dateDisplay()}</button>
-			<button class="nav-btn" onclick={goToNextDay} aria-label="Nächster Tag">
-				{nextDayLabel()} →
+			<button class="nav-btn nav-btn-next" onclick={goToNextDay} aria-label="Nächster Tag">
+				{nextDayLabel()}
 			</button>
 		</header>
 
@@ -342,8 +342,7 @@
 		min-width: 44px;
 		height: 44px;
 		padding: 0 0.75rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
+		border: none;
 		background: var(--surface);
 		color: var(--text);
 		font-size: 1.25rem;
@@ -351,7 +350,16 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.25rem;
+		position: relative;
+		clip-path: polygon(15% 0%, 100% 0%, 85% 50%, 100% 100%, 15% 100%, 0% 50%);
+	}
+
+	.nav-btn-prev {
+		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%, 15% 50%);
+	}
+
+	.nav-btn-next {
+		clip-path: polygon(15% 0%, 100% 0%, 85% 50%, 100% 100%, 15% 100%, 0% 50%);
 	}
 
 	.nav-btn:hover {

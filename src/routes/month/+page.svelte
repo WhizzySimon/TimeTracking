@@ -288,12 +288,16 @@
 	{:else}
 		<!-- Month Navigation -->
 		<header class="month-nav">
-			<button class="nav-btn" onclick={goToPreviousMonth} aria-label="Vorheriger Monat">
-				← {previousMonthLabel()}
+			<button
+				class="nav-btn nav-btn-prev"
+				onclick={goToPreviousMonth}
+				aria-label="Vorheriger Monat"
+			>
+				{previousMonthLabel()}
 			</button>
 			<button class="month-title" onclick={openMonthPicker}>{monthTitle}</button>
-			<button class="nav-btn" onclick={goToNextMonth} aria-label="Nächster Monat">
-				{nextMonthLabel()} →
+			<button class="nav-btn nav-btn-next" onclick={goToNextMonth} aria-label="Nächster Monat">
+				{nextMonthLabel()}
 			</button>
 		</header>
 
@@ -364,17 +368,26 @@
 	}
 
 	.nav-btn {
-		width: 44px;
+		min-width: 44px;
 		height: 44px;
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
+		padding: 0 0.75rem;
+		border: none;
 		background: var(--surface);
 		color: var(--text);
-		font-size: 1.25rem;
+		font-size: 1rem;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		position: relative;
+	}
+
+	.nav-btn-prev {
+		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%, 15% 50%);
+	}
+
+	.nav-btn-next {
+		clip-path: polygon(15% 0%, 100% 0%, 85% 50%, 100% 100%, 15% 100%, 0% 50%);
 	}
 
 	.nav-btn:hover {

@@ -34,17 +34,17 @@ Each entry follows this format:
 
 ## 2025-12-30 11:30 — Tasks A4.6-A4.12
 
-| Step                 | Result       | Notes                                           |
-| -------------------- | ------------ | ----------------------------------------------- |
-| 0: Scope check       | incremental  | After A4.5 commit                               |
-| A1: Capture feedback | none         | No corrective feedback in session               |
-| B1: Repeated errors  | none         | No repeated errors                              |
-| B2: File churn       | 1 file       | week/+page.svelte edited twice (restore + fix)  |
-| B3: Scope drift      | none         | All files match planned scope                   |
-| B4: Session duration | ~20m         | normal                                          |
-| C1: Promotions       | none         | No items meet promotion criteria                |
-| C2: Read LEARNINGS   | ✓ read       | 5 items                                         |
-| C3: Hard Rule → JIT  | none         | No new Hard Rules proposed                      |
+| Step                 | Result      | Notes                                          |
+| -------------------- | ----------- | ---------------------------------------------- |
+| 0: Scope check       | incremental | After A4.5 commit                              |
+| A1: Capture feedback | none        | No corrective feedback in session              |
+| B1: Repeated errors  | none        | No repeated errors                             |
+| B2: File churn       | 1 file      | week/+page.svelte edited twice (restore + fix) |
+| B3: Scope drift      | none        | All files match planned scope                  |
+| B4: Session duration | ~20m        | normal                                         |
+| C1: Promotions       | none        | No items meet promotion criteria               |
+| C2: Read LEARNINGS   | ✓ read      | 5 items                                        |
+| C3: Hard Rule → JIT  | none        | No new Hard Rules proposed                     |
 
 ---
 

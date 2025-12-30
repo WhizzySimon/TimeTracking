@@ -8,6 +8,7 @@
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import EmployerSelector from '$lib/components/EmployerSelector.svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
+	import ForwardButton from '$lib/components/ForwardButton.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import {
@@ -332,13 +333,8 @@
 	<div class="app-container">
 		<header class="app-header">
 			<div class="header-left">
-				<EmployerSelector
-					employers={$employers}
-					value={$selectedEmployerId}
-					onchange={(id) => selectedEmployerId.set(id)}
-					compact
-				/>
 				<BackButton />
+				<ForwardButton />
 				<button
 					class="header-btn sync-btn"
 					class:synced={!syncNeeded && !$syncInProgress}
@@ -354,6 +350,12 @@
 				{#if syncError}
 					<span class="sync-error-indicator" title={syncError}>!</span>
 				{/if}
+				<EmployerSelector
+					employers={$employers}
+					value={$selectedEmployerId}
+					onchange={(id) => selectedEmployerId.set(id)}
+					compact
+				/>
 			</div>
 			<div class="header-right">
 				<div class="profile-menu-container">
