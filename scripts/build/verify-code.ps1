@@ -34,11 +34,14 @@ $namingOutput | Out-File -FilePath $outputFile -Append -Encoding utf8
 if ($LASTEXITCODE -ne 0) { $allPassed = $false }
 "" | Out-File -FilePath $outputFile -Append -Encoding utf8
 
-# Step 1: Format
-"--- Step 1: npm run format ---" | Out-File -FilePath $outputFile -Append -Encoding utf8
-$formatOutput = npm run format 2>&1 | Out-String
+# Step 1: Check format (without modifying files)
+"--- Step 1: prettier --check ---" | Out-File -FilePath $outputFile -Append -Encoding utf8
+$formatOutput = npx prettier --check . 2>&1 | Out-String
 $formatOutput | Out-File -FilePath $outputFile -Append -Encoding utf8
-if ($LASTEXITCODE -ne 0) { $allPassed = $false }
+if ($LASTEXITCODE -ne 0) { 
+    "WARNING: Some files need formatting. Run 'npm run format' before committing." | Out-File -FilePath $outputFile -Append -Encoding utf8
+    $allPassed = $false 
+}
 "" | Out-File -FilePath $outputFile -Append -Encoding utf8
 
 # Step 2: Check (TypeScript)

@@ -27,7 +27,7 @@
 	--font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	--font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
 	--font-family-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
-	
+
 	/* Primary font (change this to switch the main font) */
 	--font-family: var(--font-family-sans);
 	--font-family-heading: var(--font-family-sans);
@@ -37,16 +37,16 @@
 	/* ==========================================================================
 	   TYPOGRAPHY - Font Sizes (modular scale ~1.25)
 	   ========================================================================== */
-	--font-size-2xs: 0.625rem;   /* 10px */
-	--font-size-xs: 0.75rem;     /* 12px */
-	--font-size-sm: 0.875rem;    /* 14px */
-	--font-size-base: 1rem;      /* 16px */
-	--font-size-md: 1.125rem;    /* 18px */
-	--font-size-lg: 1.25rem;     /* 20px */
-	--font-size-xl: 1.5rem;      /* 24px */
-	--font-size-2xl: 1.875rem;   /* 30px */
-	--font-size-3xl: 2.25rem;    /* 36px */
-	--font-size-4xl: 3rem;       /* 48px */
+	--font-size-2xs: 0.625rem; /* 10px */
+	--font-size-xs: 0.75rem; /* 12px */
+	--font-size-sm: 0.875rem; /* 14px */
+	--font-size-base: 1rem; /* 16px */
+	--font-size-md: 1.125rem; /* 18px */
+	--font-size-lg: 1.25rem; /* 20px */
+	--font-size-xl: 1.5rem; /* 24px */
+	--font-size-2xl: 1.875rem; /* 30px */
+	--font-size-3xl: 2.25rem; /* 36px */
+	--font-size-4xl: 3rem; /* 48px */
 
 	/* ==========================================================================
 	   TYPOGRAPHY - Font Weights
@@ -85,24 +85,24 @@
 	   ========================================================================== */
 	--space-px: 1px;
 	--space-0: 0;
-	--space-0-5: 0.125rem;  /* 2px */
-	--space-1: 0.25rem;     /* 4px */
-	--space-1-5: 0.375rem;  /* 6px */
-	--space-2: 0.5rem;      /* 8px */
-	--space-2-5: 0.625rem;  /* 10px */
-	--space-3: 0.75rem;     /* 12px */
-	--space-3-5: 0.875rem;  /* 14px */
-	--space-4: 1rem;        /* 16px */
-	--space-5: 1.25rem;     /* 20px */
-	--space-6: 1.5rem;      /* 24px */
-	--space-7: 1.75rem;     /* 28px */
-	--space-8: 2rem;        /* 32px */
-	--space-9: 2.25rem;     /* 36px */
-	--space-10: 2.5rem;     /* 40px */
-	--space-12: 3rem;       /* 48px */
-	--space-14: 3.5rem;     /* 56px */
-	--space-16: 4rem;       /* 64px */
-	--space-20: 5rem;       /* 80px */
+	--space-0-5: 0.125rem; /* 2px */
+	--space-1: 0.25rem; /* 4px */
+	--space-1-5: 0.375rem; /* 6px */
+	--space-2: 0.5rem; /* 8px */
+	--space-2-5: 0.625rem; /* 10px */
+	--space-3: 0.75rem; /* 12px */
+	--space-3-5: 0.875rem; /* 14px */
+	--space-4: 1rem; /* 16px */
+	--space-5: 1.25rem; /* 20px */
+	--space-6: 1.5rem; /* 24px */
+	--space-7: 1.75rem; /* 28px */
+	--space-8: 2rem; /* 32px */
+	--space-9: 2.25rem; /* 36px */
+	--space-10: 2.5rem; /* 40px */
+	--space-12: 3rem; /* 48px */
+	--space-14: 3.5rem; /* 56px */
+	--space-16: 4rem; /* 64px */
+	--space-20: 5rem; /* 80px */
 
 	/* Legacy spacing aliases */
 	--space-xs: var(--space-1);
@@ -278,7 +278,7 @@
 	--text-inverted: #ffffff;
 	--text-link: var(--color-primary-500);
 	--text-link-hover: var(--color-primary-600);
-	
+
 	/* Legacy alias */
 	--muted: var(--text-muted);
 

@@ -21,6 +21,7 @@ When user asks a question or raises a concern:
 **Weak response:** "No, I only ran npm run check."
 
 **Strong response:**
+
 - Run actual UI tests (Playwright or browser)
 - Show verification table with results
 - If no tests exist, propose creating them or a workflow improvement
@@ -29,7 +30,8 @@ When user asks a question or raises a concern:
 
 ## This Is Not About More Work
 
-It's about *direction*, not *volume*. A simple question might reveal:
+It's about _direction_, not _volume_. A simple question might reveal:
+
 - A missing step in a workflow
 - A gap in verification
 - An opportunity to prevent future issues

@@ -69,11 +69,7 @@
 			let importedCount = 0;
 			for (const cat of toImport) {
 				try {
-					await addUserCategory(
-						cat.name,
-						cat.countsAsWorkTime,
-						selectedEmployerId || undefined
-					);
+					await addUserCategory(cat.name, cat.countsAsWorkTime, selectedEmployerId || undefined);
 					importedCount++;
 				} catch (e) {
 					console.warn(`Failed to import category "${cat.name}":`, e);

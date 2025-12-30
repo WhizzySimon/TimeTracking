@@ -101,8 +101,7 @@ export async function addUserCategory(
 	// Check for duplicate: same name AND same employerId
 	const isDuplicate = existing.some(
 		(c) =>
-			c.name.toLowerCase() === name.toLowerCase() &&
-			(c.employerId ?? '') === (employerId ?? '')
+			c.name.toLowerCase() === name.toLowerCase() && (c.employerId ?? '') === (employerId ?? '')
 	);
 	if (isDuplicate) {
 		throw new Error(`Category "${name}" already exists for this employer`);

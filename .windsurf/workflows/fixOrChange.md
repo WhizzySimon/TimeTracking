@@ -16,14 +16,14 @@ For bugs, behavior changes, and small improvements.
 **Agent: After user describes the issue, analyze and output:**
 
 > **Model Recommendation:** [Sonnet 4.5 / Opus 4 / Opus 4 Thinking]
-> 
+>
 > **Reasoning:** [1-line based on criteria below]
 
-| Complexity | Model | Credits | Criteria |
-|------------|-------|---------|----------|
-| **Simple** | Sonnet 4.5 | 2x | Typo, wrong value, missing import, obvious fix |
-| **Moderate** | Opus 4 | 4x | Multi-file change, needs judgment, clear root cause |
-| **Complex** | Opus 4 Thinking | 5x | Unclear root cause, multi-step debugging, architectural |
+| Complexity   | Model           | Credits | Criteria                                                |
+| ------------ | --------------- | ------- | ------------------------------------------------------- |
+| **Simple**   | Sonnet 4.5      | 2x      | Typo, wrong value, missing import, obvious fix          |
+| **Moderate** | Opus 4          | 4x      | Multi-file change, needs judgment, clear root cause     |
+| **Complex**  | Opus 4 Thinking | 5x      | Unclear root cause, multi-step debugging, architectural |
 
 **Wait for user to confirm model selection before proceeding.**
 
@@ -47,24 +47,31 @@ With content:
 **Type:** [ ] Bug / [ ] Behavior Change / [ ] Improvement
 
 ## Current Behavior
+
 <what happens now>
 
 ## Desired Behavior
+
 <what should happen>
 
 ## Analysis
+
 <!-- Fill after investigation -->
 
 ## Changes Made
+
 <!-- Fill after implementation -->
-- File(s): 
-- Change: 
+
+- File(s):
+- Change:
 
 ## QA Checklist
+
 - [ ] `npm run check` passes
 - [ ] Verified change works (manual or Playwright)
 
 ## Status: OPEN
+
 <!-- Update to: DONE → VERIFIED → COMMITTED -->
 ```
 
@@ -75,6 +82,7 @@ With content:
 ## Quick Fix Mode (Optional)
 
 For trivial one-liner changes where analysis is obvious:
+
 - Skip "Analysis" section
 - Mark `[x] Quick fix - no investigation needed` in ticket
 - Still require QA checklist completion
@@ -100,6 +108,7 @@ For trivial one-liner changes where analysis is obvious:
 ## Step 4: Verify (REQUIRED)
 
 Choose one:
+
 - **Manual test:** Confirm new behavior works
 - **Playwright test:** Run relevant test or write spot-check
 
@@ -119,6 +128,7 @@ Update verification checkboxes in ticket.
 ## Multiple Items in One Session
 
 Create separate tickets:
+
 - `Docs/Temp/FIX-paywall-price.md`
 - `Docs/Temp/FIX-employer-dropdown.md`
 

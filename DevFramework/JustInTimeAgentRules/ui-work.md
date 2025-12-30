@@ -86,21 +86,25 @@ These break the app design and look ugly. Instead:
 **Cancel/Secondary button on LEFT, OK/Primary button on RIGHT**
 
 This follows modern web standards and left-to-right reading flow:
+
 - Right = forward/progress (OK/Confirm)
 - Left = back/regress (Cancel)
 
 ### Button Styling
 
 **Primary action (OK/Confirm):**
+
 - Use colored button (`btn-confirm`)
 - `confirmStyle="primary"` (blue) for normal actions
 - `confirmStyle="danger"` (red) for destructive actions
 
 **Secondary action (Cancel):**
+
 - Use subtle button (`btn-secondary`)
 - Lighter background, outlined or muted
 
 **Close-only (no action to confirm):**
+
 - Use `type="alert"` with single OK button
 - Styled as secondary button
 
@@ -114,12 +118,8 @@ This follows modern web standards and left-to-right reading flow:
 
 ```svelte
 <div class="actions">
-  <button class="btn-secondary" onclick={handleCancel}>
-    Abbrechen
-  </button>
-  <button class="btn-confirm" onclick={handleConfirm}>
-    Speichern
-  </button>
+	<button class="btn-secondary" onclick={handleCancel}> Abbrechen </button>
+	<button class="btn-confirm" onclick={handleConfirm}> Speichern </button>
 </div>
 ```
 
