@@ -8,6 +8,44 @@
 
 import { getSupabase, isSupabaseConfigured, getSupabaseConfigError } from '$lib/supabase/client';
 
+/**
+ * Translate common Supabase auth error messages to German.
+ */
+function translateAuthError(message: string): string {
+	const translations: Record<string, string> = {
+		'Invalid login credentials': 'Ungültige Anmeldedaten',
+		'Email not confirmed': 'E-Mail nicht bestätigt',
+		'User already registered': 'Benutzer bereits registriert',
+		'Password should be at least 6 characters': 'Passwort muss mindestens 6 Zeichen lang sein',
+		'Unable to validate email address: invalid format': 'Ungültiges E-Mail-Format',
+		'Email rate limit exceeded':
+			'E-Mail-Limit überschritten. Bitte versuchen Sie es später erneut.',
+		'Invalid email or password': 'Ungültige E-Mail oder Passwort',
+		'Email link is invalid or has expired': 'E-Mail-Link ist ungültig oder abgelaufen',
+		'New password should be different from the old password':
+			'Neues Passwort muss sich vom alten unterscheiden',
+		'Password is too weak': 'Passwort ist zu schwach',
+		'User not found': 'Benutzer nicht gefunden',
+		'Network request failed': 'Netzwerkfehler. Bitte überprüfen Sie Ihre Internetverbindung.',
+		'Failed to fetch': 'Verbindung fehlgeschlagen. Bitte überprüfen Sie Ihre Internetverbindung.'
+	};
+
+	// Check for exact match
+	if (translations[message]) {
+		return translations[message];
+	}
+
+	// Check for partial matches
+	for (const [english, german] of Object.entries(translations)) {
+		if (message.includes(english)) {
+			return german;
+		}
+	}
+
+	// Default fallback for unknown errors
+	return 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.';
+}
+
 export interface LoginResponse {
 	token: string;
 	email: string;
@@ -52,11 +90,13 @@ export async function login(email: string, password: string): Promise<LoginRespo
 
 	if (error) {
 		console.error('[AuthAPI] Login failed:', error.message);
-		throw new Error(error.message);
+		// Translate common Supabase error messages
+		const translatedMessage = translateAuthError(error.message);
+		throw new Error(translatedMessage);
 	}
 
 	if (!data.session) {
-		throw new Error('No session returned from login');
+		throw new Error('Keine Sitzung vom Login zurückgegeben');
 	}
 
 	return {
@@ -85,7 +125,8 @@ export async function signup(email: string, password: string): Promise<SignupRes
 
 	if (error) {
 		console.error('[AuthAPI] Signup failed:', error.message);
-		throw new Error(error.message);
+		const translatedMessage = translateAuthError(error.message);
+		throw new Error(translatedMessage);
 	}
 
 	if (!data.session) {
@@ -136,7 +177,8 @@ export async function updatePassword(newPassword: string): Promise<void> {
 
 	if (error) {
 		console.error('[AuthAPI] Update password failed:', error.message);
-		throw new Error(error.message);
+		const translatedMessage = translateAuthError(error.message);
+		throw new Error(translatedMessage);
 	}
 }
 
@@ -228,7 +270,8 @@ export async function deleteAccount(): Promise<void> {
 
 	if (error) {
 		console.error('[AuthAPI] Delete account failed:', error.message);
-		throw new Error(error.message);
+		const translatedMessage = translateAuthError(error.message);
+		throw new Error(translatedMessage);
 	}
 
 	// Sign out after deletion

@@ -282,12 +282,12 @@
 	/* Legacy alias */
 	--muted: var(--text-muted);
 
-	/* Brand/accent */
-	--accent: #5d5fef;
-	--accent-hover: #4b4de0;
-	--accent-active: var(--color-primary-700);
-	--accent-light: rgba(93, 95, 239, 0.1);
-	--accent-lighter: rgba(93, 95, 239, 0.05);
+	/* Brand/accent - Darkened for WCAG AA compliance (4.5:1 contrast) */
+	--accent: #4338ca;
+	--accent-hover: #3730a3;
+	--accent-active: var(--color-primary-800);
+	--accent-light: rgba(67, 56, 202, 0.1);
+	--accent-lighter: rgba(67, 56, 202, 0.05);
 
 	/* Semantic colors */
 	--pos: #00876e;
@@ -329,11 +329,11 @@
 	--nav-text-active: #ffffff;
 	--nav-active-bg: rgba(255, 255, 255, 0.15);
 
-	/* Buttons - Primary */
-	--btn-primary-bg: #5d5fef;
+	/* Buttons - Primary - Darkened for WCAG AA compliance */
+	--btn-primary-bg: #4338ca;
 	--btn-primary-text: #ffffff;
-	--btn-primary-hover: #4b4de0;
-	--btn-primary-active: var(--color-primary-700);
+	--btn-primary-hover: #3730a3;
+	--btn-primary-active: var(--color-primary-800);
 	--btn-primary-disabled-bg: var(--color-neutral-300);
 	--btn-primary-disabled-text: var(--color-neutral-500);
 
@@ -532,12 +532,12 @@
 	/* Legacy alias */
 	--muted: var(--text-muted);
 
-	/* Brand/accent */
-	--accent: #d07e36;
-	--accent-hover: #b86d2a;
-	--accent-active: var(--color-primary-700);
-	--accent-light: rgba(208, 126, 54, 0.1);
-	--accent-lighter: rgba(208, 126, 54, 0.05);
+	/* Brand/accent - Darkened for WCAG AA compliance (4.5:1 contrast) */
+	--accent: #8a4e1e;
+	--accent-hover: #7a4419;
+	--accent-active: #6a3a14;
+	--accent-light: rgba(138, 78, 30, 0.1);
+	--accent-lighter: rgba(138, 78, 30, 0.05);
 
 	/* Semantic colors */
 	--pos: #287850;
@@ -579,11 +579,11 @@
 	--nav-text-active: #ffffff;
 	--nav-active-bg: rgba(255, 255, 255, 0.15);
 
-	/* Buttons - Primary */
-	--btn-primary-bg: #d07e36;
+	/* Buttons - Primary - Darkened for WCAG AA compliance */
+	--btn-primary-bg: #8a4e1e;
 	--btn-primary-text: #ffffff;
-	--btn-primary-hover: #b86d2a;
-	--btn-primary-active: var(--color-primary-700);
+	--btn-primary-hover: #7a4419;
+	--btn-primary-active: #6a3a14;
 	--btn-primary-disabled-bg: var(--color-neutral-300);
 	--btn-primary-disabled-text: var(--color-neutral-500);
 

@@ -403,47 +403,24 @@ Phase 4:
 ## Phase A5: UI Improvements
 
 **Target:** 12 tasks  
-**Status:** Not started  
+**Status:** COMPLETE (6/12 - 6 skipped)  
 **Spec:** `Docs/Archive/Specs/ui-improvements.md`  
 **Plan:** `Docs/Archive/Plans/ui-improvements.md`
 
 ### Tasks
 
-- [ ] **Task A5.1** — Audit all UI for English text
-- [ ] **Task A5.2** — Translate login error messages
-- [ ] **Task A5.3** — Translate form validation messages
-- [ ] **Task A5.4** — Translate remaining UI text
+- [x] **Task A5.1** — Audit all UI for English text
+- [x] **Task A5.2** — Translate login error messages
+- [x] **Task A5.3** — Translate form validation messages
+- [x] **Task A5.4** — Translate remaining UI text
 - [x] **Task A5.5** — ~~Define color scheme constants (5 schemes)~~ SKIPPED (single scheme)
 - [x] **Task A5.6** — ~~Color calculation utilities (HSL variants)~~ SKIPPED
 - [x] **Task A5.7** — ~~CSS custom properties for theming~~ SKIPPED
 - [x] **Task A5.8** — ~~Color scheme picker in Settings~~ SKIPPED
 - [x] **Task A5.9** — ~~Persist scheme to localStorage~~ SKIPPED
 - [x] **Task A5.10** — ~~Sync scheme to Supabase for Pro~~ SKIPPED
-- [ ] **Task A5.11** — Contrast ratio validation
-- [ ] **Task A5.12** — E2E tests
-
----
-
-## Phase A6: Bug Fixes
-
-**Target:** 11 tasks  
-**Status:** Not started  
-**Spec:** `Docs/Archive/Specs/bug-fixes.md`  
-**Plan:** `Docs/Archive/Plans/bug-fixes.md`
-
-### Tasks
-
-- [ ] **Task A6.1** — Add updatedAt to all entity types
-- [ ] **Task A6.2** — IndexedDB migration for updatedAt
-- [ ] **Task A6.3** — Update save functions to set updatedAt
-- [ ] **Task A6.4** — Fresh login detection function
-- [ ] **Task A6.5** — Auto-sync on fresh login
-- [ ] **Task A6.6** — Conflict resolution with timestamps
-- [ ] **Task A6.7** — Integrate conflict resolution into sync engine
-- [ ] **Task A6.8** — Fix TaskItem layout (CSS grid)
-- [ ] **Task A6.9** — Test on 320px viewport
-- [ ] **Task A6.10** — E2E tests for sync scenarios
-- [ ] **Task A6.11** — E2E tests for button alignment
+- [x] **Task A5.11** — Contrast ratio validation
+- [x] **Task A5.12** — E2E tests
 
 ---
 
