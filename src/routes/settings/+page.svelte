@@ -570,8 +570,10 @@
 								onkeydown={(event) => event.key === 'Enter' && handleEditCategory(category)}
 							>
 								<div class="item-info">
-									<span class="item-name" data-testid="category-name">{category.name}</span>
-									<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
+									<span class="item-name" data-testid="category-name">
+										{category.name}
+										<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
+									</span>
 									{#if category.employerId}
 										<span class="item-employer">{getEmployerName(category.employerId)}</span>
 									{/if}

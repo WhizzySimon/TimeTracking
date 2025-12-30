@@ -34,17 +34,17 @@ Each entry follows this format:
 
 ## 2025-12-30 10:26 — Tasks A4.3 + A4.4
 
-| Step                 | Result                             | Notes                                                      |
-| -------------------- | ---------------------------------- | ---------------------------------------------------------- |
-| 0: Scope check       | incremental (after last checklist) | Analyzing only after A4.2 commit                           |
-| A1: Capture feedback | 1 item added                       | User clarified badge requirements                          |
-| B1: Repeated errors  | none                               | No repeated errors                                         |
-| B2: File churn       | none                               | CategoryBadge created, settings edited once                |
-| B3: Scope drift      | none                               | Only planned files modified                                |
-| B4: Session duration | ~15m                               | normal                                                     |
-| C1: Promotions       | none                               | No items meet promotion criteria                           |
-| C2: Read LEARNINGS   | ✓ read                             | 5 items                                                    |
-| C3: Hard Rule → JIT  | none                               | No new Hard Rules proposed                                 |
+| Step                 | Result                             | Notes                                       |
+| -------------------- | ---------------------------------- | ------------------------------------------- |
+| 0: Scope check       | incremental (after last checklist) | Analyzing only after A4.2 commit            |
+| A1: Capture feedback | 1 item added                       | User clarified badge requirements           |
+| B1: Repeated errors  | none                               | No repeated errors                          |
+| B2: File churn       | none                               | CategoryBadge created, settings edited once |
+| B3: Scope drift      | none                               | Only planned files modified                 |
+| B4: Session duration | ~15m                               | normal                                      |
+| C1: Promotions       | none                               | No items meet promotion criteria            |
+| C2: Read LEARNINGS   | ✓ read                             | 5 items                                     |
+| C3: Hard Rule → JIT  | none                               | No new Hard Rules proposed                  |
 
 ---
 
