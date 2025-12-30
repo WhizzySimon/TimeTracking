@@ -39,6 +39,7 @@
 | A1    | Subscription Plans                   | COMPLETE    |
 | A1c   | Payment System (Stripe/etc)          | Future      |
 | A2    | Multi-Arbeitgeber                    | Not started |
+| A2.1  | Arbeitgeber Filter Global            | Not started |
 | A3    | Kleine Änderungen                    | Not started |
 | A4    | UX (Kategorien, Navigation, Landing) | Not started |
 | A5    | UI (Deutsch, Farbschemata)           | Not started |
@@ -421,6 +422,26 @@ Phase 4:
 - [x] **Task A5.10** — ~~Sync scheme to Supabase for Pro~~ SKIPPED
 - [x] **Task A5.11** — Contrast ratio validation
 - [x] **Task A5.12** — E2E tests
+
+---
+
+## Phase A2.1: Arbeitgeber Filter Global
+
+**Target:** 7 tasks  
+**Status:** Not started (0/7)  
+**Spec:** `Docs/Features/Specs/arbeitgeber-filter-global.md`  
+**Plan:** `Docs/Features/Plans/arbeitgeber-filter-global.md`  
+**Tasks:** `Docs/Features/Tasks/arbeitgeber-filter-global.md`
+
+### Tasks
+
+- [ ] **Task A2.1.1** — Audit all pages for unfiltered store usage
+- [ ] **Task A2.1.2** — Fix Tag page to use filtered stores
+- [ ] **Task A2.1.3** — Fix Woche page to use filtered stores
+- [ ] **Task A2.1.4** — Fix Monat page to use filtered stores
+- [ ] **Task A2.1.5** — Fix Auswertung page to use filtered stores
+- [ ] **Task A2.1.6** — Comprehensive Playwright testing
+- [ ] **Task A2.1.7** — Update documentation and commit
 
 ---
 
