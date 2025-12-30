@@ -29,6 +29,11 @@
 
 ## STOP — Complete This Checklist First
 
+> **⚠️ Multiple Commits in One Chat?**
+>
+> - **User reminder:** Prefer one commit per chat to avoid duplicate self-learning entries
+> - **Agent rule:** If a "Pre-Commit Checklist" block already exists in this chat, skip self-learning steps (A1, B1-B4) — they were already captured
+
 **If session had detours or you're unsure what was completed:** Read `sync-check.md` first.
 
 **EXECUTE IN ORDER — do not skip ahead.**

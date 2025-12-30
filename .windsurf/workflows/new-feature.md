@@ -17,13 +17,17 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 ### Phase 0: Setup
 
-1. Ensure on dev branch:
+1. Read `DevFramework/JustInTimeAgentRules/mindset.md`
+2. Ensure on dev branch:
    ```
    git checkout dev
    git pull origin dev
    ```
 
 ### Phase 1: SPEC erstellen
+
+> **⚠️ MODEL CHECK:** Phases 1-3 require design decisions.
+> **Select Opus 4 Thinking** before proceeding.
 
 3. Frage den User: "Beschreibe das Feature, das du implementieren willst."
 
@@ -74,7 +78,10 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 ### Phase 4: IMPLEMENT
 
-12. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. Soll ich mit Task 1 beginnen?"
+> **⚠️ MODEL CHECK:** Implementation is execution, not design.
+> **Switch to Sonnet 4.5** (2x) or **Opus 4** (4x) to save credits.
+
+12. Frage den User: "Spec, Plan und Tasks sind fertig. Phase -1 Gates bestanden. **Bitte wechsle zu Sonnet 4.5** (für einfache Tasks) oder **Opus 4** (für komplexere Tasks). Soll ich mit Task 1 beginnen?"
 
 13. Bei "Ja": Code implementieren - `npm run verify` - Unit Tests (wenn vorhanden) - MCP Playwright Browser Test - Progress Tracker updaten - Changelog updaten - Git Commit (follow `DevFramework/JustInTimeAgentRules/pre-commit.md`)
 

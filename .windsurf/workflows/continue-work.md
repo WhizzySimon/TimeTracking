@@ -12,7 +12,8 @@ Tell the user to run: `npm run dev`
 
 ### Step 1: Setup
 
-1. Ensure on dev branch:
+1. Read `DevFramework/JustInTimeAgentRules/mindset.md`
+2. Ensure on dev branch:
 
 ```
 git checkout dev && git pull origin dev
