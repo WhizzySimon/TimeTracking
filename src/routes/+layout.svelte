@@ -7,6 +7,7 @@
 	import '$lib/styles/theme.css';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import EmployerSelector from '$lib/components/EmployerSelector.svelte';
+	import BackButton from '$lib/components/BackButton.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import {
@@ -337,6 +338,7 @@
 					onchange={(id) => selectedEmployerId.set(id)}
 					compact
 				/>
+				<BackButton />
 				<button
 					class="header-btn sync-btn"
 					class:synced={!syncNeeded && !$syncInProgress}

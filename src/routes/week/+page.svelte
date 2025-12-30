@@ -63,6 +63,17 @@
 		isThisCurrentWeek ? `Aktuelle KW ${weekNumber}/${weekYear}` : `KW ${weekNumber}/${weekYear}`
 	);
 
+	// Navigation labels showing adjacent week numbers
+	let previousWeekLabel = $derived(() => {
+		const prevWeekDate = addDays($currentDate, -7);
+		return getWeekNumber(prevWeekDate);
+	});
+
+	let nextWeekLabel = $derived(() => {
+		const nextWeekDate = addDays($currentDate, 7);
+		return getWeekNumber(nextWeekDate);
+	});
+
 	// Filter entries for current week (respects employer filter)
 	let weekEntries = $derived(
 		$filteredEntries.filter((entry) => {
@@ -215,11 +226,15 @@
 	{:else}
 		<!-- Week Navigation -->
 		<header class="week-nav">
-			<button class="nav-btn" onclick={goToPreviousWeek} aria-label="Vorherige Woche">←</button>
+			<button class="nav-btn" onclick={goToPreviousWeek} aria-label="Vorherige Woche">
+				← KW{previousWeekLabel()}
+			</button>
 			<button class="week-title" data-testid="week-title" onclick={openWeekPicker}
 				>{weekTitle}</button
 			>
-			<button class="nav-btn" onclick={goToNextWeek} aria-label="Nächste Woche">→</button>
+			<button class="nav-btn" onclick={goToNextWeek} aria-label="Nächste Woche">
+				KW{nextWeekLabel()} →
+			</button>
 		</header>
 
 		<!-- Week Type Selector -->

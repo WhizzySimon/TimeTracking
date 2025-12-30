@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-30                                         | feat     | A4.6-A4.12: Week/Month nav labels, BackButton, landing logic, E2E tests                              | —       |
 | 2025-12-30                                         | feat     | A4.5: Day navigation arrows show adjacent day numbers (← 29, 31 →)                                   | —       |
 | 2025-12-30                                         | feat     | A4.3+A4.4: CategoryBadge component with gray "Abwesenheit" label for non-work categories in Settings | —       |
 | 2025-12-30                                         | feat     | A4.2: Rename "Abwesenheitskategorien" → "Abwesenheit" in Settings UI                                 | —       |

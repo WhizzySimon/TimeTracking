@@ -48,6 +48,22 @@
 		'Dezember'
 	];
 
+	// Month abbreviations (3 letters)
+	const monthAbbreviations = [
+		'Jan',
+		'Feb',
+		'Mär',
+		'Apr',
+		'Mai',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Okt',
+		'Nov',
+		'Dez'
+	];
+
 	// Current month/year
 	let currentMonth = $derived($currentDate.getMonth());
 	let currentYear = $derived($currentDate.getFullYear());
@@ -64,6 +80,17 @@
 			? `Aktueller Monat: ${monthNames[currentMonth]} ${currentYear}`
 			: `${monthNames[currentMonth]} ${currentYear}`
 	);
+
+	// Navigation labels showing adjacent month abbreviations
+	let previousMonthLabel = $derived(() => {
+		const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+		return monthAbbreviations[prevMonth];
+	});
+
+	let nextMonthLabel = $derived(() => {
+		const nextMonth = currentMonth === 11 ? 0 : currentMonth + 1;
+		return monthAbbreviations[nextMonth];
+	});
 
 	// Get all days in the current month
 	function getMonthDates(year: number, month: number): Date[] {
@@ -261,9 +288,13 @@
 	{:else}
 		<!-- Month Navigation -->
 		<header class="month-nav">
-			<button class="nav-btn" onclick={goToPreviousMonth} aria-label="Vorheriger Monat">←</button>
+			<button class="nav-btn" onclick={goToPreviousMonth} aria-label="Vorheriger Monat">
+				← {previousMonthLabel()}
+			</button>
 			<button class="month-title" onclick={openMonthPicker}>{monthTitle}</button>
-			<button class="nav-btn" onclick={goToNextMonth} aria-label="Nächster Monat">→</button>
+			<button class="nav-btn" onclick={goToNextMonth} aria-label="Nächster Monat">
+				{nextMonthLabel()} →
+			</button>
 		</header>
 
 		<!-- Inline Summary -->
