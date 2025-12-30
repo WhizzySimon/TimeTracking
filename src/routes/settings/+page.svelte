@@ -72,7 +72,7 @@
 	}
 
 	// Split categories: absence (system + non-work) vs work categories
-	let abwesenheitskategorien = $derived(() => {
+	let abwesenheit = $derived(() => {
 		return $categories
 			.filter((c) => !c.countsAsWorkTime)
 			.sort((a, b) => a.name.localeCompare(b.name, 'de'));
@@ -535,7 +535,7 @@
 			{/if}
 		</section>
 
-		<!-- Abwesenheitskategorien Section -->
+		<!-- Abwesenheit Section -->
 		<section class="section">
 			<div class="section-header">
 				<button
@@ -544,7 +544,7 @@
 					aria-expanded={expandedSections.abwesenheit}
 				>
 					<span class="toggle-icon" class:expanded={expandedSections.abwesenheit}>▶</span>
-					<h2>Abwesenheitskategorien</h2>
+					<h2>Abwesenheit</h2>
 				</button>
 				<button
 					class="icon-btn"
@@ -554,10 +554,10 @@
 			</div>
 			{#if expandedSections.abwesenheit}
 				<div class="list">
-					{#if abwesenheitskategorien().length === 0}
-						<p class="empty">Keine Abwesenheitskategorien vorhanden</p>
+					{#if abwesenheit().length === 0}
+						<p class="empty">Keine Abwesenheit vorhanden</p>
 					{:else}
-						{#each abwesenheitskategorien() as category (category.id)}
+						{#each abwesenheit() as category (category.id)}
 							<div
 								class="list-item clickable"
 								data-testid="category-item"
