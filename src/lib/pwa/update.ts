@@ -26,7 +26,8 @@ export function setupUpdateDetection(): void {
 
 		// Check if there's already a waiting worker AND an active controller
 		// (meaning old version is still active and new version is waiting)
-		if (reg.waiting && navigator.serviceWorker.controller) {
+		// BUT: Don't show banner if we just reloaded (hasReloaded flag persists in session)
+		if (reg.waiting && navigator.serviceWorker.controller && !hasReloaded) {
 			console.log('[PWA Update] Found waiting worker with active controller');
 			updateAvailable.set(true);
 		}
@@ -40,7 +41,8 @@ export function setupUpdateDetection(): void {
 			newWorker.addEventListener('statechange', () => {
 				console.log('[PWA Update] New worker state:', newWorker.state);
 				// New worker is installed and there's an active controller
-				if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+				// Don't show if we just reloaded
+				if (newWorker.state === 'installed' && navigator.serviceWorker.controller && !hasReloaded) {
 					console.log('[PWA Update] New version available');
 					updateAvailable.set(true);
 				}
