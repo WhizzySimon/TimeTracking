@@ -7,8 +7,8 @@
 
 	let { onclose }: Props = $props();
 
-	function handleUpgrade() {
-		setUserPlanLocal('pro');
+	function handleSelectPlan(planName: string) {
+		setUserPlanLocal(planName.toLowerCase() as 'free' | 'pro');
 		onclose();
 	}
 
@@ -108,8 +108,10 @@
 								</li>
 							{/each}
 						</ul>
-						{#if plan.name === 'Pro' && $userPlan === 'free'}
-							<button class="upgrade-btn" onclick={handleUpgrade}> Pro freischalten </button>
+						{#if !plan.comingSoon && $userPlan !== plan.name.toLowerCase()}
+							<button class="select-plan-btn" onclick={() => handleSelectPlan(plan.name)}>
+								{plan.name} wählen
+							</button>
 						{/if}
 					</div>
 				{/each}
@@ -135,7 +137,7 @@
 	}
 
 	.modal {
-		background: var(--card);
+		background: var(--surface);
 		border-radius: 12px;
 		width: 100%;
 		max-width: 900px;
@@ -263,7 +265,7 @@
 		text-align: center;
 	}
 
-	.upgrade-btn {
+	.select-plan-btn {
 		margin-top: 16px;
 		width: 100%;
 		padding: 12px;
@@ -275,7 +277,7 @@
 		cursor: pointer;
 	}
 
-	.upgrade-btn:hover {
+	.select-plan-btn:hover {
 		opacity: 0.9;
 	}
 
