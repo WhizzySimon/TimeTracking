@@ -355,11 +355,11 @@
 	}
 
 	.nav-btn-prev {
-		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%, 15% 50%);
+		clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%);
 	}
 
 	.nav-btn-next {
-		clip-path: polygon(15% 0%, 100% 0%, 85% 50%, 100% 100%, 15% 100%, 0% 50%);
+		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%);
 	}
 
 	.nav-btn:hover {
