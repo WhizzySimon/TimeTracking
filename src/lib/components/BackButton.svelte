@@ -6,77 +6,69 @@
   
   Features:
   - Uses browser history (history.back())
-  - Hidden on initial app load (no history)
-  - Visible after any navigation
+  - Disabled when no history available
+  - Reactive state based on popstate events
+  - Arrow-shaped background like navigation buttons
 -->
 <script lang="ts">
-	import { navigating } from '$app/stores';
 	import { onMount } from 'svelte';
 
 	let canGoBack = $state(false);
 
 	onMount(() => {
-		// Check if there's history to go back to
-		// history.length > 1 means there's at least one page to go back to
+		// Check if we can go back
 		canGoBack = window.history.length > 1;
-	});
 
-	// Update canGoBack when navigation occurs
-	$effect(() => {
-		if ($navigating) {
-			// After navigation completes, update canGoBack
+		// Listen for navigation changes
+		const handlePopState = () => {
 			canGoBack = window.history.length > 1;
-		}
+		};
+
+		window.addEventListener('popstate', handlePopState);
+		return () => window.removeEventListener('popstate', handlePopState);
 	});
 
 	function handleBack() {
-		window.history.back();
+		if (canGoBack) {
+			window.history.back();
+		}
 	}
 </script>
 
 {#if canGoBack}
-	<button class="back-btn" onclick={handleBack} aria-label="Zurück">
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="24"
-			height="24"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		>
-			<path d="M19 12H5M12 19l-7-7 7-7" />
-		</svg>
+	<button class="back-btn" onclick={handleBack} disabled={!canGoBack} aria-label="Zurück">
+		Zurück
 	</button>
 {/if}
 
 <style>
 	.back-btn {
-		width: 44px;
+		min-width: 44px;
 		height: 44px;
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
+		padding: 0 0.75rem;
+		border: none;
 		background: var(--surface);
 		color: var(--text);
+		font-size: 0.875rem;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0;
+		position: relative;
+		clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%);
+		transition: opacity 0.2s;
 	}
 
-	.back-btn:hover {
-		background: var(--surface-hover);
+	.back-btn:hover:not(:disabled) {
+		opacity: 0.9;
 	}
 
-	.back-btn:active {
-		background: var(--surface-active);
+	.back-btn:active:not(:disabled) {
+		opacity: 0.8;
 	}
 
-	.back-btn svg {
-		width: 20px;
-		height: 20px;
+	.back-btn:disabled {
+		opacity: 0.3;
+		cursor: not-allowed;
 	}
 </style>

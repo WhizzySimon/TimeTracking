@@ -5,6 +5,7 @@
   - Uses browser history (history.forward())
   - Always visible (like standard browsers)
   - Browser handles disabled state internally
+  - Arrow-shaped background like navigation buttons
 -->
 <script lang="ts">
 	function handleForward() {
@@ -13,46 +14,32 @@
 </script>
 
 <button class="forward-btn" onclick={handleForward} aria-label="Vorwärts">
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="24"
-		height="24"
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		stroke-width="2"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-	>
-		<path d="M5 12h14M12 5l7 7-7 7" />
-	</svg>
+	Vor
 </button>
 
 <style>
 	.forward-btn {
-		width: 44px;
+		min-width: 44px;
 		height: 44px;
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
+		padding: 0 0.75rem;
+		border: none;
 		background: var(--surface);
 		color: var(--text);
+		font-size: 0.875rem;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0;
+		position: relative;
+		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%);
+		transition: opacity 0.2s;
 	}
 
 	.forward-btn:hover {
-		background: var(--surface-hover);
+		opacity: 0.9;
 	}
 
 	.forward-btn:active {
-		background: var(--surface-active);
-	}
-
-	.forward-btn svg {
-		width: 20px;
-		height: 20px;
+		opacity: 0.8;
 	}
 </style>
