@@ -4,8 +4,8 @@ description: Start a new task - reads rules and docs, ready for any instruction
 
 # New Task
 
-1. Read `DevFramework/JustInTimeAgentRules/mindset.md`
-2. JIT rules loaded via always-on.md
+1. Read `.windsurf/rules/always-on.md` (loads JIT rule map)
+2. Read `DevFramework/JustInTimeAgentRules/mindset.md`
 
 Ready for instructions.
 

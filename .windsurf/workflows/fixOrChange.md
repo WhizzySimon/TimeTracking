@@ -10,7 +10,8 @@ For bugs, behavior changes, and small improvements.
 
 ## Step 0: Mindset & Model Selection
 
-Read `DevFramework/JustInTimeAgentRules/mindset.md` before starting.
+1. Read `.windsurf/rules/always-on.md` (loads JIT rule map)
+2. Read `DevFramework/JustInTimeAgentRules/mindset.md`
 
 **Agent: After user describes the issue, analyze and output:**
 

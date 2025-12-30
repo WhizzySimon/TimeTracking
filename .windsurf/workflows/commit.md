@@ -8,6 +8,12 @@ description: Commit workflow - runs pre-commit checklist then commits and pushes
 
 ---
 
+## Step 0 — Setup
+
+1. Read `.windsurf/rules/always-on.md` (loads JIT rule map)
+
+---
+
 ## Step 1 — Pre-Commit Checklist
 
 **Read and follow:** `DevFramework/JustInTimeAgentRules/pre-commit.md`

@@ -12,8 +12,9 @@ Tell the user to run: `npm run dev`
 
 ### Step 1: Setup
 
-1. Read `DevFramework/JustInTimeAgentRules/mindset.md`
-2. Ensure on dev branch:
+1. Read `.windsurf/rules/always-on.md` (loads JIT rule map)
+2. Read `DevFramework/JustInTimeAgentRules/mindset.md`
+3. Ensure on dev branch:
 
 ```
 git checkout dev && git pull origin dev
