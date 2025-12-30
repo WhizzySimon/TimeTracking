@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-30                                         | feat     | A4.3+A4.4: CategoryBadge component with gray "Abwesenheit" label for non-work categories in Settings | —       |
 | 2025-12-30                                         | feat     | A4.2: Rename "Abwesenheitskategorien" → "Abwesenheit" in Settings UI                                 | —       |
 | 2025-12-30                                         | feat     | Add "Kategorie erstellen" button below Vorschläge section on Add page                                | —       |
 | 2025-12-29                                         | feat     | A4.1: Rename "Arbeitskategorien" → "Tätigkeiten" in Settings UI                                      | —       |

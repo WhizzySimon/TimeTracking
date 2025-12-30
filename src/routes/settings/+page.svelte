@@ -44,6 +44,7 @@
 	import EmployerDialog from '$lib/components/EmployerDialog.svelte';
 	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
 	import StundenzettelExport from '$lib/components/StundenzettelExport.svelte';
+	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
 		const days = [
@@ -570,6 +571,7 @@
 							>
 								<div class="item-info">
 									<span class="item-name" data-testid="category-name">{category.name}</span>
+									<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
 									{#if category.employerId}
 										<span class="item-employer">{getEmployerName(category.employerId)}</span>
 									{/if}
