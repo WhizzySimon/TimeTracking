@@ -13,15 +13,13 @@
 	}
 </script>
 
-<button class="forward-btn" onclick={handleForward} aria-label="Vorwärts">
-	Vor
-</button>
+<button class="forward-btn" onclick={handleForward} aria-label="Vorwärts"> Vor </button>
 
 <style>
 	.forward-btn {
-		min-width: 44px;
-		height: 44px;
-		padding: 0 0.75rem;
+		width: 70px;
+		height: 32px;
+		padding: 6px 12px;
 		border: none;
 		background: var(--surface);
 		color: var(--text);
