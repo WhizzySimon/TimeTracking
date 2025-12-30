@@ -76,6 +76,17 @@
 		return `${weekday} ${formatDate($currentDate, 'DE')}`;
 	});
 
+	// Navigation labels showing adjacent day numbers
+	let previousDayLabel = $derived(() => {
+		const prevDay = addDays($currentDate, -1);
+		return prevDay.getDate();
+	});
+
+	let nextDayLabel = $derived(() => {
+		const nextDay = addDays($currentDate, 1);
+		return nextDay.getDate();
+	});
+
 	// Load day type when date changes
 	$effect(() => {
 		loadDayType($currentDate);
@@ -244,9 +255,13 @@
 	{:else}
 		<!-- Date Navigation -->
 		<header class="date-nav">
-			<button class="nav-btn" onclick={goToPreviousDay} aria-label="Vorheriger Tag">←</button>
+			<button class="nav-btn" onclick={goToPreviousDay} aria-label="Vorheriger Tag">
+				← {previousDayLabel()}
+			</button>
 			<button class="date-title" onclick={openDayPicker}>{dateDisplay()}</button>
-			<button class="nav-btn" onclick={goToNextDay} aria-label="Nächster Tag">→</button>
+			<button class="nav-btn" onclick={goToNextDay} aria-label="Nächster Tag">
+				{nextDayLabel()} →
+			</button>
 		</header>
 
 		<!-- Day Type Selector -->
@@ -324,8 +339,9 @@
 	}
 
 	.nav-btn {
-		width: 44px;
+		min-width: 44px;
 		height: 44px;
+		padding: 0 0.75rem;
 		border: 1px solid var(--border);
 		border-radius: var(--r-btn);
 		background: var(--surface);
@@ -335,6 +351,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		gap: 0.25rem;
 	}
 
 	.nav-btn:hover {
