@@ -2,11 +2,12 @@
   Paywall.svelte
   
   Reusable paywall for Pro features (Cloud Backup, Export, Import).
+  Shows all available plans with contextual messaging.
   Spec refs: SP-FR-060 to SP-FR-064
 -->
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { setUserPlanLocal } from '$lib/stores/user';
+	import PlanGrid from './PlanGrid.svelte';
 
 	type PaywallFeature = 'backup' | 'export' | 'import' | 'general';
 
@@ -48,8 +49,7 @@
 		dispatch('close');
 	}
 
-	function handleUpgrade() {
-		setUserPlanLocal('pro');
+	function handlePlanSelect() {
 		if (onclose) {
 			onclose();
 		}
@@ -91,44 +91,27 @@
 {/if}
 
 {#snippet paywallContent()}
-	<div class="paywall-icon">
-		<svg
-			width="48"
-			height="48"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-		>
-			<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-			<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-		</svg>
+	<div class="paywall-header">
+		<div class="paywall-icon">
+			<svg
+				width="48"
+				height="48"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+				<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+			</svg>
+		</div>
+		<h2 class="paywall-title">{config.title}</h2>
+		<p class="paywall-subtitle">{config.subtitle}</p>
 	</div>
-	<h2 class="paywall-title">{config.title}</h2>
-	<p class="paywall-subtitle">{config.subtitle}</p>
 
-	<ul class="feature-list">
-		<li>
-			<span class="check">✓</span>
-			Cloud-Backup: Daten sicher in der Cloud speichern
-		</li>
-		<li>
-			<span class="check">✓</span>
-			Export: CSV, JSON, PDF für Buchhaltung
-		</li>
-		<li>
-			<span class="check">✓</span>
-			Import: Daten aus Backup oder Excel wiederherstellen
-		</li>
-	</ul>
-
-	<div class="price">
-		<span class="amount">4,99 € / Monat</span>
-		<span class="note">jederzeit kündbar</span>
-	</div>
+	<PlanGrid onselect={handlePlanSelect} showCurrentBadge={false} />
 
 	<div class="actions">
-		<button class="btn-primary" onclick={handleUpgrade}>Pro freischalten</button>
 		<button class="btn-secondary" onclick={handleContinueFree}>Weiter mit Free</button>
 	</div>
 
@@ -139,16 +122,24 @@
 	.paywall {
 		display: flex;
 		flex-direction: column;
+		align-items: stretch;
+		padding: 2rem 1rem;
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.paywall-header {
+		display: flex;
+		flex-direction: column;
 		align-items: center;
 		text-align: center;
-		padding: 2rem 1rem;
-		max-width: 400px;
-		margin: 0 auto;
+		margin-bottom: 2rem;
 	}
 
 	.paywall-icon {
 		font-size: 3rem;
 		margin-bottom: 1rem;
+		color: var(--accent);
 	}
 
 	.paywall-title {
@@ -164,69 +155,11 @@
 		margin: 0 0 1.5rem 0;
 	}
 
-	.feature-list {
-		list-style: none;
-		padding: 0;
-		margin: 0 0 1.5rem 0;
-		text-align: left;
-		width: 100%;
-	}
-
-	.feature-list li {
-		display: flex;
-		align-items: flex-start;
-		gap: 0.75rem;
-		padding: 0.5rem 0;
-		color: var(--text);
-		font-size: 0.95rem;
-	}
-
-	.check {
-		color: var(--pos);
-		font-weight: bold;
-		flex-shrink: 0;
-	}
-
-	.price {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		margin-bottom: 1.5rem;
-	}
-
-	.amount {
-		font-size: 1.25rem;
-		font-weight: 700;
-		color: var(--text);
-	}
-
-	.note {
-		font-size: 0.85rem;
-		color: var(--muted);
-	}
 
 	.actions {
 		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-		width: 100%;
-		max-width: 280px;
-	}
-
-	.btn-primary {
-		padding: 0.875rem 1.5rem;
-		background: var(--accent);
-		color: white;
-		border: none;
-		border-radius: var(--r-btn);
-		font-size: 1rem;
-		font-weight: 600;
-		cursor: pointer;
-		transition: background-color 0.15s ease;
-	}
-
-	.btn-primary:hover {
-		background: var(--accent-dark);
+		justify-content: center;
+		margin-top: 1.5rem;
 	}
 
 	.btn-secondary {
@@ -249,9 +182,10 @@
 	}
 
 	.free-note {
-		margin-top: 1.5rem;
+		margin-top: 1rem;
 		font-size: 0.85rem;
 		color: var(--muted);
+		text-align: center;
 	}
 
 	.paywall-backdrop {
@@ -269,18 +203,13 @@
 		background: var(--surface);
 		border-radius: var(--r-card);
 		padding: 2rem 1.5rem;
-		max-width: 400px;
+		max-width: 900px;
 		width: 100%;
 		max-height: 90vh;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		text-align: center;
+		align-items: stretch;
 		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-	}
-
-	.paywall-icon {
-		color: var(--accent);
 	}
 </style>
