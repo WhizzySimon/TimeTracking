@@ -24,9 +24,10 @@ export function setupUpdateDetection(): void {
 		registration = reg;
 		console.log('[PWA Update] Service worker ready');
 
-		// Check if there's already a waiting worker
-		if (reg.waiting) {
-			console.log('[PWA Update] Found waiting worker');
+		// Check if there's already a waiting worker AND an active controller
+		// (meaning old version is still active and new version is waiting)
+		if (reg.waiting && navigator.serviceWorker.controller) {
+			console.log('[PWA Update] Found waiting worker with active controller');
 			updateAvailable.set(true);
 		}
 
