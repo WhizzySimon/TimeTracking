@@ -8,7 +8,8 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| 2024-12-30                                         | docs     | A2.1: Phase A2.1 docs — Spec/Plan/Tasks for Arbeitgeber Filter Global feature                       | —       |
+| 2024-12-30                                         | fix      | A2.1: Fix day page to use $filteredEntries for entry lookup (respects employer filter)              | —       |
+| 2024-12-30                                         | docs     | A2.1: Phase A2.1 docs — Spec/Plan/Tasks for Arbeitgeber Filter Global feature                        | —       |
 | 2025-12-30                                         | feat     | A4.6-A4.12: Week/Month nav labels, BackButton, landing logic, E2E tests                              | —       |
 | 2025-12-30                                         | feat     | A4.5: Day navigation arrows show adjacent day numbers (← 29, 31 →)                                   | —       |
 | 2025-12-30                                         | feat     | A4.3+A4.4: CategoryBadge component with gray "Abwesenheit" label for non-work categories in Settings | —       |

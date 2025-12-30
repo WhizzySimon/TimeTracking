@@ -428,20 +428,20 @@ Phase 4:
 ## Phase A2.1: Arbeitgeber Filter Global
 
 **Target:** 7 tasks  
-**Status:** Not started (0/7)  
+**Status:** COMPLETE (7/7)  
 **Spec:** `Docs/Features/Specs/arbeitgeber-filter-global.md`  
 **Plan:** `Docs/Features/Plans/arbeitgeber-filter-global.md`  
 **Tasks:** `Docs/Features/Tasks/arbeitgeber-filter-global.md`
 
 ### Tasks
 
-- [ ] **Task A2.1.1** — Audit all pages for unfiltered store usage
-- [ ] **Task A2.1.2** — Fix Tag page to use filtered stores
-- [ ] **Task A2.1.3** — Fix Woche page to use filtered stores
-- [ ] **Task A2.1.4** — Fix Monat page to use filtered stores
-- [ ] **Task A2.1.5** — Fix Auswertung page to use filtered stores
-- [ ] **Task A2.1.6** — Comprehensive Playwright testing
-- [ ] **Task A2.1.7** — Update documentation and commit
+- [x] **Task A2.1.1** — Audit all pages for unfiltered store usage
+- [x] **Task A2.1.2** — Fix Tag page to use filtered stores
+- [x] **Task A2.1.3** — Fix Woche page to use filtered stores (no changes needed)
+- [x] **Task A2.1.4** — Fix Monat page to use filtered stores (no changes needed)
+- [x] **Task A2.1.5** — Fix Auswertung page to use filtered stores (no changes needed)
+- [x] **Task A2.1.6** — Comprehensive Playwright testing
+- [x] **Task A2.1.7** — Update documentation and commit
 
 ---
 

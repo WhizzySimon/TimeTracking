@@ -225,7 +225,7 @@
 		const pageState = $page.state as { editEntryId?: string } | undefined;
 		const editEntryId = pageState?.editEntryId;
 		if (editEntryId && !loading) {
-			const entryToEdit = $timeEntries.find((e) => e.id === editEntryId);
+			const entryToEdit = $filteredEntries.find((e) => e.id === editEntryId);
 			if (entryToEdit) {
 				editingEntry = entryToEdit;
 				showAddModal = true;
