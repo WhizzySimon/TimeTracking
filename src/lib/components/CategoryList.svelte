@@ -21,6 +21,7 @@
 		onselect: (categoryId: string) => void;
 		employers?: Employer[];
 		selectedEmployerId?: string | null;
+		oncreatecategory?: () => void;
 	}
 
 	let {
@@ -28,7 +29,8 @@
 		entries,
 		onselect,
 		employers = [],
-		selectedEmployerId = null
+		selectedEmployerId = null,
+		oncreatecategory
 	}: Props = $props();
 
 	// Filter input state
@@ -135,6 +137,12 @@
 					{/each}
 				</div>
 			</section>
+
+			{#if oncreatecategory}
+				<button class="create-category-btn-top" onclick={oncreatecategory}>
+					+ Kategorie erstellen
+				</button>
+			{/if}
 		{/if}
 
 		<!-- Remaining categories A-Z (grouped by employer when multiple employers exist) -->
@@ -343,6 +351,35 @@
 
 	:global(.dark) .filter-input::placeholder {
 		color: var(--text-secondary-dark, #9ca3af);
+	}
+
+	.create-category-btn-top {
+		width: 100%;
+		padding: 0.75rem 1rem;
+		background: var(--bg-secondary, #f3f4f6);
+		color: var(--text-primary, #1f2937);
+		border: 1px dashed var(--border-color, #d1d5db);
+		border-radius: var(--r-btn, 0.5rem);
+		font-size: 1rem;
+		cursor: pointer;
+		transition: all var(--transition-fast, 0.15s);
+		margin-top: 0.5rem;
+	}
+
+	.create-category-btn-top:hover {
+		background: var(--bg-tertiary, #e5e7eb);
+		border-color: var(--accent);
+	}
+
+	:global(.dark) .create-category-btn-top {
+		background: var(--bg-secondary-dark, #374151);
+		color: var(--text-primary-dark, #f3f4f6);
+		border-color: var(--border-color-dark, #4b5563);
+	}
+
+	:global(.dark) .create-category-btn-top:hover {
+		background: var(--bg-tertiary-dark, #4b5563);
+		border-color: var(--accent);
 	}
 
 	/* Responsive - full width on small screens */

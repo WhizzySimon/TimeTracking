@@ -117,6 +117,7 @@
 			onselect={handleCategorySelect}
 			employers={$activeEmployers}
 			selectedEmployerId={$selectedEmployerId}
+			oncreatecategory={() => (showCreateCategoryDialog = true)}
 		/>
 
 		<button class="create-category-btn" onclick={() => (showCreateCategoryDialog = true)}>

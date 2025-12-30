@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                              | Ref     |
 | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-30                                         | feat     | Add "Kategorie erstellen" button below Vorschläge section on Add page                                | —       |
 | 2025-12-29                                         | feat     | A4.1: Rename "Arbeitskategorien" → "Tätigkeiten" in Settings UI                                      | —       |
 | 2025-12-29                                         | test     | A3.7: E2E tests for kleine-aenderungen — category creation, password toggle                          | —       |
 | 2025-12-29                                         | feat     | A3.1,3,5,6: CategoryDialog create mode, Add tab button, PasswordInput component, Login integration   | —       |
