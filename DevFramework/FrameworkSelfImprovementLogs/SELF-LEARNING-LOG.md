@@ -15,6 +15,7 @@ Each entry follows this format:
 
 | Step | Result | Notes |
 |------|--------|-------|
+| 0: Scope check | first commit / incremental (after last checklist) | |
 | A1: Capture feedback | X items added | or "none" |
 | B1: Repeated errors | X detected | or "none" |
 | B2: File churn | X files | or "none" |

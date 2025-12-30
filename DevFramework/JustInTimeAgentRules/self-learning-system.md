@@ -32,11 +32,25 @@ Execute ALL steps in order:
 
 ---
 
+### Step 0: Determine Analysis Scope (Multi-Commit Protection)
+
+**Purpose:** Prevent duplicate entries when multiple commits occur in the same chat.
+
+**Process:**
+
+1. Search this chat for the text "## Pre-Commit Checklist"
+2. **If found:** Only analyze messages AFTER the last occurrence of this text
+3. **If not found:** Analyze entire chat history (this is the first commit)
+
+**Log:** `| 0: Scope check | first commit / incremental (after last checklist) |`
+
+---
+
 ### Part A: Self-Learning (Behavioral)
 
 #### Step A1: Capture User Feedback
 
-Review the chat for user feedback. Add entries to `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`.
+Review the chat for user feedback **within the determined scope (Step 0)**. Add entries to `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`.
 
 **What to capture:**
 
@@ -52,7 +66,7 @@ Review the chat for user feedback. Add entries to `DevFramework/FrameworkSelfImp
 
 #### Step B1: Detect Repeated Errors
 
-Scan the chat for errors that occurred 3+ times. If found, add to INBOX:
+Scan the chat **within the determined scope (Step 0)** for errors that occurred 3+ times. If found, add to INBOX:
 
 ```
 | Date | Context | Feedback | Status |
@@ -65,7 +79,7 @@ Scan the chat for errors that occurred 3+ times. If found, add to INBOX:
 
 Run: `git diff --stat`
 
-If any file was edited 5+ times in this session (visible in chat), add to INBOX:
+If any file was edited 5+ times **within the determined scope (Step 0)** (visible in chat), add to INBOX:
 
 ```
 | YYYY-MM-DD | file-churn | File X edited N times - consider refactoring approach | Pending |
