@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { setUserPlanLocal } from '$lib/stores/user';
 
 	type PaywallFeature = 'backup' | 'export' | 'import' | 'general';
 
@@ -48,7 +49,11 @@
 	}
 
 	function handleUpgrade() {
-		alert('Kommt bald! Pro-Abonnement wird in Kürze verfügbar sein.');
+		setUserPlanLocal('pro');
+		if (onclose) {
+			onclose();
+		}
+		dispatch('close');
 	}
 
 	function handleBackdropClick(event: MouseEvent) {
@@ -118,7 +123,7 @@
 	</ul>
 
 	<div class="price">
-		<span class="amount">10 € / Monat</span>
+		<span class="amount">4,99 € / Monat</span>
 		<span class="note">jederzeit kündbar</span>
 	</div>
 

@@ -14,7 +14,7 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { categories, workTimeModels } from '$lib/stores';
+	import { categories, workTimeModels, employers as employersStore } from '$lib/stores';
 	import { getAllEmployers, deleteEmployer } from '$lib/storage/employers';
 	import { userProfile, userPlan } from '$lib/stores/user';
 	import { logout } from '$lib/api/auth';
@@ -245,6 +245,7 @@
 		const allModels = await getAll<WorkTimeModel>('workTimeModels');
 		workTimeModels.set(allModels);
 		employers = await getAllEmployers();
+		employersStore.set(employers);
 		loading = false;
 
 		if (browser) {
@@ -299,6 +300,7 @@
 			employers = employers.map((emp) =>
 				emp.id === employerId ? { ...emp, isActive: false } : emp
 			);
+			employersStore.set(employers);
 			showDeleteEmployerConfirm = false;
 			employerToDelete = null;
 		} catch (err) {
@@ -320,6 +322,8 @@
 		} else {
 			employers = [...employers, savedEmployer];
 		}
+		// Also update global store so EmployerSelector in header updates
+		employersStore.set(employers);
 		showEmployerDialog = false;
 		employerToEdit = undefined;
 	}

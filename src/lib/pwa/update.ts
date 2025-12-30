@@ -69,13 +69,17 @@ export function setupUpdateDetection(): void {
 export function applyUpdate(): void {
 	console.log('[PWA Update] Applying update...');
 
+	// Clear the banner immediately to prevent it showing again after reload
+	updateAvailable.set(false);
+
 	if (registration?.waiting) {
 		console.log('[PWA Update] Sending SKIP_WAITING to waiting worker');
 		registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+		// The controllerchange event will trigger a reload
 		return;
 	}
 
-	// Fallback: if no waiting worker, just reload
-	console.log('[PWA Update] No waiting worker, reloading page');
-	window.location.reload();
+	// No waiting worker means we're already on the latest version
+	// Just clear the banner, no reload needed
+	console.log('[PWA Update] No waiting worker, already on latest version');
 }
