@@ -1,45 +1,67 @@
 # arbeitgeber-filter-global - Plan
 
-**Phase:** TBD (to be added to IMPLEMENTATION_PROGRESS.md)  
+**Phase:** A2.2  
 **Created:** 2024-12-30  
-**Last Updated:** 2024-12-30  
+**Last Updated:** 2025-12-31  
 **Based on Spec:** `Docs/Features/Specs/arbeitgeber-filter-global.md`
 
 ---
 
 ## Architecture / modules
 
-**No new modules required.** This is a verification and correction task using existing infrastructure.
+### New/Modified Components
+
+| Component                                | Change                                                    |
+| ---------------------------------------- | --------------------------------------------------------- |
+| `src/routes/add/+page.svelte`            | Remove titles, adjust layout, add first-time hint         |
+| `src/lib/components/CategoryList.svelte` | Rename headings to "Eintrag", adjust filter+button layout |
+| `src/lib/components/TaskList.svelte`     | Add employer badge / "Keine Arbeitszeit" badge            |
+| `src/lib/stores/user.ts`                 | Add `neverAddedAnEntry` flag + persistence                |
+| `src/lib/storage/operations.ts`          | Set `neverAddedAnEntry = false` on first entry creation   |
 
 ### Existing Components (to verify/fix)
 
-- **Pages**: `src/routes/day/+page.svelte`, `src/routes/week/+page.svelte`, `src/routes/month/+page.svelte`, `src/routes/analysis/+page.svelte`
+- **Pages**: `src/routes/day/+page.svelte`, `src/routes/month/+page.svelte`, `src/routes/analysis/+page.svelte`
 - **Stores**: `src/lib/stores/index.ts` (filtering logic already correct)
 - **Components**: Task lists, summaries, modals that consume filtered data
 
 ### Responsibilities
 
 - **Store layer** (`src/lib/stores/index.ts`): Provides filtered stores - already implemented correctly
-- **Page components**: Must consume filtered stores instead of unfiltered stores
-- **Child components**: Inherit filtered data from parent pages via props
+- **User store** (`src/lib/stores/user.ts`): Manages `neverAddedAnEntry` flag
+- **Page components**: Must consume filtered stores; Add page shows hint based on flag
+- **Child components**: Inherit filtered data via props; display badges
 
 ### Dependencies
 
 - Svelte reactivity system (automatic updates when `selectedEmployerId` changes)
 - Existing filtered stores: `filteredEntries`, `filteredCategories`, `filteredModels`, `filteredActiveWorkTimeModel`, `filteredRunningEntry`
+- localStorage for `neverAddedAnEntry` persistence
 
 ---
 
 ## Data model
 
-**No changes required.** All necessary fields already exist:
+### Existing fields (no changes)
 
 - `TimeEntry.employerId` (string | null)
 - `Category.employerId` (string | null)
 - `WorkTimeModel.employerId` (string | null)
 - `selectedEmployerId` store (string | null)
 
-Filter logic: Items with `employerId === null` are "global" and visible in all contexts.
+### New field
+
+- **`neverAddedAnEntry`** (boolean) in user store / localStorage
+  - Default: `true` for new users
+  - Set to `false` when user creates/starts first entry
+  - Used to show first-time hint on Add page
+
+### Semantic clarification
+
+- **Tätigkeiten** = Categories with `countsAsWorkTime === true` → employer-dependent, show employer badge
+- **Abwesenheiten** = Categories with `countsAsWorkTime === false` (system categories: Pause, Urlaub, Krank, Feiertag) → NOT employer-dependent, show "Keine Arbeitszeit" badge, always visible regardless of employer filter
+
+Filter logic: Items with `employerId === null` are "global" and visible in all employer contexts.
 
 ---
 
@@ -49,15 +71,19 @@ Filter logic: Items with `employerId === null` are "global" and visible in all c
 
 - **Global state**: `selectedEmployerId` in `src/lib/stores/index.ts` (writable store)
 - **Derived state**: All filtered stores automatically update when `selectedEmployerId` changes
+- **User state**: `neverAddedAnEntry` in `src/lib/stores/user.ts` (writable, persisted to localStorage)
 
 ### Synchronization
 
 - Svelte's reactivity handles synchronization automatically
 - When user changes employer dropdown → `selectedEmployerId` updates → all derived stores recalculate → all pages re-render with filtered data
+- `neverAddedAnEntry` is loaded from localStorage on app init and updated atomically on first entry creation
 
-### No local state needed
+### Add Page UI State
 
-Pages should not maintain their own filter state - they consume the global filtered stores.
+- First-time hint visibility: `$neverAddedAnEntry === true`
+- Filter input + "Eintrag erstellen" button in same row (filter max 50% width)
+- No "Aufgabe starten" title, no "Alle Kategorien" title, no bottom "Kategorie erstellen" button
 
 ---
 
@@ -93,11 +119,20 @@ All edge cases are handled by existing UI patterns.
 
 **Playwright browser tests** for each acceptance check:
 
-- Navigate to each page (Tag, Woche, Monat, Auswertung)
+- Navigate to each page (Tag, Monat, Auswertung)
 - Select "Alle Arbeitgeber" → verify all data visible
 - Select specific employer → verify only that employer's data visible
 - Verify calculations (Ist/Soll/Saldo) use filtered data
 - Verify running task banner filters correctly
+- Verify badges on entries (employer badge for Tätigkeiten, "Keine Arbeitszeit" for Abwesenheiten)
+
+### Add Page Verification
+
+- No "Aufgabe starten" title visible
+- No "Alle Kategorien" heading visible
+- No "Kategorie erstellen" button at bottom
+- Filter input ≤50% width, "Eintrag erstellen" button next to it
+- First-time hint shows for new users, disappears after first entry
 
 ### Verification Checklist
 
@@ -143,19 +178,38 @@ For each page, verify:
 
 ## Implementation Approach
 
-### Phase 1: Audit
+### Phase 1: User Store + NeverAddedAnEntry Flag
 
-1. Check each page file for store usage
-2. Identify any usage of unfiltered stores (`$timeEntries`, `$categories`, `$workTimeModels`, `$activeWorkTimeModel`, `$runningEntry`)
-3. Document findings
+1. Add `neverAddedAnEntry` writable store to `src/lib/stores/user.ts`
+2. Add persistence to localStorage
+3. Add initialization logic (default `true` for new users, check existing entries for migration)
+4. Update entry creation in `src/lib/storage/operations.ts` to set flag to `false`
 
-### Phase 2: Fix
+### Phase 2: Add Page UI Changes
 
-1. Replace unfiltered store references with filtered equivalents
-2. Verify calculations use filtered data sources
-3. Ensure child components receive filtered data via props
+1. Remove `<h1>Aufgabe starten</h1>` from `+page.svelte`
+2. Remove bottom "Kategorie erstellen" button from `+page.svelte`
+3. Update `CategoryList.svelte`:
+   - Remove "Alle Kategorien" heading
+   - Change filter input to max 50% width
+   - Add "Eintrag erstellen" button next to filter (no plus icon)
+   - Rename any remaining "Kategorie" labels to "Eintrag"
+4. Add first-time hint under title bar (conditional on `$neverAddedAnEntry`)
 
-### Phase 3: Verify
+### Phase 3: Badges for Entries
+
+1. Update `TaskList.svelte` to show badges:
+   - Tätigkeiten (countsAsWorkTime=true): employer badge
+   - Abwesenheiten (countsAsWorkTime=false): "Keine Arbeitszeit" badge
+2. Ensure badges are visible on Tag page entry list
+
+### Phase 4: Verify Employer Filtering
+
+1. Audit Tag/Monat/Auswertung pages for correct filtered store usage
+2. Fix any unfiltered store references
+3. Verify Abwesenheiten remain visible regardless of employer filter
+
+### Phase 5: Testing
 
 1. Run Playwright tests for all acceptance checks
 2. Manual testing of edge cases
@@ -166,7 +220,7 @@ For each page, verify:
 ## Checkpoint
 
 - [x] Plan can be executed as tasks without requiring new decisions
-- [x] Architecture is clear (use existing filtered stores)
-- [x] Data model is unchanged
+- [x] Architecture is clear (use existing filtered stores + new flag)
+- [x] Data model changes defined (neverAddedAnEntry flag)
 - [x] Error handling strategy defined (use existing patterns)
 - [x] Testing approach defined (Playwright + manual verification)
