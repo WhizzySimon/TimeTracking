@@ -54,8 +54,11 @@
 	let showDayPicker = $state(false);
 
 	// Filter entries for current date (respects employer filter)
+	// Exclude running tasks - they're shown in the header
 	let dayEntries = $derived(
-		$filteredEntries.filter((entry) => entry.date === formatDate($currentDate, 'ISO'))
+		$filteredEntries.filter(
+			(entry) => entry.date === formatDate($currentDate, 'ISO') && entry.endTime !== null
+		)
 	);
 
 	// Calculate Ist from day entries (only completed tasks with countsAsWorkTime categories)

@@ -113,8 +113,8 @@
 	});
 
 	/**
-	 * End the running task immediately from the banner.
-	 * Only available for tasks started today.
+	 * End the running task immediately from the header.
+	 * Navigates to Day tab if not already there so user can see the ended task.
 	 */
 	async function handleEndRunningTask() {
 		const entry = $runningEntry;
@@ -133,6 +133,13 @@
 		// Reload entries to update the store and trigger banner reactivity
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
+
+		// Navigate to Day tab if not already there, set date to task's date
+		const currentPath = $page.url.pathname;
+		if (!currentPath.endsWith('/day')) {
+			currentDate.set(new Date(entry.date + 'T00:00:00'));
+			goto(resolve('/day'));
+		}
 	}
 
 	async function handleSyncClick() {
