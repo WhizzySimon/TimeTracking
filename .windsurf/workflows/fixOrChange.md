@@ -25,14 +25,13 @@ For bugs, behavior changes, and small improvements.
 | **Moderate** | Opus 4          | 4x      | Multi-file change, needs judgment, clear root cause     |
 | **Complex**  | Opus 4 Thinking | 5x      | Unclear root cause, multi-step debugging, architectural |
 
-**Wait for user to confirm model selection before proceeding.**
+**STOP HERE. Do not proceed until user confirms model selection.**
 
 ---
 
-## Step 1: Create Ticket (AUTOMATIC)
+## Step 1: Create Ticket
 
-// turbo
-**Agent: Create this file immediately when /fixOrChange is invoked:**
+**Agent: Create this file ONLY AFTER user confirms model selection:**
 
 ```
 Docs/Temp/FIX-<short-name>.md

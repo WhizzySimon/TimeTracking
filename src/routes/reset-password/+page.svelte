@@ -8,6 +8,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { browser } from '$app/environment';
+	import { getSupabase, isSupabaseConfigured } from '$lib/supabase/client';
 
 	let password = $state('');
 	let confirmPassword = $state('');
@@ -15,13 +16,37 @@
 	let success = $state(false);
 	let loading = $state(false);
 	let validLink = $state(true);
+	let checking = $state(true);
 
-	onMount(() => {
+	onMount(async () => {
 		if (browser) {
+			// Check if we have a valid session for password reset
+			// Supabase auto-processes the hash fragment (detectSessionInUrl: true)
+			// so we need to check if a session was established, not the hash itself
 			const hash = window.location.hash;
-			if (!hash || !hash.includes('access_token')) {
+			const hasTokenInHash = hash && hash.includes('access_token');
+
+			if (hasTokenInHash) {
+				// Hash still present - wait for Supabase to process it
+				await new Promise((resolve) => setTimeout(resolve, 500));
+			}
+
+			// Now check if Supabase has a valid session
+			if (isSupabaseConfigured()) {
+				try {
+					const supabase = getSupabase();
+					const {
+						data: { session }
+					} = await supabase.auth.getSession();
+					validLink = session !== null;
+				} catch {
+					validLink = false;
+				}
+			} else {
 				validLink = false;
 			}
+
+			checking = false;
 		}
 	});
 
@@ -71,7 +96,11 @@
 		<h1>TimeTracker</h1>
 		<h2>Neues Passwort</h2>
 
-		{#if !validLink}
+		{#if checking}
+			<div class="checking-message">
+				<p>Link wird überprüft...</p>
+			</div>
+		{:else if !validLink}
 			<div class="error-message">
 				<p>Ungültiger oder abgelaufener Link.</p>
 				<p>Bitte fordern Sie einen neuen Link an.</p>
@@ -207,6 +236,12 @@
 		text-align: center;
 	}
 
+	.checking-message {
+		text-align: center;
+		padding: 1.5rem;
+		color: var(--muted);
+	}
+
 	.error-message {
 		text-align: center;
 		padding: 1.5rem;
@@ -267,48 +302,12 @@
 	}
 
 	.links a {
-		color: #3b82f6;
+		color: var(--accent);
 		text-decoration: none;
 		font-size: 0.9rem;
 	}
 
 	.links a:hover {
 		text-decoration: underline;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.reset-page {
-			background: #1a1a1a;
-		}
-
-		.reset-card {
-			background: #2a2a2a;
-		}
-
-		h2 {
-			color: #eee;
-		}
-
-		.field label {
-			color: #ddd;
-		}
-
-		.field input {
-			background: #333;
-			border-color: #444;
-			color: #eee;
-		}
-
-		.field input:focus {
-			border-color: #3b82f6;
-		}
-
-		.field input:disabled {
-			background: #2a2a2a;
-		}
-
-		.hint {
-			color: #999;
-		}
 	}
 </style>

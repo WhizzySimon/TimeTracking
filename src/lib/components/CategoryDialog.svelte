@@ -26,6 +26,8 @@
 		category?: Category;
 		/** Default category type for create mode */
 		categoryType?: 'user';
+		/** Whether this is a work category (true) or absence category (false) */
+		countsAsWorkTime?: boolean;
 		/** Default employer ID for create mode */
 		defaultEmployerId?: string;
 		/** Callback when category is saved */
@@ -38,6 +40,7 @@
 		mode = 'edit',
 		category,
 		categoryType = 'user',
+		countsAsWorkTime = true,
 		defaultEmployerId,
 		onsave,
 		onclose
@@ -46,7 +49,7 @@
 	// Computed values for mode handling
 	let isCreateMode = $derived(mode === 'create');
 	let isSystemCategory = $derived(!isCreateMode && category?.type === 'system');
-	let dialogTitle = $derived(isCreateMode ? 'Kategorie erstellen' : 'Kategorie bearbeiten');
+	let dialogTitle = $derived(isCreateMode ? 'Tätigkeit erstellen' : 'Kategorie bearbeiten');
 
 	// Form state - initialize based on mode
 	let name = $state(category?.name ?? '');
@@ -89,7 +92,7 @@
 					id: crypto.randomUUID(),
 					name: trimmedName,
 					type: categoryType,
-					countsAsWorkTime: categoryType === 'user',
+					countsAsWorkTime: countsAsWorkTime,
 					employerId: selectedEmployerId === '' ? null : selectedEmployerId,
 					createdAt: Date.now()
 				};

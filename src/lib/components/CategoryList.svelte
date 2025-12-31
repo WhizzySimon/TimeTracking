@@ -150,7 +150,9 @@
 						bind:value={filterText}
 					/>
 					{#if oncreatecategory}
-						<button class="create-entry-btn" onclick={oncreatecategory}> Eintrag erstellen </button>
+						<button class="create-entry-btn" onclick={oncreatecategory}>
+							Tätigkeit erstellen
+						</button>
 					{/if}
 				</div>
 
@@ -258,13 +260,12 @@
 		display: flex;
 		gap: 0.5rem;
 		align-items: center;
-		flex-wrap: wrap;
+		width: 100%;
 	}
 
 	.filter-input {
 		flex: 1 1 auto;
-		max-width: 50%;
-		min-width: 150px;
+		min-width: 0;
 		padding: 0.625rem 0.875rem;
 		border: 1px solid var(--border-color, #d1d5db);
 		border-radius: var(--r-input, 0.5rem);
@@ -366,11 +367,11 @@
 	}
 
 	.create-entry-btn {
-		flex: 0 0 auto;
+		flex-shrink: 0;
 		padding: 0.625rem 1rem;
-		background: var(--bg-secondary, #f3f4f6);
-		color: var(--text-primary, #1f2937);
-		border: 1px solid var(--border-color, #d1d5db);
+		background: var(--accent);
+		color: white;
+		border: none;
 		border-radius: var(--r-btn, 0.5rem);
 		font-size: 0.875rem;
 		font-weight: 500;

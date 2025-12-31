@@ -188,7 +188,7 @@
 		message={daysToChange.length === 7
 			? 'Dies setzt die Tagesart für alle 7 Tage dieser Woche. Fortfahren?'
 			: `Dies setzt die Tagesart für ${daysToChange.length} Tage ohne Arbeitszeit. Fortfahren?`}
-		confirmLabel="Fortfahren"
+		confirmLabel="OK"
 		onconfirm={confirmChange}
 		oncancel={cancelChange}
 	/>
@@ -208,7 +208,7 @@
 	}
 
 	.week-type-select {
-		padding: 0.5rem 1rem;
+		padding: 0.5rem 0.75rem 0.5rem 2rem;
 		border: 1px solid var(--input-border);
 		border-radius: var(--r-input);
 		font-size: 1rem;
@@ -216,6 +216,13 @@
 		color: var(--input-text);
 		min-width: 150px;
 		cursor: pointer;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: 0.75rem center;
+		background-size: 12px;
 	}
 
 	.week-type-select:hover {

@@ -34,7 +34,7 @@
 	import { deleteAccount } from '$lib/api/auth';
 	import { clearSession } from '$lib/stores/auth';
 	import type { Category, WorkTimeModel, Employer } from '$lib/types';
-	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
+	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
 	import ImportCategoriesModal from '$lib/components/ImportCategoriesModal.svelte';
 	import ImportExcelModal from '$lib/components/ImportExcelModal.svelte';
@@ -42,7 +42,6 @@
 	import ExportDialog from '$lib/components/ExportDialog.svelte';
 	import PlanComparison from '$lib/components/PlanComparison.svelte';
 	import EmployerDialog from '$lib/components/EmployerDialog.svelte';
-	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
 	import StundenzettelExport from '$lib/components/StundenzettelExport.svelte';
 	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
 
@@ -748,9 +747,9 @@
 
 <!-- Add Work Category Modal -->
 {#if showAddCategory}
-	<AddCategoryModal
-		title="Neue Tätigkeit"
-		countsAsWorkTime={true}
+	<CategoryDialog
+		mode="create"
+		categoryType="user"
 		onsave={() => (showAddCategory = false)}
 		onclose={() => (showAddCategory = false)}
 	/>
@@ -758,8 +757,9 @@
 
 <!-- Add Absence Category Modal -->
 {#if showAddAbsenceCategory}
-	<AddCategoryModal
-		title="Neue Abwesenheitskategorie"
+	<CategoryDialog
+		mode="create"
+		categoryType="user"
 		countsAsWorkTime={false}
 		onsave={() => (showAddAbsenceCategory = false)}
 		onclose={() => (showAddAbsenceCategory = false)}
