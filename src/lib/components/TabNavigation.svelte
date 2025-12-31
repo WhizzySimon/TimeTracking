@@ -13,11 +13,11 @@
 	import { resolve } from '$app/paths';
 
 	const tabs = [
-		{ href: '/add', label: '+', isPlus: true },
-		{ href: '/day', label: 'Tag', isPlus: false },
-		{ href: '/week', label: 'Woche', isPlus: false },
-		{ href: '/month', label: 'Monat', isPlus: false },
-		{ href: '/analysis', label: 'Auswertung', isPlus: false }
+		{ href: '/add', label: '+', isPlus: true, icon: null },
+		{ href: '/day', label: 'Tag', isPlus: false, icon: null },
+		{ href: '/week', label: 'Woche', isPlus: false, icon: null },
+		{ href: '/month', label: 'Monat', isPlus: false, icon: null },
+		{ href: '/analysis', label: null, isPlus: false, icon: 'chart' }
 	] as const;
 
 	function isActive(href: string, pathname: string): boolean {
@@ -39,9 +39,30 @@
 			class:active={isActive(tab.href, $page.url.pathname)}
 			class:plus-tab={tab.isPlus}
 			aria-current={isActive(tab.href, $page.url.pathname) ? 'page' : undefined}
-			aria-label={tab.isPlus ? 'Aufgabe hinzufügen' : undefined}
+			aria-label={tab.isPlus
+				? 'Aufgabe hinzufügen'
+				: tab.icon === 'chart'
+					? 'Auswertung'
+					: undefined}
 		>
-			{tab.label}
+			{#if tab.icon === 'chart'}
+				<svg
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<line x1="18" y1="20" x2="18" y2="10"></line>
+					<line x1="12" y1="20" x2="12" y2="4"></line>
+					<line x1="6" y1="20" x2="6" y2="14"></line>
+				</svg>
+			{:else}
+				{tab.label}
+			{/if}
 		</a>
 	{/each}
 </nav>
@@ -67,7 +88,8 @@
 	}
 
 	.tab {
-		flex: 1;
+		flex: 1 1 0;
+		min-width: 0;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -97,11 +119,10 @@
 		border-radius: var(--r-pill);
 	}
 
-	/* Plus-Tab base: smaller fixed width, larger font */
+	/* Plus-Tab: same width as others, larger font */
 	.tab.plus-tab {
-		flex: 0 0 auto;
-		min-width: 48px;
-		max-width: 48px;
+		flex: 1 1 0;
+		min-width: 0;
 		font-size: 1.5rem;
 		font-weight: 700;
 	}

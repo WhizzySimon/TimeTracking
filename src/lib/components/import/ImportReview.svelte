@@ -23,7 +23,10 @@
 
 	let { candidates, issues = [], onselectionchange, oncommit, oncancel }: Props = $props();
 
-	let selectedIds = new SvelteSet<string>();
+	// Pre-select all valid entries by default
+	let selectedIds = new SvelteSet<string>(
+		candidates.filter((c) => !c.flags.includes('hard_block')).map((c) => c.id)
+	);
 
 	let selectableCount = $derived(candidates.filter((c) => !c.flags.includes('hard_block')).length);
 	let selectedCount = $derived(selectedIds.size);
@@ -88,6 +91,23 @@
 </script>
 
 <div class="review-container">
+	<!-- Action buttons at top -->
+	<div class="review-header">
+		<div class="selection-info">
+			{selectedCount} von {candidates.length} ausgewählt
+		</div>
+		<div class="review-actions">
+			{#if oncancel}
+				<button class="btn-cancel" onclick={oncancel}>Zurück</button>
+			{/if}
+			{#if oncommit}
+				<button class="btn-commit" onclick={oncommit} disabled={selectedCount === 0}>
+					{selectedCount} importieren
+				</button>
+			{/if}
+		</div>
+	</div>
+
 	{#if issues.length > 0}
 		<div class="issues-panel">
 			<h3>Probleme ({issues.length})</h3>
@@ -155,22 +175,6 @@
 			</tbody>
 		</table>
 	</div>
-
-	<div class="review-footer">
-		<div class="selection-info">
-			{selectedCount} von {candidates.length} ausgewählt
-		</div>
-		<div class="review-actions">
-			{#if oncancel}
-				<button class="btn-cancel" onclick={oncancel}>Zurück</button>
-			{/if}
-			{#if oncommit}
-				<button class="btn-commit" onclick={oncommit} disabled={selectedCount === 0}>
-					{selectedCount} importieren
-				</button>
-			{/if}
-		</div>
-	</div>
 </div>
 
 <style>
@@ -178,6 +182,19 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+	}
+
+	.review-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.75rem 1rem;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: 8px;
+		position: sticky;
+		top: 0;
+		z-index: 10;
 	}
 
 	.issues-panel {
@@ -358,8 +375,9 @@
 	}
 
 	.btn-commit {
-		background: var(--accent-color);
-		color: white;
+		background: var(--accent, var(--accent-color, #3b82f6));
+		color: var(--btn-primary-text, white);
+		font-weight: 500;
 	}
 
 	.btn-commit:disabled {

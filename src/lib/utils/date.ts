@@ -24,23 +24,25 @@ export type Weekday =
  * @param format - 'DE' for DD.MM.YYYY, 'ISO' for YYYY-MM-DD
  */
 export function formatDate(date: Date, format: 'DE' | 'ISO' = 'DE'): string {
-	const day = String(date.getDate()).padStart(2, '0');
-	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = date.getDate();
+	const month = date.getMonth() + 1;
 	const year = date.getFullYear();
 
 	if (format === 'ISO') {
-		return `${year}-${month}-${day}`;
+		const dayStr = String(day).padStart(2, '0');
+		const monthStr = String(month).padStart(2, '0');
+		return `${year}-${monthStr}-${dayStr}`;
 	}
 	return `${day}.${month}.${year}`;
 }
 
 /**
  * Parse a date string to Date
- * Accepts DD.MM.YYYY or YYYY-MM-DD
+ * Accepts D.M.YYYY, DD.MM.YYYY, or YYYY-MM-DD
  */
 export function parseDate(str: string): Date | null {
-	// Try DD.MM.YYYY
-	const deMatch = str.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+	// Try D.M.YYYY or DD.MM.YYYY (1-2 digits for day/month)
+	const deMatch = str.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
 	if (deMatch) {
 		const [, day, month, year] = deMatch;
 		const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
@@ -189,8 +191,8 @@ export function getWeekDates(date: Date): Date[] {
  */
 export function formatShortDate(date: Date): string {
 	const weekdays = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
-	const day = String(date.getDate()).padStart(2, '0');
-	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = date.getDate();
+	const month = date.getMonth() + 1;
 
 	return `${weekdays[date.getDay()]} ${day}.${month}`;
 }

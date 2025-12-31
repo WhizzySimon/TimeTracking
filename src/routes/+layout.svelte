@@ -339,21 +339,6 @@
 			<div class="header-left">
 				<BackButton />
 				<ForwardButton />
-				<button
-					class="header-btn sync-btn"
-					class:synced={!syncNeeded && !$syncInProgress}
-					onclick={handleSyncClick}
-					disabled={$syncInProgress}
-				>
-					{#if $syncInProgress}
-						...
-					{:else}
-						Sync
-					{/if}
-				</button>
-				{#if syncError}
-					<span class="sync-error-indicator" title={syncError}>!</span>
-				{/if}
 				<EmployerSelector
 					employers={$employers}
 					value={$selectedEmployerId}
@@ -362,6 +347,33 @@
 				/>
 			</div>
 			<div class="header-right">
+				<button
+					class="sync-indicator"
+					class:synced={!syncNeeded && !$syncInProgress}
+					class:syncing={$syncInProgress}
+					onclick={handleSyncClick}
+					title={!syncNeeded && !$syncInProgress
+						? 'Synchronisiert'
+						: syncNeeded
+							? 'Synchronisierung ausstehend'
+							: 'Synchronisiere...'}
+					aria-label="Synchronisierung"
+				>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<polyline points="23 4 23 10 17 10"></polyline>
+						<polyline points="1 20 1 14 7 14"></polyline>
+						<path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+					</svg>
+				</button>
 				<div class="profile-menu-container">
 					<button
 						class="header-btn profile-btn"
@@ -445,7 +457,17 @@
 				</div>
 			</div>
 		</header>
-		{#if hasUpdate}
+		<!-- Banner priority: Sync error > Update > Install -->
+		{#if syncError}
+			<div class="sync-error-banner">
+				<WarningBanner
+					message="Synchronisierung fehlgeschlagen: {syncError}"
+					onclick={handleSyncClick}
+					actionLabel="Erneut versuchen"
+					onaction={handleSyncClick}
+				/>
+			</div>
+		{:else if hasUpdate}
 			<div class="update-banner">
 				<button class="update-btn" onclick={applyUpdate}> Update verfügbar – neu laden </button>
 			</div>
@@ -590,28 +612,43 @@
 		white-space: nowrap;
 	}
 
-	.sync-btn {
-		background: rgba(255, 255, 255, 0.2);
-		color: var(--header-text);
-	}
-
-	.sync-btn:hover:not(:disabled) {
-		background: rgba(255, 255, 255, 0.3);
-	}
-
-	.sync-btn:disabled {
-		opacity: 0.6;
-		cursor: default;
-	}
-
-	.sync-btn.synced {
-		opacity: 0.6;
+	.sync-indicator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 6px;
+		margin-right: 8px;
+		background: transparent;
+		border: none;
+		color: #ffa726;
+		opacity: 0.9;
+		transition: all 0.3s ease;
 		cursor: pointer;
 	}
 
-	.sync-btn.synced:hover {
-		opacity: 0.7;
-		background: rgba(255, 255, 255, 0.25);
+	.sync-indicator:hover {
+		opacity: 1;
+	}
+
+	.sync-indicator.synced {
+		color: #4caf50;
+		opacity: 1;
+	}
+
+	.sync-indicator.syncing {
+		color: var(--header-text);
+		opacity: 0.8;
+		animation: rotate 1.5s linear infinite;
+		cursor: default;
+	}
+
+	@keyframes rotate {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	.profile-menu-container {
@@ -702,23 +739,13 @@
 		cursor: default;
 	}
 
-	.sync-error-indicator {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 18px;
-		height: 18px;
-		background: var(--neg);
-		color: white;
-		border-radius: 50%;
-		font-size: 0.75rem;
-		font-weight: bold;
-		cursor: help;
-	}
-
 	.main-content {
 		flex: 1;
 		padding-bottom: 70px;
+	}
+
+	.sync-error-banner {
+		padding: 0.5rem 1rem;
 	}
 
 	.install-banner {
@@ -726,6 +753,7 @@
 		padding: 8px 12px;
 		display: flex;
 		justify-content: center;
+		align-items: center;
 		border-radius: var(--r-banner);
 	}
 

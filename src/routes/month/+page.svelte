@@ -19,10 +19,12 @@
 		workTimeModels,
 		filteredEntries,
 		filteredCategories,
-		filteredActiveWorkTimeModel
+		filteredModels
 	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { getAll, getByKey } from '$lib/storage/db';
+	import { getAll, getByKey, put } from '$lib/storage/db';
+	import { browser } from '$app/environment';
+	import type { UserPreference } from '$lib/types';
 	import { parseDate } from '$lib/utils/date';
 	import { getWeekNumber, formatDate, getDayOfWeek, startOfDay } from '$lib/utils/date';
 	import { calculateIst, calculateSoll, calculateSaldo } from '$lib/utils/calculations';
@@ -30,8 +32,10 @@
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import MonthYearPicker from '$lib/components/MonthYearPicker.svelte';
 
+	const PREF_KEY = 'month-selected-date';
 	let loading = $state(true);
 	let showMonthPicker = $state(false);
+	let dateLoaded = $state(false);
 	// Month names in German
 	const monthNames = [
 		'Januar',
@@ -75,11 +79,8 @@
 	});
 
 	// Month title display
-	let monthTitle = $derived(
-		isThisCurrentMonth()
-			? `Aktueller Monat: ${monthNames[currentMonth]} ${currentYear}`
-			: `${monthNames[currentMonth]} ${currentYear}`
-	);
+	let monthPrefix = $derived(isThisCurrentMonth() ? 'Aktueller Monat' : null);
+	let monthTitle = $derived(`${monthNames[currentMonth]} ${currentYear}`);
 
 	// Navigation labels showing adjacent month abbreviations
 	let previousMonthLabel = $derived(() => {
@@ -168,7 +169,8 @@
 			if (!isDayActiveInModel(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-			total += calculateSoll(date, dayType, $filteredActiveWorkTimeModel);
+			const model = getActiveModelForDate(date);
+			total += calculateSoll(date, dayType, model);
 		}
 		return total;
 	});
@@ -216,15 +218,27 @@
 		// Set to the first day of the week
 		if (weekDates.length > 0) {
 			currentDate.set(weekDates[0]);
+			// Mark that we're navigating (so target page doesn't load saved date)
+			sessionStorage.setItem('date-navigation', 'true');
 			goto(resolve('/week'));
 		}
 	}
 
+	// Get active work time model for a specific date (respects employer filter)
+	function getActiveModelForDate(date: Date): WorkTimeModel | null {
+		const dateStr = formatDate(date, 'ISO');
+		const validModels = $filteredModels
+			.filter((model) => model.validFrom <= dateStr)
+			.sort((a, b) => b.validFrom.localeCompare(a.validFrom));
+		return validModels[0] ?? null;
+	}
+
 	// Check if a day is active in the work time model (respects employer filter)
 	function isDayActiveInModel(date: Date): boolean {
-		if (!$filteredActiveWorkTimeModel) return true;
+		const model = getActiveModelForDate(date);
+		if (!model) return true;
 		const weekday = getDayOfWeek(date);
-		const hours = $filteredActiveWorkTimeModel[weekday];
+		const hours = model[weekday];
 		return hours !== null;
 	}
 
@@ -248,7 +262,8 @@
 			if (!isDayActiveInModel(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-			total += calculateSoll(date, dayType, $filteredActiveWorkTimeModel);
+			const model = getActiveModelForDate(date);
+			total += calculateSoll(date, dayType, model);
 		}
 		return total;
 	}
@@ -268,6 +283,44 @@
 		return dates.filter((d) => isDayActiveInModel(d)).length;
 	}
 
+	// Load saved date from IndexedDB (only on page refresh, not on in-app navigation)
+	async function loadSavedDate() {
+		// Check if we navigated here from another page (e.g., Analysis)
+		const isNavigation = sessionStorage.getItem('date-navigation') === 'true';
+		sessionStorage.removeItem('date-navigation');
+
+		if (isNavigation) {
+			// Don't load saved date - respect the date set by navigation
+			dateLoaded = true;
+			return;
+		}
+
+		try {
+			const pref = await getByKey<UserPreference>('userPreferences', PREF_KEY);
+			if (pref?.value) {
+				const savedDate = new Date(pref.value);
+				if (!isNaN(savedDate.getTime())) {
+					currentDate.set(savedDate);
+				}
+			}
+		} catch {
+			// Use current date on error
+		}
+		dateLoaded = true;
+	}
+
+	// Save date to IndexedDB when it changes
+	$effect(() => {
+		if (browser && dateLoaded) {
+			const pref: UserPreference = {
+				key: PREF_KEY,
+				value: $currentDate.toISOString(),
+				updatedAt: Date.now()
+			};
+			put('userPreferences', pref);
+		}
+	});
+
 	onMount(async () => {
 		await initializeCategories();
 		const allCategories = await getAll<Category>('categories');
@@ -276,6 +329,7 @@
 		timeEntries.set(allEntries);
 		const allModels = await getAll<WorkTimeModel>('workTimeModels');
 		workTimeModels.set(allModels);
+		await loadSavedDate();
 		loading = false;
 	});
 </script>
@@ -295,7 +349,12 @@
 			>
 				{previousMonthLabel()}
 			</button>
-			<button class="month-title" onclick={openMonthPicker}>{monthTitle}</button>
+			<button class="month-title" onclick={openMonthPicker}>
+				{#if monthPrefix}
+					<span class="title-prefix">{monthPrefix}</span>
+				{/if}
+				<span class="title-date">{monthTitle}</span>
+			</button>
 			<button class="nav-btn nav-btn-next" onclick={goToNextMonth} aria-label="Nächster Monat">
 				{nextMonthLabel()}
 			</button>
@@ -402,18 +461,33 @@
 		margin: 0;
 		font-size: 1.1rem;
 		font-weight: 600;
-		text-align: center;
 		flex: 1;
-		background: none;
+		padding: 0.5rem 1rem;
 		border: none;
+		background: var(--surface);
+		text-align: center;
 		cursor: pointer;
-		padding: 0.5rem;
-		border-radius: var(--r-btn);
+		border-radius: 0.5rem;
 		color: var(--text);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.25rem;
+		min-height: 44px;
 	}
 
 	.month-title:hover {
 		background: var(--surface-hover);
+	}
+
+	.title-prefix {
+		font-size: 1rem;
+		font-weight: 500;
+	}
+
+	.title-date {
+		font-size: 1.1rem;
+		font-weight: 600;
 	}
 
 	/* Week List */

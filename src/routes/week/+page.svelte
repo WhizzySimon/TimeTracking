@@ -26,7 +26,9 @@
 		filteredActiveWorkTimeModel
 	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { getAll, getByKey } from '$lib/storage/db';
+	import { getAll, getByKey, put } from '$lib/storage/db';
+	import { browser } from '$app/environment';
+	import type { UserPreference } from '$lib/types';
 	import { parseDate } from '$lib/utils/date';
 	import {
 		getWeekNumber,
@@ -45,8 +47,10 @@
 	import WeekTypeSelector from '$lib/components/WeekTypeSelector.svelte';
 	import WeekYearPicker from '$lib/components/WeekYearPicker.svelte';
 
+	const PREF_KEY = 'week-selected-date';
 	let loading = $state(true);
 	let showWeekPicker = $state(false);
+	let dateLoaded = $state(false);
 
 	// Week dates (Monday to Sunday)
 	let weekDates = $derived(getWeekDates($currentDate));
@@ -59,9 +63,8 @@
 
 	// Week title display (with ISO week year)
 	let weekYear = $derived(getISOWeekYear($currentDate));
-	let weekTitle = $derived(
-		isThisCurrentWeek ? `Aktuelle KW ${weekNumber}/${weekYear}` : `KW ${weekNumber}/${weekYear}`
-	);
+	let weekPrefix = $derived(isThisCurrentWeek ? 'Aktuelle Woche' : null);
+	let weekTitle = $derived(`KW ${weekNumber}/${weekYear}`);
 
 	// Navigation labels showing adjacent week numbers
 	let previousWeekLabel = $derived(() => {
@@ -154,6 +157,8 @@
 	// Navigate to day tab with selected date
 	function navigateToDay(date: Date) {
 		currentDate.set(date);
+		// Mark that we're navigating (so target page doesn't load saved date)
+		sessionStorage.setItem('date-navigation', 'true');
 		goto(resolve('/day'));
 	}
 
@@ -203,6 +208,44 @@
 	// Filter days to only show active ones in model
 	let activeDays = $derived(weekDates.filter((date) => isDayActiveInModel(date)));
 
+	// Load saved date from IndexedDB (only on page refresh, not on in-app navigation)
+	async function loadSavedDate() {
+		// Check if we navigated here from another page (e.g., Analysis)
+		const isNavigation = sessionStorage.getItem('date-navigation') === 'true';
+		sessionStorage.removeItem('date-navigation');
+
+		if (isNavigation) {
+			// Don't load saved date - respect the date set by navigation
+			dateLoaded = true;
+			return;
+		}
+
+		try {
+			const pref = await getByKey<UserPreference>('userPreferences', PREF_KEY);
+			if (pref?.value) {
+				const savedDate = new Date(pref.value);
+				if (!isNaN(savedDate.getTime())) {
+					currentDate.set(savedDate);
+				}
+			}
+		} catch {
+			// Use current date on error
+		}
+		dateLoaded = true;
+	}
+
+	// Save date to IndexedDB when it changes
+	$effect(() => {
+		if (browser && dateLoaded) {
+			const pref: UserPreference = {
+				key: PREF_KEY,
+				value: $currentDate.toISOString(),
+				updatedAt: Date.now()
+			};
+			put('userPreferences', pref);
+		}
+	});
+
 	onMount(async () => {
 		await initializeCategories();
 		// Load categories into store
@@ -214,6 +257,7 @@
 		// Load work time models
 		const allModels = await getAll<WorkTimeModel>('workTimeModels');
 		workTimeModels.set(allModels);
+		await loadSavedDate();
 		loading = false;
 	});
 </script>
@@ -229,9 +273,12 @@
 			<button class="nav-btn nav-btn-prev" onclick={goToPreviousWeek} aria-label="Vorherige Woche">
 				{previousWeekLabel()}
 			</button>
-			<button class="week-title" data-testid="week-title" onclick={openWeekPicker}
-				>{weekTitle}</button
-			>
+			<button class="week-title" data-testid="week-title" onclick={openWeekPicker}>
+				{#if weekPrefix}
+					<span class="title-prefix">{weekPrefix}</span>
+				{/if}
+				<span class="title-date">{weekTitle}</span>
+			</button>
 			<button class="nav-btn nav-btn-next" onclick={goToNextWeek} aria-label="Nächste Woche">
 				{nextWeekLabel()}
 			</button>
@@ -347,18 +394,33 @@
 		margin: 0;
 		font-size: 1.25rem;
 		font-weight: 600;
-		text-align: center;
 		flex: 1;
-		background: none;
+		padding: 0.5rem 1rem;
 		border: none;
+		background: var(--surface);
+		text-align: center;
 		cursor: pointer;
-		padding: 0.5rem;
-		border-radius: var(--r-btn);
+		border-radius: 0.5rem;
 		color: var(--text);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.25rem;
+		min-height: 44px;
 	}
 
 	.week-title:hover {
 		background: var(--surface-hover);
+	}
+
+	.title-prefix {
+		font-size: 1rem;
+		font-weight: 500;
+	}
+
+	.title-date {
+		font-size: 1.25rem;
+		font-weight: 600;
 	}
 
 	/* Day List */

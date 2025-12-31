@@ -366,3 +366,17 @@ Each entry follows this format:
 | C1: Promotions       | none   | No items meet promotion criteria   |
 | C2: Read LEARNINGS   | ✓ read | 5 items                            |
 | C3: Hard Rule → JIT  | none   | No new Hard Rules proposed         |
+
+## 2025-12-31 11:54 — FIX-analysis-calculations
+
+| Step                 | Result | Notes                               |
+| -------------------- | ------ | ----------------------------------- |
+| 0: Scope check       | first  | First commit in this chat           |
+| A1: Capture feedback | none   | No corrective feedback              |
+| B1: Repeated errors  | none   | No repeated errors                  |
+| B2: File churn       | none   | Each file edited 1-2 times          |
+| B3: Scope drift      | none   | Bug fix session, no plan            |
+| B4: Session duration | ~8h    | long (spans multiple mini-sessions) |
+| C1: Promotions       | none   | No items meet promotion criteria    |
+| C2: Read LEARNINGS   | ✓ read | 5 items                             |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed          |

@@ -56,12 +56,6 @@
 		dispatch('close');
 	}
 
-	function handleBackdropClick(event: MouseEvent) {
-		if (event.target === event.currentTarget && isModal) {
-			handleContinueFree();
-		}
-	}
-
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape' && isModal) {
 			handleContinueFree();
@@ -74,7 +68,6 @@
 {#if isModal}
 	<div
 		class="paywall-backdrop"
-		onclick={handleBackdropClick}
 		onkeydown={handleKeydown}
 		role="dialog"
 		aria-modal="true"

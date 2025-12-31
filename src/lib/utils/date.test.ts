@@ -24,7 +24,7 @@ import {
 describe('formatDate', () => {
 	it('formats date in German format (DD.MM.YYYY)', () => {
 		const date = new Date(2025, 2, 18); // March 18, 2025
-		expect(formatDate(date, 'DE')).toBe('18.03.2025');
+		expect(formatDate(date, 'DE')).toBe('18.3.2025');
 	});
 
 	it('formats date in ISO format (YYYY-MM-DD)', () => {
@@ -34,7 +34,7 @@ describe('formatDate', () => {
 
 	it('defaults to German format', () => {
 		const date = new Date(2025, 0, 5); // January 5, 2025
-		expect(formatDate(date)).toBe('05.01.2025');
+		expect(formatDate(date)).toBe('5.1.2025');
 	});
 });
 
@@ -171,10 +171,10 @@ describe('getWeekDates', () => {
 describe('formatShortDate', () => {
 	it('formats as weekday + date', () => {
 		const monday = new Date(2025, 2, 17);
-		expect(formatShortDate(monday)).toBe('Mo 17.03');
+		expect(formatShortDate(monday)).toBe('Mo 17.3');
 
 		const friday = new Date(2025, 2, 21);
-		expect(formatShortDate(friday)).toBe('Fr 21.03');
+		expect(formatShortDate(friday)).toBe('Fr 21.3');
 	});
 });
 

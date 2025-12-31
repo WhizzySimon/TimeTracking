@@ -11,12 +11,6 @@
 		onclose();
 	}
 
-	function handleBackdropClick(event: MouseEvent) {
-		if (event.target === event.currentTarget) {
-			onclose();
-		}
-	}
-
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
 			onclose();
@@ -24,14 +18,7 @@
 	}
 </script>
 
-<div
-	class="modal-backdrop"
-	onclick={handleBackdropClick}
-	onkeydown={handleKeydown}
-	role="dialog"
-	aria-modal="true"
-	tabindex="-1"
->
+<div class="modal-backdrop" onkeydown={handleKeydown} role="dialog" aria-modal="true" tabindex="-1">
 	<div class="modal">
 		<header class="modal-header">
 			<h2>Plan wählen</h2>

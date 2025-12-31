@@ -13,6 +13,11 @@
 	import ImportProgress from '$lib/components/import/ImportProgress.svelte';
 	import ImportReview from '$lib/components/import/ImportReview.svelte';
 	import { isPro } from '$lib/stores/user';
+	import { categories, timeEntries } from '$lib/stores';
+	import { getAll } from '$lib/storage/db';
+	import { processImportSources } from '$lib/import/orchestrator';
+	import { saveTimeEntry } from '$lib/storage/operations';
+	import type { TimeEntry } from '$lib/types';
 	import type { TimeEntryCandidate, ImportSource } from '$lib/import/types';
 
 	type ImportStep = 'upload' | 'processing' | 'review' | 'commit' | 'report';
@@ -24,15 +29,33 @@
 	let candidates: TimeEntryCandidate[] = $state([]);
 	let processingProgress = $state(0);
 	let processingFile = $state('');
+	let processingError = $state<string | null>(null);
 
 	function handleSourcesChange(newSources: ImportSource[]) {
 		sources = newSources;
 	}
 
-	function handleStartProcessing() {
+	async function handleStartProcessing() {
 		if (sources.length === 0) return;
 		currentStep = 'processing';
 		processingProgress = 0;
+		processingError = null;
+
+		try {
+			const result = await processImportSources(sources, {
+				userCategories: $categories,
+				onProgress: (progress) => {
+					processingProgress = (progress.current / progress.total) * 100;
+					processingFile = progress.currentFile;
+				}
+			});
+
+			candidates = result.candidates;
+			currentStep = 'review';
+		} catch (e) {
+			processingError = e instanceof Error ? e.message : 'Verarbeitung fehlgeschlagen';
+			currentStep = 'upload';
+		}
 	}
 
 	function handleCancelProcessing() {
@@ -40,8 +63,59 @@
 		processingProgress = 0;
 	}
 
-	function handleCommit() {
+	let importedCount = $state(0);
+
+	async function handleCommit() {
 		currentStep = 'commit';
+		importedCount = 0;
+
+		// Get selected candidates (those with valid data)
+		const selectedCandidates = candidates.filter(
+			(c) => !c.flags.includes('hard_block') && c.date && c.startTime
+		);
+
+		// Find matching category IDs
+		const categoryMap = new Map($categories.map((c) => [c.name.toLowerCase(), c.id]));
+
+		for (const candidate of selectedCandidates) {
+			// Find category ID by name
+			let categoryId = candidate.categoryId;
+			if (!categoryId && candidate.categoryGuess) {
+				categoryId = categoryMap.get(candidate.categoryGuess.toLowerCase()) || null;
+			}
+
+			// Skip if no valid category found
+			if (!categoryId) {
+				// Use first category as fallback or skip
+				categoryId = $categories[0]?.id || null;
+			}
+
+			if (!categoryId || !candidate.date || !candidate.startTime) continue;
+
+			const entry: TimeEntry = {
+				id: `import_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
+				date: candidate.date,
+				startTime: candidate.startTime,
+				endTime: candidate.endTime,
+				categoryId,
+				description: candidate.note || null,
+				createdAt: Date.now(),
+				updatedAt: Date.now()
+			};
+
+			try {
+				await saveTimeEntry(entry);
+				importedCount++;
+			} catch (e) {
+				console.error('Failed to import entry:', e);
+			}
+		}
+
+		// Refresh timeEntries store from database
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
+
+		currentStep = 'report';
 	}
 
 	function handleReset() {
@@ -68,11 +142,14 @@
 	<div class="import-page">
 		<header class="import-header">
 			<h1>Daten importieren</h1>
-			<p class="subtitle">Importiere Zeitdaten aus CSV, Excel oder Text</p>
+			<p class="subtitle">Importiere Zeitdaten aus CSV oder JSON</p>
 		</header>
 
 		{#if currentStep === 'upload'}
 			<section class="upload-section">
+				{#if processingError}
+					<div class="error-message">{processingError}</div>
+				{/if}
 				<ImportUpload onfileschange={handleSourcesChange} onstart={handleStartProcessing} />
 			</section>
 		{:else if currentStep === 'processing'}
@@ -95,7 +172,7 @@
 			<section class="report-section">
 				<div class="report-icon">✓</div>
 				<h2>Import abgeschlossen</h2>
-				<p>{candidates.filter((c) => c.selected).length} Einträge importiert</p>
+				<p>{importedCount} Einträge importiert</p>
 				<button class="btn-primary" onclick={handleReset}>Neuer Import</button>
 			</section>
 		{/if}
@@ -135,6 +212,15 @@
 
 	.upload-section {
 		margin-top: 1rem;
+	}
+
+	.error-message {
+		background: var(--error-bg, #fef2f2);
+		color: var(--error-color, #dc2626);
+		padding: 0.75rem 1rem;
+		border-radius: 8px;
+		margin-bottom: 1rem;
+		text-align: center;
 	}
 
 	.btn-primary {

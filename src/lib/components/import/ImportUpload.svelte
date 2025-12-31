@@ -1,12 +1,7 @@
 <!--
   ImportUpload.svelte
   
-  Upload component for AI Import with:
-  - Drag-and-drop zone
-  - File picker
-  - Text paste area
-  - File list with remove buttons
-  - File type and size validation
+  Upload component for CSV/JSON import with file picker and file list.
   
   Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen A)
 -->
@@ -21,11 +16,8 @@
 	let { onfileschange, onstart }: Props = $props();
 
 	let sources: ImportSource[] = $state([]);
-	let isDragging = $state(false);
-	let showTextInput = $state(false);
-	let textContent = $state('');
 
-	const ALLOWED_EXTENSIONS = ['.csv', '.xlsx', '.xls', '.json', '.txt', '.png', '.jpg', '.jpeg'];
+	const ALLOWED_EXTENSIONS = ['.csv', '.json'];
 	const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 	const MAX_FILES = 10;
 
@@ -52,9 +44,7 @@
 	function getSourceType(filename: string): ImportSource['type'] {
 		const ext = getFileExtension(filename);
 		if (ext === '.csv') return 'csv';
-		if (ext === '.xlsx' || ext === '.xls') return 'excel';
 		if (ext === '.json') return 'json';
-		if (['.png', '.jpg', '.jpeg'].includes(ext)) return 'image';
 		return 'text';
 	}
 
@@ -63,11 +53,7 @@
 			const reader = new FileReader();
 			reader.onload = () => resolve(reader.result as string);
 			reader.onerror = () => reject(reader.error);
-			if (file.type.startsWith('image/')) {
-				reader.readAsDataURL(file);
-			} else {
-				reader.readAsText(file);
-			}
+			reader.readAsText(file);
 		});
 	}
 
@@ -98,43 +84,9 @@
 		onfileschange?.(sources);
 	}
 
-	function addTextSource() {
-		if (!textContent.trim()) return;
-
-		const source: ImportSource = {
-			id: generateSourceId(),
-			type: 'text',
-			filename: `text-${Date.now()}.txt`,
-			content: textContent.trim(),
-			sizeBytes: new Blob([textContent]).size,
-			addedAt: Date.now()
-		};
-		sources = [...sources, source];
-		textContent = '';
-		showTextInput = false;
-		onfileschange?.(sources);
-	}
-
 	function removeSource(id: string) {
 		sources = sources.filter((s) => s.id !== id);
 		onfileschange?.(sources);
-	}
-
-	function handleDrop(e: DragEvent) {
-		e.preventDefault();
-		isDragging = false;
-		if (e.dataTransfer?.files) {
-			addFiles(e.dataTransfer.files);
-		}
-	}
-
-	function handleDragOver(e: DragEvent) {
-		e.preventDefault();
-		isDragging = true;
-	}
-
-	function handleDragLeave() {
-		isDragging = false;
 	}
 
 	function handleFileInput(e: Event) {
@@ -159,51 +111,12 @@
 </script>
 
 <div class="upload-container">
-	<div
-		class="drop-zone"
-		class:dragging={isDragging}
-		ondrop={handleDrop}
-		ondragover={handleDragOver}
-		ondragleave={handleDragLeave}
-		role="button"
-		tabindex="0"
-	>
-		<div class="drop-icon">📄</div>
-		<p class="drop-text">Dateien hierher ziehen</p>
-		<p class="drop-hint">oder</p>
-		<div class="drop-actions">
-			<label class="btn-file">
-				Dateien auswählen
-				<input
-					type="file"
-					multiple
-					accept={ALLOWED_EXTENSIONS.join(',')}
-					onchange={handleFileInput}
-					hidden
-				/>
-			</label>
-			<button class="btn-text" onclick={() => (showTextInput = !showTextInput)}>
-				Text einfügen
-			</button>
-		</div>
-		<p class="drop-formats">CSV, Excel (.xlsx), JSON, Text, Bilder</p>
+	<div class="upload-section">
+		<label class="btn-file-primary">
+			Dateien auswählen
+			<input type="file" multiple accept=".csv,.json" onchange={handleFileInput} hidden />
+		</label>
 	</div>
-
-	{#if showTextInput}
-		<div class="text-input-section">
-			<textarea
-				bind:value={textContent}
-				placeholder="Text hier einfügen (z.B. kopierte Tabelle, Zeitliste...)"
-				rows="6"
-			></textarea>
-			<div class="text-actions">
-				<button class="btn-cancel" onclick={() => (showTextInput = false)}>Abbrechen</button>
-				<button class="btn-add" onclick={addTextSource} disabled={!textContent.trim()}>
-					Hinzufügen
-				</button>
-			</div>
-		</div>
-	{/if}
 
 	{#if sources.length > 0}
 		<div class="file-list">
@@ -235,116 +148,26 @@
 		gap: 1rem;
 	}
 
-	.drop-zone {
-		border: 2px dashed var(--border-color);
-		border-radius: 12px;
-		padding: 2rem;
-		text-align: center;
-		background: var(--bg-secondary);
-		transition: all 0.2s;
-		cursor: pointer;
-	}
-
-	.drop-zone:hover,
-	.drop-zone.dragging {
-		border-color: var(--accent-color);
-		background: var(--bg-tertiary);
-	}
-
-	.drop-icon {
-		font-size: 2.5rem;
-		margin-bottom: 0.5rem;
-	}
-
-	.drop-text {
-		font-size: 1rem;
-		color: var(--text-primary);
-		margin: 0;
-	}
-
-	.drop-hint {
-		color: var(--text-tertiary);
-		font-size: 0.875rem;
-		margin: 0.5rem 0;
-	}
-
-	.drop-actions {
+	.upload-section {
 		display: flex;
-		gap: 0.75rem;
 		justify-content: center;
-		margin: 1rem 0;
+		padding: 2rem;
 	}
 
-	.btn-file,
-	.btn-text {
-		padding: 0.5rem 1rem;
-		border-radius: 6px;
-		font-size: 0.875rem;
-		cursor: pointer;
-		border: 1px solid var(--border-color);
-		background: var(--bg-primary);
-		color: var(--text-primary);
-	}
-
-	.btn-file:hover,
-	.btn-text:hover {
-		background: var(--bg-tertiary);
-	}
-
-	.drop-formats {
-		font-size: 0.75rem;
-		color: var(--text-tertiary);
-		margin: 0;
-	}
-
-	.text-input-section {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
+	.btn-file-primary {
+		background: var(--accent, var(--accent-color, #3b82f6));
+		color: var(--btn-primary-text, white);
+		padding: 0.75rem 1.5rem;
 		border-radius: 8px;
-		padding: 1rem;
-	}
-
-	.text-input-section textarea {
-		width: 100%;
-		padding: 0.75rem;
-		border: 1px solid var(--border-color);
-		border-radius: 6px;
-		background: var(--bg-primary);
-		color: var(--text-primary);
-		font-family: inherit;
-		font-size: 0.875rem;
-		resize: vertical;
-	}
-
-	.text-actions {
-		display: flex;
-		justify-content: flex-end;
-		gap: 0.5rem;
-		margin-top: 0.75rem;
-	}
-
-	.btn-cancel,
-	.btn-add {
-		padding: 0.5rem 1rem;
-		border-radius: 6px;
-		font-size: 0.875rem;
+		font-size: 1rem;
+		font-weight: 500;
 		cursor: pointer;
 		border: none;
+		display: inline-block;
 	}
 
-	.btn-cancel {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-	}
-
-	.btn-add {
-		background: var(--accent-color);
-		color: white;
-	}
-
-	.btn-add:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+	.btn-file-primary:hover {
+		opacity: 0.9;
 	}
 
 	.file-list {
@@ -416,13 +239,14 @@
 	}
 
 	.btn-start {
-		background: var(--accent-color);
-		color: white;
+		background: var(--accent, var(--accent-color, #3b82f6));
+		color: var(--btn-primary-text, white);
 		border: none;
 		padding: 0.75rem 1.5rem;
 		border-radius: 8px;
 		font-size: 1rem;
 		cursor: pointer;
+		font-weight: 500;
 	}
 
 	.btn-start:hover {

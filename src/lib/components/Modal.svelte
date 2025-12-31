@@ -34,12 +34,6 @@
 		}
 	}
 
-	function handleBackdropClick(event: MouseEvent) {
-		if (event.target === event.currentTarget) {
-			onclose();
-		}
-	}
-
 	// Drag handlers
 	function handleMouseDown(event: MouseEvent) {
 		if (!modalElement) return;
@@ -91,13 +85,7 @@
 	});
 </script>
 
-<div
-	class="modal-backdrop"
-	role="button"
-	tabindex="-1"
-	onclick={handleBackdropClick}
-	onkeydown={(e) => e.key === 'Enter' && handleBackdropClick(e as unknown as MouseEvent)}
->
+<div class="modal-backdrop" role="button" tabindex="-1" onkeydown={handleKeydown}>
 	<div
 		class="modal-content"
 		class:dragged={hasBeenDragged}

@@ -31,7 +31,7 @@ const THEME_STORAGE_KEY = 'timetracker-theme';
 const SHAPE_STORAGE_KEY = 'timetracker-shape';
 const CATEGORY_SORT_STORAGE_KEY = 'timetracker-category-sort';
 const DEFAULT_THEME: ThemeValue = 'cool';
-const DEFAULT_SHAPE: ShapeValue = 'soft';
+const DEFAULT_SHAPE: ShapeValue = 'sharp';
 const DEFAULT_CATEGORY_SORT: CategorySortValue = 'frequency';
 
 /** Current color theme store */

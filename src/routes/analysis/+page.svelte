@@ -56,6 +56,10 @@
 		taetigkeiten: true
 	});
 
+	function toggleSection(section: 'zeiten' | 'taetigkeiten') {
+		expandedSections[section] = !expandedSections[section];
+	}
+
 	// Default range: 01.01.current year to today
 	const defaultRange = {
 		start: formatDate(new Date(new Date().getFullYear(), 0, 1), 'ISO'),
@@ -420,6 +424,8 @@
 			const [year, month] = key.split('-').map(Number);
 			// Set currentDate to first day of the month
 			currentDate.set(new Date(year, month - 1, 1));
+			// Mark that we're navigating (so target page doesn't load saved date)
+			sessionStorage.setItem('date-navigation', 'true');
 			goto(resolve('/month'));
 		} else {
 			// Week key format: "2025-W01"
@@ -437,6 +443,8 @@
 			const targetDate = new Date(firstThursday);
 			targetDate.setDate(firstThursday.getDate() + (week - 1) * 7);
 			currentDate.set(targetDate);
+			// Mark that we're navigating (so target page doesn't load saved date)
+			sessionStorage.setItem('date-navigation', 'true');
 			goto(resolve('/week'));
 		}
 	}
@@ -464,7 +472,8 @@
 		}
 	});
 
-	onMount(async () => {
+	// Refresh data from database when page becomes visible (handles navigation back)
+	async function refreshData() {
 		await initializeCategories();
 		const allCategories = await getAll<Category>('categories');
 		categories.set(allCategories);
@@ -472,9 +481,25 @@
 		timeEntries.set(allEntries);
 		const allModels = await getAll<WorkTimeModel>('workTimeModels');
 		workTimeModels.set(allModels);
-		await loadSavedRange();
-		await loadDayTypesForRange();
-		loading = false;
+	}
+
+	onMount(() => {
+		// Initial data load
+		(async () => {
+			await refreshData();
+			await loadSavedRange();
+			await loadDayTypesForRange();
+			loading = false;
+		})();
+
+		// Refresh data when page becomes visible again (e.g., after navigating back from settings)
+		const handleVisibilityChange = () => {
+			if (document.visibilityState === 'visible') {
+				refreshData();
+			}
+		};
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+		return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
 	});
 </script>
 
@@ -534,17 +559,17 @@
 			{/if}
 		</section>
 
-		<!-- Tätigkeiten Section (Category Breakdown) -->
+		<!-- Einträge Section (Category Breakdown) -->
 		{#if categoryBreakdown.length > 0}
 			<section class="collapsible-section">
 				<div class="section-header-row">
 					<button
 						class="section-toggle"
-						onclick={() => (expandedSections.taetigkeiten = !expandedSections.taetigkeiten)}
+						onclick={() => toggleSection('taetigkeiten')}
 						aria-expanded={expandedSections.taetigkeiten}
 					>
 						<span class="toggle-icon" class:expanded={expandedSections.taetigkeiten}>▶</span>
-						<h3 class="section-title">Tätigkeiten</h3>
+						<h3 class="section-title">Einträge</h3>
 					</button>
 					<div class="column-headers">
 						<span class="header-label">Gesamt</span>

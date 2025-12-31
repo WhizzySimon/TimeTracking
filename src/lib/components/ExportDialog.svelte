@@ -38,12 +38,6 @@
 		}
 	}
 
-	function handleBackdropClick(event: MouseEvent) {
-		if (event.target === event.currentTarget) {
-			onclose();
-		}
-	}
-
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
 			onclose();
@@ -56,7 +50,6 @@
 {:else}
 	<div
 		class="dialog-backdrop"
-		onclick={handleBackdropClick}
 		onkeydown={handleKeydown}
 		role="dialog"
 		aria-modal="true"
@@ -92,7 +85,7 @@
 						<input type="radio" name="format" value="pdf" bind:group={selectedFormat} />
 						<div class="format-info">
 							<span class="format-name">PDF</span>
-							<span class="format-desc">Druckbare Übersicht (kommt bald)</span>
+							<span class="format-desc">Druckbare Übersicht</span>
 						</div>
 					</label>
 				</div>

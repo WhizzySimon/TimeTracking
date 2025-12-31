@@ -7,7 +7,7 @@
 </script>
 
 {#if !countsAsWorkTime}
-	<span class="badge">Abwesenheit</span>
+	<span class="badge">Keine Arbeitszeit</span>
 {/if}
 
 <style>

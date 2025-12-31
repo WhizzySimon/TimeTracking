@@ -25,7 +25,9 @@
 	} from '$lib/stores';
 	import { formatDate, isToday, addDays, formatTime } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
-	import { getByKey, getAll } from '$lib/storage/db';
+	import { getByKey, getAll, put } from '$lib/storage/db';
+	import { browser } from '$app/environment';
+	import type { UserPreference } from '$lib/types';
 	import { deleteTimeEntry, saveTimeEntry } from '$lib/storage/operations';
 	import type { Category, DayType, DayTypeValue, TimeEntry } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
@@ -38,7 +40,9 @@
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import DayPicker from '$lib/components/DayPicker.svelte';
 
+	const PREF_KEY = 'day-selected-date';
 	let loading = $state(true);
+	let dateLoaded = $state(false);
 
 	// Day type for current date (loaded from IndexedDB)
 	let dayType: DayTypeValue = $state('arbeitstag');
@@ -68,11 +72,15 @@
 	const weekdayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 
 	// Reactive date display with weekday
+	let datePrefix = $derived(() => {
+		if (isToday($currentDate)) {
+			return 'Heute';
+		}
+		return null;
+	});
+
 	let dateDisplay = $derived(() => {
 		const weekday = weekdayNames[$currentDate.getDay()];
-		if (isToday($currentDate)) {
-			return `Heute, ${weekday} ${formatDate($currentDate, 'DE')}`;
-		}
 		return `${weekday} ${formatDate($currentDate, 'DE')}`;
 	});
 
@@ -235,6 +243,44 @@
 		}
 	});
 
+	// Load saved date from IndexedDB (only on page refresh, not on in-app navigation)
+	async function loadSavedDate() {
+		// Check if we navigated here from another page
+		const isNavigation = sessionStorage.getItem('date-navigation') === 'true';
+		sessionStorage.removeItem('date-navigation');
+
+		if (isNavigation) {
+			// Don't load saved date - respect the date set by navigation
+			dateLoaded = true;
+			return;
+		}
+
+		try {
+			const pref = await getByKey<UserPreference>('userPreferences', PREF_KEY);
+			if (pref?.value) {
+				const savedDate = new Date(pref.value);
+				if (!isNaN(savedDate.getTime())) {
+					currentDate.set(savedDate);
+				}
+			}
+		} catch {
+			// Use current date on error
+		}
+		dateLoaded = true;
+	}
+
+	// Save date to IndexedDB when it changes
+	$effect(() => {
+		if (browser && dateLoaded) {
+			const pref: UserPreference = {
+				key: PREF_KEY,
+				value: $currentDate.toISOString(),
+				updatedAt: Date.now()
+			};
+			put('userPreferences', pref);
+		}
+	});
+
 	onMount(async () => {
 		await initializeCategories();
 		// Load categories into store
@@ -243,6 +289,7 @@
 		// Load all time entries
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
+		await loadSavedDate();
 		loading = false;
 	});
 </script>
@@ -258,7 +305,12 @@
 			<button class="nav-btn nav-btn-prev" onclick={goToPreviousDay} aria-label="Vorheriger Tag">
 				{previousDayLabel()}
 			</button>
-			<button class="date-title" onclick={openDayPicker}>{dateDisplay()}</button>
+			<button class="date-title" onclick={openDayPicker}>
+				{#if datePrefix()}
+					<span class="title-prefix">{datePrefix()}</span>
+				{/if}
+				<span class="title-date">{dateDisplay()}</span>
+			</button>
 			<button class="nav-btn nav-btn-next" onclick={goToNextDay} aria-label="Nächster Tag">
 				{nextDayLabel()}
 			</button>
@@ -374,17 +426,32 @@
 		margin: 0;
 		font-size: 1.25rem;
 		font-weight: 600;
-		text-align: center;
 		flex: 1;
-		background: none;
+		padding: 0.5rem 1rem;
 		border: none;
+		background: var(--surface);
+		text-align: center;
 		cursor: pointer;
-		padding: 0.5rem;
-		border-radius: var(--r-btn);
+		border-radius: 0.5rem;
 		color: var(--text);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.25rem;
+		min-height: 44px;
 	}
 
 	.date-title:hover {
 		background: var(--surface-hover);
+	}
+
+	.title-prefix {
+		font-size: 1rem;
+		font-weight: 500;
+	}
+
+	.title-date {
+		font-size: 1.25rem;
+		font-weight: 600;
 	}
 </style>
