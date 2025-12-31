@@ -111,6 +111,20 @@ npm run test:e2e     # Browser tests (9 tests, ~30s)
 - Data persistence across reload
 - Files: `e2e/basic-flow.test.ts`, `e2e/milestone1.test.ts`
 
+## Cloud Sync
+
+### Last-Write-Wins (LWW) Merge
+
+When syncing local and cloud data, conflicts are resolved automatically using entry-level LWW:
+
+- Each entity (TimeEntry, Category, DayType, etc.) has an `updatedAt` timestamp
+- On conflict, entries are compared by ID — the one with higher `updatedAt` wins
+- Result: Both local and cloud changes are preserved; no manual conflict dialog needed
+
+**Implementation:** `src/lib/backup/cloud.ts` → `mergeSnapshots()`
+
+---
+
 ## Developer Guide
 
 ### Versioning
