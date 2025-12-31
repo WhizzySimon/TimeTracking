@@ -70,6 +70,12 @@
 			return;
 		}
 
+		// STRICT: Require employer selection for all categories
+		if (selectedEmployerId === '') {
+			error = 'Bitte zuerst Arbeitgeber auswählen';
+			return;
+		}
+
 		// Check for duplicates (excluding current category in edit mode)
 		const currentId = isCreateMode ? null : category?.id;
 		const existingNames = $categories
@@ -86,24 +92,27 @@
 		try {
 			let savedCategory: Category;
 
+			const now = Date.now();
 			if (isCreateMode) {
-				// Create new category
+				// Create new category - employerId is required (validated above)
 				savedCategory = {
 					id: crypto.randomUUID(),
 					name: trimmedName,
 					type: categoryType,
 					countsAsWorkTime: countsAsWorkTime,
-					employerId: selectedEmployerId === '' ? null : selectedEmployerId,
-					createdAt: Date.now()
+					employerId: selectedEmployerId,
+					createdAt: now,
+					updatedAt: now
 				};
 				await put('categories', savedCategory);
 				categories.update((cats) => [...cats, savedCategory]);
 			} else {
-				// Update existing category
+				// Update existing category - employerId is required (validated above)
 				savedCategory = {
 					...category!,
 					name: trimmedName,
-					employerId: selectedEmployerId === '' ? null : selectedEmployerId
+					employerId: selectedEmployerId,
+					updatedAt: now
 				};
 				await put('categories', savedCategory);
 				categories.update((cats) =>

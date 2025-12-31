@@ -154,6 +154,12 @@
 			return;
 		}
 
+		// STRICT: Require employer selection for work time models
+		if (selectedEmployerId === '') {
+			error = 'Bitte zuerst Arbeitgeber auswählen';
+			return;
+		}
+
 		const parsedDate = parseDate(validFrom);
 		if (!parsedDate) {
 			error = 'Ungültiges Datum (Format: TT.MM.JJJJ)';
@@ -197,7 +203,7 @@
 				fridayIsWorkday,
 				saturdayIsWorkday,
 				sundayIsWorkday,
-				employerId: selectedEmployerId === '' ? null : selectedEmployerId,
+				employerId: selectedEmployerId,
 				createdAt: initialModel?.createdAt ?? Date.now(),
 				updatedAt: Date.now()
 			};

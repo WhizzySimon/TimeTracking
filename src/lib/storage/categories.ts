@@ -15,10 +15,38 @@ const SEEDED_KEY = 'categories_seeded';
 
 /** System categories: fixed, non-editable, non-deletable, countsAsWorkTime=false */
 export const SYSTEM_CATEGORIES: Category[] = [
-	{ id: 'system-pause', name: 'Pause', type: 'system', countsAsWorkTime: false, createdAt: 0 },
-	{ id: 'system-urlaub', name: 'Urlaub', type: 'system', countsAsWorkTime: false, createdAt: 0 },
-	{ id: 'system-krank', name: 'Krank', type: 'system', countsAsWorkTime: false, createdAt: 0 },
-	{ id: 'system-feiertag', name: 'Feiertag', type: 'system', countsAsWorkTime: false, createdAt: 0 }
+	{
+		id: 'system-pause',
+		name: 'Pause',
+		type: 'system',
+		countsAsWorkTime: false,
+		createdAt: 0,
+		updatedAt: 0
+	},
+	{
+		id: 'system-urlaub',
+		name: 'Urlaub',
+		type: 'system',
+		countsAsWorkTime: false,
+		createdAt: 0,
+		updatedAt: 0
+	},
+	{
+		id: 'system-krank',
+		name: 'Krank',
+		type: 'system',
+		countsAsWorkTime: false,
+		createdAt: 0,
+		updatedAt: 0
+	},
+	{
+		id: 'system-feiertag',
+		name: 'Feiertag',
+		type: 'system',
+		countsAsWorkTime: false,
+		createdAt: 0,
+		updatedAt: 0
+	}
 ];
 
 /**
@@ -107,12 +135,14 @@ export async function addUserCategory(
 		throw new Error(`Category "${name}" already exists for this employer`);
 	}
 
+	const now = Date.now();
 	const newCat: Category = {
 		id: `user-${crypto.randomUUID()}`,
 		name,
 		type: 'user',
 		countsAsWorkTime,
-		createdAt: Date.now(),
+		createdAt: now,
+		updatedAt: now,
 		...(employerId && { employerId })
 	};
 	await saveUserCategory(newCat);

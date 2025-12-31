@@ -117,6 +117,79 @@
 
 	// Calculate totals for the range
 	let totalIst = $derived(calculateIst(rangeEntries, $filteredCategories));
+	let totalSoll = $derived(calculateTotalSoll());
+	let totalSaldo = $derived(calculateSaldo(totalIst, totalSoll));
+
+	// DEBUG: Diagnostic logging for Analysis investigation
+	$effect(() => {
+		if (browser && !loading) {
+			const categoryMap = new Map($filteredCategories.map((cat) => [cat.id, cat]));
+			let matchedCount = 0,
+				unmatchedCount = 0,
+				notWorkTimeCount = 0;
+			const unmatchedCategoryIds = new Set<string>();
+
+			for (const entry of rangeEntries) {
+				if (!entry.endTime) continue;
+				const category = categoryMap.get(entry.categoryId);
+				if (!category) {
+					unmatchedCount++;
+					unmatchedCategoryIds.add(entry.categoryId);
+				} else if (!category.countsAsWorkTime) {
+					notWorkTimeCount++;
+				} else {
+					matchedCount++;
+				}
+			}
+
+			console.log(
+				`[Analysis Debug] categories: matched=${matchedCount}, notWorkTime=${notWorkTimeCount}, unmatched=${unmatchedCount}` +
+					(unmatchedCategoryIds.size > 0
+						? `, unmatchedIds=[${[...unmatchedCategoryIds].join(', ')}]`
+						: '')
+			);
+
+			// DayTypes coverage
+			let totalDaysInRange = 0,
+				nonWorkDayCount = 0;
+			const dayTypeSamples: string[] = [];
+			let current = parseDate(rangeStartStr);
+			const end = parseDate(rangeEndStr);
+			if (current && end) {
+				while (current <= end) {
+					totalDaysInRange++;
+					const dateKey = formatDate(current, 'ISO');
+					const dayType = dayTypesCache.get(dateKey);
+					if (dayType && dayType !== 'arbeitstag') {
+						nonWorkDayCount++;
+						if (dayTypeSamples.length < 5) dayTypeSamples.push(`${dateKey}:${dayType}`);
+					}
+					current = addDays(current, 1);
+				}
+			}
+			console.log(
+				`[Analysis Debug] dayTypes: totalDays=${totalDaysInRange}, nonWork=${nonWorkDayCount}, sample=[${dayTypeSamples.join(', ')}]`
+			);
+
+			// EmployerId coverage
+			const entriesMissingEmployerId = rangeEntries.filter(
+				(e) => e.employerId === null || e.employerId === undefined
+			).length;
+			const categoriesMissingEmployerId = $filteredCategories.filter(
+				(c) => c.employerId === null || c.employerId === undefined
+			).length;
+			const modelsMissingEmployerId = $filteredModels.filter(
+				(m) => m.employerId === null || m.employerId === undefined
+			).length;
+			console.log(
+				`[Analysis Debug] missing employerId: entries=${entriesMissingEmployerId}, categories=${categoriesMissingEmployerId}, models=${modelsMissingEmployerId}`
+			);
+
+			console.log(
+				`[Analysis Debug] totals: Ist=${totalIst.toFixed(2)}h, Soll=${totalSoll.toFixed(2)}h, Saldo=${totalSaldo.toFixed(2)}h`
+			);
+		}
+	});
 
 	// Calculate total Soll by iterating through dates
 	function calculateTotalSoll(): number {
@@ -134,9 +207,6 @@
 		}
 		return total;
 	}
-
-	let totalSoll = $derived(calculateTotalSoll());
-	let totalSaldo = $derived(calculateSaldo(totalIst, totalSoll));
 
 	// Get active work time model for a specific date, respecting employer filter
 	function getActiveModelForDate(date: Date): WorkTimeModel | null {

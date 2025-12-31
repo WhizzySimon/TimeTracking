@@ -101,7 +101,6 @@
 		pushState(resolve('/day'), { editEntryId: entry.id });
 	}
 
-	
 	// Get category and employer for running task display
 	let runningTaskCategory = $derived(
 		$runningEntry ? $categories.find((c) => c.id === $runningEntry.categoryId) : undefined
@@ -174,6 +173,11 @@
 				pendingCloudSnapshot = result.cloudSnapshot ?? null;
 				pendingCloudUpdatedAt = result.cloudUpdatedAt ?? null;
 				showConflictDialog = true;
+			} else if (result.action === 'merge' && result.success) {
+				// Merge completed - reload to show merged data
+				console.log('[Layout] Merge completed - reloading');
+				window.location.reload();
+				return;
 			} else if (!result.success) {
 				syncError = result.error ?? 'Synchronisierung fehlgeschlagen';
 			}
@@ -209,9 +213,9 @@
 				// Don't show dialog for auto-sync - user will see it on next manual sync
 				console.log('[Layout] Auto-sync detected conflict - deferred to manual sync');
 				syncNeeded = true;
-			} else if (result.action === 'restore' && result.success) {
-				// Reload app to reflect restored cloud data
-				console.log('[Layout] Auto-sync restored from cloud - reloading');
+			} else if ((result.action === 'restore' || result.action === 'merge') && result.success) {
+				// Reload app to reflect restored/merged cloud data
+				console.log('[Layout] Auto-sync restored/merged from cloud - reloading');
 				window.location.reload();
 				return;
 			} else if (result.success || result.action === 'noop') {

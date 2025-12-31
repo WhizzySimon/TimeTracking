@@ -77,12 +77,14 @@
 			let currentCategories = $categories;
 
 			for (const activityName of unknownActivities) {
+				const now = Date.now();
 				const newCategory: Category = {
 					id: crypto.randomUUID(),
 					name: activityName,
 					type: 'user',
 					countsAsWorkTime: true,
-					createdAt: Date.now()
+					createdAt: now,
+					updatedAt: now
 				};
 				await saveUserCategory(newCategory);
 				currentCategories = [...currentCategories, newCategory];

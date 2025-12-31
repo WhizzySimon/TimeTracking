@@ -28,12 +28,14 @@ function createCandidate(overrides: Partial<TimeEntryCandidate> = {}): TimeEntry
 }
 
 function createCategory(name: string): Category {
+	const now = Date.now();
 	return {
 		id: `cat-${name}`,
 		name,
 		type: 'user',
 		countsAsWorkTime: true,
-		createdAt: Date.now()
+		createdAt: now,
+		updatedAt: now
 	};
 }
 

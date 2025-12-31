@@ -65,12 +65,14 @@
 		saving = true;
 
 		try {
+			const now = Date.now();
 			const newCategory: Category = {
 				id: crypto.randomUUID(),
 				name: trimmedName,
 				type: 'user',
 				countsAsWorkTime: fixedCountsAsWorkTime ?? countsAsWorkTimeState,
-				createdAt: Date.now()
+				createdAt: now,
+				updatedAt: now
 			};
 
 			await put('categories', newCategory);

@@ -17,6 +17,7 @@ export interface Category {
 	type: CategoryType;
 	countsAsWorkTime: boolean;
 	createdAt: number;
+	updatedAt: number;
 	employerId?: string | null; // null = visible in all employers (AG-FR-030)
 }
 

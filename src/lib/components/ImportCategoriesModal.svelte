@@ -52,6 +52,12 @@
 			return;
 		}
 
+		// STRICT: Require employer selection for category import
+		if (!selectedEmployerId) {
+			error = 'Bitte zuerst Arbeitgeber auswählen';
+			return;
+		}
+
 		importing = true;
 		error = '';
 		result = null;
@@ -63,13 +69,13 @@
 				textInput,
 				existingCategories,
 				systemNames,
-				selectedEmployerId || undefined
+				selectedEmployerId
 			);
 
 			let importedCount = 0;
 			for (const cat of toImport) {
 				try {
-					await addUserCategory(cat.name, cat.countsAsWorkTime, selectedEmployerId || undefined);
+					await addUserCategory(cat.name, cat.countsAsWorkTime, selectedEmployerId);
 					importedCount++;
 				} catch (e) {
 					console.warn(`Failed to import category "${cat.name}":`, e);

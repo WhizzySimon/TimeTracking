@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                               | Ref     |
 | -------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-31                                         | feat     | Sync: LWW entry-level merge replacing conflict dialog — auto-merge local/cloud data by updatedAt      | —       |
 | 2025-12-31                                         | fix      | UI fixes batch: workflow wait, dropdown triangle, dialog buttons, password reset design + redirect    | —       |
 | 2025-12-31                                         | fix      | Fix analysis: date validation, Soll calculation, date persistence, cross-page navigation              | —       |
 | 2025-12-31                                         | feat     | A2.2: Add page UX improvements — first-time hint, Eintrag terminology, employer badges, filter layout | —       |

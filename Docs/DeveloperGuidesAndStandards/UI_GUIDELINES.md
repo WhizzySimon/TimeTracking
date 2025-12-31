@@ -17,16 +17,16 @@ Use **action-specific verbs** that describe what will happen.
 
 ### Button Label Patterns
 
-| Dialog Type | Confirm Label | Cancel Label | Style |
-|-------------|---------------|--------------|-------|
-| **Alert (info only)** | `OK` | — | default |
-| **Save/Submit data** | `Speichern` | `Abbrechen` | default |
-| **Continue/Proceed** | `Fortfahren` | `Abbrechen` | default |
-| **Apply changes** | `Übernehmen` | `Abbrechen` | default |
-| **Delete** | `Löschen` | `Abbrechen` | `danger` |
-| **Logout** | `Abmelden` | `Abbrechen` | `danger` |
-| **Delete Account** | `Konto löschen` | `Abbrechen` | `danger` |
-| **Discard changes** | `Verwerfen` | `Abbrechen` | `danger` |
+| Dialog Type           | Confirm Label   | Cancel Label | Style    |
+| --------------------- | --------------- | ------------ | -------- |
+| **Alert (info only)** | `OK`            | —            | default  |
+| **Save/Submit data**  | `Speichern`     | `Abbrechen`  | default  |
+| **Continue/Proceed**  | `Fortfahren`    | `Abbrechen`  | default  |
+| **Apply changes**     | `Übernehmen`    | `Abbrechen`  | default  |
+| **Delete**            | `Löschen`       | `Abbrechen`  | `danger` |
+| **Logout**            | `Abmelden`      | `Abbrechen`  | `danger` |
+| **Delete Account**    | `Konto löschen` | `Abbrechen`  | `danger` |
+| **Discard changes**   | `Verwerfen`     | `Abbrechen`  | `danger` |
 
 ### When to Use Each
 
@@ -38,7 +38,7 @@ Use **action-specific verbs** that describe what will happen.
 
 ### Examples
 
-```svelte
+````svelte
 <!-- Alert: Info only - OK is appropriate -->
 <ConfirmDialog
   title="Hinweis"
@@ -96,7 +96,7 @@ Use **action-specific verbs** that describe what will happen.
 	background-position: 0.75rem center;
 	background-size: 12px;
 }
-```
+````
 
 ---
 
