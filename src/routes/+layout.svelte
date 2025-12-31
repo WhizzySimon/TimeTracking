@@ -17,10 +17,14 @@
 		runningEntry,
 		currentDate,
 		employers,
-		selectedEmployerId
+		selectedEmployerId,
+		timeEntries,
+		categories
 	} from '$lib/stores';
 	import { saveTimeEntry } from '$lib/storage/operations';
 	import { formatTime, isToday } from '$lib/utils/date';
+	import { getAll } from '$lib/storage/db';
+	import type { TimeEntry } from '$lib/types';
 	import WarningBanner from '$lib/components/WarningBanner.svelte';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
 	import {
@@ -101,6 +105,16 @@
 		$runningEntry ? isToday(new Date($runningEntry.date + 'T00:00:00')) : false
 	);
 
+	// Get category and employer for running task display
+	let runningTaskCategory = $derived(
+		$runningEntry ? $categories.find((c) => c.id === $runningEntry.categoryId) : undefined
+	);
+
+	let runningTaskEmployer = $derived(() => {
+		if (!$runningEntry?.employerId) return undefined;
+		return $employers.find((e) => e.id === $runningEntry.employerId);
+	});
+
 	/**
 	 * End the running task immediately from the banner.
 	 * Only available for tasks started today.
@@ -118,6 +132,10 @@
 			updatedAt: Date.now()
 		};
 		await saveTimeEntry(endedEntry);
+
+		// Reload entries to update the store and trigger banner reactivity
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
 	}
 
 	async function handleSyncClick() {
@@ -483,6 +501,11 @@
 					onclick={handleRunningTaskClick}
 					actionLabel={runningTaskIsToday ? 'Beenden' : undefined}
 					onaction={runningTaskIsToday ? handleEndRunningTask : undefined}
+					taskDetails={{
+						startTime: $runningEntry.startTime,
+						category: runningTaskCategory,
+						employer: runningTaskEmployer()
+					}}
 				/>
 			</div>
 		{/if}
