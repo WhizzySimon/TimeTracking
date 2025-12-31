@@ -448,23 +448,23 @@ Phase 4:
 ## Phase A2.2: Eintrag-Terminologie + Add-Page UX + Badges
 
 **Target:** 10 tasks  
-**Status:** Not started (0/10)  
+**Status:** COMPLETE (10/10)  
 **Spec:** `Docs/Features/Specs/arbeitgeber-filter-global.md` (extended 2025-12-31)  
 **Plan:** `Docs/Features/Plans/arbeitgeber-filter-global.md`  
 **Tasks:** `Docs/Features/Tasks/arbeitgeber-filter-global.md`
 
 ### Tasks
 
-- [ ] **Task A2.2.1** — Add neverAddedAnEntry flag to user store
-- [ ] **Task A2.2.2** — Update entry creation to set neverAddedAnEntry=false
-- [ ] **Task A2.2.3** — Add Page: Remove titles and bottom button
-- [ ] **Task A2.2.4** — CategoryList: Remove "Alle Kategorien" heading, rename to "Eintrag"
-- [ ] **Task A2.2.5** — CategoryList: Filter input max 50% width + button layout
-- [ ] **Task A2.2.6** — Add Page: First-time hint for new users
-- [ ] **Task A2.2.7** — TaskList: Add employer badge / "Keine Arbeitszeit" badge
-- [ ] **Task A2.2.8** — Verify employer filtering on Tag/Monat/Auswertung pages
-- [ ] **Task A2.2.9** — Playwright testing for all acceptance checks
-- [ ] **Task A2.2.10** — Update documentation and commit
+- [x] **Task A2.2.1** — Add neverAddedAnEntry flag to user store
+- [x] **Task A2.2.2** — Update entry creation to set neverAddedAnEntry=false
+- [x] **Task A2.2.3** — Add Page: Remove titles and bottom button
+- [x] **Task A2.2.4** — CategoryList: Remove "Alle Kategorien" heading, rename to "Eintrag"
+- [x] **Task A2.2.5** — CategoryList: Filter input max 50% width + button layout
+- [x] **Task A2.2.6** — Add Page: First-time hint for new users
+- [x] **Task A2.2.7** — TaskList: Add employer badge / "Keine Arbeitszeit" badge
+- [x] **Task A2.2.8** — Verify employer filtering on Tag/Monat/Auswertung pages
+- [x] **Task A2.2.9** — Playwright testing for all acceptance checks
+- [x] **Task A2.2.10** — Update documentation and commit
 
 ---
 

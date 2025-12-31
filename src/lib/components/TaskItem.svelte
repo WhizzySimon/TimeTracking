@@ -14,18 +14,19 @@
   - Beenden button (running) or Resume button (completed)
 -->
 <script lang="ts">
-	import type { TimeEntry, Category } from '$lib/types';
+	import type { TimeEntry, Category, Employer } from '$lib/types';
 
 	interface Props {
 		entry: TimeEntry;
 		category: Category | undefined;
+		employer?: Employer | undefined;
 		onclick?: () => void;
 		ondelete?: () => void;
 		onend?: () => void;
 		onresume?: () => void;
 	}
 
-	let { entry, category, onclick, ondelete, onend, onresume }: Props = $props();
+	let { entry, category, employer, onclick, ondelete, onend, onresume }: Props = $props();
 
 	function handleDelete(event: MouseEvent) {
 		event.stopPropagation();
@@ -62,6 +63,11 @@
 		<div class="task-main">
 			<span class="task-time">{timeDisplay}</span>
 			<span class="task-category">{category?.name ?? 'Unbekannt'}</span>
+			{#if category?.countsAsWorkTime}
+				<span class="badge employer-badge">{employer?.name ?? 'Unbekannt'}</span>
+			{:else}
+				<span class="badge no-work-badge">Keine Arbeitszeit</span>
+			{/if}
 		</div>
 		<div class="task-actions">
 			{#if isRunning}
@@ -192,5 +198,37 @@
 		font-size: 0.85rem;
 		color: var(--muted);
 		font-style: italic;
+	}
+
+	.badge {
+		display: inline-block;
+		padding: 0.125rem 0.5rem;
+		border-radius: 0.25rem;
+		font-size: 0.75rem;
+		font-weight: 500;
+		white-space: nowrap;
+	}
+
+	.employer-badge {
+		background: var(--accent-light, #eff6ff);
+		color: var(--accent-dark, #1e40af);
+		border: 1px solid var(--accent, #3b82f6);
+	}
+
+	.no-work-badge {
+		background: var(--muted-light, #f3f4f6);
+		color: var(--muted, #6b7280);
+		border: 1px solid var(--border, #d1d5db);
+	}
+
+	:global(.dark) .employer-badge {
+		background: rgba(59, 130, 246, 0.1);
+		color: var(--accent, #3b82f6);
+	}
+
+	:global(.dark) .no-work-badge {
+		background: rgba(107, 114, 128, 0.1);
+		color: var(--muted, #9ca3af);
+		border-color: var(--border-dark, #4b5563);
 	}
 </style>

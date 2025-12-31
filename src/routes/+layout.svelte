@@ -27,7 +27,8 @@
 		setUserProfile,
 		clearUserProfile,
 		isPro,
-		loadPersistedPlanOverride
+		loadPersistedPlanOverride,
+		loadNeverAddedAnEntry
 	} from '$lib/stores/user';
 	import Paywall from '$lib/components/Paywall.svelte';
 	import { loadUserProfile, clearCachedPlan } from '$lib/api/profile';
@@ -257,6 +258,9 @@
 				setUserProfile(profile);
 				loadPersistedPlanOverride();
 			}
+
+			// Load neverAddedAnEntry flag (with migration logic)
+			await loadNeverAddedAnEntry();
 
 			// Check if sync is needed on startup
 			syncNeeded = await needsSync();

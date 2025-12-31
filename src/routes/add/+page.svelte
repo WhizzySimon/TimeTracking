@@ -29,6 +29,7 @@
 	import type { TimeEntry } from '$lib/types';
 	import CategoryList from '$lib/components/CategoryList.svelte';
 	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
+	import { setNeverAddedAnEntry, neverAddedAnEntry } from '$lib/stores/user';
 
 	let loading = $state(true);
 	let showCreateCategoryDialog = $state(false);
@@ -73,6 +74,9 @@
 		};
 		await saveTimeEntry(newEntry);
 
+		// Mark that user has added their first entry
+		setNeverAddedAnEntry(false);
+
 		// Reload all entries from IndexedDB to update the store
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
@@ -106,8 +110,9 @@
 </script>
 
 <div class="add-page">
-	<h1>Aufgabe starten</h1>
-
+	{#if $neverAddedAnEntry}
+		<div class="first-time-hint">Klicke auf einen Eintrag, um die Zeit zu starten</div>
+	{/if}
 	{#if loading}
 		<p class="loading">Laden...</p>
 	{:else}
@@ -119,10 +124,6 @@
 			selectedEmployerId={$selectedEmployerId}
 			oncreatecategory={() => (showCreateCategoryDialog = true)}
 		/>
-
-		<button class="create-category-btn" onclick={() => (showCreateCategoryDialog = true)}>
-			+ Kategorie erstellen
-		</button>
 	{/if}
 </div>
 
@@ -144,11 +145,21 @@
 		min-height: calc(100vh - 120px);
 	}
 
-	h1 {
-		font-size: 1.25rem;
-		font-weight: 600;
+	.first-time-hint {
+		background: var(--accent-light, #eff6ff);
+		color: var(--accent-dark, #1e40af);
+		padding: 0.75rem 1rem;
+		border-radius: var(--r-card, 0.5rem);
+		font-size: 0.875rem;
+		text-align: center;
 		margin-bottom: 1rem;
-		color: var(--text-primary, #1f2937);
+		border: 1px solid var(--accent, #3b82f6);
+	}
+
+	:global(.dark) .first-time-hint {
+		background: rgba(59, 130, 246, 0.1);
+		color: var(--accent, #3b82f6);
+		border-color: var(--accent, #3b82f6);
 	}
 
 	.loading {
@@ -157,42 +168,7 @@
 		padding: 2rem;
 	}
 
-	:global(.dark) h1 {
-		color: var(--text-primary-dark, #f3f4f6);
-	}
-
 	:global(.dark) .loading {
 		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	.create-category-btn {
-		display: block;
-		width: 100%;
-		margin-top: 1.5rem;
-		padding: 0.75rem 1rem;
-		border: 2px dashed var(--border, #e5e7eb);
-		border-radius: var(--r-btn, 0.5rem);
-		background: transparent;
-		color: var(--text-secondary, #6b7280);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all 0.15s ease;
-	}
-
-	.create-category-btn:hover {
-		border-color: var(--accent, #3b82f6);
-		color: var(--accent, #3b82f6);
-		background: var(--accent-light, #eff6ff);
-	}
-
-	:global(.dark) .create-category-btn {
-		border-color: var(--border-dark, #374151);
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	:global(.dark) .create-category-btn:hover {
-		border-color: var(--accent, #3b82f6);
-		color: var(--accent, #3b82f6);
-		background: rgba(59, 130, 246, 0.1);
 	}
 </style>

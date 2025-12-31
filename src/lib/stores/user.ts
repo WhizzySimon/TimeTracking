@@ -6,9 +6,13 @@
 
 import { writable, derived } from 'svelte/store';
 import type { UserProfile, UserPlan } from '$lib/types';
+import { getAll } from '$lib/storage/db';
 
 /** Current user profile (null if not loaded) */
 export const userProfile = writable<UserProfile | null>(null);
+
+/** Flag indicating if user has never added an entry (for first-time hints) */
+export const neverAddedAnEntry = writable<boolean>(true);
 
 /** Current user plan - derived from profile or defaults to 'free' */
 export const userPlan = derived(userProfile, ($profile) => {
@@ -69,5 +73,46 @@ export function loadPersistedPlanOverride(): void {
 				return profile;
 			});
 		}
+	}
+}
+
+/**
+ * Load neverAddedAnEntry flag from localStorage.
+ * Includes migration: if user has existing entries, set to false.
+ * Call this on app initialization.
+ */
+export async function loadNeverAddedAnEntry(): Promise<void> {
+	if (typeof localStorage === 'undefined') {
+		neverAddedAnEntry.set(true);
+		return;
+	}
+
+	const savedValue = localStorage.getItem('timetracker_never_added_entry');
+
+	if (savedValue !== null) {
+		neverAddedAnEntry.set(savedValue === 'true');
+		return;
+	}
+
+	try {
+		const entries = await getAll('timeEntries');
+		const hasEntries = entries.length > 0;
+		const value = !hasEntries;
+		neverAddedAnEntry.set(value);
+		localStorage.setItem('timetracker_never_added_entry', String(value));
+	} catch (err) {
+		console.error('[User] Failed to load neverAddedAnEntry:', err);
+		neverAddedAnEntry.set(true);
+	}
+}
+
+/**
+ * Set neverAddedAnEntry flag and persist to localStorage.
+ * Call this when user creates their first entry.
+ */
+export function setNeverAddedAnEntry(value: boolean): void {
+	neverAddedAnEntry.set(value);
+	if (typeof localStorage !== 'undefined') {
+		localStorage.setItem('timetracker_never_added_entry', String(value));
 	}
 }

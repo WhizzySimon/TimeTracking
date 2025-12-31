@@ -6,63 +6,64 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 ---
 
-| Date                                               | Type     | Summary                                                                                              | Ref     |
-| -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| 2025-12-31                                         | docs     | A2.2: Spec/Plan/Tasks for Eintrag-Terminologie, Add-Page UX, Badges (extends arbeitgeber-filter)     | —       |
-| 2024-12-30                                         | fix      | A2.1: Fix day page to use $filteredEntries for entry lookup (respects employer filter)               | —       |
-| 2024-12-30                                         | docs     | A2.1: Phase A2.1 docs — Spec/Plan/Tasks for Arbeitgeber Filter Global feature                        | —       |
-| 2025-12-30                                         | feat     | A4.6-A4.12: Week/Month nav labels, BackButton, landing logic, E2E tests                              | —       |
-| 2025-12-30                                         | feat     | A4.5: Day navigation arrows show adjacent day numbers (← 29, 31 →)                                   | —       |
-| 2025-12-30                                         | feat     | A4.3+A4.4: CategoryBadge component with gray "Abwesenheit" label for non-work categories in Settings | —       |
-| 2025-12-30                                         | feat     | A4.2: Rename "Abwesenheitskategorien" → "Abwesenheit" in Settings UI                                 | —       |
-| 2025-12-30                                         | feat     | Add "Kategorie erstellen" button below Vorschläge section on Add page                                | —       |
-| 2025-12-29                                         | feat     | A4.1: Rename "Arbeitskategorien" → "Tätigkeiten" in Settings UI                                      | —       |
-| 2025-12-29                                         | test     | A3.7: E2E tests for kleine-aenderungen — category creation, password toggle                          | —       |
-| 2025-12-29                                         | feat     | A3.1,3,5,6: CategoryDialog create mode, Add tab button, PasswordInput component, Login integration   | —       |
-| 2025-12-29                                         | test     | A2.18: E2E tests for multi-AG — employer CRUD, selector filtering, Stundenzettel export dialog       | —       |
-| 2025-12-29                                         | feat     | A2.16: PDF export for Stundenzettel — exportStundenzettelPdf() with jsPDF/autoTable                  | —       |
-| 2025-12-29                                         | feat     | A2.15: Excel export (.xlsx) for Stundenzettel — exportStundenzettelExcel() with formatted columns    | —       |
-| 2025-12-29                                         | feat     | A2.14: StundenzettelExport component — employer selector, date range, column checkboxes, preview     | —       |
-| 2025-12-29                                         | feat     | A2.13: WorkTimeModelDialog employer dropdown for assigning models to employers                       | —       |
-| 2025-12-29                                         | feat     | A2.12: CategoryDialog for editing categories with employer assignment + clickable category items     | —       |
-| 2025-12-29                                         | feat     | A2.11: Settings Arbeitgeber section + EmployerDialog component (create/edit/delete employers)        | —       |
-| 2025-12-29                                         | docs     | pre-commit.md: Add "Final Verification Gate" section requiring visible summary block before commit   | —       |
-| 2025-12-29                                         | feat     | A2.10: Add tab categories grouped by employer + new entries inherit employerId                       | —       |
-| 2025-12-29                                         | feat     | A2.9: Analysis tab uses employer-filtered stores for entries, categories, work time models           | —       |
-| 2025-12-29                                         | docs     | pre-commit.md: Require visible checklist output before committing (show your work)                   | —       |
-| 2025-12-29                                         | feat     | A2.8: Day/Week/Month tabs use employer-filtered stores for entries, categories, work time models     | —       |
-| 2025-12-29                                         | feat     | A2.7: Filter logic for all stores — filteredEntries, filteredCategories, filteredModels              | —       |
-| 2025-12-29                                         | feat     | A2.6: Integrate EmployerSelector into Header + pre-commit sequential execution rule                  | —       |
-| 2025-12-29                                         | feat     | A2.5: EmployerSelector component + employer stores (Phase A2 Multi-Arbeitgeber)                      | —       |
-| 2025-12-29                                         | refactor | Unify self-learning + self-improvement into single pre-commit system; fix CascadeAgentTools paths    | —       |
-| 2025-12-29                                         | docs     | Add "No Hardcoded Values" rule to code-quality.md (URLs, paths, secrets, magic numbers)              | —       |
-| 2025-12-29                                         | docs     | Simplify command-execution-rules.md: integrated terminal primary, watcher fallback                   | —       |
-| 2025-12-29                                         | feat     | Naming convention validation: ESLint id-length + validate-naming.js + /audit checklist               | —       |
-| 2025-12-28                                         | feat     | A2.4: Employer store + CRUD operations (employers.ts) + backup snapshot integration                  | —       |
-| 2025-12-28                                         | feat     | A2.2: Add employerId field to TimeEntry, Category, WorkTimeModel interfaces                          | —       |
-| 2025-12-28                                         | refactor | Scripts cleanup: e2e→AutomatedUITests, ai→CascadeAgentTools, validate-tags→build, eslint .cjs fix    | —       |
-| 2025-12-28                                         | docs     | Add template references to planning.md (Plans + Tasks templates)                                     | —       |
-| 2025-12-28                                         | feat     | A2.1: IndexedDB employers store + Employer type (Phase A2 Multi-Arbeitgeber start)                   | —       |
-| 2025-12-28                                         | docs     | Fix doc paths after restructure (AppDevFramework/ToolSetup                                           |
+| Date                                               | Type     | Summary                                                                                               | Ref     |
+| -------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-31                                         | feat     | A2.2: Add page UX improvements — first-time hint, Eintrag terminology, employer badges, filter layout | —       |
+| 2025-12-31                                         | docs     | A2.2: Spec/Plan/Tasks for Eintrag-Terminologie, Add-Page UX, Badges (extends arbeitgeber-filter)      | —       |
+| 2024-12-30                                         | fix      | A2.1: Fix day page to use $filteredEntries for entry lookup (respects employer filter)                | —       |
+| 2024-12-30                                         | docs     | A2.1: Phase A2.1 docs — Spec/Plan/Tasks for Arbeitgeber Filter Global feature                         | —       |
+| 2025-12-30                                         | feat     | A4.6-A4.12: Week/Month nav labels, BackButton, landing logic, E2E tests                               | —       |
+| 2025-12-30                                         | feat     | A4.5: Day navigation arrows show adjacent day numbers (← 29, 31 →)                                    | —       |
+| 2025-12-30                                         | feat     | A4.3+A4.4: CategoryBadge component with gray "Abwesenheit" label for non-work categories in Settings  | —       |
+| 2025-12-30                                         | feat     | A4.2: Rename "Abwesenheitskategorien" → "Abwesenheit" in Settings UI                                  | —       |
+| 2025-12-30                                         | feat     | Add "Kategorie erstellen" button below Vorschläge section on Add page                                 | —       |
+| 2025-12-29                                         | feat     | A4.1: Rename "Arbeitskategorien" → "Tätigkeiten" in Settings UI                                       | —       |
+| 2025-12-29                                         | test     | A3.7: E2E tests for kleine-aenderungen — category creation, password toggle                           | —       |
+| 2025-12-29                                         | feat     | A3.1,3,5,6: CategoryDialog create mode, Add tab button, PasswordInput component, Login integration    | —       |
+| 2025-12-29                                         | test     | A2.18: E2E tests for multi-AG — employer CRUD, selector filtering, Stundenzettel export dialog        | —       |
+| 2025-12-29                                         | feat     | A2.16: PDF export for Stundenzettel — exportStundenzettelPdf() with jsPDF/autoTable                   | —       |
+| 2025-12-29                                         | feat     | A2.15: Excel export (.xlsx) for Stundenzettel — exportStundenzettelExcel() with formatted columns     | —       |
+| 2025-12-29                                         | feat     | A2.14: StundenzettelExport component — employer selector, date range, column checkboxes, preview      | —       |
+| 2025-12-29                                         | feat     | A2.13: WorkTimeModelDialog employer dropdown for assigning models to employers                        | —       |
+| 2025-12-29                                         | feat     | A2.12: CategoryDialog for editing categories with employer assignment + clickable category items      | —       |
+| 2025-12-29                                         | feat     | A2.11: Settings Arbeitgeber section + EmployerDialog component (create/edit/delete employers)         | —       |
+| 2025-12-29                                         | docs     | pre-commit.md: Add "Final Verification Gate" section requiring visible summary block before commit    | —       |
+| 2025-12-29                                         | feat     | A2.10: Add tab categories grouped by employer + new entries inherit employerId                        | —       |
+| 2025-12-29                                         | feat     | A2.9: Analysis tab uses employer-filtered stores for entries, categories, work time models            | —       |
+| 2025-12-29                                         | docs     | pre-commit.md: Require visible checklist output before committing (show your work)                    | —       |
+| 2025-12-29                                         | feat     | A2.8: Day/Week/Month tabs use employer-filtered stores for entries, categories, work time models      | —       |
+| 2025-12-29                                         | feat     | A2.7: Filter logic for all stores — filteredEntries, filteredCategories, filteredModels               | —       |
+| 2025-12-29                                         | feat     | A2.6: Integrate EmployerSelector into Header + pre-commit sequential execution rule                   | —       |
+| 2025-12-29                                         | feat     | A2.5: EmployerSelector component + employer stores (Phase A2 Multi-Arbeitgeber)                       | —       |
+| 2025-12-29                                         | refactor | Unify self-learning + self-improvement into single pre-commit system; fix CascadeAgentTools paths     | —       |
+| 2025-12-29                                         | docs     | Add "No Hardcoded Values" rule to code-quality.md (URLs, paths, secrets, magic numbers)               | —       |
+| 2025-12-29                                         | docs     | Simplify command-execution-rules.md: integrated terminal primary, watcher fallback                    | —       |
+| 2025-12-29                                         | feat     | Naming convention validation: ESLint id-length + validate-naming.js + /audit checklist                | —       |
+| 2025-12-28                                         | feat     | A2.4: Employer store + CRUD operations (employers.ts) + backup snapshot integration                   | —       |
+| 2025-12-28                                         | feat     | A2.2: Add employerId field to TimeEntry, Category, WorkTimeModel interfaces                           | —       |
+| 2025-12-28                                         | refactor | Scripts cleanup: e2e→AutomatedUITests, ai→CascadeAgentTools, validate-tags→build, eslint .cjs fix     | —       |
+| 2025-12-28                                         | docs     | Add template references to planning.md (Plans + Tasks templates)                                      | —       |
+| 2025-12-28                                         | feat     | A2.1: IndexedDB employers store + Employer type (Phase A2 Multi-Arbeitgeber start)                    | —       |
+| 2025-12-28                                         | docs     | Fix doc paths after restructure (AppDevFramework/ToolSetup                                            |
 | Framework), run_command primary + watcher fallback | —        |
-| 2025-12-28                                         | docs     | Auditor system: /audit workflow + Evidence Bundle template + Audit Report template + JIT trigger     | —       |
-| 2025-12-28                                         | feat     | D5 COMPLETE: Autonomy Stack v2 — telemetry, anomaly detection, evidence bundles, learning extraction | —       |
-| 2025-12-28                                         | docs     | D5 Phase 0: Framework Evolution Guardrails — VERSION.md, CHANGELOG.md, GTRS.md (10 golden tasks)     | —       |
-| 2025-12-28                                         | feat     | Rule read logging: Windsurf hooks + post_read_code evidence-based logging + working_directory fix    | —       |
-| 2025-12-27                                         | feat     | D5: Autonomy Stack v2 — task boxes, telemetry JSONL, anomaly detection, evidence bundles             | —       |
-| 2025-12-27                                         | docs     | D5.3: Document dev framework in README with diagram, add doc-check to pre-commit                     | —       |
-| 2025-12-27                                         | refactor | D5.2: Migrate global_rules to JIT system, delete 6 redundant memories, add canaries                  | —       |
-| 2025-12-27                                         | refactor | D5.1: Rename jit-rule-map → \_entrypoint-jit-rule-map, delete START_HERE, update README/INDEX        | —       |
-| 2025-12-27                                         | refactor | D5: JIT rule system — single always-on.md pointer to jit-rule-map.md, delete 4 old                   | —       |
-| 2025-12-27                                         | feat     | Running task banner: add Beenden button for today's tasks, click navigates to edit                   | 8d812fd |
-| 2025-12-27                                         | refactor | Guidance system v2: pointer files, canary marker, AGENTS.md refs fixed                               | —       |
-| 2025-12-27                                         | docs     | A2-A6: Specs + Plans for Multi-AG, Kleine Änderungen, UX, UI, Bugs                                   | —       |
-| 2025-12-27                                         | test     | A1.13: E2E tests for subscription plans (Free/Pro gating)                                            | —       |
-| 2025-12-27                                         | feat     | A1.5: PDF export module with jspdf + jspdf-autotable                                                 | —       |
-| 2025-12-27                                         | docs     | Self-learning: route Hard Rules to specific trigger files, not general locations                     | —       |
-| 2025-12-27                                         | fix      | Watcher exit code — use System.Diagnostics.Process for reliable capture                              | 5e7c2d8 |
-| 2025-12-27                                         | fix      | Watcher exit code bug — add WaitForExit() before reading ExitCode                                    | —       |
-| 2025-12-27                                         | chore    | Delete AGENTS.md — replaced by \_entrypoint-jit-rule-map.md + DevFramework/ToolSetup                 |
+| 2025-12-28                                         | docs     | Auditor system: /audit workflow + Evidence Bundle template + Audit Report template + JIT trigger      | —       |
+| 2025-12-28                                         | feat     | D5 COMPLETE: Autonomy Stack v2 — telemetry, anomaly detection, evidence bundles, learning extraction  | —       |
+| 2025-12-28                                         | docs     | D5 Phase 0: Framework Evolution Guardrails — VERSION.md, CHANGELOG.md, GTRS.md (10 golden tasks)      | —       |
+| 2025-12-28                                         | feat     | Rule read logging: Windsurf hooks + post_read_code evidence-based logging + working_directory fix     | —       |
+| 2025-12-27                                         | feat     | D5: Autonomy Stack v2 — task boxes, telemetry JSONL, anomaly detection, evidence bundles              | —       |
+| 2025-12-27                                         | docs     | D5.3: Document dev framework in README with diagram, add doc-check to pre-commit                      | —       |
+| 2025-12-27                                         | refactor | D5.2: Migrate global_rules to JIT system, delete 6 redundant memories, add canaries                   | —       |
+| 2025-12-27                                         | refactor | D5.1: Rename jit-rule-map → \_entrypoint-jit-rule-map, delete START_HERE, update README/INDEX         | —       |
+| 2025-12-27                                         | refactor | D5: JIT rule system — single always-on.md pointer to jit-rule-map.md, delete 4 old                    | —       |
+| 2025-12-27                                         | feat     | Running task banner: add Beenden button for today's tasks, click navigates to edit                    | 8d812fd |
+| 2025-12-27                                         | refactor | Guidance system v2: pointer files, canary marker, AGENTS.md refs fixed                                | —       |
+| 2025-12-27                                         | docs     | A2-A6: Specs + Plans for Multi-AG, Kleine Änderungen, UX, UI, Bugs                                    | —       |
+| 2025-12-27                                         | test     | A1.13: E2E tests for subscription plans (Free/Pro gating)                                             | —       |
+| 2025-12-27                                         | feat     | A1.5: PDF export module with jspdf + jspdf-autotable                                                  | —       |
+| 2025-12-27                                         | docs     | Self-learning: route Hard Rules to specific trigger files, not general locations                      | —       |
+| 2025-12-27                                         | fix      | Watcher exit code — use System.Diagnostics.Process for reliable capture                               | 5e7c2d8 |
+| 2025-12-27                                         | fix      | Watcher exit code bug — add WaitForExit() before reading ExitCode                                     | —       |
+| 2025-12-27                                         | chore    | Delete AGENTS.md — replaced by \_entrypoint-jit-rule-map.md + DevFramework/ToolSetup                  |
 
 Framework/JustInTimeAgentRules/ | — |
 | 2025-12-27 | feat | D4: Just-in-time rules system — \_entrypoint-jit-rule-map.md + DevFramework/JustInTimeAgentRules/ (7 trigger files) | — |
