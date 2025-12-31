@@ -188,7 +188,7 @@
 		message={daysToChange.length === 7
 			? 'Dies setzt die Tagesart für alle 7 Tage dieser Woche. Fortfahren?'
 			: `Dies setzt die Tagesart für ${daysToChange.length} Tage ohne Arbeitszeit. Fortfahren?`}
-		confirmLabel="OK"
+		confirmLabel="Fortfahren"
 		onconfirm={confirmChange}
 		oncancel={cancelChange}
 	/>

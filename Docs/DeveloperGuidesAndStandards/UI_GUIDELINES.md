@@ -6,56 +6,74 @@ Standards for consistent user interface design in TimeTracker.
 
 ## Dialog Buttons
 
-### Standard Pattern: Cancel + OK
+### Principle: Action-Specific Labels
 
-All dialogs should use consistent button labels:
+Based on UX research (Nielsen Norman Group, Microsoft Guidelines):
 
-| Button         | German Label | Purpose                       |
-| -------------- | ------------ | ----------------------------- |
-| **Cancel**     | `Abbrechen`  | Dismiss dialog without action |
-| **OK/Confirm** | `OK`         | Confirm the action            |
+> "Avoid using the generic phrase OK for button labels in confirmation dialogs.
+> Explicitly state what users are doing by pushing that button."
 
-### Exceptions for Contextual Actions
+Use **action-specific verbs** that describe what will happen.
 
-For destructive or specific actions, use contextual labels:
+### Button Label Patterns
 
-| Action Type    | Confirm Label   | Style                   |
-| -------------- | --------------- | ----------------------- |
-| Delete         | `Löschen`       | `confirmStyle="danger"` |
-| Logout         | `Abmelden`      | `confirmStyle="danger"` |
-| Delete Account | `Konto löschen` | `confirmStyle="danger"` |
+| Dialog Type | Confirm Label | Cancel Label | Style |
+|-------------|---------------|--------------|-------|
+| **Alert (info only)** | `OK` | — | default |
+| **Save/Submit data** | `Speichern` | `Abbrechen` | default |
+| **Continue/Proceed** | `Fortfahren` | `Abbrechen` | default |
+| **Apply changes** | `Übernehmen` | `Abbrechen` | default |
+| **Delete** | `Löschen` | `Abbrechen` | `danger` |
+| **Logout** | `Abmelden` | `Abbrechen` | `danger` |
+| **Delete Account** | `Konto löschen` | `Abbrechen` | `danger` |
+| **Discard changes** | `Verwerfen` | `Abbrechen` | `danger` |
+
+### When to Use Each
+
+- **OK** — Only for information-only alerts (no action, just acknowledgment)
+- **Speichern** — When saving form data, settings, or entries
+- **Fortfahren** — When confirming to proceed with a multi-step action
+- **Übernehmen** — When applying settings/filters without closing
+- **Löschen** — When permanently removing data
 
 ### Examples
 
 ```svelte
-<!-- Standard confirmation -->
+<!-- Alert: Info only - OK is appropriate -->
 <ConfirmDialog
-	title="Bestätigung"
-	message="Fortfahren?"
-	confirmLabel="OK"
-	onconfirm={handleConfirm}
-	oncancel={handleCancel}
+  title="Hinweis"
+  message="Keine Einträge für diesen Zeitraum."
+  confirmLabel="OK"
+  onconfirm={handleDismiss}
+/>
+
+<!-- Proceed confirmation - use action verb -->
+<ConfirmDialog
+  title="Wochenart ändern"
+  message="Dies setzt die Tagesart für alle 7 Tage. Fortfahren?"
+  confirmLabel="Fortfahren"
+  onconfirm={handleProceed}
+  oncancel={handleCancel}
+/>
+
+<!-- Save action -->
+<ConfirmDialog
+  title="Änderungen speichern"
+  message="Möchten Sie die Änderungen speichern?"
+  confirmLabel="Speichern"
+  onconfirm={handleSave}
+  oncancel={handleCancel}
 />
 
 <!-- Destructive action -->
 <ConfirmDialog
-	title="Löschen"
-	message="Wirklich löschen?"
-	confirmLabel="Löschen"
-	confirmStyle="danger"
-	onconfirm={handleDelete}
-	oncancel={handleCancel}
+  title="Eintrag löschen"
+  message="Dieser Eintrag wird unwiderruflich gelöscht."
+  confirmLabel="Löschen"
+  confirmStyle="danger"
+  onconfirm={handleDelete}
+  oncancel={handleCancel}
 />
-
-<!-- Alert (info only) -->
-<ConfirmDialog
-	type="alert"
-	title="Hinweis"
-	message="Information..."
-	confirmLabel="OK"
-	onconfirm={handleDismiss}
-/>
-```
 
 ---
 
