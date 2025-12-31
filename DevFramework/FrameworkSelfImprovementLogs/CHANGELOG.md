@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                                 | Ref     |
 | -------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| 2025-12-31                                         | feat     | Strict employer model: dayTypes.employerId, strict filtering, migrateStrictEmployerModel(), debug logs  | —       |
 | 2025-12-31                                         | fix      | Update banner: offline-safe, version comparison, sessionStorage anti-spam, SW never caches version.json | —       |
 | 2025-12-31                                         | feat     | Sync: LWW entry-level merge replacing conflict dialog — auto-merge local/cloud data by updatedAt        | —       |
 | 2025-12-31                                         | fix      | UI fixes batch: workflow wait, dropdown triangle, dialog buttons, password reset design + redirect      | —       |

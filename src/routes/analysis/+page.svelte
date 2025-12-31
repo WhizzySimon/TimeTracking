@@ -19,10 +19,13 @@
 		timeEntries,
 		categories,
 		workTimeModels,
+		dayTypes,
 		currentDate,
 		filteredEntries,
 		filteredCategories,
-		filteredModels
+		filteredModels,
+		filteredDayTypes,
+		selectedEmployerId
 	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll, getByKey, put } from '$lib/storage/db';
@@ -120,76 +123,155 @@
 	let totalSoll = $derived(calculateTotalSoll());
 	let totalSaldo = $derived(calculateSaldo(totalIst, totalSoll));
 
-	// DEBUG: Diagnostic logging for Analysis investigation
+	// ============================================================================
+	// DEBUG: Analysis diagnostic logging (remove after verification)
+	// Set to false to disable logging
+	// ============================================================================
+	const ANALYSIS_DEBUG = true;
+
 	$effect(() => {
-		if (browser && !loading) {
-			const categoryMap = new Map($filteredCategories.map((cat) => [cat.id, cat]));
-			let matchedCount = 0,
-				unmatchedCount = 0,
-				notWorkTimeCount = 0;
-			const unmatchedCategoryIds = new Set<string>();
+		if (!ANALYSIS_DEBUG || !browser || loading) return;
 
-			for (const entry of rangeEntries) {
-				if (!entry.endTime) continue;
-				const category = categoryMap.get(entry.categoryId);
-				if (!category) {
-					unmatchedCount++;
-					unmatchedCategoryIds.add(entry.categoryId);
-				} else if (!category.countsAsWorkTime) {
-					notWorkTimeCount++;
-				} else {
-					matchedCount++;
-				}
+		console.group('[Analysis Debug]');
+
+		// 1. Employer filter state
+		const employerLabel = $selectedEmployerId === null ? 'ALL' : $selectedEmployerId;
+		console.log(`selectedEmployerId: ${employerLabel}`);
+
+		// 2. Counts BEFORE employer filtering (all data)
+		console.log('BEFORE employer filter:', {
+			entries: $timeEntries.length,
+			categories: $categories.length,
+			dayTypes: $dayTypes.length,
+			models: $workTimeModels.length
+		});
+
+		// 3. Counts AFTER employer filtering
+		console.log('AFTER employer filter:', {
+			entries: $filteredEntries.length,
+			categories: $filteredCategories.length,
+			dayTypes: $filteredDayTypes.length,
+			models: $filteredModels.length
+		});
+
+		// 4. Range entries analysis
+		const categoryMap = new Map($filteredCategories.map((cat) => [cat.id, cat]));
+		let matchedCount = 0,
+			unmatchedCount = 0,
+			notWorkTimeCount = 0;
+		const unmatchedCategoryIds = new Set<string>();
+
+		for (const entry of rangeEntries) {
+			if (!entry.endTime) continue;
+			const category = categoryMap.get(entry.categoryId);
+			if (!category) {
+				unmatchedCount++;
+				unmatchedCategoryIds.add(entry.categoryId);
+			} else if (!category.countsAsWorkTime) {
+				notWorkTimeCount++;
+			} else {
+				matchedCount++;
 			}
-
-			console.log(
-				`[Analysis Debug] categories: matched=${matchedCount}, notWorkTime=${notWorkTimeCount}, unmatched=${unmatchedCount}` +
-					(unmatchedCategoryIds.size > 0
-						? `, unmatchedIds=[${[...unmatchedCategoryIds].join(', ')}]`
-						: '')
-			);
-
-			// DayTypes coverage
-			let totalDaysInRange = 0,
-				nonWorkDayCount = 0;
-			const dayTypeSamples: string[] = [];
-			let current = parseDate(rangeStartStr);
-			const end = parseDate(rangeEndStr);
-			if (current && end) {
-				while (current <= end) {
-					totalDaysInRange++;
-					const dateKey = formatDate(current, 'ISO');
-					const dayType = dayTypesCache.get(dateKey);
-					if (dayType && dayType !== 'arbeitstag') {
-						nonWorkDayCount++;
-						if (dayTypeSamples.length < 5) dayTypeSamples.push(`${dateKey}:${dayType}`);
-					}
-					current = addDays(current, 1);
-				}
-			}
-			console.log(
-				`[Analysis Debug] dayTypes: totalDays=${totalDaysInRange}, nonWork=${nonWorkDayCount}, sample=[${dayTypeSamples.join(', ')}]`
-			);
-
-			// EmployerId coverage
-			const entriesMissingEmployerId = rangeEntries.filter(
-				(e) => e.employerId === null || e.employerId === undefined
-			).length;
-			const categoriesMissingEmployerId = $filteredCategories.filter(
-				(c) => c.employerId === null || c.employerId === undefined
-			).length;
-			const modelsMissingEmployerId = $filteredModels.filter(
-				(m) => m.employerId === null || m.employerId === undefined
-			).length;
-			console.log(
-				`[Analysis Debug] missing employerId: entries=${entriesMissingEmployerId}, categories=${categoriesMissingEmployerId}, models=${modelsMissingEmployerId}`
-			);
-
-			console.log(
-				`[Analysis Debug] totals: Ist=${totalIst.toFixed(2)}h, Soll=${totalSoll.toFixed(2)}h, Saldo=${totalSaldo.toFixed(2)}h`
-			);
 		}
+
+		console.log('rangeEntries:', {
+			total: rangeEntries.length,
+			matchedToCategory: matchedCount,
+			countsAsWorkTimeFalse: notWorkTimeCount,
+			unmatchedCategoryId: unmatchedCount,
+			unmatchedIds: unmatchedCategoryIds.size > 0 ? [...unmatchedCategoryIds] : '(none)'
+		});
+
+		// 5. Soll calculation details
+		let totalDaysInRange = 0,
+			arbeitstagsCount = 0,
+			nonWorkDayCount = 0;
+		const dayTypeSamples: string[] = [];
+		let modelUsed: string | null = null;
+		let modelNullCount = 0;
+
+		let current = parseDate(rangeStartStr);
+		const end = parseDate(rangeEndStr);
+		if (current && end) {
+			while (current <= end) {
+				totalDaysInRange++;
+				const dateKey = formatDate(current, 'ISO');
+				const dayType = dayTypesCache.get(dateKey) ?? 'arbeitstag';
+				const model = getActiveModelForDate(current);
+
+				if (model && !modelUsed) modelUsed = model.name;
+				if (!model) modelNullCount++;
+
+				if (dayType === 'arbeitstag') {
+					arbeitstagsCount++;
+				} else {
+					nonWorkDayCount++;
+					if (dayTypeSamples.length < 5) dayTypeSamples.push(`${dateKey}:${dayType}`);
+				}
+				current = addDays(current, 1);
+			}
+		}
+
+		console.log('Soll calculation:', {
+			totalDays: totalDaysInRange,
+			arbeitstags: arbeitstagsCount,
+			nonWorkDays: nonWorkDayCount,
+			nonWorkSamples: dayTypeSamples.length > 0 ? dayTypeSamples : '(none)',
+			modelUsed: modelUsed ?? '(none)',
+			daysWithNoModel: modelNullCount,
+			totalSoll: totalSoll.toFixed(2) + 'h'
+		});
+
+		// 6. Ø/Woche denominator
+		const workDays = countWorkDaysInRange();
+		const effectiveWeeks = calculateEffectiveWeeks();
+		console.log('Ø/Woche denominator:', {
+			workDaysInRange: workDays,
+			effectiveWeeks: effectiveWeeks.toFixed(2)
+		});
+
+		// 7. Missing employerId counts (should be 0 after migration)
+		const entriesMissingEmployerId = rangeEntries.filter(
+			(e) => e.employerId === null || e.employerId === undefined
+		).length;
+		const categoriesMissingEmployerId = $filteredCategories.filter(
+			(c) => c.type !== 'system' && (c.employerId === null || c.employerId === undefined)
+		).length;
+		const modelsMissingEmployerId = $filteredModels.filter(
+			(m) => m.employerId === null || m.employerId === undefined
+		).length;
+		const dayTypesMissingEmployerId = $filteredDayTypes.filter(
+			(d) => d.employerId === null || d.employerId === undefined
+		).length;
+
+		if (
+			entriesMissingEmployerId > 0 ||
+			categoriesMissingEmployerId > 0 ||
+			modelsMissingEmployerId > 0 ||
+			dayTypesMissingEmployerId > 0
+		) {
+			console.warn('MISSING employerId (should be 0 after migration):', {
+				entries: entriesMissingEmployerId,
+				categories: categoriesMissingEmployerId,
+				models: modelsMissingEmployerId,
+				dayTypes: dayTypesMissingEmployerId
+			});
+		} else {
+			console.log('employerId coverage: ✓ all records have employerId');
+		}
+
+		// 8. Final totals
+		console.log('TOTALS:', {
+			Ist: totalIst.toFixed(2) + 'h',
+			Soll: totalSoll.toFixed(2) + 'h',
+			Saldo: totalSaldo.toFixed(2) + 'h'
+		});
+
+		console.groupEnd();
 	});
+	// ============================================================================
+	// END DEBUG
+	// ============================================================================
 
 	// Calculate total Soll by iterating through dates
 	function calculateTotalSoll(): number {

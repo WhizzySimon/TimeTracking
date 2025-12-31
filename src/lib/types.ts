@@ -39,6 +39,7 @@ export interface DayType {
 	date: string; // YYYY-MM-DD (primary key)
 	type: DayTypeValue;
 	updatedAt: number;
+	employerId?: string | null; // Required for employer filtering (AG-FR-050)
 }
 
 /**

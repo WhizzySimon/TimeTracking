@@ -69,7 +69,8 @@ function normalizeSnapshot(
 		entriesRewritten: 0,
 		entriesMissingEmployerId: 0,
 		categoriesMissingEmployerId: 0,
-		modelsMissingEmployerId: 0
+		modelsMissingEmployerId: 0,
+		dayTypesMissingEmployerId: 0
 	};
 
 	// Build map of old categoryId → new categoryId for legacy IDs
@@ -127,12 +128,25 @@ function normalizeSnapshot(
 		return { ...model, employerId };
 	});
 
+	// Assign employerId to day types if missing (STRICT EMPLOYER MODEL)
+	const normalizedDayTypes = (snapshot.dayTypes ?? []).map((dayType) => {
+		let employerId = dayType.employerId;
+		if (employerId === null || employerId === undefined) {
+			if (defaultEmployerId) {
+				employerId = defaultEmployerId;
+				log.dayTypesMissingEmployerId++;
+			}
+		}
+		return { ...dayType, employerId };
+	});
+
 	return {
 		snapshot: {
 			...snapshot,
 			categories: normalizedCategories,
 			timeEntries: normalizedEntries,
-			workTimeModels: normalizedModels
+			workTimeModels: normalizedModels,
+			dayTypes: normalizedDayTypes
 		},
 		normalizationLog: log
 	};
@@ -144,6 +158,7 @@ interface NormalizationLog {
 	entriesMissingEmployerId: number;
 	categoriesMissingEmployerId: number;
 	modelsMissingEmployerId: number;
+	dayTypesMissingEmployerId: number;
 }
 
 /**
@@ -171,7 +186,8 @@ export async function importSnapshot(
 		normalizationLog.categoriesNormalized > 0 ||
 		normalizationLog.entriesMissingEmployerId > 0 ||
 		normalizationLog.categoriesMissingEmployerId > 0 ||
-		normalizationLog.modelsMissingEmployerId > 0
+		normalizationLog.modelsMissingEmployerId > 0 ||
+		normalizationLog.dayTypesMissingEmployerId > 0
 	) {
 		console.log('[Restore] Normalization applied:', normalizationLog);
 	}
