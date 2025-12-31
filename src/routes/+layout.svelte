@@ -22,9 +22,10 @@
 		categories
 	} from '$lib/stores';
 	import { saveTimeEntry } from '$lib/storage/operations';
-	import { formatTime, isToday } from '$lib/utils/date';
+	import { formatTime } from '$lib/utils/date';
 	import { getAll } from '$lib/storage/db';
 	import type { TimeEntry } from '$lib/types';
+	import TaskItem from '$lib/components/TaskItem.svelte';
 	import WarningBanner from '$lib/components/WarningBanner.svelte';
 	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
 	import {
@@ -100,11 +101,7 @@
 		pushState(resolve('/day'), { editEntryId: entry.id });
 	}
 
-	// Check if running task is from today
-	let runningTaskIsToday = $derived(
-		$runningEntry ? isToday(new Date($runningEntry.date + 'T00:00:00')) : false
-	);
-
+	
 	// Get category and employer for running task display
 	let runningTaskCategory = $derived(
 		$runningEntry ? $categories.find((c) => c.id === $runningEntry.categoryId) : undefined
@@ -495,17 +492,13 @@
 			</div>
 		{/if}
 		{#if $runningEntry}
-			<div class="running-task-banner">
-				<WarningBanner
-					message="Aufgabe läuft noch (keine Endzeit)"
+			<div class="running-task-header">
+				<TaskItem
+					entry={$runningEntry}
+					category={runningTaskCategory}
+					employer={runningTaskEmployer()}
 					onclick={handleRunningTaskClick}
-					actionLabel={runningTaskIsToday ? 'Beenden' : undefined}
-					onaction={runningTaskIsToday ? handleEndRunningTask : undefined}
-					taskDetails={{
-						startTime: $runningEntry.startTime,
-						category: runningTaskCategory,
-						employer: runningTaskEmployer()
-					}}
+					onend={handleEndRunningTask}
 				/>
 			</div>
 		{/if}
@@ -797,7 +790,7 @@
 		opacity: 0.9;
 	}
 
-	.running-task-banner {
+	.running-task-header {
 		padding: 0 1rem;
 		margin-top: 0.5rem;
 	}
