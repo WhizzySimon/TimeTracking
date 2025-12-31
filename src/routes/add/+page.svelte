@@ -19,7 +19,8 @@
 		employers,
 		activeEmployers,
 		selectedEmployerId,
-		filteredCategories
+		filteredCategories,
+		currentDate
 	} from '$lib/stores';
 	import { initializeCategories, getAllCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
@@ -59,8 +60,10 @@
 		}
 
 		// TT-FR-003: Create new task with startTime=now, endTime=null (running)
-		// AG-FR-040: New entry inherits current employer selection
-		const currentEmployerId = $selectedEmployerId;
+		// AG-FR-040: Entry always inherits the category's employer
+		// (header filter is just for display, not for assigning properties)
+		const category = $filteredCategories.find((c) => c.id === categoryId);
+		const entryEmployerId = category?.employerId ?? null;
 		const newEntry: TimeEntry = {
 			id: `entry-${crypto.randomUUID()}`,
 			date: currentDateStr,
@@ -70,7 +73,7 @@
 			description: null,
 			createdAt: Date.now(),
 			updatedAt: Date.now(),
-			employerId: currentEmployerId
+			employerId: entryEmployerId
 		};
 		await saveTimeEntry(newEntry);
 
@@ -80,6 +83,9 @@
 		// Reload all entries from IndexedDB to update the store
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
+
+		// Set current date to today so Day tab shows the newly started task
+		currentDate.set(now);
 
 		// Phase 8: Redirect to Day tab after starting task
 		goto(resolve('/day'));

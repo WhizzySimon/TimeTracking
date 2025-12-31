@@ -20,8 +20,7 @@
 		filteredEntries,
 		filteredCategories,
 		filteredActiveWorkTimeModel,
-		filteredRunningEntry,
-		selectedEmployerId
+		filteredRunningEntry
 	} from '$lib/stores';
 	import { formatDate, isToday, addDays, formatTime } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
@@ -209,12 +208,13 @@
 		}
 
 		// TT-FR-014: Create new task with same category
-		// Inherit employerId from original entry or current selection
+		// Inherit employerId from original entry (which came from its category)
+		const category = $filteredCategories.find((c) => c.id === entry.categoryId);
 		const newEntry: TimeEntry = {
 			id: `entry-${crypto.randomUUID()}`,
 			date: currentDateStr,
 			categoryId: entry.categoryId,
-			employerId: entry.employerId ?? $selectedEmployerId,
+			employerId: entry.employerId ?? category?.employerId ?? null,
 			startTime: currentTimeStr,
 			endTime: null,
 			description: null,
