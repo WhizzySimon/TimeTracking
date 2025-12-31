@@ -32,6 +32,22 @@ Each entry follows this format:
 
 (newest first)
 
+## 2025-12-31 15:42 — Fix Update Banner Bug
+
+| Step                 | Result | Notes                                  |
+| -------------------- | ------ | -------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat              |
+| A1: Capture feedback | none   | No corrective feedback                 |
+| B1: Repeated errors  | none   | No repeated errors                     |
+| B2: File churn       | none   | Each file edited once                  |
+| B3: Scope drift      | none   | All files match SW/update banner scope |
+| B4: Session duration | ~45m   | normal                                 |
+| C1: Promotions       | none   | No items meet promotion criteria       |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed             |
+
+---
+
 ## 2024-12-30 15:10 — Task A2.1 Arbeitgeber Filter Global
 
 | Step                 | Result       | Notes                                           |
