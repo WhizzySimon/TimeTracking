@@ -21,6 +21,11 @@ export async function loadUserProfile(userId: string): Promise<UserProfile | nul
 
 	try {
 		const supabase = getSupabase();
+
+		// Get email from auth.users (source of truth for email)
+		const { data: authData } = await supabase.auth.getUser();
+		const authEmail = authData?.user?.email ?? '';
+
 		const { data, error } = await supabase
 			.from('profiles')
 			.select(
@@ -39,9 +44,10 @@ export async function loadUserProfile(userId: string): Promise<UserProfile | nul
 			return null;
 		}
 
+		// Use auth email (always current) over profiles table email (may be stale)
 		const profile: UserProfile = {
 			id: data.id,
-			email: data.email ?? '',
+			email: authEmail || data.email || '',
 			plan: (data.plan as UserPlan) ?? 'free',
 			stripeCustomerId: data.stripe_customer_id ?? undefined,
 			subscriptionStatus: data.subscription_status ?? undefined,
