@@ -38,7 +38,7 @@
 	} from '$lib/stores/user';
 	import Paywall from '$lib/components/Paywall.svelte';
 	import { loadUserProfile, clearCachedPlan } from '$lib/api/profile';
-	import { getCurrentUserId } from '$lib/api/auth';
+	import { getCurrentUserId, logout } from '$lib/api/auth';
 	import { syncWithCloud, resolveConflict, needsSync, type SyncResult } from '$lib/backup/cloud';
 	import type { DatabaseSnapshot } from '$lib/backup/snapshot';
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
@@ -88,11 +88,12 @@
 	});
 
 	async function handleLogout() {
+		showLogoutConfirm = false;
+		await logout();
 		await clearSession();
 		clearUserProfile();
 		clearCachedPlan();
-		showLogoutConfirm = false;
-		goto(resolve('/login'));
+		goto(resolve('/login') + '?logout=1');
 	}
 
 	function handleRunningTaskClick() {
