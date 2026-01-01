@@ -37,74 +37,49 @@
 
 			const supabase = getSupabase();
 
-			// Check for email change token in URL (from confirmation link)
-			// Supabase may use query params OR hash fragment depending on flow
-			const urlParams = new URLSearchParams(window.location.search);
+			// Debug: log URL params for troubleshooting email change flow
 			const hashParams = new URLSearchParams(window.location.hash.substring(1));
-			const tokenHash = urlParams.get('token_hash') || hashParams.get('token_hash');
-			const type = urlParams.get('type') || hashParams.get('type');
-
+			const urlType = hashParams.get('type');
 			console.log('[Login] URL check:', { 
 				search: window.location.search, 
 				hash: window.location.hash,
-				tokenHash: tokenHash ? 'present' : 'none', 
-				type 
+				hashType: urlType,
+				hasAccessToken: hashParams.has('access_token')
 			});
 
-			if (tokenHash && type === 'email_change') {
-				console.log('[Login] Processing email change confirmation token');
-				const { data, error: verifyError } = await supabase.auth.verifyOtp({
-					token_hash: tokenHash,
-					type: 'email_change'
-				});
-
-				if (verifyError) {
-					console.error('[Login] Email change verification failed:', verifyError.message);
-					error = 'E-Mail-Änderung fehlgeschlagen: ' + verifyError.message;
-					checkingSession = false;
-					return;
-				}
-
-				if (data.session) {
-					const { saveSession } = await import('$lib/stores/auth');
-					const { getCurrentUserId } = await import('$lib/api/auth');
-					const { loadUserProfile } = await import('$lib/api/profile');
-					const { setUserProfile, loadPersistedPlanOverride, loadPersistedUserName } = await import('$lib/stores/user');
-
-					await saveSession({
-						token: data.session.access_token,
-						email: data.session.user.email ?? '',
-						expiresAt: data.session.expires_at ? data.session.expires_at * 1000 : Date.now() + 3600000,
-						createdAt: Date.now()
-					});
-
-					// Load user profile
-					const userId = await getCurrentUserId();
-					if (userId) {
-						const profile = await loadUserProfile(userId);
-						setUserProfile(profile);
-						loadPersistedPlanOverride();
-						loadPersistedUserName();
-					}
-
-					console.log('[Login] Email change confirmed, auto-login successful');
-					goto(resolve('/day'));
-					return;
-				}
-			}
-
-			// Check for existing session (normal auto-login)
+			// Supabase's detectSessionInUrl:true automatically processes tokens in URL hash
+			// After email change confirmation, Supabase redirects with access_token in hash
+			// getSession() will pick up the session from the URL automatically
 			const { data: { session } } = await supabase.auth.getSession();
+			
+			// Log if this was an email change confirmation
+			if (urlType === 'email_change' && session) {
+				console.log('[Login] Email change confirmed via URL token, session established');
+			}
 
 			if (session?.user) {
 				const { saveSession } = await import('$lib/stores/auth');
+				const { getCurrentUserId } = await import('$lib/api/auth');
+				const { loadUserProfile } = await import('$lib/api/profile');
+				const { setUserProfile, loadPersistedPlanOverride, loadPersistedUserName } = await import('$lib/stores/user');
+
 				await saveSession({
 					token: session.access_token,
 					email: session.user.email ?? '',
 					expiresAt: session.expires_at ? session.expires_at * 1000 : Date.now() + 3600000,
 					createdAt: Date.now()
 				});
-				console.log('[Login] Auto-login from existing session');
+
+				// Load user profile for settings page
+				const userId = await getCurrentUserId();
+				if (userId) {
+					const profile = await loadUserProfile(userId);
+					setUserProfile(profile);
+					loadPersistedPlanOverride();
+					loadPersistedUserName();
+				}
+
+				console.log('[Login] Auto-login from session, email:', session.user.email);
 				goto(resolve('/day'));
 				return;
 			}

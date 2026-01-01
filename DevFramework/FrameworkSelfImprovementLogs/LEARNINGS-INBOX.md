@@ -42,6 +42,7 @@ Framework/JustInTimeAgentRules/command-execution.md`before any command. JIT trig
 | 2025-12-27 | Versioning        | Netlify does shallow clones without tags. Need `git fetch --tags`before`git describe` for CI/CD environments. | Pending |
 | 2025-12-26 | A1 spec phase | POSITIVE: User praised analysis of P10 conflicts and clarifying questions before spec creation. "Awesome analysis, very good findings, thanks for coming back with the questions." | Pending |
 | 2025-12-26 | A1 spec phase | POSITIVE: User reminded to commit docs before starting implementation. Good practice to checkpoint work. | Pending |
+| 2026-01-01 | Email change flow | CORRECTIVE (3x FAILURE): Supabase email change confirmation not working after 3 attempts. Issues: (1) Assumed `detectSessionInUrl` handles email_change tokens - it doesn't, (2) Assumed token is in query params - may be in hash fragment, (3) Didn't test with Playwright before claiming fix. **LESSON:** For auth flows involving external services (Supabase), MUST use Playwright to verify the actual URL format and token handling before claiming fix. Don't assume - observe actual behavior. | Pending |
 
 ---
 
