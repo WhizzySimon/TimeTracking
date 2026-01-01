@@ -467,7 +467,7 @@
 					<span class="account-label">Plan</span>
 					<div class="account-value-with-edit">
 						<span
-							class="account-value plan-badge"
+							class="account-value plan-text"
 							class:pro={$userPlan === 'pro'}
 							data-testid="account-plan"
 						>
@@ -1564,16 +1564,12 @@
 		background: var(--surface-hover);
 	}
 
-	.plan-badge {
-		padding: 0.25rem 0.75rem;
-		border-radius: var(--r-pill);
-		background: var(--surface);
-		font-weight: 500;
-		font-size: 0.85rem;
+	.plan-text {
+		font-weight: 600;
+		color: var(--accent);
 	}
 
-	.plan-badge.pro {
-		background: var(--accent);
-		color: white;
+	.plan-text.pro {
+		color: var(--accent);
 	}
 </style>
