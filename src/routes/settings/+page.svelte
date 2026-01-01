@@ -739,7 +739,7 @@
 									}}
 								>
 									<span class="dropdown-icon">🗑</span>
-									<span>Alle Tätigkeiten löschen</span>
+									<span>Löschen</span>
 								</button>
 							</div>
 						{/if}
@@ -804,7 +804,7 @@
 		<!-- Daten Section (Export/Import) -->
 		<section class="section" data-testid="data-section">
 			<div class="section-header">
-				<h2>Daten</h2>
+				<h2>Zeitdaten</h2>
 			</div>
 			<div class="data-actions">
 				<button class="data-btn" onclick={() => (showExportDialog = true)} data-testid="export-btn">
