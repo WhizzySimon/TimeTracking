@@ -100,6 +100,7 @@
 	}
 
 	let loading = $state(true);
+	let profileLoaded = $derived($userProfile !== null);
 	let appVersion = $state('');
 	let buildTime = $state('');
 	let showAddCategory = $state(false);
@@ -399,7 +400,7 @@
 		<h1>Einstellungen</h1>
 	</div>
 
-	{#if loading}
+	{#if loading || !profileLoaded}
 		<div class="loading">
 			<p>Laden...</p>
 		</div>
