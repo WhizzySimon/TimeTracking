@@ -123,7 +123,6 @@
 	let employers = $state<Employer[]>([]);
 	let showCategoryDialog = $state(false);
 	let categoryToEdit: Category | null = $state(null);
-	let logoutInProgress = $state(false);
 	let showDeleteAllCategoriesConfirm = $state(false);
 	let showDeleteAllTimeEntriesConfirm = $state(false);
 	let deleteAllInProgress = $state(false);
@@ -270,14 +269,12 @@
 	});
 
 	async function handleLogout() {
-		logoutInProgress = true;
 		try {
 			await logout();
 			await clearSession();
 			goto(resolve('/login'));
 		} catch (e) {
 			console.error('[Settings] Logout failed:', e);
-			logoutInProgress = false;
 		}
 	}
 
@@ -411,27 +408,15 @@
 				</div>
 				<div class="account-row">
 					<span class="account-label">Plan</span>
-					<span
-						class="account-value plan-badge"
+					<button
+						class="account-value plan-badge plan-clickable"
 						class:pro={$userPlan === 'pro'}
 						data-testid="account-plan"
+						onclick={handlePlanChange}
 					>
 						{$userPlan === 'pro' ? 'Pro' : 'Free'}
-					</span>
+					</button>
 				</div>
-			</div>
-			<div class="account-actions">
-				<button class="secondary-btn" onclick={handlePlanChange} data-testid="change-plan-btn">
-					Plan ändern
-				</button>
-				<button
-					class="secondary-btn logout-btn"
-					onclick={() => (showLogoutConfirm = true)}
-					disabled={logoutInProgress}
-					data-testid="logout-btn"
-				>
-					{logoutInProgress ? 'Abmelden...' : 'Abmelden'}
-				</button>
 			</div>
 		</section>
 
@@ -1467,40 +1452,13 @@
 		color: white;
 	}
 
-	.account-actions {
-		display: flex;
-		gap: 0.75rem;
-	}
-
-	.secondary-btn {
-		flex: 1;
-		padding: 0.75rem 1rem;
-		background: var(--surface);
-		color: var(--text);
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		font-size: 0.9rem;
-		font-weight: 500;
+	.plan-clickable {
 		cursor: pointer;
-		transition: all var(--transition-fast);
+		border: none;
+		transition: opacity var(--transition-fast);
 	}
 
-	.secondary-btn:hover:not(:disabled) {
-		background: var(--surface-hover);
-		border-color: var(--card-hover-border);
-	}
-
-	.secondary-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.secondary-btn.logout-btn {
-		color: var(--neg);
-		border-color: var(--neg);
-	}
-
-	.secondary-btn.logout-btn:hover:not(:disabled) {
-		background: var(--neg-light);
+	.plan-clickable:hover {
+		opacity: 0.8;
 	}
 </style>
