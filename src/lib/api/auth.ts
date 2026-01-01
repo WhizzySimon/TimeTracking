@@ -262,9 +262,10 @@ export async function updateEmail(newEmail: string): Promise<void> {
 	requireSupabase();
 
 	const supabase = getSupabase();
-	const { error } = await supabase.auth.updateUser({
-		email: newEmail
-	});
+	const { error } = await supabase.auth.updateUser(
+		{ email: newEmail },
+		{ emailRedirectTo: `${window.location.origin}/login` }
+	);
 
 	if (error) {
 		console.error('[AuthAPI] Update email failed:', error.message);
