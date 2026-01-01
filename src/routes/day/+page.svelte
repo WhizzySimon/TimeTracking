@@ -86,15 +86,15 @@
 		return `${weekday} ${formatDate($currentDate, 'DE')}`;
 	});
 
-	// Navigation labels showing adjacent day numbers
+	// Navigation labels showing adjacent day weekday abbreviations
 	let previousDayLabel = $derived(() => {
 		const prevDay = addDays($currentDate, -1);
-		return prevDay.getDate();
+		return weekdayNames[prevDay.getDay()];
 	});
 
 	let nextDayLabel = $derived(() => {
 		const nextDay = addDays($currentDate, 1);
-		return nextDay.getDate();
+		return weekdayNames[nextDay.getDay()];
 	});
 
 	// Load day type when date changes

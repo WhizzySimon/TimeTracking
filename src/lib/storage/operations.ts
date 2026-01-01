@@ -123,3 +123,44 @@ export async function deleteUserCategoryWithSync(id: string): Promise<void> {
 	markChanged();
 	triggerSync();
 }
+
+/**
+ * Delete all user categories (Tätigkeiten - countsAsWorkTime=true) and sync.
+ * System categories are preserved.
+ */
+export async function deleteAllUserCategories(
+	allCategories: Category[]
+): Promise<{ deleted: number }> {
+	const userWorkCategories = allCategories.filter(
+		(c) => c.type === 'user' && c.countsAsWorkTime === true
+	);
+
+	for (const cat of userWorkCategories) {
+		await deleteByKey('categories', cat.id);
+		await addToOutbox('category_delete', { id: cat.id });
+	}
+
+	if (userWorkCategories.length > 0) {
+		markChanged();
+		triggerSync();
+	}
+
+	return { deleted: userWorkCategories.length };
+}
+
+/**
+ * Delete all time entries and sync.
+ */
+export async function deleteAllTimeEntries(allEntries: TimeEntry[]): Promise<{ deleted: number }> {
+	for (const entry of allEntries) {
+		await deleteByKey('timeEntries', entry.id);
+		await addToOutbox('entry_delete', { id: entry.id });
+	}
+
+	if (allEntries.length > 0) {
+		markChanged();
+		triggerSync();
+	}
+
+	return { deleted: allEntries.length };
+}

@@ -32,6 +32,22 @@ Each entry follows this format:
 
 (newest first)
 
+## 2026-01-01 10:17 — UI-Batch-Fixes (Day nav, Settings icons, Bulk delete)
+
+| Step                 | Result | Notes                                                       |
+| -------------------- | ------ | ----------------------------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                                   |
+| A1: Capture feedback | 1 item | User feedback on UI rules (dialog close, jumping elements)  |
+| B1: Repeated errors  | none   | No repeated errors                                          |
+| B2: File churn       | none   | Each file edited once                                       |
+| B3: Scope drift      | none   | All files match batch fix scope                             |
+| B4: Session duration | ~25m   | normal                                                      |
+| C1: Promotions       | none   | Feedback captured directly in frontend-ux-standards.md      |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                                     |
+| C3: Hard Rule → JIT  | done   | UI rules added to frontend-ux-standards.md per user request |
+
+---
+
 ## 2026-01-01 08:09 — FIX-abwesenheit-no-arbeitgeber
 
 | Step                 | Result | Notes                                     |

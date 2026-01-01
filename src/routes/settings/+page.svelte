@@ -29,7 +29,13 @@
 	} from '$lib/stores/theme';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
-	import { deleteUserCategoryWithSync, deleteWorkTimeModel } from '$lib/storage/operations';
+	import {
+		deleteUserCategoryWithSync,
+		deleteWorkTimeModel,
+		deleteAllUserCategories,
+		deleteAllTimeEntries
+	} from '$lib/storage/operations';
+	import { timeEntries } from '$lib/stores';
 	import { downloadCategoriesFile } from '$lib/utils/categoryIO';
 	import { deleteAccount } from '$lib/api/auth';
 	import { clearSession } from '$lib/stores/auth';
@@ -118,6 +124,9 @@
 	let showCategoryDialog = $state(false);
 	let categoryToEdit: Category | null = $state(null);
 	let logoutInProgress = $state(false);
+	let showDeleteAllCategoriesConfirm = $state(false);
+	let showDeleteAllTimeEntriesConfirm = $state(false);
+	let deleteAllInProgress = $state(false);
 	let expandedSections = $state({
 		employers: false,
 		workTimeModels: false,
@@ -347,6 +356,37 @@
 			deleteAccountInProgress = false;
 		}
 	}
+
+	async function handleDeleteAllCategories() {
+		deleteAllInProgress = true;
+		showDeleteAllCategoriesConfirm = false;
+		try {
+			const result = await deleteAllUserCategories($categories);
+			// Reload categories from IndexedDB
+			const allCategories = await getAll<Category>('categories');
+			categories.set(allCategories);
+			console.log(`[Settings] Deleted ${result.deleted} categories`);
+		} catch (e) {
+			console.error('[Settings] Delete all categories failed:', e);
+		} finally {
+			deleteAllInProgress = false;
+		}
+	}
+
+	async function handleDeleteAllTimeEntries() {
+		deleteAllInProgress = true;
+		showDeleteAllTimeEntriesConfirm = false;
+		try {
+			const result = await deleteAllTimeEntries($timeEntries);
+			// Clear time entries store
+			timeEntries.set([]);
+			console.log(`[Settings] Deleted ${result.deleted} time entries`);
+		} catch (e) {
+			console.error('[Settings] Delete all time entries failed:', e);
+		} finally {
+			deleteAllInProgress = false;
+		}
+	}
 </script>
 
 <svelte:window onclick={closeCategoryMenu} />
@@ -475,7 +515,22 @@
 									onclick={(event) => {
 										event.stopPropagation();
 										handleDeleteEmployer(employer);
-									}}>×</button
+									}}
+									><svg
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path
+											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+										></path>
+									</svg></button
 								>
 							</div>
 						{/each}
@@ -526,7 +581,22 @@
 									onclick={(e) => {
 										e.stopPropagation();
 										handleDeleteModel(model);
-									}}>×</button
+									}}
+									><svg
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path
+											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+										></path>
+									</svg></button
 								>
 							</div>
 						{/each}
@@ -582,7 +652,22 @@
 										onclick={(event) => {
 											event.stopPropagation();
 											handleDeleteCategory(category);
-										}}>×</button
+										}}
+										><svg
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<polyline points="3 6 5 6 21 6"></polyline>
+											<path
+												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+											></path>
+										</svg></button
 									>
 								{/if}
 							</div>
@@ -646,6 +731,16 @@
 									<span class="dropdown-icon">→</span>
 									<span>Exportieren</span>
 								</button>
+								<button
+									class="dropdown-item dropdown-item-danger"
+									onclick={() => {
+										showDeleteAllCategoriesConfirm = true;
+										showCategoryMenu = false;
+									}}
+								>
+									<span class="dropdown-icon">🗑</span>
+									<span>Alle Tätigkeiten löschen</span>
+								</button>
 							</div>
 						{/if}
 					</div>
@@ -681,7 +776,22 @@
 										onclick={(event) => {
 											event.stopPropagation();
 											handleDeleteCategory(category);
-										}}>×</button
+										}}
+										><svg
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<polyline points="3 6 5 6 21 6"></polyline>
+											<path
+												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+											></path>
+										</svg></button
 									>
 								{/if}
 							</div>
@@ -712,6 +822,13 @@
 				</button>
 				<button class="data-btn secondary" onclick={() => (showImportExcel = true)}>
 					Excel-Datei importieren
+				</button>
+				<button
+					class="data-btn danger"
+					onclick={() => (showDeleteAllTimeEntriesConfirm = true)}
+					disabled={deleteAllInProgress}
+				>
+					{deleteAllInProgress ? 'Wird gelöscht...' : 'Alle Zeitdaten löschen'}
 				</button>
 			</div>
 		</section>
@@ -876,6 +993,30 @@
 		category={categoryToEdit}
 		onsave={closeCategoryDialog}
 		onclose={closeCategoryDialog}
+	/>
+{/if}
+
+<!-- Delete All Categories Confirmation -->
+{#if showDeleteAllCategoriesConfirm}
+	<ConfirmDialog
+		title="Alle Tätigkeiten löschen"
+		message="Möchten Sie wirklich alle Tätigkeiten löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+		confirmLabel="Alle löschen"
+		confirmStyle="danger"
+		onconfirm={handleDeleteAllCategories}
+		oncancel={() => (showDeleteAllCategoriesConfirm = false)}
+	/>
+{/if}
+
+<!-- Delete All Time Entries Confirmation -->
+{#if showDeleteAllTimeEntriesConfirm}
+	<ConfirmDialog
+		title="Alle Zeitdaten löschen"
+		message="Möchten Sie wirklich alle Zeitdaten löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+		confirmLabel="Alle löschen"
+		confirmStyle="danger"
+		onconfirm={handleDeleteAllTimeEntries}
+		oncancel={() => (showDeleteAllTimeEntriesConfirm = false)}
 	/>
 {/if}
 
@@ -1264,6 +1405,28 @@
 
 	.data-btn.secondary:hover {
 		background: var(--card-bg-hover);
+	}
+
+	.data-btn.danger {
+		background: var(--btn-danger-bg);
+		color: var(--btn-danger-text);
+	}
+
+	.data-btn.danger:hover:not(:disabled) {
+		background: var(--btn-danger-hover);
+	}
+
+	.data-btn.danger:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.dropdown-item-danger {
+		color: var(--neg);
+	}
+
+	.dropdown-item-danger:hover {
+		background: var(--neg-light);
 	}
 
 	.account-info {

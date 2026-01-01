@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                                  | Ref     |
 | -------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| 2026-01-01                                         | feat     | UI batch: Day nav weekday labels, Settings trash icons, bulk delete categories/time entries, UX rules    | —       |
 | 2026-01-01                                         | docs     | Frontend standards consolidation: 3 source-of-truth files + wireframe-prototype-loop workflow + template | —       |
 | 2026-01-01                                         | fix      | Abwesenheit categories no longer linked to Arbeitgeber — hide employer dropdown + remove list labels     | —       |
 | 2025-12-31                                         | feat     | Strict employer model: dayTypes.employerId, strict filtering, migrateStrictEmployerModel(), debug logs   | —       |

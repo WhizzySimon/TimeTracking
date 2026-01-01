@@ -169,3 +169,71 @@ async function doOperation(retryCount = 0) {
 - Show inline error state only after exhausting retries
 
 ---
+
+## Dialog Responsiveness (MUST)
+
+### Immediate Close on Confirmation
+
+**Dialogs must close immediately after the user clicks the confirm button.**
+
+- Close the dialog BEFORE starting async operations
+- Set `showDialog = false` as the first line in the handler
+- Never wait for API calls or database operations before closing
+
+**Why:** Delayed closing creates uncertainty. Users expect immediate feedback. A dialog that stays open after clicking "Confirm" makes users worry something went wrong.
+
+```typescript
+// ✓ Good - close immediately
+async function handleConfirm() {
+	showDialog = false; // Close first
+	await performOperation(); // Then do work
+}
+
+// ✗ Bad - user waits anxiously
+async function handleConfirm() {
+	await performOperation(); // User stares at open dialog
+	showDialog = false; // Finally closes
+}
+```
+
+---
+
+## Layout Stability (MUST)
+
+### No Jumping Elements
+
+**UI elements must not jump or shift when content loads asynchronously.**
+
+- Reserve space for content that loads async (use min-height, skeleton loaders)
+- Avoid inserting elements that push other content down
+- Use CSS `contain: layout` for isolated sections when appropriate
+
+**Why:** Jumping elements irritate users and can cause mis-clicks. When a button moves as the user is about to click, they may click the wrong thing.
+
+### Techniques
+
+1. **Skeleton loaders** - Show placeholder shapes matching final content size
+2. **Fixed heights** - Use min-height for containers that will receive async content
+3. **Absolute positioning** - For overlays/tooltips that shouldn't affect layout
+4. **Content placeholders** - Reserve space with invisible placeholders
+
+```css
+/* Reserve space for async content */
+.async-container {
+	min-height: 200px; /* Prevents collapse while loading */
+}
+
+/* Skeleton loader example */
+.skeleton {
+	background: linear-gradient(
+		90deg,
+		var(--surface) 25%,
+		var(--surface-hover) 50%,
+		var(--surface) 75%
+	);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+}
+```
+
+---
