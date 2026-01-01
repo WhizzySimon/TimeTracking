@@ -74,8 +74,10 @@
 		loading = true;
 
 		try {
-			const { login } = await import('$lib/api/auth');
+			const { login, getCurrentUserId } = await import('$lib/api/auth');
 			const { saveSession } = await import('$lib/stores/auth');
+			const { loadUserProfile } = await import('$lib/api/profile');
+			const { setUserProfile, loadPersistedPlanOverride, loadPersistedUserName } = await import('$lib/stores/user');
 
 			const response = await login(email, password);
 
@@ -86,6 +88,15 @@
 				createdAt: Date.now()
 			};
 			await saveSession(session);
+
+			// Load user profile after login
+			const userId = await getCurrentUserId();
+			if (userId) {
+				const profile = await loadUserProfile(userId);
+				setUserProfile(profile);
+				loadPersistedPlanOverride();
+				loadPersistedUserName();
+			}
 
 			goto(resolve('/day'));
 		} catch (e) {
