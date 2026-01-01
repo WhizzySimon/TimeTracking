@@ -3,14 +3,52 @@
   Spec ref: ui-logic-spec-v1.md Section 13.1
 -->
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import { browser } from '$app/environment';
 	import PasswordInput from '$lib/components/PasswordInput.svelte';
 
 	let email = $state('');
 	let password = $state('');
 	let error = $state('');
 	let loading = $state(false);
+	let checkingSession = $state(true);
+
+	onMount(async () => {
+		if (!browser) {
+			checkingSession = false;
+			return;
+		}
+
+		try {
+			const { getSupabase, isSupabaseConfigured } = await import('$lib/supabase/client');
+			if (!isSupabaseConfigured()) {
+				checkingSession = false;
+				return;
+			}
+
+			const supabase = getSupabase();
+			const { data: { session } } = await supabase.auth.getSession();
+
+			if (session?.user) {
+				const { saveSession } = await import('$lib/stores/auth');
+				await saveSession({
+					token: session.access_token,
+					email: session.user.email ?? '',
+					expiresAt: session.expires_at ? session.expires_at * 1000 : Date.now() + 3600000,
+					createdAt: Date.now()
+				});
+				console.log('[Login] Auto-login from session (email change confirmation)');
+				goto(resolve('/day'));
+				return;
+			}
+		} catch (e) {
+			console.error('[Login] Session check failed:', e);
+		}
+
+		checkingSession = false;
+	});
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
@@ -56,9 +94,12 @@
 <div class="login-page">
 	<div class="login-card">
 		<h1>TimeTracker</h1>
-		<h2>Anmelden</h2>
+		{#if checkingSession}
+			<p class="checking">Sitzung wird geprüft...</p>
+		{:else}
+			<h2>Anmelden</h2>
 
-		<form onsubmit={handleSubmit}>
+			<form onsubmit={handleSubmit}>
 			<div class="field">
 				<label for="email">E-Mail</label>
 				<input
@@ -92,9 +133,10 @@
 		</form>
 
 		<div class="links">
-			<a href={resolve('/signup')}>Registrieren</a>
-			<a href={resolve('/forgot-password')}>Passwort vergessen?</a>
-		</div>
+				<a href={resolve('/signup')}>Registrieren</a>
+				<a href={resolve('/forgot-password')}>Passwort vergessen?</a>
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -218,5 +260,11 @@
 
 	.links a:hover {
 		text-decoration: underline;
+	}
+
+	.checking {
+		text-align: center;
+		color: var(--muted);
+		padding: 2rem 0;
 	}
 </style>
