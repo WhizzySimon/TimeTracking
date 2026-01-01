@@ -50,6 +50,8 @@
 	let isCreateMode = $derived(mode === 'create');
 	let isSystemCategory = $derived(!isCreateMode && category?.type === 'system');
 	let dialogTitle = $derived(isCreateMode ? 'Tätigkeit erstellen' : 'Kategorie bearbeiten');
+	// Absence categories (countsAsWorkTime=false) should not have employer assignment
+	let isAbsenceCategory = $derived(isCreateMode ? !countsAsWorkTime : !category?.countsAsWorkTime);
 
 	// Form state - initialize based on mode
 	let name = $state(category?.name ?? '');
@@ -70,8 +72,8 @@
 			return;
 		}
 
-		// STRICT: Require employer selection for all categories
-		if (selectedEmployerId === '') {
+		// STRICT: Require employer selection for work categories only (not absence)
+		if (!isAbsenceCategory && selectedEmployerId === '') {
 			error = 'Bitte zuerst Arbeitgeber auswählen';
 			return;
 		}
@@ -94,24 +96,24 @@
 
 			const now = Date.now();
 			if (isCreateMode) {
-				// Create new category - employerId is required (validated above)
+				// Create new category - employerId required for work categories only
 				savedCategory = {
 					id: crypto.randomUUID(),
 					name: trimmedName,
 					type: categoryType,
 					countsAsWorkTime: countsAsWorkTime,
-					employerId: selectedEmployerId,
+					employerId: isAbsenceCategory ? null : selectedEmployerId,
 					createdAt: now,
 					updatedAt: now
 				};
 				await put('categories', savedCategory);
 				categories.update((cats) => [...cats, savedCategory]);
 			} else {
-				// Update existing category - employerId is required (validated above)
+				// Update existing category - employerId required for work categories only
 				savedCategory = {
 					...category!,
 					name: trimmedName,
-					employerId: selectedEmployerId,
+					employerId: isAbsenceCategory ? null : selectedEmployerId,
 					updatedAt: now
 				};
 				await put('categories', savedCategory);
@@ -148,21 +150,23 @@
 			/>
 		</div>
 
-		<div class="field">
-			<label for="category-employer">Arbeitgeber:</label>
-			<select
-				id="category-employer"
-				data-testid="category-employer-select"
-				bind:value={selectedEmployerId}
-				class="select-input"
-				disabled={saving || isSystemCategory}
-			>
-				<option value="">Alle Arbeitgeber</option>
-				{#each employers as employer (employer.id)}
-					<option value={employer.id}>{employer.name}</option>
-				{/each}
-			</select>
-		</div>
+		{#if !isAbsenceCategory}
+			<div class="field">
+				<label for="category-employer">Arbeitgeber:</label>
+				<select
+					id="category-employer"
+					data-testid="category-employer-select"
+					bind:value={selectedEmployerId}
+					class="select-input"
+					disabled={saving || isSystemCategory}
+				>
+					<option value="">Alle Arbeitgeber</option>
+					{#each employers as employer (employer.id)}
+						<option value={employer.id}>{employer.name}</option>
+					{/each}
+				</select>
+			</div>
+		{/if}
 
 		{#if isSystemCategory}
 			<p class="info">Systemkategorien können nicht bearbeitet werden.</p>

@@ -32,6 +32,22 @@ Each entry follows this format:
 
 (newest first)
 
+## 2026-01-01 08:09 — FIX-abwesenheit-no-arbeitgeber
+
+| Step                 | Result | Notes                                      |
+| -------------------- | ------ | ------------------------------------------ |
+| 0: Scope check       | first  | First commit in this chat                  |
+| A1: Capture feedback | none   | No corrective feedback                     |
+| B1: Repeated errors  | none   | No repeated errors                         |
+| B2: File churn       | none   | Each file edited once                      |
+| B3: Scope drift      | none   | Only CategoryDialog + settings — on scope  |
+| B4: Session duration | ~16m   | normal                                     |
+| C1: Promotions       | none   | No items meet promotion criteria           |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                    |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                 |
+
+---
+
 ## 2025-12-31 15:42 — Fix Update Banner Bug
 
 | Step                 | Result | Notes                                  |

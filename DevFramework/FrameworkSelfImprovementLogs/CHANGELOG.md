@@ -8,6 +8,7 @@ All notable changes to this project. One line per commit/session. Most recent fi
 
 | Date                                               | Type     | Summary                                                                                                 | Ref     |
 | -------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| 2026-01-01                                         | fix      | Abwesenheit categories no longer linked to Arbeitgeber — hide employer dropdown + remove list labels    | —       |
 | 2025-12-31                                         | feat     | Strict employer model: dayTypes.employerId, strict filtering, migrateStrictEmployerModel(), debug logs  | —       |
 | 2025-12-31                                         | fix      | Update banner: offline-safe, version comparison, sessionStorage anti-spam, SW never caches version.json | —       |
 | 2025-12-31                                         | feat     | Sync: LWW entry-level merge replacing conflict dialog — auto-merge local/cloud data by updatedAt        | —       |

@@ -573,9 +573,6 @@
 										{category.name}
 										<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
 									</span>
-									{#if category.employerId}
-										<span class="item-employer">{getEmployerName(category.employerId)}</span>
-									{/if}
 								</div>
 								{#if category.type !== 'system'}
 									<button

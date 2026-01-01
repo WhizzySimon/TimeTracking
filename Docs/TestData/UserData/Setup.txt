@@ -1,0 +1,35 @@
+Generate test data for Tasks (Tätigkeiten) and Times (Zeitdaten) that i can import as csv for the following Arbeitgeber (AG) and Arbeitsmodell (AM) sets. 
+- Zeitdaten komplett bis 31.12.2025
+- alle Arten von Abwesenheiten enthalten sollen: 2 Wochen + Tage Urlaub + 5 Tage krank + alle Feiertage für Sachsen für die Zeitdaten.
+- inklusive 1 custom Abwesenheit "Joggen" (15 min), die ich manuell anlegen werde, (nicht AG gebunden ist), in beiden Zeitdaten (für beide AG) enthalten ist. 
+
+Setup:
+AG 1: Kirche
+AM 1: Kirche 40h/Woche Di-So Start 1.9.2025
+AM 2: Kirche 30h/Woche Di-So Start 1.11.2025
+AG 2: Orgelbau
+AM 3: Orgelbau 10h/Woche  Di-Mi Start 1.11.2025
+
+The tasks for an employer contain all tasks that are mentioned in times for each model (AM) for that employer.
+The times match the criteria:
+	- start time of the AM, specified working days, amount of hours per week
+	- to test the analysis, the hours per week may vary by a few hours more or less, but total hours match in average.
+Tasks-Kirche.csv
+	- 20 tasks (Tätigkeiten)
+Times-Kirche.csv
+	- from 1.9.2025 40 h / week
+	- from 1.11.2025 30 h / week
+Tasks-Orgelbau.csv
+	- 5 tasks (Tätigkeiten)
+Times-Orgelbau.csv
+	- from 1.11.2025 10 h / week
+	
+Return what to expect in Results.md
+Im Auswertungs-Tab: für die Zeiten Sept - Dez - Summe + Tätigkeiten (Gesamt, Durchschnitt/Woche)
+Im Monats-Tab: für Dez - Summe + alle Wochen 
+Im Wochen-Tab: für KW 49 - Summe + Alle Tage
+Im Tages-Tab: für Di, 2.12. + Mi, 3.12. - Summe + Alle Tätigkeiten
+
+Safe it in Docs/Testdata/UserData/
+
+Any questions?
