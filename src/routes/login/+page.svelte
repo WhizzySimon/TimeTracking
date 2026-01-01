@@ -36,6 +36,55 @@
 			}
 
 			const supabase = getSupabase();
+
+			// Check for email change token in URL (from confirmation link)
+			const urlParams = new URLSearchParams(window.location.search);
+			const tokenHash = urlParams.get('token_hash');
+			const type = urlParams.get('type');
+
+			if (tokenHash && type === 'email_change') {
+				console.log('[Login] Processing email change confirmation token');
+				const { data, error: verifyError } = await supabase.auth.verifyOtp({
+					token_hash: tokenHash,
+					type: 'email_change'
+				});
+
+				if (verifyError) {
+					console.error('[Login] Email change verification failed:', verifyError.message);
+					error = 'E-Mail-Änderung fehlgeschlagen: ' + verifyError.message;
+					checkingSession = false;
+					return;
+				}
+
+				if (data.session) {
+					const { saveSession } = await import('$lib/stores/auth');
+					const { getCurrentUserId } = await import('$lib/api/auth');
+					const { loadUserProfile } = await import('$lib/api/profile');
+					const { setUserProfile, loadPersistedPlanOverride, loadPersistedUserName } = await import('$lib/stores/user');
+
+					await saveSession({
+						token: data.session.access_token,
+						email: data.session.user.email ?? '',
+						expiresAt: data.session.expires_at ? data.session.expires_at * 1000 : Date.now() + 3600000,
+						createdAt: Date.now()
+					});
+
+					// Load user profile
+					const userId = await getCurrentUserId();
+					if (userId) {
+						const profile = await loadUserProfile(userId);
+						setUserProfile(profile);
+						loadPersistedPlanOverride();
+						loadPersistedUserName();
+					}
+
+					console.log('[Login] Email change confirmed, auto-login successful');
+					goto(resolve('/day'));
+					return;
+				}
+			}
+
+			// Check for existing session (normal auto-login)
 			const { data: { session } } = await supabase.auth.getSession();
 
 			if (session?.user) {
@@ -46,7 +95,7 @@
 					expiresAt: session.expires_at ? session.expires_at * 1000 : Date.now() + 3600000,
 					createdAt: Date.now()
 				});
-				console.log('[Login] Auto-login from session (email change confirmation)');
+				console.log('[Login] Auto-login from existing session');
 				goto(resolve('/day'));
 				return;
 			}
