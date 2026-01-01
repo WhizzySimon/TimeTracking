@@ -198,6 +198,53 @@ async function handleConfirm() {
 
 ---
 
+## Navigation Labels (SHOULD)
+
+### Weekday Abbreviations
+
+**Use 2-letter weekday abbreviations for date navigation, not day numbers.**
+
+| Day | Abbreviation |
+|-----|-------------|
+| Monday | Mo |
+| Tuesday | Di |
+| Wednesday | Mi |
+| Thursday | Do |
+| Friday | Fr |
+| Saturday | Sa |
+| Sunday | So |
+
+**Why:** Weekday abbreviations provide more context than bare numbers. "Mo" tells the user it's Monday; "31" requires mental calculation.
+
+---
+
+## Horizontal Space Usage (SHOULD)
+
+### Think Like a UI Designer
+
+**Use horizontal space before adding vertical height.**
+
+- Place badges, labels, and metadata inline when horizontal space is available
+- Avoid unnecessary row height increases
+- Consider layout impact before implementation
+
+```
+✗ Bad: Badge below category name (adds vertical height)
+┌─────────────────────────┐
+│ Category Name           │
+│ [Badge]                 │
+└─────────────────────────┘
+
+✓ Good: Badge inline with category name
+┌─────────────────────────┐
+│ Category Name  [Badge]  │
+└─────────────────────────┘
+```
+
+**Why:** Vertical expansion reduces visible content and creates visual clutter. Horizontal layouts are more scannable.
+
+---
+
 ## Layout Stability (MUST)
 
 ### No Jumping Elements
