@@ -51,7 +51,7 @@
 </script>
 
 <div
-	class="task-item"
+	class="tt-row tt-row--action task-item"
 	class:running={isRunning}
 	role="button"
 	tabindex="0"
@@ -59,43 +59,45 @@
 	{onclick}
 	onkeydown={(e) => e.key === 'Enter' && onclick?.()}
 >
-	<div class="task-header">
+	<div class="tt-row__content">
 		<div class="task-main">
-			<span class="task-time">{timeDisplay}</span>
-			<span class="task-category">{category?.name ?? 'Unbekannt'}</span>
+			<span class="tt-row__title task-time">{timeDisplay}</span>
+			<span class="tt-row__detail task-category">{category?.name ?? 'Unbekannt'}</span>
 			{#if category?.countsAsWorkTime}
-				<span class="badge employer-badge">{employer?.name ?? 'Unbekannt'}</span>
+				<span class="tt-badge tt-badge--employer">{employer?.name ?? 'Unbekannt'}</span>
 			{:else}
-				<span class="badge no-work-badge">Keine Arbeitszeit</span>
+				<span class="tt-badge tt-badge--no-work">Keine Arbeitszeit</span>
 			{/if}
 		</div>
-		<div class="task-actions">
-			{#if isRunning}
-				<button class="end-btn" onclick={handleEnd} aria-label="Beenden">Beenden</button>
-			{:else}
-				<button class="resume-btn" onclick={handleResume} aria-label="Fortsetzen">▶</button>
-			{/if}
-			<button class="delete-btn" onclick={handleDelete} aria-label="Löschen">
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<polyline points="3 6 5 6 21 6"></polyline>
-					<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-					></path>
-				</svg>
-			</button>
-		</div>
+		{#if entry.description}
+			<div class="tt-row__detail task-description">{entry.description}</div>
+		{/if}
 	</div>
-	{#if entry.description}
-		<div class="task-description">{entry.description}</div>
-	{/if}
+	<div class="tt-row__end">
+		{#if isRunning}
+			<button class="tt-btn tt-btn--primary tt-btn--sm end-btn" onclick={handleEnd} aria-label="Beenden">Beenden</button>
+		{:else}
+			<button class="tt-row__action resume-btn" onclick={handleResume} aria-label="Fortsetzen">
+				<span class="tt-icon-play"></span>
+			</button>
+		{/if}
+		<button class="tt-btn-delete" onclick={handleDelete} aria-label="Löschen">
+			<svg
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<polyline points="3 6 5 6 21 6"></polyline>
+				<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+				></path>
+			</svg>
+		</button>
+	</div>
 </div>
 
 <style>

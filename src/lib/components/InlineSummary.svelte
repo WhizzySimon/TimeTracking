@@ -19,7 +19,7 @@
 	let { ist, soll, saldo }: Props = $props();
 </script>
 
-<div class="inline-summary">
+<div class="tt-row tt-row--info inline-summary">
 	<span class="summary-item">
 		<span class="label">Ist:</span>
 		<span class="value">{formatHours(ist)}</span>

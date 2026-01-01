@@ -45,3 +45,27 @@ The proactive employee doesn't just answer "yes/no" — they think about what th
 Proactive ≠ doing everything. If user asks a simple question and the answer is genuinely "yes, it's done", just say that. Don't create unnecessary work.
 
 **Trigger for going beyond:** User's question implies doubt, or there's an obvious gap.
+
+---
+
+## Don't Stop at First Plausible Cause
+
+When searching for the cause of something (bug, unexpected behavior, failure):
+
+**Anti-pattern:** Stop investigating when you find the first explanation that seems logical, then immediately act on it.
+
+**Problem:** The real system may have more parameters, multiple causes, or a different root cause than the first plausible one. Acting on incomplete understanding leads to trial-and-error loops that waste time and tokens — especially when user actions are involved.
+
+**Better approach:**
+
+1. **Map the full system** — Identify all parameters and dependencies that could influence the issue
+2. **Investigate before acting** — Gather evidence until you're confident in the full picture
+3. **Balance depth** — Don't go infinitely deep; not all connected areas influence the issue
+4. **Then act** — With full understanding, the fix is usually straightforward
+
+**The cost of trial-and-error:**
+- Each hypothesis-test cycle takes time (implementation, testing, verification)
+- If user actions are required (clicking links, checking emails), it wastes their time too
+- The dev framework steps (implementation → testing → commit) multiply the cost
+
+**Example:** A bug might seem like "missing URL parameter" but actually involves: auth service settings, token flow stages, URL formats at each stage, redirect URL matching rules, and multi-step confirmation requirements. Investigating all of these FIRST is faster than 5 hypothesis-test cycles.

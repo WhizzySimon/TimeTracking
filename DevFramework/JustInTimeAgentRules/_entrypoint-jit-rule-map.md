@@ -44,6 +44,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | **Creating/updating spec**  | `spec-writing.md`                                                                    |
 | **Creating/updating plan**  | `planning.md`                                                                        |
 | **Before implementing**     | `implementation.md`                                                                  |
+| **Debugging/troubleshooting** | `debugging.md`, `mindset.md`                                                       |
 | **Before marking complete** | Run `/audit`, ensure Evidence Bundle is staged                                       |
 | **Before git commit**       | `pre-commit.md`                                                                      |
 | **Before commit (detours)** | `sync-check.md`                                                                      |

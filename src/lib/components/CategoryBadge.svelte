@@ -7,7 +7,7 @@
 </script>
 
 {#if !countsAsWorkTime}
-	<span class="badge">Keine Arbeitszeit</span>
+	<span class="tt-badge tt-badge--no-work">Keine Arbeitszeit</span>
 {/if}
 
 <style>

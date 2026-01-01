@@ -562,16 +562,17 @@
 					{:else}
 						{#each employers.filter((emp) => emp.isActive) as employer (employer.id)}
 							<div
-								class="list-item clickable"
+								class="tt-row tt-row--nav list-item"
 								role="button"
 								tabindex="0"
 								data-testid="employer-item"
 								onclick={() => handleEditEmployer(employer)}
 								onkeydown={(event) => event.key === 'Enter' && handleEditEmployer(employer)}
 							>
-								<div class="item-info">
-									<span class="item-name" data-testid="employer-name">{employer.name}</span>
+								<div class="tt-row__content">
+									<span class="tt-row__title" data-testid="employer-name">{employer.name}</span>
 								</div>
+								<div class="tt-row__end">
 								<button
 									class="delete-btn"
 									aria-label="Löschen"
@@ -596,6 +597,7 @@
 										></path>
 									</svg></button
 								>
+								</div>
 							</div>
 						{/each}
 					{/if}
@@ -627,20 +629,21 @@
 					{:else}
 						{#each $workTimeModels as model (model.id)}
 							<div
-								class="list-item clickable"
+								class="tt-row tt-row--nav list-item"
 								role="button"
 								tabindex="0"
 								onclick={() => handleEditModel(model)}
 								onkeydown={(e) => e.key === 'Enter' && handleEditModel(model)}
 							>
-								<div class="item-info">
-									<span class="item-name">{model.name}</span>
-									<span class="item-detail">
+								<div class="tt-row__content">
+									<span class="tt-row__title">{model.name}</span>
+									<span class="tt-row__detail">
 										{calculateModelTotalHours(model)}h/Woche • {countModelWorkdays(model)} Tage • ab {model.validFrom}
 									</span>
 								</div>
+								<div class="tt-row__end">
 								<button
-									class="delete-btn"
+									class="tt-btn-delete"
 									aria-label="Löschen"
 									onclick={(e) => {
 										e.stopPropagation();
@@ -662,6 +665,7 @@
 										></path>
 									</svg></button
 								>
+								</div>
 							</div>
 						{/each}
 					{/if}
@@ -693,7 +697,7 @@
 					{:else}
 						{#each abwesenheit() as category (category.id)}
 							<div
-								class="list-item clickable"
+								class="tt-row tt-row--nav list-item"
 								data-testid="category-item"
 								data-category-type={category.type}
 								data-counts-as-work="false"
@@ -702,15 +706,16 @@
 								onclick={() => handleEditCategory(category)}
 								onkeydown={(event) => event.key === 'Enter' && handleEditCategory(category)}
 							>
-								<div class="item-info">
-									<span class="item-name" data-testid="category-name">
+								<div class="tt-row__content">
+									<span class="tt-row__title" data-testid="category-name">
 										{category.name}
 										<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
 									</span>
 								</div>
 								{#if category.type !== 'system'}
+									<div class="tt-row__end">
 									<button
-										class="delete-btn"
+										class="tt-btn-delete"
 										aria-label="Löschen"
 										data-testid="delete-category-btn"
 										onclick={(event) => {
@@ -733,6 +738,7 @@
 											></path>
 										</svg></button
 									>
+									</div>
 								{/if}
 							</div>
 						{/each}
@@ -817,7 +823,7 @@
 					{:else}
 						{#each taetigkeiten() as category (category.id)}
 							<div
-								class="list-item clickable"
+								class="tt-row tt-row--nav list-item"
 								data-testid="category-item"
 								data-category-type={category.type}
 								data-counts-as-work="true"
@@ -826,15 +832,16 @@
 								onclick={() => handleEditCategory(category)}
 								onkeydown={(event) => event.key === 'Enter' && handleEditCategory(category)}
 							>
-								<div class="item-info">
-									<span class="item-name" data-testid="category-name">{category.name}</span>
+								<div class="tt-row__content">
+									<span class="tt-row__title" data-testid="category-name">{category.name}</span>
 									{#if category.employerId}
-										<span class="item-employer">{getEmployerName(category.employerId)}</span>
+										<span class="tt-row__detail tt-text-primary">{getEmployerName(category.employerId)}</span>
 									{/if}
 								</div>
 								{#if category.type !== 'system'}
+									<div class="tt-row__end">
 									<button
-										class="delete-btn"
+										class="tt-btn-delete"
 										aria-label="Löschen"
 										data-testid="delete-category-btn"
 										onclick={(event) => {
@@ -857,6 +864,7 @@
 											></path>
 										</svg></button
 									>
+									</div>
 								{/if}
 							</div>
 						{/each}
