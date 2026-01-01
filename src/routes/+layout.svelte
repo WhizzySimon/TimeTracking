@@ -33,7 +33,8 @@
 		clearUserProfile,
 		isPro,
 		loadPersistedPlanOverride,
-		loadNeverAddedAnEntry
+		loadNeverAddedAnEntry,
+		loadPersistedUserName
 	} from '$lib/stores/user';
 	import Paywall from '$lib/components/Paywall.svelte';
 	import { loadUserProfile, clearCachedPlan } from '$lib/api/profile';
@@ -283,6 +284,7 @@
 				const profile = await loadUserProfile(userId);
 				setUserProfile(profile);
 				loadPersistedPlanOverride();
+				loadPersistedUserName();
 			}
 
 			// Load neverAddedAnEntry flag (with migration logic)

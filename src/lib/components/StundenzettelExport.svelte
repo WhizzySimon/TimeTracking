@@ -18,6 +18,7 @@
 	import type { Employer, TimeEntry, Category } from '$lib/types';
 	import { SvelteSet } from 'svelte/reactivity';
 	import Modal from './Modal.svelte';
+	import { userFullName } from '$lib/stores/user';
 	import {
 		exportStundenzettelExcel,
 		exportStundenzettelPdf,
@@ -234,6 +235,15 @@
 
 <Modal title="Stundenzettel exportieren" {onclose}>
 	<div class="export-form">
+		<!-- User Name Display -->
+		<div class="user-name-display">
+			{#if $userFullName}
+				<span class="user-name">{$userFullName}</span>
+			{:else}
+				<span class="user-name-warning">Bitte Name im Abschnitt Konto festlegen</span>
+			{/if}
+		</div>
+
 		<!-- Employer Selection -->
 		<div class="field">
 			<label for="employer-select">Arbeitgeber:</label>
@@ -386,6 +396,24 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+	}
+
+	.user-name-display {
+		padding: 0.75rem;
+		background: var(--surface);
+		border-radius: var(--r-card);
+		text-align: center;
+		font-weight: 500;
+	}
+
+	.user-name {
+		color: var(--text);
+		font-size: 1.1rem;
+	}
+
+	.user-name-warning {
+		color: var(--neg);
+		font-size: 0.9rem;
 	}
 
 	.field {

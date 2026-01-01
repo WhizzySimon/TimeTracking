@@ -170,6 +170,8 @@ export interface UserProfile {
 	id: string;
 	email: string;
 	plan: UserPlan;
+	firstName?: string;
+	lastName?: string;
 	stripeCustomerId?: string;
 	subscriptionStatus?: string;
 	subscriptionEndsAt?: string;

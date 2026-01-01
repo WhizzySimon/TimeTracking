@@ -116,3 +116,47 @@ export function setNeverAddedAnEntry(value: boolean): void {
 		localStorage.setItem('timetracker_never_added_entry', String(value));
 	}
 }
+
+/**
+ * Update user name (firstName + lastName) and persist to localStorage.
+ */
+export function setUserName(firstName: string, lastName: string): void {
+	userProfile.update((profile) => {
+		if (profile) {
+			return { ...profile, firstName, lastName };
+		}
+		return profile;
+	});
+	if (typeof localStorage !== 'undefined') {
+		localStorage.setItem('timetracker_user_firstName', firstName);
+		localStorage.setItem('timetracker_user_lastName', lastName);
+	}
+}
+
+/**
+ * Load persisted user name from localStorage.
+ * Call this after loading user profile.
+ */
+export function loadPersistedUserName(): void {
+	if (typeof localStorage !== 'undefined') {
+		const firstName = localStorage.getItem('timetracker_user_firstName') ?? '';
+		const lastName = localStorage.getItem('timetracker_user_lastName') ?? '';
+		if (firstName || lastName) {
+			userProfile.update((profile) => {
+				if (profile) {
+					return { ...profile, firstName, lastName };
+				}
+				return profile;
+			});
+		}
+	}
+}
+
+/**
+ * Derived store: full user name (firstName + lastName) or empty string.
+ */
+export const userFullName = derived(userProfile, ($profile) => {
+	const first = $profile?.firstName ?? '';
+	const last = $profile?.lastName ?? '';
+	return [first, last].filter(Boolean).join(' ');
+});

@@ -16,7 +16,7 @@
 	import { resolve } from '$app/paths';
 	import { categories, workTimeModels, employers as employersStore } from '$lib/stores';
 	import { getAllEmployers, deleteEmployer } from '$lib/storage/employers';
-	import { userProfile, userPlan } from '$lib/stores/user';
+	import { userProfile, userPlan, userFullName } from '$lib/stores/user';
 	import { logout } from '$lib/api/auth';
 	import {
 		theme,
@@ -49,6 +49,7 @@
 	import PlanComparison from '$lib/components/PlanComparison.svelte';
 	import EmployerDialog from '$lib/components/EmployerDialog.svelte';
 	import StundenzettelExport from '$lib/components/StundenzettelExport.svelte';
+	import NameEditDialog from '$lib/components/NameEditDialog.svelte';
 	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
@@ -123,6 +124,7 @@
 	let employers = $state<Employer[]>([]);
 	let showCategoryDialog = $state(false);
 	let categoryToEdit: Category | null = $state(null);
+	let showNameEditDialog = $state(false);
 	let showDeleteAllCategoriesConfirm = $state(false);
 	let showDeleteAllTimeEntriesConfirm = $state(false);
 	let deleteAllInProgress = $state(false);
@@ -400,6 +402,33 @@
 				<h2>Konto</h2>
 			</div>
 			<div class="account-info">
+				<div class="account-row">
+					<span class="account-label">Name</span>
+					<div class="account-value-with-edit">
+						<span class="account-value" data-testid="account-name">
+							{$userFullName || 'Nicht festgelegt'}
+						</span>
+						<button
+							class="edit-btn"
+							aria-label="Name bearbeiten"
+							onclick={() => (showNameEditDialog = true)}
+						>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+								<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+							</svg>
+						</button>
+					</div>
+				</div>
 				<div class="account-row">
 					<span class="account-label">E-Mail</span>
 					<span class="account-value" data-testid="account-email"
@@ -981,6 +1010,11 @@
 	/>
 {/if}
 
+<!-- Name Edit Dialog -->
+{#if showNameEditDialog}
+	<NameEditDialog onclose={() => (showNameEditDialog = false)} />
+{/if}
+
 <!-- Delete All Categories Confirmation -->
 {#if showDeleteAllCategoriesConfirm}
 	<ConfirmDialog
@@ -1437,6 +1471,29 @@
 
 	.account-value {
 		color: var(--text);
+	}
+
+	.account-value-with-edit {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.edit-btn {
+		padding: 0.25rem;
+		background: transparent;
+		border: none;
+		color: var(--muted);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--r-btn);
+	}
+
+	.edit-btn:hover {
+		color: var(--accent);
+		background: var(--surface-hover);
 	}
 
 	.plan-badge {
