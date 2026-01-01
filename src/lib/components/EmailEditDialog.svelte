@@ -3,8 +3,12 @@
   Supabase will send a confirmation email to the new address
 -->
 <script lang="ts">
-	import { userProfile } from '$lib/stores/user';
-	import { updateEmail } from '$lib/api/auth';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
+	import { userProfile, clearUserProfile } from '$lib/stores/user';
+	import { updateEmail, logout } from '$lib/api/auth';
+	import { clearSession } from '$lib/stores/auth';
+	import { clearCachedPlan } from '$lib/api/profile';
 	import Modal from './Modal.svelte';
 
 	interface Props {
@@ -47,6 +51,15 @@
 			handleSave();
 		}
 	}
+
+	async function handleLogoutAndClose() {
+		onclose();
+		await logout();
+		await clearSession();
+		clearUserProfile();
+		clearCachedPlan();
+		goto(resolve('/login') + '?logout=1');
+	}
 </script>
 
 <Modal title="E-Mail ändern" {onclose}>
@@ -54,9 +67,10 @@
 		<div class="success-message">
 			<p>Eine Bestätigungs-E-Mail wurde an <strong>{newEmail}</strong> gesendet.</p>
 			<p>Bitte klicken Sie auf den Link in der E-Mail, um die Änderung zu bestätigen.</p>
+			<p class="logout-hint">Sie werden jetzt abgemeldet und können sich nach der Bestätigung mit der neuen E-Mail-Adresse anmelden.</p>
 		</div>
 		<div class="actions">
-			<button class="save-btn" onclick={onclose}>Schließen</button>
+			<button class="save-btn" onclick={handleLogoutAndClose}>Abmelden</button>
 		</div>
 	{:else}
 		<div class="form">
@@ -145,6 +159,12 @@
 	.success-message p {
 		margin: 0.5rem 0;
 		color: var(--text);
+	}
+
+	.success-message .logout-hint {
+		margin-top: 1rem;
+		font-size: 0.85rem;
+		color: var(--muted);
 	}
 
 	.actions {

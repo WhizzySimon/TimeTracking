@@ -38,9 +38,18 @@
 			const supabase = getSupabase();
 
 			// Check for email change token in URL (from confirmation link)
+			// Supabase may use query params OR hash fragment depending on flow
 			const urlParams = new URLSearchParams(window.location.search);
-			const tokenHash = urlParams.get('token_hash');
-			const type = urlParams.get('type');
+			const hashParams = new URLSearchParams(window.location.hash.substring(1));
+			const tokenHash = urlParams.get('token_hash') || hashParams.get('token_hash');
+			const type = urlParams.get('type') || hashParams.get('type');
+
+			console.log('[Login] URL check:', { 
+				search: window.location.search, 
+				hash: window.location.hash,
+				tokenHash: tokenHash ? 'present' : 'none', 
+				type 
+			});
 
 			if (tokenHash && type === 'email_change') {
 				console.log('[Login] Processing email change confirmation token');
