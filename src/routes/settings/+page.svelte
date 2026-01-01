@@ -273,10 +273,11 @@
 	});
 
 	async function handleLogout() {
+		showLogoutConfirm = false;
 		try {
 			await logout();
 			await clearSession();
-			goto(resolve('/login'));
+			goto(resolve('/login') + '?logout=1');
 		} catch (e) {
 			console.error('[Settings] Logout failed:', e);
 		}

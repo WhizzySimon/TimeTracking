@@ -21,6 +21,13 @@
 			return;
 		}
 
+		// Skip auto-login if user just logged out
+		const isLogout = new URLSearchParams(window.location.search).get('logout') === '1';
+		if (isLogout) {
+			checkingSession = false;
+			return;
+		}
+
 		try {
 			const { getSupabase, isSupabaseConfigured } = await import('$lib/supabase/client');
 			if (!isSupabaseConfigured()) {
