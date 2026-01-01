@@ -252,6 +252,30 @@ export async function logout(): Promise<void> {
 }
 
 /**
+ * Update email address using Supabase Auth.
+ * Supabase will send a confirmation email to the new address.
+ * @param newEmail New email address
+ */
+export async function updateEmail(newEmail: string): Promise<void> {
+	console.log('[AuthAPI] Update email request:', { newEmail });
+
+	requireSupabase();
+
+	const supabase = getSupabase();
+	const { error } = await supabase.auth.updateUser({
+		email: newEmail
+	});
+
+	if (error) {
+		console.error('[AuthAPI] Update email failed:', error.message);
+		const translatedMessage = translateAuthError(error.message);
+		throw new Error(translatedMessage);
+	}
+
+	console.log('[AuthAPI] Email update initiated - confirmation email sent');
+}
+
+/**
  * Delete user account using Supabase Admin API via Edge Function.
  * Note: Supabase client-side SDK cannot delete users directly.
  * This requires a server-side Edge Function with service_role key.

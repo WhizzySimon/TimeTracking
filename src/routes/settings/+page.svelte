@@ -50,6 +50,7 @@
 	import EmployerDialog from '$lib/components/EmployerDialog.svelte';
 	import StundenzettelExport from '$lib/components/StundenzettelExport.svelte';
 	import NameEditDialog from '$lib/components/NameEditDialog.svelte';
+	import EmailEditDialog from '$lib/components/EmailEditDialog.svelte';
 	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
@@ -125,6 +126,7 @@
 	let showCategoryDialog = $state(false);
 	let categoryToEdit: Category | null = $state(null);
 	let showNameEditDialog = $state(false);
+	let showEmailEditDialog = $state(false);
 	let showDeleteAllCategoriesConfirm = $state(false);
 	let showDeleteAllTimeEntriesConfirm = $state(false);
 	let deleteAllInProgress = $state(false);
@@ -436,20 +438,61 @@
 				</div>
 				<div class="account-row">
 					<span class="account-label">E-Mail</span>
-					<span class="account-value" data-testid="account-email"
-						>{$userProfile?.email ?? 'Nicht angemeldet'}</span
-					>
+					<div class="account-value-with-edit">
+						<span class="account-value" data-testid="account-email">
+							{$userProfile?.email ?? 'Nicht angemeldet'}
+						</span>
+						<button
+							class="edit-btn"
+							aria-label="E-Mail bearbeiten"
+							onclick={() => (showEmailEditDialog = true)}
+						>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+								<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+							</svg>
+						</button>
+					</div>
 				</div>
 				<div class="account-row">
 					<span class="account-label">Plan</span>
-					<button
-						class="account-value plan-badge plan-clickable"
-						class:pro={$userPlan === 'pro'}
-						data-testid="account-plan"
-						onclick={handlePlanChange}
-					>
-						{$userPlan === 'pro' ? 'Pro' : 'Free'}
-					</button>
+					<div class="account-value-with-edit">
+						<span
+							class="account-value plan-badge"
+							class:pro={$userPlan === 'pro'}
+							data-testid="account-plan"
+						>
+							{$userPlan === 'pro' ? 'Pro' : 'Free'}
+						</span>
+						<button
+							class="edit-btn"
+							aria-label="Plan ändern"
+							onclick={handlePlanChange}
+						>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+								<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+							</svg>
+						</button>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -1020,6 +1063,11 @@
 	<NameEditDialog onclose={() => (showNameEditDialog = false)} />
 {/if}
 
+<!-- Email Edit Dialog -->
+{#if showEmailEditDialog}
+	<EmailEditDialog onclose={() => (showEmailEditDialog = false)} />
+{/if}
+
 <!-- Delete All Categories Confirmation -->
 {#if showDeleteAllCategoriesConfirm}
 	<ConfirmDialog
@@ -1527,15 +1575,5 @@
 	.plan-badge.pro {
 		background: var(--accent);
 		color: white;
-	}
-
-	.plan-clickable {
-		cursor: pointer;
-		border: none;
-		transition: opacity var(--transition-fast);
-	}
-
-	.plan-clickable:hover {
-		opacity: 0.8;
 	}
 </style>
