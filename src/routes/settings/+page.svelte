@@ -828,7 +828,7 @@
 					onclick={() => (showDeleteAllTimeEntriesConfirm = true)}
 					disabled={deleteAllInProgress}
 				>
-					{deleteAllInProgress ? 'Wird gelöscht...' : 'Alle Zeitdaten löschen'}
+					{deleteAllInProgress ? 'Wird gelöscht...' : 'Zeitdaten löschen'}
 				</button>
 			</div>
 		</section>
