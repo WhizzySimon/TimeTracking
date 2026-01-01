@@ -391,6 +391,11 @@
 <svelte:window onclick={closeCategoryMenu} />
 
 <div class="settings-page">
+	<!-- Page Header -->
+	<div class="page-header">
+		<h1>Einstellungen</h1>
+	</div>
+
 	{#if loading}
 		<div class="loading">
 			<p>Laden...</p>
@@ -1047,6 +1052,21 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+	}
+
+	.page-header {
+		padding: 0.75rem 1rem;
+		background-color: var(--summary-bg);
+		border-radius: var(--r-card);
+		border: 1px solid var(--border);
+		text-align: center;
+	}
+
+	.page-header h1 {
+		margin: 0;
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: var(--text);
 	}
 
 	.loading {
