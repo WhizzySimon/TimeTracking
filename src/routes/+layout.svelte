@@ -22,7 +22,7 @@
 		timeEntries,
 		categories
 	} from '$lib/stores';
-	import { saveTimeEntry } from '$lib/storage/operations';
+	import { saveTimeEntry, deleteTimeEntry } from '$lib/storage/operations';
 	import { formatTime } from '$lib/utils/date';
 	import { getAll } from '$lib/storage/db';
 	import type { TimeEntry } from '$lib/types';
@@ -142,6 +142,32 @@
 			currentDate.set(new Date(entry.date + 'T00:00:00'));
 			goto(resolve('/day'));
 		}
+	}
+
+	// State for delete confirmation dialog
+	let showDeleteRunningConfirm = $state(false);
+
+	/**
+	 * Show confirmation dialog before deleting running task.
+	 */
+	function handleDeleteRunningTask() {
+		showDeleteRunningConfirm = true;
+	}
+
+	/**
+	 * Actually delete the running task after confirmation.
+	 */
+	async function confirmDeleteRunningTask() {
+		const entry = $runningEntry;
+		if (!entry) return;
+
+		await deleteTimeEntry(entry.id);
+
+		// Reload entries to update the store
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
+
+		showDeleteRunningConfirm = false;
 	}
 
 	async function handleSyncClick() {
@@ -514,6 +540,7 @@
 					employer={runningTaskEmployer()}
 					onclick={handleRunningTaskClick}
 					onend={handleEndRunningTask}
+					ondelete={handleDeleteRunningTask}
 				/>
 			</div>
 		{/if}
@@ -522,6 +549,18 @@
 		</main>
 		<TabNavigation />
 	</div>
+{/if}
+
+<!-- Delete Running Task Confirmation Dialog -->
+{#if showDeleteRunningConfirm}
+	<ConfirmDialog
+		title="Eintrag löschen"
+		message="Möchten Sie diesen laufenden Eintrag wirklich löschen?"
+		confirmLabel="Löschen"
+		confirmStyle="danger"
+		onconfirm={confirmDeleteRunningTask}
+		oncancel={() => (showDeleteRunningConfirm = false)}
+	/>
 {/if}
 
 <!-- Logout Confirmation Dialog -->
@@ -709,9 +748,10 @@
 		top: 100%;
 		right: 0;
 		margin-top: var(--tt-space-8);
-		background: var(--tt-surface);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-card);
-		box-shadow: var(--tt-shadow-lg);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		min-width: 200px;
 		z-index: 100;
 		overflow: hidden;
@@ -721,14 +761,14 @@
 		padding: var(--tt-space-12) var(--tt-space-16);
 		font-size: 0.85rem;
 		color: var(--tt-text-muted);
-		background: var(--tt-surface-alt);
-		border-bottom: 1px solid var(--tt-border);
+		background: var(--tt-background-card-hover);
+		border-bottom: 1px solid var(--tt-border-default);
 		word-break: break-all;
 	}
 
 	.menu-divider {
 		height: 1px;
-		background: var(--tt-border);
+		background: var(--tt-border-default);
 	}
 
 	.menu-item {

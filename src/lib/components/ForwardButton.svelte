@@ -13,31 +13,41 @@
 	}
 </script>
 
-<button class="forward-btn" onclick={handleForward} aria-label="Vorwärts"> Vor </button>
+<button class="nav-btn" onclick={handleForward} aria-label="Vorwärts">
+	Vor
+	<svg
+		class="nav-icon"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	>
+		<polyline points="9 18 15 12 9 6"></polyline>
+	</svg>
+</button>
 
 <style>
-	.forward-btn {
-		width: 70px;
-		height: 32px;
-		padding: 6px 12px;
-		border: none;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 0.875rem;
-		cursor: pointer;
+	.nav-btn {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		position: relative;
-		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%);
-		transition: opacity 0.2s;
+		gap: 4px;
+		padding: 6px 12px;
+		border: 1px solid var(--tt-header-border);
+		background: rgba(255, 255, 255, 0.1);
+		color: var(--tt-header-text);
+		font-size: 0.875rem;
+		border-radius: var(--tt-radius-button);
+		cursor: pointer;
 	}
 
-	.forward-btn:hover {
-		opacity: 0.9;
+	.nav-btn:active {
+		background: rgba(255, 255, 255, 0.2);
 	}
 
-	.forward-btn:active {
-		opacity: 0.8;
+	.nav-icon {
+		width: 16px;
+		height: 16px;
 	}
 </style>

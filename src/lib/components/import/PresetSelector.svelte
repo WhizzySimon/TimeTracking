@@ -124,9 +124,23 @@
 				onclick={(e) => e.stopPropagation()}
 				onkeydown={(e) => e.stopPropagation()}
 			>
-				<button class="close-btn" onclick={() => (showSaveDialog = false)} aria-label="Schließen"
-					>×</button
+				<button
+					class="tt-symbol-button close-btn-pos"
+					onclick={() => (showSaveDialog = false)}
+					aria-label="Schließen"
 				>
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
 				<h4>Preset speichern</h4>
 				<input
 					type="text"
@@ -253,27 +267,11 @@
 		position: relative;
 	}
 
-	.close-btn {
+	.close-btn-pos {
 		position: absolute;
-		top: 1rem;
-		right: 1rem;
-		width: 32px;
-		height: 32px;
-		border: none;
-		background: none;
-		font-size: 1.5rem;
-		cursor: pointer;
-		color: var(--text-tertiary);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: 4px;
+		top: 0.5rem;
+		right: 0.5rem;
 		z-index: 1;
-	}
-
-	.close-btn:hover {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
 	}
 
 	.save-dialog h4 {

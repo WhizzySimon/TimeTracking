@@ -36,6 +36,7 @@
 				bind:value={firstName}
 				placeholder="Vorname"
 				onkeydown={handleKeydown}
+				class="tt-text-input"
 			/>
 		</div>
 		<div class="field">
@@ -46,12 +47,13 @@
 				bind:value={lastName}
 				placeholder="Nachname"
 				onkeydown={handleKeydown}
+				class="tt-text-input"
 			/>
 		</div>
 	</div>
 	<div class="actions">
-		<button class="cancel-btn" onclick={onclose}>Abbrechen</button>
-		<button class="save-btn" onclick={handleSave}>Speichern</button>
+		<button class="tt-button-secondary" onclick={onclose}>Abbrechen</button>
+		<button class="tt-button-primary" onclick={handleSave}>Speichern</button>
 	</div>
 </Modal>
 
@@ -59,69 +61,30 @@
 	.form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
-		padding: 1rem 0;
+		gap: var(--tt-space-16);
+		padding: var(--tt-space-16) 0;
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.field label {
 		font-size: 0.85rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
-	.field input {
-		padding: 0.75rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		background: var(--surface);
-		color: var(--text);
-		font-size: 1rem;
-	}
-
-	.field input:focus {
-		outline: none;
-		border-color: var(--accent);
-	}
+	/* Inputs use design system class: .tt-text-input */
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
-		padding-top: 1rem;
-		border-top: 1px solid var(--border);
+		padding-top: var(--tt-space-16);
+		border-top: 1px solid var(--tt-border-default);
 	}
 
-	.cancel-btn {
-		padding: 0.75rem 1.5rem;
-		background: var(--surface);
-		color: var(--text);
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		font-size: 0.9rem;
-		cursor: pointer;
-	}
-
-	.cancel-btn:hover {
-		background: var(--surface-hover);
-	}
-
-	.save-btn {
-		padding: 0.75rem 1.5rem;
-		background: var(--accent);
-		color: white;
-		border: none;
-		border-radius: var(--r-btn);
-		font-size: 0.9rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.save-btn:hover {
-		opacity: 0.9;
-	}
+	/* Buttons use design system classes: .tt-button-primary, .tt-button-secondary */
 </style>

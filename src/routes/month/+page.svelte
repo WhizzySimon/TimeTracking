@@ -347,6 +347,17 @@
 				onclick={goToPreviousMonth}
 				aria-label="Vorheriger Monat"
 			>
+				<svg
+					class="nav-chevron"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="15 18 9 12 15 6"></polyline>
+				</svg>
 				{previousMonthLabel()}
 			</button>
 			<button class="month-title" onclick={openMonthPicker}>
@@ -357,6 +368,17 @@
 			</button>
 			<button class="nav-btn nav-btn-next" onclick={goToNextMonth} aria-label="Nächster Monat">
 				{nextMonthLabel()}
+				<svg
+					class="nav-chevron"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="9 18 15 12 9 6"></polyline>
+				</svg>
 			</button>
 		</header>
 
@@ -438,31 +460,27 @@
 		min-width: 44px;
 		height: 44px;
 		padding: 0 0.75rem;
-		border: none;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 1rem;
+		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
+		font-size: 0.875rem;
+		font-weight: 500;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		position: relative;
-	}
-
-	.nav-btn-prev {
-		clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%);
-	}
-
-	.nav-btn-next {
-		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%);
-	}
-
-	.nav-btn:hover {
-		background: var(--surface-hover);
+		gap: 4px;
+		border-radius: var(--tt-radius-button);
 	}
 
 	.nav-btn:active {
-		background: var(--surface-active);
+		background: var(--tt-background-card-pressed);
+	}
+
+	.nav-chevron {
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
 	}
 
 	.month-title {

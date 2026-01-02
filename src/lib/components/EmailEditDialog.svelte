@@ -73,7 +73,7 @@
 			</p>
 		</div>
 		<div class="actions">
-			<button class="save-btn" onclick={handleLogoutAndClose}>Abmelden</button>
+			<button class="tt-button-primary" onclick={handleLogoutAndClose}>Abmelden</button>
 		</div>
 	{:else}
 		<div class="form">
@@ -84,7 +84,7 @@
 					type="email"
 					value={$userProfile?.email ?? ''}
 					disabled
-					class="disabled"
+					class="tt-text-input"
 				/>
 			</div>
 			<div class="field">
@@ -95,6 +95,7 @@
 					bind:value={newEmail}
 					placeholder="neue@email.de"
 					onkeydown={handleKeydown}
+					class="tt-text-input"
 				/>
 			</div>
 			{#if error}
@@ -102,8 +103,8 @@
 			{/if}
 		</div>
 		<div class="actions">
-			<button class="cancel-btn" onclick={onclose} disabled={saving}>Abbrechen</button>
-			<button class="save-btn" onclick={handleSave} disabled={saving}>
+			<button class="tt-button-secondary" onclick={onclose} disabled={saving}>Abbrechen</button>
+			<button class="tt-button-primary" onclick={handleSave} disabled={saving}>
 				{saving ? 'Wird gesendet...' : 'Bestätigung senden'}
 			</button>
 		</div>
@@ -114,106 +115,52 @@
 	.form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
-		padding: 1rem 0;
+		gap: var(--tt-space-16);
+		padding: var(--tt-space-16) 0;
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.field label {
 		font-size: 0.85rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
-	.field input {
-		padding: 0.75rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		background: var(--surface);
-		color: var(--text);
-		font-size: 1rem;
-	}
-
-	.field input.disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.field input:focus:not(.disabled) {
-		outline: none;
-		border-color: var(--accent);
-	}
+	/* Inputs use design system class: .tt-text-input */
 
 	.error {
-		color: var(--neg);
+		color: var(--tt-status-danger);
 		font-size: 0.85rem;
 		margin: 0;
 	}
 
 	.success-message {
-		padding: 1rem 0;
+		padding: var(--tt-space-16) 0;
 		text-align: center;
 	}
 
 	.success-message p {
-		margin: 0.5rem 0;
-		color: var(--text);
+		margin: var(--tt-space-8) 0;
+		color: var(--tt-text-primary);
 	}
 
 	.success-message .logout-hint {
-		margin-top: 1rem;
+		margin-top: var(--tt-space-16);
 		font-size: 0.85rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
-		padding-top: 1rem;
-		border-top: 1px solid var(--border);
+		padding-top: var(--tt-space-16);
+		border-top: 1px solid var(--tt-border-default);
 	}
 
-	.cancel-btn {
-		padding: 0.75rem 1.5rem;
-		background: var(--surface);
-		color: var(--text);
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		font-size: 0.9rem;
-		cursor: pointer;
-	}
-
-	.cancel-btn:hover:not(:disabled) {
-		background: var(--surface-hover);
-	}
-
-	.cancel-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.save-btn {
-		padding: 0.75rem 1.5rem;
-		background: var(--accent);
-		color: white;
-		border: none;
-		border-radius: var(--r-btn);
-		font-size: 0.9rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.save-btn:hover:not(:disabled) {
-		opacity: 0.9;
-	}
-
-	.save-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
+	/* Buttons use design system classes: .tt-button-primary, .tt-button-secondary */
 </style>

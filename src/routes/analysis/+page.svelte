@@ -731,30 +731,32 @@
 					</div>
 				</div>
 				<!-- Total Sum Row - Always visible -->
-				<div class="tt-list-row-static total-row">
-					<div class="tt-list-row__content">
-						<span class="tt-list-row__title total-label">Summe</span>
-					</div>
-					<div class="category-values">
-						<span class="category-hours total-value">{formatHours(totalCategoryHours)}</span>
-						<span class="category-average total-value">{formatHours(totalCategoryAverage)}</span>
+				<div class="tt-list-row-static summary-total-row">
+					<span class="summary-label">Summe</span>
+					<div class="summary-values">
+						<span class="summary-value summary-value--primary"
+							>{formatHours(totalCategoryHours)}</span
+						>
+						<span class="summary-value summary-value--secondary"
+							>{formatHours(totalCategoryAverage)}</span
+						>
 					</div>
 				</div>
 				<!-- Category list - Collapsible -->
 				{#if expandedSections.taetigkeiten}
 					{#each categoryBreakdown as cat (cat.name)}
-						<div class="tt-list-row-static">
-							<div class="tt-list-row__content">
-								<span class="tt-list-row__title">
-									{cat.name}
-									{#if !cat.countsAsWorkTime}
-										<span class="no-work-badge">Keine Arbeitszeit</span>
-									{/if}
-								</span>
-							</div>
-							<div class="category-values">
-								<span class="category-hours">{formatHours(cat.hours)}</span>
-								<span class="category-average">{formatHours(cat.averagePerWeek)}</span>
+						<div class="tt-list-row-static category-row">
+							<span class="category-name">
+								{cat.name}
+								{#if !cat.countsAsWorkTime}
+									<span class="no-work-badge">Keine Arbeitszeit</span>
+								{/if}
+							</span>
+							<div class="summary-values">
+								<span class="summary-value">{formatHours(cat.hours)}</span>
+								<span class="summary-value summary-value--secondary"
+									>{formatHours(cat.averagePerWeek)}</span
+								>
 							</div>
 						</div>
 					{/each}
@@ -925,38 +927,49 @@
 		text-align: right;
 	}
 
-	.category-values {
+	/* Summary row styling */
+	.summary-total-row {
+		background: var(--tt-brand-primary-faded);
+		border-color: var(--tt-brand-primary);
+		margin-bottom: var(--tt-space-8);
+		justify-content: space-between;
+	}
+
+	.summary-label {
+		font-weight: 700;
+		color: var(--tt-brand-primary);
+	}
+
+	.category-row {
+		justify-content: space-between;
+	}
+
+	.category-name {
+		flex: 1;
+		min-width: 0;
+		color: var(--tt-text-primary);
+	}
+
+	.summary-values {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
+		flex-shrink: 0;
 	}
 
-	.category-hours {
+	.summary-value {
 		font-weight: 600;
-		color: var(--text);
+		color: var(--tt-text-primary);
 		min-width: 60px;
 		text-align: right;
 	}
 
-	.category-average {
+	.summary-value--primary {
+		font-weight: 700;
+		color: var(--tt-brand-primary);
+	}
+
+	.summary-value--secondary {
 		font-weight: 500;
-		color: var(--muted);
-		min-width: 60px;
-		text-align: right;
-	}
-
-	.total-row {
-		background: var(--accent-light);
-		border-color: var(--accent);
-		margin-bottom: 0.5rem;
-	}
-
-	.total-label {
-		font-weight: 700;
-		color: var(--accent);
-	}
-
-	.total-value {
-		font-weight: 700;
-		color: var(--accent);
+		color: var(--tt-text-muted);
 	}
 </style>

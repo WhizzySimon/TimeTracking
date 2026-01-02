@@ -467,11 +467,16 @@
 					<h2>Arbeitgeber</h2>
 				</button>
 				<button
-					class="icon-btn"
+					class="tt-symbol-button"
 					onclick={handleAddEmployer}
 					aria-label="Arbeitgeber hinzufügen"
-					data-testid="add-employer-btn">+</button
+					data-testid="add-employer-btn"
 				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+				</button>
 			</div>
 			{#if expandedSections.employers}
 				<div class="list" data-testid="employer-list">
@@ -535,10 +540,15 @@
 					<h2>Arbeitszeitmodelle</h2>
 				</button>
 				<button
-					class="icon-btn"
+					class="tt-symbol-button"
 					onclick={() => (showAddWorkTimeModel = true)}
-					aria-label="Modell hinzufügen">+</button
+					aria-label="Modell hinzufügen"
 				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+				</button>
 			</div>
 			{#if expandedSections.workTimeModels}
 				<div class="list">
@@ -602,10 +612,15 @@
 					<h2>Abwesenheit</h2>
 				</button>
 				<button
-					class="icon-btn"
+					class="tt-symbol-button"
 					aria-label="Abwesenheitskategorie hinzufügen"
-					onclick={() => (showAddAbsenceCategory = true)}>+</button
+					onclick={() => (showAddAbsenceCategory = true)}
 				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+				</button>
 			</div>
 			{#if expandedSections.abwesenheit}
 				<div class="list">
@@ -677,12 +692,16 @@
 				<div class="header-buttons">
 					<div class="menu-container">
 						<button
-							class="menu-btn"
+							class="tt-symbol-button"
 							data-testid="category-menu-btn"
 							onclick={() => (showCategoryMenu = !showCategoryMenu)}
 							aria-label="Menü"
 						>
-							⋮
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<circle cx="12" cy="12" r="1"></circle>
+								<circle cx="12" cy="5" r="1"></circle>
+								<circle cx="12" cy="19" r="1"></circle>
+							</svg>
 						</button>
 						{#if showCategoryMenu}
 							<div class="dropdown-menu">
@@ -694,7 +713,16 @@
 										showCategoryMenu = false;
 									}}
 								>
-									<span class="dropdown-icon">+</span>
+									<svg
+										class="dropdown-icon"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<line x1="12" y1="5" x2="12" y2="19"></line>
+										<line x1="5" y1="12" x2="19" y2="12"></line>
+									</svg>
 									<span>Hinzufügen</span>
 								</button>
 								<button
@@ -704,7 +732,17 @@
 										showCategoryMenu = false;
 									}}
 								>
-									<span class="dropdown-icon">←</span>
+									<svg
+										class="dropdown-icon"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+										<polyline points="7 10 12 15 17 10"></polyline>
+										<line x1="12" y1="15" x2="12" y2="3"></line>
+									</svg>
 									<span>Importieren</span>
 								</button>
 								<button
@@ -714,7 +752,17 @@
 										showCategoryMenu = false;
 									}}
 								>
-									<span class="dropdown-icon">→</span>
+									<svg
+										class="dropdown-icon"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+										<polyline points="17 8 12 3 7 8"></polyline>
+										<line x1="12" y1="3" x2="12" y2="15"></line>
+									</svg>
 									<span>Exportieren</span>
 								</button>
 								<button
@@ -724,7 +772,18 @@
 										showCategoryMenu = false;
 									}}
 								>
-									<span class="dropdown-icon">🗑</span>
+									<svg
+										class="dropdown-icon"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path
+											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+										></path>
+									</svg>
 									<span>Löschen</span>
 								</button>
 							</div>
@@ -1100,88 +1159,51 @@
 		gap: 0.5rem;
 	}
 
-	.icon-btn {
-		width: 32px;
-		height: 32px;
-		border: none;
-		border-radius: var(--r-btn);
-		background: transparent;
-		color: var(--accent);
-		font-size: 1.5rem;
-		font-weight: 300;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.icon-btn:hover {
-		background: var(--accent-light);
-	}
-
 	.menu-container {
 		position: relative;
-	}
-
-	.menu-btn {
-		width: 32px;
-		height: 32px;
-		border: none;
-		border-radius: var(--r-btn);
-		background: transparent;
-		color: var(--muted);
-		font-size: 1.25rem;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.menu-btn:hover {
-		background: var(--surface-hover);
-		color: var(--text);
 	}
 
 	.dropdown-menu {
 		position: absolute;
 		top: 100%;
 		right: 0;
-		margin-top: 0.25rem;
-		background: var(--surface);
-		border: 1px solid var(--border);
-		border-radius: var(--r-card);
-		box-shadow: var(--elev-2);
+		margin-top: var(--tt-space-4);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		z-index: 100;
-		min-width: 140px;
+		min-width: 160px;
 		overflow: hidden;
 	}
 
 	.dropdown-item {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-12);
 		width: 100%;
-		padding: 0.75rem 1rem;
+		padding: var(--tt-space-12) var(--tt-space-16);
 		border: none;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 0.9rem;
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
+		font-size: var(--tt-font-size-normal);
 		text-align: left;
 		cursor: pointer;
 	}
 
 	.dropdown-icon {
-		width: 1rem;
-		text-align: center;
+		width: 20px;
+		height: 20px;
 		flex-shrink: 0;
+		color: var(--tt-text-secondary);
 	}
 
-	.dropdown-item:hover {
-		background: var(--surface-hover);
+	.dropdown-item:active {
+		background: var(--tt-background-card-pressed);
 	}
 
 	.dropdown-item:not(:last-child) {
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--tt-border-subtle);
 	}
 
 	.list {

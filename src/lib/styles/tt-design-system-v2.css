@@ -53,6 +53,12 @@
 	--tt-background-card-hover: #f5f8fc;
 	--tt-background-card-pressed: #edf2f7;
 
+	/* ---- HEADER COLORS (dark background context) ---- */
+	--tt-header-bg: var(--tt-brand-primary);
+	--tt-header-text: #ffffff;
+	--tt-header-text-muted: rgba(255, 255, 255, 0.7);
+	--tt-header-border: rgba(255, 255, 255, 0.2);
+
 	/* ---- FOOTER TAB COLORS (dark background context) ---- */
 	--tt-footer-bg: var(--tt-brand-primary);
 	--tt-footer-tab-bg: transparent;
@@ -743,17 +749,15 @@
 	width: 40px;
 	height: 40px;
 	padding: 0;
-	border: none;
-	background: transparent;
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	background: var(--tt-background-card);
 	color: var(--tt-text-muted);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
-	transition:
-		background var(--tt-transition-fast),
-		color var(--tt-transition-fast);
 }
 
-.tt-delete-button:hover {
+/* Mobile-first: no hover, only press state */
+.tt-delete-button:active {
 	background: var(--tt-status-danger-faded);
 	color: var(--tt-status-danger);
 }

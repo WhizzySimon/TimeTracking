@@ -32,6 +32,22 @@ Each entry follows this format:
 
 (newest first)
 
+## 2026-01-02 22:13 — UI/UX Polish & Dialog Design System Migration
+
+| Step                 | Result | Notes                                             |
+| -------------------- | ------ | ------------------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                         |
+| A1: Capture feedback | none   | No corrective feedback in session                 |
+| B1: Repeated errors  | none   | No repeated errors                                |
+| B2: File churn       | none   | 19 files edited, each 1-2 times max               |
+| B3: Scope drift      | none   | UI polish session — dialogs, buttons, close icons |
+| B4: Session duration | ~20m   | normal                                            |
+| C1: Promotions       | none   | No items meet promotion criteria                  |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                          |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                        |
+
+---
+
 ## 2026-01-02 20:28 — CSS-2 Week Page Migration
 
 | Step                 | Result      | Notes                                       |

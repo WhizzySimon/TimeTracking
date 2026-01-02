@@ -58,7 +58,19 @@
 		<div class="dialog">
 			<header class="dialog-header">
 				<h2>Daten exportieren</h2>
-				<button class="close-btn" onclick={onclose} aria-label="Schließen">×</button>
+				<button class="tt-symbol-button" onclick={onclose} aria-label="Schließen">
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
 			</header>
 
 			<div class="dialog-body">
@@ -142,19 +154,7 @@
 		color: var(--fg);
 	}
 
-	.close-btn {
-		background: none;
-		border: none;
-		font-size: 1.5rem;
-		color: var(--muted);
-		cursor: pointer;
-		padding: 0;
-		line-height: 1;
-	}
-
-	.close-btn:hover {
-		color: var(--fg);
-	}
+	/* Close button uses .tt-symbol-button from design system */
 
 	.dialog-body {
 		padding: 20px;

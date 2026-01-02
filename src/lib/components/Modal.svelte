@@ -105,11 +105,23 @@
 		>
 			<h2 id="modal-title">{title}</h2>
 			<button
-				class="close-btn"
+				class="tt-symbol-button"
 				onclick={onclose}
 				onmousedown={(e) => e.stopPropagation()}
-				aria-label="Schließen">×</button
+				aria-label="Schließen"
 			>
+				<svg
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<line x1="18" y1="6" x2="6" y2="18"></line>
+					<line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
+			</button>
 		</header>
 		<div class="modal-body">
 			{@render children?.()}
@@ -160,24 +172,7 @@
 		color: var(--text);
 	}
 
-	.close-btn {
-		width: 32px;
-		height: 32px;
-		border: none;
-		background: none;
-		font-size: 1.5rem;
-		cursor: pointer;
-		color: var(--muted);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: var(--r-btn);
-	}
-
-	.close-btn:hover {
-		background: var(--surface-hover);
-		color: var(--text);
-	}
+	/* Close button now uses .tt-symbol-button from design system */
 
 	.modal-body {
 		padding: 1rem;
