@@ -298,21 +298,21 @@
 				{#each activeDays as date (formatDate(date, 'ISO'))}
 					{@const dayIst = getDayIst(date)}
 					{@const daySoll = getDaySoll(date)}
-					<button class="day-item" type="button" onclick={() => navigateToDay(date)}>
-						<div class="day-info">
-							<span class="day-date">{formatShortDate(date)}</span>
-							<span class="day-type">{getDayTypeLabel(date)}</span>
+					<button class="tt-list-row-clickable" type="button" onclick={() => navigateToDay(date)}>
+						<div class="tt-list-row__content">
+							<span class="tt-list-row__title">{formatShortDate(date)}</span>
+							<span class="tt-list-row__detail">{getDayTypeLabel(date)}</span>
 						</div>
 						<div class="day-hours">
-							<span class="ist">{dayIst.toFixed(1).replace('.', ',')}</span>
-							<span class="separator">/</span>
-							<span class="soll">{daySoll.toFixed(1).replace('.', ',')}</span>
-							<span class="separator">/</span>
+							<span class="day-hours__ist">{dayIst.toFixed(1).replace('.', ',')}</span>
+							<span class="day-hours__separator">/</span>
+							<span class="day-hours__soll">{daySoll.toFixed(1).replace('.', ',')}</span>
+							<span class="day-hours__separator">/</span>
 							<span
-								class="saldo"
-								class:positive={!isFutureDay(date) && dayIst - daySoll >= 0}
-								class:negative={!isFutureDay(date) && dayIst - daySoll < 0}
-								class:future={isFutureDay(date)}
+								class="day-hours__saldo"
+								class:day-hours__saldo--positive={!isFutureDay(date) && dayIst - daySoll >= 0}
+								class:day-hours__saldo--negative={!isFutureDay(date) && dayIst - daySoll < 0}
+								class:day-hours__saldo--future={isFutureDay(date)}
 							>
 								{dayIst - daySoll >= 0 ? '+' : ''}{(dayIst - daySoll).toFixed(1).replace('.', ',')}
 							</span>
@@ -336,27 +336,27 @@
 
 <style>
 	.week-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.loading {
 		display: flex;
 		justify-content: center;
-		padding: 2rem;
-		color: var(--muted);
+		padding: var(--tt-space-32);
+		color: var(--tt-text-muted);
 	}
 
-	/* Week Navigation */
+	/* Week Navigation - custom clip-path design */
 	.week-nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.nav-btn {
@@ -400,12 +400,12 @@
 		background: var(--surface);
 		text-align: center;
 		cursor: pointer;
-		border-radius: 0.5rem;
+		border-radius: var(--tt-radius-card);
 		color: var(--text);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 		min-height: 44px;
 	}
 
@@ -427,84 +427,44 @@
 	.day-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.no-days {
 		text-align: center;
-		color: var(--muted);
-		padding: 2rem;
+		color: var(--tt-text-muted);
+		padding: var(--tt-space-32);
 	}
 
-	.day-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
-		width: 100%;
-		text-align: left;
-		cursor: pointer;
-		font-family: inherit;
-		font-size: inherit;
-	}
-
-	.day-item:hover {
-		background: var(--surface-hover);
-		border-color: var(--accent);
-	}
-
-	.day-item:active {
-		background: var(--accent-light);
-	}
-
-	.day-info {
-		display: flex;
-		gap: 0.75rem;
-		align-items: baseline;
-	}
-
-	.day-date {
-		font-weight: 600;
-		color: var(--text);
-		min-width: 70px;
-	}
-
-	.day-type {
-		color: var(--muted);
-		font-size: 0.9rem;
-	}
-
+	/* Day hours display - layout-only styles for right side */
 	.day-hours {
 		display: flex;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 		font-size: 0.9rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
-	.day-hours .ist {
-		color: var(--text);
+	.day-hours__ist {
+		color: var(--tt-text-primary);
 	}
 
-	.day-hours .separator {
-		color: var(--muted);
+	.day-hours__separator {
+		color: var(--tt-text-muted);
 	}
 
-	.day-hours .soll {
-		color: var(--muted);
+	.day-hours__soll {
+		color: var(--tt-text-muted);
 	}
 
-	.day-hours .saldo.positive {
-		color: var(--pos);
+	.day-hours__saldo--positive {
+		color: var(--tt-status-success);
 	}
 
-	.day-hours .saldo.negative {
-		color: var(--neg);
+	.day-hours__saldo--negative {
+		color: var(--tt-status-negative);
 	}
 
-	.day-hours .saldo.future {
-		color: var(--muted);
+	.day-hours__saldo--future {
+		color: var(--tt-text-muted);
 	}
 </style>

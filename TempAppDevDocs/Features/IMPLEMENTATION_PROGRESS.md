@@ -492,7 +492,7 @@ Phase 4:
 | #      | Task                        | Status      | Est. |
 | ------ | --------------------------- | ----------- | ---- |
 | CSS-1  | Day page migration          | COMPLETE    | 1.5h |
-| CSS-2  | Week page migration         | Not started | 1h   |
+| CSS-2  | Week page migration         | COMPLETE    | 1h   |
 | CSS-3  | Month page migration        | Not started | 1h   |
 | CSS-4  | Add page migration          | Not started | 1.5h |
 | CSS-5  | Settings (Categories)       | Not started | 1.5h |

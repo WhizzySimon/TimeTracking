@@ -32,19 +32,35 @@ Each entry follows this format:
 
 (newest first)
 
+## 2026-01-02 20:28 — CSS-2 Week Page Migration
+
+| Step                 | Result      | Notes                                        |
+| -------------------- | ----------- | -------------------------------------------- |
+| 0: Scope check       | incremental | After CSS-1 commit in same chat              |
+| A1: Capture feedback | 1 item      | Evidence bundle file exists error → fixed    |
+| B1: Repeated errors  | none        | No repeated errors                           |
+| B2: File churn       | none        | 1 file edited once                           |
+| B3: Scope drift      | none        | Only week page — on scope                    |
+| B4: Session duration | ~5m         | normal                                       |
+| C1: Promotions       | none        | Feedback captured in pre-commit.md directly  |
+| C2: Read LEARNINGS   | skipped     | Same session                                 |
+| C3: Hard Rule → JIT  | done        | Added find_by_name check to pre-commit.md    |
+
+---
+
 ## 2026-01-02 20:15 — CSS-1 Day Page Migration
 
-| Step                 | Result | Notes                                              |
-| -------------------- | ------ | -------------------------------------------------- |
-| 0: Scope check       | first  | First commit in this chat                          |
-| A1: Capture feedback | none   | No corrective feedback from user                   |
-| B1: Repeated errors  | none   | No repeated errors                                 |
-| B2: File churn       | none   | Each file edited once (3 files, -175 lines total)  |
-| B3: Scope drift      | none   | All files match CSS-1 task scope                   |
-| B4: Session duration | ~10m   | normal                                             |
-| C1: Promotions       | none   | No items meet promotion criteria                   |
-| C2: Read LEARNINGS   | ✓ read | 12 items                                           |
-| C3: Hard Rule → JIT  | none   | No new rules proposed                              |
+| Step                 | Result | Notes                                             |
+| -------------------- | ------ | ------------------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                         |
+| A1: Capture feedback | none   | No corrective feedback from user                  |
+| B1: Repeated errors  | none   | No repeated errors                                |
+| B2: File churn       | none   | Each file edited once (3 files, -175 lines total) |
+| B3: Scope drift      | none   | All files match CSS-1 task scope                  |
+| B4: Session duration | ~10m   | normal                                            |
+| C1: Promotions       | none   | No items meet promotion criteria                  |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                          |
+| C3: Hard Rule → JIT  | none   | No new rules proposed                             |
 
 ---
 
