@@ -370,18 +370,26 @@
 				{@const weekSoll = getWeekSoll(week.dates)}
 				{@const weekSaldo = weekIst - weekSoll}
 				{@const activeDays = getActiveWorkDays(week.dates)}
-				<button class="week-item" type="button" onclick={() => navigateToWeek(week.dates)}>
-					<div class="week-info">
-						<span class="week-number">KW {week.weekNumber}</span>
-						<span class="week-range">{formatWeekRange(week.dates)}</span>
-						<span class="week-days">({activeDays} Tage)</span>
+				<button
+					class="tt-list-row-clickable"
+					type="button"
+					onclick={() => navigateToWeek(week.dates)}
+				>
+					<div class="tt-list-row__content">
+						<span class="tt-list-row__title">KW {week.weekNumber}</span>
+						<span class="tt-list-row__detail">{formatWeekRange(week.dates)}</span>
+						<span class="tt-list-row__detail">({activeDays} Tage)</span>
 					</div>
 					<div class="week-hours">
-						<span class="ist">{weekIst.toFixed(1).replace('.', ',')}</span>
-						<span class="separator">/</span>
-						<span class="soll">{weekSoll.toFixed(1).replace('.', ',')}</span>
-						<span class="separator">/</span>
-						<span class="saldo" class:positive={weekSaldo >= 0} class:negative={weekSaldo < 0}>
+						<span class="week-hours__ist">{weekIst.toFixed(1).replace('.', ',')}</span>
+						<span class="week-hours__separator">/</span>
+						<span class="week-hours__soll">{weekSoll.toFixed(1).replace('.', ',')}</span>
+						<span class="week-hours__separator">/</span>
+						<span
+							class="week-hours__saldo"
+							class:week-hours__saldo--positive={weekSaldo >= 0}
+							class:week-hours__saldo--negative={weekSaldo < 0}
+						>
 							{weekSaldo >= 0 ? '+' : ''}{weekSaldo.toFixed(1).replace('.', ',')}
 						</span>
 					</div>
@@ -403,27 +411,27 @@
 
 <style>
 	.month-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.loading {
 		display: flex;
 		justify-content: center;
-		padding: 2rem;
-		color: var(--muted);
+		padding: var(--tt-space-32);
+		color: var(--tt-text-muted);
 	}
 
-	/* Month Navigation */
+	/* Month Navigation - custom clip-path design */
 	.month-nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.nav-btn {
@@ -467,12 +475,12 @@
 		background: var(--surface);
 		text-align: center;
 		cursor: pointer;
-		border-radius: 0.5rem;
+		border-radius: var(--tt-radius-card);
 		color: var(--text);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 		min-height: 44px;
 	}
 
@@ -494,79 +502,34 @@
 	.week-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
-	.week-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
-		width: 100%;
-		text-align: left;
-		cursor: pointer;
-		font-family: inherit;
-		font-size: inherit;
-	}
-
-	.week-item:hover {
-		background: var(--surface-hover);
-		border-color: var(--accent);
-	}
-
-	.week-item:active {
-		background: var(--accent-light);
-	}
-
-	.week-info {
-		display: flex;
-		gap: 0.5rem;
-		align-items: baseline;
-	}
-
-	.week-number {
-		font-weight: 600;
-		color: var(--text);
-		min-width: 50px;
-	}
-
-	.week-range {
-		color: var(--muted);
-		font-size: 0.9rem;
-	}
-
-	.week-days {
-		color: var(--muted);
-		font-size: 0.8rem;
-	}
-
+	/* Week hours display - layout-only styles for right side */
 	.week-hours {
 		display: flex;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 		font-size: 0.9rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
-	.week-hours .ist {
-		color: var(--text);
+	.week-hours__ist {
+		color: var(--tt-text-primary);
 	}
 
-	.week-hours .separator {
-		color: var(--muted);
+	.week-hours__separator {
+		color: var(--tt-text-muted);
 	}
 
-	.week-hours .soll {
-		color: var(--muted);
+	.week-hours__soll {
+		color: var(--tt-text-muted);
 	}
 
-	.week-hours .saldo.positive {
-		color: var(--pos);
+	.week-hours__saldo--positive {
+		color: var(--tt-status-success);
 	}
 
-	.week-hours .saldo.negative {
-		color: var(--neg);
+	.week-hours__saldo--negative {
+		color: var(--tt-status-negative);
 	}
 </style>
