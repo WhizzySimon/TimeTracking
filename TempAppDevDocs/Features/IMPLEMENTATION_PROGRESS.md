@@ -33,17 +33,18 @@
 
 ### Priority 2: App Improvements (after DevFramework)
 
-| Phase | Name                                 | Status      |
-| ----- | ------------------------------------ | ----------- |
-| 11    | AI Import (Premium Feature)          | Blocked     |
-| A1    | Subscription Plans                   | COMPLETE    |
-| A1c   | Payment System (Stripe/etc)          | Future      |
-| A2    | Multi-Arbeitgeber                    | Not started |
-| A2.1  | Arbeitgeber Filter Global            | Not started |
-| A3    | Kleine Änderungen                    | Not started |
-| A4    | UX (Kategorien, Navigation, Landing) | Not started |
-| A5    | UI (Deutsch, Farbschemata)           | Not started |
-| A6    | Bugs (Auto Sync, Resume Button)      | Not started |
+| Phase  | Name                                 | Status      |
+| ------ | ------------------------------------ | ----------- |
+| 11     | AI Import (Premium Feature)          | Blocked     |
+| A1     | Subscription Plans                   | COMPLETE    |
+| A1c    | Payment System (Stripe/etc)          | Future      |
+| A2     | Multi-Arbeitgeber                    | Not started |
+| A2.1   | Arbeitgeber Filter Global            | Not started |
+| A3     | Kleine Änderungen                    | Not started |
+| A4     | UX (Kategorien, Navigation, Landing) | Not started |
+| A5     | UI (Deutsch, Farbschemata)           | Not started |
+| A6     | Bugs (Auto Sync, Resume Button)      | Not started |
+| CSS-v2 | CSS Component System Migration       | In Progress |
 
 ---
 
@@ -465,6 +466,42 @@ Phase 4:
 - [x] **Task A2.2.8** — Verify employer filtering on Tag/Monat/Auswertung pages
 - [x] **Task A2.2.9** — Playwright testing for all acceptance checks
 - [x] **Task A2.2.10** — Update documentation and commit
+
+---
+
+## Phase CSS-v2: CSS Component System Migration
+
+**Goal:** Migrate from scattered component-scoped CSS to centralized `tt-design-system-v2.css` class system.
+
+**Spec:** `TempAppDevDocs/Features/Specs/css-v2-migration.md`  
+**Plan:** `TempAppDevDocs/Features/Plans/css-v2-migration.md`  
+**Tasks:** `TempAppDevDocs/Features/Tasks/css-v2-migration.md`
+
+### Foundation (Complete)
+
+| #       | Task                           | Status   | Notes                                      |
+| ------- | ------------------------------ | -------- | ------------------------------------------ |
+| CSS-0.1 | Create tt-design-system-v2.css | COMPLETE | Design tokens + component classes          |
+| CSS-0.2 | Create StyleGuide v2 page      | COMPLETE | /dev/styleguide-v2 for visual verification |
+| CSS-0.3 | Define color scales            | COMPLETE | Primary, accent, semantic states           |
+| CSS-0.4 | Define interaction states      | COMPLETE | Pressed, current, focus                    |
+| CSS-0.5 | Create Spec/Plan/Tasks         | COMPLETE | Full documentation                         |
+
+### Migration Tasks (Not Started)
+
+| #      | Task                        | Status      | Est. |
+| ------ | --------------------------- | ----------- | ---- |
+| CSS-1  | Day page migration          | Not started | 1.5h |
+| CSS-2  | Week page migration         | Not started | 1h   |
+| CSS-3  | Month page migration        | Not started | 1h   |
+| CSS-4  | Add page migration          | Not started | 1.5h |
+| CSS-5  | Settings (Categories)       | Not started | 1.5h |
+| CSS-6  | Settings (Employers/Models) | Not started | 1.5h |
+| CSS-7  | Settings (Account/Cleanup)  | Not started | 1h   |
+| CSS-8  | Analysis page migration     | Not started | 1.5h |
+| CSS-9  | Header migration            | Not started | 1h   |
+| CSS-10 | Footer TabNavigation        | Not started | 0.5h |
+| CSS-11 | Cleanup & verification      | Not started | 1h   |
 
 ---
 
