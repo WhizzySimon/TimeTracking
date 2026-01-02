@@ -59,13 +59,13 @@
 	.task-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.empty-state {
 		text-align: center;
-		color: #888;
-		padding: 2rem;
+		color: var(--tt-text-muted);
+		padding: var(--tt-space-32);
 		font-style: italic;
 	}
 </style>

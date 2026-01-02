@@ -32,6 +32,22 @@ Each entry follows this format:
 
 (newest first)
 
+## 2026-01-02 20:15 — CSS-1 Day Page Migration
+
+| Step                 | Result | Notes                                              |
+| -------------------- | ------ | -------------------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                          |
+| A1: Capture feedback | none   | No corrective feedback from user                   |
+| B1: Repeated errors  | none   | No repeated errors                                 |
+| B2: File churn       | none   | Each file edited once (3 files, -175 lines total)  |
+| B3: Scope drift      | none   | All files match CSS-1 task scope                   |
+| B4: Session duration | ~10m   | normal                                             |
+| C1: Promotions       | none   | No items meet promotion criteria                   |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                           |
+| C3: Hard Rule → JIT  | none   | No new rules proposed                              |
+
+---
+
 ## 2026-01-02 10:20 — Framework-Evolution (mindset, principles, learnings)
 
 | Step                 | Result   | Notes                                                                |

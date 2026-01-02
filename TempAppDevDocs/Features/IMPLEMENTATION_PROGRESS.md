@@ -487,11 +487,11 @@ Phase 4:
 | CSS-0.4 | Define interaction states      | COMPLETE | Pressed, current, focus                    |
 | CSS-0.5 | Create Spec/Plan/Tasks         | COMPLETE | Full documentation                         |
 
-### Migration Tasks (Not Started)
+### Migration Tasks (In Progress)
 
 | #      | Task                        | Status      | Est. |
 | ------ | --------------------------- | ----------- | ---- |
-| CSS-1  | Day page migration          | Not started | 1.5h |
+| CSS-1  | Day page migration          | COMPLETE    | 1.5h |
 | CSS-2  | Week page migration         | Not started | 1h   |
 | CSS-3  | Month page migration        | Not started | 1h   |
 | CSS-4  | Add page migration          | Not started | 1.5h |
