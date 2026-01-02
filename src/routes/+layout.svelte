@@ -581,8 +581,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--bg);
-		color: var(--muted);
+		background: var(--tt-bg);
+		color: var(--tt-text-muted);
 	}
 
 	.auth-content {
@@ -596,9 +596,9 @@
 	}
 
 	:global(body) {
-		font-family: var(--font-family);
-		background-color: var(--bg);
-		color: var(--text);
+		font-family: var(--tt-font-family);
+		background-color: var(--tt-bg);
+		color: var(--tt-text);
 	}
 
 	.app-container {
@@ -607,21 +607,21 @@
 		min-height: 100vh;
 		max-width: 600px;
 		margin: 0 auto;
-		background-color: var(--bg);
+		background-color: var(--tt-bg);
 	}
 
 	.app-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 8px 1rem;
-		background: var(--header-bg);
-		border-bottom: 1px solid var(--header-border);
-		border-radius: 0 0 var(--r-card) var(--r-card);
+		padding: var(--tt-space-8) var(--tt-space-16);
+		background: var(--tt-header-bg);
+		border-bottom: 1px solid var(--tt-header-border);
+		border-radius: 0 0 var(--tt-radius-card) var(--tt-radius-card);
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		gap: 8px;
+		gap: var(--tt-space-8);
 		width: 100%;
 		box-sizing: border-box;
 	}
@@ -630,13 +630,13 @@
 	.header-right {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: var(--tt-space-8);
 	}
 
 	.header-btn {
-		padding: 6px 12px;
+		padding: var(--tt-space-6) var(--tt-space-12);
 		border: none;
-		border-radius: var(--r-btn);
+		border-radius: var(--tt-radius-button);
 		font-size: 0.85rem;
 		font-weight: 500;
 		cursor: pointer;
@@ -647,11 +647,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 6px;
-		margin-right: 8px;
+		padding: var(--tt-space-6);
+		margin-right: var(--tt-space-8);
 		background: transparent;
 		border: none;
-		color: #ffa726;
+		color: var(--tt-status-warning);
 		opacity: 0.9;
 		transition: all 0.3s ease;
 		cursor: pointer;
@@ -662,12 +662,12 @@
 	}
 
 	.sync-indicator.synced {
-		color: #4caf50;
+		color: var(--tt-status-success);
 		opacity: 1;
 	}
 
 	.sync-indicator.syncing {
-		color: var(--header-text);
+		color: var(--tt-header-text);
 		opacity: 0.8;
 		animation: rotate 1.5s linear infinite;
 		cursor: default;
@@ -688,8 +688,8 @@
 
 	.profile-btn {
 		background: transparent;
-		color: var(--header-text-muted);
-		border: 1px solid var(--header-border);
+		color: var(--tt-header-text-muted);
+		border: 1px solid var(--tt-header-border);
 		border-radius: 50%;
 		width: 36px;
 		height: 36px;
@@ -701,43 +701,43 @@
 
 	.profile-btn:hover {
 		background: rgba(255, 255, 255, 0.15);
-		color: var(--header-text);
+		color: var(--tt-header-text);
 	}
 
 	.profile-menu {
 		position: absolute;
 		top: 100%;
 		right: 0;
-		margin-top: 8px;
-		background: var(--surface);
-		border-radius: var(--r-card);
-		box-shadow: var(--elev-2);
+		margin-top: var(--tt-space-8);
+		background: var(--tt-surface);
+		border-radius: var(--tt-radius-card);
+		box-shadow: var(--tt-shadow-lg);
 		min-width: 200px;
 		z-index: 100;
 		overflow: hidden;
 	}
 
 	.profile-email {
-		padding: 12px 16px;
+		padding: var(--tt-space-12) var(--tt-space-16);
 		font-size: 0.85rem;
-		color: var(--muted);
-		background: var(--surface-hover);
-		border-bottom: 1px solid var(--border);
+		color: var(--tt-text-muted);
+		background: var(--tt-surface-alt);
+		border-bottom: 1px solid var(--tt-border);
 		word-break: break-all;
 	}
 
 	.menu-divider {
 		height: 1px;
-		background: var(--border);
+		background: var(--tt-border);
 	}
 
 	.menu-item {
 		display: flex;
 		align-items: center;
-		gap: 10px;
-		padding: 12px 16px;
+		gap: var(--tt-space-10);
+		padding: var(--tt-space-12) var(--tt-space-16);
 		font-size: 0.9rem;
-		color: var(--text);
+		color: var(--tt-text);
 		text-decoration: none;
 		background: none;
 		border: none;
@@ -747,15 +747,15 @@
 	}
 
 	.menu-item:hover {
-		background: var(--surface-hover);
+		background: var(--tt-surface-alt);
 	}
 
 	.menu-item.logout {
-		color: var(--neg);
+		color: var(--tt-status-danger);
 	}
 
 	.menu-item.logout:hover {
-		background: var(--neg-light);
+		background: var(--tt-status-danger-faded);
 	}
 
 	.profile-menu-backdrop {
@@ -776,24 +776,24 @@
 	}
 
 	.sync-error-banner {
-		padding: 0.5rem 1rem;
+		padding: var(--tt-space-8) var(--tt-space-16);
 	}
 
 	.install-banner {
-		background: var(--header-bg);
-		padding: 8px 12px;
+		background: var(--tt-header-bg);
+		padding: var(--tt-space-8) var(--tt-space-12);
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		border-radius: var(--r-banner);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.install-btn {
-		background: var(--pos);
+		background: var(--tt-status-success);
 		color: white;
 		border: none;
-		border-radius: var(--r-btn);
-		padding: 8px 24px;
+		border-radius: var(--tt-radius-button);
+		padding: var(--tt-space-8) var(--tt-space-24);
 		font-size: 0.9rem;
 		font-weight: 600;
 		cursor: pointer;
@@ -806,24 +806,24 @@
 	}
 
 	.running-task-header {
-		padding: 0 1rem;
-		margin-top: 0.5rem;
+		padding: 0 var(--tt-space-16);
+		margin-top: var(--tt-space-8);
 	}
 
 	.update-banner {
-		background: var(--header-bg);
-		padding: 8px 12px;
+		background: var(--tt-header-bg);
+		padding: var(--tt-space-8) var(--tt-space-12);
 		display: flex;
 		justify-content: center;
-		border-radius: var(--r-banner);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.update-btn {
-		background: var(--warning);
+		background: var(--tt-status-warning);
 		color: white;
 		border: none;
-		border-radius: var(--r-btn);
-		padding: 8px 24px;
+		border-radius: var(--tt-radius-button);
+		padding: var(--tt-space-8) var(--tt-space-24);
 		font-size: 0.9rem;
 		font-weight: 600;
 		cursor: pointer;
