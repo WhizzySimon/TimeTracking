@@ -128,7 +128,7 @@
 				<div class="category-grid">
 					{#each topCategories as category (category.id)}
 						<button
-							class="category-btn top-btn"
+							class="tt-chip tt-chip--suggestion"
 							onclick={() => onselect(category.id)}
 							aria-label={`${category.name} starten`}
 						>
@@ -145,12 +145,12 @@
 				<div class="filter-row">
 					<input
 						type="text"
-						class="filter-input"
+						class="tt-text-input"
 						placeholder="Filtern..."
 						bind:value={filterText}
 					/>
 					{#if oncreatecategory}
-						<button class="create-entry-btn" onclick={oncreatecategory}>
+						<button class="tt-button-primary tt-button-small" onclick={oncreatecategory}>
 							Tätigkeit erstellen
 						</button>
 					{/if}
@@ -164,7 +164,7 @@
 							<div class="category-list-vertical">
 								{#each group.categories as category (category.id)}
 									<button
-										class="category-btn list-btn"
+										class="tt-list-row-clickable"
 										onclick={() => onselect(category.id)}
 										aria-label={`${category.name} starten`}
 									>
@@ -179,7 +179,7 @@
 					<div class="category-list-vertical">
 						{#each filteredCategories as category (category.id)}
 							<button
-								class="category-btn list-btn"
+								class="tt-list-row-clickable"
 								onclick={() => onselect(category.id)}
 								aria-label={`${category.name} starten`}
 							>
@@ -197,27 +197,27 @@
 	.category-list {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
-		padding: 0.5rem 0;
+		gap: var(--tt-space-24);
+		padding: var(--tt-space-8) 0;
 	}
 
 	.empty-state {
 		text-align: center;
-		padding: 2rem 1rem;
-		color: var(--text-secondary, #6b7280);
+		padding: var(--tt-space-32) var(--tt-space-16);
+		color: var(--tt-text-muted);
 	}
 
 	.settings-link {
 		display: inline-block;
-		margin-top: 1rem;
-		color: var(--accent);
+		margin-top: var(--tt-space-16);
+		color: var(--tt-primary);
 		text-decoration: underline;
 	}
 
 	.section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.section-title {
@@ -225,181 +225,47 @@
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		color: var(--text-secondary, #6b7280);
+		color: var(--tt-text-muted);
 		margin: 0;
 	}
 
 	.category-grid {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.category-list-vertical {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.employer-group {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
-		margin-top: 0.5rem;
+		gap: var(--tt-space-8);
+		margin-top: var(--tt-space-8);
 	}
 
 	.group-title {
 		font-size: 0.8125rem;
 		font-weight: 500;
-		color: var(--text-secondary, #6b7280);
+		color: var(--tt-text-muted);
 		margin: 0;
-		padding-left: 0.25rem;
+		padding-left: var(--tt-space-4);
 	}
 
 	.filter-row {
 		display: flex;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		align-items: center;
 		width: 100%;
 	}
 
-	.filter-input {
+	/* Override tt-text-input to flex properly in filter row */
+	.filter-row :global(.tt-text-input) {
 		flex: 1 1 auto;
 		min-width: 0;
-		padding: 0.625rem 0.875rem;
-		border: 1px solid var(--border-color, #d1d5db);
-		border-radius: var(--r-input, 0.5rem);
-		font-size: 0.875rem;
-		background: var(--bg-primary, #ffffff);
-		color: var(--text-primary, #1f2937);
-		outline: none;
-		transition: border-color var(--transition-fast, 0.15s);
-	}
-
-	.filter-input:focus {
-		border-color: var(--accent);
-	}
-
-	.filter-input::placeholder {
-		color: var(--text-secondary, #6b7280);
-	}
-
-	.category-btn {
-		border: none;
-		border-radius: var(--r-btn, 0.5rem);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all var(--transition-fast, 0.15s);
-		text-align: left;
-	}
-
-	/* Top suggestion buttons - prominent style */
-	.top-btn {
-		flex: 1 1 auto;
-		min-width: 100px;
-		max-width: calc(50% - 0.25rem);
-		padding: 0.875rem 1rem;
-		background: var(--accent);
-		color: white;
-		font-weight: 500;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		text-align: center;
-	}
-
-	.top-btn:hover {
-		background: var(--accent-dark, #1d4ed8);
-		transform: translateY(-1px);
-	}
-
-	.top-btn:active {
-		transform: scale(0.98);
-	}
-
-	/* List buttons - subtle style */
-	.list-btn {
-		width: 100%;
-		padding: 0.75rem 1rem;
-		background: var(--bg-secondary, #f3f4f6);
-		color: var(--text-primary, #1f2937);
-	}
-
-	.list-btn:hover {
-		background: var(--bg-tertiary, #e5e7eb);
-	}
-
-	.list-btn:active {
-		background: var(--bg-tertiary, #e5e7eb);
-		transform: scale(0.99);
-	}
-
-	/* Dark mode */
-	:global(.dark) .empty-state {
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	:global(.dark) .section-title {
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	:global(.dark) .group-title {
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	:global(.dark) .list-btn {
-		background: var(--bg-secondary-dark, #374151);
-		color: var(--text-primary-dark, #f3f4f6);
-	}
-
-	:global(.dark) .list-btn:hover {
-		background: var(--bg-tertiary-dark, #4b5563);
-	}
-
-	:global(.dark) .filter-input {
-		background: var(--bg-secondary-dark, #374151);
-		border-color: var(--border-color-dark, #4b5563);
-		color: var(--text-primary-dark, #f3f4f6);
-	}
-
-	:global(.dark) .filter-input::placeholder {
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	.create-entry-btn {
-		flex-shrink: 0;
-		padding: 0.625rem 1rem;
-		background: var(--accent);
-		color: white;
-		border: none;
-		border-radius: var(--r-btn, 0.5rem);
-		font-size: 0.875rem;
-		font-weight: 500;
-		cursor: pointer;
-		transition: all var(--transition-fast, 0.15s);
-		white-space: nowrap;
-	}
-
-	.create-entry-btn:hover {
-		background: var(--bg-tertiary, #e5e7eb);
-		border-color: var(--accent);
-	}
-
-	:global(.dark) .create-entry-btn {
-		background: var(--bg-secondary-dark, #374151);
-		color: var(--text-primary-dark, #f3f4f6);
-		border-color: var(--border-color-dark, #4b5563);
-	}
-
-	:global(.dark) .create-entry-btn:hover {
-		background: var(--bg-tertiary-dark, #4b5563);
-		border-color: var(--accent);
-	}
-
-	/* Responsive - full width on small screens */
-	@media (max-width: 360px) {
-		.top-btn {
-			max-width: 100%;
-		}
 	}
 </style>

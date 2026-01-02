@@ -145,36 +145,26 @@
 
 <style>
 	.add-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		min-height: calc(100vh - 120px);
 	}
 
 	.first-time-hint {
-		background: var(--accent-light, #eff6ff);
-		color: var(--accent-dark, #1e40af);
-		padding: 0.75rem 1rem;
-		border-radius: var(--r-card, 0.5rem);
+		background: var(--tt-status-info-faded);
+		color: var(--tt-primary);
+		padding: var(--tt-space-12) var(--tt-space-16);
+		border-radius: var(--tt-radius-card);
 		font-size: 0.875rem;
 		text-align: center;
-		margin-bottom: 1rem;
-		border: 1px solid var(--accent, #3b82f6);
-	}
-
-	:global(.dark) .first-time-hint {
-		background: rgba(59, 130, 246, 0.1);
-		color: var(--accent, #3b82f6);
-		border-color: var(--accent, #3b82f6);
+		margin-bottom: var(--tt-space-16);
+		border: 1px solid var(--tt-primary);
 	}
 
 	.loading {
-		color: var(--text-secondary, #6b7280);
+		color: var(--tt-text-muted);
 		text-align: center;
-		padding: 2rem;
-	}
-
-	:global(.dark) .loading {
-		color: var(--text-secondary-dark, #9ca3af);
+		padding: var(--tt-space-32);
 	}
 </style>
