@@ -40,8 +40,8 @@
 			// Debug: log URL params for troubleshooting email change flow
 			const hashParams = new URLSearchParams(window.location.hash.substring(1));
 			const urlType = hashParams.get('type');
-			console.log('[Login] URL check:', { 
-				search: window.location.search, 
+			console.log('[Login] URL check:', {
+				search: window.location.search,
 				hash: window.location.hash,
 				hashType: urlType,
 				hasAccessToken: hashParams.has('access_token')
@@ -50,8 +50,10 @@
 			// Supabase's detectSessionInUrl:true automatically processes tokens in URL hash
 			// After email change confirmation, Supabase redirects with access_token in hash
 			// getSession() will pick up the session from the URL automatically
-			const { data: { session } } = await supabase.auth.getSession();
-			
+			const {
+				data: { session }
+			} = await supabase.auth.getSession();
+
 			// Log if this was an email change confirmation
 			if (urlType === 'email_change' && session) {
 				console.log('[Login] Email change confirmed via URL token, session established');
@@ -61,7 +63,8 @@
 				const { saveSession } = await import('$lib/stores/auth');
 				const { getCurrentUserId } = await import('$lib/api/auth');
 				const { loadUserProfile } = await import('$lib/api/profile');
-				const { setUserProfile, loadPersistedPlanOverride, loadPersistedUserName } = await import('$lib/stores/user');
+				const { setUserProfile, loadPersistedPlanOverride, loadPersistedUserName } =
+					await import('$lib/stores/user');
 
 				await saveSession({
 					token: session.access_token,
@@ -110,7 +113,8 @@
 			const { login, getCurrentUserId } = await import('$lib/api/auth');
 			const { saveSession } = await import('$lib/stores/auth');
 			const { loadUserProfile } = await import('$lib/api/profile');
-			const { setUserProfile, loadPersistedPlanOverride, loadPersistedUserName } = await import('$lib/stores/user');
+			const { setUserProfile, loadPersistedPlanOverride, loadPersistedUserName } =
+				await import('$lib/stores/user');
 
 			const response = await login(email, password);
 
@@ -151,39 +155,39 @@
 			<h2>Anmelden</h2>
 
 			<form onsubmit={handleSubmit}>
-			<div class="field">
-				<label for="email">E-Mail</label>
-				<input
-					type="email"
-					id="email"
-					name="email"
-					autocomplete="username"
-					bind:value={email}
-					disabled={loading}
-					placeholder="ihre@email.de"
-				/>
-			</div>
+				<div class="field">
+					<label for="email">E-Mail</label>
+					<input
+						type="email"
+						id="email"
+						name="email"
+						autocomplete="username"
+						bind:value={email}
+						disabled={loading}
+						placeholder="ihre@email.de"
+					/>
+				</div>
 
-			<div class="field">
-				<label for="password">Passwort</label>
-				<PasswordInput
-					id="password"
-					bind:value={password}
-					autocomplete="current-password"
-					disabled={loading}
-				/>
-			</div>
+				<div class="field">
+					<label for="password">Passwort</label>
+					<PasswordInput
+						id="password"
+						bind:value={password}
+						autocomplete="current-password"
+						disabled={loading}
+					/>
+				</div>
 
-			{#if error}
-				<div class="error">{error}</div>
-			{/if}
+				{#if error}
+					<div class="error">{error}</div>
+				{/if}
 
-			<button type="submit" class="submit-btn" disabled={loading}>
-				{loading ? 'Anmelden...' : 'Anmelden'}
-			</button>
-		</form>
+				<button type="submit" class="submit-btn" disabled={loading}>
+					{loading ? 'Anmelden...' : 'Anmelden'}
+				</button>
+			</form>
 
-		<div class="links">
+			<div class="links">
 				<a href={resolve('/signup')}>Registrieren</a>
 				<a href={resolve('/forgot-password')}>Passwort vergessen?</a>
 			</div>

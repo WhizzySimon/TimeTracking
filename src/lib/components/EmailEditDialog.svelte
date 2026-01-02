@@ -67,7 +67,10 @@
 		<div class="success-message">
 			<p>Eine Bestätigungs-E-Mail wurde an <strong>{newEmail}</strong> gesendet.</p>
 			<p>Bitte klicken Sie auf den Link in der E-Mail, um die Änderung zu bestätigen.</p>
-			<p class="logout-hint">Sie werden jetzt abgemeldet und können sich nach der Bestätigung mit der neuen E-Mail-Adresse anmelden.</p>
+			<p class="logout-hint">
+				Sie werden jetzt abgemeldet und können sich nach der Bestätigung mit der neuen
+				E-Mail-Adresse anmelden.
+			</p>
 		</div>
 		<div class="actions">
 			<button class="save-btn" onclick={handleLogoutAndClose}>Abmelden</button>

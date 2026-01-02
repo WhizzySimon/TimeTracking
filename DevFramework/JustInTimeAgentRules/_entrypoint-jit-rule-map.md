@@ -34,22 +34,22 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 
 ## Trigger Points
 
-| When                        | Read first                                                                           |
-| --------------------------- | ------------------------------------------------------------------------------------ |
-| **Session start**           | `session-start.md`                                                                   |
-| **Writing/editing code**    | `code-quality.md`                                                                    |
-| **Executing commands**      | `command-execution.md`                                                               |
-| **Working on UI (.svelte)** | `frontend-ui-standards.md`, `frontend-ux-standards.md`, `frontend-code-standards.md` |
-| **Creating folders/files**  | `naming-conventions.md`                                                              |
-| **Creating/updating spec**  | `spec-writing.md`                                                                    |
-| **Creating/updating plan**  | `planning.md`                                                                        |
-| **Before implementing**     | `implementation.md`                                                                  |
-| **Debugging/troubleshooting** | `debugging.md`, `mindset.md`                                                       |
-| **Before marking complete** | Run `/audit`, ensure Evidence Bundle is staged                                       |
-| **Before git commit**       | `pre-commit.md`                                                                      |
-| **Before commit (detours)** | `sync-check.md`                                                                      |
-| **Starting a task**         | `DevFramework/TaskQualityAssurance/boxes/<box>.md`                                   |
-| **Changing framework docs** | `framework-changes.md`                                                               |
+| When                          | Read first                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------ |
+| **Session start**             | `session-start.md`                                                                   |
+| **Writing/editing code**      | `code-quality.md`                                                                    |
+| **Executing commands**        | `command-execution.md`                                                               |
+| **Working on UI (.svelte)**   | `frontend-ui-standards.md`, `frontend-ux-standards.md`, `frontend-code-standards.md` |
+| **Creating folders/files**    | `naming-conventions.md`                                                              |
+| **Creating/updating spec**    | `spec-writing.md`                                                                    |
+| **Creating/updating plan**    | `planning.md`                                                                        |
+| **Before implementing**       | `implementation.md`                                                                  |
+| **Debugging/troubleshooting** | `debugging.md`, `mindset.md`                                                         |
+| **Before marking complete**   | Run `/audit`, ensure Evidence Bundle is staged                                       |
+| **Before git commit**         | `pre-commit.md`                                                                      |
+| **Before commit (detours)**   | `sync-check.md`                                                                      |
+| **Starting a task**           | `DevFramework/TaskQualityAssurance/boxes/<box>.md`                                   |
+| **Changing framework docs**   | `framework-changes.md`                                                               |
 
 **Each file has a canary marker. Output it to prove you read it.**
 

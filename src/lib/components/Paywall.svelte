@@ -84,6 +84,9 @@
 {/if}
 
 {#snippet paywallContent()}
+	{#if isModal}
+		<button class="close-btn" onclick={handleContinueFree} aria-label="Schließen">×</button>
+	{/if}
 	<div class="paywall-header">
 		<div class="paywall-icon">
 			<svg
@@ -203,5 +206,29 @@
 		flex-direction: column;
 		align-items: stretch;
 		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+		position: relative;
+	}
+
+	.close-btn {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		width: 32px;
+		height: 32px;
+		border: none;
+		background: none;
+		font-size: 1.5rem;
+		cursor: pointer;
+		color: var(--muted);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--r-btn);
+		z-index: 1;
+	}
+
+	.close-btn:hover {
+		background: var(--surface-hover);
+		color: var(--text);
 	}
 </style>

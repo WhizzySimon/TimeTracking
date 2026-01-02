@@ -75,7 +75,11 @@
 	</div>
 	<div class="tt-row__end">
 		{#if isRunning}
-			<button class="tt-btn tt-btn--primary tt-btn--sm end-btn" onclick={handleEnd} aria-label="Beenden">Beenden</button>
+			<button
+				class="tt-btn tt-btn--primary tt-btn--sm end-btn"
+				onclick={handleEnd}
+				aria-label="Beenden">Beenden</button
+			>
 		{:else}
 			<button class="tt-row__action resume-btn" onclick={handleResume} aria-label="Fortsetzen">
 				<span class="tt-icon-play"></span>

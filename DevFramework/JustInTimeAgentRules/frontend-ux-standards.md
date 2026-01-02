@@ -204,15 +204,15 @@ async function handleConfirm() {
 
 **Use 2-letter weekday abbreviations for date navigation, not day numbers.**
 
-| Day | Abbreviation |
-|-----|-------------|
-| Monday | Mo |
-| Tuesday | Di |
-| Wednesday | Mi |
-| Thursday | Do |
-| Friday | Fr |
-| Saturday | Sa |
-| Sunday | So |
+| Day       | Abbreviation |
+| --------- | ------------ |
+| Monday    | Mo           |
+| Tuesday   | Di           |
+| Wednesday | Mi           |
+| Thursday  | Do           |
+| Friday    | Fr           |
+| Saturday  | Sa           |
+| Sunday    | So           |
 
 **Why:** Weekday abbreviations provide more context than bare numbers. "Mo" tells the user it's Monday; "31" requires mental calculation.
 

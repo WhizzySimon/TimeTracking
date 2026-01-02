@@ -475,11 +475,7 @@
 						>
 							{$userPlan === 'pro' ? 'Pro' : 'Free'}
 						</span>
-						<button
-							class="edit-btn"
-							aria-label="Plan ändern"
-							onclick={handlePlanChange}
-						>
+						<button class="edit-btn" aria-label="Plan ändern" onclick={handlePlanChange}>
 							<svg
 								width="16"
 								height="16"
@@ -573,30 +569,30 @@
 									<span class="tt-row__title" data-testid="employer-name">{employer.name}</span>
 								</div>
 								<div class="tt-row__end">
-								<button
-									class="delete-btn"
-									aria-label="Löschen"
-									data-testid="delete-employer-btn"
-									onclick={(event) => {
-										event.stopPropagation();
-										handleDeleteEmployer(employer);
-									}}
-									><svg
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
+									<button
+										class="delete-btn"
+										aria-label="Löschen"
+										data-testid="delete-employer-btn"
+										onclick={(event) => {
+											event.stopPropagation();
+											handleDeleteEmployer(employer);
+										}}
+										><svg
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<polyline points="3 6 5 6 21 6"></polyline>
+											<path
+												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+											></path>
+										</svg></button
 									>
-										<polyline points="3 6 5 6 21 6"></polyline>
-										<path
-											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-										></path>
-									</svg></button
-								>
 								</div>
 							</div>
 						{/each}
@@ -642,29 +638,29 @@
 									</span>
 								</div>
 								<div class="tt-row__end">
-								<button
-									class="tt-btn-delete"
-									aria-label="Löschen"
-									onclick={(e) => {
-										e.stopPropagation();
-										handleDeleteModel(model);
-									}}
-									><svg
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
+									<button
+										class="tt-btn-delete"
+										aria-label="Löschen"
+										onclick={(e) => {
+											e.stopPropagation();
+											handleDeleteModel(model);
+										}}
+										><svg
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<polyline points="3 6 5 6 21 6"></polyline>
+											<path
+												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+											></path>
+										</svg></button
 									>
-										<polyline points="3 6 5 6 21 6"></polyline>
-										<path
-											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-										></path>
-									</svg></button
-								>
 								</div>
 							</div>
 						{/each}
@@ -714,30 +710,30 @@
 								</div>
 								{#if category.type !== 'system'}
 									<div class="tt-row__end">
-									<button
-										class="tt-btn-delete"
-										aria-label="Löschen"
-										data-testid="delete-category-btn"
-										onclick={(event) => {
-											event.stopPropagation();
-											handleDeleteCategory(category);
-										}}
-										><svg
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
+										<button
+											class="tt-btn-delete"
+											aria-label="Löschen"
+											data-testid="delete-category-btn"
+											onclick={(event) => {
+												event.stopPropagation();
+												handleDeleteCategory(category);
+											}}
+											><svg
+												width="16"
+												height="16"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<polyline points="3 6 5 6 21 6"></polyline>
+												<path
+													d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+												></path>
+											</svg></button
 										>
-											<polyline points="3 6 5 6 21 6"></polyline>
-											<path
-												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-											></path>
-										</svg></button
-									>
 									</div>
 								{/if}
 							</div>
@@ -835,35 +831,37 @@
 								<div class="tt-row__content">
 									<span class="tt-row__title" data-testid="category-name">{category.name}</span>
 									{#if category.employerId}
-										<span class="tt-row__detail tt-text-primary">{getEmployerName(category.employerId)}</span>
+										<span class="tt-row__detail tt-text-primary"
+											>{getEmployerName(category.employerId)}</span
+										>
 									{/if}
 								</div>
 								{#if category.type !== 'system'}
 									<div class="tt-row__end">
-									<button
-										class="tt-btn-delete"
-										aria-label="Löschen"
-										data-testid="delete-category-btn"
-										onclick={(event) => {
-											event.stopPropagation();
-											handleDeleteCategory(category);
-										}}
-										><svg
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
+										<button
+											class="tt-btn-delete"
+											aria-label="Löschen"
+											data-testid="delete-category-btn"
+											onclick={(event) => {
+												event.stopPropagation();
+												handleDeleteCategory(category);
+											}}
+											><svg
+												width="16"
+												height="16"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<polyline points="3 6 5 6 21 6"></polyline>
+												<path
+													d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+												></path>
+											</svg></button
 										>
-											<polyline points="3 6 5 6 21 6"></polyline>
-											<path
-												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-											></path>
-										</svg></button
-									>
 									</div>
 								{/if}
 							</div>

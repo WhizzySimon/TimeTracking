@@ -86,6 +86,27 @@ The theme system handles dark mode via CSS variables automatically.
 
 ## Dialog Standards (MUST)
 
+### Panic-Close Button (MUST)
+
+**Every dialog MUST have an X button in the top-right corner.**
+
+This is the "panic button" - users need an immediate, obvious way to close any dialog without reading or understanding content. Users may be overwhelmed, confused, or simply want out immediately.
+
+```svelte
+<button class="close-btn" onclick={handleClose} aria-label="Schließen">×</button>
+```
+
+**Styling requirements:**
+
+- Position: `absolute` at `top: 1rem; right: 1rem`
+- Size: 32×32px minimum
+- Font-size: 1.5rem
+- Color: `var(--muted)` default, `var(--text)` on hover
+- Background: transparent default, `var(--surface-hover)` on hover
+- z-index: 1 (above dialog content)
+
+**Why:** Standard UI convention. Users expect X in top-right corner. They may not understand button labels like "Weiter mit Free" or may not want to read anything. The X is universally understood as "close this now."
+
 ### Use ConfirmDialog Component
 
 **NEVER use browser `confirm()` or `alert()` dialogs.**
@@ -136,7 +157,7 @@ The theme system handles dark mode via CSS variables automatically.
 /* Standard dropdown styling */
 select {
 	appearance: none;
-	background-image: url("data:image/svg+xml,..."); /* triangle */
+	background-image: url('data:image/svg+xml,...'); /* triangle */
 	background-position: 0.75rem center;
 	background-repeat: no-repeat;
 	padding-left: 2rem;
@@ -185,6 +206,7 @@ Minimum requirements for any UI change:
 **Dialogs must NOT close on backdrop click.**
 
 Dialogs should only close via:
+
 - Close button (×)
 - Escape key
 - Explicit action buttons (Cancel, Confirm, etc.)
@@ -206,8 +228,12 @@ Dialogs should only close via:
 ```svelte
 <button class="delete-btn" onclick={handleDelete}>
 	<svg viewBox="0 0 24 24" width="16" height="16">
-		<path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14" 
-			stroke="currentColor" stroke-width="2" fill="none"/>
+		<path
+			d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14"
+			stroke="currentColor"
+			stroke-width="2"
+			fill="none"
+		/>
 	</svg>
 </button>
 ```
@@ -221,6 +247,7 @@ Dialogs should only close via:
 **Hide form fields that don't apply semantically.**
 
 Examples:
+
 - No employer dropdown for absence categories (absences aren't work time)
 - No date range for single-day operations
 - No optional fields that have no effect in current context

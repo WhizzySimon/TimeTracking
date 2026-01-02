@@ -476,3 +476,17 @@ Each entry follows this format:
 | C1: Promotions       | none   | No items meet promotion criteria    |
 | C2: Read LEARNINGS   | ✓ read | 5 items                             |
 | C3: Hard Rule → JIT  | none   | No new Hard Rules proposed          |
+
+## 2026-01-02 08:20
+
+| Step | Result | Notes |
+|------|--------|-------|
+| 0: Scope check | first | First commit in this chat |
+| A1: Capture feedback | 1 item | User explained panic-close need |
+| B1: Repeated errors | none | No repeated errors |
+| B2: File churn | none | Each file edited 1-2 times max |
+| B3: Scope drift | none | UI improvement, no formal plan |
+| B4: Session duration | ~10m | normal |
+| C1: Promotions | none | No items meet promotion criteria |
+| C2: Read LEARNINGS | ✓ read | 5 items |
+| C3: Hard Rule → JIT | none | No new Hard Rules proposed |

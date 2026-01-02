@@ -17,6 +17,7 @@
 **Don't stop at the first plausible cause.**
 
 When you find an explanation that seems logical, resist the urge to immediately implement a fix. The real system may have:
+
 - More parameters than you've considered
 - Multiple contributing causes
 - A different root cause than the first plausible one
@@ -51,11 +52,13 @@ You've investigated enough when:
 ## Anti-Pattern: Trial-and-Error Loops
 
 **Symptoms:**
+
 - Multiple "fix" attempts that don't work
 - Each attempt requires user action (clicking links, checking emails, etc.)
 - Hypothesis changes after each failed attempt
 
 **Cost:**
+
 - Each cycle: implementation → testing → verification → user action
 - User frustration when their time is wasted
 - Token waste on repeated attempts
@@ -79,6 +82,7 @@ When the bug involves external services (Supabase, Stripe, APIs):
 ## Example: Email Change Bug
 
 **Bad approach (5 cycles):**
+
 1. Assume `detectSessionInUrl` handles it → doesn't work
 2. Assume token is in query params → it's in hash fragment
 3. Add `verifyOtp` with `token_hash` → wrong token format after redirect
@@ -86,6 +90,7 @@ When the bug involves external services (Supabase, Stripe, APIs):
 5. Finally discover: Supabase requires confirmation from BOTH emails
 
 **Good approach (1 cycle):**
+
 1. Read Supabase email change documentation
 2. Check Supabase Auth settings (Secure Email Change on/off)
 3. Map the full flow: request → email → click → Supabase → redirect → app

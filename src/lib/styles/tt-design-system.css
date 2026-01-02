@@ -14,31 +14,31 @@
    ============================================================================ */
 :root {
 	/* Colors - Primary palette */
-	--tt-color-primary: #2526A9;
+	--tt-color-primary: #2526a9;
 	--tt-color-primary-hover: #1e1f8a;
 	--tt-color-primary-light: rgba(37, 38, 169, 0.1);
-	
+
 	/* Colors - Accent (use sparingly) */
-	--tt-color-accent: #37BDF6;
+	--tt-color-accent: #37bdf6;
 	--tt-color-accent-hover: #1aa8e6;
 	--tt-color-accent-light: rgba(55, 189, 246, 0.1);
-	
+
 	/* Colors - Background & Surface */
-	--tt-color-bg: #E8F0F8;
+	--tt-color-bg: #e8f0f8;
 	--tt-color-surface: #ffffff;
 	--tt-color-surface-hover: #f5f8fc;
 	--tt-color-surface-active: #edf2f7;
-	
+
 	/* Colors - Border */
 	--tt-color-border: #d1dbe8;
 	--tt-color-border-light: #e2eaf3;
 	--tt-color-border-focus: var(--tt-color-primary);
-	
+
 	/* Colors - Text */
 	--tt-color-text: #1a202c;
 	--tt-color-text-secondary: #4a5568;
 	--tt-color-text-muted: #718096;
-	
+
 	/* Colors - Semantic */
 	--tt-color-danger: #c53030;
 	--tt-color-danger-hover: #9b2c2c;
@@ -47,12 +47,12 @@
 	--tt-color-success-light: rgba(47, 133, 90, 0.1);
 	--tt-color-warning: #dd6b20;
 	--tt-color-warning-light: rgba(221, 107, 32, 0.1);
-	
+
 	/* Radius tokens */
 	--tt-r-card: var(--r-card, 8px);
 	--tt-r-pill: 9999px;
 	--tt-r-btn: var(--r-btn, 6px);
-	
+
 	/* Spacing tokens */
 	--tt-s-4: 0.25rem;
 	--tt-s-8: 0.5rem;
@@ -60,18 +60,18 @@
 	--tt-s-16: 1rem;
 	--tt-s-20: 1.25rem;
 	--tt-s-24: 1.5rem;
-	
+
 	/* Typography tokens */
 	--tt-font-size-xs: 0.75rem;
 	--tt-font-size-sm: 0.875rem;
 	--tt-font-size-base: 1rem;
 	--tt-font-size-lg: 1.125rem;
-	
+
 	--tt-font-weight-normal: 400;
 	--tt-font-weight-medium: 500;
 	--tt-font-weight-semibold: 600;
 	--tt-font-weight-bold: 700;
-	
+
 	/* Transition */
 	--tt-transition: 0.15s ease;
 }
@@ -101,7 +101,10 @@
 	font-size: var(--tt-font-size-base);
 	color: var(--tt-color-text);
 	box-sizing: border-box;
-	transition: background var(--tt-transition), border-color var(--tt-transition), box-shadow var(--tt-transition);
+	transition:
+		background var(--tt-transition),
+		border-color var(--tt-transition),
+		box-shadow var(--tt-transition);
 }
 
 /* Row content area (main slot) */
@@ -195,7 +198,9 @@
 	color: var(--tt-color-primary);
 	border-radius: var(--tt-r-btn);
 	cursor: pointer;
-	transition: background var(--tt-transition), color var(--tt-transition);
+	transition:
+		background var(--tt-transition),
+		color var(--tt-transition);
 }
 
 .tt-row__action:hover {
@@ -236,7 +241,9 @@
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	transition: border-color var(--tt-transition), background var(--tt-transition);
+	transition:
+		border-color var(--tt-transition),
+		background var(--tt-transition);
 }
 
 .tt-row--select.is-selected .tt-row__selectmark {
@@ -351,7 +358,9 @@
 	color: var(--tt-color-text);
 	border: 1px solid var(--tt-color-border);
 	cursor: pointer;
-	transition: background var(--tt-transition), border-color var(--tt-transition);
+	transition:
+		background var(--tt-transition),
+		border-color var(--tt-transition);
 }
 
 .tt-badge--chip:hover {
@@ -401,7 +410,10 @@
 	border-radius: var(--tt-r-btn);
 	border: 1px solid transparent;
 	cursor: pointer;
-	transition: background var(--tt-transition), border-color var(--tt-transition), color var(--tt-transition);
+	transition:
+		background var(--tt-transition),
+		border-color var(--tt-transition),
+		color var(--tt-transition);
 	white-space: nowrap;
 }
 
@@ -578,7 +590,9 @@
 	color: var(--tt-color-text-muted);
 	border-radius: var(--tt-r-btn);
 	cursor: pointer;
-	transition: background var(--tt-transition), color var(--tt-transition);
+	transition:
+		background var(--tt-transition),
+		color var(--tt-transition);
 }
 
 .tt-btn-delete:hover {

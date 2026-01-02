@@ -64,6 +64,7 @@ When searching for the cause of something (bug, unexpected behavior, failure):
 4. **Then act** — With full understanding, the fix is usually straightforward
 
 **The cost of trial-and-error:**
+
 - Each hypothesis-test cycle takes time (implementation, testing, verification)
 - If user actions are required (clicking links, checking emails), it wastes their time too
 - The dev framework steps (implementation → testing → commit) multiply the cost

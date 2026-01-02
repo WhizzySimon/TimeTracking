@@ -21,7 +21,9 @@
 	<!-- Row Variants -->
 	<section class="section">
 		<h2>Row Variants</h2>
-		<p class="tt-muted">Rows are the primary container for list items. Each variant has specific affordances.</p>
+		<p class="tt-muted">
+			Rows are the primary container for list items. Each variant has specific affordances.
+		</p>
 
 		<h3>Nav Row</h3>
 		<p class="tt-muted">Navigational rows with chevron signifier. Used for list navigation.</p>
@@ -67,9 +69,18 @@
 						<span class="tt-icon-play"></span>
 					</button>
 					<button class="tt-btn-delete" aria-label="Löschen">
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
 							<polyline points="3 6 5 6 21 6"></polyline>
-							<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+							<path
+								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+							></path>
 						</svg>
 					</button>
 				</div>
@@ -85,9 +96,18 @@
 						<span class="tt-icon-play"></span>
 					</button>
 					<button class="tt-btn-delete" aria-label="Löschen">
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
 							<polyline points="3 6 5 6 21 6"></polyline>
-							<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+							<path
+								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+							></path>
 						</svg>
 					</button>
 				</div>
@@ -97,12 +117,12 @@
 		<h3>Select Row</h3>
 		<p class="tt-muted">Selectable rows with check/radio signifier. Used for category selection.</p>
 		<div class="demo-stack">
-			<div 
-				class="tt-row tt-row--select" 
+			<div
+				class="tt-row tt-row--select"
 				class:is-selected={selectedItem === 'dev'}
-				role="button" 
+				role="button"
 				tabindex="0"
-				onclick={() => selectedItem = selectedItem === 'dev' ? null : 'dev'}
+				onclick={() => (selectedItem = selectedItem === 'dev' ? null : 'dev')}
 			>
 				<div class="tt-row__content">
 					<span class="tt-row__title">Entwicklung</span>
@@ -115,12 +135,12 @@
 					</span>
 				</div>
 			</div>
-			<div 
+			<div
 				class="tt-row tt-row--select"
 				class:is-selected={selectedItem === 'meeting'}
-				role="button" 
+				role="button"
 				tabindex="0"
-				onclick={() => selectedItem = selectedItem === 'meeting' ? null : 'meeting'}
+				onclick={() => (selectedItem = selectedItem === 'meeting' ? null : 'meeting')}
 			>
 				<div class="tt-row__content">
 					<span class="tt-row__title">Meeting</span>
@@ -136,12 +156,16 @@
 		</div>
 
 		<h3>Info Row</h3>
-		<p class="tt-muted">Read-only display rows. No signifier, not clickable. Used for Ist/Soll/Haben.</p>
+		<p class="tt-muted">
+			Read-only display rows. No signifier, not clickable. Used for Ist/Soll/Haben.
+		</p>
 		<div class="demo-stack">
 			<div class="tt-row tt-row--info">
 				<span class="summary-item"><span class="tt-muted">Ist:</span> <strong>8,5</strong></span>
 				<span class="summary-item"><span class="tt-muted">Soll:</span> <strong>8,0</strong></span>
-				<span class="summary-item"><span class="tt-muted">Haben:</span> <strong class="tt-text-success">+0,5</strong></span>
+				<span class="summary-item"
+					><span class="tt-muted">Haben:</span> <strong class="tt-text-success">+0,5</strong></span
+				>
 			</div>
 		</div>
 
@@ -217,9 +241,17 @@
 				<span class="tt-icon-play"></span>
 			</button>
 			<button class="tt-btn-delete" aria-label="Delete">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
 					<polyline points="3 6 5 6 21 6"></polyline>
-					<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+					<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+					></path>
 				</svg>
 			</button>
 		</div>
@@ -267,7 +299,10 @@
 				<span style="color: var(--tt-color-text);">Background</span>
 				<code style="color: var(--tt-color-text);">#E8F0F8</code>
 			</div>
-			<div class="color-swatch" style="background: var(--tt-color-surface); border: 1px solid var(--tt-color-border);">
+			<div
+				class="color-swatch"
+				style="background: var(--tt-color-surface); border: 1px solid var(--tt-color-border);"
+			>
 				<span style="color: var(--tt-color-text);">Surface</span>
 				<code style="color: var(--tt-color-text);">#FFFFFF</code>
 			</div>

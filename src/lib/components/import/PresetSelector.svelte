@@ -124,6 +124,9 @@
 				onclick={(e) => e.stopPropagation()}
 				onkeydown={(e) => e.stopPropagation()}
 			>
+				<button class="close-btn" onclick={() => (showSaveDialog = false)} aria-label="Schließen"
+					>×</button
+				>
 				<h4>Preset speichern</h4>
 				<input
 					type="text"
@@ -247,6 +250,30 @@
 		padding: 1.5rem;
 		border-radius: 8px;
 		width: 300px;
+		position: relative;
+	}
+
+	.close-btn {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		width: 32px;
+		height: 32px;
+		border: none;
+		background: none;
+		font-size: 1.5rem;
+		cursor: pointer;
+		color: var(--text-tertiary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 4px;
+		z-index: 1;
+	}
+
+	.close-btn:hover {
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
 	}
 
 	.save-dialog h4 {
