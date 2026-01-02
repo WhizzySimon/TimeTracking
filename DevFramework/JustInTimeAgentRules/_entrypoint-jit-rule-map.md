@@ -45,11 +45,11 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | **Creating/updating plan**    | `planning.md`                                                                        |
 | **Before implementing**       | `implementation.md`                                                                  |
 | **Debugging/troubleshooting** | `debugging.md`, `mindset.md`                                                         |
-| **Before marking complete**   | Run `/audit`, ensure Evidence Bundle is staged                                       |
-| **Before git commit**         | `pre-commit.md`                                                                      |
-| **Before commit (detours)**   | `sync-check.md`                                                                      |
-| **Starting a task**           | `DevFramework/TaskQualityAssurance/boxes/<box>.md`                                   |
-| **Changing framework docs**   | `framework-changes.md`                                                               |
+| **Running Playwright tests**  | `ProjectSpecific/testing.md`                                                         |
+| **Before marking complete**     | Run `/audit`, ensure Evidence Bundle is staged                   |
+| **Before git commit**           | `pre-commit.md`                                                  |
+| **Before commit (detours)**     | `sync-check.md`                                                  |
+| **Starting a task**             | `DevFramework/TaskQualityAssurance/boxes/<box>.md`               |
 
 **Each file has a canary marker. Output it to prove you read it.**
 
