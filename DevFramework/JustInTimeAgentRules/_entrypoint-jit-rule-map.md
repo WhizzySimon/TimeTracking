@@ -48,7 +48,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | **Stuck in a loop**           | `AgentLoopRecovery.md`                                                               |
 | **Running Playwright tests**  | `ProjectSpecific/testing.md`                                                         |
 | **Framework decisions**       | `framework-principles.md`                                                            |
-| **Before marking complete**   | Run `/audit`, ensure Evidence Bundle is staged                                       |
+| **Before marking complete**   | Follow Task N in task file (E2E regression + audit) — simple tasks: just commit      |
 | **Before git commit**         | `pre-commit.md`, `mindset.md` (reminder)                                             |
 | **Before commit (detours)**   | `sync-check.md`                                                                      |
 | **Starting a task**           | `TaskTypeRules/<task-type>.md`                                                       |
