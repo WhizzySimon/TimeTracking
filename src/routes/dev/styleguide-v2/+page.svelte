@@ -845,14 +845,15 @@
 			</select>
 		</div>
 
-		<h4>Option E: Label + Dropdown Inside Card Row</h4>
+		<h4>Option E: Label + Dropdown Inside Card Row — IMPLEMENTED</h4>
 		<p class="tt-text-muted">
-			Both label and dropdown wrapped in a static row with background. Looks like a settings row.
+			Both label and dropdown wrapped in a static row with background. Uses
+			<code>.tt-labeled-dropdown</code>.
 		</p>
 		<div class="demo-stack" style="max-width: 400px;">
-			<div class="tt-list-row-static" style="justify-content: space-between;">
-				<span>Tagesart</span>
-				<select class="tt-dropdown" style="width: auto;">
+			<div class="tt-labeled-dropdown">
+				<span class="tt-labeled-dropdown__label">Tagesart</span>
+				<select class="tt-dropdown">
 					<option>Arbeitstag</option>
 					<option>Urlaub</option>
 					<option>Krank</option>

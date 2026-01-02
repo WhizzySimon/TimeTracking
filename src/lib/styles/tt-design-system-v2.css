@@ -1144,6 +1144,33 @@
 	box-shadow: 0 0 0 3px var(--tt-brand-primary-faded);
 }
 
+/**
+ * Labeled Dropdown Row
+ * A static row containing a label and dropdown side-by-side.
+ * Use for: Tagesart on Day page, Wochenart on Week page.
+ * 
+ * Structure:
+ * <div class="tt-labeled-dropdown">
+ *   <span class="tt-labeled-dropdown__label">Tagesart</span>
+ *   <select class="tt-dropdown">...</select>
+ * </div>
+ */
+.tt-labeled-dropdown {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--tt-space-12);
+	padding: var(--tt-space-12) var(--tt-space-16);
+	background: var(--tt-background-card);
+	border: 1px solid var(--tt-border-subtle);
+	border-radius: var(--tt-radius-card);
+}
+
+.tt-labeled-dropdown__label {
+	color: var(--tt-text-secondary);
+	font-size: var(--tt-font-size-normal);
+}
+
 /* ============================================================================
    M) BACKWARD COMPATIBILITY - Duplicate styles for old class names
    
