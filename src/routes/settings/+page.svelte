@@ -1050,79 +1050,6 @@
 		color: var(--muted);
 	}
 
-	.theme-selector {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
-	}
-
-	.theme-label {
-		font-weight: 500;
-		color: var(--text);
-	}
-
-	.theme-dropdown {
-		padding: 0.5rem 2rem 0.5rem 0.75rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
-		background: var(--input-bg);
-		color: var(--text);
-		font-size: 0.9rem;
-		font-weight: 500;
-		cursor: pointer;
-		appearance: none;
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
-		background-repeat: no-repeat;
-		background-position: right 0.5rem center;
-		min-width: 100px;
-	}
-
-	.theme-dropdown:hover {
-		border-color: var(--input-border-hover, var(--border));
-	}
-
-	.theme-dropdown:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: var(--focus-ring);
-	}
-
-	.theme-toggle {
-		display: flex;
-		gap: 0;
-		border-radius: var(--r-pill);
-		overflow: hidden;
-		border: 1px solid var(--border);
-	}
-
-	.theme-option {
-		padding: 0.5rem 1rem;
-		border: none;
-		background: var(--surface);
-		color: var(--muted);
-		font-size: 0.9rem;
-		font-weight: 500;
-		cursor: pointer;
-		transition: all var(--transition-fast);
-	}
-
-	.theme-option:first-child {
-		border-right: 1px solid var(--border);
-	}
-
-	.theme-option:hover:not(.active) {
-		background: var(--surface-hover);
-	}
-
-	.theme-option.active {
-		background: var(--accent);
-		color: white;
-	}
-
 	.section {
 		display: flex;
 		flex-direction: column;
@@ -1270,66 +1197,6 @@
 		margin: 0;
 	}
 
-	.list-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
-	}
-
-	.list-item.clickable {
-		cursor: pointer;
-	}
-
-	.list-item.clickable:hover {
-		background: var(--surface-hover);
-		border-color: var(--card-hover-border);
-	}
-
-	.item-info {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-		flex: 1;
-	}
-
-	.item-name {
-		font-weight: 500;
-		color: var(--text);
-	}
-
-	.item-detail {
-		font-size: 0.85rem;
-		color: var(--muted);
-	}
-
-	.item-employer {
-		font-size: 0.8rem;
-		color: var(--accent);
-		font-weight: 400;
-	}
-
-	.delete-btn {
-		width: 32px;
-		height: 32px;
-		border: none;
-		border-radius: var(--r-btn);
-		background: transparent;
-		color: var(--neg);
-		font-size: 1.25rem;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.delete-btn:hover {
-		background: var(--neg-light);
-	}
-
 	.version-section {
 		margin-top: 1rem;
 		padding-top: 1rem;
@@ -1471,23 +1338,6 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-	}
-
-	.edit-btn {
-		padding: 0.25rem;
-		background: transparent;
-		border: none;
-		color: var(--muted);
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: var(--r-btn);
-	}
-
-	.edit-btn:hover {
-		color: var(--accent);
-		background: var(--surface-hover);
 	}
 
 	.plan-text {
