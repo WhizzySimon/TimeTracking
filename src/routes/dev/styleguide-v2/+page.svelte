@@ -789,6 +789,77 @@
 		<div style="max-width: 300px;">
 			<input type="text" class="tt-text-input" placeholder="Einträge filtern..." />
 		</div>
+
+		<h3>Dropdown Layout Options (Tagesart Example)</h3>
+		<p class="tt-text-muted">
+			Different ways to handle label + dropdown alignment. Which one works best for the Day page?
+		</p>
+
+		<h4>Option A: Fixed-Width Label</h4>
+		<p class="tt-text-muted">Label has fixed width, dropdown aligns consistently.</p>
+		<div class="demo-stack" style="max-width: 400px;">
+			<div style="display: flex; align-items: center; gap: 12px;">
+				<span style="width: 80px; flex-shrink: 0; color: var(--tt-text-secondary);">Tagesart:</span>
+				<select class="tt-dropdown" style="flex: 1;">
+					<option>Arbeitstag</option>
+					<option>Urlaub</option>
+					<option>Krank</option>
+					<option>Feiertag</option>
+				</select>
+			</div>
+		</div>
+
+		<h4>Option B: Label Left, Dropdown Right</h4>
+		<p class="tt-text-muted">Label and dropdown at opposite ends, space between.</p>
+		<div class="demo-stack" style="max-width: 400px;">
+			<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+				<span style="color: var(--tt-text-secondary);">Tagesart</span>
+				<select class="tt-dropdown" style="width: auto;">
+					<option>Arbeitstag</option>
+					<option>Urlaub</option>
+					<option>Krank</option>
+					<option>Feiertag</option>
+				</select>
+			</div>
+		</div>
+
+		<h4>Option C: No Label (Self-Explanatory)</h4>
+		<p class="tt-text-muted">Dropdown spans full width, selected value is self-explanatory.</p>
+		<div class="demo-stack" style="max-width: 400px;">
+			<select class="tt-dropdown" style="width: 100%;">
+				<option>Arbeitstag</option>
+				<option>Urlaub</option>
+				<option>Krank</option>
+				<option>Feiertag</option>
+			</select>
+		</div>
+
+		<h4>Option D: Label Inside Options</h4>
+		<p class="tt-text-muted">Label is part of each option text, no separate label needed.</p>
+		<div class="demo-stack" style="max-width: 400px;">
+			<select class="tt-dropdown" style="width: 100%;">
+				<option>Tagesart: Arbeitstag</option>
+				<option>Tagesart: Urlaub</option>
+				<option>Tagesart: Krank</option>
+				<option>Tagesart: Feiertag</option>
+			</select>
+		</div>
+
+		<h4>Option E: Label + Dropdown Inside Card Row</h4>
+		<p class="tt-text-muted">
+			Both label and dropdown wrapped in a static row with background. Looks like a settings row.
+		</p>
+		<div class="demo-stack" style="max-width: 400px;">
+			<div class="tt-list-row-static" style="justify-content: space-between;">
+				<span>Tagesart</span>
+				<select class="tt-dropdown" style="width: auto;">
+					<option>Arbeitstag</option>
+					<option>Urlaub</option>
+					<option>Krank</option>
+					<option>Feiertag</option>
+				</select>
+			</div>
+		</div>
 	</section>
 
 	<!-- Color Tokens -->
