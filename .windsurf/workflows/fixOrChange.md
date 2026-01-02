@@ -34,7 +34,7 @@ For bugs, behavior changes, and small improvements.
 **Agent: Create this file ONLY AFTER user confirms model selection:**
 
 ```
-Docs/Temp/FIX-<short-name>.md
+Docs/QuickFixes/FIX-<short-name>.md
 ```
 
 With content:
@@ -128,7 +128,7 @@ Update verification checkboxes in ticket.
 
 Create separate tickets:
 
-- `Docs/Temp/FIX-paywall-price.md`
-- `Docs/Temp/FIX-employer-dropdown.md`
+- `Docs/QuickFixes/FIX-paywall-price.md`
+- `Docs/QuickFixes/FIX-employer-dropdown.md`
 
 Each tracks its own verification status.

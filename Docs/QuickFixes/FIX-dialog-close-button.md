@@ -82,6 +82,6 @@ This is standard UI convention. Users need an immediate, obvious way to close an
 - [x] Verified all dialogs have X button in top-right corner
 - [x] Updated frontend-ui-standards.md with panic-close rule
 
-## Status: VERIFIED
+## Status: COMMITTED
 
-<!-- Update to: DONE → VERIFIED → COMMITTED -->
+Commit: f193dc5 - feat: add X close button to all dialogs (panic-close UX)
