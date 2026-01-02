@@ -248,7 +248,7 @@
 				id="model-name"
 				bind:value={name}
 				placeholder="z.B. Vollzeit 40h"
-				class="text-input"
+				class="tt-text-input"
 				disabled={saving}
 			/>
 		</div>
@@ -261,7 +261,7 @@
 				id="model-valid-from"
 				bind:value={validFrom}
 				placeholder="TT.MM.JJJJ"
-				class="text-input"
+				class="tt-text-input"
 				disabled={saving}
 			/>
 		</div>
@@ -273,7 +273,7 @@
 				id="model-employer"
 				data-testid="model-employer-select"
 				bind:value={selectedEmployerId}
-				class="select-input"
+				class="tt-dropdown"
 				disabled={saving}
 			>
 				<option value="">Alle Arbeitgeber</option>
@@ -423,10 +423,10 @@
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose} disabled={saving}>
+			<button type="button" class="tt-button-secondary" onclick={handleClose} disabled={saving}>
 				Abbrechen
 			</button>
-			<button type="button" class="btn-primary" onclick={handleSave} disabled={saving}>
+			<button type="button" class="tt-button-primary" onclick={handleSave} disabled={saving}>
 				{saving ? 'Speichern...' : 'Speichern'}
 			</button>
 		</div>
@@ -437,111 +437,67 @@
 	.add-model-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.field label {
 		font-size: 0.9rem;
 		font-weight: 500;
-		color: var(--text);
-	}
-
-	.text-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.text-input::placeholder {
-		color: var(--input-placeholder);
-	}
-
-	.text-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
-	}
-
-	.text-input:disabled {
-		background: var(--surface-hover);
-		color: var(--muted);
-	}
-
-	.select-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.select-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
-	}
-
-	.select-input:disabled {
-		background: var(--surface-hover);
-		color: var(--muted);
+		color: var(--tt-text);
 	}
 
 	.total-summary {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem;
-		background: var(--accent-light);
-		border: 1px solid var(--border);
-		border-radius: var(--r-card);
+		gap: var(--tt-space-8);
+		padding: var(--tt-space-12);
+		background: var(--tt-status-info-faded);
+		border: 1px solid var(--tt-border);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.total-label {
 		font-size: 0.9rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.total-value {
 		font-size: 1rem;
 		font-weight: 600;
-		color: var(--accent);
+		color: var(--tt-primary);
 	}
 
 	.total-separator {
-		color: var(--border);
+		color: var(--tt-border);
 	}
 
 	.weekdays {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.section-title {
 		margin: 0;
 		font-size: 0.9rem;
 		font-weight: 600;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.weekday-header {
 		display: grid;
 		grid-template-columns: 2.5rem 5rem 1fr;
-		gap: 0.5rem;
-		padding: 0.25rem 0;
+		gap: var(--tt-space-8);
+		padding: var(--tt-space-4) 0;
 		font-size: 0.75rem;
 		font-weight: 600;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		text-align: center;
 	}
 
@@ -552,20 +508,20 @@
 	.weekday-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.weekday-row {
 		display: grid;
 		grid-template-columns: 2.5rem 5rem 1fr;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		align-items: center;
 	}
 
 	.day-label {
 		font-size: 0.9rem;
 		font-weight: 500;
-		color: var(--text);
+		color: var(--tt-text);
 	}
 
 	.weekday-row input[type='checkbox'] {
@@ -577,79 +533,41 @@
 
 	.hours-input {
 		width: 100%;
-		padding: 0.5rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
+		padding: var(--tt-space-8);
+		border: 1px solid var(--tt-border);
+		border-radius: var(--tt-radius-input);
 		font-size: 0.9rem;
 		text-align: center;
-		background: var(--input-bg);
-		color: var(--input-text);
+		background: var(--tt-surface);
+		color: var(--tt-text);
 	}
 
 	.hours-input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		border-color: var(--tt-primary);
+		box-shadow: 0 0 0 2px var(--tt-primary-100);
 	}
 
 	.hours-input:disabled {
-		background: var(--surface-hover);
-		color: var(--muted);
+		background: var(--tt-surface-alt);
+		color: var(--tt-text-muted);
 	}
 
 	.error {
 		margin: 0;
-		padding: 0.5rem;
-		background: var(--neg-light);
-		border: 1px solid var(--neg);
-		border-radius: var(--r-input);
-		color: var(--neg);
+		padding: var(--tt-space-8);
+		background: var(--tt-status-danger-faded);
+		border: 1px solid var(--tt-status-danger);
+		border-radius: var(--tt-radius-input);
+		color: var(--tt-status-danger);
 		font-size: 0.9rem;
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
-		padding-top: 0.5rem;
-		border-top: 1px solid var(--border);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		padding-top: var(--tt-space-8);
+		border-top: 1px solid var(--tt-border);
 	}
 </style>

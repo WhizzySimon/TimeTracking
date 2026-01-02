@@ -496,7 +496,7 @@ Phase 4:
 | CSS-3  | Month page migration        | COMPLETE    | 1h   |
 | CSS-4  | Add page migration          | COMPLETE    | 1.5h |
 | CSS-5  | Settings (Categories)       | COMPLETE    | 1.5h |
-| CSS-6  | Settings (Employers/Models) | Not started | 1.5h |
+| CSS-6  | Settings (Employers/Models) | COMPLETE    | 1.5h |
 | CSS-7  | Settings (Account/Cleanup)  | Not started | 1h   |
 | CSS-8  | Analysis page migration     | Not started | 1.5h |
 | CSS-9  | Header migration            | Not started | 1h   |
