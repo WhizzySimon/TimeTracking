@@ -17,7 +17,7 @@ const path = require('path');
 
 const LOGS_DIR = path.join(__dirname, 'logs');
 const BASELINES_FILE = path.join(LOGS_DIR, 'baselines.json');
-const ZOOM_OUT_PATH = 'DevFramework/TaskQualityAssurance/ZOOM_OUT.md';
+const LOOP_RECOVERY_PATH = 'DevFramework/JustInTimeAgentRules/AgentLoopRecovery.md';
 
 const THRESHOLDS = {
 	repetition: 3,
@@ -246,7 +246,7 @@ function main() {
 	};
 
 	if (allAnomalies.length > 0) {
-		result.recommendation = `Follow ZOOM_OUT protocol: ${ZOOM_OUT_PATH}`;
+		result.recommendation = `Follow loop recovery protocol: ${LOOP_RECOVERY_PATH}`;
 	}
 
 	console.log(JSON.stringify(result, null, 2));

@@ -58,11 +58,11 @@ If the current phase has a Tasks file, read it:
 
 Create a sync status table:
 
-| Area                       | In Sync? | Action Needed              |
-| -------------------------- | -------- | -------------------------- |
-| CHANGELOG.md               | ✅/❌    | Add entry if work was done |
-| IMPLEMENTATION_PROGRESS.md | ✅/❌    | Update if tasks completed  |
-| LEARNINGS-INBOX.md         | ✅/❌    | Add lessons if any         |
+| Area                                  | In Sync? | Action Needed              |
+| ------------------------------------- | -------- | -------------------------- |
+| AllProjectChangesLoggedAtPreCommit.md | ✅/❌    | Add entry if work was done |
+| IMPLEMENTATION_PROGRESS.md            | ✅/❌    | Update if tasks completed  |
+| LEARNINGS-INBOX.md                    | ✅/❌    | Add lessons if any         |
 
 ### 5. Report Summary
 
@@ -87,7 +87,7 @@ Output:
 ## Sync Status
 | Area                       | In Sync? |
 | -------------------------- | -------- |
-| CHANGELOG.md               | ✅       |
+| AllProjectChangesLoggedAtPreCommit.md | ✅ |
 | IMPLEMENTATION_PROGRESS.md | ✅       |
 | LEARNINGS-INBOX.md         | ✅       |
 

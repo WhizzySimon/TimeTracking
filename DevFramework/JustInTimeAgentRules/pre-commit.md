@@ -18,7 +18,7 @@
 2. **Prepare for audit (Builder does this BEFORE switching models):**
    - Run `npm run format` to format all files
    - Run `git add -A` to stage all changes (including formatted files)
-   - Create Evidence Bundle from `DevFramework/FrameworkSelfImprovementLogs/Evidence/_template.md` - Path: `DevFramework/FrameworkSelfImprovementLogs/Evidence/AUD-YYYY-MM-DD-01.md` - Fill in: acceptance criteria, commands run, planned scope
+   - Create Evidence Bundle from `DevFramework/FrameworkSelfImprovementLogs/AuditBundles/_template.md` - Path: `DevFramework/FrameworkSelfImprovementLogs/AuditBundles/AUD-YYYY-MM-DD-01.md` - Fill in: acceptance criteria, commands run, planned scope
    - Stage the Evidence Bundle: `git add <evidence-bundle-path>`
 3. If `switch_model_before_audit` is `true` and you are Builder:
    - **STOP** and instruct user to switch to GPT-5.2 Medium Reasoning and run `/audit`
@@ -46,7 +46,7 @@
 
 [x] 1. Sync check — Not needed (no detours) / Ran sync-check.md
 [x] 2. Self-learning & improvement — Followed self-learning-system.md
-[x] 3. CHANGELOG.md — Added entry for <task>
+[x] 3. AllProjectChangesLoggedAtPreCommit.md — Added entry for <task>
 [N/A] 4. DECISIONS.md — No decisions / Added entry
 [x] 5. IMPLEMENTATION_PROGRESS.md — Updated <task> status
 [N/A] 6. Spec/Plan/Tasks sync — No changes / Synced
@@ -57,7 +57,7 @@
 
 1. **Sync check** — If needed, run sync-check.md to verify what was done
 2. **Self-learning & improvement** — Follow self-learning-system.md (Parts A, B, C)
-3. **CHANGELOG.md** — Add one-line entry for this work
+3. **AllProjectChangesLoggedAtPreCommit.md** — Add one-line entry for this work
 4. **DECISIONS.md** — If decision was made, add entry
 5. **IMPLEMENTATION_PROGRESS.md** — If tasks added/changed/completed, update tracker
 6. **Spec/Plan/Tasks sync** — If Spec changed, check Plan; if Plan changed, check Tasks
@@ -84,7 +84,7 @@
 ## Pre-Commit Checklist
 [x] 1. Sync check — <status>
 [x] 2. Self-learning — <status>
-[x] 3. CHANGELOG.md — <status>
+[x] 3. AllProjectChangesLoggedAtPreCommit.md — <status>
 [x] 4. DECISIONS.md — <status>
 [x] 5. IMPLEMENTATION_PROGRESS.md — <status>
 [x] 6. Spec/Plan/Tasks sync — <status>

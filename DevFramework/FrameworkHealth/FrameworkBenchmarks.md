@@ -1,6 +1,6 @@
-# Golden Task Regression Suite (GTRS)
+# Framework Benchmarks
 
-The GTRS is a fixed set of 10 representative tasks used to measure framework effectiveness over time.
+A fixed set of 10 representative tasks used to measure framework effectiveness over time.
 
 **Purpose:** Detect framework regressions — if Cascade struggles with tasks it previously handled well, the framework may have degraded.
 
@@ -8,23 +8,23 @@ The GTRS is a fixed set of 10 representative tasks used to measure framework eff
 
 ## Run Cadence
 
-| Trigger                       | Action                         |
-| ----------------------------- | ------------------------------ |
-| After framework version bump  | Run full GTRS                  |
-| After major doc restructure   | Run full GTRS                  |
-| Monthly (manual)              | Run full GTRS                  |
-| After anomaly pattern emerges | Run related golden task subset |
+| Trigger                       | Action                       |
+| ----------------------------- | ---------------------------- |
+| After framework version bump  | Run full benchmark suite     |
+| After major doc restructure   | Run full benchmark suite     |
+| Monthly (manual)              | Run full benchmark suite     |
+| After anomaly pattern emerges | Run related benchmark subset |
 
 ---
 
 ## Results Format
 
-Store results in `DevFramework/TaskQualityAssurance/GTRS-runs/<YYYY-MM-DD>-<version>.md`
+Store results in `DevFramework/FrameworkHealth/FrameworkBenchmarkRunHistory/<YYYY-MM-DD>.md`
 
 Each run file includes:
 
 ```markdown
-# GTRS Run: YYYY-MM-DD
+# Benchmark Run: YYYY-MM-DD
 
 **Framework Version:** X.Y.Z
 **Cascade Session:** <session-id or link>

@@ -71,13 +71,13 @@ If risk class is **high** (data loss, auth, payments):
 
 ## Common Failure Patterns
 
-| Pattern                   | Prevention                                    |
-| ------------------------- | --------------------------------------------- |
-| Fixing symptoms not cause | Use ZOOM_OUT protocol after 2 failed attempts |
-| Over-engineering the fix  | Prefer minimal 1-3 line fixes                 |
-| Breaking other code       | Run full test suite                           |
-| Missing regression test   | Add test that would have caught this bug      |
-| Same bug returns          | Document in LEARNINGS-INBOX.md                |
+| Pattern                   | Prevention                                       |
+| ------------------------- | ------------------------------------------------ |
+| Fixing symptoms not cause | Use AgentLoopRecovery.md after 2 failed attempts |
+| Over-engineering the fix  | Prefer minimal 1-3 line fixes                    |
+| Breaking other code       | Run full test suite                              |
+| Missing regression test   | Add test that would have caught this bug         |
+| Same bug returns          | Document in LEARNINGS-INBOX.md                   |
 
 ---
 

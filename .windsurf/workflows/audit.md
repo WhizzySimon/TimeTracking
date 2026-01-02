@@ -66,7 +66,7 @@ git diff --staged --name-only
 
 - Check if Evidence Bundle path appears in `git diff --staged --name-only`
 - PASS if present
-- FAIL if missing → Remediation: Create from `DevFramework/FrameworkSelfImprovementLogs/Evidence/_template.md` and stage it
+- FAIL if missing → Remediation: Create from `DevFramework/FrameworkSelfImprovementLogs/AuditBundles/_template.md` and stage it
 
 **E) Self-Learning Log must be staged**
 
