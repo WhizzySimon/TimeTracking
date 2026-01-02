@@ -480,42 +480,42 @@
 					{:else}
 						{#each employers.filter((emp) => emp.isActive) as employer (employer.id)}
 							<div
-								class="tt-row tt-row--nav list-item"
+								class="tt-list-row-clickable"
 								role="button"
 								tabindex="0"
 								data-testid="employer-item"
 								onclick={() => handleEditEmployer(employer)}
-								onkeydown={(event) => event.key === 'Enter' && handleEditEmployer(employer)}
+								onkeydown={(e) => e.key === 'Enter' && handleEditEmployer(employer)}
 							>
-								<div class="tt-row__content">
-									<span class="tt-row__title" data-testid="employer-name">{employer.name}</span>
-								</div>
-								<div class="tt-row__end">
-									<button
-										class="delete-btn"
-										aria-label="Löschen"
-										data-testid="delete-employer-btn"
-										onclick={(event) => {
-											event.stopPropagation();
-											handleDeleteEmployer(employer);
-										}}
-										><svg
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										>
-											<polyline points="3 6 5 6 21 6"></polyline>
-											<path
-												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-											></path>
-										</svg></button
+								<div class="tt-list-row__content">
+									<span class="tt-list-row__title" data-testid="employer-name">{employer.name}</span
 									>
 								</div>
+								<button
+									class="tt-btn-delete"
+									aria-label="Löschen"
+									data-testid="delete-employer-btn"
+									onclick={(event) => {
+										event.stopPropagation();
+										handleDeleteEmployer(employer);
+									}}
+								>
+									<svg
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path
+											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+										></path>
+									</svg>
+								</button>
 							</div>
 						{/each}
 					{/if}
@@ -547,43 +547,42 @@
 					{:else}
 						{#each $workTimeModels as model (model.id)}
 							<div
-								class="tt-row tt-row--nav list-item"
+								class="tt-list-row-clickable"
 								role="button"
 								tabindex="0"
 								onclick={() => handleEditModel(model)}
 								onkeydown={(e) => e.key === 'Enter' && handleEditModel(model)}
 							>
-								<div class="tt-row__content">
-									<span class="tt-row__title">{model.name}</span>
-									<span class="tt-row__detail">
+								<div class="tt-list-row__content">
+									<span class="tt-list-row__title">{model.name}</span>
+									<span class="tt-list-row__detail">
 										{calculateModelTotalHours(model)}h/Woche • {countModelWorkdays(model)} Tage • ab {model.validFrom}
 									</span>
 								</div>
-								<div class="tt-row__end">
-									<button
-										class="tt-btn-delete"
-										aria-label="Löschen"
-										onclick={(e) => {
-											e.stopPropagation();
-											handleDeleteModel(model);
-										}}
-										><svg
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										>
-											<polyline points="3 6 5 6 21 6"></polyline>
-											<path
-												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-											></path>
-										</svg></button
+								<button
+									class="tt-btn-delete"
+									aria-label="Löschen"
+									onclick={(e) => {
+										e.stopPropagation();
+										handleDeleteModel(model);
+									}}
+								>
+									<svg
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
 									>
-								</div>
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path
+											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+										></path>
+									</svg>
+								</button>
 							</div>
 						{/each}
 					{/if}
@@ -615,7 +614,7 @@
 					{:else}
 						{#each abwesenheit() as category (category.id)}
 							<div
-								class="tt-row tt-row--nav list-item"
+								class="tt-list-row-clickable"
 								data-testid="category-item"
 								data-category-type={category.type}
 								data-counts-as-work="false"
@@ -624,39 +623,38 @@
 								onclick={() => handleEditCategory(category)}
 								onkeydown={(event) => event.key === 'Enter' && handleEditCategory(category)}
 							>
-								<div class="tt-row__content">
-									<span class="tt-row__title" data-testid="category-name">
+								<div class="tt-list-row__content">
+									<span class="tt-list-row__title" data-testid="category-name">
 										{category.name}
 										<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
 									</span>
 								</div>
 								{#if category.type !== 'system'}
-									<div class="tt-row__end">
-										<button
-											class="tt-btn-delete"
-											aria-label="Löschen"
-											data-testid="delete-category-btn"
-											onclick={(event) => {
-												event.stopPropagation();
-												handleDeleteCategory(category);
-											}}
-											><svg
-												width="16"
-												height="16"
-												viewBox="0 0 24 24"
-												fill="none"
-												stroke="currentColor"
-												stroke-width="2"
-												stroke-linecap="round"
-												stroke-linejoin="round"
-											>
-												<polyline points="3 6 5 6 21 6"></polyline>
-												<path
-													d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-												></path>
-											</svg></button
+									<button
+										class="tt-btn-delete"
+										aria-label="Löschen"
+										data-testid="delete-category-btn"
+										onclick={(event) => {
+											event.stopPropagation();
+											handleDeleteCategory(category);
+										}}
+									>
+										<svg
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
 										>
-									</div>
+											<polyline points="3 6 5 6 21 6"></polyline>
+											<path
+												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+											></path>
+										</svg>
+									</button>
 								{/if}
 							</div>
 						{/each}
@@ -741,7 +739,7 @@
 					{:else}
 						{#each taetigkeiten() as category (category.id)}
 							<div
-								class="tt-row tt-row--nav list-item"
+								class="tt-list-row-clickable"
 								data-testid="category-item"
 								data-category-type={category.type}
 								data-counts-as-work="true"
@@ -750,41 +748,39 @@
 								onclick={() => handleEditCategory(category)}
 								onkeydown={(event) => event.key === 'Enter' && handleEditCategory(category)}
 							>
-								<div class="tt-row__content">
-									<span class="tt-row__title" data-testid="category-name">{category.name}</span>
+								<div class="tt-list-row__content">
+									<span class="tt-list-row__title" data-testid="category-name">{category.name}</span
+									>
 									{#if category.employerId}
-										<span class="tt-row__detail tt-text-primary"
-											>{getEmployerName(category.employerId)}</span
-										>
+										<span class="tt-list-row__detail">{getEmployerName(category.employerId)}</span>
 									{/if}
 								</div>
 								{#if category.type !== 'system'}
-									<div class="tt-row__end">
-										<button
-											class="tt-btn-delete"
-											aria-label="Löschen"
-											data-testid="delete-category-btn"
-											onclick={(event) => {
-												event.stopPropagation();
-												handleDeleteCategory(category);
-											}}
-											><svg
-												width="16"
-												height="16"
-												viewBox="0 0 24 24"
-												fill="none"
-												stroke="currentColor"
-												stroke-width="2"
-												stroke-linecap="round"
-												stroke-linejoin="round"
-											>
-												<polyline points="3 6 5 6 21 6"></polyline>
-												<path
-													d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-												></path>
-											</svg></button
+									<button
+										class="tt-btn-delete"
+										aria-label="Löschen"
+										data-testid="delete-category-btn"
+										onclick={(event) => {
+											event.stopPropagation();
+											handleDeleteCategory(category);
+										}}
+									>
+										<svg
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
 										>
-									</div>
+											<polyline points="3 6 5 6 21 6"></polyline>
+											<path
+												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+											></path>
+										</svg>
+									</button>
 								{/if}
 							</div>
 						{/each}
