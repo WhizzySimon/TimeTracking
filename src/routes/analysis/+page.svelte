@@ -689,8 +689,10 @@
 					{:else}
 						{#each periodGroups as period (period.key)}
 							{@const periodSaldo = period.ist - period.soll}
-							<button class="period-item clickable" onclick={() => navigateToPeriod(period.key)}>
-								<span class="period-label">{period.label}</span>
+							<button class="tt-list-row-clickable" onclick={() => navigateToPeriod(period.key)}>
+								<div class="tt-list-row__content">
+									<span class="tt-list-row__title">{period.label}</span>
+								</div>
 								<div class="period-hours">
 									<span class="ist">{formatHours(period.ist)}</span>
 									<span class="separator">/</span>
@@ -729,8 +731,10 @@
 					</div>
 				</div>
 				<!-- Total Sum Row - Always visible -->
-				<div class="category-item total-row">
-					<span class="category-name total-label">Summe</span>
+				<div class="tt-list-row-static total-row">
+					<div class="tt-list-row__content">
+						<span class="tt-list-row__title total-label">Summe</span>
+					</div>
 					<div class="category-values">
 						<span class="category-hours total-value">{formatHours(totalCategoryHours)}</span>
 						<span class="category-average total-value">{formatHours(totalCategoryAverage)}</span>
@@ -739,13 +743,15 @@
 				<!-- Category list - Collapsible -->
 				{#if expandedSections.taetigkeiten}
 					{#each categoryBreakdown as cat (cat.name)}
-						<div class="category-item">
-							<span class="category-name">
-								{cat.name}
-								{#if !cat.countsAsWorkTime}
-									<span class="no-work-badge">Keine Arbeitszeit</span>
-								{/if}
-							</span>
+						<div class="tt-list-row-static">
+							<div class="tt-list-row__content">
+								<span class="tt-list-row__title">
+									{cat.name}
+									{#if !cat.countsAsWorkTime}
+										<span class="no-work-badge">Keine Arbeitszeit</span>
+									{/if}
+								</span>
+							</div>
 							<div class="category-values">
 								<span class="category-hours">{formatHours(cat.hours)}</span>
 								<span class="category-average">{formatHours(cat.averagePerWeek)}</span>
@@ -830,40 +836,6 @@
 		padding: 2rem;
 	}
 
-	.period-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--surface);
-		border: 1px solid var(--border-light);
-		border-radius: var(--r-card);
-		width: 100%;
-		text-align: left;
-		font-size: inherit;
-	}
-
-	.period-item.clickable {
-		cursor: pointer;
-		transition:
-			background-color 0.15s ease,
-			border-color 0.15s ease;
-	}
-
-	.period-item.clickable:hover {
-		background: var(--surface-hover);
-		border-color: var(--accent);
-	}
-
-	.period-item.clickable:active {
-		background: var(--accent-light);
-	}
-
-	.period-label {
-		font-weight: 600;
-		color: var(--text);
-	}
-
 	.period-hours {
 		display: flex;
 		gap: 0.25rem;
@@ -924,23 +896,6 @@
 		margin: 0;
 		font-size: 1rem;
 		font-weight: 600;
-		color: var(--text);
-	}
-
-	.category-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.5rem 0.75rem;
-		background: var(--surface);
-		border: 1px solid var(--border-light);
-		border-radius: var(--r-input);
-	}
-
-	.category-name {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
 		color: var(--text);
 	}
 

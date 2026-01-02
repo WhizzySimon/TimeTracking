@@ -498,7 +498,7 @@ Phase 4:
 | CSS-5  | Settings (Categories)       | COMPLETE    | 1.5h |
 | CSS-6  | Settings (Employers/Models) | COMPLETE    | 1.5h |
 | CSS-7  | Settings (Account/Cleanup)  | COMPLETE    | 1h   |
-| CSS-8  | Analysis page migration     | Not started | 1.5h |
+| CSS-8  | Analysis page migration     | COMPLETE    | 1.5h |
 | CSS-9  | Header migration            | Not started | 1h   |
 | CSS-10 | Footer TabNavigation        | Not started | 0.5h |
 | CSS-11 | Cleanup & verification      | Not started | 1h   |
