@@ -1,0 +1,1306 @@
+/**
+ * TimeTracker Design System v2
+ * 
+ * MOBILE-FIRST: No hover states. Touchability must be self-explanatory via visual affordances.
+ * 
+ * NAMING CONVENTION: All names must be self-explanatory without reading docs.
+ * - Variables: --tt-{category}-{property}-{variant}
+ * - Classes: .tt-{component}-{variant} or .tt-{component}--{modifier}
+ * 
+ * COMPONENT STRUCTURE:
+ * - Base class defines shared styles (.tt-list-row)
+ * - Variant classes add behavioral differences (.tt-list-row-clickable, .tt-list-row-static)
+ * - Child elements use BEM-like naming (.tt-list-row__time, .tt-list-row__actions)
+ * 
+ * TOUCHABLE vs NON-TOUCHABLE:
+ * - Clickable: white background + border = card-like affordance
+ * - Static: no background, flat appearance
+ * 
+ * BORDER-RADIUS PHILOSOPHY:
+ * - Cards/rows: --tt-radius-card (8px) - consistent rounded corners
+ * - Buttons: --tt-radius-button (6px) - slightly smaller
+ * - Badges/labels: --tt-radius-badge (4px) - subtle rounding
+ * - Pills/chips: --tt-radius-pill (9999px) - fully rounded
+ */
+
+/* ============================================================================
+   A) DESIGN TOKENS - Self-explanatory variable names
+   ============================================================================ */
+:root {
+	/* ---- COLORS: Brand Primary (Blue) ---- */
+	--tt-brand-primary-50: #e8e8f8; /* Lightest - backgrounds */
+	--tt-brand-primary-100: #c5c5ed; /* Light - hover backgrounds */
+	--tt-brand-primary-200: #9e9fe0; /* Soft */
+	--tt-brand-primary-300: #7475d3; /* Medium-light */
+	--tt-brand-primary: #2526a9; /* Base (500 equivalent) */
+	--tt-brand-primary-darker: #1e1f8a; /* Dark - was used for pressed, now unused */
+	--tt-brand-primary-darkest: #171868; /* Darkest */
+	--tt-brand-primary-faded: rgba(37, 38, 169, 0.1);
+	--tt-brand-primary-pressed: #4a4bc5; /* Lighter for pressed state - visible feedback */
+
+	/* ---- COLORS: Brand Accent (Cyan/Teal) ---- */
+	--tt-brand-accent-50: #e6f7fe; /* Lightest */
+	--tt-brand-accent-100: #b8e9fc; /* Light */
+	--tt-brand-accent-200: #8adafa; /* Soft */
+	--tt-brand-accent: #37bdf6; /* Base */
+	--tt-brand-accent-darker: #1aa8e6; /* Dark */
+	--tt-brand-accent-darkest: #0d8ac4; /* Darkest */
+	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);
+
+	/* ---- COLORS: Backgrounds ---- */
+	--tt-background-page: #e8f0f8;
+	--tt-background-card: #ffffff;
+	--tt-background-card-hover: #f5f8fc;
+	--tt-background-card-pressed: #edf2f7;
+
+	/* ---- FOOTER TAB COLORS (dark background context) ---- */
+	--tt-footer-bg: var(--tt-brand-primary);
+	--tt-footer-tab-bg: transparent;
+	--tt-footer-tab-bg-current: rgba(255, 255, 255, 0.15);
+	--tt-footer-tab-bg-pressed: rgba(255, 255, 255, 0.25);
+	--tt-footer-tab-text: rgba(255, 255, 255, 0.7);
+	--tt-footer-tab-text-current: #ffffff;
+	--tt-footer-tab-border: rgba(255, 255, 255, 0.3);
+
+	/* ---- COLORS: Borders ---- */
+	--tt-border-default: #d1dbe8;
+	--tt-border-subtle: #e2eaf3;
+	--tt-border-focus: var(--tt-brand-primary);
+
+	/* ---- TOUCHABLE AFFORDANCE ---- */
+	/* Rule: Every touchable element has a visible border */
+	--tt-border-touchable-width: 1px;
+	--tt-border-touchable-color: #b8c4d4; /* Slightly darker than default for visibility */
+
+	/* ---- COLORS: Text ---- */
+	--tt-text-primary: #1a202c;
+	--tt-text-secondary: #4a5568;
+	--tt-text-muted: #718096;
+
+	/* ---- COLORS: Semantic States ---- */
+	/* Danger: Destructive actions (delete), errors, validation failures */
+	--tt-status-danger: #c53030;
+	--tt-status-danger-pressed: #e05353;
+	--tt-status-danger-darker: #9b2c2c;
+	--tt-status-danger-faded: rgba(197, 48, 48, 0.1);
+
+	/* Negative: Soft red for indicators (minus hours, deficits, badges) */
+	--tt-status-negative: #e57373;
+	--tt-status-negative-text: #c53030; /* For text on light backgrounds */
+	--tt-status-negative-faded: rgba(229, 115, 115, 0.15);
+
+	/* Success: Positive outcomes, confirmations */
+	--tt-status-success: #2f855a;
+	--tt-status-success-pressed: #48a274;
+	--tt-status-success-faded: rgba(47, 133, 90, 0.1);
+
+	/* Warning: Caution, attention needed */
+	--tt-status-warning: #dd6b20;
+	--tt-status-warning-pressed: #ed8a4a;
+	--tt-status-warning-faded: rgba(221, 107, 32, 0.1);
+
+	/* Info: Running tasks, progress, informational highlights */
+	--tt-status-info: var(--tt-brand-accent);
+	--tt-status-info-pressed: var(--tt-brand-accent-darker);
+	--tt-status-info-faded: var(--tt-brand-accent-faded);
+	--tt-status-info-text: #0d8ac4; /* For text on light backgrounds */
+
+	/* ---- SPACING ---- */
+	--tt-space-4: 0.25rem;
+	--tt-space-8: 0.5rem;
+	--tt-space-12: 0.75rem;
+	--tt-space-16: 1rem;
+	--tt-space-20: 1.25rem;
+	--tt-space-24: 1.5rem;
+	--tt-space-32: 2rem;
+	--tt-space-40: 2.5rem;
+
+	/* ---- BORDER RADIUS ---- */
+	--tt-radius-card: var(--r-card, 8px);
+	--tt-radius-button: var(--r-btn, 6px);
+	--tt-radius-pill: 9999px;
+	--tt-radius-badge: 4px;
+
+	/* ---- TYPOGRAPHY ---- */
+	--tt-font-size-tiny: 0.75rem;
+	--tt-font-size-small: 0.875rem;
+	--tt-font-size-normal: 1rem;
+	--tt-font-size-large: 1.125rem;
+
+	--tt-font-weight-regular: 400;
+	--tt-font-weight-medium: 500;
+	--tt-font-weight-semibold: 600;
+	--tt-font-weight-bold: 700;
+
+	/* ---- ANIMATION ---- */
+	--tt-transition-fast: 0.15s ease;
+}
+
+/* ============================================================================
+   B) LIST ROW - The primary list item component
+   
+   USAGE:
+   - .tt-list-row-clickable: For items that navigate or open dialogs
+   - .tt-list-row-static: For read-only display (Ist/Soll/Haben, Summe)
+   
+   COMPACT LAYOUT: Content flows horizontally first (time · category · employer)
+   ============================================================================ */
+
+/**
+ * Base List Row - Shared structure for all row types
+ */
+.tt-list-row {
+	display: flex;
+	align-items: center;
+	gap: var(--tt-space-12);
+	padding: var(--tt-space-12) var(--tt-space-16);
+	min-height: 44px;
+	background: var(--tt-background-card);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	border-radius: var(--tt-radius-card);
+	font-size: var(--tt-font-size-normal);
+	color: var(--tt-text-primary);
+	box-sizing: border-box;
+}
+
+/**
+ * CLICKABLE Row - Has cursor pointer, active state
+ * Use for: Navigation items, time entries, editable settings items
+ * Self-contained: includes all base row styles
+ */
+.tt-list-row-clickable {
+	display: flex;
+	align-items: center;
+	gap: var(--tt-space-12);
+	padding: var(--tt-space-12) var(--tt-space-16);
+	min-height: 44px;
+	background: var(--tt-background-card);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	border-radius: var(--tt-radius-card);
+	font-size: var(--tt-font-size-normal);
+	color: var(--tt-text-primary);
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+/* Active state: only background changes, border stays same */
+/* Use :has() to prevent activation when child button is pressed */
+.tt-list-row-clickable:active:not(:has(button:active)) {
+	background: var(--tt-background-card-pressed);
+}
+
+/**
+ * STATIC Row - No interaction, flat appearance
+ * Use for: Ist/Soll/Haben summary, Summe totals, read-only info
+ * Self-contained: includes all base row styles
+ */
+.tt-list-row-static {
+	display: flex;
+	align-items: center;
+	gap: var(--tt-space-12);
+	padding: var(--tt-space-12) var(--tt-space-16);
+	min-height: 44px;
+	background: var(--tt-background-card);
+	border: 1px solid var(--tt-border-subtle);
+	border-radius: var(--tt-radius-card);
+	font-size: var(--tt-font-size-normal);
+	color: var(--tt-text-secondary);
+	box-sizing: border-box;
+	cursor: default;
+}
+
+/**
+ * COMPACT Row Content - Single line layout
+ * Time · Category · Employer all on one line when space allows
+ */
+.tt-list-row__content-compact {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: var(--tt-space-8);
+}
+
+/**
+ * STACKED Row Content - Multi-line layout (when needed)
+ */
+.tt-list-row__content-stacked {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--tt-space-4);
+}
+
+/**
+ * Row End Slot - Right-aligned actions/indicators
+ */
+.tt-list-row__actions {
+	display: flex;
+	align-items: center;
+	gap: var(--tt-space-8);
+	flex-shrink: 0;
+}
+
+/**
+ * Row Text Elements
+ */
+.tt-list-row__time {
+	font-weight: var(--tt-font-weight-semibold);
+	color: var(--tt-text-primary);
+	white-space: nowrap;
+}
+
+.tt-list-row__category {
+	color: var(--tt-text-secondary);
+	white-space: nowrap;
+}
+
+.tt-list-row__detail {
+	font-size: var(--tt-font-size-small);
+	color: var(--tt-text-muted);
+}
+
+/**
+ * Separator dot for compact inline content
+ */
+.tt-list-row__separator {
+	color: var(--tt-text-muted);
+	font-size: var(--tt-font-size-small);
+}
+
+.tt-list-row__separator::before {
+	content: '·';
+}
+
+/* ============================================================================
+   C) SELECTION ROW - For category/item selection screens
+   ============================================================================ */
+
+.tt-selection-row {
+	display: flex;
+	align-items: center;
+	gap: var(--tt-space-12);
+	padding: var(--tt-space-12) var(--tt-space-16);
+	min-height: 44px;
+	background: var(--tt-background-card);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	border-radius: var(--tt-radius-card);
+	cursor: pointer;
+}
+
+.tt-selection-row.is-selected {
+	border-color: var(--tt-brand-primary);
+	background: var(--tt-brand-primary-faded);
+}
+
+.tt-selection-row__label {
+	flex: 1;
+	font-weight: var(--tt-font-weight-medium);
+}
+
+.tt-selection-row__checkmark {
+	width: 20px;
+	height: 20px;
+	border: 2px solid var(--tt-border-default);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	transition:
+		border-color var(--tt-transition-fast),
+		background var(--tt-transition-fast);
+}
+
+.tt-selection-row.is-selected .tt-selection-row__checkmark {
+	border-color: var(--tt-brand-primary);
+	background: var(--tt-brand-primary);
+	color: white;
+}
+
+.tt-selection-row__checkmark svg {
+	width: 12px;
+	height: 12px;
+	opacity: 0;
+}
+
+.tt-selection-row.is-selected .tt-selection-row__checkmark svg {
+	opacity: 1;
+}
+
+/* ============================================================================
+   D) INLINE LABEL - Fit-content badges for metadata
+   
+   IMPORTANT: These are inline-flex and will NOT stretch to full width
+   ============================================================================ */
+
+/**
+ * Base Label - Small inline indicator, fits content width
+ */
+.tt-inline-label {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-4);
+	padding: var(--tt-space-4) var(--tt-space-8);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: var(--tt-font-weight-medium);
+	line-height: 1.4;
+	border-radius: var(--tt-radius-badge);
+	white-space: nowrap;
+	width: fit-content;
+	flex-shrink: 0;
+}
+
+/**
+ * Employer Label - Shows which employer an entry belongs to
+ */
+.tt-inline-label-employer {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-4);
+	padding: var(--tt-space-4) var(--tt-space-8);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: var(--tt-font-weight-medium);
+	line-height: 1.4;
+	border-radius: var(--tt-radius-badge);
+	white-space: nowrap;
+	width: fit-content;
+	flex-shrink: 0;
+	background: var(--tt-brand-primary-faded);
+	color: var(--tt-brand-primary);
+}
+
+/**
+ * No-Work Label - Shows "Keine Arbeitszeit"
+ */
+.tt-inline-label-no-work {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-4);
+	padding: var(--tt-space-4) var(--tt-space-8);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: var(--tt-font-weight-medium);
+	line-height: 1.4;
+	border-radius: var(--tt-radius-badge);
+	white-space: nowrap;
+	width: fit-content;
+	flex-shrink: 0;
+	background: var(--tt-border-subtle);
+	color: var(--tt-text-muted);
+}
+
+/**
+ * Neutral Label - Generic metadata label
+ */
+.tt-inline-label-neutral {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-4);
+	padding: var(--tt-space-4) var(--tt-space-8);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: var(--tt-font-weight-medium);
+	line-height: 1.4;
+	border-radius: var(--tt-radius-badge);
+	white-space: nowrap;
+	width: fit-content;
+	flex-shrink: 0;
+	background: var(--tt-background-card-pressed);
+	color: var(--tt-text-secondary);
+}
+
+/**
+ * Status Labels - Semantic states (all self-contained with same padding/font)
+ */
+.tt-inline-label-success {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-4);
+	padding: var(--tt-space-4) var(--tt-space-8);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: var(--tt-font-weight-medium);
+	line-height: 1.4;
+	border-radius: var(--tt-radius-badge);
+	white-space: nowrap;
+	width: fit-content;
+	flex-shrink: 0;
+	background: var(--tt-status-success-faded);
+	color: var(--tt-status-success);
+}
+
+.tt-inline-label-warning {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-4);
+	padding: var(--tt-space-4) var(--tt-space-8);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: var(--tt-font-weight-medium);
+	line-height: 1.4;
+	border-radius: var(--tt-radius-badge);
+	white-space: nowrap;
+	width: fit-content;
+	flex-shrink: 0;
+	background: var(--tt-status-warning-faded);
+	color: var(--tt-status-warning);
+}
+
+.tt-inline-label-danger {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-4);
+	padding: var(--tt-space-4) var(--tt-space-8);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: var(--tt-font-weight-medium);
+	line-height: 1.4;
+	border-radius: var(--tt-radius-badge);
+	white-space: nowrap;
+	width: fit-content;
+	flex-shrink: 0;
+	background: var(--tt-status-danger-faded);
+	color: var(--tt-status-danger);
+}
+
+/* ============================================================================
+   E) INTERACTIVE CHIP - For selection UI (Add screen suggestions)
+   ============================================================================ */
+
+/**
+ * CHIP - Looks like small button but with normal weight text
+ * Used for selection/toggle on Add screen
+ */
+.tt-chip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-4);
+	padding: var(--tt-space-8) var(--tt-space-16);
+	min-height: 36px;
+	font-size: var(--tt-font-size-small);
+	font-weight: var(--tt-font-weight-normal);
+	line-height: 1;
+	border-radius: var(--tt-radius-button);
+	background: var(--tt-background-card);
+	color: var(--tt-text-primary);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+/* Active state: only background changes, border stays same */
+.tt-chip:active {
+	background: var(--tt-background-card-pressed);
+}
+
+.tt-chip.is-selected {
+	background: var(--tt-brand-primary);
+	color: white;
+	border-color: var(--tt-brand-primary);
+}
+
+/* Selected chip pressed: lighter for visible feedback */
+.tt-chip.is-selected:active {
+	background: var(--tt-brand-primary-pressed);
+	border-color: var(--tt-brand-primary-pressed);
+}
+
+/* ============================================================================
+   F) BUTTONS - Action triggers
+   ============================================================================ */
+
+/**
+ * Base Button
+ */
+.tt-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-12) var(--tt-space-20);
+	min-height: 44px;
+	font-size: var(--tt-font-size-normal);
+	font-weight: var(--tt-font-weight-semibold);
+	line-height: 1;
+	border-radius: var(--tt-radius-card);
+	border: none;
+	cursor: pointer;
+	transition:
+		background var(--tt-transition-fast),
+		transform var(--tt-transition-fast);
+	white-space: nowrap;
+	box-shadow: none;
+}
+
+.tt-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.tt-button svg {
+	width: 16px;
+	height: 16px;
+}
+
+/**
+ * Primary Button - Main action (self-contained)
+ */
+.tt-button-primary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-12) var(--tt-space-24);
+	min-height: 48px;
+	font-size: var(--tt-font-size-normal);
+	font-weight: var(--tt-font-weight-semibold);
+	line-height: 1;
+	border-radius: var(--tt-radius-button);
+	border: none;
+	cursor: pointer;
+	white-space: nowrap;
+	background: var(--tt-brand-primary);
+	color: white;
+}
+
+.tt-button-primary:active:not(:disabled) {
+	background: var(--tt-brand-primary-pressed);
+}
+
+.tt-button-primary:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/**
+ * Secondary Button - Alternative action (self-contained)
+ */
+.tt-button-secondary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-12) var(--tt-space-24);
+	min-height: 48px;
+	font-size: var(--tt-font-size-normal);
+	font-weight: var(--tt-font-weight-semibold);
+	line-height: 1;
+	border-radius: var(--tt-radius-button);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	cursor: pointer;
+	white-space: nowrap;
+	background: var(--tt-background-card);
+	color: var(--tt-text-primary);
+}
+
+/* Active state: only background changes, border stays same */
+.tt-button-secondary:active:not(:disabled) {
+	background: var(--tt-background-card-pressed);
+}
+
+.tt-button-secondary:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/**
+ * Danger Button - Destructive action (self-contained)
+ */
+.tt-button-danger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-12) var(--tt-space-24);
+	min-height: 48px;
+	font-size: var(--tt-font-size-normal);
+	font-weight: var(--tt-font-weight-semibold);
+	line-height: 1;
+	border-radius: var(--tt-radius-button);
+	border: none;
+	cursor: pointer;
+	white-space: nowrap;
+	background: var(--tt-status-danger);
+	color: white;
+}
+
+.tt-button-danger:active:not(:disabled) {
+	background: var(--tt-status-danger-pressed);
+}
+
+.tt-button-danger:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/**
+ * Ghost Button - Minimal style (self-contained)
+ */
+.tt-button-ghost {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-12) var(--tt-space-24);
+	min-height: 48px;
+	font-size: var(--tt-font-size-normal);
+	font-weight: var(--tt-font-weight-semibold);
+	line-height: 1;
+	border-radius: var(--tt-radius-button);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	cursor: pointer;
+	white-space: nowrap;
+	background: transparent;
+	color: var(--tt-text-secondary);
+}
+
+.tt-button-ghost:active:not(:disabled) {
+	background: var(--tt-background-card-pressed);
+}
+
+.tt-button-ghost:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/**
+ * Small Button modifier - reduces size
+ */
+.tt-button-small {
+	padding: var(--tt-space-8) var(--tt-space-16);
+	min-height: 36px;
+	font-size: var(--tt-font-size-small);
+}
+
+/**
+ * SYMBOL BUTTON - Unified borderless icon buttons
+ * Used for: Sync, Profile, Resume/Play, Delete, etc.
+ * All symbol buttons are borderless with hover background only
+ */
+.tt-symbol-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	background: var(--tt-background-card);
+	color: var(--tt-text-secondary);
+	border-radius: var(--tt-radius-button);
+	cursor: pointer;
+}
+
+.tt-symbol-button svg {
+	width: 20px;
+	height: 20px;
+}
+
+/* Active state: only background changes, border stays same */
+.tt-symbol-button:active {
+	background: var(--tt-background-card-pressed);
+}
+
+/* Variant: Danger colored symbol (e.g., Delete) */
+.tt-symbol-button-danger {
+	color: var(--tt-text-muted);
+}
+
+.tt-symbol-button-danger:active {
+	background: var(--tt-background-card-pressed);
+}
+
+/* Legacy aliases for backward compatibility */
+.tt-action-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: var(--tt-brand-primary);
+	border-radius: var(--tt-radius-button);
+	cursor: pointer;
+	transition:
+		background var(--tt-transition-fast),
+		color var(--tt-transition-fast);
+}
+
+.tt-action-button:hover {
+	background: var(--tt-brand-primary-faded);
+}
+
+.tt-action-button svg {
+	width: 20px;
+	height: 20px;
+}
+
+.tt-delete-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: var(--tt-text-muted);
+	border-radius: var(--tt-radius-button);
+	cursor: pointer;
+	transition:
+		background var(--tt-transition-fast),
+		color var(--tt-transition-fast);
+}
+
+.tt-delete-button:hover {
+	background: var(--tt-status-danger-faded);
+	color: var(--tt-status-danger);
+}
+
+.tt-delete-button svg {
+	width: 20px;
+	height: 20px;
+}
+
+/* ============================================================================
+   G) SUMMARY DISPLAY - Ist/Soll/Haben inline display
+   ============================================================================ */
+
+.tt-summary-display {
+	display: flex;
+	align-items: center;
+	gap: var(--tt-space-16);
+	padding: var(--tt-space-12) var(--tt-space-16);
+	background: var(--tt-background-card);
+	border: 1px solid var(--tt-border-subtle);
+	border-radius: var(--tt-radius-card);
+}
+
+.tt-summary-display__item {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-4);
+}
+
+.tt-summary-display__label {
+	color: var(--tt-text-muted);
+	font-size: var(--tt-font-size-small);
+}
+
+.tt-summary-display__value {
+	font-weight: var(--tt-font-weight-semibold);
+	color: var(--tt-text-primary);
+}
+
+.tt-summary-display__value-positive {
+	color: var(--tt-status-success);
+}
+
+.tt-summary-display__value-negative {
+	color: var(--tt-status-danger);
+}
+
+/* ============================================================================
+   H) UTILITIES
+   ============================================================================ */
+
+/**
+ * Card Container
+ */
+.tt-card {
+	background: var(--tt-background-card);
+	border: 1px solid var(--tt-border-subtle);
+	border-radius: var(--tt-radius-card);
+	padding: var(--tt-space-16);
+}
+
+/**
+ * Divider Line
+ */
+.tt-divider {
+	height: 1px;
+	background: var(--tt-border-subtle);
+	margin: var(--tt-space-8) 0;
+}
+
+/**
+ * Text Color Utilities
+ */
+.tt-text-muted {
+	color: var(--tt-text-muted);
+}
+
+.tt-text-brand {
+	color: var(--tt-brand-primary);
+}
+
+.tt-text-success {
+	color: var(--tt-status-success);
+}
+
+.tt-text-danger {
+	color: var(--tt-status-danger);
+}
+
+/**
+ * Play Icon (CSS triangle)
+ */
+.tt-play-icon {
+	width: 0;
+	height: 0;
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-left: 10px solid currentColor;
+	margin-left: 2px;
+}
+
+/* ============================================================================
+   I) ACTION TITLE - Clickable date/period header
+   
+   Used on: Day (Ausgewählter Tag), Week (Ausgewählte Woche), 
+            Month (Ausgewählter Monat), Analysis (Zeitraum)
+   ============================================================================ */
+
+.tt-action-title {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-12) var(--tt-space-16);
+	font-size: var(--tt-font-size-large);
+	font-weight: var(--tt-font-weight-semibold);
+	color: var(--tt-text-primary);
+	background: var(--tt-background-card);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	border-radius: var(--tt-radius-button);
+	cursor: pointer;
+}
+
+/* Active state: only background changes, border stays same */
+.tt-action-title:active {
+	background: var(--tt-background-card-pressed);
+}
+
+.tt-action-title__icon {
+	width: 16px;
+	height: 16px;
+	color: var(--tt-text-muted);
+}
+
+/* ============================================================================
+   J) SECTION TITLE - Section headers in Settings/Add pages
+   ============================================================================ */
+
+.tt-section-title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--tt-space-12) 0;
+	font-size: var(--tt-font-size-small);
+	font-weight: var(--tt-font-weight-semibold);
+	color: var(--tt-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.tt-section-title__action {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	background: var(--tt-background-card);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	border-radius: var(--tt-radius-button);
+	color: var(--tt-text-secondary);
+	cursor: pointer;
+}
+
+.tt-section-title__action:active {
+	background: var(--tt-background-card-pressed);
+}
+
+.tt-section-title__action svg {
+	width: 20px;
+	height: 20px;
+}
+
+/* Expandable section title - simple text with triangle, like simple section title */
+.tt-section-title-expandable {
+	display: flex;
+	align-items: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-12) 0;
+	font-size: var(--tt-font-size-small);
+	font-weight: var(--tt-font-weight-semibold);
+	color: var(--tt-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.tt-section-title-expandable:active {
+	color: var(--tt-text-primary);
+}
+
+.tt-section-title-expandable__icon {
+	width: 12px;
+	height: 12px;
+	color: var(--tt-text-muted);
+	transition: transform var(--tt-transition-fast);
+}
+
+.tt-section-title-expandable.is-expanded .tt-section-title-expandable__icon {
+	transform: rotate(180deg);
+}
+
+/* ============================================================================
+   K) NAVIGATION COMPONENTS
+   ============================================================================ */
+
+/* Nav direction buttons (Zurück/Vor) - same style as symbol buttons */
+.tt-nav-direction {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	background: var(--tt-background-card);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	border-radius: var(--tt-radius-button);
+	color: var(--tt-text-secondary);
+	cursor: pointer;
+}
+
+/* Active state: only background changes, border stays same */
+.tt-nav-direction:active {
+	background: var(--tt-background-card-pressed);
+}
+
+.tt-nav-direction:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.tt-nav-direction svg {
+	width: 20px;
+	height: 20px;
+}
+
+/* Nav button (tab navigation) */
+.tt-nav-button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--tt-space-4);
+	padding: var(--tt-space-8) var(--tt-space-12);
+	background: transparent;
+	border: none;
+	border-radius: var(--tt-radius-button);
+	color: var(--tt-text-muted);
+	font-size: var(--tt-font-size-tiny);
+	cursor: pointer;
+	transition: color var(--tt-transition-fast);
+}
+
+.tt-nav-button:hover {
+	color: var(--tt-text-primary);
+}
+
+.tt-nav-button.is-active {
+	color: var(--tt-brand-primary);
+}
+
+.tt-nav-button svg {
+	width: 24px;
+	height: 24px;
+}
+
+/* ============================================================================
+   K2) FOOTER TAB NAVIGATION
+   
+   Dark background footer with tab-style links.
+   States:
+   - Default: transparent bg, border for touchable affordance
+   - Pressed (:active): lightest bg (strongest feedback)
+   - Current ([aria-current="page"]): lighter bg, persistent
+   ============================================================================ */
+
+.tt-footer-nav {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: stretch;
+	align-items: center;
+	background: var(--tt-footer-bg);
+	padding: var(--tt-space-8) var(--tt-space-4);
+	gap: var(--tt-space-4);
+}
+
+.tt-footer-tab {
+	flex: 1 1 0;
+	min-width: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 38px;
+	padding: var(--tt-space-8) var(--tt-space-12);
+	text-decoration: none;
+	color: var(--tt-footer-tab-text);
+	font-size: var(--tt-font-size-small);
+	font-weight: var(--tt-font-weight-semibold);
+	white-space: nowrap;
+	border-radius: var(--tt-radius-button);
+	border: var(--tt-border-touchable-width) solid var(--tt-footer-tab-border);
+	background: var(--tt-footer-tab-bg);
+}
+
+/* Pressed state: strongest feedback (lightest) */
+.tt-footer-tab:active {
+	background: var(--tt-footer-tab-bg-pressed);
+	color: var(--tt-footer-tab-text-current);
+}
+
+/* Current tab: persistent state using semantic selector */
+.tt-footer-tab[aria-current='page'] {
+	background: var(--tt-footer-tab-bg-current);
+	color: var(--tt-footer-tab-text-current);
+}
+
+/* Current tab pressed: still show pressed feedback */
+.tt-footer-tab[aria-current='page']:active {
+	background: var(--tt-footer-tab-bg-pressed);
+}
+
+.tt-footer-tab svg {
+	width: 20px;
+	height: 20px;
+}
+
+/* Plus tab variant: larger text */
+.tt-footer-tab--plus {
+	font-size: 1.5rem;
+	font-weight: var(--tt-font-weight-bold);
+}
+
+/* ============================================================================
+   L) FORM ELEMENTS
+   ============================================================================ */
+
+/* Dropdown (select) */
+.tt-dropdown {
+	appearance: none;
+	padding: var(--tt-space-8) var(--tt-space-12);
+	padding-right: var(--tt-space-32);
+	font-size: var(--tt-font-size-normal);
+	color: var(--tt-text-primary);
+	background: var(--tt-background-card);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	border-radius: var(--tt-radius-button);
+	cursor: pointer;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right var(--tt-space-12) center;
+	transition: background var(--tt-transition-fast);
+}
+
+.tt-dropdown:active {
+	background: var(--tt-background-card-pressed);
+}
+
+.tt-dropdown:focus {
+	outline: none;
+	border-color: var(--tt-brand-primary);
+	box-shadow: 0 0 0 3px var(--tt-brand-primary-faded);
+}
+
+/* Text input */
+.tt-text-input {
+	width: 100%;
+	padding: var(--tt-space-8) var(--tt-space-12);
+	font-size: var(--tt-font-size-normal);
+	color: var(--tt-text-primary);
+	background: var(--tt-background-card);
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	border-radius: var(--tt-radius-button);
+	transition: border-color var(--tt-transition-fast);
+}
+
+.tt-text-input::placeholder {
+	color: var(--tt-text-muted);
+}
+
+.tt-text-input:hover {
+	border-color: var(--tt-text-muted);
+}
+
+.tt-text-input:focus {
+	outline: none;
+	border-color: var(--tt-brand-primary);
+	box-shadow: 0 0 0 3px var(--tt-brand-primary-faded);
+}
+
+/* ============================================================================
+   M) BACKWARD COMPATIBILITY - Duplicate styles for old class names
+   
+   These aliases ensure existing code continues to work while we migrate.
+   DEPRECATED: Remove these after full migration to new naming.
+   ============================================================================ */
+
+/* Old row classes - redirect to new behavior */
+.tt-row {
+	display: flex;
+	align-items: center;
+	gap: var(--tt-space-12);
+	padding: var(--tt-space-12) var(--tt-space-16);
+	min-height: 44px;
+	background: var(--tt-background-card);
+	border: 1px solid var(--tt-border-subtle);
+	border-radius: var(--tt-radius-card);
+	font-size: var(--tt-font-size-normal);
+	color: var(--tt-text-primary);
+	box-sizing: border-box;
+	transition:
+		background var(--tt-transition-fast),
+		border-color var(--tt-transition-fast);
+}
+
+.tt-row--nav,
+.tt-row--action {
+	cursor: pointer;
+}
+
+.tt-row--nav:hover,
+.tt-row--action:hover {
+	background: var(--tt-background-card-hover);
+	border-color: var(--tt-border-default);
+}
+
+.tt-row--info,
+.tt-row--summary {
+	cursor: default;
+}
+
+.tt-row--info:hover,
+.tt-row--summary:hover {
+	background: var(--tt-background-card);
+	border-color: var(--tt-border-subtle);
+}
+
+/* Old badge classes */
+.tt-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--tt-space-4);
+	padding: 2px var(--tt-space-8);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: var(--tt-font-weight-medium);
+	line-height: 1.4;
+	border-radius: var(--tt-radius-badge);
+	white-space: nowrap;
+	width: fit-content;
+	flex-shrink: 0;
+}
+
+.tt-badge--employer {
+	background: var(--tt-brand-primary-faded);
+	color: var(--tt-brand-primary);
+}
+
+.tt-badge--no-work {
+	background: var(--tt-border-subtle);
+	color: var(--tt-text-muted);
+}
+
+.tt-badge--label {
+	background: var(--tt-background-card-pressed);
+	color: var(--tt-text-secondary);
+}
+
+/* Old button classes */
+.tt-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-8) var(--tt-space-16);
+	min-height: 40px;
+	font-size: var(--tt-font-size-small);
+	font-weight: var(--tt-font-weight-semibold);
+	line-height: 1;
+	border-radius: var(--tt-radius-button);
+	border: 1px solid transparent;
+	cursor: pointer;
+	transition:
+		background var(--tt-transition-fast),
+		border-color var(--tt-transition-fast);
+	white-space: nowrap;
+}
+
+.tt-btn--primary {
+	background: var(--tt-brand-primary);
+	color: white;
+	border-color: var(--tt-brand-primary);
+}
+
+.tt-btn--primary:hover:not(:disabled) {
+	background: var(--tt-brand-primary-darker);
+}
+
+.tt-btn--sm {
+	padding: var(--tt-space-4) var(--tt-space-12);
+	min-height: 32px;
+	font-size: var(--tt-font-size-tiny);
+}
+
+.tt-btn-delete {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: var(--tt-text-muted);
+	border-radius: var(--tt-radius-button);
+	cursor: pointer;
+	transition:
+		background var(--tt-transition-fast),
+		color var(--tt-transition-fast);
+}
+
+.tt-btn-delete:hover {
+	background: var(--tt-status-danger-faded);
+	color: var(--tt-status-danger);
+}
+
+.tt-row__action {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--tt-brand-primary);
+	background: transparent;
+	color: var(--tt-brand-primary);
+	border-radius: var(--tt-radius-button);
+	cursor: pointer;
+	transition: background var(--tt-transition-fast);
+}
+
+.tt-row__action:hover {
+	background: var(--tt-brand-primary-faded);
+}
+
+.tt-icon-play {
+	width: 0;
+	height: 0;
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-left: 10px solid currentColor;
+	margin-left: 2px;
+}

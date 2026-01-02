@@ -18,15 +18,6 @@
 	import { getAllEmployers, deleteEmployer } from '$lib/storage/employers';
 	import { userProfile, userPlan, userFullName } from '$lib/stores/user';
 	import { logout } from '$lib/api/auth';
-	import {
-		theme,
-		shape,
-		setTheme,
-		setShape,
-		THEME_OPTIONS,
-		type ThemeValue,
-		type ShapeValue
-	} from '$lib/stores/theme';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
 	import {
@@ -137,31 +128,6 @@
 		abwesenheit: false,
 		arbeit: false
 	});
-	let currentTheme = $state<ThemeValue>('cool');
-	let currentShape = $state<ShapeValue>('soft');
-
-	// Subscribe to theme and shape stores
-	$effect(() => {
-		const unsubTheme = theme.subscribe((value) => {
-			currentTheme = value;
-		});
-		const unsubShape = shape.subscribe((value) => {
-			currentShape = value;
-		});
-		return () => {
-			unsubTheme();
-			unsubShape();
-		};
-	});
-
-	function handleThemeChange(newTheme: ThemeValue) {
-		setTheme(newTheme);
-	}
-
-	function handleShapeChange(newShape: ShapeValue) {
-		setShape(newShape);
-	}
-
 	let deleteAccountInProgress = $state(false);
 	let deleteAccountError = $state<string | null>(null);
 
@@ -418,13 +384,11 @@
 							{$userFullName || 'Nicht festgelegt'}
 						</span>
 						<button
-							class="edit-btn"
+							class="tt-symbol-button"
 							aria-label="Name bearbeiten"
 							onclick={() => (showNameEditDialog = true)}
 						>
 							<svg
-								width="16"
-								height="16"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -445,13 +409,11 @@
 							{$userProfile?.email ?? 'Nicht angemeldet'}
 						</span>
 						<button
-							class="edit-btn"
+							class="tt-symbol-button"
 							aria-label="E-Mail bearbeiten"
 							onclick={() => (showEmailEditDialog = true)}
 						>
 							<svg
-								width="16"
-								height="16"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -475,10 +437,8 @@
 						>
 							{$userPlan === 'pro' ? 'Pro' : 'Free'}
 						</span>
-						<button class="edit-btn" aria-label="Plan ändern" onclick={handlePlanChange}>
+						<button class="tt-symbol-button" aria-label="Plan ändern" onclick={handlePlanChange}>
 							<svg
-								width="16"
-								height="16"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -491,44 +451,6 @@
 							</svg>
 						</button>
 					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Appearance Section -->
-		<section class="section">
-			<div class="section-header">
-				<h2>Erscheinungsbild</h2>
-			</div>
-			<div class="theme-selector">
-				<span class="theme-label">Farben</span>
-				<select
-					class="theme-dropdown"
-					value={currentTheme}
-					onchange={(e) => handleThemeChange(e.currentTarget.value as ThemeValue)}
-				>
-					{#each THEME_OPTIONS as option (option.value)}
-						<option value={option.value}>{option.label}</option>
-					{/each}
-				</select>
-			</div>
-			<div class="theme-selector">
-				<span class="theme-label">Ecken</span>
-				<div class="theme-toggle">
-					<button
-						class="theme-option"
-						class:active={currentShape === 'sharp'}
-						onclick={() => handleShapeChange('sharp')}
-					>
-						Eckig
-					</button>
-					<button
-						class="theme-option"
-						class:active={currentShape === 'soft'}
-						onclick={() => handleShapeChange('soft')}
-					>
-						Rund
-					</button>
 				</div>
 			</div>
 		</section>

@@ -5,7 +5,7 @@
 	import { goto, pushState } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import '$lib/styles/theme.css';
-	import '$lib/styles/tt-design-system.css';
+	import '$lib/styles/tt-design-system-v2.css';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import EmployerSelector from '$lib/components/EmployerSelector.svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
