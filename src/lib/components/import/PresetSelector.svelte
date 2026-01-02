@@ -6,7 +6,7 @@
   - Save current mapping as preset
   - Delete presets
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 7
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 7
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';

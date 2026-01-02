@@ -22,10 +22,10 @@ git checkout dev && git pull origin dev
 
 ### Step 2: Find and start next task
 
-3. Read `Docs/Features/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
+3. Read `TempAppDevDocs/Features/IMPLEMENTATION_PROGRESS.md` to find current phase and completed tasks
 4. Find the relevant Tasks file:
    - Check "Current Phase" in IMPLEMENTATION_PROGRESS.md
-   - Read the corresponding `Docs/Features/Tasks/<feature>.md` file
+   - Read the corresponding `TempAppDevDocs/Features/Tasks/<feature>.md` file
 
 Report:
 

@@ -8,9 +8,9 @@
 
 Goal: Choose architecture/approach and write it down before code.
 
-Location: `Docs/AppDocs/Features/Plans/<feature-slug>.md` or `DevFramework/FrameworkFeaturePlans
+Location: `TempAppDevDocs/Features/Plans/<feature-slug>.md` or `DevFramework/FrameworkFeaturePlans
 /<feature-slug>.md`  
-Template: `Docs/AppDocs/Features/Plans/_template.md` or `DevFramework/FrameworkFeaturePlans
+Template: `TempAppDevDocs/Features/Plans/_template.md` or `DevFramework/FrameworkFeaturePlans
 /_template.md`
 
 ### Required Sections
@@ -34,9 +34,9 @@ Each plan MUST contain:
 
 Goal: Break plan into reviewable, independently testable units.
 
-Location: `Docs/AppDocs/Features/Tasks/<feature-slug>.md` or `DevFramework/FrameworkFeatureTasks
+Location: `TempAppDevDocs/Features/Tasks/<feature-slug>.md` or `DevFramework/FrameworkFeatureTasks
 /<feature-slug>.md`  
-Template: `Docs/AppDocs/Features/Tasks/_template.md` or `DevFramework/FrameworkFeatureTasks
+Template: `TempAppDevDocs/Features/Tasks/_template.md` or `DevFramework/FrameworkFeatureTasks
 /_template.md`
 
 ### Rules

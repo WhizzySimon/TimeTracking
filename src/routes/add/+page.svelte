@@ -2,7 +2,7 @@
   Plus-Tab - Quick task start view
   
   Spec refs:
-  - Docs/Features/Specs/P07-20251223-quick-start-ux.md (Phase 8)
+  - TempAppDevDocs/Features/Specs/P07-20251223-quick-start-ux.md (Phase 8)
   
   Features:
   1. Smart suggestions (Top 5 based on context)

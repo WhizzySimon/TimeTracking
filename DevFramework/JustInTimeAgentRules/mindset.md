@@ -48,6 +48,42 @@ Proactive ≠ doing everything. If user asks a simple question and the answer is
 
 ---
 
+## The Zoom-Out Pattern
+
+**Proactive means observing at multiple levels, not just solving the immediate problem.**
+
+### How It Works
+
+When you notice something off:
+
+1. **Fix the immediate issue** — The detail that triggered your attention
+2. **Zoom out one level** — Is there a pattern? Does this apply elsewhere?
+3. **Zoom out again** — Is there a systemic improvement? A missing rule?
+4. **Keep zooming** — Until you reach the level where a rule prevents recurrence
+5. **Document at each level** — So the improvement persists
+
+### Example: Test Account Clarification
+
+| Level | Observation | Action |
+|-------|-------------|--------|
+| **Detail** | Unclear which test email to use | Create convention in testing.md |
+| **Level 1** | Where should this rule live? | Notice Docs folder is messy |
+| **Level 2** | Docs folder has stale documentation | Archive deprecated docs |
+| **Level 3** | Documentation about systems is redundant | The system itself is the source of truth |
+| **Level 4** | Everything should be self-documenting | Add rule to UX standards AND naming conventions |
+| **Level 5** | This zoom-out pattern itself is valuable | Add to mindset.md (this section) |
+
+### The Ultimate Goal
+
+Each level of zoom-out:
+- Fixes something that would have caused future friction
+- Reduces human oversight needed
+- Makes the system more self-sustaining
+
+**This is what "proactive" means:** Not just answering questions, but improving the system at every level you can see.
+
+---
+
 ## Don't Stop at First Plausible Cause
 
 When searching for the cause of something (bug, unexpected behavior, failure):

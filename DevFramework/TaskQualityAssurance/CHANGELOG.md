@@ -44,4 +44,4 @@ Each entry must include:
 - **Summary:** Initial framework structure — VERSION.md, CHANGELOG.md, GTRS.md
 - **Rationale:** Phase 0 guardrails required before implementing code scripts
 - **Risk:** low
-- **Evidence:** Task D5.0a, D5.0b, D5.0c in `Docs/Features/Tasks/autonomy-stack-v2.md`
+- **Evidence:** Task D5.0a, D5.0b, D5.0c in `TempAppDevDocs/Features/Tasks/autonomy-stack-v2.md`

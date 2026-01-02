@@ -4,7 +4,7 @@
  * Processes images for text extraction.
  * Returns extracted text with confidence score.
  *
- * Spec ref: Docs/Features/Specs/ai-import.md Section 8
+ * Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 8
  */
 
 import { json, error } from '@sveltejs/kit';

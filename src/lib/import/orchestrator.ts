@@ -3,7 +3,7 @@
  *
  * Coordinates the import pipeline from sources to validated candidates.
  *
- * Spec ref: Docs/Features/Specs/ai-import.md Section 8
+ * Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 8
  */
 
 import type {

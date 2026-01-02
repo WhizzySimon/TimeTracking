@@ -1,7 +1,7 @@
 /**
  * PDF Export for TimeTracker.
  * Exports time entries as a PDF report with formatted table.
- * Spec refs: Docs/Features/Specs/subscription-plans.md
+ * Spec refs: TempAppDevDocs/Features/Specs/subscription-plans.md
  */
 
 import { jsPDF } from 'jspdf';

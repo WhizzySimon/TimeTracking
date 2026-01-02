@@ -2,7 +2,7 @@
  * Stundenzettel Export
  *
  * Exports time entries as Excel (.xlsx) and PDF files for a specific employer.
- * Spec refs: Docs/Archive/Tasks/multi-arbeitgeber.md Tasks A2.15, A2.16
+ * Spec refs: TempAppDevDocs/Archive/Tasks/multi-arbeitgeber.md Tasks A2.15, A2.16
  */
 
 import { jsPDF } from 'jspdf';

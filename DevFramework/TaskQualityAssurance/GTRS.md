@@ -56,7 +56,7 @@ Each run file includes:
 **Difficulty:** Easy  
 **Expected Duration:** 15min
 
-**Task:** Create a new markdown file in Docs/ with proper structure.
+**Task:** Create a new markdown file in TempAppDevDocs/ with proper structure.
 
 **Acceptance Criteria:**
 
@@ -68,7 +68,7 @@ Each run file includes:
 
 ```bash
 # File exists
-test -f Docs/<path>.md
+test -f TempAppDevDocs/<path>.md
 
 # Has required sections (manual check)
 ```

@@ -1,6 +1,6 @@
 /**
  * AI Import Types
- * Spec ref: Docs/Features/Specs/ai-import.md Section 7 (Data Model)
+ * Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 7 (Data Model)
  */
 
 // Source type for categorizing import sources

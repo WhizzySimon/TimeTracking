@@ -74,9 +74,9 @@ When you actually consult/read a rule file to guide your behavior, emit an invis
 
 | Need to...          | Location                                                       |
 | ------------------- | -------------------------------------------------------------- |
-| Find app spec       | `Docs/AppDocs/Features/Specs/<feature>.md`                     |
-| Find app plan       | `Docs/AppDocs/Features/Plans/<feature>.md`                     |
-| Find app tasks      | `Docs/Features/Tasks/<feature>.md`                             |
+| Find app spec       | `TempAppDevDocs/Features/Specs/<feature>.md`                     |
+| Find app plan       | `TempAppDevDocs/Features/Plans/<feature>.md`                     |
+| Find app tasks      | `TempAppDevDocs/Features/Tasks/<feature>.md`                             |
 | Find framework spec | `DevFramework/FrameworkFeatureSpecs/<feature>.md`              |
 | Log a change        | `DevFramework/FrameworkSelfImprovementLogs/CHANGELOG.md`       |
 | Log a decision      | `DevFramework/FrameworkSelfImprovementLogs/DECISIONS.md`       |

@@ -12,6 +12,36 @@
 
 ---
 
+## Self-Documenting UI Principle (MUST)
+
+**The UI must be self-explanatory. Users should understand what to do without reading documentation.**
+
+### Core Philosophy
+
+- Every element's purpose should be obvious from its name, icon, and placement
+- If users need help text to understand a feature, the design failed
+- Labels, button text, and navigation should explain themselves
+- The UI IS the documentation — there is no separate user manual
+
+### Application
+
+| Element | Self-Documenting Approach |
+|---------|---------------------------|
+| **Buttons** | Action verbs: "Start Timer", not "Go" |
+| **Labels** | Descriptive: "Work Time Today", not "WT" |
+| **Navigation** | Purpose-named: "Categories", not "Settings" (if it's about categories) |
+| **Empty states** | Tell users what to do next |
+| **Icons** | Paired with text labels; never icon-only for primary actions |
+
+### Why This Matters
+
+- No user manual to maintain (which would go stale)
+- Reduces support questions
+- Users feel confident, not confused
+- The app teaches itself through use
+
+---
+
 ## Minimal Interruption Principle (MUST)
 
 **The user should feel safe. Assume success, never imply failure.**

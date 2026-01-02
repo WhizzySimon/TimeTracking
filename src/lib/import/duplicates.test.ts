@@ -1,6 +1,6 @@
 /**
  * Unit tests for duplicates module
- * Spec ref: Docs/Features/Specs/ai-import.md Section 9
+ * Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 9
  */
 
 import { describe, it, expect } from 'vitest';

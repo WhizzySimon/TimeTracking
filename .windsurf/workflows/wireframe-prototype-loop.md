@@ -62,7 +62,7 @@ Screens:
 
 Create wireframes as SVG files:
 
-- Location: `Docs/Prototypes/<feature-slug>/assets/screens/`
+- Location: `TempAppDevDocs/Prototypes/<feature-slug>/assets/screens/`
 - Naming: `<screen-name>.svg`
 - Style: Grayscale wireframe (boxes, lines, placeholder text)
 - Size: Mobile-first (375×667) or desktop (1280×800) per context
@@ -76,12 +76,12 @@ Wireframe elements:
 
 ### Step 4: Generate Clickable Prototype
 
-Create `index.html` in `Docs/Prototypes/<feature-slug>/`:
+Create `index.html` in `TempAppDevDocs/Prototypes/<feature-slug>/`:
 
 - Embeds SVG wireframes as clickable areas
 - Click regions navigate between screens
 - No build step — opens directly in browser
-- Uses the template from `Docs/Prototypes/_template/`
+- Uses the template from `TempAppDevDocs/Prototypes/_template/`
 
 ```html
 <!-- Example structure -->
@@ -97,7 +97,7 @@ Create `index.html` in `Docs/Prototypes/<feature-slug>/`:
 
 Present prototype to user:
 
-1. Provide path to open: `Docs/Prototypes/<feature-slug>/index.html`
+1. Provide path to open: `TempAppDevDocs/Prototypes/<feature-slug>/index.html`
 2. Ask for specific feedback on:
    - Flow correctness
    - Missing screens/states
@@ -119,8 +119,8 @@ Based on feedback:
 
 When approved:
 
-1. Mark prototype as APPROVED in `Docs/Prototypes/<feature-slug>/README.md`
-2. Create or update feature spec in `Docs/Features/Specs/<feature-slug>.md`
+1. Mark prototype as APPROVED in `TempAppDevDocs/Prototypes/<feature-slug>/README.md`
+2. Create or update feature spec in `TempAppDevDocs/Features/Specs/<feature-slug>.md`
    - Reference approved wireframes
    - Include final flow description
    - Link to prototype for visual reference
@@ -131,7 +131,7 @@ When approved:
 ## Prototype Template Location
 
 ```
-Docs/Prototypes/_template/
+TempAppDevDocs/Prototypes/_template/
 ├── index.html          # Clickable prototype shell
 ├── assets/
 │   └── screens/        # SVG wireframes go here
@@ -165,8 +165,8 @@ After each iteration, report:
 **Flow coverage:** Happy path / All flows
 
 **Files:**
-- Docs/Prototypes/<feature-slug>/index.html
-- Docs/Prototypes/<feature-slug>/assets/screens/*.svg
+- TempAppDevDocs/Prototypes/<feature-slug>/index.html
+- TempAppDevDocs/Prototypes/<feature-slug>/assets/screens/*.svg
 
 **Open in browser:** file:///<full-path>/index.html
 

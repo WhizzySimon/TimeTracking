@@ -34,7 +34,7 @@ For bugs, behavior changes, and small improvements.
 **Agent: Create this file ONLY AFTER user confirms model selection:**
 
 ```
-Docs/QuickFixes/FIX-<short-name>.md
+TempAppDevDocs/QuickFixes/FIX-<short-name>.md
 ```
 
 With content:
@@ -120,7 +120,7 @@ Update verification checkboxes in ticket.
 1. Mark ticket status as VERIFIED
 2. Stage ticket with your changes
 3. Run `/commit` workflow
-4. After successful commit: delete ticket (or move to `Docs/Archive/`)
+4. After successful commit: delete ticket (or move to `TempAppDevDocs/Archive/`)
 
 ---
 
@@ -128,7 +128,7 @@ Update verification checkboxes in ticket.
 
 Create separate tickets:
 
-- `Docs/QuickFixes/FIX-paywall-price.md`
-- `Docs/QuickFixes/FIX-employer-dropdown.md`
+- `TempAppDevDocs/QuickFixes/FIX-paywall-price.md`
+- `TempAppDevDocs/QuickFixes/FIX-employer-dropdown.md`
 
 Each tracks its own verification status.

@@ -5,7 +5,7 @@
   - Show only uncertain toggle
   - Confidence threshold slider
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen C)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen C)
 -->
 <script lang="ts">
 	interface Props {

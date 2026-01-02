@@ -4,7 +4,7 @@
  * Manages saved import configurations for reuse.
  * Stored in IndexedDB.
  *
- * Spec ref: Docs/Features/Specs/ai-import.md Section 7
+ * Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 7
  */
 
 import type { ColumnMapping } from './parsers/csv';

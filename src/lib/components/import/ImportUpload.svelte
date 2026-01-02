@@ -3,7 +3,7 @@
   
   Upload component for CSV/JSON import with file picker and file list.
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen A)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen A)
 -->
 <script lang="ts">
 	import type { ImportSource } from '$lib/import/types';

@@ -5,7 +5,7 @@
   - Issue counts by type
   - Click to filter affected candidates
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen C)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen C)
 -->
 <script lang="ts">
 	import type { ImportIssue, IssueType } from '$lib/import/types';

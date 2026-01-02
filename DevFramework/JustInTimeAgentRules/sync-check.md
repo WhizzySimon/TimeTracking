@@ -39,7 +39,7 @@ Identify:
 ### 2. Check IMPLEMENTATION_PROGRESS.md
 
 ```
-Read: Docs/Features/IMPLEMENTATION_PROGRESS.md
+Read: TempAppDevDocs/Features/IMPLEMENTATION_PROGRESS.md
 ```
 
 Extract:
@@ -52,7 +52,7 @@ Extract:
 
 If the current phase has a Tasks file, read it:
 
-- `Docs/Features/Tasks/<phase-name>.md`
+- `TempAppDevDocs/Features/Tasks/<phase-name>.md`
 
 ### 4. Cross-Reference Chat vs Docs
 
