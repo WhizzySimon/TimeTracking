@@ -135,7 +135,7 @@ Framework/FrameworkSelfImprovementLogs
 | Failure Mode                   | Evidence                                                                                       | Impact                                 |
 | ------------------------------ | ---------------------------------------------------------------------------------------------- | -------------------------------------- |
 | **Commit step forgotten**      | Memory `066ef418` explicitly warns "most commonly forgotten step"                              | Uncommitted work lost between sessions |
-| **Spec template not enforced** | `TempAppDevDocs/Features/Specs/_template.md` exists but no validation                                    | Some specs missing sections            |
+| **Spec template not enforced** | `TempAppDevDocs/Features/Specs/_template.md` exists but no validation                          | Some specs missing sections            |
 | **Duplicate rules files**      | `implementation-specification-rules.md` in both `.windsurf/rules/` and `DevFramework/ToolSetup |
 
 Framework/DeveloperGuidesAndStandards
@@ -162,15 +162,15 @@ Framework/DeveloperGuidesAndStandards
 
 ### TimeTracker SDD vs External Sources
 
-| Dimension                | TimeTracker                                                    | GitHub Spec Kit                                                | Anthropic Claude Code                        | OpenAI Agents                    | Microsoft/Copilot SDD                                          |
-| ------------------------ | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------- | -------------------------------- | -------------------------------------------------------------- |
-| **Spec format**          | FR/IG/DD numbered, template-based                              | PRD → Plan → Tasks, template-driven                            | CLAUDE.md per folder, iterative tuning       | Structured outputs (JSON schema) | Constitution + templates                                       |
+| Dimension                | TimeTracker                                                              | GitHub Spec Kit                                                | Anthropic Claude Code                        | OpenAI Agents                    | Microsoft/Copilot SDD                                          |
+| ------------------------ | ------------------------------------------------------------------------ | -------------------------------------------------------------- | -------------------------------------------- | -------------------------------- | -------------------------------------------------------------- |
+| **Spec format**          | FR/IG/DD numbered, template-based                                        | PRD → Plan → Tasks, template-driven                            | CLAUDE.md per folder, iterative tuning       | Structured outputs (JSON schema) | Constitution + templates                                       |
 | **Planning phase**       | TempAppDevDocs/Features/Plans/ with architecture, data model, UI state   | `/speckit.plan` auto-generates from spec                       | "Explore, plan, code, commit" workflow       | Agent loops with guardrails      | Enterprise constitution enforcement                            |
 | **Task breakdown**       | TempAppDevDocs/Features/Tasks/ with Files, Done when, Verify, Guardrails | `/speckit.tasks` with parallelization markers `[P]`            | Checklists in Markdown, scratchpads          | Multi-agent handoffs             | Task derivation from contracts                                 |
-| **Implementation rules** | No free refactors, minimal diffs, test obligations             | Test-first imperative (Article III), library-first (Article I) | TDD: write tests → confirm fail → implement  | Structured outputs, guardrails   | Constitutional gates (simplicity, anti-abstraction)            |
-| **Quality gates**        | npm run verify, MCP Playwright, E2E                            | Pre-Implementation Gates (Phase -1)                            | Course correct early, /clear context         | Input/output guardrails          | Simplicity Gate, Anti-Abstraction Gate, Integration-First Gate |
-| **Logging/traceability** | Devlogs with Decisions, Deltas, Follow-ups                     | Living specs in feature branches                               | Conversation history, /clear resets          | Tracing in Agents SDK            | Versioned specs in branches                                    |
-| **Human-in-the-loop**    | Phase checkpoints, user confirms spec/plan/tasks               | User reviews before code generation                            | Escape to interrupt, double-Escape to rewind | Human-in-the-loop demos          | Team-reviewed specs, branch merges                             |
+| **Implementation rules** | No free refactors, minimal diffs, test obligations                       | Test-first imperative (Article III), library-first (Article I) | TDD: write tests → confirm fail → implement  | Structured outputs, guardrails   | Constitutional gates (simplicity, anti-abstraction)            |
+| **Quality gates**        | npm run verify, MCP Playwright, E2E                                      | Pre-Implementation Gates (Phase -1)                            | Course correct early, /clear context         | Input/output guardrails          | Simplicity Gate, Anti-Abstraction Gate, Integration-First Gate |
+| **Logging/traceability** | Devlogs with Decisions, Deltas, Follow-ups                               | Living specs in feature branches                               | Conversation history, /clear resets          | Tracing in Agents SDK            | Versioned specs in branches                                    |
+| **Human-in-the-loop**    | Phase checkpoints, user confirms spec/plan/tasks                         | User reviews before code generation                            | Escape to interrupt, double-Escape to rewind | Human-in-the-loop demos          | Team-reviewed specs, branch merges                             |
 
 ### Key Insights from Each Source
 

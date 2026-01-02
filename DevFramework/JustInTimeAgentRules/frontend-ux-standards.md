@@ -25,13 +25,13 @@
 
 ### Application
 
-| Element | Self-Documenting Approach |
-|---------|---------------------------|
-| **Buttons** | Action verbs: "Start Timer", not "Go" |
-| **Labels** | Descriptive: "Work Time Today", not "WT" |
-| **Navigation** | Purpose-named: "Categories", not "Settings" (if it's about categories) |
-| **Empty states** | Tell users what to do next |
-| **Icons** | Paired with text labels; never icon-only for primary actions |
+| Element          | Self-Documenting Approach                                              |
+| ---------------- | ---------------------------------------------------------------------- |
+| **Buttons**      | Action verbs: "Start Timer", not "Go"                                  |
+| **Labels**       | Descriptive: "Work Time Today", not "WT"                               |
+| **Navigation**   | Purpose-named: "Categories", not "Settings" (if it's about categories) |
+| **Empty states** | Tell users what to do next                                             |
+| **Icons**        | Paired with text labels; never icon-only for primary actions           |
 
 ### Why This Matters
 

@@ -10,7 +10,7 @@ For any non-trivial change, create a spec file from template:
 
 | Type              | Template                                          |
 | ----------------- | ------------------------------------------------- |
-| App feature       | `TempAppDevDocs/Features/Specs/_template.md`                |
+| App feature       | `TempAppDevDocs/Features/Specs/_template.md`      |
 | Framework feature | `DevFramework/FrameworkFeatureSpecs/_template.md` |
 
 **The template contains all rules:** length guidelines, prefix conventions, required sections, and completeness checklist.

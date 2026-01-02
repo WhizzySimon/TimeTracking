@@ -32,10 +32,10 @@ Files inspected:
 
 ## Axis Score Table
 
-| Axis             | Score (0-5) | Confidence | Evidence Pointers                                     | 1-line Rationale                                                                       |
-| ---------------- | ----------: | ---------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Axis             | Score (0-5) | Confidence | Evidence Pointers                                               | 1-line Rationale                                                                       |
+| ---------------- | ----------: | ---------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | 1. Spec quality  |           5 | High       | `TempAppDevDocs/Features/Specs/_template.md`, `AGENTS.md:42-52` | Template enforces FR/IG/DD numbering, scope, edge cases, acceptance checks, change log |
-| 2. Scope control |           5 | High       | `AGENTS.md:54-57`, `DevFramework/ToolSetup            |
+| 2. Scope control |           5 | High       | `AGENTS.md:54-57`, `DevFramework/ToolSetup                      |
 
 Framework/DeveloperGuidesAndStandards/SPEC_DRIVEN_DEVELOPMENT.md:96-101`                  | Checkpoints require "no ambiguous terms", scope-lock gate before implementation                           |
 | 3. Traceability          |           4 | High       |`Docs/IMPLEMENTATION_PROGRESS.md`, `TempAppDevDocs/Features/Tasks/\_template.md`                            | Tasks link to spec/plan, progress tracker logs verification + deviations; no automated FR-to-test mapping |

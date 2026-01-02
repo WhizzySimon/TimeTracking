@@ -46,10 +46,11 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | **Before implementing**       | `implementation.md`                                                                  |
 | **Debugging/troubleshooting** | `debugging.md`, `mindset.md`                                                         |
 | **Running Playwright tests**  | `ProjectSpecific/testing.md`                                                         |
-| **Before marking complete**     | Run `/audit`, ensure Evidence Bundle is staged                   |
-| **Before git commit**           | `pre-commit.md`                                                  |
-| **Before commit (detours)**     | `sync-check.md`                                                  |
-| **Starting a task**             | `DevFramework/TaskQualityAssurance/boxes/<box>.md`               |
+| **Framework decisions**       | `framework-principles.md`                                                            |
+| **Before marking complete**   | Run `/audit`, ensure Evidence Bundle is staged                                       |
+| **Before git commit**         | `pre-commit.md`                                                                      |
+| **Before commit (detours)**   | `sync-check.md`                                                                      |
+| **Starting a task**           | `DevFramework/TaskQualityAssurance/boxes/<box>.md`                                   |
 
 **Each file has a canary marker. Output it to prove you read it.**
 
@@ -74,9 +75,9 @@ When you actually consult/read a rule file to guide your behavior, emit an invis
 
 | Need to...          | Location                                                       |
 | ------------------- | -------------------------------------------------------------- |
-| Find app spec       | `TempAppDevDocs/Features/Specs/<feature>.md`                     |
-| Find app plan       | `TempAppDevDocs/Features/Plans/<feature>.md`                     |
-| Find app tasks      | `TempAppDevDocs/Features/Tasks/<feature>.md`                             |
+| Find app spec       | `TempAppDevDocs/Features/Specs/<feature>.md`                   |
+| Find app plan       | `TempAppDevDocs/Features/Plans/<feature>.md`                   |
+| Find app tasks      | `TempAppDevDocs/Features/Tasks/<feature>.md`                   |
 | Find framework spec | `DevFramework/FrameworkFeatureSpecs/<feature>.md`              |
 | Log a change        | `DevFramework/FrameworkSelfImprovementLogs/CHANGELOG.md`       |
 | Log a decision      | `DevFramework/FrameworkSelfImprovementLogs/DECISIONS.md`       |

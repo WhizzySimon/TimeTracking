@@ -319,16 +319,16 @@ Bevor du mit der Implementierung beginnst:
 
 ## Quick Reference
 
-| Was                                                                          | Wo                                 |
-| ---------------------------------------------------------------------------- | ---------------------------------- |
+| Was                                                                          | Wo                                           |
+| ---------------------------------------------------------------------------- | -------------------------------------------- |
 | Spec Template                                                                | `TempAppDevDocs/Features/Specs/_template.md` |
 | Plan Template                                                                | `TempAppDevDocs/Features/Plans/_template.md` |
 | Tasks Template                                                               | `TempAppDevDocs/Features/Tasks/_template.md` |
-| Progress Tracker                                                             | `DevFramework/ToolSetup            |
+| Progress Tracker                                                             | `DevFramework/ToolSetup                      |
 | Framework/IMPLEMENTATION_PROGRESS.md`                                        |
-| FR/IG/DD Regeln                                                              | `DevFramework/ToolSetup            |
+| FR/IG/DD Regeln                                                              | `DevFramework/ToolSetup                      |
 | Framework/DeveloperGuidesAndStandards/IMPLEMENTATION_SPECIFICATION_RULES.md` |
-| Command Execution                                                            | `DevFramework/ToolSetup            |
+| Command Execution                                                            | `DevFramework/ToolSetup                      |
 
 Framework/ToolSetup/command-execution-rules.md`              |
 | Pre-Commit Rules  |`DevFramework/JustInTimeAgentRules/pre-commit.md` |

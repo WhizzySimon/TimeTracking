@@ -20,13 +20,14 @@
 
 Available test accounts in `.env.local`:
 
-| Variable | Email | Purpose |
-|----------|-------|---------|
-| `TEST_EMAIL` / `TEST_PASSWORD` | whizzysimon@gmail.com | **Default** — use for all standard testing |
-| `TEST_EMAIL2` / `TEST_PASSWORD2` | samuel.gross.000@gmail.com | Secondary — multi-user scenarios only |
-| `TEST_EMAIL3` / `TEST_PASSWORD3` | Kristallkind00@gmail.com | Tertiary — multi-user scenarios only |
+| Variable                         | Email                      | Purpose                                    |
+| -------------------------------- | -------------------------- | ------------------------------------------ |
+| `TEST_EMAIL` / `TEST_PASSWORD`   | whizzysimon@gmail.com      | **Default** — use for all standard testing |
+| `TEST_EMAIL2` / `TEST_PASSWORD2` | samuel.gross.000@gmail.com | Secondary — multi-user scenarios only      |
+| `TEST_EMAIL3` / `TEST_PASSWORD3` | Kristallkind00@gmail.com   | Tertiary — multi-user scenarios only       |
 
 **When to use TEST_EMAIL2/3:**
+
 - Explicitly requested by user
 - Testing multi-user features (sharing, collaboration, etc.)
 - Testing account switching
@@ -49,6 +50,7 @@ Available test accounts in `.env.local`:
 ### Dev Server Requirement
 
 **Always verify dev server is running before Playwright tests:**
+
 - App runs on `http://localhost:5173`
 - Start with: `npm run dev`
 - Browser navigation will fail with `ERR_CONNECTION_RESET` if server isn't running
@@ -64,6 +66,7 @@ Available test accounts in `.env.local`:
 ## Verification Checklist
 
 When testing, always verify:
+
 - [ ] Dev server is running
 - [ ] Using correct test account (TEST_EMAIL by default)
 - [ ] Console has no errors (check with `mcp0_browser_console_messages()`)

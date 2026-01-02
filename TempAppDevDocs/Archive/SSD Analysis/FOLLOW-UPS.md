@@ -12,7 +12,7 @@ All follow-ups extracted from devlog entries. Default status is OPEN unless expl
 | FU-20251224-0336-02 | DL-20251224-0336 | High     | Cascade      | OPEN   | Complete Task 0 (setup testing infrastructure with Vitest)                               |
 | FU-20251224-0336-03 | DL-20251224-0336 | Med      | User         | OPEN   | Verify .windsurf/cascade.md auto-loads in new Cascade chat session                       |
 | FU-20251224-0336-04 | DL-20251224-0336 | Med      | Cascade      | OPEN   | Test workflow enforcement (rules-read-all, read-core-docs-and-code) in new chat          |
-| FU-20251224-0336-05 | DL-20251224-0336 | High     | Cascade      | OPEN   | Implement 60 tasks from TempAppDevDocs/Features/Tasks/timetracker-v1-implementation.md             |
+| FU-20251224-0336-05 | DL-20251224-0336 | High     | Cascade      | OPEN   | Implement 60 tasks from TempAppDevDocs/Features/Tasks/timetracker-v1-implementation.md   |
 | FU-20251224-0339-01 | DL-20251224-0339 | Low      | User         | OPEN   | Commit changes to git                                                                    |
 | FU-20251224-0339-02 | DL-20251224-0339 | Med      | User         | OPEN   | Test /project-start workflow in new chat session                                         |
 | FU-20251224-0339-03 | DL-20251224-0339 | Low      | User         | OPEN   | Consider extracting .windsurf folder as template for other projects                      |
