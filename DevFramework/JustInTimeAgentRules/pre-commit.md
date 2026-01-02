@@ -18,7 +18,7 @@
 2. **Prepare for audit (Builder does this BEFORE switching models):**
    - Run `npm run format` to format all files
    - Run `git add -A` to stage all changes (including formatted files)
-   - Create Evidence Bundle from `DevFramework/FrameworkSelfImprovementLogs/AuditBundles/_template.md` - Path: `DevFramework/FrameworkSelfImprovementLogs/AuditBundles/AUD-YYYY-MM-DD-01.md` - Fill in: acceptance criteria, commands run, planned scope
+   - Create Evidence Bundle: First run `find_by_name` with pattern `AUD-YYYY-MM-DD*` to find next available number, then create from `_template.md` at `AuditBundles/AUD-YYYY-MM-DD-XX.md`
    - Stage the Evidence Bundle: `git add <evidence-bundle-path>`
 3. If `switch_model_before_audit` is `true` and you are Builder:
    - **STOP** and instruct user to switch to GPT-5.2 Medium Reasoning and run `/audit`
