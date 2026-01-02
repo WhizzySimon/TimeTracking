@@ -18,6 +18,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 1 - [Brief description]
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `path/to/file.ts`
 - **Done when:**
@@ -33,6 +34,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 2 - [Brief description]
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `path/to/file.ts`
 - **Done when:**

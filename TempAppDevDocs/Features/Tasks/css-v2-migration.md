@@ -62,6 +62,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 3 - Month Page Migration
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `src/routes/month/+page.svelte`
 - **Done when:**
@@ -80,6 +81,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 4 - Add Page Migration
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `src/routes/add/+page.svelte`
   - `src/lib/components/CategorySelect.svelte`
@@ -104,6 +106,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 5 - Settings Page Migration (Part 1: Categories)
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `src/routes/settings/+page.svelte`
   - `src/lib/components/CategoryList.svelte`
@@ -125,6 +128,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 6 - Settings Page Migration (Part 2: Employers & Models)
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `src/routes/settings/+page.svelte`
   - `src/lib/components/EmployerDialog.svelte`
@@ -148,6 +152,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 7 - Settings Page Migration (Part 3: Account & Cleanup)
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `src/routes/settings/+page.svelte`
 - **Done when:**
@@ -168,6 +173,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 8 - Analysis Page Migration
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `src/routes/analysis/+page.svelte`
 - **Done when:**
@@ -189,6 +195,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 9 - Layout Migration (Header)
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `src/routes/+layout.svelte`
   - `src/lib/components/EmployerSelector.svelte`
@@ -211,6 +218,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 10 - Layout Migration (Footer TabNavigation)
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `src/lib/components/TabNavigation.svelte`
 - **Done when:**
@@ -233,6 +241,7 @@ Key triggers during task execution: writing code, before commit, session end.
 
 ## Task 11 - Cleanup & Verification
 
+- **Before starting:** Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md`
 - **Files:**
   - `src/lib/styles/theme.css` (remove deprecated styles)
   - All migrated components
