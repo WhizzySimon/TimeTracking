@@ -951,10 +951,11 @@
 	height: 12px;
 	color: var(--tt-text-muted);
 	transition: transform var(--tt-transition-fast);
+	transform: rotate(-90deg); /* Collapsed: points right */
 }
 
 .tt-section-title-expandable.is-expanded .tt-section-title-expandable__icon {
-	transform: rotate(180deg);
+	transform: rotate(0deg); /* Expanded: points down */
 }
 
 /* ============================================================================
