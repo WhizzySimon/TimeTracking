@@ -123,7 +123,8 @@
 				role="button"
 				tabindex="0"
 				onclick={() => (selectedItem = selectedItem === 'dev' ? null : 'dev')}
-				onkeydown={(e) => e.key === 'Enter' && (selectedItem = selectedItem === 'dev' ? null : 'dev')}
+				onkeydown={(e) =>
+					e.key === 'Enter' && (selectedItem = selectedItem === 'dev' ? null : 'dev')}
 			>
 				<div class="tt-row__content">
 					<span class="tt-row__title">Entwicklung</span>
@@ -142,7 +143,8 @@
 				role="button"
 				tabindex="0"
 				onclick={() => (selectedItem = selectedItem === 'meeting' ? null : 'meeting')}
-				onkeydown={(e) => e.key === 'Enter' && (selectedItem = selectedItem === 'meeting' ? null : 'meeting')}
+				onkeydown={(e) =>
+					e.key === 'Enter' && (selectedItem = selectedItem === 'meeting' ? null : 'meeting')}
 			>
 				<div class="tt-row__content">
 					<span class="tt-row__title">Meeting</span>

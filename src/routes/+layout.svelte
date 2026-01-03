@@ -734,7 +734,7 @@
 		background: transparent;
 		color: var(--tt-header-text-muted);
 		border: 1px solid var(--tt-header-border);
-		border-radius: 50%;
+		border-radius: var(--tt-radius-button);
 		width: 36px;
 		height: 36px;
 		padding: 0;
@@ -779,7 +779,7 @@
 	.menu-item {
 		display: flex;
 		align-items: center;
-		gap: var(--tt-space-10);
+		gap: var(--tt-space-12);
 		padding: var(--tt-space-12) var(--tt-space-16);
 		font-size: 0.9rem;
 		color: var(--tt-text);

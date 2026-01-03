@@ -571,6 +571,22 @@ Each entry follows this format:
 
 ---
 
+## 2026-01-03 09:00 — UI Consistency Fixes
+
+| Step                 | Result | Notes                                    |
+| -------------------- | ------ | ---------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                |
+| A1: Capture feedback | none   | No corrective feedback in session        |
+| B1: Repeated errors  | none   | No repeated errors                       |
+| B2: File churn       | none   | 3 files edited once each                 |
+| B3: Scope drift      | none   | All files match UI consistency fix scope |
+| B4: Session duration | ~8m    | normal                                   |
+| C1: Promotions       | none   | No items meet promotion criteria         |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                 |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed               |
+
+---
+
 ## 2026-01-02 19:25
 
 | Step                 | Result | Notes                             |
