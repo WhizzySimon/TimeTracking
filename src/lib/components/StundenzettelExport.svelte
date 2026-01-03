@@ -400,19 +400,19 @@
 
 	.user-name-display {
 		padding: 0.75rem;
-		background: var(--surface);
-		border-radius: var(--r-card);
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-card);
 		text-align: center;
 		font-weight: 500;
 	}
 
 	.user-name {
-		color: var(--text);
+		color: var(--tt-text-primary);
 		font-size: 1.1rem;
 	}
 
 	.user-name-warning {
-		color: var(--neg);
+		color: var(--tt-status-danger);
 		font-size: 0.9rem;
 	}
 
@@ -426,32 +426,32 @@
 	.field-label {
 		font-size: 0.9rem;
 		font-weight: 500;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.select-input,
 	.date-input {
 		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
 		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
 	.select-input:focus,
 	.date-input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		border-color: var(--tt-border-focus);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
 	}
 
 	.no-employers {
 		margin: 0;
 		padding: 0.75rem;
-		background: var(--surface-hover);
-		border-radius: var(--r-input);
-		color: var(--muted);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-input);
+		color: var(--tt-text-muted);
 		font-size: 0.9rem;
 	}
 
@@ -472,19 +472,19 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.5rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
 		cursor: pointer;
 		font-size: 0.9rem;
 	}
 
 	.column-checkbox:hover {
-		background: var(--surface-hover);
+		background: var(--tt-background-card-hover);
 	}
 
 	.column-checkbox:has(input:checked) {
-		border-color: var(--accent);
-		background: var(--accent-light);
+		border-color: var(--tt-brand-primary);
+		background: var(--tt-brand-primary-faded);
 	}
 
 	.column-checkbox input {
@@ -500,24 +500,24 @@
 	.preview-section .field-label {
 		font-size: 0.9rem;
 		font-weight: 500;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.loading,
 	.no-entries {
 		padding: 1rem;
 		text-align: center;
-		color: var(--muted);
-		background: var(--surface-hover);
-		border-radius: var(--r-input);
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-input);
 		font-size: 0.9rem;
 	}
 
 	.preview-table-container {
 		max-height: 200px;
 		overflow: auto;
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
 	}
 
 	.preview-table {
@@ -530,18 +530,18 @@
 	.preview-table td {
 		padding: 0.5rem;
 		text-align: left;
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--tt-border-default);
 	}
 
 	.preview-table th {
-		background: var(--surface-hover);
+		background: var(--tt-background-card-hover);
 		font-weight: 600;
 		position: sticky;
 		top: 0;
 	}
 
 	.preview-table tbody tr:hover {
-		background: var(--surface-hover);
+		background: var(--tt-background-card-hover);
 	}
 
 	.description-cell {
@@ -553,17 +553,17 @@
 
 	.more-rows td {
 		text-align: center;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		font-style: italic;
 	}
 
 	.error {
 		margin: 0;
 		padding: 0.5rem;
-		background: var(--neg-light);
-		border: 1px solid var(--neg);
-		border-radius: var(--r-input);
-		color: var(--neg);
+		background: var(--tt-status-danger-faded);
+		border: 1px solid var(--tt-status-danger);
+		border-radius: var(--tt-radius-input);
+		color: var(--tt-status-danger);
 		font-size: 0.9rem;
 	}
 
@@ -572,21 +572,21 @@
 		gap: 0.75rem;
 		justify-content: flex-end;
 		padding-top: 0.5rem;
-		border-top: 1px solid var(--border);
+		border-top: 1px solid var(--tt-border-default);
 	}
 
 	.btn-secondary {
 		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
+		border: 1px solid var(--tt-button-secondary-border);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-secondary-bg);
+		color: var(--tt-button-secondary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.btn-secondary:hover:not(:disabled) {
-		background: var(--btn-secondary-hover);
+		background: var(--tt-button-secondary-hover);
 	}
 
 	.btn-secondary:disabled {
@@ -597,15 +597,15 @@
 	.btn-primary {
 		padding: 0.75rem 1.5rem;
 		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-primary-bg);
+		color: var(--tt-button-primary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.btn-primary:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 
 	.btn-primary:disabled {

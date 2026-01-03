@@ -555,6 +555,22 @@ Each entry follows this format:
 | C2: Read LEARNINGS   | ✓ read | 5 items                          |
 | C3: Hard Rule → JIT  | none   | No new Hard Rules proposed       |
 
+## 2026-01-03 08:35 — Settings Batch Fixes
+
+| Step                 | Result | Notes                                                              |
+| -------------------- | ------ | ------------------------------------------------------------------ |
+| 0: Scope check       | first  | First commit in this chat                                          |
+| A1: Capture feedback | 1 item | User: "why don't you go ahead and test it yourself" - use browser! |
+| B1: Repeated errors  | none   | No repeated errors                                                 |
+| B2: File churn       | none   | Each file edited once                                              |
+| B3: Scope drift      | none   | 4 fixes as planned in ticket                                       |
+| B4: Session duration | ~12m   | normal                                                             |
+| C1: Promotions       | none   | Feedback added to INBOX                                            |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                                           |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                                         |
+
+---
+
 ## 2026-01-02 19:25
 
 | Step                 | Result | Notes                             |

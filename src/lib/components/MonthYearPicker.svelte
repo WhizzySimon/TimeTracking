@@ -162,22 +162,22 @@
 	.quick-btn {
 		width: 100%;
 		padding: 0.75rem;
-		background: var(--surface);
-		border: 2px solid var(--accent);
-		border-radius: var(--r-btn);
-		color: var(--accent);
+		background: var(--tt-background-card);
+		border: 2px solid var(--tt-brand-primary);
+		border-radius: var(--tt-radius-button);
+		color: var(--tt-brand-primary);
 		font-weight: 600;
 		cursor: pointer;
 		font-size: 1rem;
 	}
 
 	.quick-btn:hover {
-		background: var(--accent-light);
+		background: var(--tt-brand-primary-faded);
 	}
 
 	.divider {
 		text-align: center;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		font-size: 0.9rem;
 	}
 
@@ -195,22 +195,22 @@
 
 	.selector-group label {
 		font-size: 0.85rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.select-input {
 		padding: 0.5rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
 		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
 	.select-input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		border-color: var(--tt-border-focus);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
 	}
 
 	.actions {
@@ -223,29 +223,29 @@
 	.btn-select {
 		flex: 1;
 		padding: 0.75rem;
-		border-radius: var(--r-btn);
+		border-radius: var(--tt-radius-button);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.btn-cancel {
-		background: var(--btn-secondary-bg);
-		border: 1px solid var(--btn-secondary-border);
-		color: var(--btn-secondary-text);
+		background: var(--tt-button-secondary-bg);
+		border: 1px solid var(--tt-button-secondary-border);
+		color: var(--tt-button-secondary-text);
 	}
 
 	.btn-cancel:hover {
-		background: var(--btn-secondary-hover);
+		background: var(--tt-button-secondary-hover);
 	}
 
 	.btn-select {
-		background: var(--btn-primary-bg);
+		background: var(--tt-button-primary-bg);
 		border: none;
-		color: var(--btn-primary-text);
+		color: var(--tt-button-primary-text);
 		font-weight: 600;
 	}
 
 	.btn-select:hover {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 </style>

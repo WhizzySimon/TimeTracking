@@ -276,7 +276,7 @@
 				class="tt-dropdown"
 				disabled={saving}
 			>
-				<option value="">Alle Arbeitgeber</option>
+				<option value="" disabled>Arbeitgeber auswählen...</option>
 				{#each employers as employer (employer.id)}
 					<option value={employer.id}>{employer.name}</option>
 				{/each}

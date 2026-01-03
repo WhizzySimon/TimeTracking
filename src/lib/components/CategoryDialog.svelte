@@ -57,7 +57,6 @@
 	let name = $state(category?.name ?? '');
 	let selectedEmployerId = $state(category?.employerId ?? defaultEmployerId ?? '');
 	let error = $state('');
-	let saving = $state(false);
 	let employers = $state<Employer[]>([]);
 
 	onMount(async () => {
@@ -89,46 +88,44 @@
 		}
 
 		error = '';
-		saving = true;
 
-		try {
-			let savedCategory: Category;
+		let savedCategory: Category;
 
-			const now = Date.now();
-			if (isCreateMode) {
-				// Create new category - employerId required for work categories only
-				savedCategory = {
-					id: crypto.randomUUID(),
-					name: trimmedName,
-					type: categoryType,
-					countsAsWorkTime: countsAsWorkTime,
-					employerId: isAbsenceCategory ? null : selectedEmployerId,
-					createdAt: now,
-					updatedAt: now
-				};
-				await put('categories', savedCategory);
-				categories.update((cats) => [...cats, savedCategory]);
-			} else {
-				// Update existing category - employerId required for work categories only
-				savedCategory = {
-					...category!,
-					name: trimmedName,
-					employerId: isAbsenceCategory ? null : selectedEmployerId,
-					updatedAt: now
-				};
-				await put('categories', savedCategory);
-				categories.update((cats) =>
-					cats.map((cat) => (cat.id === category!.id ? savedCategory : cat))
-				);
-			}
-
-			onsave?.(savedCategory);
-		} catch (err) {
-			error = 'Fehler beim Speichern';
-			console.error('[CategoryDialog] Save failed:', err);
-		} finally {
-			saving = false;
+		const now = Date.now();
+		if (isCreateMode) {
+			// Create new category - employerId required for work categories only
+			savedCategory = {
+				id: crypto.randomUUID(),
+				name: trimmedName,
+				type: categoryType,
+				countsAsWorkTime: countsAsWorkTime,
+				employerId: isAbsenceCategory ? null : selectedEmployerId,
+				createdAt: now,
+				updatedAt: now
+			};
+			// Update store immediately for instant UI feedback
+			categories.update((cats) => [...cats, savedCategory]);
+		} else {
+			// Update existing category - employerId required for work categories only
+			savedCategory = {
+				...category!,
+				name: trimmedName,
+				employerId: isAbsenceCategory ? null : selectedEmployerId,
+				updatedAt: now
+			};
+			// Update store immediately for instant UI feedback
+			categories.update((cats) =>
+				cats.map((cat) => (cat.id === category!.id ? savedCategory : cat))
+			);
 		}
+
+		// Close dialog immediately - don't wait for DB write
+		onsave?.(savedCategory);
+
+		// Persist to DB in background (fire-and-forget)
+		put('categories', savedCategory).catch((err) => {
+			console.error('[CategoryDialog] Save failed:', err);
+		});
 	}
 
 	function handleClose() {
@@ -146,7 +143,7 @@
 				data-testid="category-name-input"
 				bind:value={name}
 				class="tt-text-input"
-				disabled={saving || isSystemCategory}
+				disabled={isSystemCategory}
 			/>
 		</div>
 
@@ -158,9 +155,9 @@
 					data-testid="category-employer-select"
 					bind:value={selectedEmployerId}
 					class="tt-dropdown"
-					disabled={saving || isSystemCategory}
+					disabled={isSystemCategory}
 				>
-					<option value="">Alle Arbeitgeber</option>
+					<option value="" disabled>Arbeitgeber auswählen...</option>
 					{#each employers as employer (employer.id)}
 						<option value={employer.id}>{employer.name}</option>
 					{/each}
@@ -177,7 +174,7 @@
 		{/if}
 
 		<div class="actions">
-			<button type="button" class="tt-button-secondary" onclick={handleClose} disabled={saving}>
+			<button type="button" class="tt-button-secondary" onclick={handleClose}>
 				{isSystemCategory ? 'Schließen' : 'Abbrechen'}
 			</button>
 			{#if !isSystemCategory}
@@ -186,9 +183,8 @@
 					class="tt-button-primary"
 					data-testid="save-category-btn"
 					onclick={handleSave}
-					disabled={saving}
 				>
-					{saving ? 'Speichern...' : 'Speichern'}
+					Speichern
 				</button>
 			{/if}
 		</div>

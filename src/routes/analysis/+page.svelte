@@ -807,22 +807,22 @@
 
 	.range-label {
 		font-weight: 500;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.range-button {
 		padding: 0.5rem 1rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		background: var(--surface);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-background-card);
 		font-size: 1rem;
 		cursor: pointer;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.range-button:hover {
-		background: var(--surface-hover);
-		border-color: var(--border);
+		background: var(--tt-background-card-hover);
+		border-color: var(--tt-border-default);
 	}
 
 	/* Period List */
@@ -834,7 +834,7 @@
 
 	.no-periods {
 		text-align: center;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		padding: 2rem;
 	}
 
@@ -842,15 +842,15 @@
 		display: flex;
 		gap: 0.25rem;
 		font-size: 0.9rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.period-hours .ist {
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.period-hours .separator {
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.period-hours .soll {
@@ -898,15 +898,15 @@
 		margin: 0;
 		font-size: 1rem;
 		font-weight: 600;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.no-work-badge {
 		font-size: 0.7rem;
 		padding: 2px 6px;
-		background: var(--surface-hover);
-		color: var(--muted);
-		border-radius: var(--r-input);
+		background: var(--tt-background-card-hover);
+		color: var(--tt-text-muted);
+		border-radius: var(--tt-radius-input);
 	}
 
 	.section-header-row {
@@ -917,22 +917,26 @@
 
 	.column-headers {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.header-label {
 		font-size: 0.75rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		min-width: 60px;
 		text-align: right;
 	}
 
-	/* Summary row styling */
+	/* Summary row styling - info row, not clickable */
 	.summary-total-row {
-		background: var(--tt-brand-primary-faded);
-		border-color: var(--tt-brand-primary);
+		background: var(--tt-background-info);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-12) var(--tt-space-16);
 		margin-bottom: var(--tt-space-8);
 		justify-content: space-between;
+		display: flex;
+		align-items: center;
 	}
 
 	.summary-label {

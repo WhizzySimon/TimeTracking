@@ -87,6 +87,9 @@
 		// Set current date to today so Day tab shows the newly started task
 		currentDate.set(now);
 
+		// Mark navigation so day-page doesn't load saved date
+		sessionStorage.setItem('date-navigation', 'true');
+
 		// Phase 8: Redirect to Day tab after starting task
 		goto(resolve('/day'));
 	}

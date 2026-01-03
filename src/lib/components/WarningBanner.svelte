@@ -58,10 +58,10 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.75rem 1rem;
-		background: var(--warning-light);
-		border: 1px solid var(--warning);
-		border-radius: var(--r-banner);
-		color: var(--warning);
+		background: var(--tt-status-warning-faded);
+		border: 1px solid var(--tt-status-warning);
+		border-radius: var(--tt-radius-card);
+		color: var(--tt-status-warning);
 	}
 
 	.warning-icon {
@@ -78,24 +78,24 @@
 	}
 
 	.clickable:hover {
-		background: var(--warning-hover, var(--warning-light));
+		background: var(--tt-status-warning-faded);
 		filter: brightness(0.95);
 	}
 
 	.action-btn {
 		margin-left: auto;
 		padding: 0.25rem 0.75rem;
-		border: 1px solid var(--accent);
-		background: var(--accent);
+		border: 1px solid var(--tt-brand-primary);
+		background: var(--tt-brand-primary);
 		color: white;
 		font-size: 0.8rem;
 		font-weight: 500;
 		cursor: pointer;
-		border-radius: var(--r-btn);
+		border-radius: var(--tt-radius-button);
 		white-space: nowrap;
 	}
 
 	.action-btn:hover {
-		background: var(--accent-dark, #0056b3);
+		background: var(--tt-brand-primary-dark);
 	}
 </style>

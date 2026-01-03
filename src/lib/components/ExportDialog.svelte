@@ -133,7 +133,7 @@
 	}
 
 	.dialog {
-		background: var(--card-bg, var(--surface, #ffffff));
+		background: var(--tt-background-card);
 		border-radius: 12px;
 		width: 90%;
 		max-width: 400px;
@@ -145,13 +145,13 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 16px 20px;
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--tt-border-default);
 	}
 
 	.dialog-header h2 {
 		margin: 0;
 		font-size: 1.125rem;
-		color: var(--fg);
+		color: var(--tt-text-primary);
 	}
 
 	/* Close button uses .tt-symbol-button from design system */
@@ -162,7 +162,7 @@
 
 	.description {
 		margin: 0 0 16px;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		font-size: 0.875rem;
 	}
 
@@ -177,19 +177,19 @@
 		align-items: center;
 		gap: 12px;
 		padding: 12px;
-		border: 1px solid var(--border);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		cursor: pointer;
 		transition: border-color 0.2s;
 	}
 
 	.format-option:hover {
-		border-color: var(--accent);
+		border-color: var(--tt-brand-primary);
 	}
 
 	.format-option:has(input:checked) {
-		border-color: var(--accent);
-		background: var(--accent-subtle, rgba(var(--accent-rgb), 0.1));
+		border-color: var(--tt-brand-primary);
+		background: var(--tt-brand-primary-faded);
 	}
 
 	.format-option input {
@@ -204,19 +204,19 @@
 
 	.format-name {
 		font-weight: 600;
-		color: var(--fg);
+		color: var(--tt-text-primary);
 	}
 
 	.format-desc {
 		font-size: 0.75rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.error-message {
 		margin-top: 12px;
 		padding: 8px 12px;
-		background: var(--danger-subtle, #fee2e2);
-		color: var(--danger, #dc2626);
+		background: var(--tt-status-danger-faded);
+		color: var(--tt-status-danger);
 		border-radius: 6px;
 		font-size: 0.875rem;
 	}
@@ -226,7 +226,7 @@
 		justify-content: flex-end;
 		gap: 8px;
 		padding: 16px 20px;
-		border-top: 1px solid var(--border);
+		border-top: 1px solid var(--tt-border-default);
 	}
 
 	.btn-primary,
@@ -239,7 +239,7 @@
 	}
 
 	.btn-primary {
-		background: var(--accent);
+		background: var(--tt-brand-primary);
 		color: white;
 		border: none;
 	}
@@ -255,12 +255,12 @@
 
 	.btn-secondary {
 		background: transparent;
-		color: var(--muted);
-		border: 1px solid var(--border);
+		color: var(--tt-text-muted);
+		border: 1px solid var(--tt-border-default);
 	}
 
 	.btn-secondary:hover:not(:disabled) {
-		border-color: var(--muted);
+		border-color: var(--tt-text-muted);
 	}
 
 	.btn-secondary:disabled {

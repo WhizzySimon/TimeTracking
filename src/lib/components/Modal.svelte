@@ -143,13 +143,13 @@
 	}
 
 	.modal-content {
-		background: var(--surface);
-		border-radius: var(--r-modal);
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-modal);
 		width: 100%;
 		max-width: 400px;
 		max-height: calc(100vh - 4rem);
 		overflow-y: auto;
-		box-shadow: var(--elev-2);
+		box-shadow: var(--tt-shadow-modal);
 	}
 
 	.modal-content.dragged {
@@ -162,14 +162,14 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 1rem 1rem 0.5rem;
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--tt-border-default);
 	}
 
 	.modal-header h2 {
 		margin: 0;
 		font-size: 1.25rem;
 		font-weight: 600;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	/* Close button now uses .tt-symbol-button from design system */

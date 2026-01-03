@@ -39,7 +39,10 @@
 
 <div class="task-list">
 	{#if sortedEntries.length === 0}
-		<p class="empty-state">Keine Aufgaben für diesen Tag</p>
+		<div class="empty-state">
+			<p class="empty-text">Keine Aufgaben für diesen Tag</p>
+			<a href="/add" class="tt-button-primary">Füge eine Tätigkeit hinzu</a>
+		</div>
 	{:else}
 		{#each sortedEntries as entry (entry.id)}
 			<TaskItem
@@ -63,9 +66,18 @@
 	}
 
 	.empty-state {
-		text-align: center;
-		color: var(--tt-text-muted);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--tt-space-16);
 		padding: var(--tt-space-32);
-		font-style: italic;
 	}
+
+	.empty-text {
+		color: var(--tt-text-muted);
+		font-style: italic;
+		margin: 0;
+	}
+
+	/* Button uses design system class .tt-button-primary */
 </style>

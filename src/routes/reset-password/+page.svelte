@@ -159,30 +159,30 @@
 		align-items: center;
 		justify-content: center;
 		padding: 1rem;
-		background: var(--bg);
+		background: var(--tt-background-page);
 	}
 
 	.reset-card {
 		width: 100%;
 		max-width: 400px;
-		background: var(--surface);
-		border-radius: var(--r-card);
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-card);
 		padding: 2rem;
-		box-shadow: var(--elev-2);
+		box-shadow: var(--tt-shadow-modal);
 	}
 
 	h1 {
 		margin: 0 0 0.5rem;
 		font-size: 1.75rem;
 		text-align: center;
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 	}
 
 	h2 {
 		margin: 0 0 1.5rem;
 		font-size: 1.25rem;
 		text-align: center;
-		color: var(--text);
+		color: var(--tt-text-primary);
 		font-weight: 500;
 	}
 
@@ -200,72 +200,72 @@
 
 	.field label {
 		font-size: 0.9rem;
-		color: var(--text);
+		color: var(--tt-text-primary);
 		font-weight: 500;
 	}
 
 	.field input {
 		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
 		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
 	.field input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
+		border-color: var(--tt-border-focus);
 	}
 
 	.field input:disabled {
-		background: var(--surface-hover);
+		background: var(--tt-background-card-hover);
 	}
 
 	.hint {
 		font-size: 0.8rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.error {
-		color: var(--neg);
+		color: var(--tt-status-danger);
 		font-size: 0.9rem;
 		padding: 0.75rem;
-		background: var(--neg-light);
-		border-radius: var(--r-input);
+		background: var(--tt-status-danger-faded);
+		border-radius: var(--tt-radius-input);
 		text-align: center;
 	}
 
 	.checking-message {
 		text-align: center;
 		padding: 1.5rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.error-message {
 		text-align: center;
 		padding: 1.5rem;
-		background: var(--neg-light);
-		border-radius: var(--r-card);
+		background: var(--tt-status-danger-faded);
+		border-radius: var(--tt-radius-card);
 		margin-bottom: 1rem;
 	}
 
 	.error-message p {
 		margin: 0;
-		color: var(--neg);
+		color: var(--tt-status-danger);
 		line-height: 1.5;
 	}
 
 	.success-message {
 		text-align: center;
 		padding: 1.5rem;
-		background: var(--pos-light);
-		border-radius: var(--r-card);
+		background: var(--tt-status-success-faded);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.success-message p {
 		margin: 0;
-		color: var(--pos);
+		color: var(--tt-status-success);
 		line-height: 1.5;
 	}
 
@@ -276,10 +276,10 @@
 
 	.submit-btn {
 		padding: 0.875rem;
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
+		background: var(--tt-button-primary-bg);
+		color: var(--tt-button-primary-text);
 		border: none;
-		border-radius: var(--r-btn);
+		border-radius: var(--tt-radius-button);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
@@ -287,7 +287,7 @@
 	}
 
 	.submit-btn:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 
 	.submit-btn:disabled {
@@ -302,7 +302,7 @@
 	}
 
 	.links a {
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 		text-decoration: none;
 		font-size: 0.9rem;
 	}

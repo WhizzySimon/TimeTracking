@@ -167,23 +167,23 @@
 
 	.current-week-btn {
 		padding: 0.75rem 1rem;
-		border: 1px solid var(--accent);
-		border-radius: var(--r-btn);
-		background: var(--accent-light);
-		color: var(--accent);
+		border: 1px solid var(--tt-brand-primary);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-brand-primary-faded);
+		color: var(--tt-brand-primary);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
 	}
 
 	.current-week-btn:hover {
-		background: var(--accent-light);
+		background: var(--tt-brand-primary-faded);
 		opacity: 0.9;
 	}
 
 	.divider {
 		text-align: center;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		font-size: 0.9rem;
 	}
 
@@ -196,22 +196,22 @@
 	.field label {
 		font-size: 0.9rem;
 		font-weight: 500;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.select-input {
 		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
 		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
 	.select-input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		border-color: var(--tt-border-focus);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
 	}
 
 	.actions {
@@ -219,35 +219,35 @@
 		gap: 0.75rem;
 		justify-content: flex-end;
 		padding-top: 0.5rem;
-		border-top: 1px solid var(--border-light);
+		border-top: 1px solid var(--tt-border-default);
 	}
 
 	.btn-secondary {
 		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
+		border: 1px solid var(--tt-button-secondary-border);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-secondary-bg);
+		color: var(--tt-button-secondary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.btn-secondary:hover {
-		background: var(--btn-secondary-hover);
+		background: var(--tt-button-secondary-hover);
 	}
 
 	.btn-primary {
 		padding: 0.75rem 1.5rem;
 		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-primary-bg);
+		color: var(--tt-button-primary-text);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
 	}
 
 	.btn-primary:hover {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 </style>

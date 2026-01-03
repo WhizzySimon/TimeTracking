@@ -57,16 +57,16 @@
 		align-items: center;
 		justify-content: center;
 		padding: 1rem;
-		background: var(--bg);
+		background: var(--tt-background-page);
 	}
 
 	.error-content {
 		max-width: 400px;
 		text-align: center;
-		background: var(--surface);
+		background: var(--tt-background-card);
 		padding: 2rem;
-		border-radius: var(--r-card);
-		box-shadow: var(--elev-2);
+		border-radius: var(--tt-radius-card);
+		box-shadow: var(--tt-shadow-modal);
 	}
 
 	.error-icon {
@@ -77,12 +77,12 @@
 	h1 {
 		margin: 0 0 0.5rem;
 		font-size: 1.5rem;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.error-message {
 		margin: 0 0 1.5rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		line-height: 1.5;
 	}
 
@@ -95,31 +95,31 @@
 	.btn-primary {
 		padding: 0.75rem 1.5rem;
 		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-primary-bg);
+		color: var(--tt-button-primary-text);
 		font-size: 1rem;
 		cursor: pointer;
 		transition: background 0.2s;
 	}
 
 	.btn-primary:hover {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 
 	.btn-secondary {
 		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
+		border: 1px solid var(--tt-button-secondary-border);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-secondary-bg);
+		color: var(--tt-button-secondary-text);
 		font-size: 1rem;
 		cursor: pointer;
 		transition: background 0.2s;
 	}
 
 	.btn-secondary:hover {
-		background: var(--btn-secondary-hover);
+		background: var(--tt-button-secondary-hover);
 	}
 
 	.error-details {
@@ -129,17 +129,17 @@
 
 	.error-details summary {
 		cursor: pointer;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		font-size: 0.875rem;
 	}
 
 	.error-details pre {
 		margin-top: 0.5rem;
 		padding: 0.75rem;
-		background: var(--surface-hover);
-		border-radius: var(--r-input);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-input);
 		font-size: 0.75rem;
 		overflow-x: auto;
-		color: var(--neg);
+		color: var(--tt-status-danger);
 	}
 </style>

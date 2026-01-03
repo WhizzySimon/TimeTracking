@@ -25,6 +25,7 @@
 	import { saveTimeEntry, deleteTimeEntry } from '$lib/storage/operations';
 	import { formatTime } from '$lib/utils/date';
 	import { getAll } from '$lib/storage/db';
+	import { getAllEmployers } from '$lib/storage/employers';
 	import type { TimeEntry } from '$lib/types';
 	import TaskItem from '$lib/components/TaskItem.svelte';
 	import WarningBanner from '$lib/components/WarningBanner.svelte';
@@ -317,6 +318,10 @@
 
 			// Load neverAddedAnEntry flag (with migration logic)
 			await loadNeverAddedAnEntry();
+
+			// Load employers into store on startup (fixes dropdown not populating)
+			const allEmployers = await getAllEmployers();
+			employers.set(allEmployers);
 
 			// Check if sync is needed on startup
 			syncNeeded = await needsSync();

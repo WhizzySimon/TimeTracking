@@ -60,7 +60,7 @@
 	}
 
 	.modal {
-		background: var(--surface);
+		background: var(--tt-background-card);
 		border-radius: 12px;
 		width: 100%;
 		max-width: 900px;
@@ -74,13 +74,13 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 16px 20px;
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--tt-border-default);
 	}
 
 	.modal-header h2 {
 		margin: 0;
 		font-size: 1.25rem;
-		color: var(--fg);
+		color: var(--tt-text-primary);
 	}
 
 	/* Close button uses .tt-symbol-button from design system */
@@ -91,7 +91,7 @@
 
 	.modal-footer {
 		padding: 16px 20px;
-		border-top: 1px solid var(--border);
+		border-top: 1px solid var(--tt-border-default);
 		display: flex;
 		justify-content: flex-end;
 	}
@@ -99,13 +99,13 @@
 	.close-btn-secondary {
 		padding: 10px 20px;
 		background: transparent;
-		color: var(--muted);
-		border: 1px solid var(--border);
+		color: var(--tt-text-muted);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		cursor: pointer;
 	}
 
 	.close-btn-secondary:hover {
-		border-color: var(--muted);
+		border-color: var(--tt-text-muted);
 	}
 </style>

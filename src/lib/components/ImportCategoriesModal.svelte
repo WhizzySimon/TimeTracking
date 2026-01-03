@@ -180,10 +180,10 @@
 
 	.hint {
 		font-size: 0.9rem;
-		color: var(--muted);
-		background: var(--surface-hover);
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-hover);
 		padding: 0.75rem;
-		border-radius: var(--r-input);
+		border-radius: var(--tt-radius-input);
 	}
 
 	.employer-select {
@@ -194,22 +194,22 @@
 
 	.employer-select label {
 		font-size: 0.9rem;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.employer-dropdown {
 		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		background: var(--input-bg);
-		color: var(--input-text);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.employer-dropdown:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
+		border-color: var(--tt-border-focus);
 	}
 
 	.file-upload {
@@ -228,16 +228,16 @@
 	.file-btn {
 		display: inline-block;
 		padding: 0.5rem 1rem;
-		border: 1px solid var(--accent);
-		border-radius: var(--r-btn);
-		background: var(--surface);
-		color: var(--accent);
+		border: 1px solid var(--tt-brand-primary);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-background-card);
+		color: var(--tt-brand-primary);
 		font-size: 0.9rem;
 		cursor: pointer;
 	}
 
 	.file-btn:hover {
-		background: var(--accent-light);
+		background: var(--tt-brand-primary-faded);
 	}
 
 	.text-input {
@@ -248,49 +248,49 @@
 
 	.text-input label {
 		font-size: 0.9rem;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.text-input textarea {
 		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
 		font-size: 1rem;
 		font-family: inherit;
 		resize: vertical;
-		background: var(--input-bg);
-		color: var(--input-text);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
 	.text-input textarea:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
+		border-color: var(--tt-border-focus);
 	}
 
 	.error {
-		color: var(--neg);
+		color: var(--tt-status-danger);
 		font-size: 0.9rem;
 		padding: 0.5rem;
-		background: var(--neg-light);
-		border-radius: var(--r-input);
+		background: var(--tt-status-danger-faded);
+		border-radius: var(--tt-radius-input);
 	}
 
 	.result {
 		font-size: 0.9rem;
 		padding: 0.75rem;
-		background: var(--surface-hover);
-		border-radius: var(--r-input);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-input);
 		text-align: center;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.result.success {
-		background: var(--pos-light);
-		color: var(--pos);
+		background: var(--tt-status-success-faded);
+		color: var(--tt-status-success);
 	}
 
 	.skipped {
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		font-size: 0.85rem;
 	}
 
@@ -303,30 +303,30 @@
 
 	.cancel-btn {
 		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
+		border: 1px solid var(--tt-button-secondary-border);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-secondary-bg);
+		color: var(--tt-button-secondary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.cancel-btn:hover:not(:disabled) {
-		background: var(--btn-secondary-hover);
+		background: var(--tt-button-secondary-hover);
 	}
 
 	.import-btn {
 		padding: 0.75rem 1.5rem;
 		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-primary-bg);
+		color: var(--tt-button-primary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.import-btn:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 
 	.import-btn:disabled,

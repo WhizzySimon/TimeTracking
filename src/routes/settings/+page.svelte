@@ -14,7 +14,13 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { categories, workTimeModels, employers as employersStore } from '$lib/stores';
+	import {
+		categories,
+		workTimeModels,
+		employers as employersStore,
+		selectedEmployerId,
+		filteredCategories
+	} from '$lib/stores';
 	import { getAllEmployers, deleteEmployer } from '$lib/storage/employers';
 	import { userProfile, userPlan, userFullName } from '$lib/stores/user';
 	import { logout } from '$lib/api/auth';
@@ -78,7 +84,9 @@
 	});
 
 	let taetigkeiten = $derived(() => {
-		return $categories
+		// Use filteredCategories when employer is selected, otherwise show all
+		const sourceCategories = $selectedEmployerId ? $filteredCategories : $categories;
+		return sourceCategories
 			.filter((c) => c.countsAsWorkTime)
 			.sort((a, b) => a.name.localeCompare(b.name, 'de'));
 	});
@@ -1089,9 +1097,9 @@
 
 	.page-header {
 		padding: 0.75rem 1rem;
-		background-color: var(--summary-bg);
-		border-radius: var(--r-card);
-		border: 1px solid var(--border);
+		background-color: var(--tt-background-card);
+		border-radius: var(--tt-radius-card);
+		border: 1px solid var(--tt-border-default);
 		text-align: center;
 	}
 
@@ -1099,14 +1107,14 @@
 		margin: 0;
 		font-size: 1.1rem;
 		font-weight: 600;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.loading {
 		display: flex;
 		justify-content: center;
 		padding: 2rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.section {
@@ -1126,7 +1134,7 @@
 		margin: 0;
 		font-size: 1.25rem;
 		font-weight: 600;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.section-toggle {
@@ -1141,13 +1149,13 @@
 	}
 
 	.section-toggle:hover h2 {
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 	}
 
 	.toggle-icon {
 		font-size: 0.75rem;
-		color: var(--muted);
-		transition: transform var(--transition-normal);
+		color: var(--tt-text-muted);
+		transition: transform 0.2s ease;
 	}
 
 	.toggle-icon.expanded {
@@ -1214,7 +1222,7 @@
 
 	.empty {
 		text-align: center;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		padding: 1rem;
 		margin: 0;
 	}
@@ -1222,14 +1230,14 @@
 	.version-section {
 		margin-top: 1rem;
 		padding-top: 1rem;
-		border-top: 1px solid var(--border);
+		border-top: 1px solid var(--tt-border-default);
 	}
 
 	.version-info {
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		font-size: 0.85rem;
 	}
 
@@ -1239,29 +1247,29 @@
 
 	.build-time {
 		font-size: 0.75rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.delete-account-section {
 		margin-top: 2rem;
 		padding-top: 1rem;
-		border-top: 1px solid var(--border);
+		border-top: 1px solid var(--tt-border-default);
 	}
 
 	.delete-account-btn {
 		width: 100%;
 		padding: 0.875rem;
-		background: var(--btn-danger-bg);
-		color: var(--btn-danger-text);
+		background: var(--tt-status-danger);
+		color: white;
 		border: none;
-		border-radius: var(--r-btn);
+		border-radius: var(--tt-radius-button);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
 	}
 
 	.delete-account-btn:hover:not(:disabled) {
-		background: var(--btn-danger-hover);
+		background: var(--tt-status-danger-hover);
 	}
 
 	.delete-account-btn:disabled {
@@ -1273,7 +1281,7 @@
 		display: block;
 		margin-top: 0.5rem;
 		font-size: 0.85rem;
-		color: var(--neg);
+		color: var(--tt-status-danger);
 		text-align: center;
 	}
 
@@ -1286,36 +1294,36 @@
 	.data-btn {
 		width: 100%;
 		padding: 0.875rem;
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
+		background: var(--tt-button-primary-bg);
+		color: var(--tt-button-primary-text);
 		border: none;
-		border-radius: var(--r-btn);
+		border-radius: var(--tt-radius-button);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
 	}
 
 	.data-btn:hover {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 
 	.data-btn.secondary {
-		background: var(--card-bg);
-		color: var(--fg);
-		border: 1px solid var(--card-border);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
+		border: 1px solid var(--tt-border-default);
 	}
 
 	.data-btn.secondary:hover {
-		background: var(--card-bg-hover);
+		background: var(--tt-background-card-hover);
 	}
 
 	.data-btn.danger {
-		background: var(--btn-danger-bg);
-		color: var(--btn-danger-text);
+		background: var(--tt-status-danger);
+		color: white;
 	}
 
 	.data-btn.danger:hover:not(:disabled) {
-		background: var(--btn-danger-hover);
+		background: var(--tt-status-danger-hover);
 	}
 
 	.data-btn.danger:disabled {
@@ -1324,11 +1332,11 @@
 	}
 
 	.dropdown-item-danger {
-		color: var(--neg);
+		color: var(--tt-status-danger);
 	}
 
 	.dropdown-item-danger:hover {
-		background: var(--neg-light);
+		background: var(--tt-status-danger-faded);
 	}
 
 	.account-info {
@@ -1336,9 +1344,9 @@
 		flex-direction: column;
 		gap: 0.5rem;
 		padding: 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.account-row {
@@ -1349,11 +1357,11 @@
 
 	.account-label {
 		font-weight: 500;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.account-value {
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.account-value-with-edit {
@@ -1364,10 +1372,10 @@
 
 	.plan-text {
 		font-weight: 600;
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 	}
 
 	.plan-text.pro {
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 	}
 </style>

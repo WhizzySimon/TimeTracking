@@ -151,19 +151,19 @@
 	.paywall-icon {
 		font-size: 3rem;
 		margin-bottom: 1rem;
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 	}
 
 	.paywall-title {
 		font-size: 1.5rem;
 		font-weight: 700;
 		margin: 0 0 0.5rem 0;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.paywall-subtitle {
 		font-size: 1rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		margin: 0 0 1.5rem 0;
 	}
 
@@ -176,9 +176,9 @@
 	.btn-secondary {
 		padding: 0.875rem 1.5rem;
 		background: transparent;
-		color: var(--muted);
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
+		color: var(--tt-text-muted);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
@@ -188,14 +188,14 @@
 	}
 
 	.btn-secondary:hover {
-		background: var(--surface-hover);
-		border-color: var(--border);
+		background: var(--tt-background-card-hover);
+		border-color: var(--tt-border-default);
 	}
 
 	.free-note {
 		margin-top: 1rem;
 		font-size: 0.85rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		text-align: center;
 	}
 
@@ -211,8 +211,8 @@
 	}
 
 	.paywall-modal {
-		background: var(--surface);
-		border-radius: var(--r-card);
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-card);
 		padding: 2rem 1.5rem;
 		max-width: 900px;
 		width: 100%;

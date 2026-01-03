@@ -121,10 +121,10 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.5rem 0.75rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
-		background: var(--surface);
-		color: var(--text);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
 		font-size: 0.9rem;
 		cursor: pointer;
 		transition:
@@ -140,13 +140,13 @@
 	}
 
 	.selector-button:hover {
-		border-color: var(--accent);
+		border-color: var(--tt-brand-primary);
 	}
 
 	.selector-button:focus {
 		outline: none;
-		border-color: var(--accent);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		border-color: var(--tt-brand-primary);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
 	}
 
 	.selected-text {
@@ -160,7 +160,7 @@
 	.chevron {
 		flex-shrink: 0;
 		transition: transform 0.15s ease;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.chevron.open {
@@ -175,10 +175,10 @@
 		min-width: 100%;
 		max-height: 240px;
 		overflow-y: auto;
-		background: var(--surface);
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
-		box-shadow: var(--elev-2);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		box-shadow: var(--tt-shadow-modal);
 		z-index: 200;
 		margin-top: 4px;
 	}
@@ -190,7 +190,7 @@
 		text-align: left;
 		border: none;
 		background: none;
-		color: var(--text);
+		color: var(--tt-text-primary);
 		cursor: pointer;
 		font-size: 0.9rem;
 	}
@@ -201,17 +201,17 @@
 	}
 
 	.option:hover {
-		background: var(--surface-hover);
+		background: var(--tt-background-card-hover);
 	}
 
 	.option.selected {
-		background: var(--accent-light);
-		color: var(--accent);
+		background: var(--tt-brand-primary-faded);
+		color: var(--tt-brand-primary);
 	}
 
 	.no-employers {
 		padding: 0.75rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		text-align: center;
 		font-size: 0.85rem;
 	}

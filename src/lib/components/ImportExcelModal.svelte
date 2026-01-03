@@ -8,9 +8,11 @@
   - Import button to save entries
 -->
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { categories, timeEntries } from '$lib/stores';
 	import { saveTimeEntry, saveUserCategory } from '$lib/storage/operations';
-	import type { Category } from '$lib/types';
+	import { getActiveEmployers } from '$lib/storage/employers';
+	import type { Category, Employer } from '$lib/types';
 	import {
 		parseExcelWorkbook,
 		buildCategoryMap,
@@ -37,6 +39,12 @@
 		createdCategories: string[];
 	} | null = $state(null);
 	let parseError: string | null = $state(null);
+	let employers = $state<Employer[]>([]);
+	let selectedEmployerId = $state<string>('');
+
+	onMount(async () => {
+		employers = await getActiveEmployers();
+	});
 
 	function handleFileSelect(event: Event) {
 		const input = event.target as HTMLInputElement;
@@ -100,13 +108,19 @@
 			const categoryMap = buildCategoryMap(currentCategories);
 			const { entries, skipped } = convertToTimeEntries(preview.records, categoryMap);
 
+			// Assign selected employer to all entries
+			const entriesWithEmployer = entries.map((entry) => ({
+				...entry,
+				employerId: selectedEmployerId || null
+			}));
+
 			// Save all entries
-			for (const entry of entries) {
+			for (const entry of entriesWithEmployer) {
 				await saveTimeEntry(entry);
 			}
 
 			// Update store
-			timeEntries.update((current) => [...current, ...entries]);
+			timeEntries.update((current) => [...current, ...entriesWithEmployer]);
 
 			importResult = {
 				success: true,
@@ -139,6 +153,17 @@
 
 <Modal title="Excel-Import" onclose={handleClose}>
 	<div class="import-modal">
+		<!-- Employer Selection -->
+		<div class="employer-section">
+			<label for="import-employer">Arbeitgeber für importierte Zeitdaten:</label>
+			<select id="import-employer" bind:value={selectedEmployerId} class="employer-select">
+				<option value="">Kein Arbeitgeber (Alle)</option>
+				{#each employers as employer (employer.id)}
+					<option value={employer.id}>{employer.name}</option>
+				{/each}
+			</select>
+		</div>
+
 		<!-- File Upload -->
 		<div class="upload-section">
 			<label class="upload-label">
@@ -253,6 +278,33 @@
 		gap: 1rem;
 	}
 
+	.employer-section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.employer-section label {
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: var(--tt-text-primary);
+	}
+
+	.employer-select {
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
+		font-size: 0.9rem;
+	}
+
+	.employer-select:focus {
+		outline: none;
+		border-color: var(--tt-border-focus);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
+	}
+
 	.upload-section {
 		display: flex;
 		justify-content: center;
@@ -269,17 +321,17 @@
 	.upload-btn {
 		display: inline-block;
 		padding: 0.75rem 1.5rem;
-		background: var(--surface-hover);
-		border: 2px dashed var(--border);
-		border-radius: var(--r-btn);
-		color: var(--text);
+		background: var(--tt-background-card-hover);
+		border: 2px dashed var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		color: var(--tt-text-primary);
 		font-size: 0.9rem;
 		transition: all 0.2s;
 	}
 
 	.upload-btn:hover {
-		background: var(--surface-active);
-		border-color: var(--accent);
+		background: var(--tt-background-card-hover);
+		border-color: var(--tt-brand-primary);
 	}
 
 	.preview-section {
@@ -292,7 +344,7 @@
 		margin: 0;
 		font-size: 1rem;
 		font-weight: 600;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.stats {
@@ -306,99 +358,99 @@
 		flex-direction: column;
 		align-items: center;
 		padding: 0.75rem 1rem;
-		background: var(--accent-light);
-		border: 1px solid var(--accent);
-		border-radius: var(--r-card);
+		background: var(--tt-brand-primary-faded);
+		border: 1px solid var(--tt-brand-primary);
+		border-radius: var(--tt-radius-card);
 		min-width: 80px;
 	}
 
 	.stat-value {
 		font-size: 1.25rem;
 		font-weight: 600;
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 	}
 
 	.stat-label {
 		font-size: 0.75rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.warning-box {
 		padding: 0.75rem;
-		background: var(--warning-light);
-		border: 1px solid var(--warning);
-		border-radius: var(--r-card);
+		background: var(--tt-status-warning-faded);
+		border: 1px solid var(--tt-status-warning);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.warning-title {
 		margin: 0 0 0.5rem 0;
 		font-weight: 600;
-		color: var(--warning);
+		color: var(--tt-status-warning);
 	}
 
 	.warning-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
 		font-size: 0.85rem;
-		color: var(--warning);
+		color: var(--tt-status-warning);
 	}
 
 	.error-box {
 		padding: 0.75rem;
-		background: var(--neg-light);
-		border: 1px solid var(--neg);
-		border-radius: var(--r-card);
+		background: var(--tt-status-danger-faded);
+		border: 1px solid var(--tt-status-danger);
+		border-radius: var(--tt-radius-card);
 	}
 
 	/* Info box for new categories */
 	.info-box {
 		padding: 0.75rem;
-		background: var(--accent-light);
-		border: 1px solid var(--accent);
-		border-radius: var(--r-card);
+		background: var(--tt-brand-primary-faded);
+		border: 1px solid var(--tt-brand-primary);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.info-title {
 		margin: 0 0 0.25rem 0;
 		font-weight: 600;
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 	}
 
 	.info-hint {
 		margin: 0 0 0.5rem 0;
 		font-size: 0.85rem;
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 	}
 
 	.info-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
 		font-size: 0.85rem;
-		color: var(--accent);
+		color: var(--tt-brand-primary);
 	}
 
 	.error-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
 		font-size: 0.85rem;
-		color: var(--neg);
+		color: var(--tt-status-danger);
 	}
 
 	.error-box p {
 		margin: 0;
-		color: var(--neg);
+		color: var(--tt-status-danger);
 	}
 
 	.success-box {
 		padding: 0.75rem;
-		background: var(--pos-light);
-		border: 1px solid var(--pos);
-		border-radius: var(--r-card);
+		background: var(--tt-status-success-faded);
+		border: 1px solid var(--tt-status-success);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.success-box p {
 		margin: 0;
-		color: var(--pos);
+		color: var(--tt-status-success);
 		font-weight: 500;
 	}
 
@@ -413,35 +465,35 @@
 		gap: 0.75rem;
 		justify-content: flex-end;
 		padding-top: 0.5rem;
-		border-top: 1px solid var(--border-light);
+		border-top: 1px solid var(--tt-border-default);
 	}
 
 	.btn-secondary {
 		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
+		border: 1px solid var(--tt-button-secondary-border);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-secondary-bg);
+		color: var(--tt-button-secondary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.btn-secondary:hover {
-		background: var(--btn-secondary-hover);
+		background: var(--tt-button-secondary-hover);
 	}
 
 	.btn-primary {
 		padding: 0.75rem 1.5rem;
 		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-primary-bg);
+		color: var(--tt-button-primary-text);
 		font-size: 1rem;
 		cursor: pointer;
 	}
 
 	.btn-primary:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 
 	.btn-primary:disabled {

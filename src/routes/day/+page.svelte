@@ -404,7 +404,7 @@
 		display: flex;
 		justify-content: center;
 		padding: 2rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	/* Date Navigation */
@@ -428,8 +428,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 4px;
+		gap: var(--tt-space-8);
 		border-radius: var(--tt-radius-button);
+	}
+
+	.nav-btn:hover {
+		background: var(--tt-background-card-hover);
 	}
 
 	.nav-btn:active {
@@ -449,11 +453,11 @@
 		flex: 1;
 		padding: 0.5rem 1rem;
 		border: none;
-		background: var(--surface);
+		background: var(--tt-background-card);
 		text-align: center;
 		cursor: pointer;
 		border-radius: 0.5rem;
-		color: var(--text);
+		color: var(--tt-text-primary);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -462,7 +466,7 @@
 	}
 
 	.date-title:hover {
-		background: var(--surface-hover);
+		background: var(--tt-background-card-hover);
 	}
 
 	.title-prefix {

@@ -106,14 +106,14 @@
 
 	.plan-card {
 		padding: 20px;
-		border: 1px solid var(--border);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 12px;
-		background: var(--bg);
+		background: var(--tt-background-page);
 	}
 
 	.plan-card.current {
-		border-color: var(--accent);
-		box-shadow: 0 0 0 2px var(--accent-subtle, rgba(var(--accent-rgb), 0.2));
+		border-color: var(--tt-brand-primary);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
 	}
 
 	.plan-card.coming-soon {
@@ -130,12 +130,12 @@
 	.plan-name {
 		margin: 0;
 		font-size: 1.125rem;
-		color: var(--fg);
+		color: var(--tt-text-primary);
 	}
 
 	.current-badge {
 		font-size: 0.75rem;
-		background: var(--accent);
+		background: var(--tt-brand-primary);
 		color: white;
 		padding: 2px 8px;
 		border-radius: 12px;
@@ -143,7 +143,7 @@
 
 	.coming-soon-badge {
 		font-size: 0.75rem;
-		background: var(--muted);
+		background: var(--tt-text-muted);
 		color: white;
 		padding: 2px 8px;
 		border-radius: 12px;
@@ -152,7 +152,7 @@
 	.plan-price {
 		font-size: 1.25rem;
 		font-weight: 600;
-		color: var(--fg);
+		color: var(--tt-text-primary);
 		margin-bottom: 16px;
 	}
 
@@ -173,11 +173,11 @@
 	}
 
 	.features-list li.included {
-		color: var(--fg);
+		color: var(--tt-text-primary);
 	}
 
 	.features-list li.excluded {
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.feature-icon {
@@ -189,7 +189,7 @@
 		margin-top: 16px;
 		width: 100%;
 		padding: 12px;
-		background: var(--accent);
+		background: var(--tt-brand-primary);
 		color: white;
 		border: none;
 		border-radius: 8px;
