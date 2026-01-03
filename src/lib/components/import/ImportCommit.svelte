@@ -104,8 +104,8 @@
 	}
 
 	.summary-card {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		padding: 1rem;
 		margin-bottom: 1rem;
@@ -114,7 +114,7 @@
 	.summary-card h3 {
 		font-size: 0.875rem;
 		margin: 0 0 0.75rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.summary-list {
@@ -132,14 +132,14 @@
 
 	.summary-item dt {
 		font-size: 0.875rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.summary-item dd {
 		margin: 0;
 		font-size: 0.875rem;
 		font-weight: 600;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 	}
 
 	.warning-card {
@@ -147,7 +147,7 @@
 		gap: 0.75rem;
 		padding: 1rem;
 		background: var(--tt-status-warning-500-light, rgba(245, 158, 11, 0.1));
-		border: 1px solid var(--tt-status-warning-500, #f59e0b);
+		border: 1px solid var(--tt-status-warning-500);
 		border-radius: 8px;
 		margin-bottom: 1.5rem;
 	}
@@ -158,7 +158,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--tt-status-warning-500, #f59e0b);
+		background: var(--tt-status-warning-500);
 		color: white;
 		border-radius: 50%;
 		font-weight: 600;
@@ -176,7 +176,7 @@
 
 	.warning-text p {
 		margin: 0;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.commit-actions {
@@ -196,9 +196,9 @@
 	}
 
 	.btn-cancel {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-text-primary);
+		border: 1px solid var(--tt-border-default);
 	}
 
 	.btn-confirm {

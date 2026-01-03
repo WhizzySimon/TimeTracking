@@ -21,26 +21,26 @@
 		synced: {
 			icon: '✓',
 			label: 'Gesichert',
-			color: '#22c55e',
-			bgColor: '#dcfce7'
+			color: 'var(--tt-status-success-500)',
+			bgColor: 'var(--tt-status-success-50)'
 		},
 		pending: {
 			icon: '!',
 			label: 'Nicht gesichert',
-			color: '#eab308',
-			bgColor: '#fef9c3'
+			color: 'var(--tt-status-warning-500)',
+			bgColor: 'var(--tt-status-warning-50)'
 		},
 		syncing: {
 			icon: '↻',
 			label: 'Synchronisiere...',
-			color: '#3b82f6',
-			bgColor: '#dbeafe'
+			color: 'var(--tt-status-info)',
+			bgColor: 'var(--tt-status-info-faded)'
 		},
 		error: {
 			icon: '✕',
 			label: 'Sync-Fehler',
-			color: '#ef4444',
-			bgColor: '#fee2e2'
+			color: 'var(--tt-status-danger-500)',
+			bgColor: 'var(--tt-status-danger-50)'
 		}
 	} as const;
 
@@ -66,7 +66,7 @@
 		align-items: center;
 		gap: 6px;
 		padding: 4px 10px;
-		border-radius: var(--r-pill);
+		border-radius: var(--tt-radius-pill);
 		background-color: var(--indicator-bg);
 		color: var(--indicator-color);
 		font-size: 0.75rem;

@@ -162,8 +162,8 @@
 
 <style>
 	.preset-selector {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		padding: 1rem;
 	}
@@ -178,7 +178,7 @@
 	.preset-header h3 {
 		font-size: 0.875rem;
 		margin: 0;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.btn-add {
@@ -199,7 +199,7 @@
 	.loading,
 	.empty {
 		font-size: 0.875rem;
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 		margin: 0;
 	}
 
@@ -221,8 +221,8 @@
 	.preset-btn {
 		flex: 1;
 		padding: 0.5rem;
-		background: var(--bg-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 4px;
 		text-align: left;
 		font-size: 0.875rem;
@@ -230,7 +230,7 @@
 	}
 
 	.preset-btn:hover {
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 	}
 
 	.delete-btn {
@@ -239,14 +239,14 @@
 		padding: 0;
 		background: none;
 		border: none;
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 		font-size: 1.25rem;
 		cursor: pointer;
 		line-height: 1;
 	}
 
 	.delete-btn:hover {
-		color: var(--tt-status-danger-500, #ef4444);
+		color: var(--tt-status-danger-500);
 	}
 
 	.save-dialog-overlay {
@@ -260,7 +260,7 @@
 	}
 
 	.save-dialog {
-		background: var(--bg-primary);
+		background: var(--tt-background-card);
 		padding: 1.5rem;
 		border-radius: 8px;
 		width: 300px;
@@ -282,19 +282,19 @@
 	.save-dialog input {
 		width: 100%;
 		padding: 0.5rem;
-		border: 1px solid var(--border-color);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 4px;
 		font-size: 0.875rem;
-		background: var(--bg-secondary);
-		color: var(--text-primary);
+		background: var(--tt-background-card-hover);
+		color: var(--tt-text-primary);
 	}
 
 	.save-dialog input.error {
-		border-color: var(--tt-status-danger-500, #ef4444);
+		border-color: var(--tt-status-danger-500);
 	}
 
 	.error-text {
-		color: var(--tt-status-danger-500, #ef4444);
+		color: var(--tt-status-danger-500);
 		font-size: 0.75rem;
 		margin: 0.25rem 0 0;
 	}
@@ -316,8 +316,8 @@
 	}
 
 	.btn-cancel {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-text-primary);
 	}
 
 	.btn-save {

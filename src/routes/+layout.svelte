@@ -4,7 +4,6 @@
 	import { page } from '$app/stores';
 	import { goto, pushState } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import '$lib/styles/theme.css';
 	import '$lib/styles/tt-design-system.css';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import EmployerSelector from '$lib/components/EmployerSelector.svelte';

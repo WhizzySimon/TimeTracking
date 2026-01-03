@@ -98,8 +98,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.75rem 1rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		gap: 1rem;
 		flex-wrap: wrap;
@@ -113,7 +113,7 @@
 
 	.count {
 		font-size: 0.875rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.link-btn {
@@ -140,16 +140,16 @@
 
 	.action-btn {
 		padding: 0.5rem 0.75rem;
-		background: var(--bg-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 6px;
 		font-size: 0.875rem;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 		cursor: pointer;
 	}
 
 	.action-btn:hover {
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 	}
 
 	.dropdown-menu {
@@ -158,8 +158,8 @@
 		right: 0;
 		margin-top: 0.25rem;
 		min-width: 150px;
-		background: var(--bg-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 6px;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		z-index: 100;
@@ -175,19 +175,19 @@
 		background: none;
 		border: none;
 		font-size: 0.875rem;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 		cursor: pointer;
 		text-align: left;
 	}
 
 	.dropdown-item:hover {
-		background: var(--bg-secondary);
+		background: var(--tt-background-card-hover);
 	}
 
 	.dropdown-empty {
 		display: block;
 		padding: 0.5rem 0.75rem;
 		font-size: 0.875rem;
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 	}
 </style>

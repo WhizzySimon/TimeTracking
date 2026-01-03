@@ -63,7 +63,7 @@
 	.progress-header h2 {
 		font-size: 1.25rem;
 		margin: 0 0 1.5rem;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 	}
 
 	.progress-bar-wrapper {
@@ -75,7 +75,7 @@
 	.progress-bar {
 		flex: 1;
 		height: 12px;
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 		border-radius: 6px;
 		overflow: hidden;
 	}
@@ -90,7 +90,7 @@
 	.progress-percent {
 		font-size: 1rem;
 		font-weight: 600;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 		min-width: 3rem;
 		text-align: right;
 	}
@@ -102,12 +102,12 @@
 
 	.current-file {
 		font-size: 0.875rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 		margin: 0 0 0.5rem;
 	}
 
 	.current-file .label {
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 	}
 
 	.current-file .value {
@@ -116,7 +116,7 @@
 
 	.current-step {
 		font-size: 0.875rem;
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 		margin: 0;
 	}
 
@@ -125,9 +125,9 @@
 	}
 
 	.btn-cancel {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-text-primary);
+		border: 1px solid var(--tt-border-default);
 		padding: 0.625rem 1.25rem;
 		border-radius: 6px;
 		font-size: 0.875rem;
@@ -135,6 +135,6 @@
 	}
 
 	.btn-cancel:hover {
-		background: var(--bg-secondary);
+		background: var(--tt-background-card-hover);
 	}
 </style>

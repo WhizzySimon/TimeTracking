@@ -189,8 +189,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.75rem 1rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		position: sticky;
 		top: 0;
@@ -198,8 +198,8 @@
 	}
 
 	.issues-panel {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		padding: 1rem;
 	}
@@ -207,7 +207,7 @@
 	.issues-panel h3 {
 		font-size: 0.875rem;
 		margin: 0 0 0.75rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.issues-list {
@@ -222,11 +222,11 @@
 		gap: 0.5rem;
 		font-size: 0.875rem;
 		padding: 0.25rem 0;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.issue-item.error {
-		color: var(--tt-status-danger-500, #ef4444);
+		color: var(--tt-status-danger-500);
 	}
 
 	.issue-icon {
@@ -236,19 +236,19 @@
 		align-items: center;
 		justify-content: center;
 		border-radius: 50%;
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 		font-size: 0.75rem;
 		font-weight: 600;
 	}
 
 	.issue-item.error .issue-icon {
-		background: var(--tt-status-danger-500, #ef4444);
+		background: var(--tt-status-danger-500);
 		color: white;
 	}
 
 	.table-wrapper {
 		overflow-x: auto;
-		border: 1px solid var(--border-color);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 	}
 
@@ -262,18 +262,18 @@
 	.review-table td {
 		padding: 0.625rem 0.75rem;
 		text-align: left;
-		border-bottom: 1px solid var(--border-color);
+		border-bottom: 1px solid var(--tt-border-default);
 	}
 
 	.review-table th {
-		background: var(--bg-secondary);
+		background: var(--tt-background-card-hover);
 		font-weight: 600;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 		white-space: nowrap;
 	}
 
 	.review-table tbody tr:hover {
-		background: var(--bg-secondary);
+		background: var(--tt-background-card-hover);
 	}
 
 	.review-table tbody tr.selected {
@@ -282,7 +282,7 @@
 
 	.review-table tbody tr.blocked {
 		opacity: 0.5;
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 	}
 
 	.col-select {
@@ -328,17 +328,17 @@
 	}
 
 	.status-ok {
-		background: var(--tt-status-success-500, #22c55e);
+		background: var(--tt-status-success-500);
 		color: white;
 	}
 
 	.status-warning {
-		background: var(--tt-status-warning-500, #f59e0b);
+		background: var(--tt-status-warning-500);
 		color: white;
 	}
 
 	.status-error {
-		background: var(--tt-status-danger-500, #ef4444);
+		background: var(--tt-status-danger-500);
 		color: white;
 	}
 
@@ -351,7 +351,7 @@
 
 	.selection-info {
 		font-size: 0.875rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.review-actions {
@@ -369,14 +369,14 @@
 	}
 
 	.btn-cancel {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-text-primary);
+		border: 1px solid var(--tt-border-default);
 	}
 
 	.btn-commit {
-		background: var(--tt-brand-primary-500, var(--tt-brand-primary-500, #3b82f6));
-		color: var(--btn-primary-text, white);
+		background: var(--tt-brand-primary-500);
+		color: white;
 		font-weight: 500;
 	}
 

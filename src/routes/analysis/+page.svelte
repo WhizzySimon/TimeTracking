@@ -862,15 +862,15 @@
 	}
 
 	.period-hours .soll {
-		color: #666;
+		color: var(--tt-text-muted);
 	}
 
 	.period-hours .saldo.positive {
-		color: #16a34a;
+		color: var(--tt-status-success-500);
 	}
 
 	.period-hours .saldo.negative {
-		color: #dc2626;
+		color: var(--tt-status-danger-500);
 	}
 
 	/* Collapsible Sections */

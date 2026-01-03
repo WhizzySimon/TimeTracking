@@ -54,8 +54,8 @@
 		align-items: center;
 		gap: 1.5rem;
 		padding: 0.75rem 1rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		flex-wrap: wrap;
 	}
@@ -65,7 +65,7 @@
 		align-items: center;
 		gap: 0.5rem;
 		font-size: 0.875rem;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 		cursor: pointer;
 	}
 
@@ -83,7 +83,7 @@
 
 	.confidence-slider label {
 		font-size: 0.875rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 		white-space: nowrap;
 	}
 
@@ -92,7 +92,7 @@
 		height: 6px;
 		-webkit-appearance: none;
 		appearance: none;
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 		border-radius: 3px;
 		cursor: pointer;
 	}

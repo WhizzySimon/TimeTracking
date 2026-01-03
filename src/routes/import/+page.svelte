@@ -222,7 +222,7 @@
 		justify-content: center;
 		align-items: center;
 		min-height: 200px;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.import-page {
@@ -239,11 +239,11 @@
 	.import-header h1 {
 		font-size: 1.5rem;
 		margin: 0;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 	}
 
 	.subtitle {
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 		margin: 0.5rem 0 0;
 	}
 
@@ -265,8 +265,8 @@
 	}
 
 	.error-message {
-		background: var(--tt-status-danger-50, #fef2f2);
-		color: var(--tt-status-danger-500, #dc2626);
+		background: var(--tt-status-danger-50);
+		color: var(--tt-status-danger-500);
 		padding: 0.75rem 1rem;
 		border-radius: 8px;
 		margin-bottom: 1rem;
@@ -300,7 +300,7 @@
 
 	.report-icon {
 		font-size: 4rem;
-		color: var(--tt-status-success-500, #22c55e);
+		color: var(--tt-status-success-500);
 		margin-bottom: 1rem;
 	}
 
@@ -309,7 +309,7 @@
 	}
 
 	.report-section p {
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 		margin-bottom: 1.5rem;
 	}
 </style>

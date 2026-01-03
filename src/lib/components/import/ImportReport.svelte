@@ -69,7 +69,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--tt-status-success-500, #22c55e);
+		background: var(--tt-status-success-500);
 		color: white;
 		border-radius: 50%;
 		font-size: 2rem;
@@ -93,7 +93,7 @@
 
 	.stat-item dt {
 		font-size: 0.75rem;
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 		margin-bottom: 0.25rem;
 		text-transform: uppercase;
 	}
@@ -105,15 +105,15 @@
 	}
 
 	.stat-item.success dd {
-		color: var(--tt-status-success-500, #22c55e);
+		color: var(--tt-status-success-500);
 	}
 
 	.stat-item.skipped dd {
-		color: var(--tt-status-warning-500, #f59e0b);
+		color: var(--tt-status-warning-500);
 	}
 
 	.stat-item.error dd {
-		color: var(--tt-status-danger-500, #ef4444);
+		color: var(--tt-status-danger-500);
 	}
 
 	.report-actions {
@@ -132,9 +132,9 @@
 	}
 
 	.btn-secondary {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-text-primary);
+		border: 1px solid var(--tt-border-default);
 	}
 
 	.btn-primary {

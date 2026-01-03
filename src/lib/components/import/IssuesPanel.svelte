@@ -76,8 +76,8 @@
 
 <style>
 	.issues-panel {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		padding: 1rem;
 	}
@@ -85,7 +85,7 @@
 	.issues-panel h3 {
 		font-size: 0.875rem;
 		margin: 0 0 0.75rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.issues-list {
@@ -108,18 +108,18 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.5rem 0.75rem;
-		background: var(--bg-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 6px;
 		cursor: pointer;
 		font-size: 0.875rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 		text-align: left;
 		transition: all 0.15s;
 	}
 
 	.issue-btn:hover {
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 	}
 
 	.issue-item.active .issue-btn {
@@ -128,7 +128,7 @@
 	}
 
 	.issue-item.error .issue-btn {
-		border-left: 3px solid var(--tt-status-danger-500, #ef4444);
+		border-left: 3px solid var(--tt-status-danger-500);
 	}
 
 	.issue-icon {
@@ -140,7 +140,7 @@
 	}
 
 	.issue-count {
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 		padding: 0.125rem 0.5rem;
 		border-radius: 10px;
 		font-size: 0.75rem;
@@ -148,7 +148,7 @@
 	}
 
 	.issue-item.error .issue-count {
-		background: var(--tt-status-danger-500, #ef4444);
+		background: var(--tt-status-danger-500);
 		color: white;
 	}
 
@@ -156,14 +156,14 @@
 		margin-top: 0.75rem;
 		padding: 0.375rem 0.75rem;
 		background: transparent;
-		border: 1px solid var(--border-color);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 4px;
 		font-size: 0.75rem;
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 		cursor: pointer;
 	}
 
 	.clear-filter:hover {
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 	}
 </style>

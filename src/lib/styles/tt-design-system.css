@@ -41,9 +41,7 @@
    - scheme-3 = Kräftig (#2526a9): #2526a9 / #37bdf6
 */
 
-/* Scheme 4: Original (#374CA7) - Extended numbered scale
-   Used when "Original" is selected in UI (mapped from scheme-1 in colorScheme.ts)
-   Smooth progression from page background to brand color
+/* Scheme 1: Original (#374CA7) - Extended numbered scale
    Numbers represent lightness levels (25=lightest → 500=base → 700=darkest)
    Base color: #374CA7
 */

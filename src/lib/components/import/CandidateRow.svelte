@@ -193,7 +193,7 @@
 	}
 
 	tr:hover {
-		background: var(--bg-secondary);
+		background: var(--tt-background-card-hover);
 	}
 
 	tr.selected {
@@ -202,7 +202,7 @@
 
 	tr.blocked {
 		opacity: 0.5;
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 	}
 
 	tr.edited {
@@ -211,7 +211,7 @@
 
 	td {
 		padding: 0.5rem 0.75rem;
-		border-bottom: 1px solid var(--border-color);
+		border-bottom: 1px solid var(--tt-border-default);
 		cursor: default;
 	}
 
@@ -254,8 +254,8 @@
 		padding: 0.25rem;
 		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: 4px;
-		background: var(--bg-primary);
-		color: var(--text-primary);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
 		font-size: 0.875rem;
 	}
 
@@ -277,17 +277,17 @@
 	}
 
 	.status-ok {
-		background: var(--tt-status-success-500, #22c55e);
+		background: var(--tt-status-success-500);
 		color: white;
 	}
 
 	.status-warning {
-		background: var(--tt-status-warning-500, #f59e0b);
+		background: var(--tt-status-warning-500);
 		color: white;
 	}
 
 	.status-error {
-		background: var(--tt-status-danger-500, #ef4444);
+		background: var(--tt-status-danger-500);
 		color: white;
 	}
 </style>

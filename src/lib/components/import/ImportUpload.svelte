@@ -155,8 +155,8 @@
 	}
 
 	.btn-file-primary {
-		background: var(--tt-brand-primary-500, var(--tt-brand-primary-500, #3b82f6));
-		color: var(--btn-primary-text, white);
+		background: var(--tt-brand-primary-500);
+		color: white;
 		padding: 0.75rem 1.5rem;
 		border-radius: 8px;
 		font-size: 1rem;
@@ -171,8 +171,8 @@
 	}
 
 	.file-list {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
 		border-radius: 8px;
 		padding: 1rem;
 	}
@@ -180,7 +180,7 @@
 	.file-list h3 {
 		font-size: 0.875rem;
 		margin: 0 0 0.75rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.file-item {
@@ -188,7 +188,7 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.5rem;
-		background: var(--bg-primary);
+		background: var(--tt-background-card);
 		border-radius: 6px;
 		margin-bottom: 0.5rem;
 	}
@@ -211,7 +211,7 @@
 
 	.file-size {
 		font-size: 0.75rem;
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 	}
 
 	.btn-remove {
@@ -219,7 +219,7 @@
 		height: 24px;
 		border: none;
 		background: transparent;
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 		font-size: 1.25rem;
 		cursor: pointer;
 		border-radius: 4px;
@@ -229,8 +229,8 @@
 	}
 
 	.btn-remove:hover {
-		background: var(--bg-tertiary);
-		color: var(--tt-status-danger-500, #ef4444);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-status-danger-500);
 	}
 
 	.start-section {
@@ -239,8 +239,8 @@
 	}
 
 	.btn-start {
-		background: var(--tt-brand-primary-500, var(--tt-brand-primary-500, #3b82f6));
-		color: var(--btn-primary-text, white);
+		background: var(--tt-brand-primary-500);
+		color: white;
 		border: none;
 		padding: 0.75rem 1.5rem;
 		border-radius: 8px;
