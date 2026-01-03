@@ -1,14 +1,7 @@
 <!--
-  StyleGuide v2 - Design System Reference
+  StyleGuide - Design System Reference
   
   Route: /dev/styleguide
-  
-  Changes from v1:
-  - Compact single-line layout for rows
-  - No chevron signifier (clickability via hover/cursor)
-  - Badge width fits content (not stretched)
-  - Clear touchable vs non-touchable distinction
-  - Self-explanatory class names
   
   COMPONENT SYSTEM:
   Classes are applied to HTML elements. Variants modify behavior/appearance.
@@ -21,10 +14,7 @@
 
 <div class="styleguide">
 	<header class="styleguide-header">
-		<h1>TimeTracker Design System v2</h1>
-		<p class="tt-text-muted">
-			Mobile-first design — no hover states, touchability via visual affordances (border/background)
-		</p>
+		<h1>TimeTracker Design System</h1>
 	</header>
 
 	<!-- Color schemes -->
@@ -96,13 +86,13 @@
 			<div class="color-scale-item" style="background: var(--tt-brand-accent-200);">
 				<span style="color: var(--tt-text-primary);">200</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-brand-accent);">
+			<div class="color-scale-item" style="background: var(--tt-brand-accent-300);">
 				<span style="color: var(--tt-text-primary);">Base</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-brand-accent-darker);">
+			<div class="color-scale-item" style="background: var(--tt-brand-accent-400);">
 				<span>Darker</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-brand-accent-darkest);">
+			<div class="color-scale-item" style="background: var(--tt-brand-accent-500);">
 				<span>Darkest</span>
 			</div>
 		</div>
@@ -334,7 +324,7 @@
 
 	.usage-table code {
 		font-size: 0.75rem;
-		background: var(--tt-brand-primary-faded);
+		background: var(--tt-brand-primary-800);
 		padding: 2px 4px;
 		border-radius: 3px;
 	}

@@ -944,7 +944,7 @@
 						<div class="color-swatch primary" style="background: var(--tt-brand-primary-500);">
 							<span>Primary<br />{COLOR_SCHEMES[$colorScheme].primary}</span>
 						</div>
-						<div class="color-swatch secondary" style="background: var(--tt-brand-accent);">
+						<div class="color-swatch secondary" style="background: var(--tt-brand-accent-300);">
 							<span>Secondary<br />{COLOR_SCHEMES[$colorScheme].secondary}</span>
 						</div>
 					</div>

@@ -492,7 +492,7 @@
   - **Button pressed:** Darker gray background (`--tt-background-card-pressed`)
   - **Option hover:** Blue background (`--tt-brand-primary`), white text
   - **Option pressed:** Darker blue background, white text
-  - **Selected option:** Light blue background (`--tt-brand-primary-faded`), blue text
+  - **Selected option:** Light blue background (`--tt-brand-primary-800`), blue text
 - **Result:** Tagesart and Wochenart dropdowns now have unified styling matching the EmployerSelector, with proper hover and pressed states for both the button and options
 
 ### 32. Vorschläge Grouped by Employer

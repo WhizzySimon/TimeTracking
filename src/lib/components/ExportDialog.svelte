@@ -189,7 +189,7 @@
 
 	.format-option:has(input:checked) {
 		border-color: var(--tt-brand-primary-500);
-		background: var(--tt-brand-primary-faded);
+		background: var(--tt-brand-primary-800);
 	}
 
 	.format-option input {

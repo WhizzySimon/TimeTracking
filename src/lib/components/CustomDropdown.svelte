@@ -156,7 +156,7 @@
 	.dropdown-button:focus {
 		outline: none;
 		border-color: var(--tt-brand-primary-500);
-		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.dropdown-button:disabled {
@@ -223,7 +223,7 @@
 	}
 
 	.dropdown-option.selected {
-		background: var(--tt-brand-primary-faded);
+		background: var(--tt-brand-primary-800);
 		color: var(--tt-brand-primary-500);
 	}
 

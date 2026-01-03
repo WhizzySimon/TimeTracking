@@ -289,7 +289,7 @@
 		flex-direction: column;
 		align-items: center;
 		padding: 0.75rem 1rem;
-		background: var(--tt-brand-primary-faded);
+		background: var(--tt-brand-primary-800);
 		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-card);
 		min-width: 80px;

@@ -259,7 +259,7 @@
 		padding: 0.75rem 1rem;
 		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-button);
-		background: var(--tt-brand-primary-faded);
+		background: var(--tt-brand-primary-800);
 		color: var(--tt-brand-primary-500);
 		font-size: 1rem;
 		font-weight: 500;
@@ -267,7 +267,7 @@
 	}
 
 	.today-btn:hover {
-		background: var(--tt-brand-primary-faded);
+		background: var(--tt-brand-primary-800);
 		opacity: 0.9;
 	}
 
@@ -307,7 +307,7 @@
 	.select-input:focus {
 		outline: none;
 		border-color: var(--tt-border-focus);
-		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.day-grid {

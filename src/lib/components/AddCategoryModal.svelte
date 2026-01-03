@@ -176,7 +176,7 @@
 	.text-input:focus {
 		outline: none;
 		border-color: var(--tt-border-focus);
-		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.text-input:disabled {

@@ -41,7 +41,7 @@ All components should use the new `--tt-*` prefixed variables from `tt-design-sy
 | `--input-focus-border` | `--tt-border-focus` |
 | `--input-placeholder` | `--tt-text-muted` |
 | `--accent` | `--tt-brand-primary` |
-| `--accent-light` | `--tt-brand-primary-faded` |
+| `--accent-light` | `--tt-brand-primary-800` |
 | `--neg` | `--tt-status-danger` |
 | `--neg-light` | `--tt-status-danger-faded` |
 | `--pos` | `--tt-status-success` |

@@ -54,20 +54,15 @@ html[data-color-scheme="scheme-1"] {
 	--tt-brand-primary-500: #374CA7;
 	--tt-brand-primary-600: #2c3d86;
 	--tt-brand-primary-700: #212e64;
-	--tt-brand-primary-faded: rgba(55, 76, 167, 0.1);
+	--tt-brand-primary-800: rgba(55, 76, 167, 0.1);
 	
-	/* Legacy aliases for backward compatibility */
-	--tt-brand-primary: var(--tt-brand-primary-500);
-	--tt-brand-primary-pressed: var(--tt-brand-primary-400);
-	--tt-brand-primary-darker: var(--tt-brand-primary-600);
-	--tt-brand-primary-darkest: var(--tt-brand-primary-700);
 	--tt-brand-accent-50: #eaf8fe;
 	--tt-brand-accent-100: #c5ecfd;
 	--tt-brand-accent-200: #9bdefb;
-	--tt-brand-accent: #37BDF6;
-	--tt-brand-accent-darker: #2fa1d1;
-	--tt-brand-accent-darkest: #247ba0;
-	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);
+	--tt-brand-accent-300: #37BDF6;
+	--tt-brand-accent-400: #2fa1d1;
+	--tt-brand-accent-500: #247ba0;
+	--tt-brand-accent-600: rgba(55, 189, 246, 0.1);
 }
 
 /* Scheme 2: Mittel (#2330A3) - #2330A3 / #66BDF1 */
@@ -80,20 +75,15 @@ html[data-color-scheme="scheme-2"] {
 	--tt-brand-primary-500: #2330A3;
 	--tt-brand-primary-600: #1c2682;
 	--tt-brand-primary-700: #151d62;
-	--tt-brand-primary-faded: rgba(35, 48, 163, 0.1);
+	--tt-brand-primary-800: rgba(35, 48, 163, 0.1);
 	
-	/* Legacy aliases for backward compatibility */
-	--tt-brand-primary: var(--tt-brand-primary-500);
-	--tt-brand-primary-pressed: var(--tt-brand-primary-400);
-	--tt-brand-primary-darker: var(--tt-brand-primary-600);
-	--tt-brand-primary-darkest: var(--tt-brand-primary-700);
 	--tt-brand-accent-50: #f0f9fe;
 	--tt-brand-accent-100: #d1edfb;
 	--tt-brand-accent-200: #a8ddf6;
-	--tt-brand-accent: #66BDF1;
-	--tt-brand-accent-darker: #56a1cd;
-	--tt-brand-accent-darkest: #427b9d;
-	--tt-brand-accent-faded: rgba(102, 189, 241, 0.1);
+	--tt-brand-accent-300: #66BDF1;
+	--tt-brand-accent-400: #56a1cd;
+	--tt-brand-accent-500: #427b9d;
+	--tt-brand-accent-600: rgba(102, 189, 241, 0.1);
 }
 
 /* Scheme 3: Kräftig (#2526a9) - #2526a9 / #37bdf6 */
@@ -106,20 +96,15 @@ html[data-color-scheme="scheme-3"] {
 	--tt-brand-primary-500: #2526a9;
 	--tt-brand-primary-600: #1e1f8a;
 	--tt-brand-primary-700: #171868;
-	--tt-brand-primary-faded: rgba(37, 38, 169, 0.1);
+	--tt-brand-primary-800: rgba(37, 38, 169, 0.1);
 	
-	/* Legacy aliases for backward compatibility */
-	--tt-brand-primary: var(--tt-brand-primary-500);
-	--tt-brand-primary-pressed: var(--tt-brand-primary-400);
-	--tt-brand-primary-darker: var(--tt-brand-primary-600);
-	--tt-brand-primary-darkest: var(--tt-brand-primary-700);
 	--tt-brand-accent-50: #eaf8fe;
 	--tt-brand-accent-100: #c5ecfd;
 	--tt-brand-accent-200: #9bdefb;
-	--tt-brand-accent: #37bdf6;
-	--tt-brand-accent-darker: #2fa1d1;
-	--tt-brand-accent-darkest: #247ba0;
-	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);
+	--tt-brand-accent-300: #37bdf6;
+	--tt-brand-accent-400: #2fa1d1;
+	--tt-brand-accent-500: #247ba0;
+	--tt-brand-accent-600: rgba(55, 189, 246, 0.1);
 }
 
 /* Scheme 4: Original (#374CA7) - Extended numbered scale
@@ -139,16 +124,16 @@ html[data-color-scheme="scheme-4"] {
 	--tt-brand-primary-500: #374CA7;  /* Base brand color */
 	--tt-brand-primary-600: #2c3d86;  /* Darker */
 	--tt-brand-primary-700: #212e64;  /* Darkest */
-	--tt-brand-primary-faded: rgba(55, 76, 167, 0.1);
+	--tt-brand-primary-800: rgba(55, 76, 167, 0.1);
 	
 	/* Brand Accent */
 	--tt-brand-accent-50: #eaf8fe;
 	--tt-brand-accent-100: #c5ecfd;
 	--tt-brand-accent-200: #9bdefb;
-	--tt-brand-accent: #37BDF6;
-	--tt-brand-accent-darker: #2fa1d1;
-	--tt-brand-accent-darkest: #247ba0;
-	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);
+	--tt-brand-accent-300: #37BDF6;
+	--tt-brand-accent-400: #2fa1d1;
+	--tt-brand-accent-500: #247ba0;
+	--tt-brand-accent-600: rgba(55, 189, 246, 0.1);
 }
 
 :root {
@@ -227,9 +212,9 @@ html[data-color-scheme="scheme-4"] {
 	--tt-status-warning-800: rgba(221, 107, 32, 0.1);
 
 	/* Info: Running tasks, progress, informational highlights */
-	--tt-status-info: var(--tt-brand-accent);
-	--tt-status-info-pressed: var(--tt-brand-accent-darker);
-	--tt-status-info-faded: var(--tt-brand-accent-faded);
+	--tt-status-info: var(--tt-brand-accent-300);
+	--tt-status-info-pressed: var(--tt-brand-accent-400);
+	--tt-status-info-faded: var(--tt-brand-accent-600);
 	--tt-status-info-text: #0d8ac4;
 
 	/* ---- SPACING ---- */
@@ -450,7 +435,7 @@ html[data-color-scheme="scheme-4"] {
 
 .tt-selection-row.is-selected {
 	border-color: var(--tt-brand-primary-500);
-	background: var(--tt-brand-primary-faded);
+	background: var(--tt-brand-primary-800);
 }
 
 @media (hover: hover) {
@@ -532,7 +517,7 @@ html[data-color-scheme="scheme-4"] {
 	white-space: nowrap;
 	width: fit-content;
 	flex-shrink: 0;
-	background: var(--tt-brand-primary-faded);
+	background: var(--tt-brand-primary-800);
 	color: var(--tt-brand-primary-500);
 }
 
@@ -935,7 +920,7 @@ html[data-color-scheme="scheme-4"] {
 }
 
 .tt-action-button:hover {
-	background: var(--tt-brand-primary-faded);
+	background: var(--tt-brand-primary-800);
 }
 
 .tt-action-button svg {
@@ -1364,7 +1349,7 @@ html[data-color-scheme="scheme-4"] {
 .tt-dropdown:focus {
 	outline: none;
 	border-color: var(--tt-brand-primary-500);
-	box-shadow: 0 0 0 3px var(--tt-brand-primary-faded);
+	box-shadow: 0 0 0 3px var(--tt-brand-primary-800);
 }
 
 /* Dropdown options styling (limited browser support) */
@@ -1380,7 +1365,7 @@ html[data-color-scheme="scheme-4"] {
 }
 
 .tt-dropdown option:checked {
-	background: var(--tt-brand-primary-faded);
+	background: var(--tt-brand-primary-800);
 	color: var(--tt-brand-primary-500);
 }
 
@@ -1411,7 +1396,7 @@ html[data-color-scheme="scheme-4"] {
 .tt-text-input:focus {
 	outline: none;
 	border-color: var(--tt-brand-primary-500);
-	box-shadow: 0 0 0 3px var(--tt-brand-primary-faded);
+	box-shadow: 0 0 0 3px var(--tt-brand-primary-800);
 }
 
 /* Date input - unified styling */
@@ -1436,7 +1421,7 @@ html[data-color-scheme="scheme-4"] {
 .tt-date-input:focus {
 	outline: none;
 	border-color: var(--tt-brand-primary-500);
-	box-shadow: 0 0 0 3px var(--tt-brand-primary-faded);
+	box-shadow: 0 0 0 3px var(--tt-brand-primary-800);
 }
 
 /* Checkbox - unified styling */
@@ -1470,7 +1455,7 @@ html[data-color-scheme="scheme-4"] {
 
 .tt-checkbox-label:has(input:checked) {
 	border-color: var(--tt-brand-primary-500);
-	background: var(--tt-brand-primary-faded);
+	background: var(--tt-brand-primary-800);
 }
 
 /**
@@ -1563,7 +1548,7 @@ html[data-color-scheme="scheme-4"] {
 }
 
 .tt-badge--employer {
-	background: var(--tt-brand-primary-faded);
+	background: var(--tt-brand-primary-800);
 	color: var(--tt-brand-primary-500);
 }
 
@@ -1666,7 +1651,7 @@ html[data-color-scheme="scheme-4"] {
 }
 
 .tt-row__action:hover {
-	background: var(--tt-brand-primary-faded);
+	background: var(--tt-brand-primary-800);
 }
 
 .tt-icon-play {

@@ -113,7 +113,7 @@
 
 	.plan-card.current {
 		border-color: var(--tt-brand-primary-500);
-		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.plan-card.coming-soon {

@@ -471,7 +471,7 @@
 	.date-input:focus {
 		outline: none;
 		border-color: var(--tt-border-focus);
-		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.no-employers {
@@ -512,7 +512,7 @@
 
 	.column-checkbox:has(input:checked) {
 		border-color: var(--tt-brand-primary-500);
-		background: var(--tt-brand-primary-faded);
+		background: var(--tt-brand-primary-800);
 	}
 
 	.column-checkbox input {

@@ -242,7 +242,7 @@
 	}
 
 	.file-btn:hover {
-		background: var(--tt-brand-primary-faded);
+		background: var(--tt-brand-primary-800);
 	}
 
 	.text-input {
