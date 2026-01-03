@@ -752,17 +752,17 @@
 		</p>
 		<div class="demo-stack">
 			<nav class="tt-footer-nav" style="border-radius: var(--tt-radius-card);">
-				<a href="#" class="tt-footer-tab tt-footer-tab--plus">+</a>
-				<a href="#" class="tt-footer-tab">Tag</a>
-				<a href="#" class="tt-footer-tab" aria-current="page">Woche</a>
-				<a href="#" class="tt-footer-tab">Monat</a>
-				<a href="#" class="tt-footer-tab">
+				<button type="button" class="tt-footer-tab tt-footer-tab--plus">+</button>
+				<button type="button" class="tt-footer-tab">Tag</button>
+				<button type="button" class="tt-footer-tab" aria-current="page">Woche</button>
+				<button type="button" class="tt-footer-tab">Monat</button>
+				<button type="button" class="tt-footer-tab" aria-label="Analyse">
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<line x1="18" y1="20" x2="18" y2="10"></line>
 						<line x1="12" y1="20" x2="12" y2="4"></line>
 						<line x1="6" y1="20" x2="6" y2="14"></line>
 					</svg>
-				</a>
+				</button>
 			</nav>
 		</div>
 	</section>
