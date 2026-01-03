@@ -33,12 +33,12 @@
 
 /* ---- COLOR SCHEMES ----
    Switchable via data-color-scheme attribute on <html>
-   - "current" = Weicher (#2330A3) (default): #2330A3 / #66BDF1
-   - "icon" = Dunkel (#374CA7): #374CA7 / #37BDF6
-   - "displayed" = Original (#2526a9): #2526a9 / #37bdf6
+   - "current" = Mittel (#2330A3) (default): #2330A3 / #66BDF1
+   - "icon" = Original (#374CA7): #374CA7 / #37BDF6
+   - "displayed" = Kräftig (#2526a9): #2526a9 / #37bdf6
 */
 
-/* Scheme: Weicher (#2330A3) (current) - #2330A3 / #66BDF1 */
+/* Scheme: Mittel (#2330A3) (current) - #2330A3 / #66BDF1 */
 html[data-color-scheme="current"] {
 	--tt-brand-primary-50: #e7e9f6;
 	--tt-brand-primary-100: #c3c7e8;
@@ -58,7 +58,7 @@ html[data-color-scheme="current"] {
 	--tt-brand-accent-faded: rgba(102, 189, 241, 0.1);
 }
 
-/* Scheme: Dunkel (#374CA7) - #374CA7 / #37BDF6 */
+/* Scheme: Original (#374CA7) - #374CA7 / #37BDF6 */
 html[data-color-scheme="icon"] {
 	--tt-brand-primary-50: #eaecf6;
 	--tt-brand-primary-100: #c9cee9;
@@ -78,7 +78,7 @@ html[data-color-scheme="icon"] {
 	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);
 }
 
-/* Scheme: Original (#2526a9) - #2526a9 / #37bdf6 */
+/* Scheme: Kräftig (#2526a9) - #2526a9 / #37bdf6 */
 html[data-color-scheme="displayed"] {
 	--tt-brand-primary-50: #e8e8f8;
 	--tt-brand-primary-100: #c5c5ed;

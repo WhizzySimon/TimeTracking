@@ -104,12 +104,12 @@ function generateScheme(
 // Define the 3 color schemes
 // Based on user's table:
 // - Style Guide displayed (angezeigt): Primary #2330A3, Secondary #66BDF1
-// - Original (#2526a9): Primary #2526a9, Secondary #37bdf6
+// - Kräftig (#2526a9): Primary #2526a9, Secondary #37bdf6
 // - Icon (Original): Primary #374CA7, Secondary #37BDF6
 export const COLOR_SCHEMES: Record<ColorSchemeName, ColorScheme> = {
-	current: generateScheme('current', 'Weicher (#2330A3)', '#2330A3', '#66BDF1'),
-	icon: generateScheme('icon', 'Dunkel (#374CA7)', '#374CA7', '#37BDF6'),
-	displayed: generateScheme('displayed', 'Original (#2526a9)', '#2526a9', '#37bdf6')
+	current: generateScheme('current', 'Mittel (#2330A3)', '#2330A3', '#66BDF1'),
+	icon: generateScheme('icon', 'Original (#374CA7)', '#374CA7', '#37BDF6'),
+	displayed: generateScheme('displayed', 'Kräftig (#2526a9)', '#2526a9', '#37bdf6')
 };
 
 // Get initial scheme from localStorage or default to 'current'
