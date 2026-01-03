@@ -143,7 +143,7 @@
 	@media (hover: hover) {
 		.selector-button:hover {
 			background: var(--tt-background-card-hover);
-			border-color: var(--tt-brand-primary);
+			border-color: var(--tt-brand-primary-500);
 		}
 	}
 
@@ -153,7 +153,7 @@
 
 	.selector-button:focus {
 		outline: none;
-		border-color: var(--tt-brand-primary);
+		border-color: var(--tt-brand-primary-500);
 		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
 	}
 
@@ -210,30 +210,30 @@
 
 	@media (hover: hover) {
 		.option:hover {
-			background: var(--tt-brand-primary);
+			background: var(--tt-brand-primary-500);
 			color: white;
 		}
 	}
 
 	.option:active {
-		background: var(--tt-brand-primary-darker, #1e1f8a);
+		background: var(--tt-brand-primary-600, #1e1f8a);
 		color: white;
 	}
 
 	.option.selected {
 		background: var(--tt-brand-primary-faded);
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	@media (hover: hover) {
 		.option.selected:hover {
-			background: var(--tt-brand-primary);
+			background: var(--tt-brand-primary-500);
 			color: white;
 		}
 	}
 
 	.option.selected:active {
-		background: var(--tt-brand-primary-darker, #1e1f8a);
+		background: var(--tt-brand-primary-600, #1e1f8a);
 		color: white;
 	}
 

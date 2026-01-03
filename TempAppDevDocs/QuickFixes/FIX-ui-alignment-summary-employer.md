@@ -367,7 +367,7 @@
 - **Issue:** Style guide page has white background instead of app background color, and doesn't match the width of title bar and footer bar
 - **Root Cause:** Style guide page was using default white background with 900px max-width instead of app's background color and 600px max-width
 - **Fix:** Applied app background color and matching max-width to style guide page
-- **Files:** `src/routes/dev/styleguide-v2/+page.svelte:1052-1062`
+- **Files:** `src/routes/dev/styleguide/+page.svelte:1052-1062`
 - **Changes:**
   - Added `:global(body)` style to set background to `--tt-background-page` (#e8f0f8 - light blue-gray)
   - Changed `.styleguide` max-width from 900px to 600px (matches app container)
@@ -455,7 +455,7 @@
   - `src/lib/styles/tt-design-system-v2.css:54-59` (added `--tt-app-max-width` and `--tt-background-outside`)
   - `src/routes/+layout.svelte:644, 652-654`
   - `src/lib/components/TabNavigation.svelte:77`
-  - `src/routes/dev/styleguide-v2/+page.svelte:1053, 1058`
+  - `src/routes/dev/styleguide/+page.svelte:1053, 1058`
 - **Changes:**
   - **New CSS variable:** `--tt-app-max-width: 600px` - single source of truth for app width
   - **New CSS variable:** `--tt-background-outside: #ffffff` - white background outside app

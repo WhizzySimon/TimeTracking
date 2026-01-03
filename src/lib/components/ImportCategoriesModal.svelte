@@ -233,10 +233,10 @@
 	.file-btn {
 		display: inline-block;
 		padding: 0.5rem 1rem;
-		border: 1px solid var(--tt-brand-primary);
+		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-button);
 		background: var(--tt-background-card);
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 		font-size: 0.9rem;
 		cursor: pointer;
 	}

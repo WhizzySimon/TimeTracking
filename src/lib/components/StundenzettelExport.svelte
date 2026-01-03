@@ -511,7 +511,7 @@
 	}
 
 	.column-checkbox:has(input:checked) {
-		border-color: var(--tt-brand-primary);
+		border-color: var(--tt-brand-primary-500);
 		background: var(--tt-brand-primary-faded);
 	}
 

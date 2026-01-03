@@ -108,7 +108,7 @@
 		margin: 0 0 0.5rem;
 		font-size: 1.75rem;
 		text-align: center;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	h2 {
@@ -225,7 +225,7 @@
 	}
 
 	.links a {
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 		text-decoration: none;
 		font-size: 0.9rem;
 	}

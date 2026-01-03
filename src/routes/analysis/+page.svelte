@@ -949,7 +949,7 @@
 
 	.summary-label {
 		font-weight: 700;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.category-row {
@@ -977,7 +977,7 @@
 
 	.summary-value--primary {
 		font-weight: 700;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.summary-value--secondary {

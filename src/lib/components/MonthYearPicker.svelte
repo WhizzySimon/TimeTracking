@@ -163,9 +163,9 @@
 		width: 100%;
 		padding: 0.75rem;
 		background: var(--tt-background-card);
-		border: 2px solid var(--tt-brand-primary);
+		border: 2px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-button);
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 		font-weight: 600;
 		cursor: pointer;
 		font-size: 1rem;

@@ -200,7 +200,7 @@
 
 	.quick-btn:hover {
 		background: var(--tt-background-card-hover);
-		border-color: var(--tt-brand-primary);
+		border-color: var(--tt-brand-primary-500);
 	}
 
 	.date-fields {

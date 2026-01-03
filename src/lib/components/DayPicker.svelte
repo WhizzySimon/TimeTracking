@@ -257,10 +257,10 @@
 
 	.today-btn {
 		padding: 0.75rem 1rem;
-		border: 1px solid var(--tt-brand-primary);
+		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-button);
 		background: var(--tt-brand-primary-faded);
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
@@ -348,14 +348,14 @@
 	}
 
 	.day-cell.selected {
-		background: var(--tt-brand-primary);
+		background: var(--tt-brand-primary-500);
 		color: white;
-		border-color: var(--tt-brand-primary);
+		border-color: var(--tt-brand-primary-500);
 	}
 
 	.day-cell.today:not(.selected) {
-		border-color: var(--tt-brand-primary);
-		color: var(--tt-brand-primary);
+		border-color: var(--tt-brand-primary-500);
+		color: var(--tt-brand-primary-500);
 		font-weight: 600;
 	}
 

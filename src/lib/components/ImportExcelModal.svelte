@@ -336,7 +336,7 @@
 
 	.upload-btn:hover {
 		background: var(--tt-background-card-hover);
-		border-color: var(--tt-brand-primary);
+		border-color: var(--tt-brand-primary-500);
 	}
 
 	.preview-section {
@@ -364,7 +364,7 @@
 		align-items: center;
 		padding: 0.75rem 1rem;
 		background: var(--tt-brand-primary-faded);
-		border: 1px solid var(--tt-brand-primary);
+		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-card);
 		min-width: 80px;
 	}
@@ -372,7 +372,7 @@
 	.stat-value {
 		font-size: 1.25rem;
 		font-weight: 600;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.stat-label {
@@ -411,27 +411,27 @@
 	.info-box {
 		padding: 0.75rem;
 		background: var(--tt-brand-primary-faded);
-		border: 1px solid var(--tt-brand-primary);
+		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-card);
 	}
 
 	.info-title {
 		margin: 0 0 0.25rem 0;
 		font-weight: 600;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.info-hint {
 		margin: 0 0 0.5rem 0;
 		font-size: 0.85rem;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.info-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
 		font-size: 0.85rem;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.error-box ul {

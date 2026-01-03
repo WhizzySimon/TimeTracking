@@ -167,10 +167,10 @@
 
 	.current-week-btn {
 		padding: 0.75rem 1rem;
-		border: 1px solid var(--tt-brand-primary);
+		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-button);
 		background: var(--tt-brand-primary-faded);
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;

@@ -85,8 +85,8 @@
 	.action-btn {
 		margin-left: auto;
 		padding: 0.25rem 0.75rem;
-		border: 1px solid var(--tt-brand-primary);
-		background: var(--tt-brand-primary);
+		border: 1px solid var(--tt-brand-primary-500);
+		background: var(--tt-brand-primary-500);
 		color: white;
 		font-size: 0.8rem;
 		font-weight: 500;

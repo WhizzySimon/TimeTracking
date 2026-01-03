@@ -1,7 +1,7 @@
 <!--
   StyleGuide v2 - Design System Reference
   
-  Route: /dev/styleguide-v2
+  Route: /dev/styleguide
   
   Changes from v1:
   - Compact single-line layout for rows
@@ -886,20 +886,20 @@
 				<span>300</span>
 				<code>#7475d3</code>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-brand-primary-pressed);">
-				<span>Pressed</span>
+			<div class="color-scale-item" style="background: var(--tt-brand-primary-400);">
+				<span>400</span>
 				<code>#4a4bc5</code>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-brand-primary);">
-				<span>Base</span>
+			<div class="color-scale-item" style="background: var(--tt-brand-primary-500);">
+				<span>500</span>
 				<code>#2526a9</code>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-brand-primary-darker);">
-				<span>Darker</span>
+			<div class="color-scale-item" style="background: var(--tt-brand-primary-600);">
+				<span>600</span>
 				<code>#1e1f8a</code>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-brand-primary-darkest);">
-				<span>Darkest</span>
+			<div class="color-scale-item" style="background: var(--tt-brand-primary-700);">
+				<span>700</span>
 				<code>#171868</code>
 			</div>
 		</div>
@@ -1151,7 +1151,7 @@
 
 	.styleguide-header h1 {
 		margin: 0 0 0.5rem;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.section {
@@ -1160,7 +1160,7 @@
 
 	.section h2 {
 		color: var(--tt-text-primary);
-		border-bottom: 2px solid var(--tt-brand-primary);
+		border-bottom: 2px solid var(--tt-brand-primary-500);
 		padding-bottom: 0.5rem;
 		margin-bottom: 1rem;
 	}

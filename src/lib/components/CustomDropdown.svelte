@@ -155,7 +155,7 @@
 
 	.dropdown-button:focus {
 		outline: none;
-		border-color: var(--tt-brand-primary);
+		border-color: var(--tt-brand-primary-500);
 		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
 	}
 
@@ -212,30 +212,30 @@
 
 	@media (hover: hover) {
 		.dropdown-option:hover {
-			background: var(--tt-brand-primary);
+			background: var(--tt-brand-primary-500);
 			color: white;
 		}
 	}
 
 	.dropdown-option:active {
-		background: var(--tt-brand-primary-darker, #1e1f8a);
+		background: var(--tt-brand-primary-600, #1e1f8a);
 		color: white;
 	}
 
 	.dropdown-option.selected {
 		background: var(--tt-brand-primary-faded);
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	@media (hover: hover) {
 		.dropdown-option.selected:hover {
-			background: var(--tt-brand-primary);
+			background: var(--tt-brand-primary-500);
 			color: white;
 		}
 	}
 
 	.dropdown-option.selected:active {
-		background: var(--tt-brand-primary-darker, #1e1f8a);
+		background: var(--tt-brand-primary-600, #1e1f8a);
 		color: white;
 	}
 </style>

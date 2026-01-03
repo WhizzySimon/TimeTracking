@@ -112,7 +112,7 @@
 	}
 
 	.plan-card.current {
-		border-color: var(--tt-brand-primary);
+		border-color: var(--tt-brand-primary-500);
 		box-shadow: 0 0 0 2px var(--tt-brand-primary-faded);
 	}
 
@@ -135,7 +135,7 @@
 
 	.current-badge {
 		font-size: 0.75rem;
-		background: var(--tt-brand-primary);
+		background: var(--tt-brand-primary-500);
 		color: white;
 		padding: 2px 8px;
 		border-radius: 12px;
@@ -189,7 +189,7 @@
 		margin-top: 16px;
 		width: 100%;
 		padding: 12px;
-		background: var(--tt-brand-primary);
+		background: var(--tt-brand-primary-500);
 		color: white;
 		border: none;
 		border-radius: 8px;

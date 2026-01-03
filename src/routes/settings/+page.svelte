@@ -941,7 +941,7 @@
 						/>
 					</div>
 					<div class="color-preview">
-						<div class="color-swatch primary" style="background: var(--tt-brand-primary);">
+						<div class="color-swatch primary" style="background: var(--tt-brand-primary-500);">
 							<span>Primary<br />{COLOR_SCHEMES[$colorScheme].primary}</span>
 						</div>
 						<div class="color-swatch secondary" style="background: var(--tt-brand-accent);">
@@ -1209,7 +1209,7 @@
 	}
 
 	.section-toggle:hover h2 {
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.toggle-icon {
@@ -1458,11 +1458,11 @@
 
 	.plan-text {
 		font-weight: 600;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.plan-text.pro {
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	/* Development section styles */

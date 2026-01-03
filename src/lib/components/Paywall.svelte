@@ -151,7 +151,7 @@
 	.paywall-icon {
 		font-size: 3rem;
 		margin-bottom: 1rem;
-		color: var(--tt-brand-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.paywall-title {
