@@ -25,7 +25,7 @@
 		"check:pwa": "node scripts/build/check-pwa.js",
 		"verify": "powershell -ExecutionPolicy Bypass -File scripts/build/verify-code.ps1",
 		"wb": "tsx scripts/dev/devBrowser.ts",
-		"ai:benchmark": "echo 'See DevFramework/FrameworkHealth/FrameworkBenchmarks.md for GT-01 to GT-10'",
+		"ai:benchmark": "echo 'See DevFramework/FrameworkHealthBenchmarks/FrameworkBenchmarks.md for GT-01 to GT-10'",
 		"ai:log-event": "node scripts/CascadeAgentTools/telemetry.cjs log-event",
 		"ai:start-command": "node scripts/CascadeAgentTools/telemetry.cjs start-command",
 		"ai:end-command": "node scripts/CascadeAgentTools/telemetry.cjs end-command",

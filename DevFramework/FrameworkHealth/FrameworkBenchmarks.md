@@ -19,7 +19,7 @@ A fixed set of 10 representative tasks used to measure framework effectiveness o
 
 ## Results Format
 
-Store results in `DevFramework/FrameworkHealth/FrameworkBenchmarkRunHistory/<YYYY-MM-DD>.md`
+Store results in `DevFramework/FrameworkHealthBenchmarks/FrameworkBenchmarkRunHistory/<YYYY-MM-DD>.md`
 
 Each run file includes:
 

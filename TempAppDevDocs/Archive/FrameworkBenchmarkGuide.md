@@ -21,7 +21,7 @@ A set of 10 representative tasks (GT-01 to GT-10) that measure how well the AI a
 
 1. Start a fresh chat session
 2. Request: "Run framework benchmark GT-XX"
-3. Agent executes task per `DevFramework/FrameworkHealth/FrameworkBenchmarks.md`
+3. Agent executes task per `DevFramework/FrameworkHealthBenchmarks/FrameworkBenchmarks.md`
 4. Record results in `FrameworkBenchmarkRunHistory/<YYYY-MM-DD>.md`
 
 ## Interpreting Results
@@ -34,5 +34,5 @@ A set of 10 representative tasks (GT-01 to GT-10) that measure how well the AI a
 
 ## Location
 
-- Task definitions: `DevFramework/FrameworkHealth/FrameworkBenchmarks.md`
-- Run history: `DevFramework/FrameworkHealth/FrameworkBenchmarkRunHistory/`
+- Task definitions: `DevFramework/FrameworkHealthBenchmarks/FrameworkBenchmarks.md`
+- Run history: `DevFramework/FrameworkHealthBenchmarks/FrameworkBenchmarkRunHistory/`

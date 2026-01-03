@@ -23,7 +23,7 @@ All names must be **self-explanatory without opening the item**.
 1. **Descriptive over short** — `FrameworkSelfImprovementLogs/` not `Logs/`
 2. **Max 5 words** — `JustInTimeAgentRules` ✓, `RulesForAgentsThatAreLoadedJustInTime` ✗
 3. **Specific over generic** — `DeveloperGuidesAndStandards/` not `Guidelines/`
-4. **No abbreviations** — `FrameworkHealth/` not `FH/`
+4. **No abbreviations** — `FrameworkHealthBenchmarks/` not `FHB/`
 5. **Name explains content** — like function naming in code
 
 ---
