@@ -1,16 +1,19 @@
 /**
  * Color Scheme Store
  * 
- * Manages the app's color scheme with 3 options:
- * 1. Current (Styleguide labeled) - #2526a9 / #37bdf6
- * 2. Icon-based (Originally requested) - #374CA7 / #37BDF6
- * 3. Displayed (What actually shows) - #2330A3 / #66BDF1
+ * Manages the app's color scheme using generic identifiers (scheme-1, scheme-2, etc.)
+ * This allows UI display names/labels to change independently without breaking the system.
+ * 
+ * Current schemes:
+ * - scheme-1: Original (#374CA7) - #374CA7 / #37BDF6
+ * - scheme-2: Mittel (#2330A3) - #2330A3 / #66BDF1
+ * - scheme-3: Kräftig (#2526a9) - #2526a9 / #37bdf6
  */
 
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-export type ColorSchemeName = 'current' | 'icon' | 'displayed';
+export type ColorSchemeName = 'scheme-1' | 'scheme-2' | 'scheme-3';
 
 export interface ColorScheme {
 	name: ColorSchemeName;
@@ -101,15 +104,12 @@ function generateScheme(
 	};
 }
 
-// Define the 3 color schemes
-// Based on user's table:
-// - Style Guide displayed (angezeigt): Primary #2330A3, Secondary #66BDF1
-// - Kräftig (#2526a9): Primary #2526a9, Secondary #37bdf6
-// - Icon (Original): Primary #374CA7, Secondary #37BDF6
+// Define the 3 color schemes with generic identifiers
+// Labels can be changed in UI without breaking the system
 export const COLOR_SCHEMES: Record<ColorSchemeName, ColorScheme> = {
-	current: generateScheme('current', 'Mittel (#2330A3)', '#2330A3', '#66BDF1'),
-	icon: generateScheme('icon', 'Original (#374CA7)', '#374CA7', '#37BDF6'),
-	displayed: generateScheme('displayed', 'Kräftig (#2526a9)', '#2526a9', '#37bdf6')
+	'scheme-1': generateScheme('scheme-1', 'Original (#374CA7)', '#374CA7', '#37BDF6'),
+	'scheme-2': generateScheme('scheme-2', 'Mittel (#2330A3)', '#2330A3', '#66BDF1'),
+	'scheme-3': generateScheme('scheme-3', 'Kräftig (#2526a9)', '#2526a9', '#37bdf6')
 };
 
 // Get initial scheme from localStorage or default to 'current'
@@ -120,7 +120,7 @@ function getInitialScheme(): ColorSchemeName {
 			return stored as ColorSchemeName;
 		}
 	}
-	return 'current';
+	return 'scheme-2'; // Default to Mittel
 }
 
 // Create the store
@@ -144,10 +144,12 @@ function createColorSchemeStore() {
 }
 
 // Apply color scheme via data attribute on <html>
-// This triggers CSS rules in tt-design-system-v2.css
+// This triggers CSS rules in tt-design-system.css
+// Note: scheme-1 (Original) maps to scheme-4 CSS (extended numbered scale)
 function applyScheme(schemeName: ColorSchemeName) {
 	if (!browser) return;
-	document.documentElement.setAttribute('data-color-scheme', schemeName);
+	const cssScheme = schemeName === 'scheme-1' ? 'scheme-4' : schemeName;
+	document.documentElement.setAttribute('data-color-scheme', cssScheme);
 }
 
 export const colorScheme = createColorSchemeStore();

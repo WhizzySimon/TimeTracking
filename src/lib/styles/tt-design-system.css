@@ -33,33 +33,19 @@
 
 /* ---- COLOR SCHEMES ----
    Switchable via data-color-scheme attribute on <html>
-   - "current" = Mittel (#2330A3) (default): #2330A3 / #66BDF1
-   - "icon" = Original (#374CA7): #374CA7 / #37BDF6
-   - "displayed" = Kräftig (#2526a9): #2526a9 / #37bdf6
+   Generic identifiers (scheme-1, scheme-2, etc.) allow UI display names to change independently.
+   
+   Current mapping:
+   - scheme-1 = DEPRECATED (kept for reference, not used in app)
+   - scheme-2 = Mittel (#2330A3): #2330A3 / #66BDF1
+   - scheme-3 = Kräftig (#2526a9): #2526a9 / #37bdf6
+   - scheme-4 = Original (#374CA7): Extended numbered scale with #374CA7 base
+   
+   Note: UI "Original" option maps to scheme-4 CSS (see colorScheme.ts)
 */
 
-/* Scheme: Mittel (#2330A3) (current) - #2330A3 / #66BDF1 */
-html[data-color-scheme="current"] {
-	--tt-brand-primary-50: #e7e9f6;
-	--tt-brand-primary-100: #c3c7e8;
-	--tt-brand-primary-200: #9ba0d8;
-	--tt-brand-primary-300: #6f76c6;
-	--tt-brand-primary: #2330A3;
-	--tt-brand-primary-darker: #1c2682;
-	--tt-brand-primary-darkest: #151d62;
-	--tt-brand-primary-faded: rgba(35, 48, 163, 0.1);
-	--tt-brand-primary-pressed: #4f5ab5;
-	--tt-brand-accent-50: #f0f9fe;
-	--tt-brand-accent-100: #d1edfb;
-	--tt-brand-accent-200: #a8ddf6;
-	--tt-brand-accent: #66BDF1;
-	--tt-brand-accent-darker: #56a1cd;
-	--tt-brand-accent-darkest: #427b9d;
-	--tt-brand-accent-faded: rgba(102, 189, 241, 0.1);
-}
-
-/* Scheme: Original (#374CA7) - #374CA7 / #37BDF6 */
-html[data-color-scheme="icon"] {
+/* Scheme 1: DEPRECATED - Kept for reference only */
+html[data-color-scheme="scheme-1"] {
 	--tt-brand-primary-50: #eaecf6;
 	--tt-brand-primary-100: #c9cee9;
 	--tt-brand-primary-200: #a4adda;
@@ -78,8 +64,28 @@ html[data-color-scheme="icon"] {
 	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);
 }
 
-/* Scheme: Kräftig (#2526a9) - #2526a9 / #37bdf6 */
-html[data-color-scheme="displayed"] {
+/* Scheme 2: Mittel (#2330A3) - #2330A3 / #66BDF1 */
+html[data-color-scheme="scheme-2"] {
+	--tt-brand-primary-50: #e7e9f6;
+	--tt-brand-primary-100: #c3c7e8;
+	--tt-brand-primary-200: #9ba0d8;
+	--tt-brand-primary-300: #6f76c6;
+	--tt-brand-primary: #2330A3;
+	--tt-brand-primary-darker: #1c2682;
+	--tt-brand-primary-darkest: #151d62;
+	--tt-brand-primary-faded: rgba(35, 48, 163, 0.1);
+	--tt-brand-primary-pressed: #4f5ab5;
+	--tt-brand-accent-50: #f0f9fe;
+	--tt-brand-accent-100: #d1edfb;
+	--tt-brand-accent-200: #a8ddf6;
+	--tt-brand-accent: #66BDF1;
+	--tt-brand-accent-darker: #56a1cd;
+	--tt-brand-accent-darkest: #427b9d;
+	--tt-brand-accent-faded: rgba(102, 189, 241, 0.1);
+}
+
+/* Scheme 3: Kräftig (#2526a9) - #2526a9 / #37bdf6 */
+html[data-color-scheme="scheme-3"] {
 	--tt-brand-primary-50: #e8e8f8;
 	--tt-brand-primary-100: #c5c5ed;
 	--tt-brand-primary-200: #9e9fe0;
@@ -93,6 +99,35 @@ html[data-color-scheme="displayed"] {
 	--tt-brand-accent-100: #c5ecfd;
 	--tt-brand-accent-200: #9bdefb;
 	--tt-brand-accent: #37bdf6;
+	--tt-brand-accent-darker: #2fa1d1;
+	--tt-brand-accent-darkest: #247ba0;
+	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);
+}
+
+/* Scheme 4: Original (#374CA7) - Extended numbered scale
+   Used when "Original" is selected in UI (mapped from scheme-1 in colorScheme.ts)
+   Smooth progression from page background to brand color
+   Numbers represent lightness levels (25=lightest → 500=base → 700=darkest)
+   Base color: #374CA7
+*/
+html[data-color-scheme="scheme-4"] {
+	/* Brand Primary - Full Scale */
+	--tt-brand-primary-25: #e8f0f8;   /* Page background - lightest */
+	--tt-brand-primary-50: #dce2f2;   /* Very light tint - between 25 and 100, less red */
+	--tt-brand-primary-100: #c9cee9;  /* Light tint (from scheme-1) */
+	--tt-brand-primary-200: #a4adda;  /* Medium-light tint (from scheme-1) */
+	--tt-brand-primary-300: #7b88c9;  /* Medium tint (from scheme-1) */
+	--tt-brand-primary-400: #5f6fb9;  /* Interactive/pressed state (from scheme-1) */
+	--tt-brand-primary-500: #374CA7;  /* Base brand color */
+	--tt-brand-primary-600: #2c3d86;  /* Darker (from scheme-1) */
+	--tt-brand-primary-700: #212e64;  /* Darkest (from scheme-1) */
+	--tt-brand-primary-faded: rgba(55, 76, 167, 0.1);
+	
+	/* Brand Accent - from scheme-1 */
+	--tt-brand-accent-50: #eaf8fe;
+	--tt-brand-accent-100: #c5ecfd;
+	--tt-brand-accent-200: #9bdefb;
+	--tt-brand-accent: #37BDF6;
 	--tt-brand-accent-darker: #2fa1d1;
 	--tt-brand-accent-darkest: #247ba0;
 	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);

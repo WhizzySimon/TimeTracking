@@ -1046,6 +1046,87 @@
 			</div>
 		</div>
 	</section>
+
+	<!-- Experimental: Scheme-4 Extended Color Scale -->
+	<section class="section experimental-section">
+		<h2>🧪 Experimental: Scheme-4 Extended Color Scale</h2>
+		<p class="tt-text-muted">
+			<strong>Note:</strong> This is scheme-4 (data-color-scheme="scheme-4") — an experimental numbered scale
+			that includes the page background color as part of the brand primary progression.
+		</p>
+		<p class="tt-text-muted">
+			To view this scheme, change the color scheme in Settings → Entwicklung to the experimental option.
+		</p>
+
+		<h3>Brand Primary — Extended Numbered Scale (25-700)</h3>
+		<p class="tt-text-muted">
+			Smooth progression from page background (#e8f0f8) to darkest (#212e64).
+			Numbers represent lightness levels in the Material Design convention.
+			Base color: #374CA7 (from scheme-1).
+		</p>
+		<div class="color-scale">
+			<div class="color-scale-item" style="background: #e8f0f8;">
+				<span style="color: var(--tt-text-primary);">25</span>
+				<code style="color: var(--tt-text-muted);">#e8f0f8</code>
+			</div>
+			<div class="color-scale-item" style="background: #dce2f2;">
+				<span style="color: var(--tt-text-primary);">50</span>
+				<code style="color: var(--tt-text-muted);">#dce2f2</code>
+			</div>
+			<div class="color-scale-item" style="background: #c9cee9;">
+				<span style="color: var(--tt-text-primary);">100</span>
+				<code style="color: var(--tt-text-muted);">#c9cee9</code>
+			</div>
+			<div class="color-scale-item" style="background: #a4adda;">
+				<span style="color: var(--tt-text-primary);">200</span>
+				<code style="color: var(--tt-text-muted);">#a4adda</code>
+			</div>
+			<div class="color-scale-item" style="background: #7b88c9;">
+				<span>300</span>
+				<code>#7b88c9</code>
+			</div>
+			<div class="color-scale-item" style="background: #5f6fb9;">
+				<span>400</span>
+				<code>#5f6fb9</code>
+			</div>
+			<div class="color-scale-item" style="background: #374CA7;">
+				<span>500</span>
+				<code>#374CA7</code>
+			</div>
+			<div class="color-scale-item" style="background: #2c3d86;">
+				<span>600</span>
+				<code>#2c3d86</code>
+			</div>
+			<div class="color-scale-item" style="background: #212e64;">
+				<span>700</span>
+				<code>#212e64</code>
+			</div>
+		</div>
+
+		<h3>Mapping to Current Scheme</h3>
+		<div class="tt-card" style="font-size: 0.85rem;">
+			<table class="usage-table">
+				<thead>
+					<tr>
+						<th>Scheme-4 Number</th>
+						<th>Current Name</th>
+						<th>Usage</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td><strong>25</strong></td><td>Page</td><td>App background (lightest)</td></tr>
+					<tr><td><strong>50</strong></td><td>—</td><td>New: Very light tint</td></tr>
+					<tr><td><strong>100</strong></td><td>—</td><td>New: Light tint</td></tr>
+					<tr><td><strong>200</strong></td><td>—</td><td>New: Medium-light tint</td></tr>
+					<tr><td><strong>300</strong></td><td>300</td><td>Medium tint (kept from original)</td></tr>
+					<tr><td><strong>400</strong></td><td>Pressed</td><td>Interactive/pressed state</td></tr>
+					<tr><td><strong>500</strong></td><td>Base</td><td>Brand color (reference point)</td></tr>
+					<tr><td><strong>600</strong></td><td>Darker</td><td>Darkened version</td></tr>
+					<tr><td><strong>700</strong></td><td>Darkest</td><td>Most darkened version</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
 </div>
 
 <style>

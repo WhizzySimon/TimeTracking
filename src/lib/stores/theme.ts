@@ -5,7 +5,7 @@
  * - Category sort order preference
  * - Persistence in localStorage (offline-first)
  *
- * NOTE: Color theming is currently disabled while migrating to tt-design-system-v2.
+ * NOTE: Color theming is currently disabled while migrating to tt-design-system.
  * Future theming will be handled via CSS variables in the new design system.
  *
  * Usage:
