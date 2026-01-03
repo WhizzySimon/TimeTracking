@@ -36,26 +36,31 @@
    Generic identifiers (scheme-1, scheme-2, etc.) allow UI display names to change independently.
    
    Current mapping:
-   - scheme-1 = DEPRECATED (kept for reference, not used in app)
+   - scheme-1 = Original (#374CA7): Extended numbered scale with #374CA7 base
    - scheme-2 = Mittel (#2330A3): #2330A3 / #66BDF1
    - scheme-3 = Kräftig (#2526a9): #2526a9 / #37bdf6
-   - scheme-4 = Original (#374CA7): Extended numbered scale with #374CA7 base
-   
-   Note: UI "Original" option maps to scheme-4 CSS (see colorScheme.ts)
 */
 
-/* Scheme 1: DEPRECATED - Kept for reference only */
+/* Scheme 4: Original (#374CA7) - Extended numbered scale
+   Used when "Original" is selected in UI (mapped from scheme-1 in colorScheme.ts)
+   Smooth progression from page background to brand color
+   Numbers represent lightness levels (25=lightest → 500=base → 700=darkest)
+   Base color: #374CA7
+*/
 html[data-color-scheme="scheme-1"] {
-	--tt-brand-primary-50: #eaecf6;
-	--tt-brand-primary-100: #c9cee9;
-	--tt-brand-primary-200: #a4adda;
-	--tt-brand-primary-300: #7b88c9;
-	--tt-brand-primary-400: #5f6fb9;
-	--tt-brand-primary-500: #374CA7;
-	--tt-brand-primary-600: #2c3d86;
-	--tt-brand-primary-700: #212e64;
+	/* Brand Primary - Full Scale */
+	--tt-brand-primary-25: #e8f0f8;   /* Page background - lightest */
+	--tt-brand-primary-50: #dce2f2;   /* Very light tint - between 25 and 100, less red */
+	--tt-brand-primary-100: #c9cee9;  /* Light tint */
+	--tt-brand-primary-200: #a4adda;  /* Medium-light tint */
+	--tt-brand-primary-300: #7b88c9;  /* Medium tint */
+	--tt-brand-primary-400: #5f6fb9;  /* Interactive/pressed state */
+	--tt-brand-primary-500: #374CA7;  /* Base brand color */
+	--tt-brand-primary-600: #2c3d86;  /* Darker */
+	--tt-brand-primary-700: #212e64;  /* Darkest */
 	--tt-brand-primary-800: rgba(55, 76, 167, 0.1);
 	
+	/* Brand Accent */
 	--tt-brand-accent-50: #eaf8fe;
 	--tt-brand-accent-100: #c5ecfd;
 	--tt-brand-accent-200: #9bdefb;
@@ -102,35 +107,6 @@ html[data-color-scheme="scheme-3"] {
 	--tt-brand-accent-100: #c5ecfd;
 	--tt-brand-accent-200: #9bdefb;
 	--tt-brand-accent-300: #37bdf6;
-	--tt-brand-accent-400: #2fa1d1;
-	--tt-brand-accent-500: #247ba0;
-	--tt-brand-accent-600: rgba(55, 189, 246, 0.1);
-}
-
-/* Scheme 4: Original (#374CA7) - Extended numbered scale
-   Used when "Original" is selected in UI (mapped from scheme-1 in colorScheme.ts)
-   Smooth progression from page background to brand color
-   Numbers represent lightness levels (25=lightest → 500=base → 700=darkest)
-   Base color: #374CA7
-*/
-html[data-color-scheme="scheme-4"] {
-	/* Brand Primary - Full Scale */
-	--tt-brand-primary-25: #e8f0f8;   /* Page background - lightest */
-	--tt-brand-primary-50: #dce2f2;   /* Very light tint - between 25 and 100, less red */
-	--tt-brand-primary-100: #c9cee9;  /* Light tint */
-	--tt-brand-primary-200: #a4adda;  /* Medium-light tint */
-	--tt-brand-primary-300: #7b88c9;  /* Medium tint */
-	--tt-brand-primary-400: #5f6fb9;  /* Interactive/pressed state */
-	--tt-brand-primary-500: #374CA7;  /* Base brand color */
-	--tt-brand-primary-600: #2c3d86;  /* Darker */
-	--tt-brand-primary-700: #212e64;  /* Darkest */
-	--tt-brand-primary-800: rgba(55, 76, 167, 0.1);
-	
-	/* Brand Accent */
-	--tt-brand-accent-50: #eaf8fe;
-	--tt-brand-accent-100: #c5ecfd;
-	--tt-brand-accent-200: #9bdefb;
-	--tt-brand-accent-300: #37BDF6;
 	--tt-brand-accent-400: #2fa1d1;
 	--tt-brand-accent-500: #247ba0;
 	--tt-brand-accent-600: rgba(55, 189, 246, 0.1);

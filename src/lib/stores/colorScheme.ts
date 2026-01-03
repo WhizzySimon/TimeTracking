@@ -145,11 +145,9 @@ function createColorSchemeStore() {
 
 // Apply color scheme via data attribute on <html>
 // This triggers CSS rules in tt-design-system.css
-// Note: scheme-1 (Original) maps to scheme-4 CSS (extended numbered scale)
 function applyScheme(schemeName: ColorSchemeName) {
 	if (!browser) return;
-	const cssScheme = schemeName === 'scheme-1' ? 'scheme-4' : schemeName;
-	document.documentElement.setAttribute('data-color-scheme', cssScheme);
+	document.documentElement.setAttribute('data-color-scheme', schemeName);
 }
 
 export const colorScheme = createColorSchemeStore();

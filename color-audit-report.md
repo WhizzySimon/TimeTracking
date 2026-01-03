@@ -21,7 +21,6 @@ Identify all hardcoded color values (hex, rgb, rgba, hsl) that are not using CSS
 
 #### `tt-design-system.css` (97 hex colors)
 - **Status**: ACTIVE - This is your main design system
-- Contains scheme definitions (scheme-1 through scheme-4)
 - All colors here are intentional CSS variable definitions
 
 ### 2. Component Files with Hardcoded Colors

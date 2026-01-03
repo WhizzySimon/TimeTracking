@@ -264,19 +264,6 @@
 		font-size: 0.95rem;
 	}
 
-	.demo-stack {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.demo-inline {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-		align-items: center;
-	}
-
 	.explanation-card {
 		font-size: 0.9rem;
 	}
@@ -302,31 +289,6 @@
 
 	.explanation-card li {
 		margin: 0.25rem 0;
-	}
-
-	.usage-table {
-		width: 100%;
-		border-collapse: collapse;
-		font-size: 0.85rem;
-	}
-
-	.usage-table th,
-	.usage-table td {
-		padding: 0.5rem 0.75rem;
-		text-align: left;
-		border-bottom: 1px solid var(--tt-border-subtle);
-	}
-
-	.usage-table th {
-		background: var(--tt-background-card-pressed);
-		font-weight: 600;
-	}
-
-	.usage-table code {
-		font-size: 0.75rem;
-		background: var(--tt-brand-primary-800);
-		padding: 2px 4px;
-		border-radius: 3px;
 	}
 
 	.color-grid {
