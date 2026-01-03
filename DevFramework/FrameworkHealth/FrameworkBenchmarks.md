@@ -435,3 +435,76 @@ npm run verify
 | Regression      | Tasks that passed before but fail now  |
 
 **Healthy framework:** ≥80% pass rate, ≥70% time efficiency, 0 regressions
+
+---
+
+## Key Findings (2026-01-03 Evaluation)
+
+### What This Benchmark System Is For
+
+This system tests **agent capability**, not code correctness. Use it when:
+
+| Trigger                          | Why                                                    |
+| -------------------------------- | ------------------------------------------------------ |
+| Switching AI models              | Compare if new model handles tasks as well as previous |
+| After major rule/mindset changes | Verify agent still behaves correctly with new rules    |
+| Porting framework to new project | Verify framework works in different codebase           |
+| Onboarding someone               | Show what agent can/can't do                           |
+
+### What It's NOT For
+
+- **Detecting code breaks** → Use `npm run verify`, tests
+- **Catching renamed path issues** → Use grep for old paths
+- **Routine framework changes** → Renames, file moves, doc additions don't need benchmarks
+
+### Current Limitations (GT-01 to GT-10)
+
+| Issue                  | Detail                                                             |
+| ---------------------- | ------------------------------------------------------------------ |
+| Easy tasks too trivial | GT-01 to GT-03 completed in <2min vs 10-15min expected             |
+| Tasks too generic      | Don't test framework-specific behaviors                            |
+| Don't test mindset     | No tasks verify pattern recognition, sense-check, employer mindset |
+
+### When to Run
+
+- **Don't run** after routine doc/structure changes
+- **Do run** when switching models, changing core rules, or porting framework
+
+---
+
+## Future Enhancement Ideas
+
+When the time comes to enhance these benchmarks, consider adding:
+
+### Model Comparison Tasks (GT-M series)
+
+Tests that highlight differences between AI models:
+
+- **GT-M1: Ambiguous requirement** — Does model ask clarifying questions or assume?
+- **GT-M2: Conflicting rules** — How does model resolve contradictory instructions?
+- **GT-M3: Complex multi-step** — Does model plan first or dive in?
+- **GT-M4: Edge case handling** — Does model consider what could go wrong?
+
+### Mindset Verification Tasks (GT-V series)
+
+Tests that verify mindset rules are working:
+
+- **GT-V1: Obvious smell** — Give task with something wrong; does agent sense-check?
+- **GT-V2: Dead code nearby** — Does agent notice and flag unused code?
+- **GT-V3: Rename request** — Does agent check if thing is used before discussing names?
+- **GT-V4: Pattern opportunity** — Is there a pattern agent should notice and mention?
+
+### Framework Portability Tasks (GT-P series)
+
+Tests that verify framework works in new project:
+
+- **GT-P1: JIT rule loading** — Does agent correctly load rules from trigger table?
+- **GT-P2: Pre-commit workflow** — Does workflow run without path errors?
+- **GT-P3: Audit workflow** — Does /audit produce valid evidence bundle?
+- **GT-P4: Mindset at boundaries** — Is mindset loaded at session start AND pre-commit?
+
+### Implementation Notes
+
+- Don't implement these until needed (avoid premature infrastructure)
+- When implementing, update this file with full task definitions
+- Consider automating GT-P series as actual tests
