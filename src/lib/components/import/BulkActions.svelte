@@ -119,7 +119,7 @@
 	.link-btn {
 		background: none;
 		border: none;
-		color: var(--accent-color);
+		color: var(--tt-brand-primary-500);
 		font-size: 0.875rem;
 		cursor: pointer;
 		padding: 0;

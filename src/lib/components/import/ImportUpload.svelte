@@ -155,7 +155,7 @@
 	}
 
 	.btn-file-primary {
-		background: var(--accent, var(--accent-color, #3b82f6));
+		background: var(--tt-brand-primary-500, var(--tt-brand-primary-500, #3b82f6));
 		color: var(--btn-primary-text, white);
 		padding: 0.75rem 1.5rem;
 		border-radius: 8px;
@@ -230,7 +230,7 @@
 
 	.btn-remove:hover {
 		background: var(--bg-tertiary);
-		color: var(--error-color, #ef4444);
+		color: var(--tt-status-danger-500, #ef4444);
 	}
 
 	.start-section {
@@ -239,7 +239,7 @@
 	}
 
 	.btn-start {
-		background: var(--accent, var(--accent-color, #3b82f6));
+		background: var(--tt-brand-primary-500, var(--tt-brand-primary-500, #3b82f6));
 		color: var(--btn-primary-text, white);
 		border: none;
 		padding: 0.75rem 1.5rem;

@@ -265,8 +265,8 @@
 	}
 
 	.error-message {
-		background: var(--error-bg, #fef2f2);
-		color: var(--error-color, #dc2626);
+		background: var(--tt-status-danger-50, #fef2f2);
+		color: var(--tt-status-danger-500, #dc2626);
 		padding: 0.75rem 1rem;
 		border-radius: 8px;
 		margin-bottom: 1rem;
@@ -274,7 +274,7 @@
 	}
 
 	.btn-primary {
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		color: white;
 		border: none;
 		padding: 0.75rem 1.5rem;
@@ -300,7 +300,7 @@
 
 	.report-icon {
 		font-size: 4rem;
-		color: var(--success-color, #22c55e);
+		color: var(--tt-status-success-500, #22c55e);
 		margin-bottom: 1rem;
 	}
 

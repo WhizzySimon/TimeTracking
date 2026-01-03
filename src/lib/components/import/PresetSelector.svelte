@@ -183,7 +183,7 @@
 
 	.btn-add {
 		padding: 0.25rem 0.5rem;
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		color: white;
 		border: none;
 		border-radius: 4px;
@@ -246,7 +246,7 @@
 	}
 
 	.delete-btn:hover {
-		color: var(--error-color, #ef4444);
+		color: var(--tt-status-danger-500, #ef4444);
 	}
 
 	.save-dialog-overlay {
@@ -290,11 +290,11 @@
 	}
 
 	.save-dialog input.error {
-		border-color: var(--error-color, #ef4444);
+		border-color: var(--tt-status-danger-500, #ef4444);
 	}
 
 	.error-text {
-		color: var(--error-color, #ef4444);
+		color: var(--tt-status-danger-500, #ef4444);
 		font-size: 0.75rem;
 		margin: 0.25rem 0 0;
 	}
@@ -321,7 +321,7 @@
 	}
 
 	.btn-save {
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		color: white;
 	}
 </style>

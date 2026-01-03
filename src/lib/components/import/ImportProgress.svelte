@@ -82,7 +82,7 @@
 
 	.progress-fill {
 		height: 100%;
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		border-radius: 6px;
 		transition: width 0.3s ease;
 	}

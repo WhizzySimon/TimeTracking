@@ -146,8 +146,8 @@
 		display: flex;
 		gap: 0.75rem;
 		padding: 1rem;
-		background: var(--warning-color-light, rgba(245, 158, 11, 0.1));
-		border: 1px solid var(--warning-color, #f59e0b);
+		background: var(--tt-status-warning-500-light, rgba(245, 158, 11, 0.1));
+		border: 1px solid var(--tt-status-warning-500, #f59e0b);
 		border-radius: 8px;
 		margin-bottom: 1.5rem;
 	}
@@ -158,7 +158,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--warning-color, #f59e0b);
+		background: var(--tt-status-warning-500, #f59e0b);
 		color: white;
 		border-radius: 50%;
 		font-weight: 600;
@@ -202,7 +202,7 @@
 	}
 
 	.btn-confirm {
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		color: white;
 	}
 

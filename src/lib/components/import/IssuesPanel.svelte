@@ -123,12 +123,12 @@
 	}
 
 	.issue-item.active .issue-btn {
-		border-color: var(--accent-color);
-		background: var(--accent-color-light, rgba(59, 130, 246, 0.1));
+		border-color: var(--tt-brand-primary-500);
+		background: var(--tt-brand-primary-500-light, rgba(59, 130, 246, 0.1));
 	}
 
 	.issue-item.error .issue-btn {
-		border-left: 3px solid var(--error-color, #ef4444);
+		border-left: 3px solid var(--tt-status-danger-500, #ef4444);
 	}
 
 	.issue-icon {
@@ -148,7 +148,7 @@
 	}
 
 	.issue-item.error .issue-count {
-		background: var(--error-color, #ef4444);
+		background: var(--tt-status-danger-500, #ef4444);
 		color: white;
 	}
 

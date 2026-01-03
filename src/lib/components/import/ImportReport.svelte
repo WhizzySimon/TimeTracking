@@ -69,7 +69,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--success-color, #22c55e);
+		background: var(--tt-status-success-500, #22c55e);
 		color: white;
 		border-radius: 50%;
 		font-size: 2rem;
@@ -105,15 +105,15 @@
 	}
 
 	.stat-item.success dd {
-		color: var(--success-color, #22c55e);
+		color: var(--tt-status-success-500, #22c55e);
 	}
 
 	.stat-item.skipped dd {
-		color: var(--warning-color, #f59e0b);
+		color: var(--tt-status-warning-500, #f59e0b);
 	}
 
 	.stat-item.error dd {
-		color: var(--error-color, #ef4444);
+		color: var(--tt-status-danger-500, #ef4444);
 	}
 
 	.report-actions {
@@ -138,7 +138,7 @@
 	}
 
 	.btn-primary {
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		color: white;
 	}
 </style>

@@ -226,7 +226,7 @@
 	}
 
 	.issue-item.error {
-		color: var(--error-color, #ef4444);
+		color: var(--tt-status-danger-500, #ef4444);
 	}
 
 	.issue-icon {
@@ -242,7 +242,7 @@
 	}
 
 	.issue-item.error .issue-icon {
-		background: var(--error-color, #ef4444);
+		background: var(--tt-status-danger-500, #ef4444);
 		color: white;
 	}
 
@@ -277,7 +277,7 @@
 	}
 
 	.review-table tbody tr.selected {
-		background: var(--accent-color-light, rgba(59, 130, 246, 0.1));
+		background: var(--tt-brand-primary-500-light, rgba(59, 130, 246, 0.1));
 	}
 
 	.review-table tbody tr.blocked {
@@ -328,17 +328,17 @@
 	}
 
 	.status-ok {
-		background: var(--success-color, #22c55e);
+		background: var(--tt-status-success-500, #22c55e);
 		color: white;
 	}
 
 	.status-warning {
-		background: var(--warning-color, #f59e0b);
+		background: var(--tt-status-warning-500, #f59e0b);
 		color: white;
 	}
 
 	.status-error {
-		background: var(--error-color, #ef4444);
+		background: var(--tt-status-danger-500, #ef4444);
 		color: white;
 	}
 
@@ -375,7 +375,7 @@
 	}
 
 	.btn-commit {
-		background: var(--accent, var(--accent-color, #3b82f6));
+		background: var(--tt-brand-primary-500, var(--tt-brand-primary-500, #3b82f6));
 		color: var(--btn-primary-text, white);
 		font-weight: 500;
 	}

@@ -197,7 +197,7 @@
 	}
 
 	tr.selected {
-		background: var(--accent-color-light, rgba(59, 130, 246, 0.1));
+		background: var(--tt-brand-primary-500-light, rgba(59, 130, 246, 0.1));
 	}
 
 	tr.blocked {
@@ -206,7 +206,7 @@
 	}
 
 	tr.edited {
-		border-left: 3px solid var(--accent-color);
+		border-left: 3px solid var(--tt-brand-primary-500);
 	}
 
 	td {
@@ -252,7 +252,7 @@
 	input {
 		width: 100%;
 		padding: 0.25rem;
-		border: 1px solid var(--accent-color);
+		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: 4px;
 		background: var(--bg-primary);
 		color: var(--text-primary);
@@ -277,17 +277,17 @@
 	}
 
 	.status-ok {
-		background: var(--success-color, #22c55e);
+		background: var(--tt-status-success-500, #22c55e);
 		color: white;
 	}
 
 	.status-warning {
-		background: var(--warning-color, #f59e0b);
+		background: var(--tt-status-warning-500, #f59e0b);
 		color: white;
 	}
 
 	.status-error {
-		background: var(--error-color, #ef4444);
+		background: var(--tt-status-danger-500, #ef4444);
 		color: white;
 	}
 </style>

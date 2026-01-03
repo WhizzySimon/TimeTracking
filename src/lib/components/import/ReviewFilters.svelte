@@ -101,7 +101,7 @@
 		-webkit-appearance: none;
 		width: 16px;
 		height: 16px;
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		border-radius: 50%;
 		cursor: pointer;
 	}
@@ -109,7 +109,7 @@
 	.confidence-slider input[type='range']::-moz-range-thumb {
 		width: 16px;
 		height: 16px;
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		border-radius: 50%;
 		cursor: pointer;
 		border: none;
