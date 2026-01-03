@@ -18,6 +18,7 @@
 	import { formatDate, parseDate } from '$lib/utils/date';
 	import type { WorkTimeModel, Employer } from '$lib/types';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		/** Existing model to edit (null for new) */
@@ -89,6 +90,11 @@
 	let error = $state('');
 	let saving = $state(false);
 	let employers = $state<Employer[]>([]);
+
+	// Convert employers to dropdown options
+	let employerOptions = $derived(
+		employers.map((e) => ({ value: e.id, label: e.name }))
+	);
 
 	// Employer selection - initialize from model
 	function getInitialEmployerId() {
@@ -269,18 +275,13 @@
 		<!-- Employer -->
 		<div class="field">
 			<label for="model-employer">Arbeitgeber:</label>
-			<select
-				id="model-employer"
-				data-testid="model-employer-select"
-				bind:value={selectedEmployerId}
-				class="tt-dropdown"
+			<CustomDropdown
+				options={employerOptions}
+				value={selectedEmployerId}
+				onchange={(id) => (selectedEmployerId = id)}
 				disabled={saving}
-			>
-				<option value="" disabled>Arbeitgeber auswählen...</option>
-				{#each employers as employer (employer.id)}
-					<option value={employer.id}>{employer.name}</option>
-				{/each}
-			</select>
+				placeholder="Arbeitgeber auswählen..."
+			/>
 		</div>
 
 		<!-- Total Summary -->

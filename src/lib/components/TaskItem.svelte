@@ -63,15 +63,17 @@
 		<span class="tt-list-row__time">{timeDisplay}</span>
 		<span class="tt-list-row__separator"></span>
 		<span class="tt-list-row__category">{category?.name ?? 'Unbekannt'}</span>
+	</div>
+	{#if entry.description}
+		<div class="tt-list-row__detail">{entry.description}</div>
+	{/if}
+	<div class="employer-label-container">
 		{#if category?.countsAsWorkTime}
 			<span class="tt-inline-label-employer">{employer?.name ?? 'Unbekannt'}</span>
 		{:else}
 			<span class="tt-inline-label-no-work">Keine Arbeitszeit</span>
 		{/if}
 	</div>
-	{#if entry.description}
-		<div class="tt-list-row__detail">{entry.description}</div>
-	{/if}
 	<div class="tt-list-row__actions">
 		{#if isRunning}
 			<button class="tt-button-primary tt-button-small" onclick={handleEnd} aria-label="Beenden"
@@ -106,5 +108,13 @@
 	.task-item-running {
 		border-color: var(--tt-status-warning) !important;
 		background: var(--tt-status-warning-faded) !important;
+	}
+
+	/* Employer label positioned to the right */
+	.employer-label-container {
+		display: flex;
+		align-items: center;
+		margin-left: auto;
+		margin-right: var(--tt-space-8);
 	}
 </style>

@@ -18,6 +18,7 @@
 	import type { Employer, TimeEntry, Category } from '$lib/types';
 	import { SvelteSet } from 'svelte/reactivity';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 	import { userFullName } from '$lib/stores/user';
 	import {
 		exportStundenzettelExcel,
@@ -49,6 +50,11 @@
 	let employers = $state<Employer[]>([]);
 	let categories = $state<Category[]>([]);
 	let selectedEmployerId = $state<string>('');
+
+	// Convert employers to dropdown options
+	let employerOptions = $derived(
+		employers.map((e) => ({ value: e.id, label: e.name }))
+	);
 	let startDate = $state(getDefaultStartDate());
 	let endDate = $state(getDefaultEndDate());
 	let selectedColumns = new SvelteSet<ColumnId>(
@@ -59,6 +65,7 @@
 	let loading = $state(false);
 	let isExporting = $state(false);
 	let error = $state('');
+	let exportFormat: 'pdf' | 'excel' = $state('pdf');
 
 	function getDefaultStartDate(): string {
 		const today = new Date();
@@ -245,30 +252,33 @@
 		</div>
 
 		<!-- Employer Selection -->
-		<div class="field">
-			<label for="employer-select">Arbeitgeber:</label>
-			{#if employers.length === 0}
+		{#if employers.length === 0}
+			<div class="field">
+				<label for="employer-select">Arbeitgeber:</label>
 				<p class="no-employers">
 					Keine Arbeitgeber vorhanden. Erstelle zuerst einen Arbeitgeber in den Einstellungen.
 				</p>
-			{:else}
-				<select id="employer-select" class="select-input" bind:value={selectedEmployerId}>
-					{#each employers as employer (employer.id)}
-						<option value={employer.id}>{employer.name}</option>
-					{/each}
-				</select>
-			{/if}
-		</div>
+			</div>
+		{:else}
+			<div class="tt-labeled-dropdown">
+				<span class="tt-labeled-dropdown__label">Arbeitgeber</span>
+				<CustomDropdown
+					options={employerOptions}
+					value={selectedEmployerId}
+					onchange={(id) => (selectedEmployerId = id)}
+				/>
+			</div>
+		{/if}
 
 		<!-- Date Range -->
 		<div class="date-range">
 			<div class="field">
 				<label for="start-date">Von:</label>
-				<input type="date" id="start-date" class="date-input" bind:value={startDate} />
+				<input type="date" id="start-date" class="tt-date-input" bind:value={startDate} />
 			</div>
 			<div class="field">
 				<label for="end-date">Bis:</label>
-				<input type="date" id="end-date" class="date-input" bind:value={endDate} />
+				<input type="date" id="end-date" class="tt-date-input" bind:value={endDate} />
 			</div>
 		</div>
 
@@ -277,9 +287,10 @@
 			<span class="field-label">Spalten:</span>
 			<div class="columns-grid">
 				{#each AVAILABLE_COLUMNS as column (column.id)}
-					<label class="column-checkbox">
+					<label class="tt-checkbox-label">
 						<input
 							type="checkbox"
+							class="tt-checkbox"
 							checked={selectedColumns.has(column.id)}
 							onchange={() => toggleColumn(column.id)}
 						/>
@@ -368,24 +379,41 @@
 			<p class="error">{error}</p>
 		{/if}
 
+		<!-- Export Format Selection -->
+		<div class="field">
+			<span class="field-label">Format:</span>
+			<div class="format-options">
+				<label class="format-radio">
+					<input
+						type="radio"
+						name="export-format"
+						value="pdf"
+						bind:group={exportFormat}
+					/>
+					<span>PDF</span>
+				</label>
+				<label class="format-radio">
+					<input
+						type="radio"
+						name="export-format"
+						value="excel"
+						bind:group={exportFormat}
+					/>
+					<span>Excel</span>
+				</label>
+			</div>
+		</div>
+
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={onclose}> Abbrechen </button>
+			<button type="button" class="tt-button-secondary" onclick={onclose}> Abbrechen </button>
 			<button
 				type="button"
-				class="btn-primary"
-				onclick={handlePdfExport}
+				class="tt-button-primary"
+				onclick={() => (exportFormat === 'pdf' ? handlePdfExport() : handleExcelExport())}
 				disabled={employers.length === 0 || loading || isExporting || processedEntries.length === 0}
 			>
-				{isExporting ? 'Exportiere...' : 'PDF exportieren'}
-			</button>
-			<button
-				type="button"
-				class="btn-primary"
-				onclick={handleExcelExport}
-				disabled={employers.length === 0 || loading || isExporting || processedEntries.length === 0}
-			>
-				{isExporting ? 'Exportiere...' : 'Excel exportieren'}
+				{isExporting ? 'Exportiere...' : 'Exportieren'}
 			</button>
 		</div>
 	</div>
@@ -567,49 +595,36 @@
 		font-size: 0.9rem;
 	}
 
+	.format-options {
+		display: flex;
+		gap: 1rem;
+	}
+
+	.format-radio {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		cursor: pointer;
+		font-size: 0.9rem;
+	}
+
+	.format-radio input[type='radio'] {
+		cursor: pointer;
+		width: 18px;
+		height: 18px;
+	}
+
+	.format-radio span {
+		user-select: none;
+	}
+
 	.actions {
 		display: flex;
-		gap: 0.75rem;
 		justify-content: flex-end;
-		padding-top: 0.5rem;
+		gap: 0.5rem;
+		padding-top: 1rem;
 		border-top: 1px solid var(--tt-border-default);
 	}
 
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--tt-button-secondary-border);
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-secondary-bg);
-		color: var(--tt-button-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		background: var(--tt-button-secondary-hover);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-primary-bg);
-		color: var(--tt-button-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--tt-button-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
+	/* Uses design system classes: .tt-button-primary, .tt-button-secondary */
 </style>

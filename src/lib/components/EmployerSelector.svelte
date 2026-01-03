@@ -128,6 +128,7 @@
 		font-size: 0.9rem;
 		cursor: pointer;
 		transition:
+			background 0.15s ease,
 			border-color 0.15s ease,
 			box-shadow 0.15s ease;
 		min-width: 160px;
@@ -139,8 +140,15 @@
 		min-width: 120px;
 	}
 
-	.selector-button:hover {
-		border-color: var(--tt-brand-primary);
+	@media (hover: hover) {
+		.selector-button:hover {
+			background: var(--tt-background-card-hover);
+			border-color: var(--tt-brand-primary);
+		}
+	}
+
+	.selector-button:active {
+		background: var(--tt-background-card-pressed);
 	}
 
 	.selector-button:focus {
@@ -200,13 +208,33 @@
 		font-size: 0.85rem;
 	}
 
-	.option:hover {
-		background: var(--tt-background-card-hover);
+	@media (hover: hover) {
+		.option:hover {
+			background: var(--tt-brand-primary);
+			color: white;
+		}
+	}
+
+	.option:active {
+		background: var(--tt-brand-primary-darker, #1e1f8a);
+		color: white;
 	}
 
 	.option.selected {
 		background: var(--tt-brand-primary-faded);
 		color: var(--tt-brand-primary);
+	}
+
+	@media (hover: hover) {
+		.option.selected:hover {
+			background: var(--tt-brand-primary);
+			color: white;
+		}
+	}
+
+	.option.selected:active {
+		background: var(--tt-brand-primary-darker, #1e1f8a);
+		color: white;
 	}
 
 	.no-employers {

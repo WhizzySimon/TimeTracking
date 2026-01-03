@@ -662,8 +662,8 @@
 		</div>
 	{:else}
 		<!-- Date Range Selector -->
-		<div class="range-section">
-			<span class="range-label" data-testid="range-label">Zeitraum:</span>
+		<div class="range-selector-row">
+			<span class="range-label">Zeitraum</span>
 			<button class="range-button" onclick={() => (showRangeSelector = true)}>
 				{rangeDisplay}
 			</button>
@@ -734,10 +734,10 @@
 				<div class="tt-list-row-static summary-total-row">
 					<span class="summary-label">Summe</span>
 					<div class="summary-values">
-						<span class="summary-value summary-value--primary"
+						<span class="summary-value summary-value--secondary"
 							>{formatHours(totalCategoryHours)}</span
 						>
-						<span class="summary-value summary-value--secondary"
+						<span class="summary-value summary-value--primary"
 							>{formatHours(totalCategoryAverage)}</span
 						>
 					</div>
@@ -753,10 +753,8 @@
 								{/if}
 							</span>
 							<div class="summary-values">
-								<span class="summary-value">{formatHours(cat.hours)}</span>
-								<span class="summary-value summary-value--secondary"
-									>{formatHours(cat.averagePerWeek)}</span
-								>
+								<span class="summary-value summary-value--secondary">{formatHours(cat.hours)}</span>
+								<span class="summary-value summary-value--primary">{formatHours(cat.averagePerWeek)}</span>
 							</div>
 						</div>
 					{/each}
@@ -797,12 +795,16 @@
 		color: #666;
 	}
 
-	/* Date Range Selector */
-	.range-section {
+	/* Date Range Selector - right-aligned with auto-width */
+	.range-selector-row {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: var(--tt-space-12);
+		padding: var(--tt-space-12) var(--tt-space-16);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.range-label {
@@ -813,16 +815,21 @@
 	.range-button {
 		padding: 0.5rem 1rem;
 		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-button);
+		border-radius: var(--tt-radius-input);
 		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
 		font-size: 1rem;
 		cursor: pointer;
-		color: var(--tt-text-primary);
+		text-align: left;
+		white-space: nowrap;
+		transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
 	}
 
-	.range-button:hover {
-		background: var(--tt-background-card-hover);
-		border-color: var(--tt-border-default);
+	@media (hover: hover) {
+		.range-button:hover {
+			background: var(--tt-background-card-hover);
+			border-color: var(--tt-border-default);
+		}
 	}
 
 	/* Period List */
@@ -843,6 +850,7 @@
 		gap: 0.25rem;
 		font-size: 0.9rem;
 		color: var(--tt-text-muted);
+		margin-left: auto;
 	}
 
 	.period-hours .ist {

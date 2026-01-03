@@ -319,7 +319,7 @@
 				</svg>
 				{previousDayLabel()}
 			</button>
-			<button class="date-title" onclick={openDayPicker}>
+			<button class="date-title tt-date-selector-button" onclick={openDayPicker}>
 				{#if datePrefix()}
 					<span class="title-prefix">{datePrefix()}</span>
 				{/if}
@@ -452,7 +452,7 @@
 		font-weight: 600;
 		flex: 1;
 		padding: 0.5rem 1rem;
-		border: none;
+		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 		background: var(--tt-background-card);
 		text-align: center;
 		cursor: pointer;
@@ -465,8 +465,14 @@
 		min-height: 44px;
 	}
 
-	.date-title:hover {
-		background: var(--tt-background-card-hover);
+	@media (hover: hover) {
+		.date-title:hover {
+			background: var(--tt-background-card-hover);
+		}
+	}
+
+	.date-title:active {
+		background: var(--tt-background-card-pressed);
 	}
 
 	.title-prefix {

@@ -54,7 +54,37 @@ export const employers = writable<Employer[]>([]);
 export const dayTypes = writable<DayType[]>([]);
 
 /** Currently selected employer ID (null = show all employers) */
-export const selectedEmployerId = writable<string | null>(null);
+function createSelectedEmployerStore() {
+	const STORAGE_KEY = 'tt-selected-employer-id';
+	
+	// Load initial value from localStorage
+	let initialValue: string | null = null;
+	if (typeof window !== 'undefined') {
+		const stored = localStorage.getItem(STORAGE_KEY);
+		if (stored) {
+			initialValue = stored;
+		}
+	}
+	
+	const { subscribe, set, update } = writable<string | null>(initialValue);
+	
+	return {
+		subscribe,
+		set: (value: string | null) => {
+			if (typeof window !== 'undefined') {
+				if (value === null) {
+					localStorage.removeItem(STORAGE_KEY);
+				} else {
+					localStorage.setItem(STORAGE_KEY, value);
+				}
+			}
+			set(value);
+		},
+		update
+	};
+}
+
+export const selectedEmployerId = createSelectedEmployerStore();
 
 /** Current sync status for outbox indicator */
 export const syncStatus = writable<SyncStatus>('synced');

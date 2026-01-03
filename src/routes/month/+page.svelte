@@ -360,7 +360,7 @@
 				</svg>
 				{previousMonthLabel()}
 			</button>
-			<button class="month-title" onclick={openMonthPicker}>
+			<button class="month-title tt-date-selector-button" onclick={openMonthPicker}>
 				{#if monthPrefix}
 					<span class="title-prefix">{monthPrefix}</span>
 				{/if}
@@ -493,21 +493,27 @@
 		font-weight: 600;
 		flex: 1;
 		padding: 0.5rem 1rem;
-		border: none;
+		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 		background: var(--tt-background-card);
 		text-align: center;
 		cursor: pointer;
-		border-radius: var(--tt-radius-card);
+		border-radius: 0.5rem;
 		color: var(--tt-text-primary);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		gap: var(--tt-space-4);
+		gap: 0.25rem;
 		min-height: 44px;
 	}
 
-	.month-title:hover {
-		background: var(--tt-background-card-hover);
+	@media (hover: hover) {
+		.month-title:hover {
+			background: var(--tt-background-card-hover);
+		}
+	}
+
+	.month-title:active {
+		background: var(--tt-background-card-pressed);
 	}
 
 	.title-prefix {
@@ -533,6 +539,7 @@
 		gap: var(--tt-space-4);
 		font-size: 0.9rem;
 		color: var(--tt-text-muted);
+		margin-left: auto;
 	}
 
 	.week-hours__ist {

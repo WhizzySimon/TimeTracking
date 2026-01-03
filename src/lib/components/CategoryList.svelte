@@ -39,6 +39,46 @@
 	// Get top 5 categories using smart context-aware suggestions
 	let topCategories = $derived(getSmartTopCategories(5, entries, categories));
 
+	// Group top categories by employer when "Alle" is selected
+	interface TopCategoryGroup {
+		employerId: string | null;
+		employerName: string;
+		categories: Category[];
+	}
+
+	let groupedTopCategories = $derived.by(() => {
+		if (!hasMultipleEmployers || selectedEmployerId !== null) {
+			return null;
+		}
+
+		const groups: TopCategoryGroup[] = [];
+		
+		for (const employer of employers) {
+			const employerCats = topCategories.filter((cat) => cat.employerId === employer.id);
+			if (employerCats.length > 0) {
+				groups.push({
+					employerId: employer.id,
+					employerName: employer.name,
+					categories: employerCats
+				});
+			}
+		}
+
+		// Add global categories (no employer) if any
+		const globalCats = topCategories.filter(
+			(cat) => cat.employerId === null || cat.employerId === undefined
+		);
+		if (globalCats.length > 0) {
+			groups.push({
+				employerId: null,
+				employerName: 'Allgemein',
+				categories: globalCats
+			});
+		}
+
+		return groups.length > 0 ? groups : null;
+	});
+
 	// Get all user categories (excluding system)
 	let allUserCategories = $derived(categories.filter((c) => c.type === 'user'));
 
@@ -124,18 +164,41 @@
 		<!-- Top 5 Smart Suggestions -->
 		{#if topCategories.length > 0}
 			<section class="section top-section" data-testid="smart-suggestions-section">
-				<h2 class="section-title" data-testid="smart-suggestions-heading">Vorschläge</h2>
-				<div class="category-grid">
-					{#each topCategories as category (category.id)}
-						<button
-							class="tt-chip tt-chip--suggestion"
-							onclick={() => onselect(category.id)}
-							aria-label={`${category.name} starten`}
-						>
-							{category.name}
-						</button>
+				{#if groupedTopCategories}
+					<!-- Grouped view: multiple employers, "Alle" selected -->
+					{#each groupedTopCategories as group (group.employerId ?? 'global')}
+						<div class="suggestion-group">
+							<h2 class="section-title" data-testid="smart-suggestions-heading">
+								Vorschläge {group.employerName}
+							</h2>
+							<div class="category-grid">
+								{#each group.categories as category (category.id)}
+									<button
+										class="tt-chip tt-chip--suggestion"
+										onclick={() => onselect(category.id)}
+										aria-label={`${category.name} starten`}
+									>
+										{category.name}
+									</button>
+								{/each}
+							</div>
+						</div>
 					{/each}
-				</div>
+				{:else}
+					<!-- Single employer or specific employer selected -->
+					<h2 class="section-title" data-testid="smart-suggestions-heading">Vorschläge</h2>
+					<div class="category-grid">
+						{#each topCategories as category (category.id)}
+							<button
+								class="tt-chip tt-chip--suggestion"
+								onclick={() => onselect(category.id)}
+								aria-label={`${category.name} starten`}
+							>
+								{category.name}
+							</button>
+						{/each}
+					</div>
+				{/if}
 			</section>
 		{/if}
 
@@ -246,6 +309,16 @@
 		flex-direction: column;
 		gap: var(--tt-space-8);
 		margin-top: var(--tt-space-8);
+	}
+
+	.suggestion-group {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-12);
+	}
+
+	.suggestion-group:not(:first-child) {
+		margin-top: var(--tt-space-16);
 	}
 
 	.group-title {

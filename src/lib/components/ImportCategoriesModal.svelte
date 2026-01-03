@@ -13,6 +13,7 @@
 	import { getAllEmployers } from '$lib/storage/employers';
 	import type { Category, Employer } from '$lib/types';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		onclose: () => void;
@@ -27,6 +28,11 @@
 	let error = $state('');
 	let employers = $state<Employer[]>([]);
 	let selectedEmployerId = $state<string>('');
+
+	// Convert employers to dropdown options
+	let employerOptions = $derived(
+		[{ value: '', label: 'Alle Arbeitgeber' }, ...employers.filter((e) => e.isActive).map((e) => ({ value: e.id, label: e.name }))]
+	);
 
 	onMount(async () => {
 		employers = await getAllEmployers();
@@ -110,12 +116,11 @@
 		{#if employers.filter((e) => e.isActive).length > 0}
 			<div class="employer-select">
 				<label for="employer-dropdown">Arbeitgeber</label>
-				<select id="employer-dropdown" class="employer-dropdown" bind:value={selectedEmployerId}>
-					<option value="">Alle Arbeitgeber</option>
-					{#each employers.filter((e) => e.isActive) as employer (employer.id)}
-						<option value={employer.id}>{employer.name}</option>
-					{/each}
-				</select>
+				<CustomDropdown
+					options={employerOptions}
+					value={selectedEmployerId}
+					onchange={(id) => (selectedEmployerId = id)}
+				/>
 			</div>
 		{/if}
 

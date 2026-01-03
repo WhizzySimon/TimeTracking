@@ -18,6 +18,7 @@
 	import { calculateIst } from '$lib/utils/calculations';
 	import { categories } from '$lib/stores';
 	import ConfirmDialog from './ConfirmDialog.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		date: Date;
@@ -30,6 +31,13 @@
 	let loading = $state(true);
 	let showNotification = $state(false);
 	let notificationMessage = $state('');
+
+	const dayTypeOptions = [
+		{ value: 'arbeitstag', label: 'Arbeitstag' },
+		{ value: 'urlaub', label: 'Urlaub' },
+		{ value: 'krank', label: 'Krank' },
+		{ value: 'feiertag', label: 'Feiertag' }
+	];
 
 	// Load day type when date changes
 	$effect(() => {
@@ -44,12 +52,11 @@
 		loading = false;
 	}
 
-	async function handleChange(event: Event) {
-		const select = event.target as HTMLSelectElement;
-		const newValue = select.value as DayTypeValue;
+	async function handleChange(newValue: string) {
+		const typedValue = newValue as DayTypeValue;
 
 		// If changing to non-work type, check for existing tasks
-		if (newValue !== 'arbeitstag') {
+		if (typedValue !== 'arbeitstag') {
 			const dateKey = formatDate(date, 'ISO');
 			const allEntries = await getAll<TimeEntry>('timeEntries');
 			const dayEntries = allEntries.filter((e) => e.date === dateKey);
@@ -58,25 +65,23 @@
 			if (dayIst > 0) {
 				notificationMessage = `Dieser Tag hat bereits ${dayIst.toFixed(1)} Stunden Arbeitszeit erfasst. Bitte zuerst die Einträge löschen, um die Tagesart zu ändern.`;
 				showNotification = true;
-				// Reset dropdown to Arbeitstag
-				select.value = value;
 				return;
 			}
 		}
 
-		value = newValue;
+		value = typedValue;
 
 		// Save to IndexedDB
 		const dateKey = formatDate(date, 'ISO');
 		const dayType: DayType = {
 			date: dateKey,
-			type: newValue,
+			type: typedValue,
 			updatedAt: Date.now()
 		};
 		await saveDayType(dayType);
 
 		// Notify parent
-		onchange?.(newValue);
+		onchange?.(typedValue);
 	}
 
 	function dismissNotification() {
@@ -87,12 +92,12 @@
 
 <div class="tt-labeled-dropdown">
 	<span class="tt-labeled-dropdown__label">Tagesart</span>
-	<select id="day-type" class="tt-dropdown" {value} onchange={handleChange} disabled={loading}>
-		<option value="arbeitstag">Arbeitstag</option>
-		<option value="urlaub">Urlaub</option>
-		<option value="krank">Krank</option>
-		<option value="feiertag">Feiertag</option>
-	</select>
+	<CustomDropdown
+		options={dayTypeOptions}
+		{value}
+		onchange={handleChange}
+		disabled={loading}
+	/>
 </div>
 
 {#if showNotification}
@@ -106,5 +111,5 @@
 {/if}
 
 <style>
-	/* Uses design system .tt-labeled-dropdown and .tt-dropdown classes */
+	/* Uses design system .tt-labeled-dropdown class and CustomDropdown component */
 </style>

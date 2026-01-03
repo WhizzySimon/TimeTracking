@@ -48,6 +48,8 @@
 	import StundenzettelExport from '$lib/components/StundenzettelExport.svelte';
 	import NameEditDialog from '$lib/components/NameEditDialog.svelte';
 	import EmailEditDialog from '$lib/components/EmailEditDialog.svelte';
+	import CustomDropdown from '$lib/components/CustomDropdown.svelte';
+	import { colorScheme, COLOR_SCHEMES, type ColorSchemeName } from '$lib/stores/colorScheme';
 	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
@@ -134,10 +136,28 @@
 		employers: false,
 		workTimeModels: false,
 		abwesenheit: false,
-		arbeit: false
+		arbeit: false,
+		entwicklung: false
 	});
 	let deleteAccountInProgress = $state(false);
 	let deleteAccountError = $state<string | null>(null);
+
+	// Color scheme options for dropdown
+	const colorSchemeOptions = Object.entries(COLOR_SCHEMES).map(([key, scheme]) => ({
+		value: key,
+		label: scheme.label
+	}));
+
+	function handleColorSchemeChange(value: string) {
+		colorScheme.set(value as ColorSchemeName);
+	}
+
+	function resetColorScheme() {
+		if (browser) {
+			localStorage.removeItem('tt-color-scheme');
+			window.location.reload();
+		}
+	}
 
 	function closeCategoryMenu(event: MouseEvent) {
 		const target = event.target as HTMLElement;
@@ -898,6 +918,43 @@
 			</div>
 		</section>
 
+		<!-- Development Section (Color Scheme Switcher) -->
+		<section class="section">
+			<div class="section-header">
+				<button
+					class="section-toggle"
+					onclick={() => (expandedSections.entwicklung = !expandedSections.entwicklung)}
+					aria-expanded={expandedSections.entwicklung}
+				>
+					<span class="toggle-icon" class:expanded={expandedSections.entwicklung}>▶</span>
+					<h2>Entwicklung</h2>
+				</button>
+			</div>
+			{#if expandedSections.entwicklung}
+				<div class="dev-settings">
+					<div class="tt-labeled-dropdown">
+						<span class="tt-labeled-dropdown__label">Farbschema</span>
+						<CustomDropdown
+							options={colorSchemeOptions}
+							value={$colorScheme}
+							onchange={handleColorSchemeChange}
+						/>
+					</div>
+					<div class="color-preview">
+						<div class="color-swatch primary" style="background: var(--tt-brand-primary);">
+							<span>Primary<br />{COLOR_SCHEMES[$colorScheme].primary}</span>
+						</div>
+						<div class="color-swatch secondary" style="background: var(--tt-brand-accent);">
+							<span>Secondary<br />{COLOR_SCHEMES[$colorScheme].secondary}</span>
+						</div>
+					</div>
+					<button class="reset-btn" onclick={resetColorScheme}>
+						Cache leeren & neu laden
+					</button>
+				</div>
+			{/if}
+		</section>
+
 		<!-- Delete Account Section -->
 		<section class="section delete-account-section">
 			<button
@@ -1108,6 +1165,7 @@
 		font-size: 1.1rem;
 		font-weight: 600;
 		color: var(--tt-text-primary);
+		font-family: var(--tt-font-family);
 	}
 
 	.loading {
@@ -1135,6 +1193,7 @@
 		font-size: 1.25rem;
 		font-weight: 600;
 		color: var(--tt-text-primary);
+		font-family: var(--tt-font-family);
 	}
 
 	.section-toggle {
@@ -1146,6 +1205,7 @@
 		padding: 0;
 		cursor: pointer;
 		text-align: left;
+		font-family: var(--tt-font-family);
 	}
 
 	.section-toggle:hover h2 {
@@ -1197,6 +1257,7 @@
 		font-size: var(--tt-font-size-normal);
 		text-align: left;
 		cursor: pointer;
+		transition: background var(--tt-transition-fast);
 	}
 
 	.dropdown-icon {
@@ -1206,8 +1267,28 @@
 		color: var(--tt-text-secondary);
 	}
 
+	@media (hover: hover) {
+		.dropdown-item:hover {
+			background: var(--tt-background-card-hover);
+		}
+	}
+
 	.dropdown-item:active {
 		background: var(--tt-background-card-pressed);
+	}
+
+	.dropdown-item-danger {
+		color: var(--tt-status-danger);
+	}
+
+	@media (hover: hover) {
+		.dropdown-item-danger:hover {
+			background: rgba(197, 48, 48, 0.05);
+		}
+	}
+
+	.dropdown-item-danger:active {
+		background: rgba(197, 48, 48, 0.1);
 	}
 
 	.dropdown-item:not(:last-child) {
@@ -1231,6 +1312,7 @@
 		margin-top: 1rem;
 		padding-top: 1rem;
 		border-top: 1px solid var(--tt-border-default);
+		font-family: var(--tt-font-family);
 	}
 
 	.version-info {
@@ -1239,10 +1321,12 @@
 		gap: 0.25rem;
 		color: var(--tt-text-muted);
 		font-size: 0.85rem;
+		font-family: var(--tt-font-family);
 	}
 
 	.version-label {
 		font-weight: 500;
+		font-family: var(--tt-font-family);
 	}
 
 	.build-time {
@@ -1265,6 +1349,7 @@
 		border-radius: var(--tt-radius-button);
 		font-size: 1rem;
 		font-weight: 500;
+		font-family: var(--tt-font-family);
 		cursor: pointer;
 	}
 
@@ -1300,6 +1385,7 @@
 		border-radius: var(--tt-radius-button);
 		font-size: 1rem;
 		font-weight: 500;
+		font-family: var(--tt-font-family);
 		cursor: pointer;
 	}
 
@@ -1377,5 +1463,56 @@
 
 	.plan-text.pro {
 		color: var(--tt-brand-primary);
+	}
+
+	/* Development section styles */
+	.dev-settings {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-16);
+		padding: var(--tt-space-12);
+	}
+
+	.color-preview {
+		display: flex;
+		gap: var(--tt-space-12);
+	}
+
+	.color-swatch {
+		flex: 1;
+		padding: var(--tt-space-16);
+		border-radius: var(--tt-radius-card);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.color-swatch span {
+		color: white;
+		font-weight: var(--tt-font-weight-semibold);
+		font-size: var(--tt-font-size-small);
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+		text-align: center;
+	}
+
+	.reset-btn {
+		padding: var(--tt-space-8) var(--tt-space-16);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		color: var(--tt-text-secondary);
+		font-size: var(--tt-font-size-small);
+		cursor: pointer;
+		transition: background var(--tt-transition-fast);
+	}
+
+	@media (hover: hover) {
+		.reset-btn:hover {
+			background: var(--tt-background-card-hover);
+		}
+	}
+
+	.reset-btn:active {
+		background: var(--tt-background-card-pressed);
 	}
 </style>

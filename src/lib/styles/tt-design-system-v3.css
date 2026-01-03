@@ -1,7 +1,11 @@
 /**
  * TimeTracker Design System v2
  * 
- * MOBILE-FIRST: No hover states. Touchability must be self-explanatory via visual affordances.
+ * INTERACTION STATES: Progressive feedback for mouse and touch
+ * State progression: normal → hover → selected/current → pressed
+ * - Light backgrounds: states become darker
+ * - Dark backgrounds: states become lighter
+ * - Contrast verified for all states
  * 
  * NAMING CONVENTION: All names must be self-explanatory without reading docs.
  * - Variables: --tt-{category}-{property}-{variant}
@@ -26,32 +30,88 @@
 /* ============================================================================
    A) DESIGN TOKENS - Self-explanatory variable names
    ============================================================================ */
-:root {
-	/* ---- COLORS: Brand Primary (Blue) ---- */
-	--tt-brand-primary-50: #e8e8f8; /* Lightest - backgrounds */
-	--tt-brand-primary-100: #c5c5ed; /* Light - hover backgrounds */
-	--tt-brand-primary-200: #9e9fe0; /* Soft */
-	--tt-brand-primary-300: #7475d3; /* Medium-light */
-	--tt-brand-primary: #2526a9; /* Base (500 equivalent) */
-	--tt-brand-primary-darker: #1e1f8a; /* Dark - was used for pressed, now unused */
-	--tt-brand-primary-darkest: #171868; /* Darkest */
-	--tt-brand-primary-faded: rgba(37, 38, 169, 0.1);
-	--tt-brand-primary-pressed: #4a4bc5; /* Lighter for pressed state - visible feedback */
 
-	/* ---- COLORS: Brand Accent (Cyan/Teal) ---- */
-	--tt-brand-accent-50: #e6f7fe; /* Lightest */
-	--tt-brand-accent-100: #b8e9fc; /* Light */
-	--tt-brand-accent-200: #8adafa; /* Soft */
-	--tt-brand-accent: #37bdf6; /* Base */
-	--tt-brand-accent-darker: #1aa8e6; /* Dark */
-	--tt-brand-accent-darkest: #0d8ac4; /* Darkest */
+/* ---- COLOR SCHEMES ----
+   Switchable via data-color-scheme attribute on <html>
+   - "current" = Style Guide angezeigt (default): #2330A3 / #66BDF1
+   - "icon" = Icon-Farben (Original): #374CA7 / #37BDF6
+   - "displayed" = Style Guide labeled: #2526a9 / #37bdf6
+*/
+
+/* Scheme: Style Guide angezeigt (current) - #2330A3 / #66BDF1 */
+html[data-color-scheme="current"] {
+	--tt-brand-primary-50: #e7e9f6;
+	--tt-brand-primary-100: #c3c7e8;
+	--tt-brand-primary-200: #9ba0d8;
+	--tt-brand-primary-300: #6f76c6;
+	--tt-brand-primary: #2330A3;
+	--tt-brand-primary-darker: #1c2682;
+	--tt-brand-primary-darkest: #151d62;
+	--tt-brand-primary-faded: rgba(35, 48, 163, 0.1);
+	--tt-brand-primary-pressed: #4f5ab5;
+	--tt-brand-accent-50: #f0f9fe;
+	--tt-brand-accent-100: #d1edfb;
+	--tt-brand-accent-200: #a8ddf6;
+	--tt-brand-accent: #66BDF1;
+	--tt-brand-accent-darker: #56a1cd;
+	--tt-brand-accent-darkest: #427b9d;
+	--tt-brand-accent-faded: rgba(102, 189, 241, 0.1);
+}
+
+/* Scheme: Icon-Farben (Original) - #374CA7 / #37BDF6 */
+html[data-color-scheme="icon"] {
+	--tt-brand-primary-50: #eaecf6;
+	--tt-brand-primary-100: #c9cee9;
+	--tt-brand-primary-200: #a4adda;
+	--tt-brand-primary-300: #7b88c9;
+	--tt-brand-primary: #374CA7;
+	--tt-brand-primary-darker: #2c3d86;
+	--tt-brand-primary-darkest: #212e64;
+	--tt-brand-primary-faded: rgba(55, 76, 167, 0.1);
+	--tt-brand-primary-pressed: #5f6fb9;
+	--tt-brand-accent-50: #eaf8fe;
+	--tt-brand-accent-100: #c5ecfd;
+	--tt-brand-accent-200: #9bdefb;
+	--tt-brand-accent: #37BDF6;
+	--tt-brand-accent-darker: #2fa1d1;
+	--tt-brand-accent-darkest: #247ba0;
 	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);
+}
+
+/* Scheme: Style Guide labeled - #2526a9 / #37bdf6 */
+html[data-color-scheme="displayed"] {
+	--tt-brand-primary-50: #e8e8f8;
+	--tt-brand-primary-100: #c5c5ed;
+	--tt-brand-primary-200: #9e9fe0;
+	--tt-brand-primary-300: #7475d3;
+	--tt-brand-primary: #2526a9;
+	--tt-brand-primary-darker: #1e1f8a;
+	--tt-brand-primary-darkest: #171868;
+	--tt-brand-primary-faded: rgba(37, 38, 169, 0.1);
+	--tt-brand-primary-pressed: #4a4bc5;
+	--tt-brand-accent-50: #eaf8fe;
+	--tt-brand-accent-100: #c5ecfd;
+	--tt-brand-accent-200: #9bdefb;
+	--tt-brand-accent: #37bdf6;
+	--tt-brand-accent-darker: #2fa1d1;
+	--tt-brand-accent-darkest: #247ba0;
+	--tt-brand-accent-faded: rgba(55, 189, 246, 0.1);
+}
+
+:root {
+
+	/* ---- LAYOUT ---- */
+	--tt-app-max-width: 600px;
 
 	/* ---- COLORS: Backgrounds ---- */
-	--tt-background-page: #e8f0f8;
-	--tt-background-card: #ffffff;
-	--tt-background-card-hover: #f5f8fc;
-	--tt-background-card-pressed: #edf2f7;
+	--tt-background-page: #e8f0f8; /* App background - light blue-gray */
+	--tt-background-outside: #ffffff; /* Outside app area - white */
+	--tt-background-card: #ffffff; /* Light background - normal state */
+	--tt-background-card-hover: #f5f8fc; /* Light background - hover (slightly darker) */
+	--tt-background-card-selected: #edf2f7; /* Light background - selected/current state */
+	--tt-background-card-pressed: #e2e8f0; /* Light background - pressed (darkest) */
+	--tt-background-input: #ffffff;
+	--tt-background-input-hover: #f7fafc;
 
 	/* ---- HEADER COLORS (dark background context) ---- */
 	--tt-header-bg: var(--tt-brand-primary);
@@ -113,6 +173,7 @@
 
 	/* ---- SPACING ---- */
 	--tt-space-4: 0.25rem;
+	--tt-space-6: 0.375rem;
 	--tt-space-8: 0.5rem;
 	--tt-space-12: 0.75rem;
 	--tt-space-16: 1rem;
@@ -124,6 +185,7 @@
 	/* ---- BORDER RADIUS ---- */
 	--tt-radius-card: var(--r-card, 8px);
 	--tt-radius-button: var(--r-btn, 6px);
+	--tt-radius-input: var(--r-btn, 6px);
 	--tt-radius-pill: 9999px;
 	--tt-radius-badge: 4px;
 
@@ -139,6 +201,19 @@
 	--tt-font-weight-medium: 500;
 	--tt-font-weight-semibold: 600;
 	--tt-font-weight-bold: 700;
+
+	/* ---- INTERACTIVE STATE COLORS ---- */
+	/* Primary button (dark background): states become lighter */
+	--tt-button-primary-bg: var(--tt-brand-primary); /* Normal */
+	--tt-button-primary-hover: #3334b8; /* Hover (lighter) */
+	--tt-button-primary-selected: #4a4bc5; /* Selected/current (lighter) */
+	--tt-button-primary-pressed: #5c5dd0; /* Pressed (lightest) */
+	--tt-button-primary-text: #ffffff;
+	
+	/* Danger button (dark background): states become lighter */
+	--tt-status-danger-hover: #d64545; /* Hover (lighter) */
+	--tt-status-danger-selected: #e05353; /* Selected (lighter) */
+	--tt-status-danger-pressed: #e86666; /* Pressed (lightest) */
 
 	/* ---- ANIMATION ---- */
 	--tt-transition-fast: 0.15s ease;
@@ -191,7 +266,14 @@
 	cursor: pointer;
 }
 
-/* Active state: only background changes, border stays same */
+/* Hover state: background becomes slightly darker */
+@media (hover: hover) {
+	.tt-list-row-clickable:hover {
+		background: var(--tt-background-card-hover);
+	}
+}
+
+/* Active/pressed state: background becomes darkest */
 /* Use :has() to prevent activation when child button is pressed */
 .tt-list-row-clickable:active:not(:has(button:active)) {
 	background: var(--tt-background-card-pressed);
@@ -296,11 +378,24 @@
 	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 	border-radius: var(--tt-radius-card);
 	cursor: pointer;
+	transition: background var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-selection-row:hover {
+		background: var(--tt-background-card-hover);
+	}
 }
 
 .tt-selection-row.is-selected {
 	border-color: var(--tt-brand-primary);
 	background: var(--tt-brand-primary-faded);
+}
+
+@media (hover: hover) {
+	.tt-selection-row.is-selected:hover {
+		background: rgba(37, 38, 169, 0.15);
+	}
 }
 
 .tt-selection-row__label {
@@ -482,20 +577,28 @@
 	align-items: center;
 	justify-content: center;
 	gap: var(--tt-space-4);
-	padding: var(--tt-space-8) var(--tt-space-16);
-	min-height: 36px;
-	font-size: var(--tt-font-size-small);
-	font-weight: var(--tt-font-weight-normal);
-	line-height: 1;
+	padding: var(--tt-space-6) var(--tt-space-12);
+	min-height: 32px;
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 	border-radius: var(--tt-radius-button);
 	background: var(--tt-background-card);
 	color: var(--tt-text-primary);
-	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	font-size: var(--tt-font-size-small);
+	font-weight: var(--tt-font-weight-normal);
 	cursor: pointer;
 	white-space: nowrap;
+	transition:
+		background var(--tt-transition-fast),
+		border-color var(--tt-transition-fast),
+		color var(--tt-transition-fast);
 }
 
-/* Active state: only background changes, border stays same */
+@media (hover: hover) {
+	.tt-chip:hover {
+		background: var(--tt-background-card-hover);
+	}
+}
+
 .tt-chip:active {
 	background: var(--tt-background-card-pressed);
 }
@@ -506,10 +609,17 @@
 	border-color: var(--tt-brand-primary);
 }
 
+@media (hover: hover) {
+	.tt-chip.is-selected:hover {
+		background: var(--tt-button-primary-hover);
+		border-color: var(--tt-button-primary-hover);
+	}
+}
+
 /* Selected chip pressed: lighter for visible feedback */
 .tt-chip.is-selected:active {
-	background: var(--tt-brand-primary-pressed);
-	border-color: var(--tt-brand-primary-pressed);
+	background: var(--tt-button-primary-pressed);
+	border-color: var(--tt-button-primary-pressed);
 }
 
 /* ============================================================================
@@ -568,10 +678,17 @@
 	white-space: nowrap;
 	background: var(--tt-brand-primary);
 	color: white;
+	transition: background var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-button-primary:hover:not(:disabled) {
+		background: var(--tt-button-primary-hover);
+	}
 }
 
 .tt-button-primary:active:not(:disabled) {
-	background: var(--tt-brand-primary-pressed);
+	background: var(--tt-button-primary-pressed);
 }
 
 .tt-button-primary:disabled {
@@ -598,9 +715,15 @@
 	white-space: nowrap;
 	background: var(--tt-background-card);
 	color: var(--tt-text-primary);
+	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
 }
 
-/* Active state: only background changes, border stays same */
+@media (hover: hover) {
+	.tt-button-secondary:hover:not(:disabled) {
+		background: var(--tt-background-card-hover);
+	}
+}
+
 .tt-button-secondary:active:not(:disabled) {
 	background: var(--tt-background-card-pressed);
 }
@@ -629,6 +752,13 @@
 	white-space: nowrap;
 	background: var(--tt-status-danger);
 	color: white;
+	transition: background var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-button-danger:hover:not(:disabled) {
+		background: var(--tt-status-danger-hover);
+	}
 }
 
 .tt-button-danger:active:not(:disabled) {
@@ -696,6 +826,7 @@
 	color: var(--tt-text-secondary);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
+	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
 }
 
 .tt-symbol-button svg {
@@ -703,7 +834,14 @@
 	height: 20px;
 }
 
-/* Active state: only background changes, border stays same */
+/* Hover state: background becomes slightly darker */
+@media (hover: hover) {
+	.tt-symbol-button:hover {
+		background: var(--tt-background-card-hover);
+	}
+}
+
+/* Active state: background becomes darkest */
 .tt-symbol-button:active {
 	background: var(--tt-background-card-pressed);
 }
@@ -756,9 +894,16 @@
 	color: var(--tt-text-muted);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
+	transition: background var(--tt-transition-fast), color var(--tt-transition-fast);
 }
 
-/* Mobile-first: no hover, only press state */
+@media (hover: hover) {
+	.tt-delete-button:hover {
+		background: rgba(197, 48, 48, 0.03);
+		color: var(--tt-status-danger);
+	}
+}
+
 .tt-delete-button:active {
 	background: var(--tt-status-danger-faded);
 	color: var(--tt-status-danger);
@@ -1038,13 +1183,22 @@
    ============================================================================ */
 
 .tt-footer-nav {
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	max-width: var(--tt-app-max-width);
+	z-index: 100;
 	display: flex;
 	flex-wrap: nowrap;
 	justify-content: stretch;
-	align-items: center;
 	background: var(--tt-footer-bg);
-	padding: var(--tt-space-8) var(--tt-space-4);
+	border-top: 1px solid var(--tt-footer-tab-border);
+	border-radius: var(--tt-radius-card) var(--tt-radius-card) 0 0;
+	padding: var(--tt-space-8);
 	gap: var(--tt-space-4);
+	box-sizing: border-box;
 }
 
 .tt-footer-tab {
@@ -1063,6 +1217,14 @@
 	border-radius: var(--tt-radius-button);
 	border: var(--tt-border-touchable-width) solid var(--tt-footer-tab-border);
 	background: var(--tt-footer-tab-bg);
+	transition: background var(--tt-transition-fast), color var(--tt-transition-fast);
+}
+
+/* Hover state: slightly lighter (dark background) */
+@media (hover: hover) {
+	.tt-footer-tab:hover {
+		background: rgba(255, 255, 255, 0.08);
+	}
 }
 
 /* Pressed state: strongest feedback (lightest) */
@@ -1075,6 +1237,13 @@
 .tt-footer-tab[aria-current='page'] {
 	background: var(--tt-footer-tab-bg-current);
 	color: var(--tt-footer-tab-text-current);
+}
+
+/* Current tab hover: slightly lighter than current */
+@media (hover: hover) {
+	.tt-footer-tab[aria-current='page']:hover {
+		background: rgba(255, 255, 255, 0.20);
+	}
 }
 
 /* Current tab pressed: still show pressed feedback */
@@ -1111,11 +1280,24 @@
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: right var(--tt-space-12) center;
-	transition: background var(--tt-transition-fast);
+	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-dropdown:hover {
+		background-color: var(--tt-background-card-hover);
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right var(--tt-space-12) center;
+		border-color: var(--tt-border-default);
+	}
 }
 
 .tt-dropdown:active {
-	background: var(--tt-background-card-pressed);
+	background-color: var(--tt-background-card-pressed);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right var(--tt-space-12) center;
 }
 
 .tt-dropdown:focus {
@@ -1124,30 +1306,110 @@
 	box-shadow: 0 0 0 3px var(--tt-brand-primary-faded);
 }
 
+/* Dropdown options styling (limited browser support) */
+.tt-dropdown option {
+	padding: var(--tt-space-8) var(--tt-space-12);
+	background: var(--tt-background-card);
+	color: var(--tt-text-primary);
+}
+
+.tt-dropdown option:hover {
+	background: var(--tt-brand-primary);
+	color: white;
+}
+
+.tt-dropdown option:checked {
+	background: var(--tt-brand-primary-faded);
+	color: var(--tt-brand-primary);
+}
+
 /* Text input */
 .tt-text-input {
 	width: 100%;
 	padding: var(--tt-space-8) var(--tt-space-12);
 	font-size: var(--tt-font-size-normal);
 	color: var(--tt-text-primary);
-	background: var(--tt-background-card);
-	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-	border-radius: var(--tt-radius-button);
-	transition: border-color var(--tt-transition-fast);
+	background: var(--tt-background-input);
+	border: 1px solid var(--tt-border-subtle);
+	border-radius: var(--tt-radius-input);
+	box-sizing: border-box;
+	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
 }
 
 .tt-text-input::placeholder {
 	color: var(--tt-text-muted);
 }
 
-.tt-text-input:hover {
-	border-color: var(--tt-text-muted);
+@media (hover: hover) {
+	.tt-text-input:hover {
+		background: var(--tt-background-input-hover);
+		border-color: var(--tt-border-default);
+	}
 }
 
 .tt-text-input:focus {
 	outline: none;
 	border-color: var(--tt-brand-primary);
 	box-shadow: 0 0 0 3px var(--tt-brand-primary-faded);
+}
+
+/* Date input - unified styling */
+.tt-date-input {
+	padding: var(--tt-space-8) var(--tt-space-12);
+	font-size: var(--tt-font-size-normal);
+	color: var(--tt-text-primary);
+	background: var(--tt-background-input);
+	border: 1px solid var(--tt-border-subtle);
+	border-radius: var(--tt-radius-input);
+	box-sizing: border-box;
+	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-date-input:hover {
+		background: var(--tt-background-input-hover);
+		border-color: var(--tt-border-default);
+	}
+}
+
+.tt-date-input:focus {
+	outline: none;
+	border-color: var(--tt-brand-primary);
+	box-shadow: 0 0 0 3px var(--tt-brand-primary-faded);
+}
+
+/* Checkbox - unified styling */
+.tt-checkbox {
+	width: 18px;
+	height: 18px;
+	margin: 0;
+	cursor: pointer;
+	accent-color: var(--tt-brand-primary);
+	border-radius: var(--tt-radius-badge);
+}
+
+/* Checkbox container for labeled checkboxes */
+.tt-checkbox-label {
+	display: flex;
+	align-items: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-8) var(--tt-space-12);
+	border: 1px solid var(--tt-border-subtle);
+	border-radius: var(--tt-radius-input);
+	cursor: pointer;
+	font-size: var(--tt-font-size-normal);
+	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-checkbox-label:hover {
+		background: var(--tt-background-card-hover);
+	}
+}
+
+.tt-checkbox-label:has(input:checked) {
+	border-color: var(--tt-brand-primary);
+	background: var(--tt-brand-primary-faded);
 }
 
 /**
@@ -1274,14 +1536,22 @@
 	white-space: nowrap;
 }
 
-.tt-btn--primary {
+.tt-button-primary {
 	background: var(--tt-brand-primary);
-	color: white;
+	color: var(--tt-button-primary-text);
 	border-color: var(--tt-brand-primary);
 }
 
-.tt-btn--primary:hover:not(:disabled) {
-	background: var(--tt-brand-primary-darker);
+@media (hover: hover) {
+	.tt-button-primary:hover:not(:disabled) {
+		background: var(--tt-button-primary-hover);
+		border-color: var(--tt-button-primary-hover);
+	}
+}
+
+.tt-button-primary:active:not(:disabled) {
+	background: var(--tt-button-primary-pressed);
+	border-color: var(--tt-button-primary-pressed);
 }
 
 .tt-btn--sm {
@@ -1294,9 +1564,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 28px;
-	height: 28px;
+	width: 40px;
+	height: 40px;
 	padding: 0;
+	margin-left: auto;
 	border: none;
 	background: transparent;
 	color: var(--tt-text-muted);
@@ -1307,7 +1578,14 @@
 		color var(--tt-transition-fast);
 }
 
-.tt-btn-delete:hover {
+@media (hover: hover) {
+	.tt-btn-delete:hover {
+		background: rgba(197, 48, 48, 0.03);
+		color: var(--tt-status-danger);
+	}
+}
+
+.tt-btn-delete:active {
 	background: var(--tt-status-danger-faded);
 	color: var(--tt-status-danger);
 }

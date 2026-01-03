@@ -46,15 +46,61 @@ Destructive actions are **never styled as primary**.
 
 ## Component States (MUST)
 
-Every interactive component must define these states:
+Every interactive component must define these states with progressive visual feedback:
 
-| State        | Requirement                              |
-| ------------ | ---------------------------------------- |
-| **default**  | Normal appearance                        |
-| **hover**    | Visual feedback on mouse over            |
-| **active**   | Pressed/clicked state                    |
-| **disabled** | Grayed out, non-interactive              |
-| **focus**    | Visible focus ring (keyboard navigation) |
+### State Progression
+
+**State order:** normal → hover → selected/current → pressed
+
+| State            | Requirement                                    | Implementation                          |
+| ---------------- | ---------------------------------------------- | --------------------------------------- |
+| **default**      | Normal appearance                              | Base background/color                   |
+| **hover**        | Visual feedback on mouse over                  | Background changes (see rules below)    |
+| **selected**     | Current/active item (tabs, chips, selections)  | Distinct background, maintains contrast |
+| **pressed**      | Pressed/clicked state (touch/mouse down)       | Strongest visual feedback               |
+| **disabled**     | Grayed out, non-interactive                    | Reduced opacity, no cursor              |
+| **focus**        | Visible focus ring (keyboard navigation)       | Outline or box-shadow, never hidden     |
+
+### Background Progression Rules
+
+**Light backgrounds (white, light gray):**
+- States become **progressively darker**
+- Normal → Hover (slightly darker) → Selected (darker) → Pressed (darkest)
+- Example: `#ffffff` → `#f5f8fc` → `#edf2f7` → `#e2e8f0`
+
+**Dark backgrounds (brand colors, dark UI):**
+- States become **progressively lighter**
+- Normal → Hover (slightly lighter) → Selected (lighter) → Pressed (lightest)
+- Example: `#2526a9` → `#3334b8` → `#4a4bc5` → `#5c5dd0`
+
+### Contrast Verification (MUST)
+
+**All states must maintain readable contrast:**
+- Verify text contrast ratio ≥ 4.5:1 for normal text
+- Verify text contrast ratio ≥ 3:1 for large text (18pt+)
+- If contrast becomes too low in any state, adjust text color accordingly
+- Use `--tt-text-primary` on light backgrounds
+- Use `#ffffff` on dark backgrounds
+
+### Hover Implementation
+
+**Always use `@media (hover: hover)` to respect user preferences:**
+
+```css
+/* ✓ CORRECT - respects touch devices */
+@media (hover: hover) {
+	.tt-button:hover {
+		background: var(--tt-background-card-hover);
+	}
+}
+
+/* ✗ WRONG - applies on touch devices */
+.tt-button:hover {
+	background: var(--tt-background-card-hover);
+}
+```
+
+**Why:** Touch devices don't have hover. Using `@media (hover: hover)` prevents hover styles from interfering with touch interactions.
 
 **Focus must be visible and not obscured by other elements.**
 
@@ -148,21 +194,25 @@ This is the "panic button" - users need an immediate, obvious way to close any d
 
 ### Dropdowns (Select)
 
-- Triangle icon position: **Left side** (0.75rem from left edge)
-- Padding: `0.5rem 0.75rem 0.5rem 2rem` (extra left padding for icon)
+**Chevron icon position: ALWAYS on the RIGHT side**
+
+- Chevron icon position: **Right side** (var(--tt-space-12) from right edge)
+- Padding: `var(--tt-space-8) var(--tt-space-32) var(--tt-space-8) var(--tt-space-12)` (extra right padding for icon)
 - Use `appearance: none` for cross-browser consistency
-- Never place dropdown icons on the right side
+- **NEVER place dropdown chevron icons on the left side**
 
 ```css
-/* Standard dropdown styling */
-select {
+/* Standard dropdown styling - chevron ALWAYS on right */
+.tt-dropdown {
 	appearance: none;
-	background-image: url('data:image/svg+xml,...'); /* triangle */
-	background-position: 0.75rem center;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+	background-position: right var(--tt-space-12) center;
 	background-repeat: no-repeat;
-	padding-left: 2rem;
+	padding-right: var(--tt-space-32);
 }
 ```
+
+**Why:** Right-aligned chevrons are the universal standard for dropdowns across all major platforms (iOS, Android, Windows, macOS, web). Users expect the chevron on the right to indicate "this opens a menu".
 
 ### Links
 

@@ -21,6 +21,7 @@
 		type ImportPreview
 	} from '$lib/import/excelImport';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		onclose?: () => void;
@@ -41,6 +42,11 @@
 	let parseError: string | null = $state(null);
 	let employers = $state<Employer[]>([]);
 	let selectedEmployerId = $state<string>('');
+
+	// Convert employers to dropdown options
+	let employerOptions = $derived(
+		[{ value: '', label: 'Kein Arbeitgeber (Alle)' }, ...employers.map((e) => ({ value: e.id, label: e.name }))]
+	);
 
 	onMount(async () => {
 		employers = await getActiveEmployers();
@@ -156,12 +162,11 @@
 		<!-- Employer Selection -->
 		<div class="employer-section">
 			<label for="import-employer">Arbeitgeber für importierte Zeitdaten:</label>
-			<select id="import-employer" bind:value={selectedEmployerId} class="employer-select">
-				<option value="">Kein Arbeitgeber (Alle)</option>
-				{#each employers as employer (employer.id)}
-					<option value={employer.id}>{employer.name}</option>
-				{/each}
-			</select>
+			<CustomDropdown
+				options={employerOptions}
+				value={selectedEmployerId}
+				onchange={(id) => (selectedEmployerId = id)}
+			/>
 		</div>
 
 		<!-- File Upload -->

@@ -1049,10 +1049,16 @@
 </div>
 
 <style>
+	:global(body) {
+		background: var(--tt-background-outside);
+	}
+
 	.styleguide {
 		padding: 1rem;
-		max-width: 900px;
+		max-width: var(--tt-app-max-width);
 		margin: 0 auto;
+		background: var(--tt-background-page);
+		min-height: 100vh;
 	}
 
 	.styleguide-header {

@@ -40,8 +40,8 @@
 <div class="task-list">
 	{#if sortedEntries.length === 0}
 		<div class="empty-state">
-			<p class="empty-text">Keine Aufgaben für diesen Tag</p>
-			<a href="/add" class="tt-button-primary">Füge eine Tätigkeit hinzu</a>
+			<p class="empty-text">Noch keine Tätigkeiten an diesem Tag</p>
+			<a href="/add" class="tt-button-primary empty-state-button">Füge eine Tätigkeit hinzu</a>
 		</div>
 	{:else}
 		{#each sortedEntries as entry (entry.id)}
@@ -80,4 +80,7 @@
 	}
 
 	/* Button uses design system class .tt-button-primary */
+	.empty-state-button {
+		text-decoration: none; /* Remove underline from link */
+	}
 </style>

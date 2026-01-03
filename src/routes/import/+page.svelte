@@ -12,18 +12,27 @@
 	import ImportUpload from '$lib/components/import/ImportUpload.svelte';
 	import ImportProgress from '$lib/components/import/ImportProgress.svelte';
 	import ImportReview from '$lib/components/import/ImportReview.svelte';
+	import CustomDropdown from '$lib/components/CustomDropdown.svelte';
 	import { isPro } from '$lib/stores/user';
 	import { categories, timeEntries } from '$lib/stores';
 	import { getAll } from '$lib/storage/db';
 	import { processImportSources } from '$lib/import/orchestrator';
 	import { saveTimeEntry } from '$lib/storage/operations';
-	import type { TimeEntry } from '$lib/types';
+	import { getActiveEmployers } from '$lib/storage/employers';
+	import type { TimeEntry, Employer } from '$lib/types';
 	import type { TimeEntryCandidate, ImportSource } from '$lib/import/types';
 
 	type ImportStep = 'upload' | 'processing' | 'review' | 'commit' | 'report';
 
 	let currentStep: ImportStep = $state('upload');
 	let loading = $state(true);
+	let employers = $state<Employer[]>([]);
+	let selectedEmployerId = $state<string>('');
+
+	// Convert employers to dropdown options
+	let employerOptions = $derived(
+		employers.map((e) => ({ value: e.id, label: e.name }))
+	);
 
 	let sources: ImportSource[] = $state([]);
 	let candidates: TimeEntryCandidate[] = $state([]);
@@ -74,20 +83,25 @@
 			(c) => !c.flags.includes('hard_block') && c.date && c.startTime
 		);
 
-		// Find matching category IDs
-		const categoryMap = new Map($categories.map((c) => [c.name.toLowerCase(), c.id]));
+		// Filter categories by selected employer
+		const employerCategories = $categories.filter(
+			(c) => c.employerId === selectedEmployerId
+		);
+
+		// Find matching category IDs (only from selected employer)
+		const categoryMap = new Map(employerCategories.map((c) => [c.name.toLowerCase(), c.id]));
 
 		for (const candidate of selectedCandidates) {
-			// Find category ID by name
+			// Find category ID by name (only from selected employer's categories)
 			let categoryId = candidate.categoryId;
 			if (!categoryId && candidate.categoryGuess) {
 				categoryId = categoryMap.get(candidate.categoryGuess.toLowerCase()) || null;
 			}
 
-			// Skip if no valid category found
+			// Skip if no valid category found for this employer
 			if (!categoryId) {
-				// Use first category as fallback or skip
-				categoryId = $categories[0]?.id || null;
+				// Use first category of selected employer as fallback
+				categoryId = employerCategories[0]?.id || null;
 			}
 
 			if (!categoryId || !candidate.date || !candidate.startTime) continue;
@@ -98,6 +112,7 @@
 				startTime: candidate.startTime,
 				endTime: candidate.endTime,
 				categoryId,
+				employerId: selectedEmployerId,
 				description: candidate.note || null,
 				createdAt: Date.now(),
 				updatedAt: Date.now()
@@ -125,7 +140,11 @@
 		processingProgress = 0;
 	}
 
-	onMount(() => {
+	onMount(async () => {
+		employers = await getActiveEmployers();
+		if (employers.length > 0) {
+			selectedEmployerId = employers[0].id;
+		}
 		loading = false;
 	});
 </script>
@@ -144,6 +163,24 @@
 			<h1>Daten importieren</h1>
 			<p class="subtitle">Importiere Zeitdaten aus CSV oder JSON</p>
 		</header>
+
+		<!-- Employer Selection -->
+		<div class="employer-selection">
+			<div class="tt-labeled-dropdown">
+				<span class="tt-labeled-dropdown__label">Arbeitgeber</span>
+				{#if employers.length === 0}
+					<p class="no-employers">
+						Keine Arbeitgeber vorhanden. Erstelle zuerst einen Arbeitgeber in den Einstellungen.
+					</p>
+				{:else}
+					<CustomDropdown
+						options={employerOptions}
+						value={selectedEmployerId}
+						onchange={(id) => (selectedEmployerId = id)}
+					/>
+				{/if}
+			</div>
+		</div>
 
 		{#if currentStep === 'upload'}
 			<section class="upload-section">
@@ -208,6 +245,19 @@
 	.subtitle {
 		color: var(--text-secondary);
 		margin: 0.5rem 0 0;
+	}
+
+	.employer-selection {
+		margin-bottom: 1.5rem;
+	}
+
+	.no-employers {
+		color: var(--tt-text-muted);
+		font-size: 0.9rem;
+		margin: 0;
+		padding: 0.5rem;
+		background: var(--tt-status-warning-faded);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.upload-section {

@@ -35,11 +35,18 @@
 		gap: 4px;
 		padding: 6px 12px;
 		border: 1px solid var(--tt-header-border);
-		background: rgba(255, 255, 255, 0.1);
+		background: transparent;
 		color: var(--tt-header-text);
 		font-size: 0.875rem;
 		border-radius: var(--tt-radius-button);
 		cursor: pointer;
+		transition: background var(--tt-transition-fast);
+	}
+
+	@media (hover: hover) {
+		.nav-btn:hover {
+			background: rgba(255, 255, 255, 0.1);
+		}
 	}
 
 	.nav-btn:active {

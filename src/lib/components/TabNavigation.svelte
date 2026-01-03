@@ -67,14 +67,5 @@
 </nav>
 
 <style>
-	/* Layout positioning only - styling handled by .tt-footer-nav in design system */
-	.tt-footer-nav {
-		position: fixed;
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 100%;
-		max-width: 600px;
-		z-index: 100;
-	}
+	/* All styling handled by .tt-footer-nav in design system */
 </style>

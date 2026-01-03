@@ -17,6 +17,7 @@
 	import { getActiveEmployers } from '$lib/storage/employers';
 	import type { Category, Employer } from '$lib/types';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 	import { onMount } from 'svelte';
 
 	interface Props {
@@ -58,6 +59,11 @@
 	let selectedEmployerId = $state(category?.employerId ?? defaultEmployerId ?? '');
 	let error = $state('');
 	let employers = $state<Employer[]>([]);
+
+	// Convert employers to dropdown options
+	let employerOptions = $derived(
+		employers.map((e) => ({ value: e.id, label: e.name }))
+	);
 
 	onMount(async () => {
 		employers = await getActiveEmployers();
@@ -150,18 +156,13 @@
 		{#if !isAbsenceCategory}
 			<div class="field">
 				<label for="category-employer">Arbeitgeber:</label>
-				<select
-					id="category-employer"
-					data-testid="category-employer-select"
-					bind:value={selectedEmployerId}
-					class="tt-dropdown"
+				<CustomDropdown
+					options={employerOptions}
+					value={selectedEmployerId}
+					onchange={(id) => (selectedEmployerId = id)}
 					disabled={isSystemCategory}
-				>
-					<option value="" disabled>Arbeitgeber auswählen...</option>
-					{#each employers as employer (employer.id)}
-						<option value={employer.id}>{employer.name}</option>
-					{/each}
-				</select>
+					placeholder="Arbeitgeber auswählen..."
+				/>
 			</div>
 		{/if}
 

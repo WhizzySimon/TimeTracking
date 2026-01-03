@@ -284,7 +284,7 @@
 				</svg>
 				{previousWeekLabel()}
 			</button>
-			<button class="week-title" data-testid="week-title" onclick={openWeekPicker}>
+			<button class="week-title tt-date-selector-button" data-testid="week-title" onclick={openWeekPicker}>
 				{#if weekPrefix}
 					<span class="title-prefix">{weekPrefix}</span>
 				{/if}
@@ -418,21 +418,27 @@
 		font-weight: 600;
 		flex: 1;
 		padding: 0.5rem 1rem;
-		border: none;
+		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 		background: var(--tt-background-card);
 		text-align: center;
 		cursor: pointer;
-		border-radius: var(--tt-radius-card);
+		border-radius: 0.5rem;
 		color: var(--tt-text-primary);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		gap: var(--tt-space-4);
+		gap: 0.25rem;
 		min-height: 44px;
 	}
 
-	.week-title:hover {
-		background: var(--tt-background-card-hover);
+	@media (hover: hover) {
+		.week-title:hover {
+			background: var(--tt-background-card-hover);
+		}
+	}
+
+	.week-title:active {
+		background: var(--tt-background-card-pressed);
 	}
 
 	.title-prefix {
@@ -464,6 +470,7 @@
 		gap: var(--tt-space-4);
 		font-size: 0.9rem;
 		color: var(--tt-text-muted);
+		margin-left: auto;
 	}
 
 	.day-hours__ist {

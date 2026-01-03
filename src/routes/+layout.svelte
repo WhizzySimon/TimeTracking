@@ -5,7 +5,7 @@
 	import { goto, pushState } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import '$lib/styles/theme.css';
-	import '$lib/styles/tt-design-system-v2.css';
+	import '$lib/styles/tt-design-system-v3.css';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
 	import EmployerSelector from '$lib/components/EmployerSelector.svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
@@ -46,6 +46,7 @@
 	import { setupInstallPrompt, installState, triggerInstall } from '$lib/pwa/install';
 	import { setupUpdateDetection, updateAvailable, applyUpdate } from '$lib/pwa/update';
 	import { initTheme } from '$lib/stores/theme';
+	import { colorScheme } from '$lib/stores/colorScheme';
 
 	let { children } = $props();
 
@@ -285,6 +286,9 @@
 	onMount(async () => {
 		// Initialize theme from localStorage
 		initTheme();
+
+		// Initialize color scheme from localStorage
+		colorScheme.init();
 
 		if (!dev && 'serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/sw.js');
@@ -641,7 +645,7 @@
 
 	:global(body) {
 		font-family: var(--tt-font-family);
-		background-color: var(--tt-bg);
+		background-color: var(--tt-background-outside);
 		color: var(--tt-text);
 	}
 
@@ -649,9 +653,9 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		max-width: 600px;
+		max-width: var(--tt-app-max-width);
 		margin: 0 auto;
-		background-color: var(--tt-bg);
+		background-color: var(--tt-background-page);
 	}
 
 	.app-header {
@@ -691,18 +695,27 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: var(--tt-space-6);
-		margin-right: var(--tt-space-8);
+		width: 40px;
+		height: 40px;
+		padding: 0;
+		border: 1px solid var(--tt-header-border);
+		border-radius: var(--tt-radius-button);
 		background: transparent;
-		border: none;
-		color: var(--tt-status-warning);
-		opacity: 0.9;
-		transition: all 0.3s ease;
+		color: var(--tt-header-text);
+		opacity: 0.7;
 		cursor: pointer;
+		transition: background var(--tt-transition-fast), opacity var(--tt-transition-fast);
 	}
 
-	.sync-indicator:hover {
-		opacity: 1;
+	@media (hover: hover) {
+		.sync-indicator:hover {
+			background: rgba(255, 255, 255, 0.1);
+			opacity: 1;
+		}
+	}
+
+	.sync-indicator:active {
+		background: rgba(255, 255, 255, 0.2);
 	}
 
 	.sync-indicator.synced {
@@ -741,11 +754,19 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		cursor: pointer;
+		transition: background var(--tt-transition-fast), color var(--tt-transition-fast);
 	}
 
-	.profile-btn:hover {
-		background: rgba(255, 255, 255, 0.15);
-		color: var(--tt-header-text);
+	@media (hover: hover) {
+		.profile-btn:hover {
+			background: rgba(255, 255, 255, 0.1);
+			color: var(--tt-header-text);
+		}
+	}
+
+	.profile-btn:active {
+		background: rgba(255, 255, 255, 0.2);
 	}
 
 	.profile-menu {
@@ -782,25 +803,38 @@
 		gap: var(--tt-space-12);
 		padding: var(--tt-space-12) var(--tt-space-16);
 		font-size: 0.9rem;
-		color: var(--tt-text);
+		color: var(--tt-text-primary);
 		text-decoration: none;
 		background: none;
 		border: none;
 		width: 100%;
 		text-align: left;
 		cursor: pointer;
+		transition: background var(--tt-transition-fast);
 	}
 
-	.menu-item:hover {
-		background: var(--tt-surface-alt);
+	@media (hover: hover) {
+		.menu-item:hover {
+			background: var(--tt-background-card-hover);
+		}
+	}
+
+	.menu-item:active {
+		background: var(--tt-background-card-pressed);
 	}
 
 	.menu-item.logout {
 		color: var(--tt-status-danger);
 	}
 
-	.menu-item.logout:hover {
-		background: var(--tt-status-danger-faded);
+	@media (hover: hover) {
+		.menu-item.logout:hover {
+			background: rgba(197, 48, 48, 0.05);
+		}
+	}
+
+	.menu-item.logout:active {
+		background: rgba(197, 48, 48, 0.1);
 	}
 
 	.profile-menu-backdrop {
