@@ -22,13 +22,13 @@
 		<h2>Color schemes</h2>
 
 		<!-- Brand Primary Blue — Full Scale (Responds to Scheme Changes) -->
-		<p class="tt-text-muted">
+		<p style="color: var(--tt-text-muted);">
 			<strong>Dynamic:</strong> This scale changes when you switch color schemes in Settings → Entwicklung.
 			The colors shown below reflect the currently active scheme.
 		</p>
 
 		<h3>Brand Primary — Numbered Scale (25-700)</h3>
-		<p class="tt-text-muted">
+		<p style="color: var(--tt-text-muted);">
 			Numbers represent lightness levels in the Material Design convention.
 			Switch schemes to see how these colors adapt.
 		</p>
@@ -72,7 +72,7 @@
 		</div>
 
 		<h3>Brand Accent (Cyan) — Full Scale</h3>
-		<p class="tt-text-muted">
+		<p style="color: var(--tt-text-muted);">
 			Currently unused. Potential uses: info states, highlights, accent badges, running task
 			indicator?
 		</p>
@@ -98,9 +98,9 @@
 		</div>
 
 		<h3>Semantic States</h3>
-		<p class="tt-text-muted">Each semantic color has base + pressed + faded variants.</p>
+		<p style="color: var(--tt-text-muted);">Each semantic color has base + pressed + faded variants.</p>
 
-		<p class="tt-text-muted" style="margin-top: 1rem;">
+		<p style="color: var(--tt-text-muted); margin-top: 1rem;">
 			<strong>Danger</strong> — Destructive actions (delete), errors, validation failures
 		</p>
 		<div class="color-scale">
@@ -118,7 +118,7 @@
 			</div>
 		</div>
 
-		<p class="tt-text-muted" style="margin-top: 1rem;">
+		<p style="color: var(--tt-text-muted); margin-top: 1rem;">
 			<strong>Success</strong> — Positive outcomes, confirmations
 		</p>
 		<div class="color-scale">
@@ -133,7 +133,7 @@
 			</div>
 		</div>
 
-		<p class="tt-text-muted" style="margin-top: 1rem;">
+		<p style="color: var(--tt-text-muted); margin-top: 1rem;">
 			<strong>Warning</strong> — Caution, attention needed
 		</p>
 		<div class="color-scale">
@@ -148,7 +148,7 @@
 			</div>
 		</div>
 
-		<p class="tt-text-muted" style="margin-top: 1rem;">
+		<p style="color: var(--tt-text-muted); margin-top: 1rem;">
 			<strong>Info</strong> — Running tasks, progress, informational highlights (uses brand-accent)
 		</p>
 		<div class="color-scale">
@@ -196,7 +196,7 @@
 	<!-- Component System Explanation -->
 	<section class="section">
 		<h2>How the CSS Component System Works</h2>
-		<div class="tt-card explanation-card">
+		<div class="explanation-card">
 			<h3>Classes + Variants</h3>
 			<p>
 				Components are built with <strong>base classes</strong> and

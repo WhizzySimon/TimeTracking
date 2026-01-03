@@ -1,30 +1,50 @@
 /**
  * TimeTracker Design System v2
  * 
- * INTERACTION STATES: Progressive feedback for mouse and touch
+ * ============================================================================
+ * 3-LAYER ARCHITECTURE
+ * ============================================================================
+ * 
+ * LAYER 1: SCHEME COLORS (Primitives)
+ *   --tt-brand-primary-500, --tt-status-danger-500, etc.
+ *   → Raw colors from color schemes, change with scheme selection
+ *   → Avoid using directly in components - use semantic tokens instead
+ * 
+ * LAYER 2: SEMANTIC TOKENS (Purpose-based values)
+ *   --tt-background-card, --tt-text-muted, --tt-border-default, etc.
+ *   → Map scheme colors to purposes ("what is it FOR?")
+ *   → Use in CSS when styling individual properties
+ *   → RULE: Create when same PURPOSE exists in 2+ places
+ * 
+ * LAYER 3: COMPONENT CLASSES (Multi-property bundles)
+ *   .tt-button-primary, .tt-list-row-clickable, .tt-inline-label-*, etc.
+ *   → Bundle multiple properties together
+ *   → RULE: Create when same UI PATTERN is used 3+ times
+ *   → Single-use components: use semantic tokens directly, no class needed
+ * 
+ * ============================================================================
+ * NAMING CONVENTION
+ * ============================================================================
+ * - Variables: --tt-{category}-{property}-{variant}
+ * - Classes: .tt-{component}-{variant} or .tt-{component}--{modifier}
+ * - Child elements: BEM-like naming (.tt-list-row__time, .tt-list-row__actions)
+ * 
+ * ============================================================================
+ * INTERACTION STATES
+ * ============================================================================
  * State progression: normal → hover → selected/current → pressed
  * - Light backgrounds: states become darker
  * - Dark backgrounds: states become lighter
- * - Contrast verified for all states
- * 
- * NAMING CONVENTION: All names must be self-explanatory without reading docs.
- * - Variables: --tt-{category}-{property}-{variant}
- * - Classes: .tt-{component}-{variant} or .tt-{component}--{modifier}
- * 
- * COMPONENT STRUCTURE:
- * - Base class defines shared styles (.tt-list-row)
- * - Variant classes add behavioral differences (.tt-list-row-clickable, .tt-list-row-static)
- * - Child elements use BEM-like naming (.tt-list-row__time, .tt-list-row__actions)
  * 
  * TOUCHABLE vs NON-TOUCHABLE:
  * - Clickable: white background + border = card-like affordance
  * - Static: no background, flat appearance
  * 
- * BORDER-RADIUS PHILOSOPHY:
- * - Cards/rows: --tt-radius-card (8px) - consistent rounded corners
- * - Buttons: --tt-radius-button (6px) - slightly smaller
- * - Badges/labels: --tt-radius-badge (4px) - subtle rounding
- * - Pills/chips: --tt-radius-pill (9999px) - fully rounded
+ * BORDER-RADIUS:
+ * - Cards/rows: --tt-radius-card (8px)
+ * - Buttons: --tt-radius-button (6px)
+ * - Badges/labels: --tt-radius-badge (4px)
+ * - Pills/chips: --tt-radius-pill (9999px)
  */
 
 /* ============================================================================
@@ -385,76 +405,7 @@ html[data-color-scheme="scheme-3"] {
 }
 
 /* ============================================================================
-   C) SELECTION ROW - For category/item selection screens
-   ============================================================================ */
-
-.tt-selection-row {
-	display: flex;
-	align-items: center;
-	gap: var(--tt-space-12);
-	padding: var(--tt-space-12) var(--tt-space-16);
-	min-height: 44px;
-	background: var(--tt-background-card);
-	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-	border-radius: var(--tt-radius-card);
-	cursor: pointer;
-	transition: background var(--tt-transition-fast);
-}
-
-@media (hover: hover) {
-	.tt-selection-row:hover {
-		background: var(--tt-background-card-hover);
-	}
-}
-
-.tt-selection-row.is-selected {
-	border-color: var(--tt-brand-primary-500);
-	background: var(--tt-brand-primary-800);
-}
-
-@media (hover: hover) {
-	.tt-selection-row.is-selected:hover {
-		background: rgba(37, 38, 169, 0.15);
-	}
-}
-
-.tt-selection-row__label {
-	flex: 1;
-	font-weight: var(--tt-font-weight-medium);
-}
-
-.tt-selection-row__checkmark {
-	width: 20px;
-	height: 20px;
-	border: 2px solid var(--tt-border-default);
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-shrink: 0;
-	transition:
-		border-color var(--tt-transition-fast),
-		background var(--tt-transition-fast);
-}
-
-.tt-selection-row.is-selected .tt-selection-row__checkmark {
-	border-color: var(--tt-brand-primary-500);
-	background: var(--tt-brand-primary-500);
-	color: white;
-}
-
-.tt-selection-row__checkmark svg {
-	width: 12px;
-	height: 12px;
-	opacity: 0;
-}
-
-.tt-selection-row.is-selected .tt-selection-row__checkmark svg {
-	opacity: 1;
-}
-
-/* ============================================================================
-   D) INLINE LABEL - Fit-content badges for metadata
+   C) INLINE LABEL - Fit-content badges for metadata
    
    IMPORTANT: These are inline-flex and will NOT stretch to full width
    ============================================================================ */
@@ -754,43 +705,6 @@ html[data-color-scheme="scheme-3"] {
 }
 
 /**
- * Danger Button - Destructive action (self-contained)
- */
-.tt-button-danger {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: var(--tt-space-8);
-	padding: var(--tt-space-12) var(--tt-space-24);
-	min-height: 48px;
-	font-size: var(--tt-font-size-normal);
-	font-weight: var(--tt-font-weight-semibold);
-	line-height: 1;
-	border-radius: var(--tt-radius-button);
-	border: none;
-	cursor: pointer;
-	white-space: nowrap;
-	background: var(--tt-status-danger-500);
-	color: white;
-	transition: background var(--tt-transition-fast);
-}
-
-@media (hover: hover) {
-	.tt-button-danger:hover:not(:disabled) {
-		background: var(--tt-status-danger-hover);
-	}
-}
-
-.tt-button-danger:active:not(:disabled) {
-	background: var(--tt-status-danger-300);
-}
-
-.tt-button-danger:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-
-/**
  * Ghost Button - Minimal style (self-contained)
  */
 .tt-button-ghost {
@@ -977,44 +891,6 @@ html[data-color-scheme="scheme-3"] {
    ============================================================================ */
 
 /**
- * Card Container
- */
-.tt-card {
-	background: var(--tt-background-card);
-	border: 1px solid var(--tt-border-subtle);
-	border-radius: var(--tt-radius-card);
-	padding: var(--tt-space-16);
-}
-
-/**
- * Divider Line
- */
-.tt-divider {
-	height: 1px;
-	background: var(--tt-border-subtle);
-	margin: var(--tt-space-8) 0;
-}
-
-/**
- * Text Color Utilities
- */
-.tt-text-muted {
-	color: var(--tt-text-muted);
-}
-
-.tt-text-brand {
-	color: var(--tt-brand-primary-500);
-}
-
-.tt-text-success {
-	color: var(--tt-status-success-500);
-}
-
-.tt-text-danger {
-	color: var(--tt-status-danger-500);
-}
-
-/**
  * Play Icon (CSS triangle)
  */
 .tt-play-icon {
@@ -1027,110 +903,7 @@ html[data-color-scheme="scheme-3"] {
 }
 
 /* ============================================================================
-   I) ACTION TITLE - Clickable date/period header
-   
-   Used on: Day (Ausgewählter Tag), Week (Ausgewählte Woche), 
-            Month (Ausgewählter Monat), Analysis (Zeitraum)
-   ============================================================================ */
-
-.tt-action-title {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--tt-space-8);
-	padding: var(--tt-space-12) var(--tt-space-16);
-	font-size: var(--tt-font-size-large);
-	font-weight: var(--tt-font-weight-semibold);
-	color: var(--tt-text-primary);
-	background: var(--tt-background-card);
-	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-	border-radius: var(--tt-radius-button);
-	cursor: pointer;
-}
-
-/* Active state: only background changes, border stays same */
-.tt-action-title:active {
-	background: var(--tt-background-card-pressed);
-}
-
-.tt-action-title__icon {
-	width: 16px;
-	height: 16px;
-	color: var(--tt-text-muted);
-}
-
-/* ============================================================================
-   J) SECTION TITLE - Section headers in Settings/Add pages
-   ============================================================================ */
-
-.tt-section-title {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: var(--tt-space-12) 0;
-	font-size: var(--tt-font-size-small);
-	font-weight: var(--tt-font-weight-semibold);
-	color: var(--tt-text-muted);
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-}
-
-.tt-section-title__action {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 40px;
-	height: 40px;
-	padding: 0;
-	background: var(--tt-background-card);
-	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-	border-radius: var(--tt-radius-button);
-	color: var(--tt-text-secondary);
-	cursor: pointer;
-}
-
-.tt-section-title__action:active {
-	background: var(--tt-background-card-pressed);
-}
-
-.tt-section-title__action svg {
-	width: 20px;
-	height: 20px;
-}
-
-/* Expandable section title - simple text with triangle, like simple section title */
-.tt-section-title-expandable {
-	display: flex;
-	align-items: center;
-	gap: var(--tt-space-8);
-	padding: var(--tt-space-12) 0;
-	font-size: var(--tt-font-size-small);
-	font-weight: var(--tt-font-weight-semibold);
-	color: var(--tt-text-muted);
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	background: transparent;
-	border: none;
-	cursor: pointer;
-}
-
-.tt-section-title-expandable:active {
-	color: var(--tt-text-primary);
-}
-
-.tt-section-title-expandable__icon {
-	width: 12px;
-	height: 12px;
-	color: var(--tt-text-muted);
-	transition: transform var(--tt-transition-fast);
-	transform: rotate(-90deg); /* Collapsed: points right */
-}
-
-.tt-section-title-expandable.is-expanded .tt-section-title-expandable__icon {
-	transform: rotate(0deg); /* Expanded: points down */
-}
-
-/* ============================================================================
-   K) NAVIGATION COMPONENTS
+   I) NAVIGATION COMPONENTS
    ============================================================================ */
 
 /* Nav direction buttons (Zurück/Vor) - same style as symbol buttons */
