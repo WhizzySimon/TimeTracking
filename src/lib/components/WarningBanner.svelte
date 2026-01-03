@@ -58,10 +58,10 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.75rem 1rem;
-		background: var(--tt-status-warning-faded);
-		border: 1px solid var(--tt-status-warning);
+		background: var(--tt-status-warning-50);
+		border: 1px solid var(--tt-status-warning-500);
 		border-radius: var(--tt-radius-card);
-		color: var(--tt-status-warning);
+		color: var(--tt-status-warning-500);
 	}
 
 	.warning-icon {
@@ -78,7 +78,7 @@
 	}
 
 	.clickable:hover {
-		background: var(--tt-status-warning-faded);
+		background: var(--tt-status-warning-50);
 		filter: brightness(0.95);
 	}
 

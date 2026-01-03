@@ -106,8 +106,8 @@
 <style>
 	/* Running task variant - highlighted state */
 	.task-item-running {
-		border-color: var(--tt-status-warning) !important;
-		background: var(--tt-status-warning-faded) !important;
+		border-color: var(--tt-status-warning-500) !important;
+		background: var(--tt-status-warning-50) !important;
 	}
 
 	/* Employer label positioned to the right */

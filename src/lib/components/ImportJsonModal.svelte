@@ -308,72 +308,72 @@
 
 	.warning-box {
 		padding: 0.75rem;
-		background: var(--tt-status-warning-faded);
-		border: 1px solid var(--tt-status-warning);
+		background: var(--tt-status-warning-50);
+		border: 1px solid var(--tt-status-warning-500);
 		border-radius: var(--tt-radius-card);
 	}
 
 	.warning-title {
 		margin: 0 0 0.5rem 0;
 		font-weight: 600;
-		color: var(--tt-status-warning);
+		color: var(--tt-status-warning-500);
 	}
 
 	.warning-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
 		font-size: 0.85rem;
-		color: var(--tt-status-warning);
+		color: var(--tt-status-warning-500);
 	}
 
 	.error-box {
 		padding: 0.75rem;
-		background: var(--tt-status-danger-faded);
-		border: 1px solid var(--tt-status-danger);
+		background: var(--tt-status-danger-800);
+		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-card);
 	}
 
 	.info-box {
 		padding: 0.75rem;
-		background: var(--tt-status-warning-faded);
-		border: 1px solid var(--tt-status-warning);
+		background: var(--tt-status-warning-50);
+		border: 1px solid var(--tt-status-warning-500);
 		border-radius: var(--tt-radius-card);
 	}
 
 	.info-title {
 		margin: 0 0 0.25rem 0;
 		font-weight: 600;
-		color: var(--tt-status-warning);
+		color: var(--tt-status-warning-500);
 	}
 
 	.info-hint {
 		margin: 0;
 		font-size: 0.85rem;
-		color: var(--tt-status-warning);
+		color: var(--tt-status-warning-500);
 	}
 
 	.error-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
 		font-size: 0.85rem;
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 	}
 
 	.error-box p {
 		margin: 0;
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 	}
 
 	.success-box {
 		padding: 0.75rem;
-		background: var(--tt-status-success-faded);
-		border: 1px solid var(--tt-status-success);
+		background: var(--tt-status-success-800);
+		border: 1px solid var(--tt-status-success-500);
 		border-radius: var(--tt-radius-card);
 	}
 
 	.success-box p {
 		margin: 0;
-		color: var(--tt-status-success);
+		color: var(--tt-status-success-500);
 		font-weight: 500;
 	}
 

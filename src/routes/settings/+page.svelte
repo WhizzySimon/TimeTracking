@@ -1278,7 +1278,7 @@
 	}
 
 	.dropdown-item-danger {
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 	}
 
 	@media (hover: hover) {
@@ -1343,7 +1343,7 @@
 	.delete-account-btn {
 		width: 100%;
 		padding: 0.875rem;
-		background: var(--tt-status-danger);
+		background: var(--tt-status-danger-500);
 		color: white;
 		border: none;
 		border-radius: var(--tt-radius-button);
@@ -1366,7 +1366,7 @@
 		display: block;
 		margin-top: 0.5rem;
 		font-size: 0.85rem;
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 		text-align: center;
 	}
 
@@ -1404,7 +1404,7 @@
 	}
 
 	.data-btn.danger {
-		background: var(--tt-status-danger);
+		background: var(--tt-status-danger-500);
 		color: white;
 	}
 
@@ -1418,11 +1418,11 @@
 	}
 
 	.dropdown-item-danger {
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 	}
 
 	.dropdown-item-danger:hover {
-		background: var(--tt-status-danger-faded);
+		background: var(--tt-status-danger-800);
 	}
 
 	.account-info {

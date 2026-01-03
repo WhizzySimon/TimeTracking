@@ -555,7 +555,7 @@
 	}
 
 	.week-hours__saldo--positive {
-		color: var(--tt-status-success);
+		color: var(--tt-status-success-500);
 	}
 
 	.week-hours__saldo--negative {

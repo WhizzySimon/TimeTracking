@@ -486,7 +486,7 @@
 	}
 
 	.day-hours__saldo--positive {
-		color: var(--tt-status-success);
+		color: var(--tt-status-success-500);
 	}
 
 	.day-hours__saldo--negative {

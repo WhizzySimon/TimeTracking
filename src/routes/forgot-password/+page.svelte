@@ -168,10 +168,10 @@
 	}
 
 	.error {
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 		font-size: 0.9rem;
 		padding: 0.75rem;
-		background: var(--tt-status-danger-faded);
+		background: var(--tt-status-danger-800);
 		border-radius: var(--tt-radius-input);
 		text-align: center;
 	}
@@ -179,14 +179,14 @@
 	.success-message {
 		text-align: center;
 		padding: 1.5rem;
-		background: var(--tt-status-success-faded);
+		background: var(--tt-status-success-800);
 		border-radius: var(--tt-radius-card);
 		margin-bottom: 1rem;
 	}
 
 	.success-message p {
 		margin: 0;
-		color: var(--tt-status-success);
+		color: var(--tt-status-success-500);
 		line-height: 1.5;
 	}
 

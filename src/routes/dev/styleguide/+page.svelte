@@ -27,880 +27,57 @@
 		</p>
 	</header>
 
-	<!-- Component System Explanation -->
+	<!-- Color schemes -->
 	<section class="section">
-		<h2>How the CSS Component System Works</h2>
-		<div class="tt-card explanation-card">
-			<h3>Classes + Variants</h3>
-			<p>
-				Components are built with <strong>base classes</strong> and
-				<strong>variant modifiers</strong>:
-			</p>
-			<pre><code
-					>&lt;div class="tt-list-row-clickable"&gt;  &lt;!-- Clickable row --&gt;
-&lt;div class="tt-list-row-static"&gt;     &lt;!-- Non-clickable row --&gt;
-&lt;span class="tt-inline-label-employer"&gt;  &lt;!-- Employer badge --&gt;</code
-				></pre>
+		<h2>Color schemes</h2>
 
-			<h3>Naming Convention</h3>
-			<p>
-				<code>.tt-{'{component}'}-{'{variant}'}</code> — Names describe behavior, not implementation.
-			</p>
-			<ul>
-				<li><code>tt-list-row-clickable</code> — Row that can be tapped/clicked</li>
-				<li><code>tt-list-row-static</code> — Row that is read-only</li>
-				<li><code>tt-inline-label</code> — Small inline badge that fits its content</li>
-			</ul>
-		</div>
-	</section>
-
-	<!-- Touchable vs Non-Touchable -->
-	<section class="section">
-		<h2>Touchable vs Non-Touchable Design</h2>
+		<!-- Brand Primary Blue — Full Scale (Responds to Scheme Changes) -->
 		<p class="tt-text-muted">
-			Clickable items are ALWAYS visually distinct (left accent border). No hover needed to discover
-			clickability.
+			<strong>Dynamic:</strong> This scale changes when you switch color schemes in Settings → Entwicklung.
+			The colors shown below reflect the currently active scheme.
 		</p>
 
-		<h3>Clickable Row (tt-list-row-clickable)</h3>
+		<h3>Brand Primary — Numbered Scale (25-700)</h3>
 		<p class="tt-text-muted">
-			Used for: Time entries, navigation items, editable settings. Border = touchable, background
-			changes on touch.
+			Numbers represent lightness levels in the Material Design convention.
+			Switch schemes to see how these colors adapt.
 		</p>
-		<p class="tt-text-muted">
-			<strong>Important:</strong> Buttons inside rows must use <code>onclick|stopPropagation</code> to
-			prevent row highlight when clicking buttons.
-		</p>
-		<div class="demo-stack">
-			<div class="tt-list-row-clickable" role="button" tabindex="0">
-				<div class="tt-list-row__content-compact">
-					<span class="tt-list-row__time">08:00 – 12:30</span>
-					<span class="tt-list-row__separator"></span>
-					<span class="tt-list-row__category">Entwicklung</span>
-					<span class="tt-inline-label-employer">Kirche</span>
-				</div>
-				<div class="tt-list-row__actions">
-					<button
-						class="tt-symbol-button"
-						aria-label="Fortsetzen"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<polygon points="5 3 19 12 5 21 5 3"></polygon>
-						</svg>
-					</button>
-					<button
-						class="tt-symbol-button"
-						aria-label="Löschen"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<polyline points="3 6 5 6 21 6"></polyline>
-							<path
-								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-							></path>
-						</svg>
-					</button>
-				</div>
-			</div>
-		</div>
-
-		<h3>Non-Clickable Row (tt-list-row-static)</h3>
-		<p class="tt-text-muted">Used for: Ist/Soll/Haben summary, Summe totals. No hover effect.</p>
-		<div class="demo-stack">
-			<div class="tt-list-row-static">
-				<div class="tt-list-row__content-compact">
-					<span class="tt-text-muted"
-						>This row does not respond to hover — it's read-only information</span
-					>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Compact Row Layout -->
-	<section class="section">
-		<h2>Compact Row Layout (Single Line)</h2>
-		<p class="tt-text-muted">
-			Content flows horizontally: Time · Category · Employer — all on one line when space allows.
-		</p>
-
-		<h3>Time Entry Row (Eintrag)</h3>
-		<div class="demo-stack">
-			<div class="tt-list-row-clickable" role="button" tabindex="0">
-				<div class="tt-list-row__content-compact">
-					<span class="tt-list-row__time">08:00 – 12:30</span>
-					<span class="tt-list-row__separator"></span>
-					<span class="tt-list-row__category">Entwicklung</span>
-					<span class="tt-inline-label-employer">Kirche</span>
-				</div>
-				<div class="tt-list-row__actions">
-					<button
-						class="tt-symbol-button"
-						aria-label="Fortsetzen"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<polygon points="5 3 19 12 5 21 5 3"></polygon>
-						</svg>
-					</button>
-					<button
-						class="tt-symbol-button"
-						aria-label="Löschen"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<polyline points="3 6 5 6 21 6"></polyline>
-							<path
-								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-							></path>
-						</svg>
-					</button>
-				</div>
-			</div>
-			<div class="tt-list-row-clickable" role="button" tabindex="0">
-				<div class="tt-list-row__content-compact">
-					<span class="tt-list-row__time">13:00 – 14:00</span>
-					<span class="tt-list-row__separator"></span>
-					<span class="tt-list-row__category">Pause</span>
-					<span class="tt-inline-label-no-work">Keine Arbeitszeit</span>
-				</div>
-				<div class="tt-list-row__actions">
-					<button
-						class="tt-symbol-button"
-						aria-label="Fortsetzen"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<polygon points="5 3 19 12 5 21 5 3"></polygon>
-						</svg>
-					</button>
-					<button
-						class="tt-symbol-button"
-						aria-label="Löschen"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<polyline points="3 6 5 6 21 6"></polyline>
-							<path
-								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-							></path>
-						</svg>
-					</button>
-				</div>
-			</div>
-		</div>
-
-		<h3>Navigation Row (Tag/Woche/Monat List Item)</h3>
-		<p class="tt-text-muted">
-			Clickable, leads to detail view. NO chevron — clickability shown via hover.
-		</p>
-		<div class="demo-stack">
-			<div class="tt-list-row-clickable" role="button" tabindex="0">
-				<div class="tt-list-row__content-compact">
-					<span class="tt-list-row__time">Mo 23.12</span>
-					<span class="tt-list-row__separator"></span>
-					<span class="tt-list-row__category">8,5h gearbeitet</span>
-				</div>
-			</div>
-			<div class="tt-list-row-clickable" role="button" tabindex="0">
-				<div class="tt-list-row__content-compact">
-					<span class="tt-list-row__time">KW 52</span>
-					<span class="tt-list-row__separator"></span>
-					<span class="tt-list-row__category">23.12 – 29.12</span>
-					<span class="tt-list-row__separator"></span>
-					<span class="tt-list-row__detail">40h</span>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Summary Display (Non-Clickable) -->
-	<section class="section">
-		<h2>Summary Display (Non-Clickable)</h2>
-		<p class="tt-text-muted">Ist/Soll/Haben and Summe elements — read-only, no interaction.</p>
-
-		<h3>Ist/Soll/Haben Summary</h3>
-		<div class="demo-stack">
-			<div class="tt-summary-display">
-				<span class="tt-summary-display__item">
-					<span class="tt-summary-display__label">Ist:</span>
-					<span class="tt-summary-display__value">8,5</span>
-				</span>
-				<span class="tt-summary-display__item">
-					<span class="tt-summary-display__label">Soll:</span>
-					<span class="tt-summary-display__value">8,0</span>
-				</span>
-				<span class="tt-summary-display__item">
-					<span class="tt-summary-display__label">Haben:</span>
-					<span class="tt-summary-display__value tt-summary-display__value-positive">+0,5</span>
-				</span>
-			</div>
-		</div>
-
-		<h3>Summe Row (Auswertung)</h3>
-		<div class="demo-stack">
-			<div class="tt-list-row-static">
-				<div class="tt-list-row__content-compact">
-					<span class="tt-list-row__time" style="font-weight: 600;">Summe Dezember</span>
-				</div>
-				<div class="tt-list-row__actions">
-					<span style="font-weight: 600;">168,0h</span>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Per-Page Component Mapping -->
-	<section class="section">
-		<h2>Component Usage by Page</h2>
-		<div class="tt-card">
-			<table class="usage-table">
-				<thead>
-					<tr>
-						<th>Page</th>
-						<th>Element</th>
-						<th>Class</th>
-						<th>Clickable?</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr
-						><td>Tag</td><td>Einträge</td><td><code>tt-list-row-clickable</code></td><td>✓ Yes</td
-						></tr
-					>
-					<tr
-						><td>Tag</td><td>Ist/Soll/Haben</td><td><code>tt-summary-display</code></td><td>✗ No</td
-						></tr
-					>
-					<tr
-						><td>Woche</td><td>Tage</td><td><code>tt-list-row-clickable</code></td><td>✓ Yes</td
-						></tr
-					>
-					<tr
-						><td>Woche</td><td>Summary</td><td><code>tt-summary-display</code></td><td>✗ No</td></tr
-					>
-					<tr
-						><td>Monat</td><td>Wochen</td><td><code>tt-list-row-clickable</code></td><td>✓ Yes</td
-						></tr
-					>
-					<tr
-						><td>Monat</td><td>Summary</td><td><code>tt-summary-display</code></td><td>✗ No</td></tr
-					>
-					<tr
-						><td>Auswertung</td><td>Datum-Picker</td><td><code>tt-list-row-clickable</code></td><td
-							>✓ Yes</td
-						></tr
-					>
-					<tr
-						><td>Auswertung</td><td>Zeiten-Einträge</td><td><code>tt-list-row-clickable</code></td
-						><td>✓ Yes</td></tr
-					>
-					<tr
-						><td>Auswertung</td><td>Summe</td><td><code>tt-list-row-static</code></td><td>✗ No</td
-						></tr
-					>
-					<tr
-						><td>Settings</td><td>Default Abwesenheit</td><td><code>tt-list-row-static</code></td
-						><td>✗ No</td></tr
-					>
-					<tr
-						><td>Settings</td><td>Custom Abwesenheit</td><td><code>tt-list-row-clickable</code></td
-						><td>✓ Yes</td></tr
-					>
-					<tr
-						><td>Settings</td><td>Tätigkeiten</td><td><code>tt-list-row-clickable</code></td><td
-							>✓ Yes</td
-						></tr
-					>
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-	<!-- Inline Labels (Badges) -->
-	<section class="section">
-		<h2>Inline Labels (Fit Content Width)</h2>
-		<p class="tt-text-muted">
-			Labels are inline-flex with width: fit-content — they don't stretch.
-		</p>
-
-		<h3>Label Variants</h3>
-		<div class="demo-inline">
-			<span class="tt-inline-label-neutral">Neutral</span>
-			<span class="tt-inline-label-employer">Kirche</span>
-			<span class="tt-inline-label-no-work">Keine Arbeitszeit</span>
-			<span class="tt-inline-label-success">Erfolg</span>
-			<span class="tt-inline-label-warning">Warnung</span>
-			<span class="tt-inline-label-danger">Fehler</span>
-		</div>
-
-		<h3>In Context (Single Line)</h3>
-		<div class="demo-stack">
-			<div class="tt-list-row-clickable">
-				<div class="tt-list-row__content-compact">
-					<span class="tt-list-row__time">08:00 – 12:30</span>
-					<span class="tt-list-row__separator"></span>
-					<span class="tt-list-row__category">Entwicklung</span>
-					<span class="tt-inline-label-employer">Kirche</span>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Interactive Chips -->
-	<section class="section">
-		<h2>Interactive Chips (Add Screen)</h2>
-		<p class="tt-text-muted">Chips are interactive selection elements for the Add screen.</p>
-
-		<div class="demo-inline">
-			<button class="tt-chip">Entwicklung</button>
-			<button class="tt-chip">Meeting</button>
-			<button class="tt-chip is-selected">Pause</button>
-			<button class="tt-chip">Admin</button>
-		</div>
-	</section>
-
-	<!-- Buttons -->
-	<section class="section">
-		<h2>Buttons</h2>
-
-		<h3>Standard</h3>
-		<div class="demo-inline">
-			<button class="tt-button-primary">Primary</button>
-			<button class="tt-button-secondary">Secondary</button>
-			<button class="tt-button-danger">Danger</button>
-			<button class="tt-button-ghost">Ghost</button>
-		</div>
-
-		<h3>Small</h3>
-		<div class="demo-inline">
-			<button class="tt-button-primary tt-button-small">Primary Small</button>
-			<button class="tt-button-secondary tt-button-small">Secondary Small</button>
-		</div>
-
-		<h3>Symbol Buttons (With Border)</h3>
-		<p class="tt-text-muted">
-			All symbol buttons have border for touchable affordance (mobile-first). Gray icons, color on
-			touch.
-		</p>
-		<div class="demo-inline">
-			<button class="tt-symbol-button" aria-label="Sync">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<polyline points="23 4 23 10 17 10"></polyline>
-					<polyline points="1 20 1 14 7 14"></polyline>
-					<path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-				</svg>
-			</button>
-			<button class="tt-symbol-button" aria-label="Profile">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-					<circle cx="12" cy="7" r="4"></circle>
-				</svg>
-			</button>
-			<button class="tt-symbol-button" aria-label="Resume">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<polygon points="5 3 19 12 5 21 5 3"></polygon>
-				</svg>
-			</button>
-			<button class="tt-symbol-button" aria-label="Add">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<line x1="12" y1="5" x2="12" y2="19"></line>
-					<line x1="5" y1="12" x2="19" y2="12"></line>
-				</svg>
-			</button>
-			<button class="tt-symbol-button" aria-label="More options">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<circle cx="12" cy="12" r="1"></circle>
-					<circle cx="12" cy="5" r="1"></circle>
-					<circle cx="12" cy="19" r="1"></circle>
-				</svg>
-			</button>
-			<button class="tt-symbol-button" aria-label="Delete">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<polyline points="3 6 5 6 21 6"></polyline>
-					<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-					></path>
-				</svg>
-			</button>
-			<button class="tt-symbol-button" aria-label="Import">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-					<polyline points="7 10 12 15 17 10"></polyline>
-					<line x1="12" y1="15" x2="12" y2="3"></line>
-				</svg>
-			</button>
-			<button class="tt-symbol-button" aria-label="Export">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-					<polyline points="17 8 12 3 7 8"></polyline>
-					<line x1="12" y1="3" x2="12" y2="15"></line>
-				</svg>
-			</button>
-			<button class="tt-symbol-button" aria-label="Edit">
-				<svg
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-					<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-				</svg>
-			</button>
-		</div>
-	</section>
-
-	<!-- Settings List Items -->
-	<section class="section">
-		<h2>Settings List Items</h2>
-
-		<h3>Default Abwesenheit (Non-Clickable)</h3>
-		<p class="tt-text-muted">System defaults don't open dialogs — they're static.</p>
-		<div class="demo-stack">
-			<div class="tt-list-row-static">
-				<div class="tt-list-row__content-compact">
-					<span>Feiertag</span>
-					<span class="tt-inline-label-no-work">Keine Arbeitszeit</span>
-				</div>
-			</div>
-			<div class="tt-list-row-static">
-				<div class="tt-list-row__content-compact">
-					<span>Krank</span>
-					<span class="tt-inline-label-no-work">Keine Arbeitszeit</span>
-				</div>
-			</div>
-		</div>
-
-		<h3>Custom Abwesenheit (Clickable)</h3>
-		<p class="tt-text-muted">User-created items open edit dialogs.</p>
-		<div class="demo-stack">
-			<div class="tt-list-row-clickable" role="button" tabindex="0">
-				<div class="tt-list-row__content-compact">
-					<span>Joggen</span>
-					<span class="tt-inline-label-no-work">Keine Arbeitszeit</span>
-				</div>
-				<div class="tt-list-row__actions">
-					<button
-						class="tt-symbol-button"
-						aria-label="Löschen"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<polyline points="3 6 5 6 21 6"></polyline>
-							<path
-								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-							></path>
-						</svg>
-					</button>
-				</div>
-			</div>
-		</div>
-
-		<h3>Tätigkeiten (Clickable)</h3>
-		<div class="demo-stack">
-			<div class="tt-list-row-clickable" role="button" tabindex="0">
-				<div class="tt-list-row__content-compact">
-					<span>Entwicklung</span>
-					<span class="tt-inline-label-employer">Kirche</span>
-				</div>
-				<div class="tt-list-row__actions">
-					<button
-						class="tt-symbol-button"
-						aria-label="Löschen"
-						onclick={(e) => e.stopPropagation()}
-					>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<polyline points="3 6 5 6 21 6"></polyline>
-							<path
-								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-							></path>
-						</svg>
-					</button>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Action Title (Date Picker Trigger) -->
-	<section class="section">
-		<h2>Action Title (Excel: ActionTitle)</h2>
-		<p class="tt-text-muted">Clickable date/period header that opens picker dialogs.</p>
-
-		<p class="tt-text-muted" style="font-style: italic;">
-			Note: Action Title is NOT a dropdown. It opens a date picker dialog.
-		</p>
-		<div class="demo-inline">
-			<button class="tt-action-title">
-				<span>Montag, 23. Dezember 2024</span>
-			</button>
-		</div>
-		<div class="demo-inline" style="margin-top: 0.5rem;">
-			<button class="tt-action-title">
-				<span>KW 52 · 23.12 – 29.12</span>
-			</button>
-		</div>
-	</section>
-
-	<!-- Section Titles -->
-	<section class="section">
-		<h2>Section Titles (Excel: Section-title)</h2>
-
-		<h3>Simple Section Title</h3>
-		<div class="demo-stack">
-			<div class="tt-section-title">
-				<span>VORSCHLÄGE</span>
-			</div>
-			<div class="tt-section-title">
-				<span>ARBEITGEBER</span>
-				<button class="tt-section-title__action" aria-label="Hinzufügen">
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<line x1="12" y1="5" x2="12" y2="19"></line>
-						<line x1="5" y1="12" x2="19" y2="12"></line>
-					</svg>
-				</button>
-			</div>
-		</div>
-
-		<h3>Expandable Section Title</h3>
-		<p class="tt-text-muted">
-			Simple text with chevron — no card background, like simple section title.
-		</p>
-		<div class="demo-stack">
-			<button class="tt-section-title-expandable">
-				<svg
-					class="tt-section-title-expandable__icon"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<polyline points="6 9 12 15 18 9"></polyline>
-				</svg>
-				<span>ZEITEN</span>
-			</button>
-			<button class="tt-section-title-expandable is-expanded">
-				<svg
-					class="tt-section-title-expandable__icon"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<polyline points="6 9 12 15 18 9"></polyline>
-				</svg>
-				<span>EINTRÄGE</span>
-			</button>
-		</div>
-	</section>
-
-	<!-- Navigation Components -->
-	<section class="section">
-		<h2>Navigation Components</h2>
-
-		<h3>Direction Buttons (Zurück/Vor)</h3>
-		<p class="tt-text-muted">Navigate between days, weeks, months. Same style as symbol buttons.</p>
-		<div class="demo-inline">
-			<button class="tt-nav-direction" aria-label="Zurück">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<polyline points="15 18 9 12 15 6"></polyline>
-				</svg>
-			</button>
-			<button class="tt-nav-direction" aria-label="Vor">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<polyline points="9 18 15 12 9 6"></polyline>
-				</svg>
-			</button>
-		</div>
-
-		<h3>Period Navigation - Variant A: Text Next to Buttons</h3>
-		<p class="tt-text-muted">Icon buttons with text label between them.</p>
-		<div class="demo-inline">
-			<button class="tt-symbol-button" aria-label="Vorheriger Tag">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<polyline points="15 18 9 12 15 6"></polyline>
-				</svg>
-			</button>
-			<span style="padding: 0 var(--tt-space-8); font-weight: 600;">Mo 23.12</span>
-			<button class="tt-symbol-button" aria-label="Nächster Tag">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<polyline points="9 18 15 12 9 6"></polyline>
-				</svg>
-			</button>
-		</div>
-
-		<h3>Period Navigation - Variant B: Text Inside Buttons (Preferred)</h3>
-		<p class="tt-text-muted">Icon + text combined. Day = "Mo", Week = "52", Month = "Dez".</p>
-		<div class="demo-inline">
-			<button
-				class="tt-button-secondary"
-				style="gap: var(--tt-space-4); padding: var(--tt-space-8) var(--tt-space-12);"
-			>
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<polyline points="15 18 9 12 15 6"></polyline>
-				</svg>
-				<span>Mo</span>
-			</button>
-			<button
-				class="tt-button-secondary"
-				style="gap: var(--tt-space-4); padding: var(--tt-space-8) var(--tt-space-12);"
-			>
-				<span>Mo</span>
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<polyline points="9 18 15 12 9 6"></polyline>
-				</svg>
-			</button>
-		</div>
-		<div class="demo-inline" style="margin-top: var(--tt-space-8);">
-			<button
-				class="tt-button-secondary"
-				style="gap: var(--tt-space-4); padding: var(--tt-space-8) var(--tt-space-12);"
-			>
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<polyline points="15 18 9 12 15 6"></polyline>
-				</svg>
-				<span>52</span>
-			</button>
-			<button
-				class="tt-button-secondary"
-				style="gap: var(--tt-space-4); padding: var(--tt-space-8) var(--tt-space-12);"
-			>
-				<span>52</span>
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<polyline points="9 18 15 12 9 6"></polyline>
-				</svg>
-			</button>
-		</div>
-		<div class="demo-inline" style="margin-top: var(--tt-space-8);">
-			<button
-				class="tt-button-secondary"
-				style="gap: var(--tt-space-4); padding: var(--tt-space-8) var(--tt-space-12);"
-			>
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<polyline points="15 18 9 12 15 6"></polyline>
-				</svg>
-				<span>Dez</span>
-			</button>
-			<button
-				class="tt-button-secondary"
-				style="gap: var(--tt-space-4); padding: var(--tt-space-8) var(--tt-space-12);"
-			>
-				<span>Dez</span>
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<polyline points="9 18 15 12 9 6"></polyline>
-				</svg>
-			</button>
-		</div>
-
-		<h3>Footer Tab Navigation</h3>
-		<p class="tt-text-muted">
-			Dark background footer with tab-style links. Uses <code>aria-current="page"</code> for current tab.
-		</p>
-		<p class="tt-text-muted" style="font-style: italic;">
-			States: Default (border visible) → Pressed (lightest) → Current (lighter, persistent)
-		</p>
-		<div class="demo-stack">
-			<nav class="tt-footer-nav" style="border-radius: var(--tt-radius-card);">
-				<button type="button" class="tt-footer-tab tt-footer-tab--plus">+</button>
-				<button type="button" class="tt-footer-tab">Tag</button>
-				<button type="button" class="tt-footer-tab" aria-current="page">Woche</button>
-				<button type="button" class="tt-footer-tab">Monat</button>
-				<button type="button" class="tt-footer-tab" aria-label="Analyse">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<line x1="18" y1="20" x2="18" y2="10"></line>
-						<line x1="12" y1="20" x2="12" y2="4"></line>
-						<line x1="6" y1="20" x2="6" y2="14"></line>
-					</svg>
-				</button>
-			</nav>
-		</div>
-	</section>
-
-	<!-- Form Elements -->
-	<section class="section">
-		<h2>Form Elements (Excel: Dropdown, TextInput)</h2>
-
-		<h3>Dropdown</h3>
-		<div class="demo-inline">
-			<select class="tt-dropdown">
-				<option>Kirche</option>
-				<option>Privat</option>
-				<option>Freelance</option>
-			</select>
-			<select class="tt-dropdown">
-				<option>Arbeitstag</option>
-				<option>Feiertag</option>
-				<option>Urlaub</option>
-			</select>
-		</div>
-
-		<h3>Text Input</h3>
-		<div style="max-width: 300px;">
-			<input type="text" class="tt-text-input" placeholder="Einträge filtern..." />
-		</div>
-
-		<h3>Dropdown Layout Options (Tagesart Example)</h3>
-		<p class="tt-text-muted">
-			Different ways to handle label + dropdown alignment. Which one works best for the Day page?
-		</p>
-
-		<h4>Option A: Fixed-Width Label</h4>
-		<p class="tt-text-muted">Label has fixed width, dropdown aligns consistently.</p>
-		<div class="demo-stack" style="max-width: 400px;">
-			<div style="display: flex; align-items: center; gap: 12px;">
-				<span style="width: 80px; flex-shrink: 0; color: var(--tt-text-secondary);">Tagesart:</span>
-				<select class="tt-dropdown" style="flex: 1;">
-					<option>Arbeitstag</option>
-					<option>Urlaub</option>
-					<option>Krank</option>
-					<option>Feiertag</option>
-				</select>
-			</div>
-		</div>
-
-		<h4>Option B: Label Left, Dropdown Right</h4>
-		<p class="tt-text-muted">Label and dropdown at opposite ends, space between.</p>
-		<div class="demo-stack" style="max-width: 400px;">
-			<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-				<span style="color: var(--tt-text-secondary);">Tagesart</span>
-				<select class="tt-dropdown" style="width: auto;">
-					<option>Arbeitstag</option>
-					<option>Urlaub</option>
-					<option>Krank</option>
-					<option>Feiertag</option>
-				</select>
-			</div>
-		</div>
-
-		<h4>Option C: No Label (Self-Explanatory)</h4>
-		<p class="tt-text-muted">Dropdown spans full width, selected value is self-explanatory.</p>
-		<div class="demo-stack" style="max-width: 400px;">
-			<select class="tt-dropdown" style="width: 100%;">
-				<option>Arbeitstag</option>
-				<option>Urlaub</option>
-				<option>Krank</option>
-				<option>Feiertag</option>
-			</select>
-		</div>
-
-		<h4>Option D: Label Inside Options</h4>
-		<p class="tt-text-muted">Label is part of each option text, no separate label needed.</p>
-		<div class="demo-stack" style="max-width: 400px;">
-			<select class="tt-dropdown" style="width: 100%;">
-				<option>Tagesart: Arbeitstag</option>
-				<option>Tagesart: Urlaub</option>
-				<option>Tagesart: Krank</option>
-				<option>Tagesart: Feiertag</option>
-			</select>
-		</div>
-
-		<h4>Option E: Label + Dropdown Inside Card Row — IMPLEMENTED</h4>
-		<p class="tt-text-muted">
-			Both label and dropdown wrapped in a static row with background. Uses
-			<code>.tt-labeled-dropdown</code>.
-		</p>
-		<div class="demo-stack" style="max-width: 400px;">
-			<div class="tt-labeled-dropdown">
-				<span class="tt-labeled-dropdown__label">Tagesart</span>
-				<select class="tt-dropdown">
-					<option>Arbeitstag</option>
-					<option>Urlaub</option>
-					<option>Krank</option>
-					<option>Feiertag</option>
-				</select>
-			</div>
-		</div>
-	</section>
-
-	<!-- Color Tokens -->
-	<section class="section">
-		<h2>Color Tokens</h2>
-
-		<h3>Brand Primary (Blue) — Full Scale</h3>
-		<p class="tt-text-muted">Used for: header, footer, primary buttons, links, focus rings.</p>
 		<div class="color-scale">
-			<div class="color-scale-item" style="background: var(--tt-brand-primary-50);">
+			<div class="color-scale-item" style="background: var(--tt-brand-primary-25, #e8f0f8);">
+				<span style="color: var(--tt-text-primary);">25</span>
+				<code style="color: var(--tt-text-muted);">Page BG</code>
+			</div>
+			<div class="color-scale-item" style="background: var(--tt-brand-primary-50, #dce2f2);">
 				<span style="color: var(--tt-text-primary);">50</span>
-				<code style="color: var(--tt-text-muted);">#e8e8f8</code>
+				<code style="color: var(--tt-text-muted);">Very Light</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-primary-100);">
 				<span style="color: var(--tt-text-primary);">100</span>
-				<code style="color: var(--tt-text-muted);">#c5c5ed</code>
+				<code style="color: var(--tt-text-muted);">Light</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-primary-200);">
 				<span style="color: var(--tt-text-primary);">200</span>
-				<code style="color: var(--tt-text-muted);">#9e9fe0</code>
+				<code style="color: var(--tt-text-muted);">Med-Light</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-primary-300);">
 				<span>300</span>
-				<code>#7475d3</code>
+				<code>Medium</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-primary-400);">
 				<span>400</span>
-				<code>#4a4bc5</code>
+				<code>Pressed</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-primary-500);">
 				<span>500</span>
-				<code>#2526a9</code>
+				<code>Base</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-primary-600);">
 				<span>600</span>
-				<code>#1e1f8a</code>
+				<code>Darker</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-primary-700);">
 				<span>700</span>
-				<code>#171868</code>
+				<code>Darkest</code>
 			</div>
 		</div>
 
@@ -912,27 +89,21 @@
 		<div class="color-scale">
 			<div class="color-scale-item" style="background: var(--tt-brand-accent-50);">
 				<span style="color: var(--tt-text-primary);">50</span>
-				<code style="color: var(--tt-text-muted);">#e6f7fe</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-accent-100);">
 				<span style="color: var(--tt-text-primary);">100</span>
-				<code style="color: var(--tt-text-muted);">#b8e9fc</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-accent-200);">
 				<span style="color: var(--tt-text-primary);">200</span>
-				<code style="color: var(--tt-text-muted);">#8adafa</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-accent);">
 				<span style="color: var(--tt-text-primary);">Base</span>
-				<code style="color: var(--tt-text-muted);">#37bdf6</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-accent-darker);">
 				<span>Darker</span>
-				<code>#1aa8e6</code>
 			</div>
 			<div class="color-scale-item" style="background: var(--tt-brand-accent-darkest);">
 				<span>Darkest</span>
-				<code>#0d8ac4</code>
 			</div>
 		</div>
 
@@ -943,32 +114,17 @@
 			<strong>Danger</strong> — Destructive actions (delete), errors, validation failures
 		</p>
 		<div class="color-scale">
-			<div class="color-scale-item" style="background: var(--tt-status-danger-faded);">
-				<span style="color: var(--tt-status-danger);">Faded</span>
+			<div class="color-scale-item" style="background: var(--tt-status-danger-800);">
+				<span style="color: var(--tt-status-danger-500);">Faded</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-status-danger-pressed);">
+			<div class="color-scale-item" style="background: var(--tt-status-danger-300);">
 				<span>Pressed</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-status-danger);">
+			<div class="color-scale-item" style="background: var(--tt-status-danger-500);">
 				<span>Base</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-status-danger-darker);">
+			<div class="color-scale-item" style="background: var(--tt-status-danger-600);">
 				<span>Darker</span>
-			</div>
-		</div>
-
-		<p class="tt-text-muted" style="margin-top: 1rem;">
-			<strong>Negative</strong> — Soft red for indicators (minus hours, deficits, badges)
-		</p>
-		<div class="color-scale">
-			<div class="color-scale-item" style="background: var(--tt-status-negative-faded);">
-				<span style="color: var(--tt-status-negative-text);">Faded</span>
-			</div>
-			<div class="color-scale-item" style="background: var(--tt-status-negative);">
-				<span>Base</span>
-			</div>
-			<div class="color-scale-item" style="background: var(--tt-status-negative-text);">
-				<span>Text</span>
 			</div>
 		</div>
 
@@ -976,13 +132,13 @@
 			<strong>Success</strong> — Positive outcomes, confirmations
 		</p>
 		<div class="color-scale">
-			<div class="color-scale-item" style="background: var(--tt-status-success-faded);">
-				<span style="color: var(--tt-status-success);">Faded</span>
+			<div class="color-scale-item" style="background: var(--tt-status-success-800);">
+				<span style="color: var(--tt-status-success-500);">Faded</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-status-success-pressed);">
+			<div class="color-scale-item" style="background: var(--tt-status-success-300);">
 				<span>Pressed</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-status-success);">
+			<div class="color-scale-item" style="background: var(--tt-status-success-500);">
 				<span>Base</span>
 			</div>
 		</div>
@@ -991,13 +147,13 @@
 			<strong>Warning</strong> — Caution, attention needed
 		</p>
 		<div class="color-scale">
-			<div class="color-scale-item" style="background: var(--tt-status-warning-faded);">
-				<span style="color: var(--tt-status-warning);">Faded</span>
+			<div class="color-scale-item" style="background: var(--tt-status-warning-50);">
+				<span style="color: var(--tt-status-warning-500);">Faded</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-status-warning-pressed);">
+			<div class="color-scale-item" style="background: var(--tt-status-warning-300);">
 				<span>Pressed</span>
 			</div>
-			<div class="color-scale-item" style="background: var(--tt-status-warning);">
+			<div class="color-scale-item" style="background: var(--tt-status-warning-500);">
 				<span>Base</span>
 			</div>
 		</div>
@@ -1047,86 +203,33 @@
 		</div>
 	</section>
 
-	<!-- Experimental: Scheme-4 Extended Color Scale -->
-	<section class="section experimental-section">
-		<h2>🧪 Experimental: Scheme-4 Extended Color Scale</h2>
-		<p class="tt-text-muted">
-			<strong>Note:</strong> This is scheme-4 (data-color-scheme="scheme-4") — an experimental numbered scale
-			that includes the page background color as part of the brand primary progression.
-		</p>
-		<p class="tt-text-muted">
-			To view this scheme, change the color scheme in Settings → Entwicklung to the experimental option.
-		</p>
+	<!-- Component System Explanation -->
+	<section class="section">
+		<h2>How the CSS Component System Works</h2>
+		<div class="tt-card explanation-card">
+			<h3>Classes + Variants</h3>
+			<p>
+				Components are built with <strong>base classes</strong> and
+				<strong>variant modifiers</strong>:
+			</p>
+			<pre><code
+					>&lt;div class="tt-list-row-clickable"&gt;  &lt;!-- Clickable row --&gt;
+&lt;div class="tt-list-row-static"&gt;     &lt;!-- Non-clickable row --&gt;
+&lt;span class="tt-inline-label-employer"&gt;  &lt;!-- Employer badge --&gt;</code
+				></pre>
 
-		<h3>Brand Primary — Extended Numbered Scale (25-700)</h3>
-		<p class="tt-text-muted">
-			Smooth progression from page background (#e8f0f8) to darkest (#212e64).
-			Numbers represent lightness levels in the Material Design convention.
-			Base color: #374CA7 (from scheme-1).
-		</p>
-		<div class="color-scale">
-			<div class="color-scale-item" style="background: #e8f0f8;">
-				<span style="color: var(--tt-text-primary);">25</span>
-				<code style="color: var(--tt-text-muted);">#e8f0f8</code>
-			</div>
-			<div class="color-scale-item" style="background: #dce2f2;">
-				<span style="color: var(--tt-text-primary);">50</span>
-				<code style="color: var(--tt-text-muted);">#dce2f2</code>
-			</div>
-			<div class="color-scale-item" style="background: #c9cee9;">
-				<span style="color: var(--tt-text-primary);">100</span>
-				<code style="color: var(--tt-text-muted);">#c9cee9</code>
-			</div>
-			<div class="color-scale-item" style="background: #a4adda;">
-				<span style="color: var(--tt-text-primary);">200</span>
-				<code style="color: var(--tt-text-muted);">#a4adda</code>
-			</div>
-			<div class="color-scale-item" style="background: #7b88c9;">
-				<span>300</span>
-				<code>#7b88c9</code>
-			</div>
-			<div class="color-scale-item" style="background: #5f6fb9;">
-				<span>400</span>
-				<code>#5f6fb9</code>
-			</div>
-			<div class="color-scale-item" style="background: #374CA7;">
-				<span>500</span>
-				<code>#374CA7</code>
-			</div>
-			<div class="color-scale-item" style="background: #2c3d86;">
-				<span>600</span>
-				<code>#2c3d86</code>
-			</div>
-			<div class="color-scale-item" style="background: #212e64;">
-				<span>700</span>
-				<code>#212e64</code>
-			</div>
-		</div>
-
-		<h3>Mapping to Current Scheme</h3>
-		<div class="tt-card" style="font-size: 0.85rem;">
-			<table class="usage-table">
-				<thead>
-					<tr>
-						<th>Scheme-4 Number</th>
-						<th>Current Name</th>
-						<th>Usage</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr><td><strong>25</strong></td><td>Page</td><td>App background (lightest)</td></tr>
-					<tr><td><strong>50</strong></td><td>—</td><td>New: Very light tint</td></tr>
-					<tr><td><strong>100</strong></td><td>—</td><td>New: Light tint</td></tr>
-					<tr><td><strong>200</strong></td><td>—</td><td>New: Medium-light tint</td></tr>
-					<tr><td><strong>300</strong></td><td>300</td><td>Medium tint (kept from original)</td></tr>
-					<tr><td><strong>400</strong></td><td>Pressed</td><td>Interactive/pressed state</td></tr>
-					<tr><td><strong>500</strong></td><td>Base</td><td>Brand color (reference point)</td></tr>
-					<tr><td><strong>600</strong></td><td>Darker</td><td>Darkened version</td></tr>
-					<tr><td><strong>700</strong></td><td>Darkest</td><td>Most darkened version</td></tr>
-				</tbody>
-			</table>
+			<h3>Naming Convention</h3>
+			<p>
+				<code>.tt-{'{component}'}-{'{variant}'}</code> — Names describe behavior, not implementation.
+			</p>
+			<ul>
+				<li><code>tt-list-row-clickable</code> — Row that can be tapped/clicked</li>
+				<li><code>tt-list-row-static</code> — Row that is read-only</li>
+				<li><code>tt-inline-label</code> — Small inline badge that fits its content</li>
+			</ul>
 		</div>
 	</section>
+
 </div>
 
 <style>

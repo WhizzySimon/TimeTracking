@@ -273,10 +273,10 @@
 	}
 
 	.error {
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 		font-size: 0.9rem;
 		padding: 0.5rem;
-		background: var(--tt-status-danger-faded);
+		background: var(--tt-status-danger-800);
 		border-radius: var(--tt-radius-input);
 	}
 
@@ -290,8 +290,8 @@
 	}
 
 	.result.success {
-		background: var(--tt-status-success-faded);
-		color: var(--tt-status-success);
+		background: var(--tt-status-success-800);
+		color: var(--tt-status-success-500);
 	}
 
 	.skipped {

@@ -256,7 +256,7 @@
 		font-size: 0.9rem;
 		margin: 0;
 		padding: 0.5rem;
-		background: var(--tt-status-warning-faded);
+		background: var(--tt-status-warning-50);
 		border-radius: var(--tt-radius-card);
 	}
 

@@ -215,8 +215,8 @@
 	.error-message {
 		margin-top: 12px;
 		padding: 8px 12px;
-		background: var(--tt-status-danger-faded);
-		color: var(--tt-status-danger);
+		background: var(--tt-status-danger-800);
+		color: var(--tt-status-danger-500);
 		border-radius: 6px;
 		font-size: 0.875rem;
 	}

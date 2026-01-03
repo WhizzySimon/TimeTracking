@@ -227,8 +227,8 @@
 	}
 
 	.error-message {
-		background: var(--tt-status-danger-faded);
-		color: var(--tt-status-danger);
+		background: var(--tt-status-danger-800);
+		color: var(--tt-status-danger-500);
 		padding: 0.75rem;
 		border-radius: var(--tt-radius-input);
 		font-size: 0.9rem;

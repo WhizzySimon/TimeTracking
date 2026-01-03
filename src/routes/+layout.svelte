@@ -719,7 +719,7 @@
 	}
 
 	.sync-indicator.synced {
-		color: var(--tt-status-success);
+		color: var(--tt-status-success-500);
 		opacity: 1;
 	}
 
@@ -824,7 +824,7 @@
 	}
 
 	.menu-item.logout {
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 	}
 
 	@media (hover: hover) {
@@ -868,7 +868,7 @@
 	}
 
 	.install-btn {
-		background: var(--tt-status-success);
+		background: var(--tt-status-success-500);
 		color: white;
 		border: none;
 		border-radius: var(--tt-radius-button);
@@ -898,7 +898,7 @@
 	}
 
 	.update-btn {
-		background: var(--tt-status-warning);
+		background: var(--tt-status-warning-500);
 		color: white;
 		border: none;
 		border-radius: var(--tt-radius-button);

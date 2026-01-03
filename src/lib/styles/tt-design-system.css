@@ -197,32 +197,40 @@ html[data-color-scheme="scheme-4"] {
 	--tt-text-muted: #718096;
 
 	/* ---- COLORS: Semantic States ---- */
+	/* These colors are scheme-independent and remain consistent across all color schemes */
+	
 	/* Danger: Destructive actions (delete), errors, validation failures */
-	--tt-status-danger: #c53030;
-	--tt-status-danger-pressed: #e05353;
-	--tt-status-danger-darker: #9b2c2c;
-	--tt-status-danger-faded: rgba(197, 48, 48, 0.1);
-
-	/* Negative: Soft red for indicators (minus hours, deficits, badges) */
-	--tt-status-negative: #e57373;
-	--tt-status-negative-text: #c53030; /* For text on light backgrounds */
-	--tt-status-negative-faded: rgba(229, 115, 115, 0.15);
+	--tt-status-danger-50: #fee2e2;
+	--tt-status-danger-100: #fecaca;
+	--tt-status-danger-300: #e05353;
+	--tt-status-danger-500: #c53030;
+	--tt-status-danger-600: #9b2c2c;
+	--tt-status-danger-700: #7f1d1d;
+	--tt-status-danger-800: rgba(197, 48, 48, 0.1);
 
 	/* Success: Positive outcomes, confirmations */
-	--tt-status-success: #2f855a;
-	--tt-status-success-pressed: #48a274;
-	--tt-status-success-faded: rgba(47, 133, 90, 0.1);
-
+	--tt-status-success-50: #dcfce7;
+	--tt-status-success-100: #bbf7d0;
+	--tt-status-success-300: #48a274;
+	--tt-status-success-500: #2f855a;
+	--tt-status-success-600: #16a34a;
+	--tt-status-success-700: #15803d;
+	--tt-status-success-800: rgba(47, 133, 90, 0.1);
+	
 	/* Warning: Caution, attention needed */
-	--tt-status-warning: #dd6b20;
-	--tt-status-warning-pressed: #ed8a4a;
-	--tt-status-warning-faded: rgba(221, 107, 32, 0.1);
+	--tt-status-warning-50: #fef9c3;
+	--tt-status-warning-100: #fde68a;
+	--tt-status-warning-300: #ed8a4a;
+	--tt-status-warning-500: #dd6b20;
+	--tt-status-warning-600: #d97706;
+	--tt-status-warning-700: #b45309;
+	--tt-status-warning-800: rgba(221, 107, 32, 0.1);
 
 	/* Info: Running tasks, progress, informational highlights */
 	--tt-status-info: var(--tt-brand-accent);
 	--tt-status-info-pressed: var(--tt-brand-accent-darker);
 	--tt-status-info-faded: var(--tt-brand-accent-faded);
-	--tt-status-info-text: #0d8ac4; /* For text on light backgrounds */
+	--tt-status-info-text: #0d8ac4;
 
 	/* ---- SPACING ---- */
 	--tt-space-4: 0.25rem;
@@ -265,7 +273,7 @@ html[data-color-scheme="scheme-4"] {
 	
 	/* Danger button (dark background): states become lighter */
 	--tt-status-danger-hover: #d64545; /* Hover (lighter) */
-	--tt-status-danger-selected: #e05353; /* Selected (lighter) */
+	--tt-status-danger-selected: var(--tt-status-danger-300); /* Selected (lighter) */
 	--tt-status-danger-pressed: #e86666; /* Pressed (lightest) */
 
 	/* ---- ANIMATION ---- */
@@ -581,8 +589,8 @@ html[data-color-scheme="scheme-4"] {
 	white-space: nowrap;
 	width: fit-content;
 	flex-shrink: 0;
-	background: var(--tt-status-success-faded);
-	color: var(--tt-status-success);
+	background: var(--tt-status-success-800);
+	color: var(--tt-status-success-500);
 }
 
 .tt-inline-label-warning {
@@ -597,8 +605,8 @@ html[data-color-scheme="scheme-4"] {
 	white-space: nowrap;
 	width: fit-content;
 	flex-shrink: 0;
-	background: var(--tt-status-warning-faded);
-	color: var(--tt-status-warning);
+	background: var(--tt-status-warning-50);
+	color: var(--tt-status-warning-500);
 }
 
 .tt-inline-label-danger {
@@ -613,8 +621,8 @@ html[data-color-scheme="scheme-4"] {
 	white-space: nowrap;
 	width: fit-content;
 	flex-shrink: 0;
-	background: var(--tt-status-danger-faded);
-	color: var(--tt-status-danger);
+	background: var(--tt-status-danger-800);
+	color: var(--tt-status-danger-500);
 }
 
 /* ============================================================================
@@ -803,7 +811,7 @@ html[data-color-scheme="scheme-4"] {
 	border: none;
 	cursor: pointer;
 	white-space: nowrap;
-	background: var(--tt-status-danger);
+	background: var(--tt-status-danger-500);
 	color: white;
 	transition: background var(--tt-transition-fast);
 }
@@ -815,7 +823,7 @@ html[data-color-scheme="scheme-4"] {
 }
 
 .tt-button-danger:active:not(:disabled) {
-	background: var(--tt-status-danger-pressed);
+	background: var(--tt-status-danger-300);
 }
 
 .tt-button-danger:disabled {
@@ -953,13 +961,13 @@ html[data-color-scheme="scheme-4"] {
 @media (hover: hover) {
 	.tt-delete-button:hover {
 		background: rgba(197, 48, 48, 0.03);
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 	}
 }
 
 .tt-delete-button:active {
-	background: var(--tt-status-danger-faded);
-	color: var(--tt-status-danger);
+	background: var(--tt-status-danger-800);
+	color: var(--tt-status-danger-500);
 }
 
 .tt-delete-button svg {
@@ -998,11 +1006,11 @@ html[data-color-scheme="scheme-4"] {
 }
 
 .tt-summary-display__value-positive {
-	color: var(--tt-status-success);
+	color: var(--tt-status-success-500);
 }
 
 .tt-summary-display__value-negative {
-	color: var(--tt-status-danger);
+	color: var(--tt-status-danger-500);
 }
 
 /* ============================================================================
@@ -1040,11 +1048,11 @@ html[data-color-scheme="scheme-4"] {
 }
 
 .tt-text-success {
-	color: var(--tt-status-success);
+	color: var(--tt-status-success-500);
 }
 
 .tt-text-danger {
-	color: var(--tt-status-danger);
+	color: var(--tt-status-danger-500);
 }
 
 /**
@@ -1634,13 +1642,13 @@ html[data-color-scheme="scheme-4"] {
 @media (hover: hover) {
 	.tt-btn-delete:hover {
 		background: rgba(197, 48, 48, 0.03);
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 	}
 }
 
 .tt-btn-delete:active {
-	background: var(--tt-status-danger-faded);
-	color: var(--tt-status-danger);
+	background: var(--tt-status-danger-800);
+	color: var(--tt-status-danger-500);
 }
 
 .tt-row__action {

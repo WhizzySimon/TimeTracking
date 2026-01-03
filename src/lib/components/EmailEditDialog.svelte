@@ -133,7 +133,7 @@
 	/* Inputs use design system class: .tt-text-input */
 
 	.error {
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 		font-size: 0.85rem;
 		margin: 0;
 	}

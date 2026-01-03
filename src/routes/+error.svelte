@@ -140,6 +140,6 @@
 		border-radius: var(--tt-radius-input);
 		font-size: 0.75rem;
 		overflow-x: auto;
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 	}
 </style>

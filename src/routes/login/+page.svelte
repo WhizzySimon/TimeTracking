@@ -270,10 +270,10 @@
 	}
 
 	.error {
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 		font-size: 0.9rem;
 		padding: 0.75rem;
-		background: var(--tt-status-danger-faded);
+		background: var(--tt-status-danger-800);
 		border-radius: var(--tt-radius-input);
 		text-align: center;
 	}

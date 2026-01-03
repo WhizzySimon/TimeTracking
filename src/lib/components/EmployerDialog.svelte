@@ -131,10 +131,10 @@
 	.error {
 		margin: 0;
 		padding: var(--tt-space-8);
-		background: var(--tt-status-danger-faded);
-		border: 1px solid var(--tt-status-danger);
+		background: var(--tt-status-danger-800);
+		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-input);
-		color: var(--tt-status-danger);
+		color: var(--tt-status-danger-500);
 		font-size: 0.9rem;
 	}
 

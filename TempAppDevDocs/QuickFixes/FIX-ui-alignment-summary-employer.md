@@ -386,7 +386,7 @@
   - `src/lib/styles/tt-design-system-v2.css:1437-1447` (`.tt-btn-delete`)
 - **Changes:**
   - **Hover state:** Changed from `rgba(197, 48, 48, 0.1)` to `rgba(197, 48, 48, 0.03)` (3% opacity - very subtle)
-  - **Pressed state:** Now uses `var(--tt-status-danger-faded)` (10% opacity - stronger than hover)
+  - **Pressed state:** Now uses `var(--tt-status-danger-800)` (10% opacity - stronger than hover)
   - Added missing `:active` state to `.tt-btn-delete`
 - **State Progression:**
   - Normal: White/transparent background, muted gray icon
@@ -402,7 +402,7 @@
 - **Fix:** Made hover intensities consistent and reduced Abmelden intensity
 - **Files:** `src/routes/+layout.svelte:826-834`
 - **Changes:**
-  - **Abmelden hover:** Changed from `var(--tt-status-danger-faded)` (10%) to `rgba(197, 48, 48, 0.05)` (5% opacity)
+  - **Abmelden hover:** Changed from `var(--tt-status-danger-800)` (10%) to `rgba(197, 48, 48, 0.05)` (5% opacity)
   - **Abmelden pressed:** Changed from `rgba(197, 48, 48, 0.2)` to `rgba(197, 48, 48, 0.1)` (10% opacity)
   - Einstellungen hover remains `--tt-background-card-hover` (similar intensity)
 - **State Progression:**
