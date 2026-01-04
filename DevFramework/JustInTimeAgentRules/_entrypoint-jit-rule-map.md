@@ -61,16 +61,33 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 
 ## Rule Read Logging
 
-When you actually consult/read a rule file to guide your behavior, emit an invisible marker at the end of your response:
+### Autonomous vs Explicit Reads
 
-```
-<!-- RULE_CONSULTED: DevFramework/JustInTimeAgentRules/code-quality.md, DevFramework/JustInTimeAgentRules/pre-commit.md -->
-```
+**Autonomous read:** You recognized a trigger and decided to read the rule yourself.
+**Explicit read:** A workflow or user explicitly instructed you to read the rule.
 
-- Use relative paths from repo root
-- Comma-separate multiple files
-- Only include files you actually opened and read, not just mentioned
-- This marker is parsed by hooks for analytics; do not add any other explanation
+### Logging Rules
+
+1. **Visible canary** (`> [CANARY] ...`) — Output for ALL reads (proves the rule was read)
+
+2. **Autonomous read marker** — ONLY emit when you autonomously recognized a trigger:
+
+   ```
+   <!-- AUTONOMOUS_RULE: DevFramework/JustInTimeAgentRules/frontend-ui-standards.md -->
+   ```
+
+   **Emit this when:**
+   - User says "fix this hover color" → you recognize "Working on UI" trigger → you read the rule
+   - You're about to commit → you recognize "Before git commit" trigger → you read pre-commit.md
+
+   **Do NOT emit when:**
+   - A workflow says "Read `pre-commit.md`" → this is explicit, not autonomous
+   - User says "read the UI standards" → this is explicit instruction
+
+3. **Format:** One line per autonomous read, at end of response. Include the trigger you recognized:
+   ```
+   <!-- AUTONOMOUS_RULE: frontend-ui-standards.md | trigger: Working on UI -->
+   ```
 
 ---
 

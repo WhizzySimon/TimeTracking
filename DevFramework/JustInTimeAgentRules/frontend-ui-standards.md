@@ -47,6 +47,40 @@ The design system architecture is documented in `src/lib/styles/tt-design-system
 - **Hardcoded values** → Replace with semantic tokens
 - **Repeated CSS (3+ times)** → Extract to component class
 
+### Refactoring Check (MUST for every UI change)
+
+**When making ANY UI change, automatically check:**
+
+#### CSS/Styling
+
+1. **Is there a design system class for this?** → Use `.tt-*` class instead of local CSS
+2. **Is there a semantic token for this value?** → Use `var(--tt-*)` instead of hardcoded
+3. **Is the component using old patterns?** → Migrate to design system while touching the file
+
+#### Components
+
+4. **Does a reusable component already exist?** → Use it instead of individual HTML
+   - Check `src/lib/components/` for existing components (Modal, ConfirmDialog, CustomDropdown, etc.)
+5. **Is this UI pattern repeated 2-3+ times?** → Create a new component
+   - Extract to `src/lib/components/<ComponentName>.svelte`
+   - Replace all instances with the new component
+
+**Example A:** User asks "fix this button hover color"
+
+- ❌ Wrong: Add/change local `.my-button:hover { background: #xyz; }`
+- ✅ Right: Check if `.tt-button-*` exists, use that class, remove local CSS
+
+**Example B:** User asks "add a confirmation before delete"
+
+- ❌ Wrong: Create inline confirm logic with local styling
+- ✅ Right: Use existing `<ConfirmDialog>` component
+
+**Example C:** You notice same card layout in 3 places
+
+- ✅ Right: Create `<SummaryCard>` component, replace all instances
+
+**This is automatic.** Do not ask user for permission to refactor — just do it as part of the fix.
+
 ### Naming Convention
 
 - Variables: `--tt-{category}-{property}-{variant}`
