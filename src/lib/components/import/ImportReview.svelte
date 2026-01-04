@@ -29,9 +29,7 @@
 	// Initialize selection when candidates change
 	$effect(() => {
 		selectedIds.clear();
-		candidates
-			.filter((c) => !c.flags.includes('hard_block'))
-			.forEach((c) => selectedIds.add(c.id));
+		candidates.filter((c) => !c.flags.includes('hard_block')).forEach((c) => selectedIds.add(c.id));
 	});
 
 	let selectableCount = $derived(candidates.filter((c) => !c.flags.includes('hard_block')).length);
@@ -187,7 +185,7 @@
 	.review-container {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.review-header {
@@ -197,7 +195,7 @@
 		padding: 0.75rem 1rem;
 		background: var(--tt-background-card-hover);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 8px;
+		border-radius: var(--tt-radius-card);
 		position: sticky;
 		top: 0;
 		z-index: 10;
@@ -206,12 +204,12 @@
 	.issues-panel {
 		background: var(--tt-background-card-hover);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 8px;
-		padding: 1rem;
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-16);
 	}
 
 	.issues-panel h3 {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		margin: 0 0 0.75rem;
 		color: var(--tt-text-secondary);
 	}
@@ -225,8 +223,8 @@
 	.issue-item {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.875rem;
+		gap: var(--tt-space-8);
+		font-size: var(--tt-font-size-small);
 		padding: 0.25rem 0;
 		color: var(--tt-text-secondary);
 	}
@@ -243,7 +241,7 @@
 		justify-content: center;
 		border-radius: 50%;
 		background: var(--tt-background-card-pressed);
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 	}
 
@@ -255,13 +253,13 @@
 	.table-wrapper {
 		overflow-x: auto;
 		border: 1px solid var(--tt-border-default);
-		border-radius: 8px;
+		border-radius: var(--tt-radius-card);
 	}
 
 	.review-table {
 		width: 100%;
 		border-collapse: collapse;
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.review-table th,
@@ -328,8 +326,8 @@
 	.status-badge {
 		display: inline-block;
 		padding: 0.125rem 0.375rem;
-		border-radius: 4px;
-		font-size: 0.75rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 	}
 
@@ -356,20 +354,20 @@
 	}
 
 	.selection-info {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-secondary);
 	}
 
 	.review-actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.btn-cancel,
 	.btn-commit {
 		padding: 0.625rem 1.25rem;
-		border-radius: 6px;
-		font-size: 0.875rem;
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
 		border: none;
 	}

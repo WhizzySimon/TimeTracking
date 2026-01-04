@@ -69,7 +69,7 @@
 		border-radius: var(--tt-radius-pill);
 		background-color: var(--indicator-bg);
 		color: var(--indicator-color);
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 500;
 		cursor: default;
 		user-select: none;
@@ -81,7 +81,7 @@
 		justify-content: center;
 		width: 16px;
 		height: 16px;
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		font-weight: 700;
 	}
 

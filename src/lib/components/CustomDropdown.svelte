@@ -30,7 +30,13 @@
 		placeholder?: string;
 	}
 
-	let { options, value, onchange, disabled = false, placeholder = 'Auswählen...' }: Props = $props();
+	let {
+		options,
+		value,
+		onchange,
+		disabled = false,
+		placeholder = 'Auswählen...'
+	}: Props = $props();
 
 	let isOpen = $state(false);
 	let dropdownElement: HTMLDivElement | null = $state(null);
@@ -119,7 +125,7 @@
 <style>
 	.custom-dropdown {
 		position: relative;
-		display: inline-block;
+		width: 100%;
 	}
 
 	.custom-dropdown.disabled {
@@ -132,15 +138,17 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--tt-space-8);
+		width: 100%;
 		padding: var(--tt-space-8) var(--tt-space-12);
-		min-width: 140px;
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 		border-radius: var(--tt-radius-button);
 		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
 		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
-		transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+		transition:
+			background var(--tt-transition-fast),
+			border-color var(--tt-transition-fast);
 	}
 
 	@media (hover: hover) {
@@ -185,8 +193,7 @@
 		position: absolute;
 		top: 100%;
 		left: 0;
-		min-width: 100%;
-		width: max-content;
+		right: 0;
 		max-height: 240px;
 		overflow-y: auto;
 		background: var(--tt-background-card);
@@ -207,7 +214,9 @@
 		color: var(--tt-text-primary);
 		cursor: pointer;
 		font-size: var(--tt-font-size-normal);
-		transition: background var(--tt-transition-fast), color var(--tt-transition-fast);
+		transition:
+			background var(--tt-transition-fast),
+			color var(--tt-transition-fast);
 	}
 
 	@media (hover: hover) {

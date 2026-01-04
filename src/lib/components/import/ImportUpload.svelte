@@ -145,21 +145,21 @@
 	.upload-container {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.upload-section {
 		display: flex;
 		justify-content: center;
-		padding: 2rem;
+		padding: var(--tt-space-32);
 	}
 
 	.btn-file-primary {
 		background: var(--tt-brand-primary-500);
 		color: white;
 		padding: 0.75rem 1.5rem;
-		border-radius: 8px;
-		font-size: 1rem;
+		border-radius: var(--tt-radius-card);
+		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
 		cursor: pointer;
 		border: none;
@@ -173,12 +173,12 @@
 	.file-list {
 		background: var(--tt-background-card-hover);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 8px;
-		padding: 1rem;
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-16);
 	}
 
 	.file-list h3 {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		margin: 0 0 0.75rem;
 		color: var(--tt-text-secondary);
 	}
@@ -186,10 +186,10 @@
 	.file-item {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0.5rem;
+		gap: var(--tt-space-8);
+		padding: var(--tt-space-8);
 		background: var(--tt-background-card);
-		border-radius: 6px;
+		border-radius: var(--tt-radius-button);
 		margin-bottom: 0.5rem;
 	}
 
@@ -198,19 +198,19 @@
 	}
 
 	.file-icon {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 	}
 
 	.file-name {
 		flex: 1;
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
 	.file-size {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		color: var(--tt-text-muted);
 	}
 
@@ -220,9 +220,9 @@
 		border: none;
 		background: transparent;
 		color: var(--tt-text-muted);
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		cursor: pointer;
-		border-radius: 4px;
+		border-radius: var(--tt-radius-badge);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -243,8 +243,8 @@
 		color: white;
 		border: none;
 		padding: 0.75rem 1.5rem;
-		border-radius: 8px;
-		font-size: 1rem;
+		border-radius: var(--tt-radius-card);
+		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 		font-weight: 500;
 	}

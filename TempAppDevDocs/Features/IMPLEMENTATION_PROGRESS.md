@@ -479,13 +479,13 @@ Phase 4:
 
 ### Foundation (Complete)
 
-| #       | Task                           | Status   | Notes                                      |
-| ------- | ------------------------------ | -------- | ------------------------------------------ |
-| CSS-0.1 | Create tt-design-system-v2.css | COMPLETE | Design tokens + component classes          |
+| #       | Task                           | Status   | Notes                                   |
+| ------- | ------------------------------ | -------- | --------------------------------------- |
+| CSS-0.1 | Create tt-design-system-v2.css | COMPLETE | Design tokens + component classes       |
 | CSS-0.2 | Create StyleGuide v2 page      | COMPLETE | /dev/styleguide for visual verification |
-| CSS-0.3 | Define color scales            | COMPLETE | Primary, accent, semantic states           |
-| CSS-0.4 | Define interaction states      | COMPLETE | Pressed, current, focus                    |
-| CSS-0.5 | Create Spec/Plan/Tasks         | COMPLETE | Full documentation                         |
+| CSS-0.3 | Define color scales            | COMPLETE | Primary, accent, semantic states        |
+| CSS-0.4 | Define interaction states      | COMPLETE | Pressed, current, focus                 |
+| CSS-0.5 | Create Spec/Plan/Tasks         | COMPLETE | Full documentation                      |
 
 ### Migration Tasks (In Progress)
 

@@ -32,12 +32,12 @@
 	.nav-btn {
 		display: flex;
 		align-items: center;
-		gap: 4px;
+		gap: var(--tt-space-4);
 		padding: 6px 12px;
 		border: 1px solid var(--tt-header-border);
 		background: transparent;
 		color: var(--tt-header-text);
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		border-radius: var(--tt-radius-button);
 		cursor: pointer;
 		transition: background var(--tt-transition-fast);

@@ -56,7 +56,7 @@ export const dayTypes = writable<DayType[]>([]);
 /** Currently selected employer ID (null = show all employers) */
 function createSelectedEmployerStore() {
 	const STORAGE_KEY = 'tt-selected-employer-id';
-	
+
 	// Load initial value from localStorage
 	let initialValue: string | null = null;
 	if (typeof window !== 'undefined') {
@@ -65,9 +65,9 @@ function createSelectedEmployerStore() {
 			initialValue = stored;
 		}
 	}
-	
+
 	const { subscribe, set, update } = writable<string | null>(initialValue);
-	
+
 	return {
 		subscribe,
 		set: (value: string | null) => {

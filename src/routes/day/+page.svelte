@@ -392,18 +392,18 @@
 
 <style>
 	.day-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.loading {
 		display: flex;
 		justify-content: center;
-		padding: 2rem;
+		padding: var(--tt-space-32);
 		color: var(--tt-text-muted);
 	}
 
@@ -412,7 +412,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.nav-btn {
@@ -422,7 +422,7 @@
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		font-weight: 500;
 		cursor: pointer;
 		display: flex;
@@ -448,7 +448,7 @@
 
 	.date-title {
 		margin: 0;
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
 		flex: 1;
 		padding: 0.5rem 1rem;
@@ -456,12 +456,12 @@
 		background: var(--tt-background-card);
 		text-align: center;
 		cursor: pointer;
-		border-radius: 0.5rem;
+		border-radius: var(--tt-radius-card);
 		color: var(--tt-text-primary);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 		min-height: 44px;
 	}
 
@@ -476,12 +476,12 @@
 	}
 
 	.title-prefix {
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
 	}
 
 	.title-date {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
 	}
 </style>

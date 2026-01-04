@@ -253,10 +253,10 @@
 		width: 100%;
 		padding: 0.25rem;
 		border: 1px solid var(--tt-brand-primary-500);
-		border-radius: 4px;
+		border-radius: var(--tt-radius-badge);
 		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	input[type='number'] {
@@ -271,8 +271,8 @@
 	.status-badge {
 		display: inline-block;
 		padding: 0.125rem 0.375rem;
-		border-radius: 4px;
-		font-size: 0.75rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 	}
 

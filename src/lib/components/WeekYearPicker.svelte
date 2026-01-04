@@ -152,8 +152,8 @@
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose}>Abbrechen</button>
-			<button type="button" class="btn-primary" onclick={handleSelect}>Auswählen</button>
+			<button type="button" class="tt-button-secondary" onclick={handleClose}>Abbrechen</button>
+			<button type="button" class="tt-button-primary" onclick={handleSelect}>Auswählen</button>
 		</div>
 	</div>
 </Modal>
@@ -162,7 +162,7 @@
 	.week-picker {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.current-week-btn {
@@ -171,7 +171,7 @@
 		border-radius: var(--tt-radius-button);
 		background: var(--tt-brand-primary-800);
 		color: var(--tt-brand-primary-500);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
 		cursor: pointer;
 	}
@@ -184,26 +184,26 @@
 	.divider {
 		text-align: center;
 		color: var(--tt-text-muted);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.field label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
 		color: var(--tt-text-primary);
 	}
 
 	.select-input {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 	}
@@ -216,38 +216,9 @@
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: 0.5rem;
 		border-top: 1px solid var(--tt-border-default);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--tt-button-secondary-border);
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-secondary-bg);
-		color: var(--tt-button-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover {
-		background: var(--tt-button-secondary-hover);
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-primary-bg);
-		color: var(--tt-button-primary-text);
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover {
-		background: var(--tt-button-primary-hover);
 	}
 </style>

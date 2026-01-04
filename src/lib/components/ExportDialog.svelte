@@ -108,8 +108,9 @@
 			</div>
 
 			<footer class="dialog-footer">
-				<button class="btn-secondary" onclick={onclose} disabled={exporting}>Abbrechen</button>
-				<button class="btn-primary" onclick={handleExport} disabled={exporting}>
+				<button class="tt-button-secondary" onclick={onclose} disabled={exporting}>Abbrechen</button
+				>
+				<button class="tt-button-primary" onclick={handleExport} disabled={exporting}>
 					{#if exporting}
 						Exportiere...
 					{:else}
@@ -134,7 +135,7 @@
 
 	.dialog {
 		background: var(--tt-background-card);
-		border-radius: 12px;
+		border-radius: var(--tt-radius-modal);
 		width: 90%;
 		max-width: 400px;
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -163,22 +164,22 @@
 	.description {
 		margin: 0 0 16px;
 		color: var(--tt-text-muted);
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.format-options {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--tt-space-8);
 	}
 
 	.format-option {
 		display: flex;
 		align-items: center;
-		gap: 12px;
+		gap: var(--tt-space-12);
 		padding: 12px;
 		border: 1px solid var(--tt-border-default);
-		border-radius: 8px;
+		border-radius: var(--tt-radius-card);
 		cursor: pointer;
 		transition: border-color 0.2s;
 	}
@@ -208,7 +209,7 @@
 	}
 
 	.format-desc {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		color: var(--tt-text-muted);
 	}
 
@@ -217,54 +218,15 @@
 		padding: 8px 12px;
 		background: var(--tt-status-danger-800);
 		color: var(--tt-status-danger-500);
-		border-radius: 6px;
-		font-size: 0.875rem;
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
 	}
 
 	.dialog-footer {
 		display: flex;
 		justify-content: flex-end;
-		gap: 8px;
+		gap: var(--tt-space-8);
 		padding: 16px 20px;
 		border-top: 1px solid var(--tt-border-default);
-	}
-
-	.btn-primary,
-	.btn-secondary {
-		padding: 10px 20px;
-		border-radius: 8px;
-		font-weight: 500;
-		cursor: pointer;
-		transition: opacity 0.2s;
-	}
-
-	.btn-primary {
-		background: var(--tt-brand-primary-500);
-		color: white;
-		border: none;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		opacity: 0.9;
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn-secondary {
-		background: transparent;
-		color: var(--tt-text-muted);
-		border: 1px solid var(--tt-border-default);
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		border-color: var(--tt-text-muted);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
 	}
 </style>

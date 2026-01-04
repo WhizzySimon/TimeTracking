@@ -52,19 +52,19 @@
 	.review-filters {
 		display: flex;
 		align-items: center;
-		gap: 1.5rem;
+		gap: var(--tt-space-24);
 		padding: 0.75rem 1rem;
 		background: var(--tt-background-card-hover);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 8px;
+		border-radius: var(--tt-radius-card);
 		flex-wrap: wrap;
 	}
 
 	.filter-toggle {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.875rem;
+		gap: var(--tt-space-8);
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-primary);
 		cursor: pointer;
 	}
@@ -78,11 +78,11 @@
 	.confidence-slider {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.confidence-slider label {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-secondary);
 		white-space: nowrap;
 	}

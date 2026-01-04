@@ -948,9 +948,7 @@
 							<span>Secondary<br />{COLOR_SCHEMES[$colorScheme].secondary}</span>
 						</div>
 					</div>
-					<button class="reset-btn" onclick={resetColorScheme}>
-						Cache leeren & neu laden
-					</button>
+					<button class="reset-btn" onclick={resetColorScheme}> Cache leeren & neu laden </button>
 				</div>
 			{/if}
 		</section>
@@ -1144,12 +1142,12 @@
 
 <style>
 	.settings-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--tt-space-24);
 	}
 
 	.page-header {
@@ -1171,14 +1169,14 @@
 	.loading {
 		display: flex;
 		justify-content: center;
-		padding: 2rem;
+		padding: var(--tt-space-32);
 		color: var(--tt-text-muted);
 	}
 
 	.section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.section-header {
@@ -1190,7 +1188,7 @@
 
 	.section-header h2 {
 		margin: 0;
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
 		color: var(--tt-text-primary);
 		font-family: var(--tt-font-family);
@@ -1199,7 +1197,7 @@
 	.section-toggle {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		background: transparent;
 		border: none;
 		padding: 0;
@@ -1213,7 +1211,7 @@
 	}
 
 	.toggle-icon {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		color: var(--tt-text-muted);
 		transition: transform 0.2s ease;
 	}
@@ -1224,7 +1222,7 @@
 
 	.header-buttons {
 		display: flex;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.menu-container {
@@ -1298,13 +1296,13 @@
 	.list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.empty {
 		text-align: center;
 		color: var(--tt-text-muted);
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		margin: 0;
 	}
 
@@ -1318,9 +1316,9 @@
 	.version-info {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 		color: var(--tt-text-muted);
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		font-family: var(--tt-font-family);
 	}
 
@@ -1330,7 +1328,7 @@
 	}
 
 	.build-time {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		color: var(--tt-text-muted);
 	}
 
@@ -1347,7 +1345,7 @@
 		color: white;
 		border: none;
 		border-radius: var(--tt-radius-button);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
 		font-family: var(--tt-font-family);
 		cursor: pointer;
@@ -1365,7 +1363,7 @@
 	.delete-account-error {
 		display: block;
 		margin-top: 0.5rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-status-danger-500);
 		text-align: center;
 	}
@@ -1373,7 +1371,7 @@
 	.data-actions {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.data-btn {
@@ -1383,7 +1381,7 @@
 		color: var(--tt-button-primary-text);
 		border: none;
 		border-radius: var(--tt-radius-button);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
 		font-family: var(--tt-font-family);
 		cursor: pointer;
@@ -1428,8 +1426,8 @@
 	.account-info {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
-		padding: 1rem;
+		gap: var(--tt-space-8);
+		padding: var(--tt-space-16);
 		background: var(--tt-background-card);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-card);
@@ -1453,7 +1451,7 @@
 	.account-value-with-edit {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.plan-text {

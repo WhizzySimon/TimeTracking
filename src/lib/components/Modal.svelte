@@ -167,7 +167,7 @@
 
 	.modal-header h2 {
 		margin: 0;
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
 		color: var(--tt-text-primary);
 	}
@@ -175,6 +175,6 @@
 	/* Close button now uses .tt-symbol-button from design system */
 
 	.modal-body {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 	}
 </style>

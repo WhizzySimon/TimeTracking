@@ -628,7 +628,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--tt-bg);
+		background: var(--tt-background-page);
 		color: var(--tt-text-muted);
 	}
 
@@ -645,7 +645,7 @@
 	:global(body) {
 		font-family: var(--tt-font-family);
 		background-color: var(--tt-background-outside);
-		color: var(--tt-text);
+		color: var(--tt-text-primary);
 	}
 
 	.app-container {
@@ -684,7 +684,7 @@
 		padding: var(--tt-space-6) var(--tt-space-12);
 		border: none;
 		border-radius: var(--tt-radius-button);
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		font-weight: 500;
 		cursor: pointer;
 		white-space: nowrap;
@@ -703,7 +703,9 @@
 		color: var(--tt-header-text);
 		opacity: 0.7;
 		cursor: pointer;
-		transition: background var(--tt-transition-fast), opacity var(--tt-transition-fast);
+		transition:
+			background var(--tt-transition-fast),
+			opacity var(--tt-transition-fast);
 	}
 
 	@media (hover: hover) {
@@ -754,7 +756,9 @@
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
-		transition: background var(--tt-transition-fast), color var(--tt-transition-fast);
+		transition:
+			background var(--tt-transition-fast),
+			color var(--tt-transition-fast);
 	}
 
 	@media (hover: hover) {
@@ -784,7 +788,7 @@
 
 	.profile-email {
 		padding: var(--tt-space-12) var(--tt-space-16);
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 		background: var(--tt-background-card-hover);
 		border-bottom: 1px solid var(--tt-border-default);
@@ -801,7 +805,7 @@
 		align-items: center;
 		gap: var(--tt-space-12);
 		padding: var(--tt-space-12) var(--tt-space-16);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		color: var(--tt-text-primary);
 		text-decoration: none;
 		background: none;
@@ -872,7 +876,7 @@
 		border: none;
 		border-radius: var(--tt-radius-button);
 		padding: var(--tt-space-8) var(--tt-space-24);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 600;
 		cursor: pointer;
 		width: 100%;
@@ -902,7 +906,7 @@
 		border: none;
 		border-radius: var(--tt-radius-button);
 		padding: var(--tt-space-8) var(--tt-space-24);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 600;
 		cursor: pointer;
 		width: 100%;

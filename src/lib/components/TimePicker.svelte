@@ -81,14 +81,14 @@
 	.time-picker-container {
 		display: flex;
 		align-items: center;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.time-select {
 		padding: 0.5rem 0.5rem;
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 		cursor: pointer;
@@ -103,7 +103,7 @@
 	}
 
 	.separator {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 500;
 		color: var(--tt-text-primary);
 	}

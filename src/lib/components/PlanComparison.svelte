@@ -56,12 +56,12 @@
 		align-items: center;
 		justify-content: center;
 		z-index: 1000;
-		padding: 1rem;
+		padding: var(--tt-space-16);
 	}
 
 	.modal {
 		background: var(--tt-background-card);
-		border-radius: 12px;
+		border-radius: var(--tt-radius-modal);
 		width: 100%;
 		max-width: 900px;
 		max-height: 90vh;
@@ -79,7 +79,7 @@
 
 	.modal-header h2 {
 		margin: 0;
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		color: var(--tt-text-primary);
 	}
 
@@ -101,7 +101,7 @@
 		background: transparent;
 		color: var(--tt-text-muted);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 8px;
+		border-radius: var(--tt-radius-card);
 		cursor: pointer;
 	}
 

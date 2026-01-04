@@ -164,8 +164,8 @@
 	.preset-selector {
 		background: var(--tt-background-card-hover);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 8px;
-		padding: 1rem;
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-16);
 	}
 
 	.preset-header {
@@ -176,7 +176,7 @@
 	}
 
 	.preset-header h3 {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		margin: 0;
 		color: var(--tt-text-secondary);
 	}
@@ -186,8 +186,8 @@
 		background: var(--tt-brand-primary-500);
 		color: white;
 		border: none;
-		border-radius: 4px;
-		font-size: 0.75rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-tiny);
 		cursor: pointer;
 	}
 
@@ -198,7 +198,7 @@
 
 	.loading,
 	.empty {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 		margin: 0;
 	}
@@ -209,23 +209,23 @@
 		padding: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.preset-item {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.preset-btn {
 		flex: 1;
-		padding: 0.5rem;
+		padding: var(--tt-space-8);
 		background: var(--tt-background-card);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 4px;
+		border-radius: var(--tt-radius-badge);
 		text-align: left;
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
 	}
 
@@ -240,7 +240,7 @@
 		background: none;
 		border: none;
 		color: var(--tt-text-muted);
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		cursor: pointer;
 		line-height: 1;
 	}
@@ -261,8 +261,8 @@
 
 	.save-dialog {
 		background: var(--tt-background-card);
-		padding: 1.5rem;
-		border-radius: 8px;
+		padding: var(--tt-space-24);
+		border-radius: var(--tt-radius-card);
 		width: 300px;
 		position: relative;
 	}
@@ -276,15 +276,15 @@
 
 	.save-dialog h4 {
 		margin: 0 0 1rem;
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 	}
 
 	.save-dialog input {
 		width: 100%;
-		padding: 0.5rem;
+		padding: var(--tt-space-8);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 4px;
-		font-size: 0.875rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-small);
 		background: var(--tt-background-card-hover);
 		color: var(--tt-text-primary);
 	}
@@ -295,22 +295,22 @@
 
 	.error-text {
 		color: var(--tt-status-danger-500);
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		margin: 0.25rem 0 0;
 	}
 
 	.dialog-actions {
 		display: flex;
 		justify-content: flex-end;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		margin-top: 1rem;
 	}
 
 	.btn-cancel,
 	.btn-save {
 		padding: 0.5rem 1rem;
-		border-radius: 4px;
-		font-size: 0.875rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
 		border: none;
 	}

@@ -37,8 +37,8 @@
 		</p>
 
 		<div class="error-actions">
-			<button class="btn-primary" onclick={handleReload}>Seite neu laden</button>
-			<button class="btn-secondary" onclick={handleGoHome}>Zur Startseite</button>
+			<button class="tt-button-primary" onclick={handleReload}>Seite neu laden</button>
+			<button class="tt-button-secondary" onclick={handleGoHome}>Zur Startseite</button>
 		</div>
 
 		{#if $page.error?.message}
@@ -56,7 +56,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		background: var(--tt-background-page);
 	}
 
@@ -64,7 +64,7 @@
 		max-width: 400px;
 		text-align: center;
 		background: var(--tt-background-card);
-		padding: 2rem;
+		padding: var(--tt-space-32);
 		border-radius: var(--tt-radius-card);
 		box-shadow: var(--tt-shadow-modal);
 	}
@@ -89,37 +89,7 @@
 	.error-actions {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-primary-bg);
-		color: var(--tt-button-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: background 0.2s;
-	}
-
-	.btn-primary:hover {
-		background: var(--tt-button-primary-hover);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--tt-button-secondary-border);
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-secondary-bg);
-		color: var(--tt-button-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: background 0.2s;
-	}
-
-	.btn-secondary:hover {
-		background: var(--tt-button-secondary-hover);
+		gap: var(--tt-space-12);
 	}
 
 	.error-details {
@@ -130,15 +100,15 @@
 	.error-details summary {
 		cursor: pointer;
 		color: var(--tt-text-muted);
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.error-details pre {
 		margin-top: 0.5rem;
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-background-card-hover);
 		border-radius: var(--tt-radius-input);
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		overflow-x: auto;
 		color: var(--tt-status-danger-500);
 	}

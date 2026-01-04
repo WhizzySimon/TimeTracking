@@ -166,11 +166,7 @@
 
 <div class="tt-labeled-dropdown">
 	<span class="tt-labeled-dropdown__label">Wochenart</span>
-	<CustomDropdown
-		options={weekTypeOptions}
-		value={selectedValue}
-		onchange={handleChange}
-	/>
+	<CustomDropdown options={weekTypeOptions} value={selectedValue} onchange={handleChange} />
 </div>
 
 {#if showNotification}

@@ -463,7 +463,7 @@
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		font-weight: 500;
 		cursor: pointer;
 		display: flex;
@@ -497,12 +497,12 @@
 		background: var(--tt-background-card);
 		text-align: center;
 		cursor: pointer;
-		border-radius: 0.5rem;
+		border-radius: var(--tt-radius-card);
 		color: var(--tt-text-primary);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 		min-height: 44px;
 	}
 
@@ -517,7 +517,7 @@
 	}
 
 	.title-prefix {
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
 	}
 
@@ -537,7 +537,7 @@
 	.week-hours {
 		display: flex;
 		gap: var(--tt-space-4);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		color: var(--tt-text-muted);
 		margin-left: auto;
 	}
@@ -559,6 +559,6 @@
 	}
 
 	.week-hours__saldo--negative {
-		color: var(--tt-status-negative);
+		color: var(--tt-status-danger-500);
 	}
 </style>

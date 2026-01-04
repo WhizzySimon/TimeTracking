@@ -29,8 +29,8 @@
 
 		<h3>Brand Primary — Numbered Scale (25-700)</h3>
 		<p style="color: var(--tt-text-muted);">
-			Numbers represent lightness levels in the Material Design convention.
-			Switch schemes to see how these colors adapt.
+			Numbers represent lightness levels in the Material Design convention. Switch schemes to see
+			how these colors adapt.
 		</p>
 		<div class="color-scale">
 			<div class="color-scale-item" style="background: var(--tt-brand-primary-25, #e8f0f8);">
@@ -98,7 +98,9 @@
 		</div>
 
 		<h3>Semantic States</h3>
-		<p style="color: var(--tt-text-muted);">Each semantic color has base + pressed + faded variants.</p>
+		<p style="color: var(--tt-text-muted);">
+			Each semantic color has base + pressed + faded variants.
+		</p>
 
 		<p style="color: var(--tt-text-muted); margin-top: 1rem;">
 			<strong>Danger</strong> — Destructive actions (delete), errors, validation failures
@@ -219,7 +221,6 @@
 			</ul>
 		</div>
 	</section>
-
 </div>
 
 <style>
@@ -228,7 +229,7 @@
 	}
 
 	.styleguide {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: var(--tt-app-max-width);
 		margin: 0 auto;
 		background: var(--tt-background-page);
@@ -265,7 +266,7 @@
 	}
 
 	.explanation-card {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.explanation-card h3 {
@@ -276,10 +277,10 @@
 
 	.explanation-card pre {
 		background: var(--tt-background-card-pressed);
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		border-radius: var(--tt-radius-button);
 		overflow-x: auto;
-		font-size: 0.8rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.explanation-card ul {
@@ -294,11 +295,11 @@
 	.color-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.color-swatch {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		border-radius: var(--tt-radius-card);
 		color: white;
 		text-align: center;
@@ -308,7 +309,7 @@
 		display: block;
 		font-weight: 600;
 		margin-bottom: 0.25rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.color-swatch code {
@@ -335,7 +336,7 @@
 	.color-scale-item span {
 		display: block;
 		font-weight: 600;
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		margin-bottom: 0.25rem;
 	}
 

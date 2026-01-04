@@ -92,12 +92,7 @@
 
 <div class="tt-labeled-dropdown">
 	<span class="tt-labeled-dropdown__label">Tagesart</span>
-	<CustomDropdown
-		options={dayTypeOptions}
-		{value}
-		onchange={handleChange}
-		disabled={loading}
-	/>
+	<CustomDropdown options={dayTypeOptions} {value} onchange={handleChange} disabled={loading} />
 </div>
 
 {#if showNotification}

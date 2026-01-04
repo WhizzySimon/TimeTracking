@@ -32,6 +32,22 @@ Each entry follows this format:
 
 (newest first)
 
+## 2026-01-04 02:33 — CSS Design System Refactoring & Component Unification
+
+| Step                 | Result  | Notes                                                              |
+| -------------------- | ------- | ------------------------------------------------------------------ |
+| 0: Scope check       | first   | First commit in this chat                                          |
+| A1: Capture feedback | 1 item  | User confirmed data issue, not code issue                          |
+| B1: Repeated errors  | none    | No repeated errors                                                 |
+| B2: File churn       | 2 files | CustomDropdown.svelte, ImportCategoriesModal.svelte edited 3x each |
+| B3: Scope drift      | none    | CSS refactoring session — design system consolidation              |
+| B4: Session duration | ~45m    | normal                                                             |
+| C1: Promotions       | none    | No items meet promotion criteria                                   |
+| C2: Read LEARNINGS   | ✓ read  | 12 items                                                           |
+| C3: Hard Rule → JIT  | none    | No new Hard Rules proposed                                         |
+
+---
+
 ## 2026-01-02 22:13 — UI/UX Polish & Dialog Design System Migration
 
 | Step                 | Result | Notes                                             |

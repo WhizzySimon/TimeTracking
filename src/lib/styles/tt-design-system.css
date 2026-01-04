@@ -65,52 +65,52 @@
    Numbers represent lightness levels (25=lightest → 500=base → 700=darkest)
    Base color: #374CA7
 */
-html[data-color-scheme="scheme-1"] {
+html[data-color-scheme='scheme-1'] {
 	/* Brand Primary - Full Scale */
-	--tt-brand-primary-25: #e8f0f8;   /* Page background - lightest */
-	--tt-brand-primary-50: #dce2f2;   /* Very light tint - between 25 and 100, less red */
-	--tt-brand-primary-100: #c9cee9;  /* Light tint */
-	--tt-brand-primary-200: #a4adda;  /* Medium-light tint */
-	--tt-brand-primary-300: #7b88c9;  /* Medium tint */
-	--tt-brand-primary-400: #5f6fb9;  /* Interactive/pressed state */
-	--tt-brand-primary-500: #374CA7;  /* Base brand color */
-	--tt-brand-primary-600: #2c3d86;  /* Darker */
-	--tt-brand-primary-700: #212e64;  /* Darkest */
+	--tt-brand-primary-25: #e8f0f8; /* Page background - lightest */
+	--tt-brand-primary-50: #dce2f2; /* Very light tint - between 25 and 100, less red */
+	--tt-brand-primary-100: #c9cee9; /* Light tint */
+	--tt-brand-primary-200: #a4adda; /* Medium-light tint */
+	--tt-brand-primary-300: #7b88c9; /* Medium tint */
+	--tt-brand-primary-400: #5f6fb9; /* Interactive/pressed state */
+	--tt-brand-primary-500: #374ca7; /* Base brand color */
+	--tt-brand-primary-600: #2c3d86; /* Darker */
+	--tt-brand-primary-700: #212e64; /* Darkest */
 	--tt-brand-primary-800: rgba(55, 76, 167, 0.1);
-	
+
 	/* Brand Accent */
 	--tt-brand-accent-50: #eaf8fe;
 	--tt-brand-accent-100: #c5ecfd;
 	--tt-brand-accent-200: #9bdefb;
-	--tt-brand-accent-300: #37BDF6;
+	--tt-brand-accent-300: #37bdf6;
 	--tt-brand-accent-400: #2fa1d1;
 	--tt-brand-accent-500: #247ba0;
 	--tt-brand-accent-600: rgba(55, 189, 246, 0.1);
 }
 
 /* Scheme 2: Mittel (#2330A3) - #2330A3 / #66BDF1 */
-html[data-color-scheme="scheme-2"] {
+html[data-color-scheme='scheme-2'] {
 	--tt-brand-primary-50: #e7e9f6;
 	--tt-brand-primary-100: #c3c7e8;
 	--tt-brand-primary-200: #9ba0d8;
 	--tt-brand-primary-300: #6f76c6;
 	--tt-brand-primary-400: #4f5ab5;
-	--tt-brand-primary-500: #2330A3;
+	--tt-brand-primary-500: #2330a3;
 	--tt-brand-primary-600: #1c2682;
 	--tt-brand-primary-700: #151d62;
 	--tt-brand-primary-800: rgba(35, 48, 163, 0.1);
-	
+
 	--tt-brand-accent-50: #f0f9fe;
 	--tt-brand-accent-100: #d1edfb;
 	--tt-brand-accent-200: #a8ddf6;
-	--tt-brand-accent-300: #66BDF1;
+	--tt-brand-accent-300: #66bdf1;
 	--tt-brand-accent-400: #56a1cd;
 	--tt-brand-accent-500: #427b9d;
 	--tt-brand-accent-600: rgba(102, 189, 241, 0.1);
 }
 
 /* Scheme 3: Kräftig (#2526a9) - #2526a9 / #37bdf6 */
-html[data-color-scheme="scheme-3"] {
+html[data-color-scheme='scheme-3'] {
 	--tt-brand-primary-50: #e8e8f8;
 	--tt-brand-primary-100: #c5c5ed;
 	--tt-brand-primary-200: #9e9fe0;
@@ -120,7 +120,7 @@ html[data-color-scheme="scheme-3"] {
 	--tt-brand-primary-600: #1e1f8a;
 	--tt-brand-primary-700: #171868;
 	--tt-brand-primary-800: rgba(37, 38, 169, 0.1);
-	
+
 	--tt-brand-accent-50: #eaf8fe;
 	--tt-brand-accent-100: #c5ecfd;
 	--tt-brand-accent-200: #9bdefb;
@@ -131,7 +131,6 @@ html[data-color-scheme="scheme-3"] {
 }
 
 :root {
-
 	/* ---- LAYOUT ---- */
 	--tt-app-max-width: 600px;
 
@@ -177,7 +176,7 @@ html[data-color-scheme="scheme-3"] {
 
 	/* ---- COLORS: Semantic States ---- */
 	/* These colors are scheme-independent and remain consistent across all color schemes */
-	
+
 	/* Danger: Destructive actions (delete), errors, validation failures */
 	--tt-status-danger-50: #fee2e2;
 	--tt-status-danger-100: #fecaca;
@@ -195,7 +194,7 @@ html[data-color-scheme="scheme-3"] {
 	--tt-status-success-600: #16a34a;
 	--tt-status-success-700: #15803d;
 	--tt-status-success-800: rgba(47, 133, 90, 0.1);
-	
+
 	/* Warning: Caution, attention needed */
 	--tt-status-warning-50: #fef9c3;
 	--tt-status-warning-100: #fde68a;
@@ -228,14 +227,17 @@ html[data-color-scheme="scheme-3"] {
 	--tt-radius-input: var(--r-btn, 6px);
 	--tt-radius-pill: 9999px;
 	--tt-radius-badge: 4px;
+	--tt-radius-modal: 12px; /* Modal/dialog corners */
 
 	/* ---- TYPOGRAPHY ---- */
 	--tt-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
 	--tt-font-size-tiny: 0.75rem;
 	--tt-font-size-small: 0.875rem;
+	--tt-font-size-body: 0.9rem; /* Most common body text size */
 	--tt-font-size-normal: 1rem;
 	--tt-font-size-large: 1.125rem;
+	--tt-font-size-title: 1.25rem; /* Section titles */
 
 	--tt-font-weight-regular: 400;
 	--tt-font-weight-medium: 500;
@@ -249,7 +251,7 @@ html[data-color-scheme="scheme-3"] {
 	--tt-button-primary-selected: #4a4bc5; /* Selected/current (lighter) */
 	--tt-button-primary-pressed: #5c5dd0; /* Pressed (lightest) */
 	--tt-button-primary-text: #ffffff;
-	
+
 	/* Danger button (dark background): states become lighter */
 	--tt-status-danger-hover: #d64545; /* Hover (lighter) */
 	--tt-status-danger-selected: var(--tt-status-danger-300); /* Selected (lighter) */
@@ -257,6 +259,7 @@ html[data-color-scheme="scheme-3"] {
 
 	/* ---- ANIMATION ---- */
 	--tt-transition-fast: 0.15s ease;
+	--tt-transition-normal: 0.2s ease;
 }
 
 /* ============================================================================
@@ -686,7 +689,9 @@ html[data-color-scheme="scheme-3"] {
 	white-space: nowrap;
 	background: var(--tt-background-card);
 	color: var(--tt-text-primary);
-	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+	transition:
+		background var(--tt-transition-fast),
+		border-color var(--tt-transition-fast);
 }
 
 @media (hover: hover) {
@@ -735,6 +740,43 @@ html[data-color-scheme="scheme-3"] {
 }
 
 /**
+ * Danger Button - Destructive action (red, self-contained)
+ */
+.tt-button-danger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-12) var(--tt-space-24);
+	min-height: 48px;
+	font-size: var(--tt-font-size-normal);
+	font-weight: var(--tt-font-weight-semibold);
+	line-height: 1;
+	border-radius: var(--tt-radius-button);
+	border: none;
+	cursor: pointer;
+	white-space: nowrap;
+	background: var(--tt-status-danger-500);
+	color: white;
+	transition: background var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-button-danger:hover:not(:disabled) {
+		background: var(--tt-status-danger-600);
+	}
+}
+
+.tt-button-danger:active:not(:disabled) {
+	background: var(--tt-status-danger-700);
+}
+
+.tt-button-danger:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/**
  * Small Button modifier - reduces size
  */
 .tt-button-small {
@@ -760,7 +802,9 @@ html[data-color-scheme="scheme-3"] {
 	color: var(--tt-text-secondary);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
-	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+	transition:
+		background var(--tt-transition-fast),
+		border-color var(--tt-transition-fast);
 }
 
 .tt-symbol-button svg {
@@ -828,7 +872,9 @@ html[data-color-scheme="scheme-3"] {
 	color: var(--tt-text-muted);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
-	transition: background var(--tt-transition-fast), color var(--tt-transition-fast);
+	transition:
+		background var(--tt-transition-fast),
+		color var(--tt-transition-fast);
 }
 
 @media (hover: hover) {
@@ -1010,7 +1056,9 @@ html[data-color-scheme="scheme-3"] {
 	border-radius: var(--tt-radius-button);
 	border: var(--tt-border-touchable-width) solid var(--tt-footer-tab-border);
 	background: var(--tt-footer-tab-bg);
-	transition: background var(--tt-transition-fast), color var(--tt-transition-fast);
+	transition:
+		background var(--tt-transition-fast),
+		color var(--tt-transition-fast);
 }
 
 /* Hover state: slightly lighter (dark background) */
@@ -1035,7 +1083,7 @@ html[data-color-scheme="scheme-3"] {
 /* Current tab hover: slightly lighter than current */
 @media (hover: hover) {
 	.tt-footer-tab[aria-current='page']:hover {
-		background: rgba(255, 255, 255, 0.20);
+		background: rgba(255, 255, 255, 0.2);
 	}
 }
 
@@ -1073,7 +1121,9 @@ html[data-color-scheme="scheme-3"] {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: right var(--tt-space-12) center;
-	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+	transition:
+		background var(--tt-transition-fast),
+		border-color var(--tt-transition-fast);
 }
 
 @media (hover: hover) {
@@ -1126,7 +1176,9 @@ html[data-color-scheme="scheme-3"] {
 	border: 1px solid var(--tt-border-subtle);
 	border-radius: var(--tt-radius-input);
 	box-sizing: border-box;
-	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+	transition:
+		background var(--tt-transition-fast),
+		border-color var(--tt-transition-fast);
 }
 
 .tt-text-input::placeholder {
@@ -1155,7 +1207,9 @@ html[data-color-scheme="scheme-3"] {
 	border: 1px solid var(--tt-border-subtle);
 	border-radius: var(--tt-radius-input);
 	box-sizing: border-box;
-	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+	transition:
+		background var(--tt-transition-fast),
+		border-color var(--tt-transition-fast);
 }
 
 @media (hover: hover) {
@@ -1191,7 +1245,9 @@ html[data-color-scheme="scheme-3"] {
 	border-radius: var(--tt-radius-input);
 	cursor: pointer;
 	font-size: var(--tt-font-size-normal);
-	transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+	transition:
+		background var(--tt-transition-fast),
+		border-color var(--tt-transition-fast);
 }
 
 @media (hover: hover) {

@@ -56,7 +56,7 @@
 	.warning-banner {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		padding: 0.75rem 1rem;
 		background: var(--tt-status-warning-50);
 		border: 1px solid var(--tt-status-warning-500);
@@ -69,7 +69,7 @@
 	}
 
 	.warning-message {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
 	}
 
@@ -88,7 +88,7 @@
 		border: 1px solid var(--tt-brand-primary-500);
 		background: var(--tt-brand-primary-500);
 		color: white;
-		font-size: 0.8rem;
+		font-size: var(--tt-font-size-small);
 		font-weight: 500;
 		cursor: pointer;
 		border-radius: var(--tt-radius-button);

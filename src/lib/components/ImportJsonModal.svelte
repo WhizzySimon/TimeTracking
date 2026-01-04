@@ -212,11 +212,11 @@
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose}>
+			<button type="button" class="tt-button-secondary" onclick={handleClose}>
 				{importResult?.success ? 'Schließen' : 'Abbrechen'}
 			</button>
 			{#if preview && !importResult?.success}
-				<button type="button" class="btn-primary" onclick={handleImport} disabled={importing}>
+				<button type="button" class="tt-button-primary" onclick={handleImport} disabled={importing}>
 					{#if importing}
 						Importiere...
 					{:else}
@@ -232,7 +232,7 @@
 	.import-modal {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.upload-section {
@@ -255,7 +255,7 @@
 		border: 2px dashed var(--tt-border-default);
 		border-radius: var(--tt-radius-button);
 		color: var(--tt-text-primary);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		transition: all 0.2s;
 	}
 
@@ -267,19 +267,19 @@
 	.preview-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.preview-section h3 {
 		margin: 0;
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 600;
 		color: var(--tt-text-primary);
 	}
 
 	.stats {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: center;
 		flex-wrap: wrap;
 	}
@@ -296,18 +296,18 @@
 	}
 
 	.stat-value {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
 		color: var(--tt-brand-primary-500);
 	}
 
 	.stat-label {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		color: var(--tt-text-muted);
 	}
 
 	.warning-box {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-status-warning-50);
 		border: 1px solid var(--tt-status-warning-500);
 		border-radius: var(--tt-radius-card);
@@ -322,19 +322,19 @@
 	.warning-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-status-warning-500);
 	}
 
 	.error-box {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-status-danger-800);
 		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-card);
 	}
 
 	.info-box {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-status-warning-50);
 		border: 1px solid var(--tt-status-warning-500);
 		border-radius: var(--tt-radius-card);
@@ -348,14 +348,14 @@
 
 	.info-hint {
 		margin: 0;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-status-warning-500);
 	}
 
 	.error-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-status-danger-500);
 	}
 
@@ -365,7 +365,7 @@
 	}
 
 	.success-box {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-status-success-800);
 		border: 1px solid var(--tt-status-success-500);
 		border-radius: var(--tt-radius-card);
@@ -380,47 +380,14 @@
 	.success-box .result-details {
 		margin-top: 0.5rem;
 		font-weight: 400;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: 0.5rem;
 		border-top: 1px solid var(--tt-border-default);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--tt-button-secondary-border);
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-secondary-bg);
-		color: var(--tt-button-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover {
-		background: var(--tt-button-secondary-hover);
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-primary-bg);
-		color: var(--tt-button-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--tt-button-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
 	}
 </style>

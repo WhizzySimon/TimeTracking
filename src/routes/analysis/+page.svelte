@@ -754,7 +754,9 @@
 							</span>
 							<div class="summary-values">
 								<span class="summary-value summary-value--secondary">{formatHours(cat.hours)}</span>
-								<span class="summary-value summary-value--primary">{formatHours(cat.averagePerWeek)}</span>
+								<span class="summary-value summary-value--primary"
+									>{formatHours(cat.averagePerWeek)}</span
+								>
 							</div>
 						</div>
 					{/each}
@@ -780,19 +782,19 @@
 
 <style>
 	.analysis-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.loading {
 		display: flex;
 		justify-content: center;
-		padding: 2rem;
-		color: #666;
+		padding: var(--tt-space-32);
+		color: var(--tt-text-muted);
 	}
 
 	/* Date Range Selector - right-aligned with auto-width */
@@ -818,11 +820,13 @@
 		border-radius: var(--tt-radius-input);
 		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 		text-align: left;
 		white-space: nowrap;
-		transition: background var(--tt-transition-fast), border-color var(--tt-transition-fast);
+		transition:
+			background var(--tt-transition-fast),
+			border-color var(--tt-transition-fast);
 	}
 
 	@media (hover: hover) {
@@ -836,19 +840,19 @@
 	.period-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.no-periods {
 		text-align: center;
 		color: var(--tt-text-muted);
-		padding: 2rem;
+		padding: var(--tt-space-32);
 	}
 
 	.period-hours {
 		display: flex;
-		gap: 0.25rem;
-		font-size: 0.9rem;
+		gap: var(--tt-space-4);
+		font-size: var(--tt-font-size-body);
 		color: var(--tt-text-muted);
 		margin-left: auto;
 	}
@@ -877,13 +881,13 @@
 	.collapsible-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.section-toggle {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		background: none;
 		border: none;
 		padding: 0;
@@ -894,7 +898,7 @@
 	.toggle-icon {
 		display: inline-block;
 		font-size: 0.7rem;
-		color: #666;
+		color: var(--tt-text-muted);
 		transition: transform 0.2s ease;
 	}
 
@@ -904,7 +908,7 @@
 
 	.section-title {
 		margin: 0;
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 600;
 		color: var(--tt-text-primary);
 	}
@@ -929,7 +933,7 @@
 	}
 
 	.header-label {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		color: var(--tt-text-muted);
 		min-width: 60px;
 		text-align: right;
@@ -937,7 +941,7 @@
 
 	/* Summary row styling - info row, not clickable */
 	.summary-total-row {
-		background: var(--tt-background-info);
+		background: var(--tt-status-info-faded);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-card);
 		padding: var(--tt-space-12) var(--tt-space-16);

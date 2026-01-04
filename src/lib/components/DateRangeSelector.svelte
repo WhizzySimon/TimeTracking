@@ -155,8 +155,8 @@
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose}> Abbrechen </button>
-			<button type="button" class="btn-primary" onclick={handleSave}> Übernehmen </button>
+			<button type="button" class="tt-button-secondary" onclick={handleClose}> Abbrechen </button>
+			<button type="button" class="tt-button-primary" onclick={handleSave}> Übernehmen </button>
 		</div>
 	</div>
 </Modal>
@@ -165,18 +165,18 @@
 	.range-selector {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--tt-space-24);
 	}
 
 	.section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.section-title {
 		margin: 0;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 600;
 		color: var(--tt-text-muted);
 	}
@@ -184,7 +184,7 @@
 	.quick-btns {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.quick-btn {
@@ -193,7 +193,7 @@
 		border-radius: var(--tt-radius-button);
 		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		cursor: pointer;
 		text-align: center;
 	}
@@ -206,26 +206,26 @@
 	.date-fields {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.field label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
 		color: var(--tt-text-primary);
 	}
 
 	.date-input {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 	}
@@ -238,47 +238,19 @@
 
 	.error {
 		margin: 0;
-		padding: 0.5rem;
+		padding: var(--tt-space-8);
 		background: var(--tt-status-danger-800);
 		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-input);
 		color: var(--tt-status-danger-500);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: 0.5rem;
 		border-top: 1px solid var(--tt-border-default);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--tt-button-secondary-border);
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-secondary-bg);
-		color: var(--tt-button-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover {
-		background: var(--tt-button-secondary-hover);
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-primary-bg);
-		color: var(--tt-button-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover {
-		background: var(--tt-button-primary-hover);
 	}
 </style>

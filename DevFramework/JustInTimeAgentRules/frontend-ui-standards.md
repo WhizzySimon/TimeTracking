@@ -52,23 +52,25 @@ Every interactive component must define these states with progressive visual fee
 
 **State order:** normal → hover → selected/current → pressed
 
-| State            | Requirement                                    | Implementation                          |
-| ---------------- | ---------------------------------------------- | --------------------------------------- |
-| **default**      | Normal appearance                              | Base background/color                   |
-| **hover**        | Visual feedback on mouse over                  | Background changes (see rules below)    |
-| **selected**     | Current/active item (tabs, chips, selections)  | Distinct background, maintains contrast |
-| **pressed**      | Pressed/clicked state (touch/mouse down)       | Strongest visual feedback               |
-| **disabled**     | Grayed out, non-interactive                    | Reduced opacity, no cursor              |
-| **focus**        | Visible focus ring (keyboard navigation)       | Outline or box-shadow, never hidden     |
+| State        | Requirement                                   | Implementation                          |
+| ------------ | --------------------------------------------- | --------------------------------------- |
+| **default**  | Normal appearance                             | Base background/color                   |
+| **hover**    | Visual feedback on mouse over                 | Background changes (see rules below)    |
+| **selected** | Current/active item (tabs, chips, selections) | Distinct background, maintains contrast |
+| **pressed**  | Pressed/clicked state (touch/mouse down)      | Strongest visual feedback               |
+| **disabled** | Grayed out, non-interactive                   | Reduced opacity, no cursor              |
+| **focus**    | Visible focus ring (keyboard navigation)      | Outline or box-shadow, never hidden     |
 
 ### Background Progression Rules
 
 **Light backgrounds (white, light gray):**
+
 - States become **progressively darker**
 - Normal → Hover (slightly darker) → Selected (darker) → Pressed (darkest)
 - Example: `#ffffff` → `#f5f8fc` → `#edf2f7` → `#e2e8f0`
 
 **Dark backgrounds (brand colors, dark UI):**
+
 - States become **progressively lighter**
 - Normal → Hover (slightly lighter) → Selected (lighter) → Pressed (lightest)
 - Example: `#2526a9` → `#3334b8` → `#4a4bc5` → `#5c5dd0`
@@ -76,6 +78,7 @@ Every interactive component must define these states with progressive visual fee
 ### Contrast Verification (MUST)
 
 **All states must maintain readable contrast:**
+
 - Verify text contrast ratio ≥ 4.5:1 for normal text
 - Verify text contrast ratio ≥ 3:1 for large text (18pt+)
 - If contrast becomes too low in any state, adjust text color accordingly

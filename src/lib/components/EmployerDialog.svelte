@@ -123,9 +123,9 @@
 	}
 
 	.field label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--tt-text);
+		color: var(--tt-text-primary);
 	}
 
 	.error {
@@ -135,7 +135,7 @@
 		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-input);
 		color: var(--tt-status-danger-500);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.actions {
@@ -143,6 +143,6 @@
 		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: var(--tt-space-8);
-		border-top: 1px solid var(--tt-border);
+		border-top: 1px solid var(--tt-border-default);
 	}
 </style>

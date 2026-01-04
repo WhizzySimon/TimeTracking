@@ -56,12 +56,12 @@
 	.progress-container {
 		max-width: 500px;
 		margin: 0 auto;
-		padding: 2rem;
+		padding: var(--tt-space-32);
 		text-align: center;
 	}
 
 	.progress-header h2 {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		margin: 0 0 1.5rem;
 		color: var(--tt-text-primary);
 	}
@@ -69,26 +69,26 @@
 	.progress-bar-wrapper {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.progress-bar {
 		flex: 1;
 		height: 12px;
 		background: var(--tt-background-card-pressed);
-		border-radius: 6px;
+		border-radius: var(--tt-radius-button);
 		overflow: hidden;
 	}
 
 	.progress-fill {
 		height: 100%;
 		background: var(--tt-brand-primary-500);
-		border-radius: 6px;
+		border-radius: var(--tt-radius-button);
 		transition: width 0.3s ease;
 	}
 
 	.progress-percent {
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 600;
 		color: var(--tt-text-primary);
 		min-width: 3rem;
@@ -101,7 +101,7 @@
 	}
 
 	.current-file {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-secondary);
 		margin: 0 0 0.5rem;
 	}
@@ -115,7 +115,7 @@
 	}
 
 	.current-step {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 		margin: 0;
 	}
@@ -129,8 +129,8 @@
 		color: var(--tt-text-primary);
 		border: 1px solid var(--tt-border-default);
 		padding: 0.625rem 1.25rem;
-		border-radius: 6px;
-		font-size: 0.875rem;
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
 	}
 

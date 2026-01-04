@@ -101,13 +101,13 @@
 	.plans-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 16px;
+		gap: var(--tt-space-16);
 	}
 
 	.plan-card {
 		padding: 20px;
 		border: 1px solid var(--tt-border-default);
-		border-radius: 12px;
+		border-radius: var(--tt-radius-modal);
 		background: var(--tt-background-page);
 	}
 
@@ -123,7 +123,7 @@
 	.plan-header {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: var(--tt-space-8);
 		margin-bottom: 8px;
 	}
 
@@ -134,23 +134,23 @@
 	}
 
 	.current-badge {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		background: var(--tt-brand-primary-500);
 		color: white;
 		padding: 2px 8px;
-		border-radius: 12px;
+		border-radius: var(--tt-radius-modal);
 	}
 
 	.coming-soon-badge {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		background: var(--tt-text-muted);
 		color: white;
 		padding: 2px 8px;
-		border-radius: 12px;
+		border-radius: var(--tt-radius-modal);
 	}
 
 	.plan-price {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
 		color: var(--tt-text-primary);
 		margin-bottom: 16px;
@@ -162,14 +162,14 @@
 		padding: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--tt-space-8);
 	}
 
 	.features-list li {
 		display: flex;
 		align-items: center;
-		gap: 8px;
-		font-size: 0.875rem;
+		gap: var(--tt-space-8);
+		font-size: var(--tt-font-size-small);
 	}
 
 	.features-list li.included {
@@ -192,7 +192,7 @@
 		background: var(--tt-brand-primary-500);
 		color: white;
 		border: none;
-		border-radius: 8px;
+		border-radius: var(--tt-radius-card);
 		font-weight: 500;
 		cursor: pointer;
 	}

@@ -1,9 +1,9 @@
 /**
  * Color Scheme Store
- * 
+ *
  * Manages the app's color scheme using generic identifiers (scheme-1, scheme-2, etc.)
  * This allows UI display names/labels to change independently without breaking the system.
- * 
+ *
  * Current schemes:
  * - scheme-1: Original (#374CA7) - #374CA7 / #37BDF6
  * - scheme-2: Mittel (#2330A3) - #2330A3 / #66BDF1

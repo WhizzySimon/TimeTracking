@@ -72,7 +72,7 @@
 	}
 
 	.field label {
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 	}
 

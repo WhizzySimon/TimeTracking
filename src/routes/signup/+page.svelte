@@ -143,7 +143,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		background: var(--tt-background-page);
 	}
 
@@ -152,7 +152,7 @@
 		max-width: 400px;
 		background: var(--tt-background-card);
 		border-radius: var(--tt-radius-card);
-		padding: 2rem;
+		padding: var(--tt-space-32);
 		box-shadow: var(--tt-shadow-modal);
 	}
 
@@ -165,7 +165,7 @@
 
 	h2 {
 		margin: 0 0 1.5rem;
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		text-align: center;
 		color: var(--tt-text-primary);
 		font-weight: 500;
@@ -174,26 +174,26 @@
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.field label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		color: var(--tt-text-primary);
 		font-weight: 500;
 	}
 
 	.field input {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 	}
@@ -212,14 +212,14 @@
 	}
 
 	.hint {
-		font-size: 0.8rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 	}
 
 	.error {
 		color: var(--tt-status-danger-500);
-		font-size: 0.9rem;
-		padding: 0.75rem;
+		font-size: var(--tt-font-size-body);
+		padding: var(--tt-space-12);
 		background: var(--tt-status-danger-800);
 		border-radius: var(--tt-radius-input);
 		text-align: center;
@@ -227,8 +227,8 @@
 
 	.success {
 		color: var(--tt-status-success-500);
-		font-size: 0.9rem;
-		padding: 0.75rem;
+		font-size: var(--tt-font-size-body);
+		padding: var(--tt-space-12);
 		background: var(--tt-status-success-800);
 		border-radius: var(--tt-radius-input);
 		text-align: center;
@@ -240,7 +240,7 @@
 		color: var(--tt-button-primary-text);
 		border: none;
 		border-radius: var(--tt-radius-button);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
 		cursor: pointer;
 		margin-top: 0.5rem;
@@ -266,7 +266,7 @@
 	.links a {
 		color: var(--tt-brand-primary-500);
 		text-decoration: none;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.links a:hover {

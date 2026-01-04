@@ -156,13 +156,13 @@
 
 	.first-time-hint {
 		background: var(--tt-status-info-faded);
-		color: var(--tt-primary);
+		color: var(--tt-brand-primary-500);
 		padding: var(--tt-space-12) var(--tt-space-16);
 		border-radius: var(--tt-radius-card);
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		text-align: center;
 		margin-bottom: var(--tt-space-16);
-		border: 1px solid var(--tt-primary);
+		border: 1px solid var(--tt-brand-primary-500);
 	}
 
 	.loading {

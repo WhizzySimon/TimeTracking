@@ -124,7 +124,7 @@
 	<PlanGrid onselect={handlePlanSelect} showCurrentBadge={false} />
 
 	<div class="actions">
-		<button class="btn-secondary" onclick={handleContinueFree}>Weiter mit Free</button>
+		<button class="tt-button-secondary" onclick={handleContinueFree}>Weiter mit Free</button>
 	</div>
 
 	<p class="free-note">Alle anderen Funktionen bleiben kostenlos verfügbar.</p>
@@ -162,7 +162,7 @@
 	}
 
 	.paywall-subtitle {
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		color: var(--tt-text-muted);
 		margin: 0 0 1.5rem 0;
 	}
@@ -173,28 +173,9 @@
 		margin-top: 1.5rem;
 	}
 
-	.btn-secondary {
-		padding: 0.875rem 1.5rem;
-		background: transparent;
-		color: var(--tt-text-muted);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-button);
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-		transition:
-			background-color 0.15s ease,
-			border-color 0.15s ease;
-	}
-
-	.btn-secondary:hover {
-		background: var(--tt-background-card-hover);
-		border-color: var(--tt-border-default);
-	}
-
 	.free-note {
 		margin-top: 1rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 		text-align: center;
 	}
@@ -207,7 +188,7 @@
 		align-items: center;
 		justify-content: center;
 		z-index: 1000;
-		padding: 1rem;
+		padding: var(--tt-space-16);
 	}
 
 	.paywall-modal {

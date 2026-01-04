@@ -107,11 +107,11 @@
 
 	.password-input {
 		width: 100%;
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		padding-right: 2.75rem;
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 	}

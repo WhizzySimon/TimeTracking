@@ -92,9 +92,7 @@
 	let employers = $state<Employer[]>([]);
 
 	// Convert employers to dropdown options
-	let employerOptions = $derived(
-		employers.map((e) => ({ value: e.id, label: e.name }))
-	);
+	let employerOptions = $derived(employers.map((e) => ({ value: e.id, label: e.name })));
 
 	// Employer selection - initialize from model
 	function getInitialEmployerId() {
@@ -106,6 +104,10 @@
 
 	onMount(async () => {
 		employers = await getActiveEmployers();
+		// Pre-select first employer if none selected (new model)
+		if (!selectedEmployerId && employers.length > 0) {
+			selectedEmployerId = employers[0].id;
+		}
 	});
 
 	// Calculate total hours
@@ -448,9 +450,9 @@
 	}
 
 	.field label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--tt-text);
+		color: var(--tt-text-primary);
 	}
 
 	.total-summary {
@@ -459,23 +461,23 @@
 		gap: var(--tt-space-8);
 		padding: var(--tt-space-12);
 		background: var(--tt-status-info-faded);
-		border: 1px solid var(--tt-border);
+		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-card);
 	}
 
 	.total-label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		color: var(--tt-text-muted);
 	}
 
 	.total-value {
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 600;
-		color: var(--tt-primary);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.total-separator {
-		color: var(--tt-border);
+		color: var(--tt-border-default);
 	}
 
 	.weekdays {
@@ -486,7 +488,7 @@
 
 	.section-title {
 		margin: 0;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 600;
 		color: var(--tt-text-muted);
 	}
@@ -496,7 +498,7 @@
 		grid-template-columns: 2.5rem 5rem 1fr;
 		gap: var(--tt-space-8);
 		padding: var(--tt-space-4) 0;
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 		color: var(--tt-text-muted);
 		text-align: center;
@@ -520,9 +522,9 @@
 	}
 
 	.day-label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--tt-text);
+		color: var(--tt-text-primary);
 	}
 
 	.weekday-row input[type='checkbox'] {
@@ -535,22 +537,22 @@
 	.hours-input {
 		width: 100%;
 		padding: var(--tt-space-8);
-		border: 1px solid var(--tt-border);
+		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		text-align: center;
-		background: var(--tt-surface);
-		color: var(--tt-text);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
 	}
 
 	.hours-input:focus {
 		outline: none;
-		border-color: var(--tt-primary);
-		box-shadow: 0 0 0 2px var(--tt-primary-100);
+		border-color: var(--tt-brand-primary-500);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.hours-input:disabled {
-		background: var(--tt-surface-alt);
+		background: var(--tt-background-card-hover);
 		color: var(--tt-text-muted);
 	}
 
@@ -561,7 +563,7 @@
 		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-input);
 		color: var(--tt-status-danger-500);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.actions {
@@ -569,6 +571,6 @@
 		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: var(--tt-space-8);
-		border-top: 1px solid var(--tt-border);
+		border-top: 1px solid var(--tt-border-default);
 	}
 </style>

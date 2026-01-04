@@ -52,9 +52,7 @@
 	let selectedEmployerId = $state<string>('');
 
 	// Convert employers to dropdown options
-	let employerOptions = $derived(
-		employers.map((e) => ({ value: e.id, label: e.name }))
-	);
+	let employerOptions = $derived(employers.map((e) => ({ value: e.id, label: e.name })));
 	let startDate = $state(getDefaultStartDate());
 	let endDate = $state(getDefaultEndDate());
 	let selectedColumns = new SvelteSet<ColumnId>(
@@ -384,21 +382,11 @@
 			<span class="field-label">Format:</span>
 			<div class="format-options">
 				<label class="format-radio">
-					<input
-						type="radio"
-						name="export-format"
-						value="pdf"
-						bind:group={exportFormat}
-					/>
+					<input type="radio" name="export-format" value="pdf" bind:group={exportFormat} />
 					<span>PDF</span>
 				</label>
 				<label class="format-radio">
-					<input
-						type="radio"
-						name="export-format"
-						value="excel"
-						bind:group={exportFormat}
-					/>
+					<input type="radio" name="export-format" value="excel" bind:group={exportFormat} />
 					<span>Excel</span>
 				</label>
 			</div>
@@ -423,11 +411,11 @@
 	.export-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.user-name-display {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-background-card);
 		border-radius: var(--tt-radius-card);
 		text-align: center;
@@ -441,28 +429,28 @@
 
 	.user-name-warning {
 		color: var(--tt-status-danger-500);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.field label,
 	.field-label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
 		color: var(--tt-text-primary);
 	}
 
 	.select-input,
 	.date-input {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 	}
@@ -476,34 +464,34 @@
 
 	.no-employers {
 		margin: 0;
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-background-card-hover);
 		border-radius: var(--tt-radius-input);
 		color: var(--tt-text-muted);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.date-range {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.columns-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.column-checkbox {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0.5rem;
+		gap: var(--tt-space-8);
+		padding: var(--tt-space-8);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
 		cursor: pointer;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.column-checkbox:hover {
@@ -522,23 +510,23 @@
 	.preview-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.preview-section .field-label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
 		color: var(--tt-text-primary);
 	}
 
 	.loading,
 	.no-entries {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		text-align: center;
 		color: var(--tt-text-muted);
 		background: var(--tt-background-card-hover);
 		border-radius: var(--tt-radius-input);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.preview-table-container {
@@ -551,12 +539,12 @@
 	.preview-table {
 		width: 100%;
 		border-collapse: collapse;
-		font-size: 0.8rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.preview-table th,
 	.preview-table td {
-		padding: 0.5rem;
+		padding: var(--tt-space-8);
 		text-align: left;
 		border-bottom: 1px solid var(--tt-border-default);
 	}
@@ -587,25 +575,25 @@
 
 	.error {
 		margin: 0;
-		padding: 0.5rem;
+		padding: var(--tt-space-8);
 		background: var(--tt-status-danger-800);
 		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-input);
 		color: var(--tt-status-danger-500);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.format-options {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.format-radio {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		cursor: pointer;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.format-radio input[type='radio'] {
@@ -621,7 +609,7 @@
 	.actions {
 		display: flex;
 		justify-content: flex-end;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		padding-top: 1rem;
 		border-top: 1px solid var(--tt-border-default);
 	}

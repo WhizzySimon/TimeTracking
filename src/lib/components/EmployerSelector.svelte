@@ -119,13 +119,13 @@
 	.selector-button {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		padding: 0.5rem 0.75rem;
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
 		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		cursor: pointer;
 		transition:
 			background 0.15s ease,
@@ -136,7 +136,7 @@
 
 	.compact .selector-button {
 		padding: 0.375rem 0.5rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		min-width: 120px;
 	}
 
@@ -200,12 +200,12 @@
 		background: none;
 		color: var(--tt-text-primary);
 		cursor: pointer;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.compact .option {
 		padding: 0.375rem 0.5rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	@media (hover: hover) {
@@ -238,9 +238,9 @@
 	}
 
 	.no-employers {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		color: var(--tt-text-muted);
 		text-align: center;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 	}
 </style>

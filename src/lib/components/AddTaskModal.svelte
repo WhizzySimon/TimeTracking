@@ -209,10 +209,10 @@
 		</div>
 
 		<div class="form-actions">
-			<button type="button" class="btn-secondary" onclick={onclose} disabled={saving}>
+			<button type="button" class="tt-button-secondary" onclick={onclose} disabled={saving}>
 				Abbrechen
 			</button>
-			<button type="submit" class="btn-primary" disabled={saving}>
+			<button type="submit" class="tt-button-primary" disabled={saving}>
 				{saving ? 'Speichern...' : 'Speichern'}
 			</button>
 		</div>
@@ -223,26 +223,26 @@
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.error-message {
 		background: var(--tt-status-danger-800);
 		color: var(--tt-status-danger-500);
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		border-radius: var(--tt-radius-input);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.form-group {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.form-row {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.form-row .form-group {
@@ -251,7 +251,7 @@
 
 	label {
 		font-weight: 500;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		color: var(--tt-text-primary);
 	}
 
@@ -259,7 +259,7 @@
 		padding: 0.5rem 0.75rem;
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 	}
@@ -276,47 +276,8 @@
 
 	.form-actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		margin-top: 0.5rem;
-	}
-
-	.btn-primary,
-	.btn-secondary {
-		padding: 0.5rem 1rem;
-		border-radius: var(--tt-radius-button);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all var(--tt-transition-normal);
-	}
-
-	.btn-primary {
-		background: var(--tt-button-primary-bg);
-		color: var(--tt-button-primary-text);
-		border: none;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--tt-button-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.btn-secondary {
-		background: var(--tt-button-secondary-bg);
-		color: var(--tt-button-secondary-text);
-		border: 1px solid var(--tt-button-secondary-border);
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		background: var(--tt-button-secondary-hover);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
 	}
 </style>

@@ -49,8 +49,8 @@
 	</dl>
 
 	<div class="report-actions">
-		<button class="btn-secondary" onclick={onnewimport}>Neuer Import</button>
-		<button class="btn-primary" onclick={handleGoToDay}>Zum Tag-Tab</button>
+		<button class="tt-button-secondary" onclick={onnewimport}>Neuer Import</button>
+		<button class="tt-button-primary" onclick={handleGoToDay}>Zum Tag-Tab</button>
 	</div>
 </div>
 
@@ -58,7 +58,7 @@
 	.report-container {
 		max-width: 400px;
 		margin: 0 auto;
-		padding: 2rem;
+		padding: var(--tt-space-32);
 		text-align: center;
 	}
 
@@ -83,7 +83,7 @@
 	.report-stats {
 		display: flex;
 		justify-content: center;
-		gap: 1.5rem;
+		gap: var(--tt-space-24);
 		margin-bottom: 2rem;
 	}
 
@@ -92,7 +92,7 @@
 	}
 
 	.stat-item dt {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		color: var(--tt-text-muted);
 		margin-bottom: 0.25rem;
 		text-transform: uppercase;
@@ -118,27 +118,7 @@
 
 	.report-actions {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 		justify-content: center;
-	}
-
-	.btn-secondary,
-	.btn-primary {
-		padding: 0.75rem 1.25rem;
-		border-radius: 8px;
-		font-size: 1rem;
-		cursor: pointer;
-		border: none;
-	}
-
-	.btn-secondary {
-		background: var(--tt-background-card-pressed);
-		color: var(--tt-text-primary);
-		border: 1px solid var(--tt-border-default);
-	}
-
-	.btn-primary {
-		background: var(--tt-brand-primary-500);
-		color: white;
 	}
 </style>

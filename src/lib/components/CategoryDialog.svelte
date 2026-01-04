@@ -61,12 +61,14 @@
 	let employers = $state<Employer[]>([]);
 
 	// Convert employers to dropdown options
-	let employerOptions = $derived(
-		employers.map((e) => ({ value: e.id, label: e.name }))
-	);
+	let employerOptions = $derived(employers.map((e) => ({ value: e.id, label: e.name })));
 
 	onMount(async () => {
 		employers = await getActiveEmployers();
+		// Pre-select first employer if none selected (new category)
+		if (!selectedEmployerId && employers.length > 0) {
+			selectedEmployerId = employers[0].id;
+		}
 	});
 
 	async function handleSave() {
@@ -206,7 +208,7 @@
 	}
 
 	.field label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
 		color: var(--tt-text-primary);
 	}
@@ -220,7 +222,7 @@
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
 		color: var(--tt-text-muted);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.error {
@@ -230,7 +232,7 @@
 		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-input);
 		color: var(--tt-status-danger-500);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.actions {

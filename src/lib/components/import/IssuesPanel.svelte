@@ -78,12 +78,12 @@
 	.issues-panel {
 		background: var(--tt-background-card-hover);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 8px;
-		padding: 1rem;
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-16);
 	}
 
 	.issues-panel h3 {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		margin: 0 0 0.75rem;
 		color: var(--tt-text-secondary);
 	}
@@ -94,11 +94,11 @@
 		padding: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.issue-item {
-		border-radius: 6px;
+		border-radius: var(--tt-radius-button);
 		overflow: hidden;
 	}
 
@@ -106,13 +106,13 @@
 		width: 100%;
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		padding: 0.5rem 0.75rem;
 		background: var(--tt-background-card);
 		border: 1px solid var(--tt-border-default);
-		border-radius: 6px;
+		border-radius: var(--tt-radius-button);
 		cursor: pointer;
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-secondary);
 		text-align: left;
 		transition: all 0.15s;
@@ -132,7 +132,7 @@
 	}
 
 	.issue-icon {
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 	}
 
 	.issue-message {
@@ -143,7 +143,7 @@
 		background: var(--tt-background-card-pressed);
 		padding: 0.125rem 0.5rem;
 		border-radius: 10px;
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 	}
 
@@ -157,8 +157,8 @@
 		padding: 0.375rem 0.75rem;
 		background: transparent;
 		border: 1px solid var(--tt-border-default);
-		border-radius: 4px;
-		font-size: 0.75rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-tiny);
 		color: var(--tt-text-muted);
 		cursor: pointer;
 	}

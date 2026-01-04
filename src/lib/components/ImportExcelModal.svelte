@@ -44,9 +44,10 @@
 	let selectedEmployerId = $state<string>('');
 
 	// Convert employers to dropdown options
-	let employerOptions = $derived(
-		[{ value: '', label: 'Kein Arbeitgeber (Alle)' }, ...employers.map((e) => ({ value: e.id, label: e.name }))]
-	);
+	let employerOptions = $derived([
+		{ value: '', label: 'Kein Arbeitgeber (Alle)' },
+		...employers.map((e) => ({ value: e.id, label: e.name }))
+	]);
 
 	onMount(async () => {
 		employers = await getActiveEmployers();
@@ -260,11 +261,11 @@
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose}>
+			<button type="button" class="tt-button-secondary" onclick={handleClose}>
 				{importResult?.success ? 'Schließen' : 'Abbrechen'}
 			</button>
 			{#if preview && !importResult?.success}
-				<button type="button" class="btn-primary" onclick={handleImport} disabled={importing}>
+				<button type="button" class="tt-button-primary" onclick={handleImport} disabled={importing}>
 					{#if importing}
 						Importiere...
 					{:else}
@@ -280,17 +281,17 @@
 	.import-modal {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.employer-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.employer-section label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
 		color: var(--tt-text-primary);
 	}
@@ -301,7 +302,7 @@
 		border-radius: var(--tt-radius-input);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.employer-select:focus {
@@ -330,7 +331,7 @@
 		border: 2px dashed var(--tt-border-default);
 		border-radius: var(--tt-radius-button);
 		color: var(--tt-text-primary);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		transition: all 0.2s;
 	}
 
@@ -342,19 +343,19 @@
 	.preview-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.preview-section h3 {
 		margin: 0;
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 600;
 		color: var(--tt-text-primary);
 	}
 
 	.stats {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 		justify-content: center;
 	}
 
@@ -370,18 +371,18 @@
 	}
 
 	.stat-value {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
 		color: var(--tt-brand-primary-500);
 	}
 
 	.stat-label {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		color: var(--tt-text-muted);
 	}
 
 	.warning-box {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-status-warning-50);
 		border: 1px solid var(--tt-status-warning-500);
 		border-radius: var(--tt-radius-card);
@@ -396,12 +397,12 @@
 	.warning-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-status-warning-500);
 	}
 
 	.error-box {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-status-danger-800);
 		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-card);
@@ -409,7 +410,7 @@
 
 	/* Info box for new categories */
 	.info-box {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-brand-primary-800);
 		border: 1px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-card);
@@ -423,21 +424,21 @@
 
 	.info-hint {
 		margin: 0 0 0.5rem 0;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-brand-primary-500);
 	}
 
 	.info-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-brand-primary-500);
 	}
 
 	.error-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-status-danger-500);
 	}
 
@@ -447,7 +448,7 @@
 	}
 
 	.success-box {
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-status-success-800);
 		border: 1px solid var(--tt-status-success-500);
 		border-radius: var(--tt-radius-card);
@@ -462,47 +463,14 @@
 	.success-box .created-categories {
 		margin-top: 0.5rem;
 		font-weight: 400;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: 0.5rem;
 		border-top: 1px solid var(--tt-border-default);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--tt-button-secondary-border);
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-secondary-bg);
-		color: var(--tt-button-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover {
-		background: var(--tt-button-secondary-hover);
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--tt-radius-button);
-		background: var(--tt-button-primary-bg);
-		color: var(--tt-button-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--tt-button-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
 	}
 </style>

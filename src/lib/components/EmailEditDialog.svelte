@@ -126,7 +126,7 @@
 	}
 
 	.field label {
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 	}
 
@@ -134,7 +134,7 @@
 
 	.error {
 		color: var(--tt-status-danger-500);
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		margin: 0;
 	}
 
@@ -150,7 +150,7 @@
 
 	.success-message .logout-hint {
 		margin-top: var(--tt-space-16);
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 	}
 

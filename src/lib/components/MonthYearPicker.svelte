@@ -156,19 +156,19 @@
 	.picker-content {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.quick-btn {
 		width: 100%;
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		background: var(--tt-background-card);
 		border: 2px solid var(--tt-brand-primary-500);
 		border-radius: var(--tt-radius-button);
 		color: var(--tt-brand-primary-500);
 		font-weight: 600;
 		cursor: pointer;
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 	}
 
 	.quick-btn:hover {
@@ -178,31 +178,31 @@
 	.divider {
 		text-align: center;
 		color: var(--tt-text-muted);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.selectors {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.selector-group {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.selector-group label {
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 	}
 
 	.select-input {
-		padding: 0.5rem;
+		padding: var(--tt-space-8);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 	}
@@ -215,16 +215,16 @@
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		margin-top: 0.5rem;
 	}
 
 	.btn-cancel,
 	.btn-select {
 		flex: 1;
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		border-radius: var(--tt-radius-button);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 	}
 

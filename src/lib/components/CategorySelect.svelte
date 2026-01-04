@@ -145,8 +145,8 @@
 		right: 0;
 		max-height: 200px;
 		overflow-y: auto;
-		background: var(--tt-surface);
-		border: 1px solid var(--tt-border);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
 		box-shadow: var(--tt-shadow-md);
 		z-index: 100;
@@ -157,6 +157,6 @@
 		padding: var(--tt-space-12);
 		color: var(--tt-text-muted);
 		text-align: center;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 </style>

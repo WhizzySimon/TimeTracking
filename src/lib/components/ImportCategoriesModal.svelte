@@ -29,13 +29,18 @@
 	let employers = $state<Employer[]>([]);
 	let selectedEmployerId = $state<string>('');
 
-	// Convert employers to dropdown options
+	// Convert employers to dropdown options (no "Alle" option - must select specific employer)
 	let employerOptions = $derived(
-		[{ value: '', label: 'Alle Arbeitgeber' }, ...employers.filter((e) => e.isActive).map((e) => ({ value: e.id, label: e.name }))]
+		employers.filter((e) => e.isActive).map((e) => ({ value: e.id, label: e.name }))
 	);
 
 	onMount(async () => {
 		employers = await getAllEmployers();
+		// Pre-select first active employer
+		const activeEmployers = employers.filter((e) => e.isActive);
+		if (activeEmployers.length > 0) {
+			selectedEmployerId = activeEmployers[0].id;
+		}
 	});
 
 	async function handleFileUpload(event: Event) {
@@ -131,13 +136,14 @@
 			</label>
 		</div>
 
-		<div class="text-input">
+		<div class="textarea-field">
 			<label for="categories-text">Oder direkt eingeben:</label>
 			<textarea
 				id="categories-text"
+				class="tt-textarea"
 				bind:value={textInput}
 				placeholder="Kategorie 1, Kategorie 2, Kategorie 3"
-				rows="4"
+				rows="6"
 				disabled={importing}
 			></textarea>
 		</div>
@@ -180,41 +186,26 @@
 	.import-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.hint {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		color: var(--tt-text-muted);
 		background: var(--tt-background-card-hover);
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		border-radius: var(--tt-radius-input);
 	}
 
 	.employer-select {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.employer-select label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		color: var(--tt-text-primary);
-	}
-
-	.employer-dropdown {
-		padding: 0.75rem;
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-input);
-		background: var(--tt-background-input);
-		color: var(--tt-text-primary);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.employer-dropdown:focus {
-		outline: none;
-		border-color: var(--tt-border-focus);
 	}
 
 	.file-upload {
@@ -237,7 +228,7 @@
 		border-radius: var(--tt-radius-button);
 		background: var(--tt-background-card);
 		color: var(--tt-brand-primary-500);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		cursor: pointer;
 	}
 
@@ -245,44 +236,48 @@
 		background: var(--tt-brand-primary-800);
 	}
 
-	.text-input {
+	.textarea-field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
-	.text-input label {
-		font-size: 0.9rem;
+	.textarea-field label {
+		font-size: var(--tt-font-size-body);
+		font-weight: 500;
 		color: var(--tt-text-primary);
 	}
 
-	.text-input textarea {
-		padding: 0.75rem;
+	.tt-textarea {
+		width: 100%;
+		min-height: 120px;
+		padding: var(--tt-space-12);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-family: inherit;
 		resize: vertical;
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 	}
 
-	.text-input textarea:focus {
+	.tt-textarea:focus {
 		outline: none;
-		border-color: var(--tt-border-focus);
+		border-color: var(--tt-brand-primary-500);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.error {
 		color: var(--tt-status-danger-500);
-		font-size: 0.9rem;
-		padding: 0.5rem;
+		font-size: var(--tt-font-size-body);
+		padding: var(--tt-space-8);
 		background: var(--tt-status-danger-800);
 		border-radius: var(--tt-radius-input);
 	}
 
 	.result {
-		font-size: 0.9rem;
-		padding: 0.75rem;
+		font-size: var(--tt-font-size-body);
+		padding: var(--tt-space-12);
 		background: var(--tt-background-card-hover);
 		border-radius: var(--tt-radius-input);
 		text-align: center;
@@ -296,13 +291,13 @@
 
 	.skipped {
 		color: var(--tt-text-muted);
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.actions {
 		display: flex;
 		justify-content: flex-end;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		margin-top: 0.5rem;
 	}
 
@@ -312,7 +307,7 @@
 		border-radius: var(--tt-radius-button);
 		background: var(--tt-button-secondary-bg);
 		color: var(--tt-button-secondary-text);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 	}
 
@@ -326,7 +321,7 @@
 		border-radius: var(--tt-radius-button);
 		background: var(--tt-button-primary-bg);
 		color: var(--tt-button-primary-text);
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 	}
 

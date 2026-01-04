@@ -30,9 +30,7 @@
 	let selectedEmployerId = $state<string>('');
 
 	// Convert employers to dropdown options
-	let employerOptions = $derived(
-		employers.map((e) => ({ value: e.id, label: e.name }))
-	);
+	let employerOptions = $derived(employers.map((e) => ({ value: e.id, label: e.name })));
 
 	let sources: ImportSource[] = $state([]);
 	let candidates: TimeEntryCandidate[] = $state([]);
@@ -84,9 +82,7 @@
 		);
 
 		// Filter categories by selected employer
-		const employerCategories = $categories.filter(
-			(c) => c.employerId === selectedEmployerId
-		);
+		const employerCategories = $categories.filter((c) => c.employerId === selectedEmployerId);
 
 		// Find matching category IDs (only from selected employer)
 		const categoryMap = new Map(employerCategories.map((c) => [c.name.toLowerCase(), c.id]));
@@ -210,7 +206,7 @@
 				<div class="report-icon">✓</div>
 				<h2>Import abgeschlossen</h2>
 				<p>{importedCount} Einträge importiert</p>
-				<button class="btn-primary" onclick={handleReset}>Neuer Import</button>
+				<button class="tt-button-primary" onclick={handleReset}>Neuer Import</button>
 			</section>
 		{/if}
 	</div>
@@ -226,7 +222,7 @@
 	}
 
 	.import-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 800px;
 		margin: 0 auto;
 	}
@@ -253,9 +249,9 @@
 
 	.no-employers {
 		color: var(--tt-text-muted);
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		margin: 0;
-		padding: 0.5rem;
+		padding: var(--tt-space-8);
 		background: var(--tt-status-warning-50);
 		border-radius: var(--tt-radius-card);
 	}
@@ -268,24 +264,13 @@
 		background: var(--tt-status-danger-50);
 		color: var(--tt-status-danger-500);
 		padding: 0.75rem 1rem;
-		border-radius: 8px;
+		border-radius: var(--tt-radius-card);
 		margin-bottom: 1rem;
 		text-align: center;
 	}
 
-	.btn-primary {
-		background: var(--tt-brand-primary-500);
-		color: white;
-		border: none;
-		padding: 0.75rem 1.5rem;
-		border-radius: 8px;
-		font-size: 1rem;
-		cursor: pointer;
-		margin-top: 1.5rem;
-	}
-
 	.processing-section {
-		padding: 2rem;
+		padding: var(--tt-space-32);
 	}
 
 	.review-section {

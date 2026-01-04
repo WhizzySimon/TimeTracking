@@ -52,7 +52,7 @@
 		}
 
 		const groups: TopCategoryGroup[] = [];
-		
+
 		for (const employer of employers) {
 			const employerCats = topCategories.filter((cat) => cat.employerId === employer.id);
 			if (employerCats.length > 0) {
@@ -273,7 +273,7 @@
 	.settings-link {
 		display: inline-block;
 		margin-top: var(--tt-space-16);
-		color: var(--tt-primary);
+		color: var(--tt-brand-primary-500);
 		text-decoration: underline;
 	}
 
@@ -284,7 +284,7 @@
 	}
 
 	.section-title {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
