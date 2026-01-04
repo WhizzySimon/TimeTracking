@@ -131,48 +131,73 @@ html[data-color-scheme='scheme-3'] {
 }
 
 :root {
+	/* ---- BASE PRIMITIVES (scheme-independent) ---- */
+	/* White and white opacity variants (for dark backgrounds) */
+	--tt-white: #ffffff;
+	--tt-white-08: rgba(255, 255, 255, 0.08);
+	--tt-white-10: rgba(255, 255, 255, 0.1);
+	--tt-white-15: rgba(255, 255, 255, 0.15);
+	--tt-white-20: rgba(255, 255, 255, 0.2);
+	--tt-white-25: rgba(255, 255, 255, 0.25);
+	--tt-white-30: rgba(255, 255, 255, 0.3);
+	--tt-white-70: rgba(255, 255, 255, 0.7);
+
+	/* Neutral gray scale (for backgrounds, borders, text) */
+	--tt-gray-25: #f7fafc;
+	--tt-gray-50: #f5f8fc;
+	--tt-gray-100: #edf2f7;
+	--tt-gray-200: #e2e8f0;
+	--tt-gray-300: #d1dbe8;
+	--tt-gray-400: #b8c4d4;
+	--tt-gray-500: #718096;
+	--tt-gray-700: #4a5568;
+	--tt-gray-900: #1a202c;
+
 	/* ---- LAYOUT ---- */
 	--tt-app-max-width: 600px;
 
 	/* ---- COLORS: Backgrounds ---- */
-	--tt-background-page: #e8f0f8; /* App background - light blue-gray */
-	--tt-background-outside: #ffffff; /* Outside app area - white */
-	--tt-background-card: #ffffff; /* Light background - normal state */
-	--tt-background-card-hover: #f5f8fc; /* Light background - hover (slightly darker) */
-	--tt-background-card-selected: #edf2f7; /* Light background - selected/current state */
-	--tt-background-card-pressed: #e2e8f0; /* Light background - pressed (darkest) */
-	--tt-background-input: #ffffff;
-	--tt-background-input-hover: #f7fafc;
+	--tt-background-page: var(--tt-brand-primary-25); /* App background - scheme tinted */
+	--tt-background-outside: var(--tt-white); /* Outside app area */
+	--tt-background-card: var(--tt-white); /* Light background - normal state */
+	--tt-background-card-hover: var(--tt-gray-50); /* Light background - hover (slightly darker) */
+	--tt-background-card-selected: var(--tt-gray-100); /* Light background - selected/current state */
+	--tt-background-card-pressed: var(--tt-gray-200); /* Light background - pressed (darkest) */
+	--tt-background-input: var(--tt-white);
+	--tt-background-input-hover: var(--tt-gray-25);
 
 	/* ---- HEADER COLORS (dark background context) ---- */
 	--tt-header-bg: var(--tt-brand-primary-500);
-	--tt-header-text: #ffffff;
-	--tt-header-text-muted: rgba(255, 255, 255, 0.7);
-	--tt-header-border: rgba(255, 255, 255, 0.2);
+	--tt-header-text: var(--tt-white);
+	--tt-header-text-muted: var(--tt-white-70);
+	--tt-header-border: var(--tt-white-20);
+	--tt-header-btn-hover: var(--tt-white-10); /* Button hover on dark bg */
+	--tt-header-btn-pressed: var(--tt-white-20); /* Button pressed on dark bg */
 
 	/* ---- FOOTER TAB COLORS (dark background context) ---- */
 	--tt-footer-bg: var(--tt-brand-primary-500);
 	--tt-footer-tab-bg: transparent;
-	--tt-footer-tab-bg-current: rgba(255, 255, 255, 0.15);
-	--tt-footer-tab-bg-pressed: rgba(255, 255, 255, 0.25);
-	--tt-footer-tab-text: rgba(255, 255, 255, 0.7);
-	--tt-footer-tab-text-current: #ffffff;
-	--tt-footer-tab-border: rgba(255, 255, 255, 0.3);
+	--tt-footer-tab-bg-hover: var(--tt-white-08); /* Hover state */
+	--tt-footer-tab-bg-current: var(--tt-white-15); /* Selected/current tab */
+	--tt-footer-tab-bg-pressed: var(--tt-white-25); /* Pressed state */
+	--tt-footer-tab-text: var(--tt-white-70);
+	--tt-footer-tab-text-current: var(--tt-white);
+	--tt-footer-tab-border: var(--tt-white-30);
 
 	/* ---- COLORS: Borders ---- */
-	--tt-border-default: #d1dbe8;
-	--tt-border-subtle: #e2eaf3;
+	--tt-border-default: var(--tt-gray-300);
+	--tt-border-subtle: var(--tt-gray-200);
 	--tt-border-focus: var(--tt-brand-primary-500);
 
 	/* ---- TOUCHABLE AFFORDANCE ---- */
 	/* Rule: Every touchable element has a visible border */
 	--tt-border-touchable-width: 1px;
-	--tt-border-touchable-color: #b8c4d4; /* Slightly darker than default for visibility */
+	--tt-border-touchable-color: var(--tt-gray-400); /* Slightly darker than default for visibility */
 
 	/* ---- COLORS: Text ---- */
-	--tt-text-primary: #1a202c;
-	--tt-text-secondary: #4a5568;
-	--tt-text-muted: #718096;
+	--tt-text-primary: var(--tt-gray-900);
+	--tt-text-secondary: var(--tt-gray-700);
+	--tt-text-muted: var(--tt-gray-500);
 
 	/* ---- COLORS: Semantic States ---- */
 	/* These colors are scheme-independent and remain consistent across all color schemes */
@@ -208,7 +233,7 @@ html[data-color-scheme='scheme-3'] {
 	--tt-status-info: var(--tt-brand-accent-300);
 	--tt-status-info-pressed: var(--tt-brand-accent-400);
 	--tt-status-info-faded: var(--tt-brand-accent-600);
-	--tt-status-info-text: #0d8ac4;
+	--tt-status-info-text: var(--tt-brand-accent-500); /* Darker accent for text contrast */
 
 	/* ---- SPACING ---- */
 	--tt-space-4: 0.25rem;
@@ -247,15 +272,24 @@ html[data-color-scheme='scheme-3'] {
 	/* ---- INTERACTIVE STATE COLORS ---- */
 	/* Primary button (dark background): states become lighter */
 	--tt-button-primary-bg: var(--tt-brand-primary-500); /* Normal */
-	--tt-button-primary-hover: #3334b8; /* Hover (lighter) */
-	--tt-button-primary-selected: #4a4bc5; /* Selected/current (lighter) */
-	--tt-button-primary-pressed: #5c5dd0; /* Pressed (lightest) */
-	--tt-button-primary-text: #ffffff;
+	--tt-button-primary-hover: var(--tt-brand-primary-400); /* Hover (lighter) */
+	--tt-button-primary-selected: var(--tt-brand-primary-300); /* Selected/current (lighter) */
+	--tt-button-primary-pressed: var(--tt-brand-primary-200); /* Pressed (lightest) */
+	--tt-button-primary-text: var(--tt-white);
 
 	/* Danger button (dark background): states become lighter */
-	--tt-status-danger-hover: #d64545; /* Hover (lighter) */
-	--tt-status-danger-selected: var(--tt-status-danger-300); /* Selected (lighter) */
-	--tt-status-danger-pressed: #e86666; /* Pressed (lightest) */
+	--tt-status-danger-hover: var(--tt-status-danger-300); /* Hover (lighter) */
+	--tt-status-danger-selected: var(--tt-status-danger-100); /* Selected (lighter) */
+	--tt-status-danger-pressed: var(--tt-status-danger-50); /* Pressed (lightest) */
+
+	/* ---- DROPDOWN OPTION STATES ---- */
+	/* For custom dropdown menus (dark bg when hovered) */
+	--tt-dropdown-option-hover-bg: var(--tt-brand-primary-500);
+	--tt-dropdown-option-hover-text: var(--tt-white);
+	--tt-dropdown-option-pressed-bg: var(--tt-brand-primary-600);
+	--tt-dropdown-option-pressed-text: var(--tt-white);
+	--tt-dropdown-option-selected-bg: var(--tt-brand-primary-800);
+	--tt-dropdown-option-selected-text: var(--tt-brand-primary-500);
 
 	/* ---- ANIMATION ---- */
 	--tt-transition-fast: 0.15s ease;
@@ -650,8 +684,8 @@ html[data-color-scheme='scheme-3'] {
 	border: none;
 	cursor: pointer;
 	white-space: nowrap;
-	background: var(--tt-brand-primary-500);
-	color: white;
+	background: var(--tt-button-primary-bg);
+	color: var(--tt-button-primary-text);
 	transition: background var(--tt-transition-fast);
 }
 
@@ -783,6 +817,14 @@ html[data-color-scheme='scheme-3'] {
 	padding: var(--tt-space-8) var(--tt-space-16);
 	min-height: 36px;
 	font-size: var(--tt-font-size-small);
+}
+
+/**
+ * Full-width Button modifier - stretches to container width
+ * Use for: Auth forms, settings actions, modal actions
+ */
+.tt-button-full {
+	width: 100%;
 }
 
 /**
@@ -1064,7 +1106,7 @@ html[data-color-scheme='scheme-3'] {
 /* Hover state: slightly lighter (dark background) */
 @media (hover: hover) {
 	.tt-footer-tab:hover {
-		background: rgba(255, 255, 255, 0.08);
+		background: var(--tt-footer-tab-bg-hover);
 	}
 }
 
@@ -1083,7 +1125,7 @@ html[data-color-scheme='scheme-3'] {
 /* Current tab hover: slightly lighter than current */
 @media (hover: hover) {
 	.tt-footer-tab[aria-current='page']:hover {
-		background: rgba(255, 255, 255, 0.2);
+		background: var(--tt-white-20);
 	}
 }
 

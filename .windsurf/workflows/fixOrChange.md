@@ -26,6 +26,7 @@ For bugs, behavior changes, and small improvements.
 | **Complex**  | Opus 4 Thinking | 5x      | Unclear root cause, multi-step debugging, architectural |
 
 **STOP HERE. Do not proceed until user confirms model selection.**
+**After confirmation → Create ticket (Step 1) BEFORE any code changes.**
 
 ---
 

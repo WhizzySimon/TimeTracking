@@ -126,7 +126,7 @@
 				<div class="error">{error}</div>
 			{/if}
 
-			<button type="submit" class="submit-btn" disabled={loading}>
+			<button type="submit" class="tt-button-primary tt-button-full" disabled={loading}>
 				{loading ? 'Registrieren...' : 'Registrieren'}
 			</button>
 		</form>
@@ -232,27 +232,6 @@
 		background: var(--tt-status-success-800);
 		border-radius: var(--tt-radius-input);
 		text-align: center;
-	}
-
-	.submit-btn {
-		padding: 0.875rem;
-		background: var(--tt-button-primary-bg);
-		color: var(--tt-button-primary-text);
-		border: none;
-		border-radius: var(--tt-radius-button);
-		font-size: var(--tt-font-size-normal);
-		font-weight: 500;
-		cursor: pointer;
-		margin-top: 0.5rem;
-	}
-
-	.submit-btn:hover:not(:disabled) {
-		background: var(--tt-button-primary-hover);
-	}
-
-	.submit-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
 	}
 
 	.links {

@@ -45,12 +45,12 @@
 
 	@media (hover: hover) {
 		.nav-btn:hover {
-			background: rgba(255, 255, 255, 0.1);
+			background: var(--tt-header-btn-hover);
 		}
 	}
 
 	.nav-btn:active {
-		background: rgba(255, 255, 255, 0.2);
+		background: var(--tt-header-btn-pressed);
 	}
 
 	.nav-icon {

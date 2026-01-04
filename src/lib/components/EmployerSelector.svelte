@@ -210,31 +210,31 @@
 
 	@media (hover: hover) {
 		.option:hover {
-			background: var(--tt-brand-primary-500);
-			color: white;
+			background: var(--tt-dropdown-option-hover-bg);
+			color: var(--tt-dropdown-option-hover-text);
 		}
 	}
 
 	.option:active {
-		background: var(--tt-brand-primary-600, #1e1f8a);
-		color: white;
+		background: var(--tt-dropdown-option-pressed-bg);
+		color: var(--tt-dropdown-option-pressed-text);
 	}
 
 	.option.selected {
-		background: var(--tt-brand-primary-800);
-		color: var(--tt-brand-primary-500);
+		background: var(--tt-dropdown-option-selected-bg);
+		color: var(--tt-dropdown-option-selected-text);
 	}
 
 	@media (hover: hover) {
 		.option.selected:hover {
-			background: var(--tt-brand-primary-500);
-			color: white;
+			background: var(--tt-dropdown-option-hover-bg);
+			color: var(--tt-dropdown-option-hover-text);
 		}
 	}
 
 	.option.selected:active {
-		background: var(--tt-brand-primary-600, #1e1f8a);
-		color: white;
+		background: var(--tt-dropdown-option-pressed-bg);
+		color: var(--tt-dropdown-option-pressed-text);
 	}
 
 	.no-employers {

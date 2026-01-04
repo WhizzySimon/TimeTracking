@@ -710,13 +710,13 @@
 
 	@media (hover: hover) {
 		.sync-indicator:hover {
-			background: rgba(255, 255, 255, 0.1);
+			background: var(--tt-header-btn-hover);
 			opacity: 1;
 		}
 	}
 
 	.sync-indicator:active {
-		background: rgba(255, 255, 255, 0.2);
+		background: var(--tt-header-btn-pressed);
 	}
 
 	.sync-indicator.synced {
@@ -763,13 +763,13 @@
 
 	@media (hover: hover) {
 		.profile-btn:hover {
-			background: rgba(255, 255, 255, 0.1);
+			background: var(--tt-header-btn-hover);
 			color: var(--tt-header-text);
 		}
 	}
 
 	.profile-btn:active {
-		background: rgba(255, 255, 255, 0.2);
+		background: var(--tt-header-btn-pressed);
 	}
 
 	.profile-menu {

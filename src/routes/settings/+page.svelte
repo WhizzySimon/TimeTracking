@@ -882,24 +882,32 @@
 				<h2>Zeitdaten</h2>
 			</div>
 			<div class="data-actions">
-				<button class="data-btn" onclick={() => (showExportDialog = true)} data-testid="export-btn">
+				<button
+					class="tt-button-primary tt-button-full"
+					onclick={() => (showExportDialog = true)}
+					data-testid="export-btn"
+				>
 					Exportieren
 				</button>
 				<button
-					class="data-btn"
+					class="tt-button-primary tt-button-full"
 					onclick={() => (showStundenzettelExport = true)}
 					data-testid="stundenzettel-export-btn"
 				>
 					Stundenzettel
 				</button>
-				<button class="data-btn" onclick={() => goto(resolve('/import'))} data-testid="import-btn">
+				<button
+					class="tt-button-primary tt-button-full"
+					onclick={() => goto(resolve('/import'))}
+					data-testid="import-btn"
+				>
 					Importieren
 				</button>
-				<button class="data-btn secondary" onclick={() => (showImportExcel = true)}>
+				<button class="tt-button-secondary tt-button-full" onclick={() => (showImportExcel = true)}>
 					Excel-Datei importieren
 				</button>
 				<button
-					class="data-btn danger"
+					class="tt-button-danger tt-button-full"
 					onclick={() => (showDeleteAllTimeEntriesConfirm = true)}
 					disabled={deleteAllInProgress}
 				>
@@ -956,7 +964,7 @@
 		<!-- Delete Account Section -->
 		<section class="section delete-account-section">
 			<button
-				class="delete-account-btn"
+				class="tt-button-danger tt-button-full"
 				onclick={() => (showDeleteAccountConfirm = true)}
 				disabled={deleteAccountInProgress}
 			>
@@ -1338,28 +1346,6 @@
 		border-top: 1px solid var(--tt-border-default);
 	}
 
-	.delete-account-btn {
-		width: 100%;
-		padding: 0.875rem;
-		background: var(--tt-status-danger-500);
-		color: white;
-		border: none;
-		border-radius: var(--tt-radius-button);
-		font-size: var(--tt-font-size-normal);
-		font-weight: 500;
-		font-family: var(--tt-font-family);
-		cursor: pointer;
-	}
-
-	.delete-account-btn:hover:not(:disabled) {
-		background: var(--tt-status-danger-hover);
-	}
-
-	.delete-account-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
 	.delete-account-error {
 		display: block;
 		margin-top: 0.5rem;
@@ -1372,47 +1358,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--tt-space-8);
-	}
-
-	.data-btn {
-		width: 100%;
-		padding: 0.875rem;
-		background: var(--tt-button-primary-bg);
-		color: var(--tt-button-primary-text);
-		border: none;
-		border-radius: var(--tt-radius-button);
-		font-size: var(--tt-font-size-normal);
-		font-weight: 500;
-		font-family: var(--tt-font-family);
-		cursor: pointer;
-	}
-
-	.data-btn:hover {
-		background: var(--tt-button-primary-hover);
-	}
-
-	.data-btn.secondary {
-		background: var(--tt-background-card);
-		color: var(--tt-text-primary);
-		border: 1px solid var(--tt-border-default);
-	}
-
-	.data-btn.secondary:hover {
-		background: var(--tt-background-card-hover);
-	}
-
-	.data-btn.danger {
-		background: var(--tt-status-danger-500);
-		color: white;
-	}
-
-	.data-btn.danger:hover:not(:disabled) {
-		background: var(--tt-status-danger-hover);
-	}
-
-	.data-btn.danger:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
 	}
 
 	.dropdown-item-danger {

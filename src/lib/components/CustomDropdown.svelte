@@ -221,30 +221,30 @@
 
 	@media (hover: hover) {
 		.dropdown-option:hover {
-			background: var(--tt-brand-primary-500);
-			color: white;
+			background: var(--tt-dropdown-option-hover-bg);
+			color: var(--tt-dropdown-option-hover-text);
 		}
 	}
 
 	.dropdown-option:active {
-		background: var(--tt-brand-primary-600, #1e1f8a);
-		color: white;
+		background: var(--tt-dropdown-option-pressed-bg);
+		color: var(--tt-dropdown-option-pressed-text);
 	}
 
 	.dropdown-option.selected {
-		background: var(--tt-brand-primary-800);
-		color: var(--tt-brand-primary-500);
+		background: var(--tt-dropdown-option-selected-bg);
+		color: var(--tt-dropdown-option-selected-text);
 	}
 
 	@media (hover: hover) {
 		.dropdown-option.selected:hover {
-			background: var(--tt-brand-primary-500);
-			color: white;
+			background: var(--tt-dropdown-option-hover-bg);
+			color: var(--tt-dropdown-option-hover-text);
 		}
 	}
 
 	.dropdown-option.selected:active {
-		background: var(--tt-brand-primary-600, #1e1f8a);
-		color: white;
+		background: var(--tt-dropdown-option-pressed-bg);
+		color: var(--tt-dropdown-option-pressed-text);
 	}
 </style>
