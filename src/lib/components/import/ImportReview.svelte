@@ -24,9 +24,15 @@
 	let { candidates, issues = [], onselectionchange, oncommit, oncancel }: Props = $props();
 
 	// Pre-select all valid entries by default
-	let selectedIds = new SvelteSet<string>(
-		candidates.filter((c) => !c.flags.includes('hard_block')).map((c) => c.id)
-	);
+	let selectedIds = new SvelteSet<string>();
+
+	// Initialize selection when candidates change
+	$effect(() => {
+		selectedIds.clear();
+		candidates
+			.filter((c) => !c.flags.includes('hard_block'))
+			.forEach((c) => selectedIds.add(c.id));
+	});
 
 	let selectableCount = $derived(candidates.filter((c) => !c.flags.includes('hard_block')).length);
 	let selectedCount = $derived(selectedIds.size);
