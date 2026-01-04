@@ -31,6 +31,44 @@ When user asks a question or raises a concern:
 
 ---
 
+## Transparency in Proactive Actions
+
+**When taking actions not explicitly instructed, explain WHY in your summary.**
+
+### The Pattern
+
+1. **Do it** — don't ask permission for helpful actions
+2. **Report it** — in the summary, flag what was proactive
+3. **Explain why** — cite the decision logic
+
+### Format in Summaries
+
+When reporting proactive actions, use this format:
+
+> **Proactive action:** [what I did]
+> **Reasoning:** [why, with mindset/principle reference if applicable]
+
+### Examples of Good Transparency
+
+| Action taken                           | Reasoning                                                                   |
+| -------------------------------------- | --------------------------------------------------------------------------- |
+| Created testing.md without being asked | Noticed test account was unclear → zoom-out pattern → systemic improvement  |
+| Added reminder line to workflow        | User discussed issue → prevents future recurrence → aligns with "save time" |
+| Archived stale documentation           | Files weren't serving purpose → automatic sense-check → dead weight removed |
+
+### Why This Matters
+
+The manager/user needs visibility into decision logic to:
+
+- **Verify** the reasoning is sound
+- **Catch** misinterpretations early
+- **Build trust** through transparency
+- **Refine** the mindset rules based on actual behavior
+
+**Not to block actions** — proactive is good. But proactive + transparent is better.
+
+---
+
 ## Automatic Sense-Check
 
 **When you encounter anything — a file, a structure, a name, a value — automatically ask: "Does this make sense?"**

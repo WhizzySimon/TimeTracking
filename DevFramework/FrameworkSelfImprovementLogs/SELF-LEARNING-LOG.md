@@ -34,17 +34,17 @@ Each entry follows this format:
 
 ## 2026-01-04 11:02 — Design System Audit & Test Infrastructure Cleanup
 
-| Step                 | Result  | Notes                                                                     |
-| -------------------- | ------- | ------------------------------------------------------------------------- |
-| 0: Scope check       | first   | First commit in this chat                                                 |
-| A1: Capture feedback | 1 item  | User feedback on workflow: ticket should be created BEFORE code changes   |
-| B1: Repeated errors  | none    | No repeated errors                                                        |
-| B2: File churn       | none    | Design system changes spread across files appropriately                   |
-| B3: Scope drift      | none    | Scope expanded to include test cleanup (user-approved)                    |
-| B4: Session duration | ~1h     | normal                                                                    |
-| C1: Promotions       | none    | No items meet promotion criteria                                          |
-| C2: Read LEARNINGS   | ✓ read  | 12 items                                                                  |
-| C3: Hard Rule → JIT  | none    | Workflow updated (fixOrChange.md) with ticket reminder - already applied  |
+| Step                 | Result | Notes                                                                    |
+| -------------------- | ------ | ------------------------------------------------------------------------ |
+| 0: Scope check       | first  | First commit in this chat                                                |
+| A1: Capture feedback | 1 item | User feedback on workflow: ticket should be created BEFORE code changes  |
+| B1: Repeated errors  | none   | No repeated errors                                                       |
+| B2: File churn       | none   | Design system changes spread across files appropriately                  |
+| B3: Scope drift      | none   | Scope expanded to include test cleanup (user-approved)                   |
+| B4: Session duration | ~1h    | normal                                                                   |
+| C1: Promotions       | none   | No items meet promotion criteria                                         |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                                                 |
+| C3: Hard Rule → JIT  | none   | Workflow updated (fixOrChange.md) with ticket reminder - already applied |
 
 ---
 
