@@ -76,6 +76,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
     - [ ] Integration-First: Contracts/Interfaces vor Implementierung definiert?
     - [ ] Scope-Lock: Keine neuen Requirements seit Spec-Approval hinzugefügt?
     - [ ] Test-Ready: Mindestens ein Acceptance Check ist automatisierbar?
+    - [ ] **Design System Check:** New UI patterns → add to `tt-design-system.css` first (see `frontend-ui-standards.md`)
 
 ### Phase 4: IMPLEMENT
 

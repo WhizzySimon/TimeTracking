@@ -34,24 +34,26 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 
 ## Trigger Points
 
-| When                          | Read first                                                                           |
-| ----------------------------- | ------------------------------------------------------------------------------------ |
-| **Session start**             | `session-start.md`                                                                   |
-| **Writing/editing code**      | `code-quality.md`                                                                    |
-| **Executing commands**        | `command-execution.md`                                                               |
-| **Working on UI (.svelte)**   | `frontend-ui-standards.md`, `frontend-ux-standards.md`, `frontend-code-standards.md` |
-| **Creating folders/files**    | `naming-conventions.md`                                                              |
-| **Creating/updating spec**    | `spec-writing.md`                                                                    |
-| **Creating/updating plan**    | `planning.md`                                                                        |
-| **Before implementing**       | `implementation.md`                                                                  |
-| **Debugging/troubleshooting** | `debugging.md`, `mindset.md`                                                         |
-| **Stuck in a loop**           | `AgentLoopRecovery.md`                                                               |
-| **Running Playwright tests**  | `ProjectSpecific/testing.md`                                                         |
-| **Framework decisions**       | `framework-principles.md`                                                            |
-| **Before marking complete**   | Follow Task N in task file (E2E regression + audit) — simple tasks: just commit      |
-| **Before git commit**         | `pre-commit.md`, `mindset.md` (reminder)                                             |
-| **Before commit (detours)**   | `sync-check.md`                                                                      |
-| **Starting a task**           | `TaskTypeRules/<task-type>.md`                                                       |
+| When                                           | Read first                                                                           |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Session start**                              | `session-start.md`                                                                   |
+| **Writing/editing code**                       | `code-quality.md`                                                                    |
+| **Executing commands**                         | `command-execution.md`                                                               |
+| **Working on UI (.svelte)**                    | `frontend-ui-standards.md`, `frontend-ux-standards.md`, `frontend-code-standards.md` |
+| **New UI component patterns**                  | `frontend-ui-standards.md` → Design System Foundation section                        |
+| **Designing UX flows (multi-screen features)** | `ux-flow-design.md`                                                                  |
+| **Creating folders/files**                     | `naming-conventions.md`                                                              |
+| **Creating/updating spec**                     | `spec-writing.md`                                                                    |
+| **Creating/updating plan**                     | `planning.md`                                                                        |
+| **Before implementing**                        | `implementation.md`                                                                  |
+| **Debugging/troubleshooting**                  | `debugging.md`, `mindset.md`                                                         |
+| **Stuck in a loop**                            | `AgentLoopRecovery.md`                                                               |
+| **Running Playwright tests**                   | `ProjectSpecific/testing.md`                                                         |
+| **Framework decisions**                        | `framework-principles.md`                                                            |
+| **Before marking complete**                    | Follow Task N in task file (E2E regression + audit) — simple tasks: just commit      |
+| **Before git commit**                          | `pre-commit.md`, `mindset.md` (reminder)                                             |
+| **Before commit (detours)**                    | `sync-check.md`                                                                      |
+| **Starting a task**                            | `TaskTypeRules/<task-type>.md`                                                       |
 
 **Each file has a canary marker. Output it to prove you read it.**
 

@@ -12,6 +12,49 @@
 
 ---
 
+## Design System Foundation (MUST)
+
+**Trigger:** New project setup OR adding new UI component patterns
+
+### Source of Truth
+
+The design system architecture is documented in `src/lib/styles/tt-design-system.css` header.
+
+**3-Layer Architecture:**
+
+1. **Layer 1: Scheme Colors** — Raw primitives (`--tt-brand-primary-500`)
+2. **Layer 2: Semantic Tokens** — Purpose-based (`--tt-background-card`, `--tt-text-muted`)
+3. **Layer 3: Component Classes** — Multi-property bundles (`.tt-button-primary`, `.tt-list-row-clickable`)
+
+### Rules for Adding to Design System
+
+| What           | Rule                                          | Example                                       |
+| -------------- | --------------------------------------------- | --------------------------------------------- |
+| **Tokens**     | Create when same PURPOSE exists in 2+ places  | `--tt-border-default` for all default borders |
+| **Classes**    | Create when same UI PATTERN is used 3+ times  | `.tt-button-primary` for all primary buttons  |
+| **Single-use** | Use semantic tokens directly, no class needed | Custom modal with unique layout               |
+
+### For New Projects
+
+1. Create `src/lib/styles/tt-design-system.css` with 3-layer architecture
+2. Define color scales, semantic tokens, spacing, typography
+3. Optionally create `/dev/styleguide` page as exploration sandbox (temporary)
+4. Build real UI using design system classes
+
+### For Existing Projects
+
+- **New patterns** → Add to design system first, then use in components
+- **Hardcoded values** → Replace with semantic tokens
+- **Repeated CSS (3+ times)** → Extract to component class
+
+### Naming Convention
+
+- Variables: `--tt-{category}-{property}-{variant}`
+- Classes: `.tt-{component}-{variant}` or `.tt-{component}--{modifier}`
+- Child elements: BEM-like (`.tt-list-row__time`, `.tt-list-row__actions`)
+
+---
+
 ## UI Quality Gate (MUST)
 
 **Definition of Done for any UI change — Evidence Bundle requirements:**
