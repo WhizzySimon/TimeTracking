@@ -60,7 +60,7 @@
 					class:error={issue.severity === 'error'}
 					class:active={activeFilter === issue.type}
 				>
-					<button class="issue-btn" onclick={() => handleClick(issue.type)}>
+					<button class="issue-btn tt-interactive" onclick={() => handleClick(issue.type)}>
 						<span class="issue-icon">{getIssueIcon(issue.type)}</span>
 						<span class="issue-message">{issue.message}</span>
 						<span class="issue-count">{issue.candidateIds.length}</span>
@@ -69,7 +69,7 @@
 			{/each}
 		</ul>
 		{#if activeFilter}
-			<button class="clear-filter" onclick={() => onfilter?.(null)}> Filter zurücksetzen </button>
+			<button class="clear-filter tt-interactive" onclick={() => onfilter?.(null)}> Filter zurücksetzen </button>
 		{/if}
 	</div>
 {/if}
@@ -118,9 +118,6 @@
 		transition: all 0.15s;
 	}
 
-	.issue-btn:hover {
-		background: var(--tt-background-card-pressed);
-	}
 
 	.issue-item.active .issue-btn {
 		border-color: var(--tt-brand-primary-500);
@@ -163,7 +160,4 @@
 		cursor: pointer;
 	}
 
-	.clear-filter:hover {
-		background: var(--tt-background-card-pressed);
-	}
 </style>

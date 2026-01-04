@@ -5,8 +5,9 @@
  */
 
 import { writable, derived } from 'svelte/store';
-import type { UserProfile, UserPlan } from '$lib/types';
-import { getAll } from '$lib/storage/db';
+import type { UserProfile, UserPlan, UserPreference } from '$lib/types';
+import { getAll, put, getByKey } from '$lib/storage/db';
+import { markLocalChanged } from '$lib/backup/cloud';
 
 /** Current user profile (null if not loaded) */
 export const userProfile = writable<UserProfile | null>(null);
@@ -117,38 +118,51 @@ export function setNeverAddedAnEntry(value: boolean): void {
 	}
 }
 
+const USER_NAME_PREF_KEY = 'user-name';
+
 /**
- * Update user name (firstName + lastName) and persist to localStorage.
+ * Update user name (firstName + lastName) and persist to IndexedDB for cloud sync.
  */
-export function setUserName(firstName: string, lastName: string): void {
+export async function setUserName(firstName: string, lastName: string): Promise<void> {
 	userProfile.update((profile) => {
 		if (profile) {
 			return { ...profile, firstName, lastName };
 		}
 		return profile;
 	});
-	if (typeof localStorage !== 'undefined') {
-		localStorage.setItem('timetracker_user_firstName', firstName);
-		localStorage.setItem('timetracker_user_lastName', lastName);
-	}
+
+	// Save to IndexedDB for cloud sync
+	const pref: UserPreference = {
+		key: USER_NAME_PREF_KEY,
+		value: JSON.stringify({ firstName, lastName }),
+		updatedAt: Date.now()
+	};
+	await put('userPreferences', pref);
+	markLocalChanged();
 }
 
 /**
- * Load persisted user name from localStorage.
+ * Load persisted user name from IndexedDB.
  * Call this after loading user profile.
  */
-export function loadPersistedUserName(): void {
-	if (typeof localStorage !== 'undefined') {
-		const firstName = localStorage.getItem('timetracker_user_firstName') ?? '';
-		const lastName = localStorage.getItem('timetracker_user_lastName') ?? '';
-		if (firstName || lastName) {
-			userProfile.update((profile) => {
-				if (profile) {
-					return { ...profile, firstName, lastName };
-				}
-				return profile;
-			});
+export async function loadPersistedUserName(): Promise<void> {
+	try {
+		const pref = await getByKey<UserPreference>('userPreferences', USER_NAME_PREF_KEY);
+		if (pref?.value) {
+			const parsed = JSON.parse(pref.value);
+			const firstName = parsed.firstName ?? '';
+			const lastName = parsed.lastName ?? '';
+			if (firstName || lastName) {
+				userProfile.update((profile) => {
+					if (profile) {
+						return { ...profile, firstName, lastName };
+					}
+					return profile;
+				});
+			}
 		}
+	} catch (err) {
+		console.error('[User] Failed to load persisted user name:', err);
 	}
 }
 

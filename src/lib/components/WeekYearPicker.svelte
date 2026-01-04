@@ -124,7 +124,7 @@
 <Modal title="Woche wählen" onclose={handleClose}>
 	<div class="week-picker">
 		<!-- Quick action -->
-		<button type="button" class="current-week-btn" onclick={handleGoToCurrentWeek}>
+		<button type="button" class="current-week-btn tt-interactive" onclick={handleGoToCurrentWeek}>
 			Zur aktuellen Woche
 		</button>
 
@@ -176,10 +176,6 @@
 		cursor: pointer;
 	}
 
-	.current-week-btn:hover {
-		background: var(--tt-brand-primary-800);
-		opacity: 0.9;
-	}
 
 	.divider {
 		text-align: center;

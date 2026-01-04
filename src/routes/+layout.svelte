@@ -2,7 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { dev, browser } from '$app/environment';
 	import { page } from '$app/stores';
-	import { goto, pushState } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import '$lib/styles/tt-design-system.css';
 	import TabNavigation from '$lib/components/TabNavigation.svelte';
@@ -28,7 +28,7 @@
 	import type { TimeEntry } from '$lib/types';
 	import TaskItem from '$lib/components/TaskItem.svelte';
 	import WarningBanner from '$lib/components/WarningBanner.svelte';
-	import { loadSession, isAuthenticated, clearSession, authSession } from '$lib/stores/auth';
+	import { loadSession, isAuthenticated, clearSession } from '$lib/stores/auth';
 	import {
 		setUserProfile,
 		clearUserProfile,
@@ -58,7 +58,6 @@
 	let showOfflineDialog = $state(false);
 	let showConflictDialog = $state(false);
 	let showSyncInfoDialog = $state(false);
-	let showProfileMenu = $state(false);
 	let syncError = $state<string | null>(null);
 	let canInstall = $state(false);
 	let hasUpdate = $state(false);
@@ -102,7 +101,7 @@
 		const entry = $runningEntry;
 		if (!entry) return;
 		currentDate.set(new Date(entry.date + 'T00:00:00'));
-		pushState(resolve('/day'), { editEntryId: entry.id });
+		goto(resolve('/day'), { state: { editEntryId: entry.id } });
 	}
 
 	// Get category and employer for running task display
@@ -316,7 +315,7 @@
 				const profile = await loadUserProfile(userId);
 				setUserProfile(profile);
 				loadPersistedPlanOverride();
-				loadPersistedUserName();
+				await loadPersistedUserName();
 			}
 
 			// Load neverAddedAnEntry flag (with migration logic)
@@ -403,6 +402,8 @@
 			<div class="header-left">
 				<BackButton />
 				<ForwardButton />
+			</div>
+			<div class="header-center">
 				<EmployerSelector
 					employers={$employers}
 					value={$selectedEmployerId}
@@ -412,15 +413,19 @@
 			</div>
 			<div class="header-right">
 				<button
-					class="sync-indicator"
-					class:synced={!syncNeeded && !$syncInProgress}
+					class="sync-indicator tt-interactive-dark"
+					class:synced={!syncNeeded && !$syncInProgress && !syncError}
 					class:syncing={$syncInProgress}
+					class:conflict={!!syncError}
+					class:out-of-sync={syncNeeded && !$syncInProgress && !syncError}
 					onclick={handleSyncClick}
-					title={!syncNeeded && !$syncInProgress
-						? 'Synchronisiert'
-						: syncNeeded
-							? 'Synchronisierung ausstehend'
-							: 'Synchronisiere...'}
+					title={syncError
+						? 'Synchronisierungsfehler'
+						: !syncNeeded && !$syncInProgress
+							? 'Synchronisiert'
+							: syncNeeded
+								? 'Synchronisierung ausstehend'
+								: 'Synchronisiere...'}
 					aria-label="Synchronisierung"
 				>
 					<svg
@@ -438,87 +443,27 @@
 						<path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
 					</svg>
 				</button>
-				<div class="profile-menu-container">
-					<button
-						class="header-btn profile-btn"
-						onclick={() => (showProfileMenu = !showProfileMenu)}
-						aria-label="Profil"
+				<a
+					href={resolve('/settings')}
+					class="sync-indicator tt-interactive-dark"
+					aria-label="Einstellungen"
+				>
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
 					>
-						<svg
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<circle cx="12" cy="8" r="4"></circle>
-							<path d="M20 21a8 8 0 1 0-16 0"></path>
-						</svg>
-					</button>
-					{#if showProfileMenu}
-						<div class="profile-menu" role="menu">
-							<div class="profile-email">
-								{$authSession?.email ?? 'Nicht angemeldet'}
-							</div>
-							<div class="menu-divider"></div>
-							<a
-								href={resolve('/settings')}
-								class="menu-item"
-								role="menuitem"
-								onclick={() => (showProfileMenu = false)}
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<circle cx="12" cy="12" r="3"></circle>
-									<path
-										d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-									></path>
-								</svg>
-								Einstellungen
-							</a>
-							<button
-								class="menu-item logout"
-								role="menuitem"
-								onclick={() => {
-									showProfileMenu = false;
-									showLogoutConfirm = true;
-								}}
-							>
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-									<polyline points="16 17 21 12 16 7"></polyline>
-									<line x1="21" y1="12" x2="9" y2="12"></line>
-								</svg>
-								Abmelden
-							</button>
-						</div>
-						<button
-							class="profile-menu-backdrop"
-							onclick={() => (showProfileMenu = false)}
-							aria-label="Menü schließen"
-						></button>
-					{/if}
-				</div>
+						<circle cx="12" cy="12" r="3"></circle>
+						<path
+							d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+						></path>
+					</svg>
+				</a>
 			</div>
 		</header>
 		<!-- Banner priority: Sync error > Update > Install -->
@@ -611,7 +556,7 @@
 	<ConfirmDialog
 		type="alert"
 		title="Daten synchronisiert"
-		message="Ihre Daten sind bereits mit der Cloud synchronisiert. Alle Änderungen werden automatisch lokal gespeichert — nichts geht verloren."
+		message="Änderungen werden automatisch lokal gespeichert und mit der Cloud synkronisiert — nichts geht verloren."
 		confirmLabel="OK"
 		onconfirm={() => (showSyncInfoDialog = false)}
 	/>
@@ -671,6 +616,10 @@
 		gap: var(--tt-space-8);
 		width: 100%;
 		box-sizing: border-box;
+		/* Dark context: override state layers to use white overlays */
+		--tt-state-hover: rgba(255, 255, 255, 0.08);
+		--tt-state-focus: rgba(255, 255, 255, 0.10);
+		--tt-state-pressed: rgba(255, 255, 255, 0.15);
 	}
 
 	.header-left,
@@ -678,16 +627,17 @@
 		display: flex;
 		align-items: center;
 		gap: var(--tt-space-8);
+		flex: 1;
 	}
 
-	.header-btn {
-		padding: var(--tt-space-6) var(--tt-space-12);
-		border: none;
-		border-radius: var(--tt-radius-button);
-		font-size: var(--tt-font-size-small);
-		font-weight: 500;
-		cursor: pointer;
-		white-space: nowrap;
+	.header-right {
+		justify-content: flex-end;
+	}
+
+	.header-center {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.sync-indicator {
@@ -708,27 +658,27 @@
 			opacity var(--tt-transition-fast);
 	}
 
-	@media (hover: hover) {
-		.sync-indicator:hover {
-			background: var(--tt-header-btn-hover);
-			opacity: 1;
-		}
-	}
 
-	.sync-indicator:active {
-		background: var(--tt-header-btn-pressed);
-	}
-
-	.sync-indicator.synced {
-		color: var(--tt-status-success-500);
-		opacity: 1;
+	.sync-indicator.out-of-sync {
+		color: var(--tt-gray-400);
+		opacity: 0.7;
 	}
 
 	.sync-indicator.syncing {
-		color: var(--tt-header-text);
-		opacity: 0.8;
+		color: var(--tt-brand-accent-300);
+		opacity: 1;
 		animation: rotate 1.5s linear infinite;
 		cursor: default;
+	}
+
+	.sync-indicator.synced {
+		color: var(--tt-brand-accent-300);
+		opacity: 1;
+	}
+
+	.sync-indicator.conflict {
+		color: var(--tt-status-warning-500);
+		opacity: 1;
 	}
 
 	@keyframes rotate {
@@ -738,118 +688,6 @@
 		to {
 			transform: rotate(360deg);
 		}
-	}
-
-	.profile-menu-container {
-		position: relative;
-	}
-
-	.profile-btn {
-		background: transparent;
-		color: var(--tt-header-text-muted);
-		border: 1px solid var(--tt-header-border);
-		border-radius: var(--tt-radius-button);
-		width: 36px;
-		height: 36px;
-		padding: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition:
-			background var(--tt-transition-fast),
-			color var(--tt-transition-fast);
-	}
-
-	@media (hover: hover) {
-		.profile-btn:hover {
-			background: var(--tt-header-btn-hover);
-			color: var(--tt-header-text);
-		}
-	}
-
-	.profile-btn:active {
-		background: var(--tt-header-btn-pressed);
-	}
-
-	.profile-menu {
-		position: absolute;
-		top: 100%;
-		right: 0;
-		margin-top: var(--tt-space-8);
-		background: var(--tt-background-card);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-card);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-		min-width: 200px;
-		z-index: 100;
-		overflow: hidden;
-	}
-
-	.profile-email {
-		padding: var(--tt-space-12) var(--tt-space-16);
-		font-size: var(--tt-font-size-small);
-		color: var(--tt-text-muted);
-		background: var(--tt-background-card-hover);
-		border-bottom: 1px solid var(--tt-border-default);
-		word-break: break-all;
-	}
-
-	.menu-divider {
-		height: 1px;
-		background: var(--tt-border-default);
-	}
-
-	.menu-item {
-		display: flex;
-		align-items: center;
-		gap: var(--tt-space-12);
-		padding: var(--tt-space-12) var(--tt-space-16);
-		font-size: var(--tt-font-size-body);
-		color: var(--tt-text-primary);
-		text-decoration: none;
-		background: none;
-		border: none;
-		width: 100%;
-		text-align: left;
-		cursor: pointer;
-		transition: background var(--tt-transition-fast);
-	}
-
-	@media (hover: hover) {
-		.menu-item:hover {
-			background: var(--tt-background-card-hover);
-		}
-	}
-
-	.menu-item:active {
-		background: var(--tt-background-card-pressed);
-	}
-
-	.menu-item.logout {
-		color: var(--tt-status-danger-500);
-	}
-
-	@media (hover: hover) {
-		.menu-item.logout:hover {
-			background: rgba(197, 48, 48, 0.05);
-		}
-	}
-
-	.menu-item.logout:active {
-		background: rgba(197, 48, 48, 0.1);
-	}
-
-	.profile-menu-backdrop {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: transparent;
-		border: none;
-		z-index: 99;
-		cursor: default;
 	}
 
 	.main-content {

@@ -51,8 +51,7 @@
 </script>
 
 <div
-	class="tt-list-row-clickable"
-	class:task-item-running={isRunning}
+	class={isRunning ? 'tt-list-row-clickable tt-interactive-accent task-item-running' : 'tt-list-row-clickable'}
 	role="button"
 	tabindex="0"
 	data-testid={isRunning ? 'task-item-running' : 'task-item'}
@@ -104,10 +103,9 @@
 </div>
 
 <style>
-	/* Running task variant - highlighted state */
+	/* Running task variant - highlighted border only (background handled by tt-interactive-accent) */
 	.task-item-running {
-		border-color: var(--tt-status-warning-500) !important;
-		background: var(--tt-status-warning-50) !important;
+		border-color: var(--tt-brand-accent-300) !important;
 	}
 
 	/* Employer label positioned to the right */

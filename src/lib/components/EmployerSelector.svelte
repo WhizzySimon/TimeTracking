@@ -55,7 +55,7 @@
 <div class="employer-selector" class:compact bind:this={dropdownElement}>
 	<button
 		type="button"
-		class="selector-button"
+		class="selector-button tt-interactive"
 		onclick={toggleDropdown}
 		aria-haspopup="listbox"
 		aria-expanded={isOpen}
@@ -81,29 +81,31 @@
 	</button>
 	{#if isOpen}
 		<div class="dropdown" role="listbox">
-			<button
-				type="button"
-				class="option"
-				class:selected={value === null}
-				onclick={() => selectEmployer(null)}
-				role="option"
-				aria-selected={value === null}
-			>
-				Alle Arbeitgeber
-			</button>
-			{#each activeEmployers as employer (employer.id)}
+			{#if value !== null}
 				<button
 					type="button"
-					class="option"
-					class:selected={employer.id === value}
-					onclick={() => selectEmployer(employer.id)}
+					class="option tt-interactive"
+					onclick={() => selectEmployer(null)}
 					role="option"
-					aria-selected={employer.id === value}
+					aria-selected={false}
 				>
-					{employer.name}
+					Alle Arbeitgeber
 				</button>
+			{/if}
+			{#each activeEmployers as employer (employer.id)}
+				{#if employer.id !== value}
+					<button
+						type="button"
+						class="option tt-interactive"
+						onclick={() => selectEmployer(employer.id)}
+						role="option"
+						aria-selected={false}
+					>
+						{employer.name}
+					</button>
+				{/if}
 			{/each}
-			{#if activeEmployers.length === 0}
+			{#if activeEmployers.length === 0 && value !== null}
 				<div class="no-employers">Keine Arbeitgeber vorhanden</div>
 			{/if}
 		</div>
@@ -121,15 +123,15 @@
 		align-items: center;
 		gap: var(--tt-space-8);
 		padding: 0.5rem 0.75rem;
-		border: 1px solid var(--tt-border-default);
+		border: none;
 		border-radius: var(--tt-radius-input);
-		background: var(--tt-background-card);
-		color: var(--tt-text-primary);
+		background: var(--tt-brand-accent-300);
+		color: var(--tt-brand-primary-700);
 		font-size: var(--tt-font-size-body);
+		font-weight: var(--tt-font-weight-normal);
 		cursor: pointer;
 		transition:
 			background 0.15s ease,
-			border-color 0.15s ease,
 			box-shadow 0.15s ease;
 		min-width: 160px;
 	}
@@ -140,21 +142,9 @@
 		min-width: 120px;
 	}
 
-	@media (hover: hover) {
-		.selector-button:hover {
-			background: var(--tt-background-card-hover);
-			border-color: var(--tt-brand-primary-500);
-		}
-	}
-
-	.selector-button:active {
-		background: var(--tt-background-card-pressed);
-	}
-
 	.selector-button:focus {
 		outline: none;
-		border-color: var(--tt-brand-primary-500);
-		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
+		box-shadow: 0 0 0 2px var(--tt-brand-accent-600);
 	}
 
 	.selected-text {
@@ -168,7 +158,7 @@
 	.chevron {
 		flex-shrink: 0;
 		transition: transform 0.15s ease;
-		color: var(--tt-text-muted);
+		color: var(--tt-brand-primary-700);
 	}
 
 	.chevron.open {
@@ -206,35 +196,6 @@
 	.compact .option {
 		padding: 0.375rem 0.5rem;
 		font-size: var(--tt-font-size-small);
-	}
-
-	@media (hover: hover) {
-		.option:hover {
-			background: var(--tt-dropdown-option-hover-bg);
-			color: var(--tt-dropdown-option-hover-text);
-		}
-	}
-
-	.option:active {
-		background: var(--tt-dropdown-option-pressed-bg);
-		color: var(--tt-dropdown-option-pressed-text);
-	}
-
-	.option.selected {
-		background: var(--tt-dropdown-option-selected-bg);
-		color: var(--tt-dropdown-option-selected-text);
-	}
-
-	@media (hover: hover) {
-		.option.selected:hover {
-			background: var(--tt-dropdown-option-hover-bg);
-			color: var(--tt-dropdown-option-hover-text);
-		}
-	}
-
-	.option.selected:active {
-		background: var(--tt-dropdown-option-pressed-bg);
-		color: var(--tt-dropdown-option-pressed-text);
 	}
 
 	.no-employers {

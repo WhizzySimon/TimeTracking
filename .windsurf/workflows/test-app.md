@@ -20,7 +20,9 @@ For verifying the app works correctly before/after changes. Creates temporary te
 ## Step 0: Setup
 
 1. Ensure dev server is running (`npm run dev`)
-2. Read `DevFramework/JustInTimeAgentRules/ProjectSpecific/testing.md` for test account info
+2. Read `DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md` (JIT trigger table)
+3. Read `DevFramework/JustInTimeAgentRules/mindset.md` (testing mindset)
+4. Read `DevFramework/JustInTimeAgentRules/ProjectSpecific/testing.md` for test account info
 
 ---
 

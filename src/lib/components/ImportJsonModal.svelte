@@ -251,7 +251,7 @@
 	.upload-btn {
 		display: inline-block;
 		padding: 0.75rem 1.5rem;
-		background: var(--tt-background-card-hover);
+		background: var(--tt-background-card);
 		border: 2px dashed var(--tt-border-default);
 		border-radius: var(--tt-radius-button);
 		color: var(--tt-text-primary);
@@ -260,7 +260,7 @@
 	}
 
 	.upload-btn:hover {
-		background: var(--tt-background-card-hover);
+		background: var(--tt-state-hover);
 		border-color: var(--tt-brand-primary-500);
 	}
 

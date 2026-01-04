@@ -43,7 +43,7 @@
 
 <style>
 	.summary-label {
-		color: var(--tt-text-secondary);
+		color: var(--tt-text-primary);
 		font-size: var(--tt-font-size-small);
 		font-weight: var(--tt-font-weight-medium);
 		white-space: nowrap;

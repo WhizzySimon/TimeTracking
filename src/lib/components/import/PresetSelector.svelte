@@ -84,7 +84,7 @@
 		<ul class="preset-list">
 			{#each presets as preset (preset.id)}
 				<li class="preset-item">
-					<button class="preset-btn" onclick={() => handleSelect(preset)}>
+					<button class="preset-btn tt-interactive" onclick={() => handleSelect(preset)}>
 						{preset.name}
 					</button>
 					<button class="delete-btn" onclick={() => handleDelete(preset.id)} title="Löschen">
@@ -229,9 +229,6 @@
 		cursor: pointer;
 	}
 
-	.preset-btn:hover {
-		background: var(--tt-background-card-pressed);
-	}
 
 	.delete-btn {
 		width: 24px;

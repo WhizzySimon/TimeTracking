@@ -270,7 +270,7 @@
 	{:else}
 		<!-- Week Navigation -->
 		<header class="week-nav">
-			<button class="nav-btn nav-btn-prev" onclick={goToPreviousWeek} aria-label="Vorherige Woche">
+			<button class="nav-btn nav-btn-prev tt-interactive-card" onclick={goToPreviousWeek} aria-label="Vorherige Woche">
 				<svg
 					class="nav-chevron"
 					viewBox="0 0 24 24"
@@ -282,10 +282,10 @@
 				>
 					<polyline points="15 18 9 12 15 6"></polyline>
 				</svg>
-				{previousWeekLabel()}
+				<span class="nav-label">{previousWeekLabel()}</span>
 			</button>
 			<button
-				class="week-title tt-date-selector-button"
+				class="week-title tt-date-selector-button tt-interactive-card"
 				data-testid="week-title"
 				onclick={openWeekPicker}
 			>
@@ -294,8 +294,8 @@
 				{/if}
 				<span class="title-date">{weekTitle}</span>
 			</button>
-			<button class="nav-btn nav-btn-next" onclick={goToNextWeek} aria-label="Nächste Woche">
-				{nextWeekLabel()}
+			<button class="nav-btn nav-btn-next tt-interactive-card" onclick={goToNextWeek} aria-label="Nächste Woche">
+				<span class="nav-label">{nextWeekLabel()}</span>
 				<svg
 					class="nav-chevron"
 					viewBox="0 0 24 24"
@@ -390,7 +390,6 @@
 		height: 44px;
 		padding: 0 0.75rem;
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
 		font-size: var(--tt-font-size-small);
 		font-weight: 500;
@@ -402,18 +401,14 @@
 		border-radius: var(--tt-radius-button);
 	}
 
-	.nav-btn:hover {
-		background: var(--tt-background-card-hover);
-	}
-
-	.nav-btn:active {
-		background: var(--tt-background-card-pressed);
-	}
-
 	.nav-chevron {
 		width: 18px;
 		height: 18px;
 		flex-shrink: 0;
+	}
+
+	.nav-label {
+		line-height: 1;
 	}
 
 	.week-title {
@@ -423,7 +418,6 @@
 		flex: 1;
 		padding: 0.5rem 1rem;
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		background: var(--tt-background-card);
 		text-align: center;
 		cursor: pointer;
 		border-radius: var(--tt-radius-card);
@@ -435,16 +429,6 @@
 		min-height: 44px;
 	}
 
-	@media (hover: hover) {
-		.week-title:hover {
-			background: var(--tt-background-card-hover);
-		}
-	}
-
-	.week-title:active {
-		background: var(--tt-background-card-pressed);
-	}
-
 	.title-prefix {
 		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
@@ -453,6 +437,7 @@
 	.title-date {
 		font-size: var(--tt-font-size-title);
 		font-weight: 600;
+		color: var(--tt-brand-accent-300);
 	}
 
 	/* Day List */
@@ -490,7 +475,7 @@
 	}
 
 	.day-hours__saldo--positive {
-		color: var(--tt-status-success-500);
+		color: var(--tt-saldo-positive);
 	}
 
 	.day-hours__saldo--negative {

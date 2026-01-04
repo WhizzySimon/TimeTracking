@@ -117,7 +117,7 @@
 <Modal title="Monat wählen" onclose={() => onclose?.()}>
 	<div class="picker-content">
 		<!-- Quick action -->
-		<button type="button" class="quick-btn" onclick={goToCurrentMonth}>
+		<button type="button" class="quick-btn tt-interactive" onclick={goToCurrentMonth}>
 			Zum aktuellen Monat
 		</button>
 
@@ -171,9 +171,6 @@
 		font-size: var(--tt-font-size-normal);
 	}
 
-	.quick-btn:hover {
-		background: var(--tt-brand-primary-800);
-	}
 
 	.divider {
 		text-align: center;

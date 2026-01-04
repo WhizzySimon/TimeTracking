@@ -495,7 +495,7 @@
 	}
 
 	.column-checkbox:hover {
-		background: var(--tt-background-card-hover);
+		background: var(--tt-state-hover);
 	}
 
 	.column-checkbox:has(input:checked) {
@@ -557,7 +557,7 @@
 	}
 
 	.preview-table tbody tr:hover {
-		background: var(--tt-background-card-hover);
+		background: var(--tt-state-hover);
 	}
 
 	.description-cell {

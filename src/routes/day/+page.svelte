@@ -305,7 +305,7 @@
 	{:else}
 		<!-- Date Navigation -->
 		<header class="date-nav">
-			<button class="nav-btn nav-btn-prev" onclick={goToPreviousDay} aria-label="Vorheriger Tag">
+			<button class="nav-btn nav-btn-prev tt-interactive-card" onclick={goToPreviousDay} aria-label="Vorheriger Tag">
 				<svg
 					class="nav-chevron"
 					viewBox="0 0 24 24"
@@ -317,16 +317,16 @@
 				>
 					<polyline points="15 18 9 12 15 6"></polyline>
 				</svg>
-				{previousDayLabel()}
+				<span class="nav-label">{previousDayLabel()}</span>
 			</button>
-			<button class="date-title tt-date-selector-button" onclick={openDayPicker}>
+			<button class="date-title tt-date-selector-button tt-interactive-card" onclick={openDayPicker}>
 				{#if datePrefix()}
 					<span class="title-prefix">{datePrefix()}</span>
 				{/if}
 				<span class="title-date">{dateDisplay()}</span>
 			</button>
-			<button class="nav-btn nav-btn-next" onclick={goToNextDay} aria-label="Nächster Tag">
-				{nextDayLabel()}
+			<button class="nav-btn nav-btn-next tt-interactive-card" onclick={goToNextDay} aria-label="Nächster Tag">
+				<span class="nav-label">{nextDayLabel()}</span>
 				<svg
 					class="nav-chevron"
 					viewBox="0 0 24 24"
@@ -420,7 +420,6 @@
 		height: 44px;
 		padding: 0 0.75rem;
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
 		font-size: var(--tt-font-size-small);
 		font-weight: 500;
@@ -432,18 +431,14 @@
 		border-radius: var(--tt-radius-button);
 	}
 
-	.nav-btn:hover {
-		background: var(--tt-background-card-hover);
-	}
-
-	.nav-btn:active {
-		background: var(--tt-background-card-pressed);
-	}
-
 	.nav-chevron {
 		width: 18px;
 		height: 18px;
 		flex-shrink: 0;
+	}
+
+	.nav-label {
+		line-height: 1;
 	}
 
 	.date-title {
@@ -453,7 +448,6 @@
 		flex: 1;
 		padding: 0.5rem 1rem;
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		background: var(--tt-background-card);
 		text-align: center;
 		cursor: pointer;
 		border-radius: var(--tt-radius-card);
@@ -465,16 +459,6 @@
 		min-height: 44px;
 	}
 
-	@media (hover: hover) {
-		.date-title:hover {
-			background: var(--tt-background-card-hover);
-		}
-	}
-
-	.date-title:active {
-		background: var(--tt-background-card-pressed);
-	}
-
 	.title-prefix {
 		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
@@ -483,5 +467,6 @@
 	.title-date {
 		font-size: var(--tt-font-size-title);
 		font-weight: 600;
+		color: var(--tt-brand-accent-300);
 	}
 </style>

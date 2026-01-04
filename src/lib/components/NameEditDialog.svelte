@@ -14,8 +14,8 @@
 	let firstName = $state($userProfile?.firstName ?? '');
 	let lastName = $state($userProfile?.lastName ?? '');
 
-	function handleSave() {
-		setUserName(firstName.trim(), lastName.trim());
+	async function handleSave() {
+		await setUserName(firstName.trim(), lastName.trim());
 		onclose();
 	}
 

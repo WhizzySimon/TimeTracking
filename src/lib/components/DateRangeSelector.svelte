@@ -113,11 +113,11 @@
 		<div class="section">
 			<h3 class="section-title">Schnellwahl</h3>
 			<div class="quick-btns">
-				<button type="button" class="quick-btn" onclick={selectCurrentYear}>Aktuelles Jahr</button>
-				<button type="button" class="quick-btn" onclick={selectLastYear}>Letztes Jahr</button>
-				<button type="button" class="quick-btn" onclick={selectCurrentMonth}>Aktueller Monat</button
+				<button type="button" class="quick-btn tt-interactive" onclick={selectCurrentYear}>Aktuelles Jahr</button>
+				<button type="button" class="quick-btn tt-interactive" onclick={selectLastYear}>Letztes Jahr</button>
+				<button type="button" class="quick-btn tt-interactive" onclick={selectCurrentMonth}>Aktueller Monat</button
 				>
-				<button type="button" class="quick-btn" onclick={selectLastMonth}>Letzter Monat</button>
+				<button type="button" class="quick-btn tt-interactive" onclick={selectLastMonth}>Letzter Monat</button>
 			</div>
 		</div>
 
@@ -198,10 +198,6 @@
 		text-align: center;
 	}
 
-	.quick-btn:hover {
-		background: var(--tt-background-card-hover);
-		border-color: var(--tt-brand-primary-500);
-	}
 
 	.date-fields {
 		display: flex;

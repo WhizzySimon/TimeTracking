@@ -176,23 +176,41 @@ html[data-color-scheme='scheme-3'] {
 
 	/* ---- FOOTER TAB COLORS (dark background context) ---- */
 	--tt-footer-bg: var(--tt-brand-primary-500);
-	--tt-footer-tab-bg: transparent;
-	--tt-footer-tab-bg-hover: var(--tt-white-08); /* Hover state */
-	--tt-footer-tab-bg-current: var(--tt-white-15); /* Selected/current tab */
-	--tt-footer-tab-bg-pressed: var(--tt-white-25); /* Pressed state */
-	--tt-footer-tab-text: var(--tt-white-70);
-	--tt-footer-tab-text-current: var(--tt-white);
-	--tt-footer-tab-border: var(--tt-white-30);
+	--tt-footer-tab-bg: var(--tt-brand-accent-300); /* Accent color background */
+	--tt-footer-tab-bg-hover: var(--tt-brand-accent-400); /* Darker on hover */
+	--tt-footer-tab-bg-current: var(--tt-brand-accent-400); /* Selected/current tab */
+	--tt-footer-tab-bg-pressed: var(--tt-brand-accent-500); /* Pressed state */
+	--tt-footer-tab-text: var(--tt-brand-primary-700); /* Dark text on light accent */
+	--tt-footer-tab-text-current: var(--tt-brand-primary-700);
+	--tt-footer-tab-border: transparent; /* No border with accent bg */
+	--tt-footer-plus-bg: var(--tt-brand-primary-600); /* Plus tab darker */
+	--tt-footer-plus-text: var(--tt-white);
 
 	/* ---- COLORS: Borders ---- */
 	--tt-border-default: var(--tt-gray-300);
 	--tt-border-subtle: var(--tt-gray-200);
 	--tt-border-focus: var(--tt-brand-primary-500);
 
+	/* ---- COLORS: Saldo/Balance Display ---- */
+	--tt-saldo-positive: var(--tt-brand-accent-300); /* Positive balance (Haben) */
+	--tt-saldo-negative: var(--tt-status-danger-500); /* Negative balance */
+
 	/* ---- TOUCHABLE AFFORDANCE ---- */
 	/* Rule: Every touchable element has a visible border */
 	--tt-border-touchable-width: 1px;
 	--tt-border-touchable-color: var(--tt-gray-400); /* Slightly darker than default for visibility */
+
+	/* ---- STATE LAYERS (Material Design 3 inspired) ---- */
+	/* Opacity-based overlays that work on any background color */
+	/* Light context (default) - black overlays */
+	--tt-state-hover: rgba(0, 0, 0, 0.08);
+	--tt-state-focus: rgba(0, 0, 0, 0.10);
+	--tt-state-pressed: rgba(0, 0, 0, 0.12);
+	--tt-state-selected: rgba(0, 0, 0, 0.08);
+	
+	/* Danger state layers - red tinted overlays */
+	--tt-state-danger-hover: rgba(197, 48, 48, 0.08);
+	--tt-state-danger-pressed: rgba(197, 48, 48, 0.12);
 
 	/* ---- COLORS: Text ---- */
 	--tt-text-primary: var(--tt-gray-900);
@@ -204,30 +222,30 @@ html[data-color-scheme='scheme-3'] {
 
 	/* Danger: Destructive actions (delete), errors, validation failures */
 	--tt-status-danger-50: #fee2e2;
-	--tt-status-danger-100: #fecaca;
-	--tt-status-danger-300: #e05353;
+	/* --tt-status-danger-100: #fecaca; */ /* UNUSED */
+	/* --tt-status-danger-300: #e05353; */ /* UNUSED - only styleguide */
 	--tt-status-danger-500: #c53030;
 	--tt-status-danger-600: #9b2c2c;
-	--tt-status-danger-700: #7f1d1d;
+	/* --tt-status-danger-700: #7f1d1d; */ /* UNUSED */
 	--tt-status-danger-800: rgba(197, 48, 48, 0.1);
 
 	/* Success: Positive outcomes, confirmations */
 	--tt-status-success-50: #dcfce7;
-	--tt-status-success-100: #bbf7d0;
-	--tt-status-success-300: #48a274;
+	/* --tt-status-success-100: #bbf7d0; */ /* UNUSED */
+	/* --tt-status-success-300: #48a274; */ /* UNUSED - only styleguide */
 	--tt-status-success-500: #2f855a;
-	--tt-status-success-600: #16a34a;
-	--tt-status-success-700: #15803d;
+	/* --tt-status-success-600: #16a34a; */ /* UNUSED */
+	/* --tt-status-success-700: #15803d; */ /* UNUSED */
 	--tt-status-success-800: rgba(47, 133, 90, 0.1);
 
 	/* Warning: Caution, attention needed */
 	--tt-status-warning-50: #fef9c3;
-	--tt-status-warning-100: #fde68a;
-	--tt-status-warning-300: #ed8a4a;
+	/* --tt-status-warning-100: #fde68a; */ /* UNUSED */
+	/* --tt-status-warning-300: #ed8a4a; */ /* UNUSED - only styleguide */
 	--tt-status-warning-500: #dd6b20;
-	--tt-status-warning-600: #d97706;
-	--tt-status-warning-700: #b45309;
-	--tt-status-warning-800: rgba(221, 107, 32, 0.1);
+	/* --tt-status-warning-600: #d97706; */ /* UNUSED */
+	/* --tt-status-warning-700: #b45309; */ /* UNUSED */
+	/* --tt-status-warning-800: rgba(221, 107, 32, 0.1); */ /* UNUSED */
 
 	/* Info: Running tasks, progress, informational highlights */
 	--tt-status-info: var(--tt-brand-accent-300);
@@ -297,6 +315,23 @@ html[data-color-scheme='scheme-3'] {
 }
 
 /* ============================================================================
+   GLOBAL FONT RESET
+   Force all elements to inherit the design system font
+   ============================================================================ */
+*,
+*::before,
+*::after {
+	font-family: var(--tt-font-family);
+}
+
+button,
+input,
+select,
+textarea {
+	font-family: inherit;
+}
+
+/* ============================================================================
    B) LIST ROW - The primary list item component
    
    USAGE:
@@ -343,17 +378,17 @@ html[data-color-scheme='scheme-3'] {
 	cursor: pointer;
 }
 
-/* Hover state: background becomes slightly darker */
+/* Hover state: uses state layer for universal compatibility */
 @media (hover: hover) {
 	.tt-list-row-clickable:hover {
-		background: var(--tt-background-card-hover);
+		background: var(--tt-state-hover);
 	}
 }
 
-/* Active/pressed state: background becomes darkest */
+/* Active/pressed state: uses state layer for universal compatibility */
 /* Use :has() to prevent activation when child button is pressed */
 .tt-list-row-clickable:active:not(:has(button:active)) {
-	background: var(--tt-background-card-pressed);
+	background: var(--tt-state-pressed);
 }
 
 /**
@@ -811,6 +846,43 @@ html[data-color-scheme='scheme-3'] {
 }
 
 /**
+ * Danger Outline Button - Destructive action with outline style (red text/border, white bg)
+ */
+.tt-button-danger-outline {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-8);
+	padding: var(--tt-space-12) var(--tt-space-24);
+	min-height: 48px;
+	font-size: var(--tt-font-size-normal);
+	font-weight: var(--tt-font-weight-semibold);
+	line-height: 1;
+	border-radius: var(--tt-radius-button);
+	border: 1px solid var(--tt-status-danger-500);
+	cursor: pointer;
+	white-space: nowrap;
+	background: var(--tt-white);
+	color: var(--tt-status-danger-500);
+	transition: background var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-button-danger-outline:hover:not(:disabled) {
+		background: rgba(197, 48, 48, 0.1);
+	}
+}
+
+.tt-button-danger-outline:active:not(:disabled) {
+	background: rgba(197, 48, 48, 0.15);
+}
+
+.tt-button-danger-outline:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/**
  * Small Button modifier - reduces size
  */
 .tt-button-small {
@@ -831,6 +903,7 @@ html[data-color-scheme='scheme-3'] {
  * SYMBOL BUTTON - Unified borderless icon buttons
  * Used for: Sync, Profile, Resume/Play, Delete, etc.
  * All symbol buttons are borderless with hover background only
+ * Uses Material Design 3 inspired state layers for universal compatibility
  */
 .tt-symbol-button {
 	display: flex;
@@ -839,14 +912,14 @@ html[data-color-scheme='scheme-3'] {
 	width: 40px;
 	height: 40px;
 	padding: 0;
-	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-	background: var(--tt-background-card);
-	color: var(--tt-text-secondary);
+	border: none;
+	background: transparent;
+	color: var(--tt-gray-700);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
 	transition:
 		background var(--tt-transition-fast),
-		border-color var(--tt-transition-fast);
+		color var(--tt-transition-fast);
 }
 
 .tt-symbol-button svg {
@@ -854,25 +927,16 @@ html[data-color-scheme='scheme-3'] {
 	height: 20px;
 }
 
-/* Hover state: background becomes slightly darker */
+/* Hover state: uses state layer variable */
 @media (hover: hover) {
 	.tt-symbol-button:hover {
-		background: var(--tt-background-card-hover);
+		background: var(--tt-state-hover);
 	}
 }
 
-/* Active state: background becomes darkest */
+/* Active/pressed state: uses state layer variable */
 .tt-symbol-button:active {
-	background: var(--tt-background-card-pressed);
-}
-
-/* Variant: Danger colored symbol (e.g., Delete) */
-.tt-symbol-button-danger {
-	color: var(--tt-text-muted);
-}
-
-.tt-symbol-button-danger:active {
-	background: var(--tt-background-card-pressed);
+	background: var(--tt-state-pressed);
 }
 
 /* Legacy aliases for backward compatibility */
@@ -909,9 +973,9 @@ html[data-color-scheme='scheme-3'] {
 	width: 40px;
 	height: 40px;
 	padding: 0;
-	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-	background: var(--tt-background-card);
-	color: var(--tt-text-muted);
+	border: none;
+	background: transparent;
+	color: var(--tt-gray-700);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
 	transition:
@@ -921,14 +985,14 @@ html[data-color-scheme='scheme-3'] {
 
 @media (hover: hover) {
 	.tt-delete-button:hover {
-		background: rgba(197, 48, 48, 0.03);
+		background: var(--tt-state-danger-hover);
 		color: var(--tt-status-danger-500);
 	}
 }
 
 .tt-delete-button:active {
-	background: var(--tt-status-danger-800);
-	color: var(--tt-status-danger-500);
+	background: var(--tt-state-danger-pressed);
+	color: var(--tt-status-danger-600);
 }
 
 .tt-delete-button svg {
@@ -945,8 +1009,8 @@ html[data-color-scheme='scheme-3'] {
 	align-items: center;
 	gap: var(--tt-space-16);
 	padding: var(--tt-space-12) var(--tt-space-16);
-	background: var(--tt-background-card);
-	border: 1px solid var(--tt-border-subtle);
+	background: var(--tt-brand-primary-100);
+	border: none;
 	border-radius: var(--tt-radius-card);
 }
 
@@ -962,12 +1026,13 @@ html[data-color-scheme='scheme-3'] {
 }
 
 .tt-summary-display__value {
+	font-size: var(--tt-font-size-small);
 	font-weight: var(--tt-font-weight-semibold);
 	color: var(--tt-text-primary);
 }
 
 .tt-summary-display__value-positive {
-	color: var(--tt-status-success-500);
+	color: var(--tt-saldo-positive);
 }
 
 .tt-summary-display__value-negative {
@@ -977,6 +1042,119 @@ html[data-color-scheme='scheme-3'] {
 /* ============================================================================
    H) UTILITIES
    ============================================================================ */
+
+/**
+ * INTERACTIVE STATE CLASSES
+ * Unified hover/active states using the state layer system.
+ * IMPORTANT: Do NOT set local `background` in component CSS when using these classes.
+ * The class handles both base background AND hover states to avoid specificity conflicts.
+ * 
+ * CLASSES:
+ * - .tt-interactive        : Transparent bg → semi-transparent black overlay on hover
+ * - .tt-interactive-card   : White card bg → semi-transparent black overlay on hover
+ * - .tt-interactive-dark   : Transparent bg → white overlay on hover (for dark headers)
+ * - .tt-interactive-accent : Accent-100 bg → Accent-200 on hover (for running tasks)
+ * - .tt-interactive-danger : Transparent bg → red tint overlay + red text on hover
+ * 
+ * USAGE GUIDE:
+ * | Context                    | Class                    |
+ * |----------------------------|--------------------------|
+ * | Buttons on light bg        | .tt-interactive-card     |
+ * | Buttons on dark header     | .tt-interactive-dark     |
+ * | List rows (white bg)       | .tt-list-row-clickable   |
+ * | Running task banner        | .tt-interactive-accent   |
+ * | Delete/danger buttons      | .tt-interactive-danger   |
+ * | Chips/pills                | .tt-chip (has own hover) |
+ */
+
+/* Basic interactive element - for elements with transparent/inherited background.
+ * Use .tt-interactive-card for elements that need a card background.
+ */
+.tt-interactive {
+	transition: background var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-interactive:hover {
+		background: var(--tt-state-hover);
+	}
+}
+
+.tt-interactive:active {
+	background: var(--tt-state-pressed);
+}
+
+/* Card variant - bundles card background with hover states.
+ * Use this instead of local `background: var(--tt-background-card)` + .tt-interactive
+ * to avoid specificity conflicts with Svelte scoped CSS.
+ */
+.tt-interactive-card {
+	background: var(--tt-background-card);
+	transition: background var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-interactive-card:hover {
+		background: var(--tt-state-hover);
+	}
+}
+
+.tt-interactive-card:active {
+	background: var(--tt-state-pressed);
+}
+
+/* Danger variant - red tinted overlays */
+.tt-interactive-danger {
+	transition: background var(--tt-transition-fast), color var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-interactive-danger:hover {
+		background: var(--tt-state-danger-hover);
+		color: var(--tt-status-danger-500);
+	}
+}
+
+.tt-interactive-danger:active {
+	background: var(--tt-state-danger-pressed);
+	color: var(--tt-status-danger-600);
+}
+
+/* Dark context variant - white overlays for dark backgrounds (header, etc.)
+ * Use on elements inside .app-header or other dark containers.
+ */
+.tt-interactive-dark {
+	background: transparent;
+	transition: background var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-interactive-dark:hover {
+		background: rgba(255, 255, 255, 0.12);
+	}
+}
+
+.tt-interactive-dark:active {
+	background: rgba(255, 255, 255, 0.20);
+}
+
+/* Accent variant - for elements with accent background (running task, etc.)
+ * Maintains the accent background while adding hover feedback.
+ */
+.tt-interactive-accent {
+	background: var(--tt-brand-accent-100);
+	transition: background var(--tt-transition-fast);
+}
+
+@media (hover: hover) {
+	.tt-interactive-accent:hover {
+		background: var(--tt-brand-accent-200);
+	}
+}
+
+.tt-interactive-accent:active {
+	background: var(--tt-brand-accent-300);
+}
 
 /**
  * Play Icon (CSS triangle)
@@ -1093,56 +1271,90 @@ html[data-color-scheme='scheme-3'] {
 	text-decoration: none;
 	color: var(--tt-footer-tab-text);
 	font-size: var(--tt-font-size-small);
-	font-weight: var(--tt-font-weight-semibold);
+	font-weight: var(--tt-font-weight-normal);
 	white-space: nowrap;
 	border-radius: var(--tt-radius-button);
-	border: var(--tt-border-touchable-width) solid var(--tt-footer-tab-border);
-	background: var(--tt-footer-tab-bg);
+	border: 2px solid transparent;
+	background: var(--tt-brand-accent-300); /* Default for tabs without specific color class */
 	transition:
-		background var(--tt-transition-fast),
-		color var(--tt-transition-fast);
+		border-color var(--tt-transition-fast),
+		font-weight var(--tt-transition-fast),
+		filter var(--tt-transition-fast);
 }
 
-/* Hover state: slightly lighter (dark background) */
+/* Hover state: white border + subtle brightness increase (state layer effect on colored bg) */
 @media (hover: hover) {
 	.tt-footer-tab:hover {
-		background: var(--tt-footer-tab-bg-hover);
+		border-color: rgba(255, 255, 255, 0.5);
+		filter: brightness(1.1);
 	}
 }
 
-/* Pressed state: strongest feedback (lightest) */
+/* Pressed/Active state: white border + stronger brightness (state layer effect) */
 .tt-footer-tab:active {
-	background: var(--tt-footer-tab-bg-pressed);
-	color: var(--tt-footer-tab-text-current);
+	border-color: var(--tt-white);
+	font-weight: var(--tt-font-weight-bold);
+	filter: brightness(1.15);
 }
 
-/* Current tab: persistent state using semantic selector */
+/* Current tab: persistent selected state - white border + bold */
 .tt-footer-tab[aria-current='page'] {
-	background: var(--tt-footer-tab-bg-current);
-	color: var(--tt-footer-tab-text-current);
+	border-color: var(--tt-white);
+	font-weight: var(--tt-font-weight-bold);
 }
 
-/* Current tab hover: slightly lighter than current */
+/* Current tab hover: keep white border */
 @media (hover: hover) {
 	.tt-footer-tab[aria-current='page']:hover {
-		background: var(--tt-white-20);
+		border-color: var(--tt-white);
 	}
 }
 
-/* Current tab pressed: still show pressed feedback */
+/* Current tab pressed: same as selected */
 .tt-footer-tab[aria-current='page']:active {
-	background: var(--tt-footer-tab-bg-pressed);
+	border-color: var(--tt-white);
 }
 
 .tt-footer-tab svg {
 	width: 20px;
 	height: 20px;
+	stroke-width: 2;
 }
 
-/* Plus tab variant: larger text */
+/* Bold stroke for selected tab icons */
+.tt-footer-tab[aria-current='page'] svg {
+	stroke-width: 3;
+}
+
+/* Plus tab variant: larger text, darker background */
 .tt-footer-tab--plus {
 	font-size: 1.5rem;
 	font-weight: var(--tt-font-weight-bold);
+	background: var(--tt-footer-plus-bg);
+	color: var(--tt-footer-plus-text);
+}
+
+.tt-footer-tab--plus[aria-current='page'] {
+	font-weight: var(--tt-font-weight-bold);
+}
+
+/* Analysis tab: same color as Plus tab */
+.tt-footer-tab--analysis {
+	background: var(--tt-footer-plus-bg);
+	color: var(--tt-footer-plus-text);
+}
+
+/* Individual tab colors - gradient from light to dark (100/200/300) */
+.tt-footer-tab--day {
+	background: var(--tt-brand-accent-100);
+}
+
+.tt-footer-tab--week {
+	background: var(--tt-brand-accent-200);
+}
+
+.tt-footer-tab--month {
+	background: var(--tt-brand-accent-300);
 }
 
 /* ============================================================================
@@ -1170,7 +1382,7 @@ html[data-color-scheme='scheme-3'] {
 
 @media (hover: hover) {
 	.tt-dropdown:hover {
-		background-color: var(--tt-background-card-hover);
+		background-color: var(--tt-state-hover);
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 		background-repeat: no-repeat;
 		background-position: right var(--tt-space-12) center;
@@ -1179,7 +1391,7 @@ html[data-color-scheme='scheme-3'] {
 }
 
 .tt-dropdown:active {
-	background-color: var(--tt-background-card-pressed);
+	background-color: var(--tt-state-pressed);
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: right var(--tt-space-12) center;
@@ -1461,7 +1673,7 @@ html[data-color-scheme='scheme-3'] {
 	margin-left: auto;
 	border: none;
 	background: transparent;
-	color: var(--tt-text-muted);
+	color: var(--tt-gray-700);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
 	transition:
@@ -1471,14 +1683,14 @@ html[data-color-scheme='scheme-3'] {
 
 @media (hover: hover) {
 	.tt-btn-delete:hover {
-		background: rgba(197, 48, 48, 0.03);
+		background: var(--tt-state-danger-hover);
 		color: var(--tt-status-danger-500);
 	}
 }
 
 .tt-btn-delete:active {
-	background: var(--tt-status-danger-800);
-	color: var(--tt-status-danger-500);
+	background: var(--tt-state-danger-pressed);
+	color: var(--tt-status-danger-600);
 }
 
 .tt-row__action {

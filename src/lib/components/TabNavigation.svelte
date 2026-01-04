@@ -13,11 +13,11 @@
 	import { resolve } from '$app/paths';
 
 	const tabs = [
-		{ href: '/add', label: '+', isPlus: true, icon: null },
-		{ href: '/day', label: 'Tag', isPlus: false, icon: null },
-		{ href: '/week', label: 'Woche', isPlus: false, icon: null },
-		{ href: '/month', label: 'Monat', isPlus: false, icon: null },
-		{ href: '/analysis', label: null, isPlus: false, icon: 'chart' }
+		{ href: '/add', label: '+', isPlus: true, icon: null, colorClass: null },
+		{ href: '/day', label: 'Tag', isPlus: false, icon: null, colorClass: 'tt-footer-tab--day' },
+		{ href: '/week', label: 'Woche', isPlus: false, icon: null, colorClass: 'tt-footer-tab--week' },
+		{ href: '/month', label: 'Monat', isPlus: false, icon: null, colorClass: 'tt-footer-tab--month' },
+		{ href: '/analysis', label: null, isPlus: false, icon: 'chart', colorClass: 'tt-footer-tab--analysis' }
 	] as const;
 
 	function isActive(href: string, pathname: string): boolean {
@@ -35,7 +35,7 @@
 	{#each tabs as tab (tab.href)}
 		<a
 			href={resolve(tab.href)}
-			class="tt-footer-tab"
+			class="tt-footer-tab {tab.colorClass || ''}"
 			class:tt-footer-tab--plus={tab.isPlus}
 			aria-current={isActive(tab.href, $page.url.pathname) ? 'page' : undefined}
 			aria-label={tab.isPlus

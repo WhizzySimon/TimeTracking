@@ -343,7 +343,7 @@
 		<!-- Month Navigation -->
 		<header class="month-nav">
 			<button
-				class="nav-btn nav-btn-prev"
+				class="nav-btn nav-btn-prev tt-interactive-card"
 				onclick={goToPreviousMonth}
 				aria-label="Vorheriger Monat"
 			>
@@ -358,16 +358,16 @@
 				>
 					<polyline points="15 18 9 12 15 6"></polyline>
 				</svg>
-				{previousMonthLabel()}
+				<span class="nav-label">{previousMonthLabel()}</span>
 			</button>
-			<button class="month-title tt-date-selector-button" onclick={openMonthPicker}>
+			<button class="month-title tt-date-selector-button tt-interactive-card" onclick={openMonthPicker}>
 				{#if monthPrefix}
 					<span class="title-prefix">{monthPrefix}</span>
 				{/if}
 				<span class="title-date">{monthTitle}</span>
 			</button>
-			<button class="nav-btn nav-btn-next" onclick={goToNextMonth} aria-label="Nächster Monat">
-				{nextMonthLabel()}
+			<button class="nav-btn nav-btn-next tt-interactive-card" onclick={goToNextMonth} aria-label="Nächster Monat">
+				<span class="nav-label">{nextMonthLabel()}</span>
 				<svg
 					class="nav-chevron"
 					viewBox="0 0 24 24"
@@ -461,7 +461,6 @@
 		height: 44px;
 		padding: 0 0.75rem;
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
 		font-size: var(--tt-font-size-small);
 		font-weight: 500;
@@ -473,18 +472,14 @@
 		border-radius: var(--tt-radius-button);
 	}
 
-	.nav-btn:hover {
-		background: var(--tt-background-card-hover);
-	}
-
-	.nav-btn:active {
-		background: var(--tt-background-card-pressed);
-	}
-
 	.nav-chevron {
 		width: 18px;
 		height: 18px;
 		flex-shrink: 0;
+	}
+
+	.nav-label {
+		line-height: 1;
 	}
 
 	.month-title {
@@ -494,7 +489,6 @@
 		flex: 1;
 		padding: 0.5rem 1rem;
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		background: var(--tt-background-card);
 		text-align: center;
 		cursor: pointer;
 		border-radius: var(--tt-radius-card);
@@ -506,16 +500,6 @@
 		min-height: 44px;
 	}
 
-	@media (hover: hover) {
-		.month-title:hover {
-			background: var(--tt-background-card-hover);
-		}
-	}
-
-	.month-title:active {
-		background: var(--tt-background-card-pressed);
-	}
-
 	.title-prefix {
 		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
@@ -524,6 +508,7 @@
 	.title-date {
 		font-size: 1.1rem;
 		font-weight: 600;
+		color: var(--tt-brand-accent-300);
 	}
 
 	/* Week List */
@@ -555,7 +540,7 @@
 	}
 
 	.week-hours__saldo--positive {
-		color: var(--tt-status-success-500);
+		color: var(--tt-saldo-positive);
 	}
 
 	.week-hours__saldo--negative {

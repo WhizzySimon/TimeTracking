@@ -82,7 +82,7 @@
 <div class="custom-dropdown" class:disabled bind:this={dropdownElement}>
 	<button
 		type="button"
-		class="dropdown-button"
+		class="dropdown-button tt-interactive-card"
 		onclick={toggleDropdown}
 		aria-haspopup="listbox"
 		aria-expanded={isOpen}
@@ -107,16 +107,17 @@
 	{#if isOpen}
 		<div class="dropdown-menu" role="listbox">
 			{#each options as option (option.value)}
-				<button
-					type="button"
-					class="dropdown-option"
-					class:selected={option.value === value}
-					onclick={() => selectOption(option.value)}
-					role="option"
-					aria-selected={option.value === value}
-				>
-					{option.label}
-				</button>
+				{#if option.value !== value}
+					<button
+						type="button"
+						class="dropdown-option"
+						onclick={() => selectOption(option.value)}
+						role="option"
+						aria-selected={false}
+					>
+						{option.label}
+					</button>
+				{/if}
 			{/each}
 		</div>
 	{/if}
@@ -125,7 +126,8 @@
 <style>
 	.custom-dropdown {
 		position: relative;
-		width: 100%;
+		width: auto;
+		min-width: fit-content;
 	}
 
 	.custom-dropdown.disabled {
@@ -138,27 +140,16 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--tt-space-8);
-		width: 100%;
+		width: auto;
 		padding: var(--tt-space-8) var(--tt-space-12);
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 		border-radius: var(--tt-radius-button);
-		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
 		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 		transition:
 			background var(--tt-transition-fast),
 			border-color var(--tt-transition-fast);
-	}
-
-	@media (hover: hover) {
-		.dropdown-button:hover:not(:disabled) {
-			background: var(--tt-background-card-hover);
-		}
-	}
-
-	.dropdown-button:active:not(:disabled) {
-		background: var(--tt-background-card-pressed);
 	}
 
 	.dropdown-button:focus {
@@ -192,8 +183,8 @@
 	.dropdown-menu {
 		position: absolute;
 		top: 100%;
-		left: 0;
 		right: 0;
+		min-width: 100%;
 		max-height: 240px;
 		overflow-y: auto;
 		background: var(--tt-background-card);
@@ -227,23 +218,6 @@
 	}
 
 	.dropdown-option:active {
-		background: var(--tt-dropdown-option-pressed-bg);
-		color: var(--tt-dropdown-option-pressed-text);
-	}
-
-	.dropdown-option.selected {
-		background: var(--tt-dropdown-option-selected-bg);
-		color: var(--tt-dropdown-option-selected-text);
-	}
-
-	@media (hover: hover) {
-		.dropdown-option.selected:hover {
-			background: var(--tt-dropdown-option-hover-bg);
-			color: var(--tt-dropdown-option-hover-text);
-		}
-	}
-
-	.dropdown-option.selected:active {
 		background: var(--tt-dropdown-option-pressed-bg);
 		color: var(--tt-dropdown-option-pressed-text);
 	}

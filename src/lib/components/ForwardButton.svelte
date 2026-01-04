@@ -13,8 +13,7 @@
 	}
 </script>
 
-<button class="nav-btn" onclick={handleForward} aria-label="Vorwärts">
-	Vor
+<button class="nav-btn tt-interactive-dark" onclick={handleForward} aria-label="Vorwärts">
 	<svg
 		class="nav-icon"
 		viewBox="0 0 24 24"
@@ -32,29 +31,18 @@
 	.nav-btn {
 		display: flex;
 		align-items: center;
-		gap: var(--tt-space-4);
-		padding: 6px 12px;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		padding: 0;
 		border: 1px solid var(--tt-header-border);
-		background: transparent;
 		color: var(--tt-header-text);
-		font-size: var(--tt-font-size-small);
 		border-radius: var(--tt-radius-button);
 		cursor: pointer;
-		transition: background var(--tt-transition-fast);
-	}
-
-	@media (hover: hover) {
-		.nav-btn:hover {
-			background: var(--tt-header-btn-hover);
-		}
-	}
-
-	.nav-btn:active {
-		background: var(--tt-header-btn-pressed);
 	}
 
 	.nav-icon {
-		width: 16px;
-		height: 16px;
+		width: 20px;
+		height: 20px;
 	}
 </style>

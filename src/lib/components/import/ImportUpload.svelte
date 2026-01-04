@@ -128,7 +128,7 @@
 					</span>
 					<span class="file-name">{source.filename}</span>
 					<span class="file-size">{formatFileSize(source.sizeBytes)}</span>
-					<button class="btn-remove" onclick={() => removeSource(source.id)} aria-label="Entfernen">
+					<button class="btn-remove tt-interactive-danger" onclick={() => removeSource(source.id)} aria-label="Entfernen">
 						×
 					</button>
 				</div>
@@ -228,10 +228,6 @@
 		justify-content: center;
 	}
 
-	.btn-remove:hover {
-		background: var(--tt-background-card-pressed);
-		color: var(--tt-status-danger-500);
-	}
 
 	.start-section {
 		display: flex;

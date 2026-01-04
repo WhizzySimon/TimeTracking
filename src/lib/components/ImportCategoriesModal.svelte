@@ -99,12 +99,8 @@
 
 			result = { imported: importedCount, skipped: skippedCount };
 
-			if (importedCount > 0) {
-				// Auto-close after short delay if successful
-				setTimeout(() => {
-					onsave();
-				}, 1500);
-			}
+			// Close immediately after import completes
+			onsave();
 		} catch (e) {
 			error = 'Fehler beim Importieren';
 			console.error('Import error:', e);
@@ -233,7 +229,7 @@
 	}
 
 	.file-btn:hover {
-		background: var(--tt-brand-primary-800);
+		background: var(--tt-state-hover);
 	}
 
 	.textarea-field {

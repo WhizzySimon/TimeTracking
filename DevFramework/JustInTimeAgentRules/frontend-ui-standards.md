@@ -395,3 +395,84 @@ Examples:
 - `TaskItem.svelte` — Trash icon reference
 
 ---
+
+## Svelte-Specific: CSS Scoping & Hover States (MUST)
+
+### The Problem
+
+Svelte scopes component CSS by adding a hash class (e.g., `.my-btn.svelte-abc123`). This increases specificity, causing **local CSS to override global design system classes**.
+
+```svelte
+<!-- BROKEN: Local background overrides global hover -->
+<button class="my-btn tt-interactive">Click</button>
+
+<style>
+  .my-btn {
+    background: var(--tt-background-card); /* Wins over .tt-interactive:hover */
+  }
+</style>
+```
+
+### Solution 1: Composite Classes (Preferred)
+
+Use design system classes that bundle **base background + hover states** together:
+
+| Class | Base Background | Hover | Use Case |
+|-------|-----------------|-------|----------|
+| `.tt-interactive` | transparent | black 8% overlay | Transparent elements |
+| `.tt-interactive-card` | white card | black 8% overlay | Buttons on light bg |
+| `.tt-interactive-dark` | transparent | white 12% overlay | Header buttons (dark bg) |
+| `.tt-interactive-accent` | accent-100 | accent-200 | Running task banner |
+| `.tt-interactive-danger` | transparent | red overlay + text | Delete buttons |
+
+```svelte
+<!-- CORRECT: Let the class handle background -->
+<button class="my-btn tt-interactive-card">Click</button>
+
+<style>
+  .my-btn {
+    /* NO background here - tt-interactive-card handles it */
+    padding: var(--tt-space-8);
+    border: 1px solid var(--tt-border-default);
+  }
+</style>
+```
+
+**Rule:** When using `.tt-interactive-*` classes, **never set local `background`** in component CSS.
+
+### Solution 2: `:global()` Escape (For One-Off Elements)
+
+For unique elements where creating a design system class isn't worth it, use Svelte's `:global()` modifier:
+
+```svelte
+<button class="unique-btn tt-interactive">Click</button>
+
+<style>
+  .unique-btn {
+    background: var(--tt-special-background);
+  }
+  
+  /* Escape scoping for hover - global rule wins */
+  .unique-btn:global(.tt-interactive):hover {
+    background: var(--tt-state-hover);
+  }
+  
+  .unique-btn:global(.tt-interactive):active {
+    background: var(--tt-state-pressed);
+  }
+</style>
+```
+
+### When to Use Which
+
+| Situation | Approach |
+|-----------|----------|
+| Background used in 2+ components | Create `.tt-interactive-{variant}` class |
+| Truly one-off unique element | Use `:global()` escape |
+| Element inherits/has no background | Use `.tt-interactive` (transparent) |
+
+### Reference
+
+See `src/lib/styles/tt-design-system.css` section "INTERACTIVE STATE CLASSES" for full documentation.
+
+---

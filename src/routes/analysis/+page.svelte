@@ -235,7 +235,10 @@
 			(e) => e.employerId === null || e.employerId === undefined
 		).length;
 		const categoriesMissingEmployerId = $filteredCategories.filter(
-			(c) => c.type !== 'system' && (c.employerId === null || c.employerId === undefined)
+			(c) =>
+				c.type !== 'system' &&
+				c.countsAsWorkTime === true && // Absence categories (countsAsWorkTime=false) correctly have null employerId
+				(c.employerId === null || c.employerId === undefined)
 		).length;
 		const modelsMissingEmployerId = $filteredModels.filter(
 			(m) => m.employerId === null || m.employerId === undefined
@@ -663,9 +666,8 @@
 	{:else}
 		<!-- Date Range Selector -->
 		<div class="range-selector-row">
-			<span class="range-label">Zeitraum</span>
-			<button class="range-button" onclick={() => (showRangeSelector = true)}>
-				{rangeDisplay}
+			<button class="range-button tt-interactive" onclick={() => (showRangeSelector = true)}>
+				<span class="title-date">{rangeDisplay}</span>
 			</button>
 		</div>
 
@@ -801,39 +803,30 @@
 	.range-selector-row {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		gap: var(--tt-space-12);
-		padding: var(--tt-space-12) var(--tt-space-16);
-		background: var(--tt-background-card);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-card);
-	}
-
-	.range-label {
-		font-weight: 500;
-		color: var(--tt-text-primary);
+		justify-content: center;
+		padding: var(--tt-space-12) 0;
 	}
 
 	.range-button {
 		padding: 0.5rem 1rem;
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-input);
+		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 		background: var(--tt-background-card);
 		color: var(--tt-text-primary);
-		font-size: var(--tt-font-size-normal);
+		font-size: var(--tt-font-size-title);
+		font-weight: 600;
 		cursor: pointer;
-		text-align: left;
+		text-align: center;
 		white-space: nowrap;
-		transition:
-			background var(--tt-transition-fast),
-			border-color var(--tt-transition-fast);
+		border-radius: var(--tt-radius-card);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--tt-space-4);
+		min-height: 44px;
 	}
 
-	@media (hover: hover) {
-		.range-button:hover {
-			background: var(--tt-background-card-hover);
-			border-color: var(--tt-border-default);
-		}
+	.range-button .title-date {
+		color: var(--tt-brand-accent-300);
 	}
 
 	/* Period List */
@@ -870,7 +863,7 @@
 	}
 
 	.period-hours .saldo.positive {
-		color: var(--tt-status-success-500);
+		color: var(--tt-saldo-positive);
 	}
 
 	.period-hours .saldo.negative {

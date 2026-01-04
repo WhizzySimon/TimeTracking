@@ -228,7 +228,7 @@
 			{#each Array.from({ length: daysInMonth }, (_, i) => i + 1) as day (day)}
 				<button
 					type="button"
-					class="day-cell"
+					class="day-cell tt-interactive"
 					class:selected={day === selectedDay}
 					class:today={isToday(day)}
 					class:disabled={!isValidDay(day)}
@@ -337,9 +337,6 @@
 		color: var(--tt-text-primary);
 	}
 
-	.day-cell:hover:not(:disabled) {
-		background: var(--tt-background-card-hover);
-	}
 
 	.day-cell.empty {
 		border: none;

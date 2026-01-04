@@ -277,7 +277,7 @@
 	}
 
 	.review-table tbody tr:hover {
-		background: var(--tt-background-card-hover);
+		background: var(--tt-state-hover);
 	}
 
 	.review-table tbody tr.selected {

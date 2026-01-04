@@ -186,6 +186,7 @@
 
 	.format-option:hover {
 		border-color: var(--tt-brand-primary-500);
+		background: var(--tt-state-hover);
 	}
 
 	.format-option:has(input:checked) {

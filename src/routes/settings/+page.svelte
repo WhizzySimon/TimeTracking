@@ -401,8 +401,25 @@
 	{:else}
 		<!-- Konto Section -->
 		<section class="section" data-testid="account-section">
-			<div class="section-header">
+			<div class="section-header section-header-with-action">
 				<h2>Konto</h2>
+				<button class="logout-button tt-interactive" onclick={() => (showLogoutConfirm = true)}>
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+						<polyline points="16 17 21 12 16 7"></polyline>
+						<line x1="21" y1="12" x2="9" y2="12"></line>
+					</svg>
+					Abmelden
+				</button>
 			</div>
 			<div class="account-info">
 				<div class="account-row">
@@ -480,7 +497,7 @@
 						</button>
 					</div>
 				</div>
-			</div>
+				</div>
 		</section>
 
 		<!-- Arbeitgeber Section -->
@@ -672,33 +689,35 @@
 										<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
 									</span>
 								</div>
-								{#if category.type !== 'system'}
-									<button
-										class="tt-btn-delete"
-										aria-label="Löschen"
-										data-testid="delete-category-btn"
-										onclick={(event) => {
-											event.stopPropagation();
-											handleDeleteCategory(category);
-										}}
-									>
-										<svg
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
+								<div class="row-right-section">
+									{#if category.type !== 'system'}
+										<button
+											class="tt-btn-delete"
+											aria-label="Löschen"
+											data-testid="delete-category-btn"
+											onclick={(event) => {
+												event.stopPropagation();
+												handleDeleteCategory(category);
+											}}
 										>
-											<polyline points="3 6 5 6 21 6"></polyline>
-											<path
-												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-											></path>
-										</svg>
-									</button>
-								{/if}
+											<svg
+												width="16"
+												height="16"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<polyline points="3 6 5 6 21 6"></polyline>
+												<path
+													d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+												></path>
+											</svg>
+										</button>
+									{/if}
+								</div>
 							</div>
 						{/each}
 					{/if}
@@ -734,7 +753,7 @@
 						{#if showCategoryMenu}
 							<div class="dropdown-menu">
 								<button
-									class="dropdown-item"
+									class="dropdown-item tt-interactive"
 									data-testid="add-category-menu-item"
 									onclick={() => {
 										showAddCategory = true;
@@ -754,7 +773,7 @@
 									<span>Hinzufügen</span>
 								</button>
 								<button
-									class="dropdown-item"
+									class="dropdown-item tt-interactive"
 									onclick={() => {
 										showImportCategories = true;
 										showCategoryMenu = false;
@@ -774,7 +793,7 @@
 									<span>Importieren</span>
 								</button>
 								<button
-									class="dropdown-item"
+									class="dropdown-item tt-interactive"
 									onclick={() => {
 										downloadCategoriesFile($categories);
 										showCategoryMenu = false;
@@ -794,7 +813,7 @@
 									<span>Exportieren</span>
 								</button>
 								<button
-									class="dropdown-item dropdown-item-danger"
+									class="dropdown-item dropdown-item-danger tt-interactive-danger"
 									onclick={() => {
 										showDeleteAllCategoriesConfirm = true;
 										showCategoryMenu = false;
@@ -838,37 +857,39 @@
 								<div class="tt-list-row__content">
 									<span class="tt-list-row__title" data-testid="category-name">{category.name}</span
 									>
+								</div>
+								<div class="row-right-section">
 									{#if category.employerId}
-										<span class="tt-list-row__detail">{getEmployerName(category.employerId)}</span>
+										<span class="tt-inline-label-employer">{getEmployerName(category.employerId)}</span>
+									{/if}
+									{#if category.type !== 'system'}
+										<button
+											class="tt-btn-delete"
+											aria-label="Löschen"
+											data-testid="delete-category-btn"
+											onclick={(event) => {
+												event.stopPropagation();
+												handleDeleteCategory(category);
+											}}
+										>
+											<svg
+												width="16"
+												height="16"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<polyline points="3 6 5 6 21 6"></polyline>
+												<path
+													d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+												></path>
+											</svg>
+										</button>
 									{/if}
 								</div>
-								{#if category.type !== 'system'}
-									<button
-										class="tt-btn-delete"
-										aria-label="Löschen"
-										data-testid="delete-category-btn"
-										onclick={(event) => {
-											event.stopPropagation();
-											handleDeleteCategory(category);
-										}}
-									>
-										<svg
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										>
-											<polyline points="3 6 5 6 21 6"></polyline>
-											<path
-												d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-											></path>
-										</svg>
-									</button>
-								{/if}
 							</div>
 						{/each}
 					{/if}
@@ -907,7 +928,7 @@
 					Excel-Datei importieren
 				</button>
 				<button
-					class="tt-button-danger tt-button-full"
+					class="tt-button-danger-outline tt-button-full"
 					onclick={() => (showDeleteAllTimeEntriesConfirm = true)}
 					disabled={deleteAllInProgress}
 				>
@@ -956,7 +977,7 @@
 							<span>Secondary<br />{COLOR_SCHEMES[$colorScheme].secondary}</span>
 						</div>
 					</div>
-					<button class="reset-btn" onclick={resetColorScheme}> Cache leeren & neu laden </button>
+					<button class="reset-btn tt-interactive" onclick={resetColorScheme}> Cache leeren & neu laden </button>
 				</div>
 			{/if}
 		</section>
@@ -1273,28 +1294,8 @@
 		color: var(--tt-text-secondary);
 	}
 
-	@media (hover: hover) {
-		.dropdown-item:hover {
-			background: var(--tt-background-card-hover);
-		}
-	}
-
-	.dropdown-item:active {
-		background: var(--tt-background-card-pressed);
-	}
-
 	.dropdown-item-danger {
 		color: var(--tt-status-danger-500);
-	}
-
-	@media (hover: hover) {
-		.dropdown-item-danger:hover {
-			background: rgba(197, 48, 48, 0.05);
-		}
-	}
-
-	.dropdown-item-danger:active {
-		background: rgba(197, 48, 48, 0.1);
 	}
 
 	.dropdown-item:not(:last-child) {
@@ -1305,6 +1306,13 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--tt-space-8);
+	}
+
+	.row-right-section {
+		display: flex;
+		align-items: center;
+		gap: var(--tt-space-8);
+		margin-left: auto;
 	}
 
 	.empty {
@@ -1365,7 +1373,7 @@
 	}
 
 	.dropdown-item-danger:hover {
-		background: var(--tt-status-danger-800);
+		background: var(--tt-state-danger-hover);
 	}
 
 	.account-info {
@@ -1408,6 +1416,28 @@
 		color: var(--tt-brand-primary-500);
 	}
 
+	.section-header-with-action {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-right: 0;
+	}
+
+	.logout-button {
+		display: flex;
+		align-items: center;
+		gap: var(--tt-space-8);
+		padding: var(--tt-space-8) var(--tt-space-12);
+		background: transparent;
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		color: var(--tt-text-secondary);
+		font-size: var(--tt-font-size-small);
+		cursor: pointer;
+		transition: background var(--tt-transition-fast);
+	}
+
+
 	/* Development section styles */
 	.dev-settings {
 		display: flex;
@@ -1449,13 +1479,4 @@
 		transition: background var(--tt-transition-fast);
 	}
 
-	@media (hover: hover) {
-		.reset-btn:hover {
-			background: var(--tt-background-card-hover);
-		}
-	}
-
-	.reset-btn:active {
-		background: var(--tt-background-card-pressed);
-	}
 </style>

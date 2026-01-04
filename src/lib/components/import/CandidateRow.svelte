@@ -193,7 +193,7 @@
 	}
 
 	tr:hover {
-		background: var(--tt-background-card-hover);
+		background: var(--tt-state-hover);
 	}
 
 	tr.selected {

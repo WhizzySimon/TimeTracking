@@ -57,7 +57,7 @@
 	/>
 	<button
 		type="button"
-		class="toggle-btn"
+		class="toggle-btn tt-interactive"
 		onclick={toggleVisibility}
 		aria-label={visible ? 'Passwort verbergen' : 'Passwort anzeigen'}
 		tabindex="-1"
@@ -143,7 +143,6 @@
 
 	.toggle-btn:hover {
 		color: var(--tt-text-primary);
-		background: var(--tt-background-card-hover);
 	}
 
 	.toggle-btn:focus {

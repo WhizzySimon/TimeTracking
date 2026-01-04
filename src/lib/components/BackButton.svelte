@@ -36,7 +36,7 @@
 </script>
 
 {#if canGoBack}
-	<button class="nav-btn" onclick={handleBack} disabled={!canGoBack} aria-label="Zurück">
+	<button class="nav-btn tt-interactive-dark" onclick={handleBack} disabled={!canGoBack} aria-label="Zurück">
 		<svg
 			class="nav-icon"
 			viewBox="0 0 24 24"
@@ -48,7 +48,6 @@
 		>
 			<polyline points="15 18 9 12 15 6"></polyline>
 		</svg>
-		Zurück
 	</button>
 {/if}
 
@@ -56,25 +55,14 @@
 	.nav-btn {
 		display: flex;
 		align-items: center;
-		gap: var(--tt-space-4);
-		padding: 6px 12px;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		padding: 0;
 		border: 1px solid var(--tt-header-border);
-		background: transparent;
 		color: var(--tt-header-text);
-		font-size: var(--tt-font-size-small);
 		border-radius: var(--tt-radius-button);
 		cursor: pointer;
-		transition: background var(--tt-transition-fast);
-	}
-
-	@media (hover: hover) {
-		.nav-btn:hover:not(:disabled) {
-			background: var(--tt-header-btn-hover);
-		}
-	}
-
-	.nav-btn:active:not(:disabled) {
-		background: var(--tt-header-btn-pressed);
 	}
 
 	.nav-btn:disabled {
@@ -83,7 +71,7 @@
 	}
 
 	.nav-icon {
-		width: 16px;
-		height: 16px;
+		width: 20px;
+		height: 20px;
 	}
 </style>

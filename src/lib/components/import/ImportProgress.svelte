@@ -47,7 +47,7 @@
 
 	{#if oncancel}
 		<div class="progress-actions">
-			<button class="btn-cancel" onclick={oncancel}>Abbrechen</button>
+			<button class="btn-cancel tt-interactive" onclick={oncancel}>Abbrechen</button>
 		</div>
 	{/if}
 </div>
@@ -134,7 +134,4 @@
 		cursor: pointer;
 	}
 
-	.btn-cancel:hover {
-		background: var(--tt-background-card-hover);
-	}
 </style>
