@@ -35,7 +35,11 @@
 		<span class="tt-warning-banner__icon">⚠</span>
 		<span class="tt-warning-banner__message">{message}</span>
 		{#if actionLabel && onaction}
-			<button class="tt-warning-banner__action" onclick={handleActionClick} data-testid="warning-banner-action">
+			<button
+				class="tt-warning-banner__action"
+				onclick={handleActionClick}
+				data-testid="warning-banner-action"
+			>
 				{actionLabel}
 			</button>
 		{/if}
@@ -45,7 +49,11 @@
 		<span class="tt-warning-banner__icon">⚠</span>
 		<span class="tt-warning-banner__message">{message}</span>
 		{#if actionLabel && onaction}
-			<button class="tt-warning-banner__action" onclick={handleActionClick} data-testid="warning-banner-action">
+			<button
+				class="tt-warning-banner__action"
+				onclick={handleActionClick}
+				data-testid="warning-banner-action"
+			>
 				{actionLabel}
 			</button>
 		{/if}

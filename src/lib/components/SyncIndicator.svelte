@@ -56,7 +56,10 @@
 	data-testid="sync-indicator"
 	data-sync-status={$syncStatus}
 >
-	<span class="tt-sync-indicator__icon" class:tt-sync-indicator__icon--spinning={$syncStatus === 'syncing'}>{config.icon}</span>
+	<span
+		class="tt-sync-indicator__icon"
+		class:tt-sync-indicator__icon--spinning={$syncStatus === 'syncing'}>{config.icon}</span
+	>
 	<span class="tt-sync-indicator__label">{config.label}</span>
 </div>
 

@@ -101,9 +101,22 @@ Full context: `TempAppDevDocs/QuickFixes/Refactor-CSS-Visual-Styles-To-Classes.m
 - [x] Removed extracted CSS from Settings page
 - [x] Verified with npm run check
 
+### Step 8: Status Components ✓
+
+- [x] Created .tt-warning-banner classes (6 classes)
+- [x] Created .tt-sync-indicator classes (5 classes)
+- [x] Updated WarningBanner.svelte
+- [x] Updated SyncIndicator.svelte
+- [x] Verified with npm run check
+
 ### Remaining Work
 
-**Components:** Many components in `src/lib/components/` still need review for visual style extraction
+**Components:** 42 components in `src/lib/components/` still need review for visual style extraction
+
+- Import components (ImportReview, ImportExcelModal, etc.) - high complexity
+- Picker components (DayPicker, MonthYearPicker, WeekYearPicker, etc.)
+- Dialog components (CategoryDialog, EmployerDialog, etc.)
+- Other components (CategoryList, TaskList, Paywall, etc.)
 
 ## QA Checklist
 

@@ -659,12 +659,12 @@
 		<section class="section">
 			<div class="section-header">
 				<button
-					class="section-toggle"
+					class="tt-section-toggle"
 					onclick={() => (expandedSections.abwesenheit = !expandedSections.abwesenheit)}
 					aria-expanded={expandedSections.abwesenheit}
 				>
-					<span class="toggle-icon" class:expanded={expandedSections.abwesenheit}>▶</span>
-					<h2>Abwesenheit</h2>
+					<span class="tt-section-toggle__icon" class:tt-section-toggle__icon--expanded={expandedSections.abwesenheit}>▶</span>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Abwesenheit</h2>
 				</button>
 				<button
 					class="tt-symbol-button"
@@ -739,12 +739,12 @@
 		<section class="section">
 			<div class="section-header">
 				<button
-					class="section-toggle"
+					class="tt-section-toggle"
 					onclick={() => (expandedSections.arbeit = !expandedSections.arbeit)}
 					aria-expanded={expandedSections.arbeit}
 				>
-					<span class="toggle-icon" class:expanded={expandedSections.arbeit}>▶</span>
-					<h2>Tätigkeiten</h2>
+					<span class="tt-section-toggle__icon" class:tt-section-toggle__icon--expanded={expandedSections.arbeit}>▶</span>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Tätigkeiten</h2>
 				</button>
 				<div class="header-buttons">
 					<div class="menu-container">
@@ -963,12 +963,12 @@
 		<section class="section">
 			<div class="section-header">
 				<button
-					class="section-toggle"
+					class="tt-section-toggle"
 					onclick={() => (expandedSections.entwicklung = !expandedSections.entwicklung)}
 					aria-expanded={expandedSections.entwicklung}
 				>
-					<span class="toggle-icon" class:expanded={expandedSections.entwicklung}>▶</span>
-					<h2>Entwicklung</h2>
+					<span class="tt-section-toggle__icon" class:tt-section-toggle__icon--expanded={expandedSections.entwicklung}>▶</span>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Entwicklung</h2>
 				</button>
 			</div>
 			{#if expandedSections.entwicklung}
