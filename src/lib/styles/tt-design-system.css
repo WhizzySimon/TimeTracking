@@ -1421,7 +1421,117 @@ textarea {
 }
 
 /* ============================================================================
-   L) SUMMARY DISPLAY - Ist/Soll/Haben inline display
+   L) STATUS INDICATORS & BANNERS
+   ============================================================================ */
+
+/**
+ * Warning Banner - Warning message display
+ */
+.tt-warning-banner {
+	padding: 0.75rem 1rem;
+	background: var(--tt-status-warning-50);
+	border: 1px solid var(--tt-status-warning-500);
+	border-radius: var(--tt-radius-card);
+	color: var(--tt-status-warning-500);
+}
+
+.tt-warning-banner--clickable {
+	cursor: pointer;
+}
+
+.tt-warning-banner--clickable:hover {
+	background: var(--tt-status-warning-50);
+	filter: brightness(0.95);
+}
+
+.tt-warning-banner__icon {
+	font-size: 1.1rem;
+}
+
+.tt-warning-banner__message {
+	font-size: var(--tt-font-size-body);
+	font-weight: 500;
+}
+
+.tt-warning-banner__action {
+	margin-left: auto;
+	padding: 0.25rem 0.75rem;
+	border: 1px solid var(--tt-brand-primary-500);
+	background: var(--tt-brand-primary-500);
+	color: white;
+	font-size: var(--tt-font-size-small);
+	font-weight: 500;
+	cursor: pointer;
+	border-radius: var(--tt-radius-button);
+	white-space: nowrap;
+}
+
+.tt-warning-banner__action:hover {
+	background: var(--tt-brand-primary-dark);
+}
+
+/**
+ * Sync Indicator - Sync status display
+ */
+.tt-sync-indicator {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px;
+	border-radius: var(--tt-radius-pill);
+	background-color: var(--indicator-bg);
+	color: var(--indicator-color);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: 500;
+	cursor: default;
+	user-select: none;
+}
+
+.tt-sync-indicator__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	font-size: var(--tt-font-size-small);
+	font-weight: 700;
+}
+
+.tt-sync-indicator__icon--spinning {
+	animation: tt-spin 1s linear infinite;
+}
+
+@keyframes tt-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.tt-sync-indicator__label {
+	white-space: nowrap;
+}
+
+@media (max-width: 360px) {
+	.tt-sync-indicator__label {
+		display: none;
+	}
+
+	.tt-sync-indicator {
+		padding: 4px 8px;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.tt-sync-indicator {
+		background-color: color-mix(in srgb, var(--indicator-bg) 30%, #1f1f1f);
+	}
+}
+
+/* ============================================================================
+   M) SUMMARY DISPLAY - Ist/Soll/Haben inline display
    ============================================================================ */
 
 .tt-summary-display {

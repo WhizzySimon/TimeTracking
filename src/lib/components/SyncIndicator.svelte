@@ -48,7 +48,7 @@
 </script>
 
 <div
-	class="sync-indicator"
+	class="tt-sync-indicator"
 	style="--indicator-color: {config.color}; --indicator-bg: {config.bgColor}"
 	title={config.label}
 	role="status"
@@ -56,65 +56,11 @@
 	data-testid="sync-indicator"
 	data-sync-status={$syncStatus}
 >
-	<span class="icon" class:spinning={$syncStatus === 'syncing'}>{config.icon}</span>
-	<span class="label">{config.label}</span>
+	<span class="tt-sync-indicator__icon" class:tt-sync-indicator__icon--spinning={$syncStatus === 'syncing'}>{config.icon}</span>
+	<span class="tt-sync-indicator__label">{config.label}</span>
 </div>
 
 <style>
-	.sync-indicator {
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		padding: 4px 10px;
-		border-radius: var(--tt-radius-pill);
-		background-color: var(--indicator-bg);
-		color: var(--indicator-color);
-		font-size: var(--tt-font-size-tiny);
-		font-weight: 500;
-		cursor: default;
-		user-select: none;
-	}
-
-	.icon {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 16px;
-		height: 16px;
-		font-size: var(--tt-font-size-small);
-		font-weight: 700;
-	}
-
-	.icon.spinning {
-		animation: spin 1s linear infinite;
-	}
-
-	@keyframes spin {
-		from {
-			transform: rotate(0deg);
-		}
-		to {
-			transform: rotate(360deg);
-		}
-	}
-
-	.label {
-		white-space: nowrap;
-	}
-
-	@media (max-width: 360px) {
-		.label {
-			display: none;
-		}
-
-		.sync-indicator {
-			padding: 4px 8px;
-		}
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.sync-indicator {
-			background-color: color-mix(in srgb, var(--indicator-bg) 30%, #1f1f1f);
-		}
-	}
+	/* Visual styles use design system classes: .tt-sync-indicator, .tt-sync-indicator__icon, .tt-sync-indicator__icon--spinning, .tt-sync-indicator__label */
+	/* Media queries and animations are in design system */
 </style>
