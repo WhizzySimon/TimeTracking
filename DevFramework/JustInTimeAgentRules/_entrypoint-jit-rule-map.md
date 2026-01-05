@@ -41,6 +41,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | **Executing commands**                         | `command-execution.md`                                                               |
 | **Working on UI (.svelte)**                    | `frontend-ui-standards.md`, `frontend-ux-standards.md`, `frontend-code-standards.md` |
 | **New UI component patterns**                  | `frontend-ui-standards.md` → Design System Foundation section                        |
+| **CSS refactoring / design system work**       | `frontend-css-architecture.md`                                                       |
 | **Designing UX flows (multi-screen features)** | `ux-flow-design.md`                                                                  |
 | **Creating folders/files**                     | `naming-conventions.md`                                                              |
 | **Creating/updating spec**                     | `spec-writing.md`                                                                    |
