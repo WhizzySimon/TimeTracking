@@ -378,17 +378,17 @@ textarea {
 	cursor: pointer;
 }
 
-/* Hover state: uses state layer for universal compatibility */
+/* Hover state: use card-hover (solid color) instead of state layer overlay */
 @media (hover: hover) {
 	.tt-list-row-clickable:hover {
-		background: var(--tt-state-hover);
+		background: var(--tt-background-card-hover);
 	}
 }
 
-/* Active/pressed state: uses state layer for universal compatibility */
+/* Active/pressed state: use card-pressed (solid color) */
 /* Use :has() to prevent activation when child button is pressed */
 .tt-list-row-clickable:active:not(:has(button:active)) {
-	background: var(--tt-state-pressed);
+	background: var(--tt-background-card-pressed);
 }
 
 /**
@@ -460,8 +460,16 @@ textarea {
 }
 
 .tt-list-row__detail {
-	font-size: var(--tt-font-size-small);
+	/* Badge-like appearance for inline labels (e.g., "Arbeitstag" on Week page) */
+	display: inline-flex;
+	align-items: center;
+	padding: var(--tt-space-4) var(--tt-space-8);
+	font-size: var(--tt-font-size-tiny);
+	font-weight: var(--tt-font-weight-medium);
 	color: var(--tt-text-muted);
+	background: var(--tt-background-card-pressed);
+	border-radius: var(--tt-radius-badge);
+	white-space: nowrap;
 }
 
 /**
@@ -480,117 +488,21 @@ textarea {
    C) INLINE LABEL - Fit-content badges for metadata
    
    IMPORTANT: These are inline-flex and will NOT stretch to full width
+   
+   Architecture: Shared base properties + color-only variants
+   Usage: class="tt-inline-label-employer" (self-contained)
    ============================================================================ */
 
 /**
- * Base Label - Small inline indicator, fits content width
+ * Shared base properties for all inline labels
+ * Applied via comma-separated selector list for DRY
  */
-.tt-inline-label {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--tt-space-4);
-	padding: var(--tt-space-4) var(--tt-space-8);
-	font-size: var(--tt-font-size-tiny);
-	font-weight: var(--tt-font-weight-medium);
-	line-height: 1.4;
-	border-radius: var(--tt-radius-badge);
-	white-space: nowrap;
-	width: fit-content;
-	flex-shrink: 0;
-}
-
-/**
- * Employer Label - Shows which employer an entry belongs to
- */
-.tt-inline-label-employer {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--tt-space-4);
-	padding: var(--tt-space-4) var(--tt-space-8);
-	font-size: var(--tt-font-size-tiny);
-	font-weight: var(--tt-font-weight-medium);
-	line-height: 1.4;
-	border-radius: var(--tt-radius-badge);
-	white-space: nowrap;
-	width: fit-content;
-	flex-shrink: 0;
-	background: var(--tt-brand-primary-800);
-	color: var(--tt-brand-primary-500);
-}
-
-/**
- * No-Work Label - Shows "Keine Arbeitszeit"
- */
-.tt-inline-label-no-work {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--tt-space-4);
-	padding: var(--tt-space-4) var(--tt-space-8);
-	font-size: var(--tt-font-size-tiny);
-	font-weight: var(--tt-font-weight-medium);
-	line-height: 1.4;
-	border-radius: var(--tt-radius-badge);
-	white-space: nowrap;
-	width: fit-content;
-	flex-shrink: 0;
-	background: var(--tt-border-subtle);
-	color: var(--tt-text-muted);
-}
-
-/**
- * Neutral Label - Generic metadata label
- */
-.tt-inline-label-neutral {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--tt-space-4);
-	padding: var(--tt-space-4) var(--tt-space-8);
-	font-size: var(--tt-font-size-tiny);
-	font-weight: var(--tt-font-weight-medium);
-	line-height: 1.4;
-	border-radius: var(--tt-radius-badge);
-	white-space: nowrap;
-	width: fit-content;
-	flex-shrink: 0;
-	background: var(--tt-background-card-pressed);
-	color: var(--tt-text-secondary);
-}
-
-/**
- * Status Labels - Semantic states (all self-contained with same padding/font)
- */
-.tt-inline-label-success {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--tt-space-4);
-	padding: var(--tt-space-4) var(--tt-space-8);
-	font-size: var(--tt-font-size-tiny);
-	font-weight: var(--tt-font-weight-medium);
-	line-height: 1.4;
-	border-radius: var(--tt-radius-badge);
-	white-space: nowrap;
-	width: fit-content;
-	flex-shrink: 0;
-	background: var(--tt-status-success-800);
-	color: var(--tt-status-success-500);
-}
-
-.tt-inline-label-warning {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--tt-space-4);
-	padding: var(--tt-space-4) var(--tt-space-8);
-	font-size: var(--tt-font-size-tiny);
-	font-weight: var(--tt-font-weight-medium);
-	line-height: 1.4;
-	border-radius: var(--tt-radius-badge);
-	white-space: nowrap;
-	width: fit-content;
-	flex-shrink: 0;
-	background: var(--tt-status-warning-50);
-	color: var(--tt-status-warning-500);
-}
-
+.tt-inline-label,
+.tt-inline-label-employer,
+.tt-inline-label-no-work,
+.tt-inline-label-neutral,
+.tt-inline-label-success,
+.tt-inline-label-warning,
 .tt-inline-label-danger {
 	display: inline-flex;
 	align-items: center;
@@ -603,6 +515,44 @@ textarea {
 	white-space: nowrap;
 	width: fit-content;
 	flex-shrink: 0;
+}
+
+/**
+ * Label color variants - only color properties
+ */
+
+/* Employer Label - Shows which employer an entry belongs to */
+.tt-inline-label-employer {
+	background: var(--tt-brand-primary-800);
+	color: var(--tt-brand-primary-500);
+}
+
+/* No-Work Label - Shows "Keine Arbeitszeit" */
+.tt-inline-label-no-work {
+	background: var(--tt-border-subtle);
+	color: var(--tt-text-muted);
+}
+
+/* Neutral Label - Generic metadata label */
+.tt-inline-label-neutral {
+	background: var(--tt-background-card-pressed);
+	color: var(--tt-text-secondary);
+}
+
+/* Success Label - Positive status */
+.tt-inline-label-success {
+	background: var(--tt-status-success-800);
+	color: var(--tt-status-success-500);
+}
+
+/* Warning Label - Caution status */
+.tt-inline-label-warning {
+	background: var(--tt-status-warning-50);
+	color: var(--tt-status-warning-500);
+}
+
+/* Danger Label - Error/destructive status */
+.tt-inline-label-danger {
 	background: var(--tt-status-danger-800);
 	color: var(--tt-status-danger-500);
 }
@@ -667,45 +617,19 @@ textarea {
 
 /* ============================================================================
    F) BUTTONS - Action triggers
+   
+   Architecture: Shared base properties + variant-specific colors/borders
    ============================================================================ */
 
 /**
- * Base Button
+ * Shared base properties for all button variants
  */
-.tt-button {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: var(--tt-space-8);
-	padding: var(--tt-space-12) var(--tt-space-20);
-	min-height: 44px;
-	font-size: var(--tt-font-size-normal);
-	font-weight: var(--tt-font-weight-semibold);
-	line-height: 1;
-	border-radius: var(--tt-radius-card);
-	border: none;
-	cursor: pointer;
-	transition:
-		background var(--tt-transition-fast),
-		transform var(--tt-transition-fast);
-	white-space: nowrap;
-	box-shadow: none;
-}
-
-.tt-button:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-
-.tt-button svg {
-	width: 16px;
-	height: 16px;
-}
-
-/**
- * Primary Button - Main action (self-contained)
- */
-.tt-button-primary {
+.tt-button,
+.tt-button-primary,
+.tt-button-secondary,
+.tt-button-ghost,
+.tt-button-danger,
+.tt-button-danger-outline {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -716,12 +640,42 @@ textarea {
 	font-weight: var(--tt-font-weight-semibold);
 	line-height: 1;
 	border-radius: var(--tt-radius-button);
-	border: none;
 	cursor: pointer;
 	white-space: nowrap;
+	transition: background var(--tt-transition-fast);
+}
+
+/* Shared disabled state for all buttons */
+.tt-button:disabled,
+.tt-button-primary:disabled,
+.tt-button-secondary:disabled,
+.tt-button-ghost:disabled,
+.tt-button-danger:disabled,
+.tt-button-danger-outline:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/**
+ * Button variants - only variant-specific properties
+ */
+
+/* Base Button (legacy) */
+.tt-button {
+	border: none;
+	box-shadow: none;
+}
+
+.tt-button svg {
+	width: 16px;
+	height: 16px;
+}
+
+/* Primary Button - Main action */
+.tt-button-primary {
+	border: none;
 	background: var(--tt-button-primary-bg);
 	color: var(--tt-button-primary-text);
-	transition: background var(--tt-transition-fast);
 }
 
 @media (hover: hover) {
@@ -734,33 +688,11 @@ textarea {
 	background: var(--tt-button-primary-pressed);
 }
 
-.tt-button-primary:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-
-/**
- * Secondary Button - Alternative action (self-contained)
- */
+/* Secondary Button - Alternative action */
 .tt-button-secondary {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: var(--tt-space-8);
-	padding: var(--tt-space-12) var(--tt-space-24);
-	min-height: 48px;
-	font-size: var(--tt-font-size-normal);
-	font-weight: var(--tt-font-weight-semibold);
-	line-height: 1;
-	border-radius: var(--tt-radius-button);
 	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-	cursor: pointer;
-	white-space: nowrap;
 	background: var(--tt-background-card);
 	color: var(--tt-text-primary);
-	transition:
-		background var(--tt-transition-fast),
-		border-color var(--tt-transition-fast);
 }
 
 @media (hover: hover) {
@@ -773,28 +705,9 @@ textarea {
 	background: var(--tt-background-card-pressed);
 }
 
-.tt-button-secondary:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-
-/**
- * Ghost Button - Minimal style (self-contained)
- */
+/* Ghost Button - Minimal style */
 .tt-button-ghost {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: var(--tt-space-8);
-	padding: var(--tt-space-12) var(--tt-space-24);
-	min-height: 48px;
-	font-size: var(--tt-font-size-normal);
-	font-weight: var(--tt-font-weight-semibold);
-	line-height: 1;
-	border-radius: var(--tt-radius-button);
 	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-	cursor: pointer;
-	white-space: nowrap;
 	background: transparent;
 	color: var(--tt-text-secondary);
 }
@@ -803,31 +716,11 @@ textarea {
 	background: var(--tt-background-card-pressed);
 }
 
-.tt-button-ghost:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-
-/**
- * Danger Button - Destructive action (red, self-contained)
- */
+/* Danger Button - Destructive action (solid red) */
 .tt-button-danger {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: var(--tt-space-8);
-	padding: var(--tt-space-12) var(--tt-space-24);
-	min-height: 48px;
-	font-size: var(--tt-font-size-normal);
-	font-weight: var(--tt-font-weight-semibold);
-	line-height: 1;
-	border-radius: var(--tt-radius-button);
 	border: none;
-	cursor: pointer;
-	white-space: nowrap;
 	background: var(--tt-status-danger-500);
 	color: white;
-	transition: background var(--tt-transition-fast);
 }
 
 @media (hover: hover) {
@@ -840,31 +733,11 @@ textarea {
 	background: var(--tt-status-danger-700);
 }
 
-.tt-button-danger:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-
-/**
- * Danger Outline Button - Destructive action with outline style (red text/border, white bg)
- */
+/* Danger Outline Button - Destructive action (outline style) */
 .tt-button-danger-outline {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: var(--tt-space-8);
-	padding: var(--tt-space-12) var(--tt-space-24);
-	min-height: 48px;
-	font-size: var(--tt-font-size-normal);
-	font-weight: var(--tt-font-weight-semibold);
-	line-height: 1;
-	border-radius: var(--tt-radius-button);
 	border: 1px solid var(--tt-status-danger-500);
-	cursor: pointer;
-	white-space: nowrap;
 	background: var(--tt-white);
 	color: var(--tt-status-danger-500);
-	transition: background var(--tt-transition-fast);
 }
 
 @media (hover: hover) {
@@ -875,11 +748,6 @@ textarea {
 
 .tt-button-danger-outline:active:not(:disabled) {
 	background: rgba(197, 48, 48, 0.15);
-}
-
-.tt-button-danger-outline:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
 }
 
 /**
@@ -900,72 +768,17 @@ textarea {
 }
 
 /**
- * SYMBOL BUTTON - Unified borderless icon buttons
+ * SYMBOL BUTTONS - Unified borderless icon buttons
  * Used for: Sync, Profile, Resume/Play, Delete, etc.
  * All symbol buttons are borderless with hover background only
  * Uses Material Design 3 inspired state layers for universal compatibility
+ * 
+ * Architecture: Shared base properties + color variants
  */
-.tt-symbol-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 40px;
-	height: 40px;
-	padding: 0;
-	border: none;
-	background: transparent;
-	color: var(--tt-gray-700);
-	border-radius: var(--tt-radius-button);
-	cursor: pointer;
-	transition:
-		background var(--tt-transition-fast),
-		color var(--tt-transition-fast);
-}
 
-.tt-symbol-button svg {
-	width: 20px;
-	height: 20px;
-}
-
-/* Hover state: uses state layer variable */
-@media (hover: hover) {
-	.tt-symbol-button:hover {
-		background: var(--tt-state-hover);
-	}
-}
-
-/* Active/pressed state: uses state layer variable */
-.tt-symbol-button:active {
-	background: var(--tt-state-pressed);
-}
-
-/* Legacy aliases for backward compatibility */
-.tt-action-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 40px;
-	height: 40px;
-	padding: 0;
-	border: none;
-	background: transparent;
-	color: var(--tt-brand-primary-500);
-	border-radius: var(--tt-radius-button);
-	cursor: pointer;
-	transition:
-		background var(--tt-transition-fast),
-		color var(--tt-transition-fast);
-}
-
-.tt-action-button:hover {
-	background: var(--tt-brand-primary-800);
-}
-
-.tt-action-button svg {
-	width: 20px;
-	height: 20px;
-}
-
+/* Shared base properties for all symbol buttons */
+.tt-symbol-button,
+.tt-action-button,
 .tt-delete-button {
 	display: flex;
 	align-items: center;
@@ -975,12 +788,52 @@ textarea {
 	padding: 0;
 	border: none;
 	background: transparent;
-	color: var(--tt-gray-700);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
 	transition:
 		background var(--tt-transition-fast),
 		color var(--tt-transition-fast);
+}
+
+/* Shared SVG sizing for all symbol buttons */
+.tt-symbol-button svg,
+.tt-action-button svg,
+.tt-delete-button svg {
+	width: 20px;
+	height: 20px;
+}
+
+/**
+ * Symbol button variants - color and state differences only
+ */
+
+/* Default Symbol Button - Gray icon */
+.tt-symbol-button {
+	color: var(--tt-gray-700);
+}
+
+@media (hover: hover) {
+	.tt-symbol-button:hover {
+		background: var(--tt-state-hover);
+	}
+}
+
+.tt-symbol-button:active {
+	background: var(--tt-state-pressed);
+}
+
+/* Action Button - Primary color (blue) */
+.tt-action-button {
+	color: var(--tt-brand-primary-500);
+}
+
+.tt-action-button:hover {
+	background: var(--tt-brand-primary-800);
+}
+
+/* Delete Button - Danger color on hover (red) */
+.tt-delete-button {
+	color: var(--tt-gray-700);
 }
 
 @media (hover: hover) {
@@ -993,11 +846,6 @@ textarea {
 .tt-delete-button:active {
 	background: var(--tt-state-danger-pressed);
 	color: var(--tt-status-danger-600);
-}
-
-.tt-delete-button svg {
-	width: 20px;
-	height: 20px;
 }
 
 /* ============================================================================
@@ -1179,6 +1027,10 @@ textarea {
 	background: var(--tt-background-card);
 	border-radius: var(--tt-radius-modal);
 	box-shadow: var(--tt-shadow-modal);
+	/* Prevent horizontal overflow in dialogs */
+	max-width: calc(100vw - 32px);
+	overflow-x: hidden;
+	box-sizing: border-box;
 }
 
 .tt-modal-header {
@@ -1858,8 +1710,11 @@ textarea {
 	height: 20px;
 }
 
-/* Nav button (tab navigation) */
-.tt-nav-button {
+/* Tab navigation button (icon + label stacked) - NOT CURRENTLY USED
+ * Renamed from .tt-nav-button to avoid conflict with date navigation buttons
+ * Keep for future use or remove if not needed
+ */
+.tt-tab-button {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -1874,15 +1729,15 @@ textarea {
 	transition: color var(--tt-transition-fast);
 }
 
-.tt-nav-button:hover {
+.tt-tab-button:hover {
 	color: var(--tt-text-primary);
 }
 
-.tt-nav-button.is-active {
+.tt-tab-button.is-active {
 	color: var(--tt-brand-primary-500);
 }
 
-.tt-nav-button svg {
+.tt-tab-button svg {
 	width: 24px;
 	height: 24px;
 }
@@ -2108,6 +1963,20 @@ textarea {
 	box-shadow: 0 0 0 3px var(--tt-brand-primary-800);
 }
 
+/* Input width modifiers */
+.tt-text-input--narrow {
+	width: 60px;
+	text-align: center;
+}
+
+.tt-text-input--medium {
+	width: 120px;
+}
+
+.tt-text-input--full {
+	width: 100%;
+}
+
 /* Date input - unified styling */
 .tt-date-input {
 	padding: var(--tt-space-8) var(--tt-space-12);
@@ -2199,10 +2068,16 @@ textarea {
 }
 
 /* ============================================================================
-   M) BACKWARD COMPATIBILITY - Duplicate styles for old class names
+   M) BACKWARD COMPATIBILITY - Legacy class names
    
-   These aliases ensure existing code continues to work while we migrate.
-   DEPRECATED: Remove these after full migration to new naming.
+   STATUS: DEPRECATED - Still used in 2 files (settings/+page.svelte, CategoryBadge.svelte)
+   TODO: Migrate remaining usages to new class names, then remove this section
+   
+   Old → New mappings:
+   - .tt-row → .tt-list-row / .tt-list-row-clickable / .tt-list-row-static
+   - .tt-badge → .tt-inline-label-*
+   - .tt-btn → .tt-button-*
+   - .tt-btn-delete → .tt-delete-button
    ============================================================================ */
 
 /* Old row classes - redirect to new behavior */
@@ -2295,23 +2170,7 @@ textarea {
 	white-space: nowrap;
 }
 
-.tt-button-primary {
-	background: var(--tt-brand-primary-500);
-	color: var(--tt-button-primary-text);
-	border-color: var(--tt-brand-primary-500);
-}
-
-@media (hover: hover) {
-	.tt-button-primary:hover:not(:disabled) {
-		background: var(--tt-button-primary-hover);
-		border-color: var(--tt-button-primary-hover);
-	}
-}
-
-.tt-button-primary:active:not(:disabled) {
-	background: var(--tt-button-primary-pressed);
-	border-color: var(--tt-button-primary-pressed);
-}
+/* NOTE: .tt-button-primary is defined in section F) BUTTONS above */
 
 .tt-btn--sm {
 	padding: var(--tt-space-4) var(--tt-space-12);
