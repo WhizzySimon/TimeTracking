@@ -1455,6 +1455,28 @@ textarea {
 	margin: 0;
 }
 
+/**
+ * Empty State - Full empty state with text and action button
+ * Used in: TaskList, other list components
+ */
+.tt-empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--tt-space-16);
+	padding: var(--tt-space-32);
+}
+
+.tt-empty-state__text {
+	color: var(--tt-text-muted);
+	font-style: italic;
+	margin: 0;
+}
+
+.tt-empty-state__button {
+	text-decoration: none; /* Remove underline from link */
+}
+
 /* ============================================================================
    L) STATUS INDICATORS & BANNERS
    ============================================================================ */

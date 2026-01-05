@@ -39,9 +39,9 @@
 
 <div class="task-list">
 	{#if sortedEntries.length === 0}
-		<div class="empty-state">
-			<p class="empty-text">Noch keine Tätigkeiten an diesem Tag</p>
-			<a href="/add" class="tt-button-primary empty-state-button">Füge eine Tätigkeit hinzu</a>
+		<div class="tt-empty-state">
+			<p class="tt-empty-state__text">Noch keine Tätigkeiten an diesem Tag</p>
+			<a href="/add" class="tt-button-primary tt-empty-state__button">Füge eine Tätigkeit hinzu</a>
 		</div>
 	{:else}
 		{#each sortedEntries as entry (entry.id)}
@@ -65,22 +65,5 @@
 		gap: var(--tt-space-8);
 	}
 
-	.empty-state {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: var(--tt-space-16);
-		padding: var(--tt-space-32);
-	}
-
-	.empty-text {
-		color: var(--tt-text-muted);
-		font-style: italic;
-		margin: 0;
-	}
-
-	/* Button uses design system class .tt-button-primary */
-	.empty-state-button {
-		text-decoration: none; /* Remove underline from link */
-	}
+	/* Empty state uses design system classes: .tt-empty-state, .tt-empty-state__text, .tt-empty-state__button */
 </style>
