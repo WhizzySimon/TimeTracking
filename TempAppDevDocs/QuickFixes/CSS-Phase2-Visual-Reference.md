@@ -3,6 +3,11 @@
 **Date:** 2026-01-05
 **Purpose:** Visual baseline and component grouping for Phase 2 CSS optimization
 
+## Screenshots Location
+**Folder:** `TempAppDevDocs/QuickFixes/Phase2-Screenshots/`
+- See README.md in that folder for screenshot organization
+- 10 screenshots total (5 pages + 5 dialogs/settings)
+
 ## Screenshots Purpose
 1. Document baseline visual state before Phase 1
 2. Group similar components for Phase 2 optimization
@@ -375,11 +380,358 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 
 ---
 
-## Waiting for Additional Screenshots
+---
 
-**Next batch:** 5 more screenshots for dialogs and other components
-**Will add:** Dialog grouping, form patterns, modal patterns
+## Dialog & Modal Screenshots & Analysis
+
+### 6. Settings Page - Expanded Sections
+**Screenshot:** Image 1 - Settings with Tätigkeiten section expanded
+
+**Visual Elements Identified:**
+
+**Header:**
+- Standard header with navigation and employer dropdown
+
+**Content:**
+- Collapsible section "▶ Tätigkeiten" with menu button (⋮)
+- "Zeitdaten" section header
+- Primary action buttons:
+  - "Exportieren"
+  - "Stundenzettel"
+  - "Importieren"
+- Secondary action button: "Excel-Datei importieren"
+- Danger button: "Zeitdaten löschen" (red text)
+- Version info: "Version v1.0.0-228-g28a8bd5"
+- Collapsible section "▼ Entwicklung"
+- "Farbschema" dropdown with "Original (#374CA7)"
+- Color preview buttons: "Primary #374CA7", "Secondary #37BDF6"
+- Action button: "Cache leeren & neu laden"
+- Danger button: "Konto löschen" (red background)
+
+**CSS Classes to Verify:**
+- `.tt-button-primary` (Exportieren, Stundenzettel, Importieren)
+- `.tt-button-secondary` (Excel-Datei importieren)
+- Danger button styles (red text vs red background)
+- Collapsible section toggles
+- Color preview buttons (unique)
 
 ---
 
-**Status:** PARTIAL - Waiting for dialog screenshots to complete analysis
+### 7. AddWorkTimeModelModal Dialog
+**Screenshot:** Image 2 - Neues Arbeitszeitmodell
+
+**Visual Elements Identified:**
+
+**Dialog Structure:**
+- Modal title "Neues Arbeitszeitmodell" with close button (×)
+- Form layout with vertical spacing
+
+**Form Fields:**
+- "Name:" label with text input "z.B. Vollzeit 40h"
+- "Gültig ab:" label with text input "5.1.2026"
+- "Arbeitgeber:" label with custom dropdown "Kirche"
+  - Note: "Default custom dropdown"
+- Summary display: "Wochenstunden: 40.0h | Arbeitstage: 5"
+  - Light blue background
+
+**Weekday Grid:**
+- Section header "Wochentage"
+- Table headers: "Tag", "Arbeitstag", "Stunden"
+- Rows: Mo, Di, Mi, Do, Fr (checked), Sa, So (unchecked)
+- Hour inputs: "8" for workdays, "0" for non-workdays
+  - Note: "input much more narrow"
+
+**Dialog Actions:**
+- "Abbrechen" button (secondary)
+- "Speichern" button (primary)
+
+**Important Note:**
+- "For all dialogs: no horizontal scrollbar and no overflow"
+
+**CSS Classes to Verify:**
+- `.tt-form-field` ✓
+- `.tt-form-field__label` ✓
+- `.tt-text-input` ✓
+- Custom dropdown (default style)
+- Summary display (light blue background)
+- Weekday grid (unique layout)
+- Hour inputs (narrow width)
+- `.tt-form-actions` ✓
+- `.tt-button-secondary` ✓
+- `.tt-button-primary` ✓
+
+**Phase 2 Action:**
+- Verify no horizontal overflow in all dialogs
+- Ensure hour inputs have appropriate narrow width
+- Summary display may need extraction if used elsewhere
+
+---
+
+### 8. Plan Selection Dialog (Paywall)
+**Screenshot:** Image 3 - Plan wählen
+
+**Visual Elements Identified:**
+
+**Dialog Structure:**
+- Modal title "Plan wählen" with close button (×)
+- Three-column card layout
+
+**Plan Cards:**
+1. **Free Plan:**
+   - Title "Free"
+   - Price "0 €"
+   - Feature list with checkmarks (✓) and dashes (—)
+   - Button "Free wählen" (primary)
+
+2. **Pro Plan (Current):**
+   - Title "Pro" with badge "Aktuell"
+   - Price "4,99 € / Monat"
+   - Feature list with checkmarks (✓) and dashes (—)
+   - Border highlight (selected state)
+
+3. **Premium Plan:**
+   - Title "Premium" with badge "Kommt bald"
+   - Price "Kommt bald"
+   - Feature list (grayed out)
+   - No button (disabled state)
+
+**Dialog Actions:**
+- "Schließen" button (bottom right, secondary)
+
+**Visual Properties:**
+- Card borders
+- Badge styles ("Aktuell", "Kommt bald")
+- Selected card highlight
+- Disabled/grayed state
+- Feature list typography
+- Checkmark/dash icons
+
+**CSS Classes to Verify:**
+- Card container styles
+- Badge styles (may need extraction)
+- Selected state styling
+- Disabled state styling
+- Feature list layout
+
+**Phase 2 Action:**
+- Badge styles may be reusable (extract if used elsewhere)
+- Card layout is unique to paywall (keep local)
+
+---
+
+### 9. Settings Page - Account Section
+**Screenshot:** Image 4 - Einstellungen (Konto section)
+
+**Visual Elements Identified:**
+
+**Header:**
+- Page title "Einstellungen"
+
+**Konto Section:**
+- "Abmelden" button (top right, with icon)
+- Info rows:
+  - "Name" | "Simon Whizzy" | edit icon (✏️)
+  - "E-Mail" | "whizzysimon@gmail.com" | edit icon (✏️)
+  - "Plan" | "Pro" (blue text) | edit icon (✏️)
+
+**Collapsible Sections:**
+- "▶ Arbeitgeber" with add button (+)
+- "▶ Arbeitszeitmodelle" with add button (+)
+- "▶ Abwesenheit" with add button (+)
+- "▶ Tätigkeiten" with menu button (⋮)
+
+**Zeitdaten Section:**
+- Same as Image 1
+
+**CSS Classes to Verify:**
+- Info row layout (label | value | icon)
+- Edit icon buttons (symbol buttons)
+- "Pro" text styling (brand color)
+- Section headers with action buttons
+- Add buttons (+) - symbol buttons
+
+---
+
+### 10. Settings Page - Expanded Sections Detail
+**Screenshot:** Image 5 - Settings with multiple sections expanded
+
+**Visual Elements Identified:**
+
+**Arbeitgeber Section (Expanded):**
+- Row: "Kirche" with delete icon (🗑️)
+
+**Arbeitszeitmodelle Section (Expanded):**
+- Row: "Vollzeit 41h" with metadata "41h/Woche • 6 Tage • ab 2024-01-01" and delete icon
+  - Note: Arrow pointing to "41h/Woche" (metadata styling)
+
+**Abwesenheit Section (Expanded):**
+- Rows with labels:
+  - "Feiertag" | "Keine Arbeitszeit" badge | delete icon
+    - Note: Arrow pointing to badge (label styling)
+  - "Joggen" | "Keine Arbeitszeit" badge | red line | delete icon
+    - Note: Red line indicates some state/issue
+  - "Krank" | "Keine Arbeitszeit" badge | red line
+  - "Pause" | "Keine Arbeitszeit" badge
+  - "Urlaub" | "Keine Arbeitszeit" badge
+
+**Tätigkeiten Section (Expanded):**
+- Category rows:
+  - "Allg. Orga" | "Kirche" label | delete icon
+  - "Andachten / Heimgottesdienste" | "Kirche" label | delete icon
+  - "Andachtenvorbereitung" | "Kirche" label | delete icon
+
+**CSS Classes to Verify:**
+- Row layout with delete icons
+- Metadata text styling (smaller, muted)
+- "Keine Arbeitszeit" badge (label style)
+- "Kirche" employer label (consistent with Day page)
+- Red line/indicator (state visualization)
+- Delete icon (symbol button)
+
+**Phase 2 Action:**
+- "Keine Arbeitszeit" badge should use label styles
+- Employer labels must be identical to Day page
+- Metadata styling may be reusable
+
+---
+
+## Updated Component Groups
+
+### Group 8: Dialog/Modal Structure (CONSISTENT)
+**Components:** AddWorkTimeModelModal, Plan Selection, Category/Employer dialogs
+**Rule:** "For all dialogs: no horizontal scrollbar and no overflow"
+
+**Shared Elements:**
+- Modal backdrop
+- Modal container (max-width, padding)
+- Modal header (title + close button)
+- Modal body (content area)
+- Modal footer (action buttons)
+
+**Current Classes:**
+- `Modal` component handles structure ✓
+- `.tt-symbol-button` (close button) ✓
+- `.tt-form-actions` (footer buttons) ✓
+
+**Phase 2 Action:**
+- Verify Modal component prevents horizontal overflow
+- Ensure consistent max-width across all dialogs
+- Extract shared padding/spacing
+
+---
+
+### Group 9: Badges & Labels (MUST BE CONSISTENT)
+**Context:** Plan badges ("Aktuell", "Kommt bald"), Absence labels ("Keine Arbeitszeit"), Employer labels ("Kirche")
+
+**Types Identified:**
+1. **Status badges** - "Aktuell", "Kommt bald" (Plan dialog)
+2. **Absence labels** - "Keine Arbeitszeit" (Settings)
+3. **Employer labels** - "Kirche" (Day page, Settings, everywhere)
+
+**Visual Properties:**
+- Background color
+- Text color
+- Padding
+- Border-radius
+- Font size
+
+**Current Classes:**
+- Employer labels need `.tt-employer-label` (must be identical everywhere)
+- Absence labels may share same style
+- Status badges may be unique to paywall
+
+**Phase 2 Action:**
+- Create `.tt-label` base class
+- Create `.tt-label--employer`, `.tt-label--absence`, `.tt-label--status` variants
+- Ensure employer labels identical across all contexts
+
+---
+
+### Group 10: Info/Settings Rows (SIMILAR PATTERN)
+**Context:** Settings page account info, expanded section rows
+
+**Visual Properties:**
+- Row layout (label | value | action)
+- Padding/spacing
+- Border/divider
+- Hover state
+- Typography
+
+**Current Classes:**
+- Similar to action rows but different context
+
+**Phase 2 Action:**
+- Determine if can share base with action rows
+- Or create separate `.tt-info-row` class
+- Extract shared layout properties
+
+---
+
+### Group 11: Form Input Widths (NEEDS STANDARDIZATION)
+**Context:** AddWorkTimeModelModal hour inputs
+**Note:** "input much more narrow"
+
+**Issue:** Hour inputs need specific narrow width
+
+**Phase 2 Action:**
+- Create input width modifiers or utilities
+- `.tt-text-input--narrow` for hour inputs
+- `.tt-text-input--medium` for dates
+- `.tt-text-input--full` (default)
+
+---
+
+### Group 12: Metadata/Secondary Text (REUSABLE)
+**Context:** Work time model metadata "41h/Woche • 6 Tage • ab 2024-01-01"
+
+**Visual Properties:**
+- Smaller font size
+- Muted color
+- Spacing between items (•)
+
+**Phase 2 Action:**
+- Create `.tt-metadata` or `.tt-text-muted` class
+- Extract font size and color
+- May be reusable across app
+
+---
+
+## Updated Known Issues
+
+### Issue 3: Dialog Overflow Prevention
+**Screenshot:** Image 2
+**Note:** "For all dialogs: no horizontal scrollbar and no overflow"
+**Fix:** Ensure Modal component and all dialog content prevents horizontal overflow
+
+### Issue 4: Input Width Standardization
+**Screenshot:** Image 2
+**Note:** "input much more narrow" for hour inputs
+**Fix:** Create input width variants (narrow, medium, full)
+
+### Issue 5: Red Line Indicator
+**Screenshot:** Image 5
+**Note:** Red line appears on some absence rows (Joggen, Krank)
+**Investigation:** Determine what this indicates and ensure consistent styling
+
+---
+
+## Updated Regression Checkpoints
+
+After Phase 2 refactoring, verify these elements remain visually identical:
+
+- [ ] **Zusammenfassung rows** - identical across Day, Week, Month, Analysis
+- [ ] **Employer labels** - identical across Day, Settings, all contexts
+- [ ] **Symbol buttons** - identical across header, dialogs, actions, navigation
+- [ ] **Navigation buttons** - consistent across Day, Week, Month
+- [ ] **Action rows** - consistent pattern with correct hover states
+- [ ] **Custom dropdowns** - consistent across all instances
+- [ ] **Bottom navigation tabs** - identical across all pages
+- [ ] **Dialog structure** - no horizontal overflow, consistent padding
+- [ ] **Form fields** - consistent across all dialogs
+- [ ] **Badges/labels** - consistent styling by type
+- [ ] **Info rows** - consistent layout in Settings
+- [ ] **Metadata text** - consistent muted styling
+
+---
+
+**Status:** COMPLETE - All screenshots analyzed, component groups identified
