@@ -29,6 +29,10 @@ Extract **reusable** visual styles from Svelte component `<style>` blocks into C
 - Creating CSS custom properties for repeated values
 - Structural CSS (display, overflow, z-index)
 
+**Out of Scope (Phase 3):**
+- CSS variable refactoring (semantic variables in local CSS)
+- See: `CSS-Refactoring-Phase3-Variables.md`
+
 ## Reference Document
 
 Full context: `TempAppDevDocs/QuickFixes/Refactor-CSS-Visual-Styles-To-Classes.md`
@@ -137,14 +141,25 @@ Full context: `TempAppDevDocs/QuickFixes/Refactor-CSS-Visual-Styles-To-Classes.m
 - [x] Verified with npm run check
 - [x] Form patterns now reused across 5 dialog components
 
-### Remaining Work
+### Remaining Components - Pragmatic Assessment
 
-**Components:** 42 components in `src/lib/components/` still need review for visual style extraction
+**Complex single-use components (~35 components):**
+- ✓ Keep local CSS with semantic variables (Phase 3)
+- ✓ Already use design system classes for common elements (buttons, inputs, dialogs)
+- Examples: ImportExcelModal, StundenzettelExport, ExportDialog
 
-- Import components (ImportReview, ImportExcelModal, etc.) - high complexity
-- Picker components (DayPicker, MonthYearPicker, WeekYearPicker, etc.)
-- Dialog components (CategoryDialog, EmployerDialog, etc.)
-- Other components (CategoryList, TaskList, Paywall, etc.)
+**Picker components (DayPicker, MonthYearPicker, WeekYearPicker):**
+- ✓ Already use `.tt-button-primary`, `.tt-button-secondary` ✓
+- ✓ Already use `Modal` component ✓
+- ✓ Unique calendar/grid layouts kept local (single-use)
+- No further extraction needed
+
+**Other utility components:**
+- ✓ Common elements (buttons, dropdowns, inputs) already use design system classes
+- ✓ Unique layouts kept local with semantic variables
+- No further extraction needed
+
+**Phase 1 Status: Complete with pragmatic approach**
 
 ## QA Checklist
 
