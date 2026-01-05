@@ -618,7 +618,7 @@
 		box-sizing: border-box;
 		/* Dark context: override state layers to use white overlays */
 		--tt-state-hover: rgba(255, 255, 255, 0.08);
-		--tt-state-focus: rgba(255, 255, 255, 0.10);
+		--tt-state-focus: rgba(255, 255, 255, 0.1);
 		--tt-state-pressed: rgba(255, 255, 255, 0.15);
 	}
 
@@ -657,7 +657,6 @@
 			background var(--tt-transition-fast),
 			opacity var(--tt-transition-fast);
 	}
-
 
 	.sync-indicator.out-of-sync {
 		color: var(--tt-gray-400);

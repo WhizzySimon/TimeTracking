@@ -128,7 +128,11 @@
 					</span>
 					<span class="file-name">{source.filename}</span>
 					<span class="file-size">{formatFileSize(source.sizeBytes)}</span>
-					<button class="btn-remove tt-interactive-danger" onclick={() => removeSource(source.id)} aria-label="Entfernen">
+					<button
+						class="btn-remove tt-interactive-danger"
+						onclick={() => removeSource(source.id)}
+						aria-label="Entfernen"
+					>
 						×
 					</button>
 				</div>
@@ -227,7 +231,6 @@
 		align-items: center;
 		justify-content: center;
 	}
-
 
 	.start-section {
 		display: flex;

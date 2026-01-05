@@ -69,7 +69,9 @@
 			{/each}
 		</ul>
 		{#if activeFilter}
-			<button class="clear-filter tt-interactive" onclick={() => onfilter?.(null)}> Filter zurücksetzen </button>
+			<button class="clear-filter tt-interactive" onclick={() => onfilter?.(null)}>
+				Filter zurücksetzen
+			</button>
 		{/if}
 	</div>
 {/if}
@@ -118,7 +120,6 @@
 		transition: all 0.15s;
 	}
 
-
 	.issue-item.active .issue-btn {
 		border-color: var(--tt-brand-primary-500);
 		background: var(--tt-brand-primary-500-light, rgba(59, 130, 246, 0.1));
@@ -159,5 +160,4 @@
 		color: var(--tt-text-muted);
 		cursor: pointer;
 	}
-
 </style>

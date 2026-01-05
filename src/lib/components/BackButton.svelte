@@ -36,7 +36,12 @@
 </script>
 
 {#if canGoBack}
-	<button class="nav-btn tt-interactive-dark" onclick={handleBack} disabled={!canGoBack} aria-label="Zurück">
+	<button
+		class="nav-btn tt-interactive-dark"
+		onclick={handleBack}
+		disabled={!canGoBack}
+		aria-label="Zurück"
+	>
 		<svg
 			class="nav-icon"
 			viewBox="0 0 24 24"

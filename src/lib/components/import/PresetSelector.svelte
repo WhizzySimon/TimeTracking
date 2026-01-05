@@ -229,7 +229,6 @@
 		cursor: pointer;
 	}
 
-
 	.delete-btn {
 		width: 24px;
 		height: 24px;

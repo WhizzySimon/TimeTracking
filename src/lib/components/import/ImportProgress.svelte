@@ -133,5 +133,4 @@
 		font-size: var(--tt-font-size-small);
 		cursor: pointer;
 	}
-
 </style>

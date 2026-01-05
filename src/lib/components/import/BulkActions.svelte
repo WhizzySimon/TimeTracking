@@ -59,13 +59,19 @@
 	{#if selectedCount > 0}
 		<div class="actions">
 			<div class="dropdown-wrapper">
-				<button class="action-btn tt-interactive" onclick={() => (showCategoryDropdown = !showCategoryDropdown)}>
+				<button
+					class="action-btn tt-interactive"
+					onclick={() => (showCategoryDropdown = !showCategoryDropdown)}
+				>
 					Kategorie setzen
 				</button>
 				{#if showCategoryDropdown}
 					<div class="dropdown-menu">
 						{#each categories as category (category.id)}
-							<button class="dropdown-item tt-interactive" onclick={() => handleCategorySelect(category.id)}>
+							<button
+								class="dropdown-item tt-interactive"
+								onclick={() => handleCategorySelect(category.id)}
+							>
 								{category.name}
 							</button>
 						{/each}
@@ -77,14 +83,23 @@
 			</div>
 
 			<div class="dropdown-wrapper">
-				<button class="action-btn tt-interactive" onclick={() => (showRoundDropdown = !showRoundDropdown)}>
+				<button
+					class="action-btn tt-interactive"
+					onclick={() => (showRoundDropdown = !showRoundDropdown)}
+				>
 					Dauer runden
 				</button>
 				{#if showRoundDropdown}
 					<div class="dropdown-menu">
-						<button class="dropdown-item tt-interactive" onclick={() => handleRoundSelect(5)}>auf 5 Min</button>
-						<button class="dropdown-item tt-interactive" onclick={() => handleRoundSelect(15)}>auf 15 Min</button>
-						<button class="dropdown-item tt-interactive" onclick={() => handleRoundSelect(30)}>auf 30 Min</button>
+						<button class="dropdown-item tt-interactive" onclick={() => handleRoundSelect(5)}
+							>auf 5 Min</button
+						>
+						<button class="dropdown-item tt-interactive" onclick={() => handleRoundSelect(15)}
+							>auf 15 Min</button
+						>
+						<button class="dropdown-item tt-interactive" onclick={() => handleRoundSelect(30)}
+							>auf 30 Min</button
+						>
 					</div>
 				{/if}
 			</div>
@@ -148,7 +163,6 @@
 		cursor: pointer;
 	}
 
-
 	.dropdown-menu {
 		position: absolute;
 		top: 100%;
@@ -176,7 +190,6 @@
 		cursor: pointer;
 		text-align: left;
 	}
-
 
 	.dropdown-empty {
 		display: block;

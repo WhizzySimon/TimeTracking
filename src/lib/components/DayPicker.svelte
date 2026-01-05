@@ -337,7 +337,6 @@
 		color: var(--tt-text-primary);
 	}
 
-
 	.day-cell.empty {
 		border: none;
 		background: transparent;

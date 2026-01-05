@@ -176,7 +176,6 @@
 		cursor: pointer;
 	}
 
-
 	.divider {
 		text-align: center;
 		color: var(--tt-text-muted);

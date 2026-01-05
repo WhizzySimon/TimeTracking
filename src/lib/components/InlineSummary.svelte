@@ -20,7 +20,7 @@
 </script>
 
 <div class="tt-summary-display">
-	<span class="summary-label">Zusammenfassung</span>
+	<span class="tt-summary-label">Zusammenfassung</span>
 	<span class="tt-summary-display__item">
 		<span class="tt-summary-display__label">Ist:</span>
 		<span class="tt-summary-display__value">{formatHours(ist)}</span>
@@ -42,11 +42,7 @@
 </div>
 
 <style>
-	.summary-label {
-		color: var(--tt-text-primary);
-		font-size: var(--tt-font-size-small);
-		font-weight: var(--tt-font-weight-medium);
-		white-space: nowrap;
+	.tt-summary-label {
 		margin-right: auto;
 	}
 

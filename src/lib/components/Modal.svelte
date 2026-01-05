@@ -85,9 +85,9 @@
 	});
 </script>
 
-<div class="modal-backdrop" role="button" tabindex="-1" onkeydown={handleKeydown}>
+<div class="modal-backdrop tt-modal-backdrop" role="button" tabindex="-1" onkeydown={handleKeydown}>
 	<div
-		class="modal-content"
+		class="modal-content tt-modal-content"
 		class:dragged={hasBeenDragged}
 		role="dialog"
 		aria-modal="true"
@@ -97,13 +97,13 @@
 		style={hasBeenDragged ? `left: ${position.x}px; top: ${position.y}px;` : ''}
 	>
 		<header
-			class="modal-header"
+			class="modal-header tt-modal-header"
 			role="button"
 			tabindex="-1"
 			onmousedown={handleMouseDown}
 			style="cursor: {isDragging ? 'grabbing' : 'grab'};"
 		>
-			<h2 id="modal-title">{title}</h2>
+			<h2 id="modal-title" class="tt-modal-header__title">{title}</h2>
 			<button
 				class="tt-symbol-button"
 				onclick={onclose}
@@ -133,7 +133,6 @@
 	.modal-backdrop {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
 		display: flex;
 		align-items: flex-start;
 		justify-content: center;
@@ -143,13 +142,10 @@
 	}
 
 	.modal-content {
-		background: var(--tt-background-card);
-		border-radius: var(--tt-radius-modal);
 		width: 100%;
 		max-width: 400px;
 		max-height: calc(100vh - 4rem);
 		overflow-y: auto;
-		box-shadow: var(--tt-shadow-modal);
 	}
 
 	.modal-content.dragged {
@@ -162,17 +158,10 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 1rem 1rem 0.5rem;
-		border-bottom: 1px solid var(--tt-border-default);
 	}
 
-	.modal-header h2 {
-		margin: 0;
-		font-size: var(--tt-font-size-title);
-		font-weight: 600;
-		color: var(--tt-text-primary);
-	}
-
-	/* Close button now uses .tt-symbol-button from design system */
+	/* Visual styles use design system classes: .tt-modal-backdrop, .tt-modal-content, .tt-modal-header, .tt-modal-header__title */
+	/* Close button uses .tt-symbol-button from design system */
 
 	.modal-body {
 		padding: var(--tt-space-16);

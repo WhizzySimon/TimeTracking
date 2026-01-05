@@ -7,6 +7,7 @@ We implemented a Material Design 3 inspired **state layer system** for consisten
 ### What Was Done
 
 1. **Added state layer CSS variables** to `tt-design-system.css`:
+
    ```css
    --tt-state-hover: rgba(0, 0, 0, 0.08);
    --tt-state-pressed: rgba(0, 0, 0, 0.12);
@@ -21,6 +22,7 @@ We implemented a Material Design 3 inspired **state layer system** for consisten
 3. **Updated ~25 files** to use `var(--tt-state-hover)` and `var(--tt-state-pressed)` instead of hardcoded colors.
 
 4. **Dark context override** in `.app-header`:
+
    ```css
    --tt-state-hover: rgba(255, 255, 255, 0.08);
    --tt-state-pressed: rgba(255, 255, 255, 0.15);
@@ -35,6 +37,7 @@ We implemented a Material Design 3 inspired **state layer system** for consisten
 ### Problem: Scattered Hover Definitions
 
 Many components still define hover states in their local `<style>` blocks instead of using the design system classes. This creates:
+
 - Duplication of hover logic
 - Inconsistency if we change the state layer values
 - More code to maintain
@@ -44,6 +47,7 @@ Many components still define hover states in their local `<style>` blocks instea
 These components have local `:hover` styles that could use `.tt-interactive` class instead:
 
 **High Priority (frequently used):**
+
 - `day/+page.svelte` - `.nav-btn`, `.date-title`
 - `week/+page.svelte` - `.nav-btn`, `.week-title`
 - `month/+page.svelte` - `.nav-btn`, `.month-title`
@@ -51,6 +55,7 @@ These components have local `:hover` styles that could use `.tt-interactive` cla
 - `analysis/+page.svelte` - `.range-button`
 
 **Medium Priority (import flow):**
+
 - `import/BulkActions.svelte` - `.action-btn`, `.dropdown-item`
 - `import/PresetSelector.svelte` - `.preset-btn`
 - `import/IssuesPanel.svelte` - `.issue-btn`, `.clear-filter`
@@ -60,6 +65,7 @@ These components have local `:hover` styles that could use `.tt-interactive` cla
 - `import/ImportReview.svelte` - `tr:hover`
 
 **Lower Priority (less used):**
+
 - `CustomDropdown.svelte` - `.dropdown-button`
 - `DateRangeSelector.svelte` - `.quick-btn`
 - `DayPicker.svelte` - `.day-cell`
@@ -75,6 +81,7 @@ These components have local `:hover` styles that could use `.tt-interactive` cla
 ### Example Refactor
 
 **Before:**
+
 ```svelte
 <button class="nav-btn" onclick={...}>...</button>
 
@@ -86,6 +93,7 @@ These components have local `:hover` styles that could use `.tt-interactive` cla
 ```
 
 **After:**
+
 ```svelte
 <button class="nav-btn tt-interactive" onclick={...}>...</button>
 
@@ -98,6 +106,7 @@ These components have local `:hover` styles that could use `.tt-interactive` cla
 ### Note on Colored Backgrounds
 
 For elements with colored backgrounds (like footer tabs), the state layer approach doesn't work well because `rgba(0,0,0,0.08)` on a blue background looks muddy. Instead, use:
+
 - `filter: brightness(1.1)` for hover
 - `filter: brightness(1.15)` for pressed
 

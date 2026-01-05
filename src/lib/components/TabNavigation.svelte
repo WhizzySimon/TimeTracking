@@ -16,8 +16,20 @@
 		{ href: '/add', label: '+', isPlus: true, icon: null, colorClass: null },
 		{ href: '/day', label: 'Tag', isPlus: false, icon: null, colorClass: 'tt-footer-tab--day' },
 		{ href: '/week', label: 'Woche', isPlus: false, icon: null, colorClass: 'tt-footer-tab--week' },
-		{ href: '/month', label: 'Monat', isPlus: false, icon: null, colorClass: 'tt-footer-tab--month' },
-		{ href: '/analysis', label: null, isPlus: false, icon: 'chart', colorClass: 'tt-footer-tab--analysis' }
+		{
+			href: '/month',
+			label: 'Monat',
+			isPlus: false,
+			icon: null,
+			colorClass: 'tt-footer-tab--month'
+		},
+		{
+			href: '/analysis',
+			label: null,
+			isPlus: false,
+			icon: 'chart',
+			colorClass: 'tt-footer-tab--analysis'
+		}
 	] as const;
 
 	function isActive(href: string, pathname: string): boolean {

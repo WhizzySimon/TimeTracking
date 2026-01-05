@@ -3,13 +3,14 @@
 **Status:** Ready to start  
 **Created:** 2026-01-05  
 **Type:** Architecture refactoring (2 phases)  
-**Estimated Effort:** Large (all components)  
+**Estimated Effort:** Large (all components)
 
 ---
 
 ## Context & Problem
 
 The TimeTracker app currently has visual styling split between two locations:
+
 1. **Global CSS** (`src/lib/styles/tt-design-system.css`) — Design system classes
 2. **Component `<style>` tags** — Mix of layout AND visual styling
 
@@ -26,6 +27,7 @@ After researching industry best practices (ITCSS, BEM + Utility Classes, design 
 ### **Rule: All Visual Styling → CSS Classes**
 
 **Visual styling includes:**
+
 - Colors (text, background, border)
 - Typography (font-size, font-weight, line-height)
 - Borders, shadows, border-radius
@@ -34,11 +36,13 @@ After researching industry best practices (ITCSS, BEM + Utility Classes, design 
 - Visual decorations
 
 **Component `<style>` tags keep only:**
+
 - Layout (flex, grid, positioning)
-- Spacing (padding, margin, gap) — *can be extracted later if needed*
+- Spacing (padding, margin, gap) — _can be extracted later if needed_
 - Structural CSS (display, overflow, z-index)
 
 ### Benefits
+
 1. **Single source of truth** — All visual styling in one place
 2. **Searchable** — `grep .tt-button` finds all button styling
 3. **Consistent** — Same pattern everywhere
@@ -50,9 +54,11 @@ After researching industry best practices (ITCSS, BEM + Utility Classes, design 
 ## Two-Phase Approach
 
 ### Phase 1: Extract Visual Styles (Component by Component)
+
 **Goal:** Move visual styles from component `<style>` tags to `.tt-*` classes
 
 **Process per component:**
+
 1. Read component file
 2. Identify visual styles in `<style>` tag
 3. Create/update `.tt-component-name` class in `tt-design-system.css`
@@ -65,9 +71,11 @@ After researching industry best practices (ITCSS, BEM + Utility Classes, design 
 **Output:** All components use CSS classes for visual styling
 
 ### Phase 2: Refactor CSS Organization
+
 **Goal:** Optimize and organize classes within `tt-design-system.css`
 
 **Actions:**
+
 - Group similar patterns (buttons, cards, rows, etc.)
 - Extract common patterns into shared classes
 - Identify and remove duplication
@@ -83,34 +91,36 @@ After researching industry best practices (ITCSS, BEM + Utility Classes, design 
 ## Current State
 
 ### Design System Classes Already Exist
+
 The following patterns are already implemented as CSS classes:
 
-| Pattern | Class | Status |
-|---------|-------|--------|
-| Interactive hover (transparent) | `.tt-interactive` | ✓ Working |
-| Interactive hover (card bg) | `.tt-interactive-card` | ✓ Working |
-| Interactive hover (dark bg) | `.tt-interactive-dark` | ✓ Working |
-| Interactive hover (accent bg) | `.tt-interactive-accent` | ✓ Working |
-| Interactive hover (danger) | `.tt-interactive-danger` | ✓ Working |
-| Clickable list row | `.tt-list-row-clickable` | ✓ Working |
-| List row content | `.tt-list-row__content-compact` | ✓ Working |
-| List row time | `.tt-list-row__time` | ✓ Working |
-| List row category | `.tt-list-row__category` | ✓ Working |
-| List row actions | `.tt-list-row__actions` | ✓ Working |
-| Primary button | `.tt-button-primary` | ✓ Working |
-| Small button | `.tt-button-small` | ✓ Working |
-| Symbol button | `.tt-symbol-button` | ⚠️ Needs hover audit |
-| Delete button | `.tt-delete-button` | ⚠️ Needs hover audit |
-| Chip/pill | `.tt-chip` | ✓ Working |
-| Summary display | `.tt-summary-display` | ✓ Working |
-| Labeled dropdown | `.tt-labeled-dropdown` | ✓ Working |
-| Date selector button | `.tt-date-selector-button` | ⚠️ Verify exists |
-| Inline employer label | `.tt-inline-label-employer` | ✓ Working |
-| Inline no-work label | `.tt-inline-label-no-work` | ✓ Working |
+| Pattern                         | Class                           | Status               |
+| ------------------------------- | ------------------------------- | -------------------- |
+| Interactive hover (transparent) | `.tt-interactive`               | ✓ Working            |
+| Interactive hover (card bg)     | `.tt-interactive-card`          | ✓ Working            |
+| Interactive hover (dark bg)     | `.tt-interactive-dark`          | ✓ Working            |
+| Interactive hover (accent bg)   | `.tt-interactive-accent`        | ✓ Working            |
+| Interactive hover (danger)      | `.tt-interactive-danger`        | ✓ Working            |
+| Clickable list row              | `.tt-list-row-clickable`        | ✓ Working            |
+| List row content                | `.tt-list-row__content-compact` | ✓ Working            |
+| List row time                   | `.tt-list-row__time`            | ✓ Working            |
+| List row category               | `.tt-list-row__category`        | ✓ Working            |
+| List row actions                | `.tt-list-row__actions`         | ✓ Working            |
+| Primary button                  | `.tt-button-primary`            | ✓ Working            |
+| Small button                    | `.tt-button-small`              | ✓ Working            |
+| Symbol button                   | `.tt-symbol-button`             | ⚠️ Needs hover audit |
+| Delete button                   | `.tt-delete-button`             | ⚠️ Needs hover audit |
+| Chip/pill                       | `.tt-chip`                      | ✓ Working            |
+| Summary display                 | `.tt-summary-display`           | ✓ Working            |
+| Labeled dropdown                | `.tt-labeled-dropdown`          | ✓ Working            |
+| Date selector button            | `.tt-date-selector-button`      | ⚠️ Verify exists     |
+| Inline employer label           | `.tt-inline-label-employer`     | ✓ Working            |
+| Inline no-work label            | `.tt-inline-label-no-work`      | ✓ Working            |
 
 ### Components Needing Extraction
 
 **Pages:**
+
 - `src/routes/day/+page.svelte` — Nav buttons, date title
 - `src/routes/week/+page.svelte` — Similar nav pattern
 - `src/routes/month/+page.svelte` — Similar nav pattern
@@ -120,6 +130,7 @@ The following patterns are already implemented as CSS classes:
 - `src/routes/+layout.svelte` — Header, footer tabs
 
 **Components (all in `src/lib/components/`):**
+
 - `AddTaskModal.svelte`
 - `ConfirmDialog.svelte`
 - `DayPicker.svelte`
@@ -135,15 +146,17 @@ The following patterns are already implemented as CSS classes:
 ## Audit Started
 
 An audit document was started at `TempAppDevDocs/Audits/ui-element-audit.md` covering the Day page. It documents:
+
 - All UI elements on the page
 - Current styling approach (local CSS, design system class, or both)
 - Status (✓ OK, ⚠️ Needs attention, ❌ Broken)
 - Recommendations
 
 **Format example:**
+
 ```markdown
-| Element | Type | Current Styling | Design System Class | Status | Notes |
-|---------|------|-----------------|---------------------|--------|-------|
+| Element    | Type   | Current Styling                    | Design System Class    | Status     | Notes                                    |
+| ---------- | ------ | ---------------------------------- | ---------------------- | ---------- | ---------------------------------------- |
 | `.nav-btn` | Button | Local CSS + `.tt-interactive-card` | `.tt-interactive-card` | ⚠️ Partial | Has local border/sizing, hover via class |
 ```
 
@@ -154,9 +167,11 @@ The audit should be completed for all pages and components to identify all extra
 ## Key Architectural Decisions
 
 ### 1. Svelte CSS Scoping Issue
+
 **Problem:** Svelte adds hash classes (`.my-btn.svelte-abc123`) which increases specificity, causing local CSS to override global classes.
 
 **Solution:** Use composite classes that bundle base background + hover states:
+
 - `.tt-interactive-card` = white background + hover overlay
 - `.tt-interactive-dark` = transparent + white overlay (for dark headers)
 - `.tt-interactive-accent` = accent-100 + accent-200 hover
@@ -166,13 +181,17 @@ The audit should be completed for all pages and components to identify all extra
 **Documented in:** `DevFramework/JustInTimeAgentRules/frontend-ui-standards.md` (section "Svelte-Specific: CSS Scoping & Hover States")
 
 ### 2. CSS Variables Are Orthogonal
+
 CSS variables (`--tt-*`) are a separate system that works at a lower level:
+
 - Used inside classes, components, and one-off styles
 - Provide semantic tokens (colors, spacing, typography, etc.)
 - Already well-established in the project
 
 ### 3. Component Naming Convention
+
 All design system classes use `.tt-*` prefix:
+
 - `.tt-button-primary` — Component class
 - `.tt-interactive-card` — Behavior class
 - `.tt-list-row__time` — BEM element class
@@ -183,11 +202,13 @@ All design system classes use `.tt-*` prefix:
 ## Testing Strategy
 
 After each component extraction:
+
 1. **Visual test in browser** — Does it look the same?
 2. **Hover test** — Do interactive states work?
 3. **Responsive test** — Does it work on mobile?
 
 After Phase 1 complete:
+
 1. **Full app walkthrough** — Test all pages and flows
 2. **Compare before/after screenshots** — Verify no visual regressions
 
@@ -196,14 +217,17 @@ After Phase 1 complete:
 ## Files to Reference
 
 ### Design System
+
 - `src/lib/styles/tt-design-system.css` — All CSS classes
 
 ### Documentation
+
 - `DevFramework/JustInTimeAgentRules/frontend-ui-standards.md` — UI standards, Svelte CSS scoping
 - `TempAppDevDocs/Audits/ui-element-audit.md` — Element inventory (in progress)
 - `TempAppDevDocs/Refactoring/hover-state-refactoring.md` — Previous hover refactoring notes
 
 ### Key Components Already Refactored
+
 - `src/lib/components/BackButton.svelte`
 - `src/lib/components/ForwardButton.svelte`
 - `src/lib/components/TaskItem.svelte`
@@ -215,14 +239,18 @@ After Phase 1 complete:
 ## Phase 1 Execution Plan
 
 ### Step 1: Start Small (Test the Process)
+
 Pick a simple component to validate the extraction process:
+
 - **Candidate:** `InlineSummary.svelte` (already mostly uses classes)
 - Extract any remaining visual styles
 - Document the process
 - Get user approval before continuing
 
 ### Step 2: Systematic Extraction
+
 Work through components in order of complexity:
+
 1. **Simple components** (buttons, labels, chips)
 2. **Medium components** (dropdowns, modals, cards)
 3. **Complex components** (pickers, import flow, analysis charts)
@@ -230,7 +258,9 @@ Work through components in order of complexity:
 5. **Layout** (header, footer)
 
 ### Step 3: Track Progress
+
 Update a checklist in this document or the audit document showing:
+
 - [ ] Component name
 - [ ] Visual styles extracted
 - [ ] Tested in browser
@@ -241,14 +271,18 @@ Update a checklist in this document or the audit document showing:
 ## Phase 2 Execution Plan
 
 ### Step 1: Analyze Patterns
+
 Read all classes in `tt-design-system.css` and identify:
+
 - Duplicate patterns
 - Similar classes that could be unified
 - Missing abstractions
 - Inconsistent naming
 
 ### Step 2: Group and Organize
+
 Reorganize the CSS file into logical sections:
+
 ```css
 /* ==========================================================================
    DESIGN SYSTEM FOUNDATION
@@ -278,13 +312,16 @@ Reorganize the CSS file into logical sections:
 ```
 
 ### Step 3: Refactor and Optimize
+
 - Merge duplicate classes
 - Extract common patterns
 - Add documentation comments
 - Ensure consistent naming
 
 ### Step 4: Update Documentation
+
 Update `frontend-ui-standards.md` with:
+
 - Complete class reference
 - Usage guidelines
 - When to create new classes vs. use existing
@@ -294,12 +331,14 @@ Update `frontend-ui-standards.md` with:
 ## Success Criteria
 
 ### Phase 1 Complete When:
+
 - [ ] All components have visual styles extracted to CSS classes
 - [ ] No visual styling remains in component `<style>` tags (except layout/spacing)
 - [ ] All components tested and working in browser
 - [ ] No visual regressions
 
 ### Phase 2 Complete When:
+
 - [ ] CSS classes are organized into logical sections
 - [ ] No duplicate or redundant classes
 - [ ] All classes documented with comments

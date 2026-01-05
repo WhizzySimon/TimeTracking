@@ -305,9 +305,13 @@
 	{:else}
 		<!-- Date Navigation -->
 		<header class="date-nav">
-			<button class="nav-btn nav-btn-prev tt-interactive-card" onclick={goToPreviousDay} aria-label="Vorheriger Tag">
+			<button
+				class="tt-nav-button tt-interactive-card"
+				onclick={goToPreviousDay}
+				aria-label="Vorheriger Tag"
+			>
 				<svg
-					class="nav-chevron"
+					class="tt-nav-button__chevron"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -317,18 +321,22 @@
 				>
 					<polyline points="15 18 9 12 15 6"></polyline>
 				</svg>
-				<span class="nav-label">{previousDayLabel()}</span>
+				<span class="tt-nav-button__label">{previousDayLabel()}</span>
 			</button>
-			<button class="date-title tt-date-selector-button tt-interactive-card" onclick={openDayPicker}>
+			<button class="tt-date-selector-button tt-interactive-card" onclick={openDayPicker}>
 				{#if datePrefix()}
-					<span class="title-prefix">{datePrefix()}</span>
+					<span class="tt-date-selector-button__prefix">{datePrefix()}</span>
 				{/if}
-				<span class="title-date">{dateDisplay()}</span>
+				<span class="tt-date-selector-button__date">{dateDisplay()}</span>
 			</button>
-			<button class="nav-btn nav-btn-next tt-interactive-card" onclick={goToNextDay} aria-label="Nächster Tag">
-				<span class="nav-label">{nextDayLabel()}</span>
+			<button
+				class="tt-nav-button tt-interactive-card"
+				onclick={goToNextDay}
+				aria-label="Nächster Tag"
+			>
+				<span class="tt-nav-button__label">{nextDayLabel()}</span>
 				<svg
-					class="nav-chevron"
+					class="tt-nav-button__chevron"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -415,58 +423,18 @@
 		gap: var(--tt-space-16);
 	}
 
-	.nav-btn {
-		min-width: 44px;
-		height: 44px;
-		padding: 0 0.75rem;
-		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		color: var(--tt-text-primary);
-		font-size: var(--tt-font-size-small);
-		font-weight: 500;
-		cursor: pointer;
+	.tt-nav-button {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		gap: var(--tt-space-8);
-		border-radius: var(--tt-radius-button);
 	}
 
-	.nav-chevron {
-		width: 18px;
-		height: 18px;
-		flex-shrink: 0;
-	}
-
-	.nav-label {
-		line-height: 1;
-	}
-
-	.date-title {
-		margin: 0;
-		font-size: var(--tt-font-size-title);
-		font-weight: 600;
+	.tt-date-selector-button {
 		flex: 1;
-		padding: 0.5rem 1rem;
-		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		text-align: center;
-		cursor: pointer;
-		border-radius: var(--tt-radius-card);
-		color: var(--tt-text-primary);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		gap: var(--tt-space-4);
-		min-height: 44px;
-	}
-
-	.title-prefix {
-		font-size: var(--tt-font-size-normal);
-		font-weight: 500;
-	}
-
-	.title-date {
-		font-size: var(--tt-font-size-title);
-		font-weight: 600;
-		color: var(--tt-brand-accent-300);
 	}
 </style>

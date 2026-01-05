@@ -497,7 +497,7 @@
 						</button>
 					</div>
 				</div>
-				</div>
+			</div>
 		</section>
 
 		<!-- Arbeitgeber Section -->
@@ -860,7 +860,9 @@
 								</div>
 								<div class="row-right-section">
 									{#if category.employerId}
-										<span class="tt-inline-label-employer">{getEmployerName(category.employerId)}</span>
+										<span class="tt-inline-label-employer"
+											>{getEmployerName(category.employerId)}</span
+										>
 									{/if}
 									{#if category.type !== 'system'}
 										<button
@@ -977,7 +979,9 @@
 							<span>Secondary<br />{COLOR_SCHEMES[$colorScheme].secondary}</span>
 						</div>
 					</div>
-					<button class="reset-btn tt-interactive" onclick={resetColorScheme}> Cache leeren & neu laden </button>
+					<button class="reset-btn tt-interactive" onclick={resetColorScheme}>
+						Cache leeren & neu laden
+					</button>
 				</div>
 			{/if}
 		</section>
@@ -1437,7 +1441,6 @@
 		transition: background var(--tt-transition-fast);
 	}
 
-
 	/* Development section styles */
 	.dev-settings {
 		display: flex;
@@ -1478,5 +1481,4 @@
 		cursor: pointer;
 		transition: background var(--tt-transition-fast);
 	}
-
 </style>

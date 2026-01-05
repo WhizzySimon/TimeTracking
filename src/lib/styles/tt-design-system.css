@@ -204,10 +204,10 @@ html[data-color-scheme='scheme-3'] {
 	/* Opacity-based overlays that work on any background color */
 	/* Light context (default) - black overlays */
 	--tt-state-hover: rgba(0, 0, 0, 0.08);
-	--tt-state-focus: rgba(0, 0, 0, 0.10);
+	--tt-state-focus: rgba(0, 0, 0, 0.1);
 	--tt-state-pressed: rgba(0, 0, 0, 0.12);
 	--tt-state-selected: rgba(0, 0, 0, 0.08);
-	
+
 	/* Danger state layers - red tinted overlays */
 	--tt-state-danger-hover: rgba(197, 48, 48, 0.08);
 	--tt-state-danger-pressed: rgba(197, 48, 48, 0.12);
@@ -1001,7 +1001,191 @@ textarea {
 }
 
 /* ============================================================================
-   G) SUMMARY DISPLAY - Ist/Soll/Haben inline display
+   F) DATE NAVIGATION - Day/Week/Month navigation buttons
+   ============================================================================ */
+
+/**
+ * Navigation Button - Prev/Next buttons with weekday/week/month labels
+ * Used on: Day, Week, Month pages
+ */
+.tt-nav-button {
+	min-width: 44px;
+	height: 44px;
+	padding: 0 0.75rem;
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	color: var(--tt-text-primary);
+	font-size: var(--tt-font-size-small);
+	font-weight: 500;
+	cursor: pointer;
+	border-radius: var(--tt-radius-button);
+}
+
+.tt-nav-button__chevron {
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+}
+
+.tt-nav-button__label {
+	line-height: 1;
+}
+
+/**
+ * Date Selector Button - Clickable date/week/month title
+ * Used on: Day, Week, Month pages
+ */
+.tt-date-selector-button {
+	margin: 0;
+	font-size: var(--tt-font-size-title);
+	font-weight: 600;
+	padding: 0.5rem 1rem;
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	text-align: center;
+	cursor: pointer;
+	border-radius: var(--tt-radius-card);
+	color: var(--tt-text-primary);
+	min-height: 44px;
+}
+
+.tt-date-selector-button__prefix {
+	font-size: var(--tt-font-size-normal);
+	font-weight: 500;
+}
+
+.tt-date-selector-button__date {
+	font-size: var(--tt-font-size-title);
+	font-weight: 600;
+	color: var(--tt-brand-accent-300);
+}
+
+/* ============================================================================
+   G) DIALOG & MODAL COMPONENTS
+   ============================================================================ */
+
+/**
+ * Dialog Message Text - Standard message text in dialogs
+ * Used in: ConfirmDialog, alert dialogs
+ */
+.tt-dialog-message {
+	margin: 0;
+	font-size: var(--tt-font-size-normal);
+	line-height: 1.5;
+	color: var(--tt-text-primary);
+}
+
+/**
+ * Modal Components - Visual styles for modal elements
+ */
+.tt-modal-backdrop {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.tt-modal-content {
+	background: var(--tt-background-card);
+	border-radius: var(--tt-radius-modal);
+	box-shadow: var(--tt-shadow-modal);
+}
+
+.tt-modal-header {
+	border-bottom: 1px solid var(--tt-border-default);
+}
+
+.tt-modal-header__title {
+	margin: 0;
+	font-size: var(--tt-font-size-title);
+	font-weight: 600;
+	color: var(--tt-text-primary);
+}
+
+/* ============================================================================
+   H) INFO & HINT COMPONENTS
+   ============================================================================ */
+
+/**
+ * Info Hint Box - Informational message boxes
+ * Used in: Add page first-time hint, onboarding messages
+ */
+.tt-info-hint {
+	background: var(--tt-status-info-faded);
+	color: var(--tt-brand-primary-500);
+	padding: var(--tt-space-12) var(--tt-space-16);
+	border-radius: var(--tt-radius-card);
+	font-size: var(--tt-font-size-small);
+	text-align: center;
+	border: 1px solid var(--tt-brand-primary-500);
+}
+
+/**
+ * Loading State Text - Standard loading message
+ */
+.tt-loading-text {
+	color: var(--tt-text-muted);
+	text-align: center;
+	padding: var(--tt-space-32);
+}
+
+/* ============================================================================
+   I) COLLAPSIBLE SECTIONS & TOGGLES
+   ============================================================================ */
+
+/**
+ * Section Toggle - Collapsible section header button
+ * Used in: Analysis page, Settings page
+ */
+.tt-section-toggle {
+	background: none;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+}
+
+.tt-section-toggle__icon {
+	display: inline-block;
+	font-size: 0.7rem;
+	color: var(--tt-text-muted);
+	transition: transform 0.2s ease;
+}
+
+.tt-section-toggle__icon--expanded {
+	transform: rotate(90deg);
+}
+
+.tt-section-toggle__title {
+	margin: 0;
+	font-size: var(--tt-font-size-normal);
+	font-weight: 600;
+	color: var(--tt-text-primary);
+}
+
+/**
+ * Empty State Text - "No items" messages
+ */
+.tt-empty-state {
+	text-align: center;
+	color: var(--tt-text-muted);
+	padding: var(--tt-space-32);
+}
+
+/**
+ * Page Header - Centered page title card
+ */
+.tt-page-header {
+	padding: 0.75rem 1rem;
+	background-color: var(--tt-background-card);
+	border-radius: var(--tt-radius-card);
+	border: 1px solid var(--tt-border-default);
+	text-align: center;
+}
+
+.tt-page-header__title {
+	margin: 0;
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: var(--tt-text-primary);
+}
+
+/* ============================================================================
+   J) SUMMARY DISPLAY - Ist/Soll/Haben inline display
    ============================================================================ */
 
 .tt-summary-display {
@@ -1037,6 +1221,13 @@ textarea {
 
 .tt-summary-display__value-negative {
 	color: var(--tt-status-danger-500);
+}
+
+.tt-summary-label {
+	color: var(--tt-text-primary);
+	font-size: var(--tt-font-size-small);
+	font-weight: var(--tt-font-weight-medium);
+	white-space: nowrap;
 }
 
 /* ============================================================================
@@ -1105,7 +1296,9 @@ textarea {
 
 /* Danger variant - red tinted overlays */
 .tt-interactive-danger {
-	transition: background var(--tt-transition-fast), color var(--tt-transition-fast);
+	transition:
+		background var(--tt-transition-fast),
+		color var(--tt-transition-fast);
 }
 
 @media (hover: hover) {
@@ -1135,7 +1328,7 @@ textarea {
 }
 
 .tt-interactive-dark:active {
-	background: rgba(255, 255, 255, 0.20);
+	background: rgba(255, 255, 255, 0.2);
 }
 
 /* Accent variant - for elements with accent background (running task, etc.)

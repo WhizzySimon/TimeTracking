@@ -343,12 +343,12 @@
 		<!-- Month Navigation -->
 		<header class="month-nav">
 			<button
-				class="nav-btn nav-btn-prev tt-interactive-card"
+				class="tt-nav-button tt-interactive-card"
 				onclick={goToPreviousMonth}
 				aria-label="Vorheriger Monat"
 			>
 				<svg
-					class="nav-chevron"
+					class="tt-nav-button__chevron"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -358,18 +358,22 @@
 				>
 					<polyline points="15 18 9 12 15 6"></polyline>
 				</svg>
-				<span class="nav-label">{previousMonthLabel()}</span>
+				<span class="tt-nav-button__label">{previousMonthLabel()}</span>
 			</button>
-			<button class="month-title tt-date-selector-button tt-interactive-card" onclick={openMonthPicker}>
+			<button class="tt-date-selector-button tt-interactive-card" onclick={openMonthPicker}>
 				{#if monthPrefix}
-					<span class="title-prefix">{monthPrefix}</span>
+					<span class="tt-date-selector-button__prefix">{monthPrefix}</span>
 				{/if}
-				<span class="title-date">{monthTitle}</span>
+				<span class="tt-date-selector-button__date">{monthTitle}</span>
 			</button>
-			<button class="nav-btn nav-btn-next tt-interactive-card" onclick={goToNextMonth} aria-label="Nächster Monat">
-				<span class="nav-label">{nextMonthLabel()}</span>
+			<button
+				class="tt-nav-button tt-interactive-card"
+				onclick={goToNextMonth}
+				aria-label="Nächster Monat"
+			>
+				<span class="tt-nav-button__label">{nextMonthLabel()}</span>
 				<svg
-					class="nav-chevron"
+					class="tt-nav-button__chevron"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -448,7 +452,7 @@
 		color: var(--tt-text-muted);
 	}
 
-	/* Month Navigation - custom clip-path design */
+	/* Month Navigation */
 	.month-nav {
 		display: flex;
 		align-items: center;
@@ -456,59 +460,19 @@
 		gap: var(--tt-space-16);
 	}
 
-	.nav-btn {
-		min-width: 44px;
-		height: 44px;
-		padding: 0 0.75rem;
-		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		color: var(--tt-text-primary);
-		font-size: var(--tt-font-size-small);
-		font-weight: 500;
-		cursor: pointer;
+	.tt-nav-button {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		gap: var(--tt-space-8);
-		border-radius: var(--tt-radius-button);
 	}
 
-	.nav-chevron {
-		width: 18px;
-		height: 18px;
-		flex-shrink: 0;
-	}
-
-	.nav-label {
-		line-height: 1;
-	}
-
-	.month-title {
-		margin: 0;
-		font-size: 1.1rem;
-		font-weight: 600;
+	.tt-date-selector-button {
 		flex: 1;
-		padding: 0.5rem 1rem;
-		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		text-align: center;
-		cursor: pointer;
-		border-radius: var(--tt-radius-card);
-		color: var(--tt-text-primary);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		gap: var(--tt-space-4);
-		min-height: 44px;
-	}
-
-	.title-prefix {
-		font-size: var(--tt-font-size-normal);
-		font-weight: 500;
-	}
-
-	.title-date {
-		font-size: 1.1rem;
-		font-weight: 600;
-		color: var(--tt-brand-accent-300);
 	}
 
 	/* Week List */

@@ -51,7 +51,9 @@
 </script>
 
 <div
-	class={isRunning ? 'tt-list-row-clickable tt-interactive-accent task-item-running' : 'tt-list-row-clickable'}
+	class={isRunning
+		? 'tt-list-row-clickable tt-interactive-accent task-item-running'
+		: 'tt-list-row-clickable'}
 	role="button"
 	tabindex="0"
 	data-testid={isRunning ? 'task-item-running' : 'task-item'}

@@ -171,7 +171,6 @@
 		font-size: var(--tt-font-size-normal);
 	}
 
-
 	.divider {
 		text-align: center;
 		color: var(--tt-text-muted);

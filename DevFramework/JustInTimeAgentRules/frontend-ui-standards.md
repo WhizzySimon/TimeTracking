@@ -407,9 +407,9 @@ Svelte scopes component CSS by adding a hash class (e.g., `.my-btn.svelte-abc123
 <button class="my-btn tt-interactive">Click</button>
 
 <style>
-  .my-btn {
-    background: var(--tt-background-card); /* Wins over .tt-interactive:hover */
-  }
+	.my-btn {
+		background: var(--tt-background-card); /* Wins over .tt-interactive:hover */
+	}
 </style>
 ```
 
@@ -417,24 +417,24 @@ Svelte scopes component CSS by adding a hash class (e.g., `.my-btn.svelte-abc123
 
 Use design system classes that bundle **base background + hover states** together:
 
-| Class | Base Background | Hover | Use Case |
-|-------|-----------------|-------|----------|
-| `.tt-interactive` | transparent | black 8% overlay | Transparent elements |
-| `.tt-interactive-card` | white card | black 8% overlay | Buttons on light bg |
-| `.tt-interactive-dark` | transparent | white 12% overlay | Header buttons (dark bg) |
-| `.tt-interactive-accent` | accent-100 | accent-200 | Running task banner |
-| `.tt-interactive-danger` | transparent | red overlay + text | Delete buttons |
+| Class                    | Base Background | Hover              | Use Case                 |
+| ------------------------ | --------------- | ------------------ | ------------------------ |
+| `.tt-interactive`        | transparent     | black 8% overlay   | Transparent elements     |
+| `.tt-interactive-card`   | white card      | black 8% overlay   | Buttons on light bg      |
+| `.tt-interactive-dark`   | transparent     | white 12% overlay  | Header buttons (dark bg) |
+| `.tt-interactive-accent` | accent-100      | accent-200         | Running task banner      |
+| `.tt-interactive-danger` | transparent     | red overlay + text | Delete buttons           |
 
 ```svelte
 <!-- CORRECT: Let the class handle background -->
 <button class="my-btn tt-interactive-card">Click</button>
 
 <style>
-  .my-btn {
-    /* NO background here - tt-interactive-card handles it */
-    padding: var(--tt-space-8);
-    border: 1px solid var(--tt-border-default);
-  }
+	.my-btn {
+		/* NO background here - tt-interactive-card handles it */
+		padding: var(--tt-space-8);
+		border: 1px solid var(--tt-border-default);
+	}
 </style>
 ```
 
@@ -448,28 +448,28 @@ For unique elements where creating a design system class isn't worth it, use Sve
 <button class="unique-btn tt-interactive">Click</button>
 
 <style>
-  .unique-btn {
-    background: var(--tt-special-background);
-  }
-  
-  /* Escape scoping for hover - global rule wins */
-  .unique-btn:global(.tt-interactive):hover {
-    background: var(--tt-state-hover);
-  }
-  
-  .unique-btn:global(.tt-interactive):active {
-    background: var(--tt-state-pressed);
-  }
+	.unique-btn {
+		background: var(--tt-special-background);
+	}
+
+	/* Escape scoping for hover - global rule wins */
+	.unique-btn:global(.tt-interactive):hover {
+		background: var(--tt-state-hover);
+	}
+
+	.unique-btn:global(.tt-interactive):active {
+		background: var(--tt-state-pressed);
+	}
 </style>
 ```
 
 ### When to Use Which
 
-| Situation | Approach |
-|-----------|----------|
-| Background used in 2+ components | Create `.tt-interactive-{variant}` class |
-| Truly one-off unique element | Use `:global()` escape |
-| Element inherits/has no background | Use `.tt-interactive` (transparent) |
+| Situation                          | Approach                                 |
+| ---------------------------------- | ---------------------------------------- |
+| Background used in 2+ components   | Create `.tt-interactive-{variant}` class |
+| Truly one-off unique element       | Use `:global()` escape                   |
+| Element inherits/has no background | Use `.tt-interactive` (transparent)      |
 
 ### Reference
 

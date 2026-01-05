@@ -61,7 +61,7 @@
 
 <Modal title={dialogTitle} onclose={handleClose}>
 	<div class="confirm-dialog">
-		<p class="message">{message}</p>
+		<p class="tt-dialog-message">{message}</p>
 		<div class="actions">
 			{#if type === 'confirm'}
 				<button type="button" class="tt-button-secondary" onclick={handleCancel}>
@@ -86,12 +86,7 @@
 		gap: var(--tt-space-24);
 	}
 
-	.message {
-		margin: 0;
-		font-size: var(--tt-font-size-normal);
-		line-height: 1.5;
-		color: var(--tt-text-primary);
-	}
+	/* Message text uses .tt-dialog-message from design system */
 
 	.actions {
 		display: flex;

@@ -120,10 +120,10 @@
 
 <div class="add-page">
 	{#if $neverAddedAnEntry}
-		<div class="first-time-hint">Klicke auf einen Eintrag, um die Zeit zu starten</div>
+		<div class="tt-info-hint">Klicke auf einen Eintrag, um die Zeit zu starten</div>
 	{/if}
 	{#if loading}
-		<p class="loading">Laden...</p>
+		<div class="tt-loading-text">Laden...</div>
 	{:else}
 		<CategoryList
 			categories={$filteredCategories}
@@ -154,20 +154,9 @@
 		min-height: calc(100vh - 120px);
 	}
 
-	.first-time-hint {
-		background: var(--tt-status-info-faded);
-		color: var(--tt-brand-primary-500);
-		padding: var(--tt-space-12) var(--tt-space-16);
-		border-radius: var(--tt-radius-card);
-		font-size: var(--tt-font-size-small);
-		text-align: center;
+	.tt-info-hint {
 		margin-bottom: var(--tt-space-16);
-		border: 1px solid var(--tt-brand-primary-500);
 	}
 
-	.loading {
-		color: var(--tt-text-muted);
-		text-align: center;
-		padding: var(--tt-space-32);
-	}
+	/* Visual styles use design system classes: .tt-info-hint, .tt-loading-text */
 </style>

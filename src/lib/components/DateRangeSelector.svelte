@@ -113,11 +113,18 @@
 		<div class="section">
 			<h3 class="section-title">Schnellwahl</h3>
 			<div class="quick-btns">
-				<button type="button" class="quick-btn tt-interactive" onclick={selectCurrentYear}>Aktuelles Jahr</button>
-				<button type="button" class="quick-btn tt-interactive" onclick={selectLastYear}>Letztes Jahr</button>
-				<button type="button" class="quick-btn tt-interactive" onclick={selectCurrentMonth}>Aktueller Monat</button
+				<button type="button" class="quick-btn tt-interactive" onclick={selectCurrentYear}
+					>Aktuelles Jahr</button
 				>
-				<button type="button" class="quick-btn tt-interactive" onclick={selectLastMonth}>Letzter Monat</button>
+				<button type="button" class="quick-btn tt-interactive" onclick={selectLastYear}
+					>Letztes Jahr</button
+				>
+				<button type="button" class="quick-btn tt-interactive" onclick={selectCurrentMonth}
+					>Aktueller Monat</button
+				>
+				<button type="button" class="quick-btn tt-interactive" onclick={selectLastMonth}
+					>Letzter Monat</button
+				>
 			</div>
 		</div>
 
@@ -197,7 +204,6 @@
 		cursor: pointer;
 		text-align: center;
 	}
-
 
 	.date-fields {
 		display: flex;
