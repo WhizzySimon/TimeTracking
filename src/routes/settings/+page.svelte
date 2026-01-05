@@ -783,7 +783,7 @@
 									<span>Hinzufügen</span>
 								</button>
 								<button
-									class="dropdown-item tt-interactive"
+									class="tt-dropdown-item tt-interactive"
 									onclick={() => {
 										showImportCategories = true;
 										showCategoryMenu = false;
@@ -803,7 +803,7 @@
 									<span>Importieren</span>
 								</button>
 								<button
-									class="dropdown-item tt-interactive"
+									class="tt-dropdown-item tt-dropdown-item--interactive tt-interactive"
 									onclick={() => {
 										downloadCategoriesFile($categories);
 										showCategoryMenu = false;
