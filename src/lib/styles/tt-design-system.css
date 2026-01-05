@@ -1005,10 +1005,14 @@ textarea {
    ============================================================================ */
 
 /**
- * Navigation Button - Prev/Next buttons with weekday/week/month labels
+ * Navigation Button - Previous/Next navigation buttons
  * Used on: Day, Week, Month pages
  */
 .tt-nav-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--tt-space-8);
 	min-width: 44px;
 	height: 44px;
 	padding: 0 0.75rem;

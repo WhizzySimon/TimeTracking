@@ -423,12 +423,7 @@
 		gap: var(--tt-space-16);
 	}
 
-	.tt-nav-button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: var(--tt-space-8);
-	}
+	/* Layout properties now in design system .tt-nav-button class */
 
 	.tt-date-selector-button {
 		flex: 1;
