@@ -11,12 +11,14 @@ Extract **reusable** visual styles from Svelte component `<style>` blocks into C
 **Pragmatic Approach:**
 
 **Extract to Design System:**
+
 - ✓ Reusable visual patterns (used in 3+ components)
 - ✓ Visual properties: colors, fonts, borders, shadows, padding, border-radius
 - ✓ Interactive states: hover, focus, active, disabled
 - ✓ Animations and transitions
 
 **Keep Local in Components:**
+
 - ✓ Single-use layouts (unique to one component)
 - ✓ Component-specific grid/flex structures
 - ✓ Unique positioning and spacing
@@ -24,12 +26,14 @@ Extract **reusable** visual styles from Svelte component `<style>` blocks into C
 - ⚠️ **Must add comment** marking as "Single-use" or "Component-specific"
 
 **Out of Scope (Phase 2):**
+
 - Organizing/optimizing the design system itself
 - Extracting base classes and inheritance hierarchies
 - Creating CSS custom properties for repeated values
 - Structural CSS (display, overflow, z-index)
 
 **Out of Scope (Phase 3):**
+
 - CSS variable refactoring (semantic variables in local CSS)
 - See: `CSS-Refactoring-Phase3-Variables.md`
 
@@ -119,6 +123,7 @@ Full context: `TempAppDevDocs/QuickFixes/Refactor-CSS-Visual-Styles-To-Classes.m
 - [x] Verified with npm run check
 
 ### Step 9: Header Navigation & Empty State ✓
+
 - [x] Created .tt-header-nav-button classes (3 classes)
 - [x] Created .tt-empty-state classes (3 classes)
 - [x] Updated BackButton.svelte
@@ -128,6 +133,7 @@ Full context: `TempAppDevDocs/QuickFixes/Refactor-CSS-Visual-Styles-To-Classes.m
 - [x] Verified with npm run check
 
 ### Step 10: Form Fields & Dialog Components ✓
+
 - [x] Created .tt-form-field classes (2 classes)
 - [x] Created .tt-info-message class
 - [x] Created .tt-error-message class
@@ -144,17 +150,20 @@ Full context: `TempAppDevDocs/QuickFixes/Refactor-CSS-Visual-Styles-To-Classes.m
 ### Remaining Components - Pragmatic Assessment
 
 **Complex single-use components (~35 components):**
+
 - ✓ Keep local CSS with semantic variables (Phase 3)
 - ✓ Already use design system classes for common elements (buttons, inputs, dialogs)
 - Examples: ImportExcelModal, StundenzettelExport, ExportDialog
 
 **Picker components (DayPicker, MonthYearPicker, WeekYearPicker):**
+
 - ✓ Already use `.tt-button-primary`, `.tt-button-secondary` ✓
 - ✓ Already use `Modal` component ✓
 - ✓ Unique calendar/grid layouts kept local (single-use)
 - No further extraction needed
 
 **Other utility components:**
+
 - ✓ Common elements (buttons, dropdowns, inputs) already use design system classes
 - ✓ Unique layouts kept local with semantic variables
 - No further extraction needed

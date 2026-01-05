@@ -4,11 +4,14 @@
 **Purpose:** Visual baseline and component grouping for Phase 2 CSS optimization
 
 ## Screenshots Location
+
 **Folder:** `TempAppDevDocs/QuickFixes/Phase2-Screenshots/`
+
 - See README.md in that folder for screenshot organization
 - 10 screenshots total (5 pages + 5 dialogs/settings)
 
 ## Screenshots Purpose
+
 1. Document baseline visual state before Phase 1
 2. Group similar components for Phase 2 optimization
 3. Enable regression detection during refactoring
@@ -19,6 +22,7 @@
 ## General CSS Refactoring Rules
 
 ### Consistency Rules
+
 - ✓ **Assume similar elements should have the same styling** - add same classes unless explicitly specified otherwise
 - ✓ **All symbol buttons** - same styles for now, individualize later
 - ✓ **All "Zusammenfassung" rows** - identical styling across all pages
@@ -29,17 +33,20 @@
 ## Page Screenshots & Analysis
 
 ### 1. Add Page (Tätigkeit erstellen)
+
 **Screenshot:** Image 1 - Add page with category list
 
 **Visual Elements Identified:**
 
 **Header:**
+
 - Back/Forward navigation buttons (< >) - symbol buttons
 - Employer dropdown "Kirche" - unique dropdown styles (noted)
 - Sync button - symbol button
 - Settings button - symbol button
 
 **Content:**
+
 - "VORSCHLÄGE" section header
 - Chip buttons: "Gruppenvorbereitung", "Fahrt", "GD-/Predigtvorbereitung", "Religionsunterricht"
   - Note: "Chips unique, but same as small secondary button?"
@@ -50,9 +57,11 @@
   - Note: "Like other action rows, but simple content"
 
 **Bottom Navigation:**
+
 - Tab buttons: "+", "Tag", "Woche", "Monat", Analysis icon
 
 **CSS Classes to Verify:**
+
 - `.tt-header-nav-button` (< > buttons) - symbol buttons
 - Employer dropdown - unique styles (keep as is)
 - `.tt-button-primary` (Tätigkeit erstellen)
@@ -62,21 +71,25 @@
 ---
 
 ### 2. Week Page (Woche)
+
 **Screenshot:** Image 2 - Week view KW 1/2026
 
 **Visual Elements Identified:**
 
 **Header:**
+
 - Back/Forward navigation (< >) - symbol buttons
 - Employer dropdown "Kirche"
 - Sync/Settings buttons - symbol buttons
 
 **Week Navigation:**
+
 - Previous week button (<) with week number "52"
 - Week selector "KW 1/2026" - date selector button
 - Next week button (>) with week number "2"
 
 **Content:**
+
 - "Wochenart" label with "Arbeitswoche" dropdown - custom dropdown
 - **Zusammenfassung row** - Ist: 4,1 / Soll: 41,0 / Haben: -36,9
   - Background color, layout, typography
@@ -87,9 +100,11 @@
   - Note: "Lable needs lable styles and move to the right of the row"
 
 **Bottom Navigation:**
+
 - Same tab pattern as Add page
 
 **CSS Classes to Verify:**
+
 - `.tt-nav-button` (week navigation < >)
 - `.tt-date-selector-button` (KW 1/2026)
 - **Zusammenfassung** - verify consistent styling
@@ -99,17 +114,21 @@
 ---
 
 ### 3. Analysis Page (Auswertung)
+
 **Screenshot:** Image 3 - Analysis view 1.1.2024 – 15.3.2024
 
 **Visual Elements Identified:**
 
 **Header:**
+
 - Standard header with navigation and employer dropdown
 
 **Date Range:**
+
 - Date range selector "1.1.2024 – 15.3.2024"
 
 **Content:**
+
 - **Zusammenfassung row** - Ist: 464,6 / Soll: 357,0 / Haben: +107,6
   - Same styling as Week/Month pages
 - Collapsible section "▼ Zeiten"
@@ -122,6 +141,7 @@
   - Hours display in two columns
 
 **CSS Classes to Verify:**
+
 - **Zusammenfassung** - consistent across all pages
 - Collapsible section toggles (▼)
 - Month/category rows - action row pattern
@@ -131,19 +151,23 @@
 ---
 
 ### 4. Month Page (Monat)
+
 **Screenshot:** Image 4 - Month view Januar 2026
 
 **Visual Elements Identified:**
 
 **Header:**
+
 - Standard header pattern
 
 **Month Navigation:**
+
 - Previous month button (<) with "Dez"
 - Month selector "Aktueller Monat / Januar 2026" - date selector button
 - Next month button (>) with "Feb"
 
 **Content:**
+
 - **Zusammenfassung row** - Ist: 2,8 / Soll: 23,0 / Haben: -20,2
   - Same styling as other pages
 - Week rows: "KW 1", "KW 2", "KW 3", "KW 4", "KW 5"
@@ -151,6 +175,7 @@
   - Hours display: "2,8 / 23,0 / -20,3"
 
 **CSS Classes to Verify:**
+
 - `.tt-nav-button` (month navigation)
 - `.tt-date-selector-button` (month selector)
 - **Zusammenfassung** - consistent styling
@@ -159,20 +184,24 @@
 ---
 
 ### 5. Day Page (Tag)
+
 **Screenshot:** Image 5 - Day view So 4.1.2026
 
 **Visual Elements Identified:**
 
 **Header:**
+
 - Standard header pattern
 
 **Day Navigation:**
+
 - Previous day button (<) with "Mo"
 - Date selector "So 4.1.2026" - date selector button
   - Note: "Similar in week and month page"
 - Next day button (>) with "Mo"
 
 **Content:**
+
 - "Tagesart" label with "Arbeitstag" dropdown
   - Note: "Similar in week page"
   - Note: "like other custom dropdowns"
@@ -186,6 +215,7 @@
   - "17:40 – 18:00" | "GD-/Predigtvorbereitung" | "Kirche" label | ▶ | 🗑️
 
 **CSS Classes to Verify:**
+
 - `.tt-nav-button` (day navigation)
 - `.tt-date-selector-button` (date selector)
 - Custom dropdown (Arbeitstag) - same as Week page
@@ -199,13 +229,16 @@
 ## Component Groups for Phase 2 Optimization
 
 ### Group 1: Navigation Patterns (CONSISTENT)
+
 **Components:** Day, Week, Month pages
 **Shared Elements:**
+
 - Previous/Next navigation buttons (< >)
 - Date/Week/Month selector buttons
 - Navigation labels (day names, week numbers, month names)
 
 **Current Classes:**
+
 - `.tt-nav-button` ✓
 - `.tt-nav-button__chevron` ✓
 - `.tt-nav-button__label` ✓
@@ -218,10 +251,12 @@
 ---
 
 ### Group 2: Zusammenfassung Rows (MUST BE IDENTICAL)
+
 **Pages:** Day, Week, Month, Analysis
 **Rule:** All "Zusammenfassung" rows must have identical styling
 
 **Visual Properties:**
+
 - Background color (light purple/lavender)
 - Padding/spacing
 - Typography (labels and values)
@@ -229,9 +264,11 @@
 - Layout (flex, alignment)
 
 **Current Classes:**
+
 - Varies by page - needs consolidation
 
-**Phase 2 Action:** 
+**Phase 2 Action:**
+
 - Create single `.tt-summary-row` base class
 - Ensure identical across all pages
 - Extract shared background, padding, typography
@@ -239,10 +276,12 @@
 ---
 
 ### Group 3: Employer Labels (MUST BE IDENTICAL)
+
 **Context:** Appears in Day page time entries, other action rows
 **Rule:** All employer labels same styling regardless of page/row
 
 **Visual Properties:**
+
 - "Kirche" label style (noted as "default lable")
 - Background color
 - Text color
@@ -251,9 +290,11 @@
 - Font size
 
 **Current Classes:**
+
 - Needs verification
 
 **Phase 2 Action:**
+
 - Create `.tt-employer-label` class
 - Ensure consistent across all contexts
 - Extract shared visual properties
@@ -261,11 +302,13 @@
 ---
 
 ### Group 4: Action Rows (SIMILAR PATTERN)
+
 **Context:** Category list (Add), Day rows (Week), Time entries (Day), Month rows (Analysis)
 **Note:** "Like other action rows, but simple content"
 **Issue:** "all have still wrong hover BG" (Week page day rows)
 
 **Visual Properties:**
+
 - Row background
 - Hover state background (needs fix)
 - Padding/spacing
@@ -274,9 +317,11 @@
 - Layout pattern
 
 **Current Classes:**
+
 - Varies - needs consolidation
 
 **Phase 2 Action:**
+
 - Create `.tt-action-row` base class
 - Fix hover state background
 - Extract shared layout and visual properties
@@ -285,19 +330,23 @@
 ---
 
 ### Group 5: Custom Dropdowns (UNIQUE BUT CONSISTENT)
+
 **Context:** Employer dropdown (header), Wochenart/Tagesart dropdowns
 **Note:** "unique dropdown styles", "like other custom dropdowns"
 
 **Visual Properties:**
+
 - Dropdown button style
 - Dropdown menu style
 - Selected state
 - Hover/focus states
 
 **Current Classes:**
+
 - Needs verification
 
 **Phase 2 Action:**
+
 - Verify if `.tt-dropdown` exists and is used
 - Ensure consistency across all custom dropdowns
 - Extract shared properties
@@ -305,10 +354,12 @@
 ---
 
 ### Group 6: Symbol Buttons (MUST BE IDENTICAL)
+
 **Context:** Header (< > ⟳ ⚙), Time entries (▶ 🗑️), Bottom nav
 **Rule:** "Give all symbol buttons the same styles for now, lets individualize later"
 
 **Visual Properties:**
+
 - Size (44x44 touch target)
 - Padding
 - Border
@@ -317,11 +368,13 @@
 - Hover/active states
 
 **Current Classes:**
+
 - `.tt-header-nav-button` (header < >)
 - `.tt-symbol-button` (settings, close)
 - Needs consolidation
 
 **Phase 2 Action:**
+
 - Create single `.tt-symbol-button` base class
 - Apply to all symbol buttons (header, actions, nav)
 - Extract shared size, padding, states
@@ -330,10 +383,12 @@
 ---
 
 ### Group 7: Chip Buttons vs Secondary Buttons
+
 **Context:** Add page "VORSCHLÄGE" section
 **Note:** "Chips unique, but same as small secondary button?"
 
 **Visual Properties:**
+
 - Padding (smaller than regular buttons)
 - Border
 - Background
@@ -341,9 +396,11 @@
 - Hover state
 
 **Current Classes:**
+
 - Needs verification
 
 **Phase 2 Action:**
+
 - Determine if chips should use `.tt-button-secondary` with size modifier
 - Or create separate `.tt-chip-button` class
 - Ensure consistency with design system
@@ -353,14 +410,17 @@
 ## Known Issues to Fix in Phase 2
 
 ### Issue 1: Week Page Day Row Hover State
+
 **Screenshot:** Image 2
 **Note:** "like other action rows, but all have still wrong hover BG"
 **Fix:** Correct hover background color for day rows
 
 ### Issue 2: Week Page Label Positioning
+
 **Screenshot:** Image 2
 **Note:** "Lable needs lable styles and move to the right of the row"
-**Fix:** 
+**Fix:**
+
 - Apply label styles to "Arbeitstag" labels
 - Position to right side of row
 
@@ -385,14 +445,17 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ## Dialog & Modal Screenshots & Analysis
 
 ### 6. Settings Page - Expanded Sections
+
 **Screenshot:** Image 1 - Settings with Tätigkeiten section expanded
 
 **Visual Elements Identified:**
 
 **Header:**
+
 - Standard header with navigation and employer dropdown
 
 **Content:**
+
 - Collapsible section "▶ Tätigkeiten" with menu button (⋮)
 - "Zeitdaten" section header
 - Primary action buttons:
@@ -409,6 +472,7 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 - Danger button: "Konto löschen" (red background)
 
 **CSS Classes to Verify:**
+
 - `.tt-button-primary` (Exportieren, Stundenzettel, Importieren)
 - `.tt-button-secondary` (Excel-Datei importieren)
 - Danger button styles (red text vs red background)
@@ -418,15 +482,18 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ---
 
 ### 7. AddWorkTimeModelModal Dialog
+
 **Screenshot:** Image 2 - Neues Arbeitszeitmodell
 
 **Visual Elements Identified:**
 
 **Dialog Structure:**
+
 - Modal title "Neues Arbeitszeitmodell" with close button (×)
 - Form layout with vertical spacing
 
 **Form Fields:**
+
 - "Name:" label with text input "z.B. Vollzeit 40h"
 - "Gültig ab:" label with text input "5.1.2026"
 - "Arbeitgeber:" label with custom dropdown "Kirche"
@@ -435,6 +502,7 @@ After Phase 2 refactoring, verify these elements remain visually identical:
   - Light blue background
 
 **Weekday Grid:**
+
 - Section header "Wochentage"
 - Table headers: "Tag", "Arbeitstag", "Stunden"
 - Rows: Mo, Di, Mi, Do, Fr (checked), Sa, So (unchecked)
@@ -442,13 +510,16 @@ After Phase 2 refactoring, verify these elements remain visually identical:
   - Note: "input much more narrow"
 
 **Dialog Actions:**
+
 - "Abbrechen" button (secondary)
 - "Speichern" button (primary)
 
 **Important Note:**
+
 - "For all dialogs: no horizontal scrollbar and no overflow"
 
 **CSS Classes to Verify:**
+
 - `.tt-form-field` ✓
 - `.tt-form-field__label` ✓
 - `.tt-text-input` ✓
@@ -461,6 +532,7 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 - `.tt-button-primary` ✓
 
 **Phase 2 Action:**
+
 - Verify no horizontal overflow in all dialogs
 - Ensure hour inputs have appropriate narrow width
 - Summary display may need extraction if used elsewhere
@@ -468,15 +540,18 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ---
 
 ### 8. Plan Selection Dialog (Paywall)
+
 **Screenshot:** Image 3 - Plan wählen
 
 **Visual Elements Identified:**
 
 **Dialog Structure:**
+
 - Modal title "Plan wählen" with close button (×)
 - Three-column card layout
 
 **Plan Cards:**
+
 1. **Free Plan:**
    - Title "Free"
    - Price "0 €"
@@ -496,9 +571,11 @@ After Phase 2 refactoring, verify these elements remain visually identical:
    - No button (disabled state)
 
 **Dialog Actions:**
+
 - "Schließen" button (bottom right, secondary)
 
 **Visual Properties:**
+
 - Card borders
 - Badge styles ("Aktuell", "Kommt bald")
 - Selected card highlight
@@ -507,6 +584,7 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 - Checkmark/dash icons
 
 **CSS Classes to Verify:**
+
 - Card container styles
 - Badge styles (may need extraction)
 - Selected state styling
@@ -514,20 +592,24 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 - Feature list layout
 
 **Phase 2 Action:**
+
 - Badge styles may be reusable (extract if used elsewhere)
 - Card layout is unique to paywall (keep local)
 
 ---
 
 ### 9. Settings Page - Account Section
+
 **Screenshot:** Image 4 - Einstellungen (Konto section)
 
 **Visual Elements Identified:**
 
 **Header:**
+
 - Page title "Einstellungen"
 
 **Konto Section:**
+
 - "Abmelden" button (top right, with icon)
 - Info rows:
   - "Name" | "Simon Whizzy" | edit icon (✏️)
@@ -535,15 +617,18 @@ After Phase 2 refactoring, verify these elements remain visually identical:
   - "Plan" | "Pro" (blue text) | edit icon (✏️)
 
 **Collapsible Sections:**
+
 - "▶ Arbeitgeber" with add button (+)
 - "▶ Arbeitszeitmodelle" with add button (+)
 - "▶ Abwesenheit" with add button (+)
 - "▶ Tätigkeiten" with menu button (⋮)
 
 **Zeitdaten Section:**
+
 - Same as Image 1
 
 **CSS Classes to Verify:**
+
 - Info row layout (label | value | icon)
 - Edit icon buttons (symbol buttons)
 - "Pro" text styling (brand color)
@@ -553,18 +638,22 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ---
 
 ### 10. Settings Page - Expanded Sections Detail
+
 **Screenshot:** Image 5 - Settings with multiple sections expanded
 
 **Visual Elements Identified:**
 
 **Arbeitgeber Section (Expanded):**
+
 - Row: "Kirche" with delete icon (🗑️)
 
 **Arbeitszeitmodelle Section (Expanded):**
+
 - Row: "Vollzeit 41h" with metadata "41h/Woche • 6 Tage • ab 2024-01-01" and delete icon
   - Note: Arrow pointing to "41h/Woche" (metadata styling)
 
 **Abwesenheit Section (Expanded):**
+
 - Rows with labels:
   - "Feiertag" | "Keine Arbeitszeit" badge | delete icon
     - Note: Arrow pointing to badge (label styling)
@@ -575,12 +664,14 @@ After Phase 2 refactoring, verify these elements remain visually identical:
   - "Urlaub" | "Keine Arbeitszeit" badge
 
 **Tätigkeiten Section (Expanded):**
+
 - Category rows:
   - "Allg. Orga" | "Kirche" label | delete icon
   - "Andachten / Heimgottesdienste" | "Kirche" label | delete icon
   - "Andachtenvorbereitung" | "Kirche" label | delete icon
 
 **CSS Classes to Verify:**
+
 - Row layout with delete icons
 - Metadata text styling (smaller, muted)
 - "Keine Arbeitszeit" badge (label style)
@@ -589,6 +680,7 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 - Delete icon (symbol button)
 
 **Phase 2 Action:**
+
 - "Keine Arbeitszeit" badge should use label styles
 - Employer labels must be identical to Day page
 - Metadata styling may be reusable
@@ -598,10 +690,12 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ## Updated Component Groups
 
 ### Group 8: Dialog/Modal Structure (CONSISTENT)
+
 **Components:** AddWorkTimeModelModal, Plan Selection, Category/Employer dialogs
 **Rule:** "For all dialogs: no horizontal scrollbar and no overflow"
 
 **Shared Elements:**
+
 - Modal backdrop
 - Modal container (max-width, padding)
 - Modal header (title + close button)
@@ -609,11 +703,13 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 - Modal footer (action buttons)
 
 **Current Classes:**
+
 - `Modal` component handles structure ✓
 - `.tt-symbol-button` (close button) ✓
 - `.tt-form-actions` (footer buttons) ✓
 
 **Phase 2 Action:**
+
 - Verify Modal component prevents horizontal overflow
 - Ensure consistent max-width across all dialogs
 - Extract shared padding/spacing
@@ -621,14 +717,17 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ---
 
 ### Group 9: Badges & Labels (MUST BE CONSISTENT)
+
 **Context:** Plan badges ("Aktuell", "Kommt bald"), Absence labels ("Keine Arbeitszeit"), Employer labels ("Kirche")
 
 **Types Identified:**
+
 1. **Status badges** - "Aktuell", "Kommt bald" (Plan dialog)
 2. **Absence labels** - "Keine Arbeitszeit" (Settings)
 3. **Employer labels** - "Kirche" (Day page, Settings, everywhere)
 
 **Visual Properties:**
+
 - Background color
 - Text color
 - Padding
@@ -636,11 +735,13 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 - Font size
 
 **Current Classes:**
+
 - Employer labels need `.tt-employer-label` (must be identical everywhere)
 - Absence labels may share same style
 - Status badges may be unique to paywall
 
 **Phase 2 Action:**
+
 - Create `.tt-label` base class
 - Create `.tt-label--employer`, `.tt-label--absence`, `.tt-label--status` variants
 - Ensure employer labels identical across all contexts
@@ -648,9 +749,11 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ---
 
 ### Group 10: Info/Settings Rows (SIMILAR PATTERN)
+
 **Context:** Settings page account info, expanded section rows
 
 **Visual Properties:**
+
 - Row layout (label | value | action)
 - Padding/spacing
 - Border/divider
@@ -658,9 +761,11 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 - Typography
 
 **Current Classes:**
+
 - Similar to action rows but different context
 
 **Phase 2 Action:**
+
 - Determine if can share base with action rows
 - Or create separate `.tt-info-row` class
 - Extract shared layout properties
@@ -668,12 +773,14 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ---
 
 ### Group 11: Form Input Widths (NEEDS STANDARDIZATION)
+
 **Context:** AddWorkTimeModelModal hour inputs
 **Note:** "input much more narrow"
 
 **Issue:** Hour inputs need specific narrow width
 
 **Phase 2 Action:**
+
 - Create input width modifiers or utilities
 - `.tt-text-input--narrow` for hour inputs
 - `.tt-text-input--medium` for dates
@@ -682,14 +789,17 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ---
 
 ### Group 12: Metadata/Secondary Text (REUSABLE)
+
 **Context:** Work time model metadata "41h/Woche • 6 Tage • ab 2024-01-01"
 
 **Visual Properties:**
+
 - Smaller font size
 - Muted color
 - Spacing between items (•)
 
 **Phase 2 Action:**
+
 - Create `.tt-metadata` or `.tt-text-muted` class
 - Extract font size and color
 - May be reusable across app
@@ -699,16 +809,19 @@ After Phase 2 refactoring, verify these elements remain visually identical:
 ## Updated Known Issues
 
 ### Issue 3: Dialog Overflow Prevention
+
 **Screenshot:** Image 2
 **Note:** "For all dialogs: no horizontal scrollbar and no overflow"
 **Fix:** Ensure Modal component and all dialog content prevents horizontal overflow
 
 ### Issue 4: Input Width Standardization
+
 **Screenshot:** Image 2
 **Note:** "input much more narrow" for hour inputs
 **Fix:** Create input width variants (narrow, medium, full)
 
 ### Issue 5: Red Line Indicator
+
 **Screenshot:** Image 5
 **Note:** Red line appears on some absence rows (Joggen, Krank)
 **Investigation:** Determine what this indicates and ensure consistent styling

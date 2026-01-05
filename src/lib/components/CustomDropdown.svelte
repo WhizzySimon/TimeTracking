@@ -126,7 +126,7 @@
 <style>
 	.custom-dropdown {
 		position: relative;
-		width: auto;
+		width: fit-content;
 		min-width: fit-content;
 	}
 
@@ -140,7 +140,8 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--tt-space-8);
-		width: auto;
+		width: 100%;
+		min-width: fit-content;
 		padding: var(--tt-space-8) var(--tt-space-12);
 		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
 		border-radius: var(--tt-radius-button);
@@ -184,9 +185,10 @@
 		position: absolute;
 		top: 100%;
 		right: 0;
-		min-width: 100%;
+		width: 100%;
 		max-height: 240px;
 		overflow-y: auto;
+		overflow-x: hidden;
 		background: var(--tt-background-card);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-button);
@@ -205,6 +207,9 @@
 		color: var(--tt-text-primary);
 		cursor: pointer;
 		font-size: var(--tt-font-size-normal);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 		transition:
 			background var(--tt-transition-fast),
 			color var(--tt-transition-fast);

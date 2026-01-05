@@ -663,7 +663,10 @@
 					onclick={() => (expandedSections.abwesenheit = !expandedSections.abwesenheit)}
 					aria-expanded={expandedSections.abwesenheit}
 				>
-					<span class="tt-section-toggle__icon" class:tt-section-toggle__icon--expanded={expandedSections.abwesenheit}>▶</span>
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.abwesenheit}>▶</span
+					>
 					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Abwesenheit</h2>
 				</button>
 				<button
@@ -696,10 +699,10 @@
 								<div class="tt-list-row__content">
 									<span class="tt-list-row__title" data-testid="category-name">
 										{category.name}
-										<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
 									</span>
 								</div>
 								<div class="row-right-section">
+									<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
 									{#if category.type !== 'system'}
 										<button
 											class="tt-btn-delete"
@@ -726,6 +729,8 @@
 												></path>
 											</svg>
 										</button>
+									{:else}
+										<div class="tt-btn-delete-placeholder"></div>
 									{/if}
 								</div>
 							</div>
@@ -743,7 +748,10 @@
 					onclick={() => (expandedSections.arbeit = !expandedSections.arbeit)}
 					aria-expanded={expandedSections.arbeit}
 				>
-					<span class="tt-section-toggle__icon" class:tt-section-toggle__icon--expanded={expandedSections.arbeit}>▶</span>
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.arbeit}>▶</span
+					>
 					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Tätigkeiten</h2>
 				</button>
 				<div class="header-buttons">
@@ -967,7 +975,10 @@
 					onclick={() => (expandedSections.entwicklung = !expandedSections.entwicklung)}
 					aria-expanded={expandedSections.entwicklung}
 				>
-					<span class="tt-section-toggle__icon" class:tt-section-toggle__icon--expanded={expandedSections.entwicklung}>▶</span>
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.entwicklung}>▶</span
+					>
 					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Entwicklung</h2>
 				</button>
 			</div>

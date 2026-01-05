@@ -9,6 +9,7 @@
 <script lang="ts">
 	import { getWeekNumber, getISOWeekYear } from '$lib/utils/date';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 	import type { TimeEntry } from '$lib/types';
 
 	interface Props {
@@ -58,6 +59,9 @@
 
 	// Generate year options from earliest entry year to end of next month year
 	const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+
+	// Year options for dropdown
+	let yearOptions = $derived(years.map((y) => ({ value: String(y), label: String(y) })));
 
 	// Get number of weeks in a year (52 or 53)
 	function getWeeksInYear(year: number): number {
@@ -130,24 +134,29 @@
 
 		<div class="divider">oder</div>
 
-		<!-- Year selector -->
-		<div class="field">
-			<label for="year-select">Jahr:</label>
-			<select id="year-select" bind:value={selectedYear} class="select-input">
-				{#each years as year (year)}
-					<option value={year}>{year}</option>
-				{/each}
-			</select>
-		</div>
+		<!-- Year and Week selectors in one row -->
+		<div class="selectors">
+			<div class="field">
+				<label for="year-select">Jahr:</label>
+				<CustomDropdown
+					options={yearOptions}
+					value={String(selectedYear)}
+					onchange={(value) => (selectedYear = parseInt(value))}
+				/>
+			</div>
 
-		<!-- Week selector -->
-		<div class="field">
-			<label for="week-select">Kalenderwoche:</label>
-			<select id="week-select" bind:value={selectedWeek} class="select-input">
-				{#each Array.from({ length: validWeekRange.max - validWeekRange.min + 1 }, (_, i) => validWeekRange.min + i) as week (week)}
-					<option value={week}>KW {week}</option>
-				{/each}
-			</select>
+			<div class="field">
+				<label for="week-input">Kalenderwoche:</label>
+				<input
+					id="week-input"
+					type="number"
+					class="week-input"
+					bind:value={selectedWeek}
+					min={validWeekRange.min}
+					max={validWeekRange.max}
+					placeholder="KW"
+				/>
+			</div>
 		</div>
 
 		<!-- Actions -->
@@ -182,10 +191,16 @@
 		font-size: var(--tt-font-size-body);
 	}
 
+	.selectors {
+		display: flex;
+		gap: var(--tt-space-16);
+	}
+
 	.field {
 		display: flex;
 		flex-direction: column;
 		gap: var(--tt-space-4);
+		flex: 1;
 	}
 
 	.field label {
@@ -194,18 +209,18 @@
 		color: var(--tt-text-primary);
 	}
 
-	.select-input {
-		padding: var(--tt-space-12);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-input);
+	.week-input {
+		padding: var(--tt-space-8) var(--tt-space-12);
+		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+		border-radius: var(--tt-radius-button);
 		font-size: var(--tt-font-size-normal);
 		background: var(--tt-background-input);
 		color: var(--tt-text-primary);
 	}
 
-	.select-input:focus {
+	.week-input:focus {
 		outline: none;
-		border-color: var(--tt-border-focus);
+		border-color: var(--tt-brand-primary-500);
 		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 

@@ -9,6 +9,7 @@
 -->
 <script lang="ts">
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 	import type { TimeEntry } from '$lib/types';
 
 	interface Props {
@@ -63,6 +64,9 @@
 	// Generate year options
 	const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 
+	// Year options for dropdown
+	let yearOptions = $derived(years.map((y) => ({ value: String(y), label: String(y) })));
+
 	// Month names in German
 	const monthNames = [
 		'Januar',
@@ -94,6 +98,14 @@
 	}
 
 	let validMonthRange = $derived(getValidMonthRange(selectedYear));
+
+	// Month options for dropdown
+	let monthOptions = $derived(
+		Array.from(
+			{ length: validMonthRange.max - validMonthRange.min + 1 },
+			(_, i) => validMonthRange.min + i
+		).map((m) => ({ value: String(m), label: monthNames[m] }))
+	);
 
 	// Ensure selected month is valid for the year
 	$effect(() => {
@@ -194,21 +206,21 @@
 		<div class="selectors">
 			<div class="field">
 				<label for="year-select">Jahr:</label>
-				<select id="year-select" bind:value={selectedYear} class="select-input">
-					{#each years as year (year)}
-						<option value={year}>{year}</option>
-					{/each}
-				</select>
+				<CustomDropdown
+					options={yearOptions}
+					value={String(selectedYear)}
+					onchange={(value) => (selectedYear = parseInt(value))}
+				/>
 			</div>
 
 			<!-- Month selector -->
 			<div class="field">
 				<label for="month-select">Monat:</label>
-				<select id="month-select" bind:value={selectedMonth} class="select-input">
-					{#each Array.from({ length: validMonthRange.max - validMonthRange.min + 1 }, (_, i) => validMonthRange.min + i) as month (month)}
-						<option value={month}>{monthNames[month]}</option>
-					{/each}
-				</select>
+				<CustomDropdown
+					options={monthOptions}
+					value={String(selectedMonth)}
+					onchange={(value) => (selectedMonth = parseInt(value))}
+				/>
 			</div>
 		</div>
 
@@ -293,21 +305,6 @@
 		font-size: var(--tt-font-size-body);
 		font-weight: 500;
 		color: var(--tt-text-primary);
-	}
-
-	.select-input {
-		padding: var(--tt-space-12);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-input);
-		font-size: var(--tt-font-size-normal);
-		background: var(--tt-background-input);
-		color: var(--tt-text-primary);
-	}
-
-	.select-input:focus {
-		outline: none;
-		border-color: var(--tt-border-focus);
-		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.day-grid {

@@ -20,13 +20,14 @@
 
 Build CSS in three semantic layers:
 
-| Layer | Purpose | Example | When to Create |
-|-------|---------|---------|----------------|
-| **L1: Primitives** | Raw color/sizing scales | `--brand-primary-500: #374CA7` | Once per project |
-| **L2: Semantic Tokens** | Purpose-based values | `--background-card`, `--text-muted` | When same PURPOSE exists in 2+ places |
-| **L3: Component Classes** | Multi-property bundles | `.button-primary`, `.list-row` | When same UI PATTERN is used 3+ times |
+| Layer                     | Purpose                 | Example                             | When to Create                        |
+| ------------------------- | ----------------------- | ----------------------------------- | ------------------------------------- |
+| **L1: Primitives**        | Raw color/sizing scales | `--brand-primary-500: #374CA7`      | Once per project                      |
+| **L2: Semantic Tokens**   | Purpose-based values    | `--background-card`, `--text-muted` | When same PURPOSE exists in 2+ places |
+| **L3: Component Classes** | Multi-property bundles  | `.button-primary`, `.list-row`      | When same UI PATTERN is used 3+ times |
 
 **Why this works:**
+
 - L1 is stable (rarely changes)
 - L2 enables theming (change once, apply everywhere)
 - L3 ensures visual consistency (same button everywhere)
@@ -35,17 +36,18 @@ Build CSS in three semantic layers:
 
 **All visual styling should live in the design system file, not component files.**
 
-| What | Design System | Component File |
-|------|--------------|----------------|
-| Colors | ✓ Always | ✗ Never hardcode |
-| Typography | ✓ Always | ✗ Never hardcode |
-| Borders/Shadows | ✓ Always | ✗ Never hardcode |
-| Hover/Active states | ✓ Always | ⚠️ Only if scoped (see Section 3) |
-| Layout (flex/grid) | ✗ Component-specific | ✓ Local CSS |
-| Positioning | ✗ Component-specific | ✓ Local CSS |
-| Unique spacing | ✗ Component-specific | ✓ Use semantic variables |
+| What                | Design System        | Component File                    |
+| ------------------- | -------------------- | --------------------------------- |
+| Colors              | ✓ Always             | ✗ Never hardcode                  |
+| Typography          | ✓ Always             | ✗ Never hardcode                  |
+| Borders/Shadows     | ✓ Always             | ✗ Never hardcode                  |
+| Hover/Active states | ✓ Always             | ⚠️ Only if scoped (see Section 3) |
+| Layout (flex/grid)  | ✗ Component-specific | ✓ Local CSS                       |
+| Positioning         | ✗ Component-specific | ✓ Local CSS                       |
+| Unique spacing      | ✗ Component-specific | ✓ Use semantic variables          |
 
 **Benefits:**
+
 - **Searchable:** `grep .tt-button` finds all button styling
 - **Consistent:** Same pattern everywhere
 - **Documentable:** CSS file IS the visual documentation
@@ -85,15 +87,23 @@ Use prefixed, semantic names:
 
 ```css
 /* ✗ WRONG - Hardcoded rgba values scattered across files */
-.component-a { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
-.component-b { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+.component-a {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.component-b {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
 /* ✓ RIGHT - Define once, use everywhere */
 :root {
-  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.15);
+	--shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-.component-a { box-shadow: var(--shadow-dropdown); }
-.component-b { box-shadow: var(--shadow-dropdown); }
+.component-a {
+	box-shadow: var(--shadow-dropdown);
+}
+.component-b {
+	box-shadow: var(--shadow-dropdown);
+}
 ```
 
 ### 2.2 Semantic Over Literal Names
@@ -102,11 +112,11 @@ Use prefixed, semantic names:
 
 ```css
 /* ✗ WRONG - Literal names */
---blue-500: #374CA7;
+--blue-500: #374ca7;
 --light-gray: #f5f8fc;
 
 /* ✓ RIGHT - Semantic names */
---brand-primary-500: #374CA7;
+--brand-primary-500: #374ca7;
 --background-card-hover: #f5f8fc;
 ```
 
@@ -116,20 +126,20 @@ Define variables for:
 
 ```css
 :root {
-  /* State layers (for hover/active overlays) */
-  --state-hover: rgba(0, 0, 0, 0.08);
-  --state-pressed: rgba(0, 0, 0, 0.12);
-  
-  /* Shadows */
-  --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-modal: 0 4px 20px rgba(0, 0, 0, 0.25);
-  
-  /* Backdrop */
-  --backdrop-bg: rgba(0, 0, 0, 0.5);
-  
-  /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.2s ease;
+	/* State layers (for hover/active overlays) */
+	--state-hover: rgba(0, 0, 0, 0.08);
+	--state-pressed: rgba(0, 0, 0, 0.12);
+
+	/* Shadows */
+	--shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.15);
+	--shadow-modal: 0 4px 20px rgba(0, 0, 0, 0.25);
+
+	/* Backdrop */
+	--backdrop-bg: rgba(0, 0, 0, 0.5);
+
+	/* Transitions */
+	--transition-fast: 0.15s ease;
+	--transition-normal: 0.2s ease;
 }
 ```
 
@@ -144,12 +154,17 @@ Define variables for:
 Modern frameworks scope component CSS by adding unique identifiers (hash classes or data attributes). This increases CSS specificity.
 
 **Example (Svelte):**
+
 ```css
 /* Your CSS: */
-.my-btn { background: white; }
+.my-btn {
+	background: white;
+}
 
 /* Compiled output: */
-.my-btn.svelte-abc123 { background: white; }
+.my-btn.svelte-abc123 {
+	background: white;
+}
 ```
 
 **The problem:** Scoped CSS overrides global design system classes because it has higher specificity.
@@ -159,9 +174,9 @@ Modern frameworks scope component CSS by adding unique identifiers (hash classes
 <button class="my-btn tt-interactive">Click</button>
 
 <style>
-  .my-btn {
-    background: var(--background-card); /* Wins over .tt-interactive:hover */
-  }
+	.my-btn {
+		background: var(--background-card); /* Wins over .tt-interactive:hover */
+	}
 </style>
 ```
 
@@ -172,31 +187,32 @@ Modern frameworks scope component CSS by adding unique identifiers (hash classes
 ```css
 /* Design system file */
 .tt-interactive-card {
-  background: var(--background-card);  /* Base state */
-  transition: background var(--transition-fast);
+	background: var(--background-card); /* Base state */
+	transition: background var(--transition-fast);
 }
 
 @media (hover: hover) {
-  .tt-interactive-card:hover {
-    background: var(--background-card-hover);  /* Hover state */
-  }
+	.tt-interactive-card:hover {
+		background: var(--background-card-hover); /* Hover state */
+	}
 }
 
 .tt-interactive-card:active {
-  background: var(--background-card-pressed);  /* Pressed state */
+	background: var(--background-card-pressed); /* Pressed state */
 }
 ```
 
 **Usage in component:**
+
 ```svelte
 <button class="my-btn tt-interactive-card">Click</button>
 
 <style>
-  .my-btn {
-    /* NO background here - tt-interactive-card handles it */
-    padding: var(--space-8);
-    border: 1px solid var(--border-default);
-  }
+	.my-btn {
+		/* NO background here - tt-interactive-card handles it */
+		padding: var(--space-8);
+		border: 1px solid var(--border-default);
+	}
 </style>
 ```
 
@@ -204,30 +220,34 @@ Modern frameworks scope component CSS by adding unique identifiers (hash classes
 
 ### 3.3 Common Composite Class Patterns
 
-| Class | Base Background | Hover | Use Case |
-|-------|----------------|-------|----------|
-| `.tt-interactive` | transparent | black 8% overlay | Transparent elements |
-| `.tt-interactive-card` | white card | solid hover color | Buttons on light bg |
-| `.tt-interactive-dark` | transparent | white 12% overlay | Header buttons (dark bg) |
-| `.tt-interactive-accent` | accent-100 | accent-200 | Running task, highlights |
-| `.tt-interactive-danger` | transparent | red overlay | Delete buttons |
+| Class                    | Base Background | Hover             | Use Case                 |
+| ------------------------ | --------------- | ----------------- | ------------------------ |
+| `.tt-interactive`        | transparent     | black 8% overlay  | Transparent elements     |
+| `.tt-interactive-card`   | white card      | solid hover color | Buttons on light bg      |
+| `.tt-interactive-dark`   | transparent     | white 12% overlay | Header buttons (dark bg) |
+| `.tt-interactive-accent` | accent-100      | accent-200        | Running task, highlights |
+| `.tt-interactive-danger` | transparent     | red overlay       | Delete buttons           |
 
 ### 3.4 Transparent Overlay vs Solid Color
 
 **When using transparent overlays:**
+
 ```css
 .tt-interactive:hover {
-  background: rgba(0, 0, 0, 0.08);  /* Overlays on existing bg */
+	background: rgba(0, 0, 0, 0.08); /* Overlays on existing bg */
 }
 ```
+
 This ADDS to the existing background - works for transparent elements.
 
 **When replacing background entirely:**
+
 ```css
 .tt-interactive-card:hover {
-  background: var(--background-card-hover);  /* REPLACES bg with solid color */
+	background: var(--background-card-hover); /* REPLACES bg with solid color */
 }
 ```
+
 This REPLACES the background - use solid colors, not transparent overlays.
 
 **Common bug:** Using transparent overlay to replace a solid background results in a dark/wrong color because the overlay has no base color to layer on.
@@ -243,20 +263,20 @@ When multiple classes share properties, use comma-separated selectors:
 ```css
 /* ✗ BEFORE - 84 lines duplicated */
 .tt-inline-label {
-  display: inline-flex;
-  padding: 2px 8px;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  background: var(--gray-100);
-  color: var(--gray-700);
+	display: inline-flex;
+	padding: 2px 8px;
+	font-size: 0.75rem;
+	border-radius: 4px;
+	background: var(--gray-100);
+	color: var(--gray-700);
 }
 .tt-inline-label-employer {
-  display: inline-flex;
-  padding: 2px 8px;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  background: var(--brand-primary-100);
-  color: var(--brand-primary-700);
+	display: inline-flex;
+	padding: 2px 8px;
+	font-size: 0.75rem;
+	border-radius: 4px;
+	background: var(--brand-primary-100);
+	color: var(--brand-primary-700);
 }
 /* ... 5 more similar classes ... */
 
@@ -266,14 +286,20 @@ When multiple classes share properties, use comma-separated selectors:
 .tt-inline-label-success,
 .tt-inline-label-warning,
 .tt-inline-label-danger {
-  display: inline-flex;
-  padding: 2px 8px;
-  font-size: 0.75rem;
-  border-radius: 4px;
+	display: inline-flex;
+	padding: 2px 8px;
+	font-size: 0.75rem;
+	border-radius: 4px;
 }
 
-.tt-inline-label { background: var(--gray-100); color: var(--gray-700); }
-.tt-inline-label-employer { background: var(--brand-primary-100); color: var(--brand-primary-700); }
+.tt-inline-label {
+	background: var(--gray-100);
+	color: var(--gray-700);
+}
+.tt-inline-label-employer {
+	background: var(--brand-primary-100);
+	color: var(--brand-primary-700);
+}
 /* ... only color overrides ... */
 ```
 
@@ -283,10 +309,18 @@ Watch for classes defined multiple times in the same file (different sections):
 
 ```css
 /* Line 970 - Date navigation */
-.tt-nav-button { display: flex; align-items: center; justify-content: center; }
+.tt-nav-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 /* Line 1734 - Tab navigation (CONFLICT!) */
-.tt-nav-button { display: flex; flex-direction: column; align-items: center; }
+.tt-nav-button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 ```
 
 **Fix:** Rename one to avoid conflicts (e.g., `.tt-tab-button`).
@@ -324,14 +358,14 @@ Structure CSS file with clear section headers:
 ```css
 /* ✓ CORRECT - respects touch devices */
 @media (hover: hover) {
-  .button:hover {
-    background: var(--background-card-hover);
-  }
+	.button:hover {
+		background: var(--background-card-hover);
+	}
 }
 
 /* ✗ WRONG - applies on touch devices */
 .button:hover {
-  background: var(--background-card-hover);
+	background: var(--background-card-hover);
 }
 ```
 
@@ -340,12 +374,14 @@ Structure CSS file with clear section headers:
 ### 5.2 Background Progression Rules
 
 **Light backgrounds → progressively darker:**
+
 ```
 Normal → Hover → Pressed
 #ffffff → #f5f8fc → #edf2f7
 ```
 
 **Dark backgrounds → progressively lighter:**
+
 ```
 Normal → Hover → Pressed
 #2526a9 → #3334b8 → #4a4bc5
@@ -355,13 +391,13 @@ Normal → Hover → Pressed
 
 Every interactive element needs:
 
-| State | Requirement |
-|-------|-------------|
-| **default** | Base appearance |
-| **hover** | Visual feedback on mouse over |
-| **active/pressed** | Stronger feedback on click |
-| **focus** | Visible focus ring for keyboard nav |
-| **disabled** | Grayed out, non-interactive |
+| State              | Requirement                         |
+| ------------------ | ----------------------------------- |
+| **default**        | Base appearance                     |
+| **hover**          | Visual feedback on mouse over       |
+| **active/pressed** | Stronger feedback on click          |
+| **focus**          | Visible focus ring for keyboard nav |
+| **disabled**       | Grayed out, non-interactive         |
 
 ---
 
@@ -373,12 +409,12 @@ Every interactive element needs:
 
 > "Assume similar elements should have the same styling — add same classes unless explicitly specified otherwise"
 
-| Element Type | Rule |
-|--------------|------|
-| Summary rows | Identical styling across all pages |
-| Employer labels | Identical regardless of page/context |
-| Symbol buttons | Same base styles (can individualize later) |
-| Navigation buttons | Consistent across Day/Week/Month |
+| Element Type       | Rule                                       |
+| ------------------ | ------------------------------------------ |
+| Summary rows       | Identical styling across all pages         |
+| Employer labels    | Identical regardless of page/context       |
+| Symbol buttons     | Same base styles (can individualize later) |
+| Navigation buttons | Consistent across Day/Week/Month           |
 
 ### 6.2 When Fixing Bugs
 
@@ -390,6 +426,7 @@ Every interactive element needs:
 ### 6.3 Regression Checkpoints
 
 After CSS refactoring, verify:
+
 - [ ] All similar elements still look identical
 - [ ] Hover states work correctly
 - [ ] No unexpected color/spacing changes
@@ -402,17 +439,20 @@ After CSS refactoring, verify:
 ### 7.1 Three-Phase Approach
 
 **Phase 1: Extract Visual Styles**
+
 - Move visual styles from component files to design system
 - Keep single-use layouts local
 - Test after each component
 
 **Phase 2: Organize Design System**
+
 - Group similar patterns
 - Extract shared base properties
 - Fix duplicate definitions
 - Add documentation comments
 
 **Phase 3: Variable Optimization**
+
 - Replace hardcoded values with semantic variables
 - Create new variables for repeated patterns
 - Update both design system and component files
@@ -427,18 +467,19 @@ When keeping CSS in component files:
 
 ```svelte
 <style>
-  /* Single-use: Weekday grid layout for AddWorkTimeModelModal */
-  .weekday-grid {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: var(--space-8);  /* ✓ Uses semantic variable */
-  }
+	/* Single-use: Weekday grid layout for AddWorkTimeModelModal */
+	.weekday-grid {
+		display: grid;
+		grid-template-columns: 1fr auto auto;
+		gap: var(--space-8); /* ✓ Uses semantic variable */
+	}
 </style>
 ```
 
 ### 7.3 Testing Strategy
 
 After each change:
+
 1. **Visual test** - Does it look the same?
 2. **Hover test** - Do interactive states work?
 3. **Responsive test** - Does it work on mobile?
@@ -459,12 +500,17 @@ After each change:
 **Cause:** Transparent overlay replacing solid background instead of layering.
 
 **Fix:** Use solid hover color for elements with solid backgrounds:
+
 ```css
 /* ✗ WRONG */
-.card:hover { background: rgba(0, 0, 0, 0.08); }  /* Replaces white, shows gray */
+.card:hover {
+	background: rgba(0, 0, 0, 0.08);
+} /* Replaces white, shows gray */
 
 /* ✓ RIGHT */
-.card:hover { background: var(--background-card-hover); }  /* Solid color */
+.card:hover {
+	background: var(--background-card-hover);
+} /* Solid color */
 ```
 
 ### 8.3 Inconsistent Elements

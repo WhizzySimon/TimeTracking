@@ -8,6 +8,7 @@
 -->
 <script lang="ts">
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 	import type { TimeEntry } from '$lib/types';
 
 	interface Props {
@@ -71,6 +72,9 @@
 	const endYear = nextMonth.getFullYear();
 	const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 
+	// Year options for dropdown
+	let yearOptions = $derived(years.map((y) => ({ value: String(y), label: String(y) })));
+
 	// Get valid month range for a given year
 	function getValidMonthRange(year: number): { min: number; max: number } {
 		let min = 0;
@@ -87,6 +91,14 @@
 	}
 
 	let validMonthRange = $derived(getValidMonthRange(selectedYear));
+
+	// Available months for the selected year
+	let availableMonths = $derived(
+		Array.from(
+			{ length: validMonthRange.max - validMonthRange.min + 1 },
+			(_, i) => validMonthRange.min + i
+		)
+	);
 
 	// Ensure selected month is valid when year changes
 	$effect(() => {
@@ -123,24 +135,32 @@
 
 		<div class="divider">oder</div>
 
-		<!-- Year/Month selectors -->
-		<div class="selectors">
-			<div class="selector-group">
-				<label for="year-select">Jahr:</label>
-				<select id="year-select" bind:value={selectedYear} class="select-input">
-					{#each years as year (year)}
-						<option value={year}>{year}</option>
-					{/each}
-				</select>
-			</div>
+		<!-- Year selector -->
+		<div class="year-selector">
+			<label for="year-select">Jahr:</label>
+			<CustomDropdown
+				options={yearOptions}
+				value={String(selectedYear)}
+				onchange={(value) => (selectedYear = parseInt(value))}
+			/>
+		</div>
 
-			<div class="selector-group">
-				<label for="month-select">Monat:</label>
-				<select id="month-select" bind:value={selectedMonth} class="select-input">
-					{#each Array.from({ length: validMonthRange.max - validMonthRange.min + 1 }, (_, i) => validMonthRange.min + i) as month (month)}
-						<option value={month}>{monthNames[month]}</option>
-					{/each}
-				</select>
+		<!-- Month grid -->
+		<div class="month-section">
+			<label>Monat:</label>
+			<div class="month-grid">
+				{#each monthNames as monthName, index (index)}
+					<button
+						type="button"
+						class="month-btn tt-interactive"
+						class:selected={selectedMonth === index}
+						class:disabled={!availableMonths.includes(index)}
+						disabled={!availableMonths.includes(index)}
+						onclick={() => (selectedMonth = index)}
+					>
+						{monthName.substring(0, 3)}
+					</button>
+				{/each}
 			</div>
 		</div>
 
@@ -177,36 +197,59 @@
 		font-size: var(--tt-font-size-body);
 	}
 
-	.selectors {
-		display: flex;
-		gap: var(--tt-space-16);
-	}
-
-	.selector-group {
-		flex: 1;
+	.year-selector {
 		display: flex;
 		flex-direction: column;
 		gap: var(--tt-space-4);
 	}
 
-	.selector-group label {
+	.year-selector label {
 		font-size: var(--tt-font-size-small);
 		color: var(--tt-text-muted);
 	}
 
-	.select-input {
-		padding: var(--tt-space-8);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-input);
-		font-size: var(--tt-font-size-normal);
-		background: var(--tt-background-input);
-		color: var(--tt-text-primary);
+	.month-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-8);
 	}
 
-	.select-input:focus {
-		outline: none;
-		border-color: var(--tt-border-focus);
-		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
+	.month-section label {
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-muted);
+	}
+
+	.month-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--tt-space-8);
+	}
+
+	.month-btn {
+		padding: var(--tt-space-8);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
+		font-size: var(--tt-font-size-small);
+		font-weight: 500;
+		cursor: pointer;
+		transition:
+			background var(--tt-transition-fast),
+			border-color var(--tt-transition-fast),
+			color var(--tt-transition-fast);
+	}
+
+	.month-btn.selected {
+		background: var(--tt-brand-primary-500);
+		border-color: var(--tt-brand-primary-500);
+		color: white;
+		font-weight: 600;
+	}
+
+	.month-btn.disabled {
+		opacity: 0.3;
+		cursor: not-allowed;
 	}
 
 	.actions {

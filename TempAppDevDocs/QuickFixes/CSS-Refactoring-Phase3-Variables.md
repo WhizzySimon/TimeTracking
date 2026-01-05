@@ -11,11 +11,13 @@ Refactor CSS variables across both design system and component-local CSS to use 
 **Scope:**
 
 ### 1. Design System Variables (`tt-design-system.css`)
+
 - Review all hardcoded values in design system classes
 - Replace with semantic CSS variables where appropriate
 - Ensure consistency with existing variable naming conventions
 
 ### 2. Component-Local Variables
+
 - Review single-use component CSS (documented in Phase 1)
 - Replace hardcoded values with semantic variables
 - Examples:
@@ -26,6 +28,7 @@ Refactor CSS variables across both design system and component-local CSS to use 
   - `ExportDialog` - format selection UI
 
 ### 3. Variable Consolidation
+
 - Identify duplicate or similar values across components
 - Create new semantic variables if patterns emerge
 - Update variable documentation
@@ -33,6 +36,7 @@ Refactor CSS variables across both design system and component-local CSS to use 
 ## Prerequisites
 
 **Must complete Phase 2 first:**
+
 - Design system organization (base classes, inheritance)
 - This provides clarity on which values should be variables
 

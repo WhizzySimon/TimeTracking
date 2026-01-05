@@ -2,7 +2,8 @@
 
 **Purpose:** Visual baseline screenshots taken before Phase 1 CSS refactoring
 
-**Usage:** 
+**Usage:**
+
 - Compare against current state to detect visual regressions
 - Reference for component grouping and similarity analysis
 - Guide base class extraction decisions in Phase 2
@@ -12,6 +13,7 @@
 ## Screenshot Organization
 
 ### Main Pages (5 screenshots)
+
 Place screenshots here with these filenames:
 
 1. `01-add-page.png` - Add page with category list
@@ -21,6 +23,7 @@ Place screenshots here with these filenames:
 5. `05-day-page.png` - Day view So 4.1.2026
 
 ### Dialogs & Settings (5 screenshots)
+
 6. `06-settings-sections.png` - Settings with Tätigkeiten expanded
 7. `07-worktime-modal.png` - AddWorkTimeModelModal dialog
 8. `08-plan-selection.png` - Plan selection dialog (paywall)
@@ -32,6 +35,7 @@ Place screenshots here with these filenames:
 ## Reference Document
 
 See `CSS-Phase2-Visual-Reference.md` for detailed analysis of each screenshot, including:
+
 - Visual elements identified
 - Component grouping
 - CSS classes to verify

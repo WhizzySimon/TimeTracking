@@ -335,8 +335,8 @@
 					<button class="tt-list-row-clickable" type="button" onclick={() => navigateToDay(date)}>
 						<div class="tt-list-row__content">
 							<span class="tt-list-row__title">{formatShortDate(date)}</span>
-							<span class="tt-list-row__detail">{getDayTypeLabel(date)}</span>
 						</div>
+						<span class="tt-list-row__detail">{getDayTypeLabel(date)}</span>
 						<div class="day-hours">
 							<span class="day-hours__ist">{dayIst.toFixed(1).replace('.', ',')}</span>
 							<span class="day-hours__separator">/</span>

@@ -1803,37 +1803,35 @@ textarea {
 		filter var(--tt-transition-fast);
 }
 
-/* Hover state: white border + subtle brightness increase (state layer effect on colored bg) */
+/* Hover state: Material Design 3 state layer (white overlay on colored bg) */
 @media (hover: hover) {
 	.tt-footer-tab:hover {
-		border-color: var(--tt-white-30);
-		filter: brightness(1.1);
+		background: color-mix(in srgb, currentColor 8%, var(--tt-footer-tab-bg, transparent));
 	}
 }
 
-/* Pressed/Active state: white border + stronger brightness (state layer effect) */
+/* Pressed/Active state: stronger state layer */
 .tt-footer-tab:active {
-	border-color: var(--tt-white);
-	font-weight: var(--tt-font-weight-bold);
-	filter: brightness(1.15);
+	background: color-mix(in srgb, currentColor 12%, var(--tt-footer-tab-bg, transparent));
 }
 
-/* Current tab: persistent selected state - white border + bold */
+/* Current tab: persistent selected state - white background + dark text */
 .tt-footer-tab[aria-current='page'] {
-	border-color: var(--tt-white);
+	background: var(--tt-white) !important;
+	color: var(--tt-brand-primary-700);
 	font-weight: var(--tt-font-weight-bold);
 }
 
-/* Current tab hover: keep white border */
+/* Current tab hover: subtle state layer on white */
 @media (hover: hover) {
 	.tt-footer-tab[aria-current='page']:hover {
-		border-color: var(--tt-white);
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-white)) !important;
 	}
 }
 
-/* Current tab pressed: same as selected */
+/* Current tab pressed: stronger state layer on white */
 .tt-footer-tab[aria-current='page']:active {
-	border-color: var(--tt-white);
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-white)) !important;
 }
 
 .tt-footer-tab svg {
@@ -1855,6 +1853,14 @@ textarea {
 	color: var(--tt-footer-plus-text);
 }
 
+.tt-footer-tab--plus:hover {
+	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-footer-plus-bg));
+}
+
+.tt-footer-tab--plus:active {
+	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-footer-plus-bg));
+}
+
 .tt-footer-tab--plus[aria-current='page'] {
 	font-weight: var(--tt-font-weight-bold);
 }
@@ -1865,17 +1871,49 @@ textarea {
 	color: var(--tt-footer-plus-text);
 }
 
+.tt-footer-tab--analysis:hover {
+	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-footer-plus-bg));
+}
+
+.tt-footer-tab--analysis:active {
+	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-footer-plus-bg));
+}
+
 /* Individual tab colors - gradient from light to dark (100/200/300) */
 .tt-footer-tab--day {
 	background: var(--tt-brand-accent-100);
+}
+
+.tt-footer-tab--day:hover {
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100));
+}
+
+.tt-footer-tab--day:active {
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-100));
 }
 
 .tt-footer-tab--week {
 	background: var(--tt-brand-accent-200);
 }
 
+.tt-footer-tab--week:hover {
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+}
+
+.tt-footer-tab--week:active {
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
+}
+
 .tt-footer-tab--month {
 	background: var(--tt-brand-accent-300);
+}
+
+.tt-footer-tab--month:hover {
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+}
+
+.tt-footer-tab--month:active {
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300));
 }
 
 /* ============================================================================
@@ -2216,6 +2254,12 @@ textarea {
 .tt-btn-delete:active {
 	background: var(--tt-state-danger-pressed);
 	color: var(--tt-status-danger-600);
+}
+
+.tt-btn-delete-placeholder {
+	width: 40px;
+	height: 40px;
+	flex-shrink: 0;
 }
 
 .tt-row__action {
