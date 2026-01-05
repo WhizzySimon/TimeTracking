@@ -212,6 +212,9 @@ html[data-color-scheme='scheme-3'] {
 	--tt-state-danger-hover: rgba(197, 48, 48, 0.08);
 	--tt-state-danger-pressed: rgba(197, 48, 48, 0.12);
 
+	/* Modal/dialog backdrop */
+	--tt-backdrop-bg: rgba(0, 0, 0, 0.5);
+
 	/* ---- COLORS: Text ---- */
 	--tt-text-primary: var(--tt-gray-900);
 	--tt-text-secondary: var(--tt-gray-700);
@@ -308,6 +311,10 @@ html[data-color-scheme='scheme-3'] {
 	--tt-dropdown-option-pressed-text: var(--tt-white);
 	--tt-dropdown-option-selected-bg: var(--tt-brand-primary-800);
 	--tt-dropdown-option-selected-text: var(--tt-brand-primary-500);
+
+	/* ---- SHADOWS ---- */
+	--tt-shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.15);
+	--tt-shadow-modal: 0 4px 20px rgba(0, 0, 0, 0.25);
 
 	/* ---- ANIMATION ---- */
 	--tt-transition-fast: 0.15s ease;
@@ -742,12 +749,12 @@ textarea {
 
 @media (hover: hover) {
 	.tt-button-danger-outline:hover:not(:disabled) {
-		background: rgba(197, 48, 48, 0.1);
+		background: var(--tt-status-danger-800);
 	}
 }
 
 .tt-button-danger-outline:active:not(:disabled) {
-	background: rgba(197, 48, 48, 0.15);
+	background: var(--tt-state-danger-pressed);
 }
 
 /**
@@ -1020,7 +1027,7 @@ textarea {
  * Modal Components - Visual styles for modal elements
  */
 .tt-modal-backdrop {
-	background: rgba(0, 0, 0, 0.5);
+	background: var(--tt-backdrop-bg);
 }
 
 .tt-modal-content {
@@ -1641,12 +1648,12 @@ textarea {
 
 @media (hover: hover) {
 	.tt-interactive-dark:hover {
-		background: rgba(255, 255, 255, 0.12);
+		background: var(--tt-white-10);
 	}
 }
 
 .tt-interactive-dark:active {
-	background: rgba(255, 255, 255, 0.2);
+	background: var(--tt-white-20);
 }
 
 /* Accent variant - for elements with accent background (running task, etc.)
@@ -1799,7 +1806,7 @@ textarea {
 /* Hover state: white border + subtle brightness increase (state layer effect on colored bg) */
 @media (hover: hover) {
 	.tt-footer-tab:hover {
-		border-color: rgba(255, 255, 255, 0.5);
+		border-color: var(--tt-white-30);
 		filter: brightness(1.1);
 	}
 }

@@ -172,7 +172,7 @@
 		background: var(--tt-background-card);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-button);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		box-shadow: var(--tt-shadow-dropdown);
 		z-index: 100;
 		overflow: hidden;
 	}

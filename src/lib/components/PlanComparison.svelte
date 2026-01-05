@@ -51,7 +51,7 @@
 	.modal-backdrop {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
+		background: var(--tt-backdrop-bg);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -66,7 +66,7 @@
 		max-width: 900px;
 		max-height: 90vh;
 		overflow-y: auto;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+		box-shadow: var(--tt-shadow-modal);
 	}
 
 	.modal-header {

@@ -183,7 +183,7 @@
 	.paywall-backdrop {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
+		background: var(--tt-backdrop-bg);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -202,7 +202,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: stretch;
-		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+		box-shadow: var(--tt-shadow-modal);
 		position: relative;
 	}
 
