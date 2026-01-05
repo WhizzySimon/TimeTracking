@@ -75,31 +75,35 @@ Full context: `TempAppDevDocs/QuickFixes/Refactor-CSS-Visual-Styles-To-Classes.m
 - [x] Created .tt-page-header classes (2 classes)
 - [x] Verified with npm run check
 
-### Remaining Work (Analysis & Settings Pages)
+### Step 6: Analysis Page ✓
 
-**Analysis Page** - Many visual styles remain:
+- [x] Created .tt-range-button classes (2 classes)
+- [x] Created .tt-period-hours classes (6 classes)
+- [x] Created .tt-no-work-badge class
+- [x] Created .tt-column-header-label class
+- [x] Created .tt-summary-total-row classes (2 classes)
+- [x] Created .tt-category-name class
+- [x] Created .tt-summary-value classes (3 classes)
+- [x] Updated Analysis page HTML
+- [x] Removed extracted CSS from Analysis page
+- [x] Verified with npm run check
 
-- `.range-button` and child elements
-- `.period-hours` and child elements (`.ist`, `.separator`, `.soll`, `.saldo`)
-- `.no-work-badge`
-- `.summary-total-row`, `.summary-label`, `.summary-values`, `.summary-value` variants
-- `.category-row`, `.category-name`
-- `.header-label`, `.column-headers`
+### Step 7: Settings Page ✓
 
-**Settings Page** - Many visual styles remain:
+- [x] Created .tt-settings-section-header\_\_title hover class
+- [x] Created .tt-dropdown-menu classes (4 classes)
+- [x] Created .tt-account-info classes (3 classes)
+- [x] Created .tt-plan-text class
+- [x] Created .tt-version-label and .tt-build-time classes
+- [x] Created .tt-delete-account-error class
+- [x] Created .tt-empty-list class
+- [x] Updated Settings page HTML
+- [x] Removed extracted CSS from Settings page
+- [x] Verified with npm run check
 
-- `.section-header h2` hover effect
-- `.dropdown-menu`, `.dropdown-item`, `.dropdown-icon`, `.dropdown-item-danger`
-- `.account-info`, `.account-row`, `.account-label`, `.account-value`
-- `.plan-text` variants
-- `.version-info`, `.version-label`, `.build-time`
-- `.delete-account-error`
-- `.dev-settings`, `.color-preview`, `.color-swatch`
-- And more...
+### Remaining Work
 
-### Remaining Components
-
-- [ ] Many components in `src/lib/components/` still need review
+**Components:** Many components in `src/lib/components/` still need review for visual style extraction
 
 ## QA Checklist
 

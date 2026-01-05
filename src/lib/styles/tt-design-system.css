@@ -1185,7 +1185,243 @@ textarea {
 }
 
 /* ============================================================================
-   J) SUMMARY DISPLAY - Ist/Soll/Haben inline display
+   J) ANALYSIS PAGE COMPONENTS
+   ============================================================================ */
+
+/**
+ * Range Button - Date range selector button in Analysis page
+ */
+.tt-range-button {
+	padding: 0.5rem 1rem;
+	border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+	background: var(--tt-background-card);
+	color: var(--tt-text-primary);
+	font-size: var(--tt-font-size-title);
+	font-weight: 600;
+	cursor: pointer;
+	text-align: center;
+	white-space: nowrap;
+	border-radius: var(--tt-radius-card);
+	min-height: 44px;
+}
+
+.tt-range-button__date {
+	color: var(--tt-brand-accent-300);
+}
+
+/**
+ * Period Hours Display - Ist/Soll/Saldo display in period rows
+ */
+.tt-period-hours {
+	font-size: var(--tt-font-size-body);
+	color: var(--tt-text-muted);
+}
+
+.tt-period-hours__ist {
+	color: var(--tt-text-primary);
+}
+
+.tt-period-hours__separator {
+	color: var(--tt-text-muted);
+}
+
+.tt-period-hours__soll {
+	color: var(--tt-text-muted);
+}
+
+.tt-period-hours__saldo--positive {
+	color: var(--tt-saldo-positive);
+}
+
+.tt-period-hours__saldo--negative {
+	color: var(--tt-status-danger-500);
+}
+
+/**
+ * No Work Badge - Small badge for non-work periods
+ */
+.tt-no-work-badge {
+	font-size: 0.7rem;
+	padding: 2px 6px;
+	background: var(--tt-background-card-hover);
+	color: var(--tt-text-muted);
+	border-radius: var(--tt-radius-input);
+}
+
+/**
+ * Column Header Label - Small header labels in tables
+ */
+.tt-column-header-label {
+	font-size: var(--tt-font-size-tiny);
+	color: var(--tt-text-muted);
+	min-width: 60px;
+	text-align: right;
+}
+
+/**
+ * Summary Total Row - Highlighted summary row in Analysis
+ */
+.tt-summary-total-row {
+	background: var(--tt-status-info-faded);
+	border: 1px solid var(--tt-border-default);
+	border-radius: var(--tt-radius-card);
+	padding: var(--tt-space-12) var(--tt-space-16);
+}
+
+.tt-summary-total-row__label {
+	font-weight: 700;
+	color: var(--tt-brand-primary-500);
+}
+
+/**
+ * Category Name - Category text in analysis rows
+ */
+.tt-category-name {
+	color: var(--tt-text-primary);
+}
+
+/**
+ * Summary Value - Numeric values in summary displays
+ */
+.tt-summary-value {
+	font-weight: 600;
+	color: var(--tt-text-primary);
+	min-width: 60px;
+	text-align: right;
+}
+
+.tt-summary-value--primary {
+	font-weight: 700;
+	color: var(--tt-brand-primary-500);
+}
+
+.tt-summary-value--secondary {
+	font-weight: 500;
+	color: var(--tt-text-muted);
+}
+
+/* ============================================================================
+   K) SETTINGS PAGE COMPONENTS
+   ============================================================================ */
+
+/**
+ * Section Header - Settings section headers with hover effect
+ */
+.tt-settings-section-header__title:hover {
+	color: var(--tt-brand-primary-500);
+}
+
+/**
+ * Dropdown Menu - Settings dropdown menus
+ */
+.tt-dropdown-menu {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	margin-top: var(--tt-space-4);
+	background: var(--tt-background-card);
+	border: 1px solid var(--tt-border-default);
+	border-radius: var(--tt-radius-card);
+	box-shadow: var(--tt-shadow-modal);
+	z-index: 100;
+	min-width: 160px;
+	overflow: hidden;
+}
+
+.tt-dropdown-item {
+	padding: var(--tt-space-12) var(--tt-space-16);
+	background: none;
+	border: none;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+	transition: background var(--tt-transition-fast);
+	color: var(--tt-text-primary);
+}
+
+.tt-dropdown-item:hover {
+	background: var(--tt-state-hover);
+}
+
+.tt-dropdown-item:not(:last-child) {
+	border-bottom: 1px solid var(--tt-border-subtle);
+}
+
+.tt-dropdown-icon {
+	width: 20px;
+	height: 20px;
+	flex-shrink: 0;
+	color: var(--tt-text-secondary);
+}
+
+.tt-dropdown-item--danger {
+	color: var(--tt-status-danger-500);
+}
+
+.tt-dropdown-item--danger:hover {
+	background: var(--tt-state-danger-hover);
+}
+
+/**
+ * Account Info - Account information display card
+ */
+.tt-account-info {
+	padding: var(--tt-space-16);
+	background: var(--tt-background-card);
+	border: 1px solid var(--tt-border-default);
+	border-radius: var(--tt-radius-card);
+}
+
+.tt-account-label {
+	font-weight: 500;
+	color: var(--tt-text-muted);
+}
+
+.tt-account-value {
+	color: var(--tt-text-primary);
+}
+
+/**
+ * Plan Text - Subscription plan display
+ */
+.tt-plan-text {
+	font-weight: 600;
+	color: var(--tt-brand-primary-500);
+}
+
+/**
+ * Version Info - App version display
+ */
+.tt-version-label {
+	font-weight: 500;
+}
+
+.tt-build-time {
+	font-size: var(--tt-font-size-tiny);
+	color: var(--tt-text-muted);
+}
+
+/**
+ * Delete Account Error - Error message styling
+ */
+.tt-delete-account-error {
+	font-size: var(--tt-font-size-small);
+	color: var(--tt-status-danger-500);
+	text-align: center;
+}
+
+/**
+ * Empty List Message - "No items" in lists
+ */
+.tt-empty-list {
+	text-align: center;
+	color: var(--tt-text-muted);
+	padding: var(--tt-space-16);
+	margin: 0;
+}
+
+/* ============================================================================
+   L) SUMMARY DISPLAY - Ist/Soll/Haben inline display
    ============================================================================ */
 
 .tt-summary-display {

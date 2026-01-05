@@ -666,8 +666,8 @@
 	{:else}
 		<!-- Date Range Selector -->
 		<div class="range-selector-row">
-			<button class="range-button tt-interactive" onclick={() => (showRangeSelector = true)}>
-				<span class="title-date">{rangeDisplay}</span>
+			<button class="tt-range-button tt-interactive" onclick={() => (showRangeSelector = true)}>
+				<span class="tt-range-button__date">{rangeDisplay}</span>
 			</button>
 		</div>
 
@@ -677,12 +677,15 @@
 		<!-- Zeiten Section (Period List) -->
 		<section class="collapsible-section">
 			<button
-				class="section-toggle"
+				class="tt-section-toggle"
 				onclick={() => (expandedSections.zeiten = !expandedSections.zeiten)}
 				aria-expanded={expandedSections.zeiten}
 			>
-				<span class="toggle-icon" class:expanded={expandedSections.zeiten}>▶</span>
-				<h3 class="section-title">Zeiten</h3>
+				<span
+					class="tt-section-toggle__icon"
+					class:tt-section-toggle__icon--expanded={expandedSections.zeiten}>▶</span
+				>
+				<h3 class="tt-section-toggle__title">Zeiten</h3>
 			</button>
 			{#if expandedSections.zeiten}
 				<div class="period-list">
@@ -695,15 +698,15 @@
 								<div class="tt-list-row__content">
 									<span class="tt-list-row__title">{period.label}</span>
 								</div>
-								<div class="period-hours">
-									<span class="ist">{formatHours(period.ist)}</span>
-									<span class="separator">/</span>
-									<span class="soll">{formatHours(period.soll)}</span>
-									<span class="separator">/</span>
+								<div class="tt-period-hours">
+									<span class="tt-period-hours__ist">{formatHours(period.ist)}</span>
+									<span class="tt-period-hours__separator">/</span>
+									<span class="tt-period-hours__soll">{formatHours(period.soll)}</span>
+									<span class="tt-period-hours__separator">/</span>
 									<span
-										class="saldo"
-										class:positive={periodSaldo >= 0}
-										class:negative={periodSaldo < 0}
+										class="tt-period-hours__saldo"
+										class:tt-period-hours__saldo--positive={periodSaldo >= 0}
+										class:tt-period-hours__saldo--negative={periodSaldo < 0}
 									>
 										{periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}
 									</span>
@@ -720,26 +723,29 @@
 			<section class="collapsible-section">
 				<div class="section-header-row">
 					<button
-						class="section-toggle"
+						class="tt-section-toggle"
 						onclick={() => toggleSection('taetigkeiten')}
 						aria-expanded={expandedSections.taetigkeiten}
 					>
-						<span class="toggle-icon" class:expanded={expandedSections.taetigkeiten}>▶</span>
-						<h3 class="section-title">Einträge</h3>
+						<span
+							class="tt-section-toggle__icon"
+							class:tt-section-toggle__icon--expanded={expandedSections.taetigkeiten}>▶</span
+						>
+						<h3 class="tt-section-toggle__title">Einträge</h3>
 					</button>
 					<div class="column-headers">
-						<span class="header-label">Gesamt</span>
-						<span class="header-label">Ø/Woche</span>
+						<span class="tt-column-header-label">Gesamt</span>
+						<span class="tt-column-header-label">Ø/Woche</span>
 					</div>
 				</div>
 				<!-- Total Sum Row - Always visible -->
-				<div class="tt-list-row-static summary-total-row">
-					<span class="summary-label">Summe</span>
+				<div class="tt-list-row-static tt-summary-total-row">
+					<span class="tt-summary-total-row__label">Summe</span>
 					<div class="summary-values">
-						<span class="summary-value summary-value--secondary"
+						<span class="tt-summary-value tt-summary-value--secondary"
 							>{formatHours(totalCategoryHours)}</span
 						>
-						<span class="summary-value summary-value--primary"
+						<span class="tt-summary-value tt-summary-value--primary"
 							>{formatHours(totalCategoryAverage)}</span
 						>
 					</div>
@@ -748,15 +754,17 @@
 				{#if expandedSections.taetigkeiten}
 					{#each categoryBreakdown as cat (cat.name)}
 						<div class="tt-list-row-static category-row">
-							<span class="category-name">
+							<span class="tt-category-name">
 								{cat.name}
 								{#if !cat.countsAsWorkTime}
-									<span class="no-work-badge">Keine Arbeitszeit</span>
+									<span class="tt-no-work-badge">Keine Arbeitszeit</span>
 								{/if}
 							</span>
 							<div class="summary-values">
-								<span class="summary-value summary-value--secondary">{formatHours(cat.hours)}</span>
-								<span class="summary-value summary-value--primary"
+								<span class="tt-summary-value tt-summary-value--secondary"
+									>{formatHours(cat.hours)}</span
+								>
+								<span class="tt-summary-value tt-summary-value--primary"
 									>{formatHours(cat.averagePerWeek)}</span
 								>
 							</div>
@@ -792,12 +800,7 @@
 		gap: var(--tt-space-16);
 	}
 
-	.loading {
-		display: flex;
-		justify-content: center;
-		padding: var(--tt-space-32);
-		color: var(--tt-text-muted);
-	}
+	/* Loading uses .tt-loading-text from design system */
 
 	/* Date Range Selector - right-aligned with auto-width */
 	.range-selector-row {
@@ -807,26 +810,11 @@
 		padding: var(--tt-space-12) 0;
 	}
 
-	.range-button {
-		padding: 0.5rem 1rem;
-		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
-		background: var(--tt-background-card);
-		color: var(--tt-text-primary);
-		font-size: var(--tt-font-size-title);
-		font-weight: 600;
-		cursor: pointer;
-		text-align: center;
-		white-space: nowrap;
-		border-radius: var(--tt-radius-card);
+	.tt-range-button {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		gap: var(--tt-space-4);
-		min-height: 44px;
-	}
-
-	.range-button .title-date {
-		color: var(--tt-brand-accent-300);
 	}
 
 	/* Period List */
@@ -836,38 +824,12 @@
 		gap: var(--tt-space-8);
 	}
 
-	.no-periods {
-		text-align: center;
-		color: var(--tt-text-muted);
-		padding: var(--tt-space-32);
-	}
+	/* No periods uses .tt-empty-state from design system */
 
-	.period-hours {
+	.tt-period-hours {
 		display: flex;
 		gap: var(--tt-space-4);
-		font-size: var(--tt-font-size-body);
-		color: var(--tt-text-muted);
 		margin-left: auto;
-	}
-
-	.period-hours .ist {
-		color: var(--tt-text-primary);
-	}
-
-	.period-hours .separator {
-		color: var(--tt-text-muted);
-	}
-
-	.period-hours .soll {
-		color: var(--tt-text-muted);
-	}
-
-	.period-hours .saldo.positive {
-		color: var(--tt-saldo-positive);
-	}
-
-	.period-hours .saldo.negative {
-		color: var(--tt-status-danger-500);
 	}
 
 	/* Collapsible Sections */
@@ -877,42 +839,14 @@
 		gap: var(--tt-space-8);
 	}
 
-	.section-toggle {
+	.tt-section-toggle {
 		display: flex;
 		align-items: center;
 		gap: var(--tt-space-8);
-		background: none;
-		border: none;
 		padding: 0;
-		cursor: pointer;
-		text-align: left;
 	}
 
-	.toggle-icon {
-		display: inline-block;
-		font-size: 0.7rem;
-		color: var(--tt-text-muted);
-		transition: transform 0.2s ease;
-	}
-
-	.toggle-icon.expanded {
-		transform: rotate(90deg);
-	}
-
-	.section-title {
-		margin: 0;
-		font-size: var(--tt-font-size-normal);
-		font-weight: 600;
-		color: var(--tt-text-primary);
-	}
-
-	.no-work-badge {
-		font-size: 0.7rem;
-		padding: 2px 6px;
-		background: var(--tt-background-card-hover);
-		color: var(--tt-text-muted);
-		border-radius: var(--tt-radius-input);
-	}
+	/* Visual styles use design system classes: .tt-section-toggle, .tt-section-toggle__icon, .tt-section-toggle__title, .tt-no-work-badge */
 
 	.section-header-row {
 		display: flex;
@@ -925,38 +859,22 @@
 		gap: var(--tt-space-16);
 	}
 
-	.header-label {
-		font-size: var(--tt-font-size-tiny);
-		color: var(--tt-text-muted);
-		min-width: 60px;
-		text-align: right;
-	}
+	/* Header labels use .tt-column-header-label from design system */
 
-	/* Summary row styling - info row, not clickable */
-	.summary-total-row {
-		background: var(--tt-status-info-faded);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-card);
-		padding: var(--tt-space-12) var(--tt-space-16);
+	.tt-summary-total-row {
 		margin-bottom: var(--tt-space-8);
 		justify-content: space-between;
 		display: flex;
 		align-items: center;
 	}
 
-	.summary-label {
-		font-weight: 700;
-		color: var(--tt-brand-primary-500);
-	}
-
 	.category-row {
 		justify-content: space-between;
 	}
 
-	.category-name {
+	.tt-category-name {
 		flex: 1;
 		min-width: 0;
-		color: var(--tt-text-primary);
 	}
 
 	.summary-values {
@@ -965,20 +883,5 @@
 		flex-shrink: 0;
 	}
 
-	.summary-value {
-		font-weight: 600;
-		color: var(--tt-text-primary);
-		min-width: 60px;
-		text-align: right;
-	}
-
-	.summary-value--primary {
-		font-weight: 700;
-		color: var(--tt-brand-primary-500);
-	}
-
-	.summary-value--secondary {
-		font-weight: 500;
-		color: var(--tt-text-muted);
-	}
+	/* Summary values use .tt-summary-value, .tt-summary-value--primary, .tt-summary-value--secondary from design system */
 </style>

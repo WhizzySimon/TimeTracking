@@ -390,8 +390,8 @@
 
 <div class="settings-page">
 	<!-- Page Header -->
-	<div class="page-header">
-		<h1>Einstellungen</h1>
+	<div class="tt-page-header">
+		<h1 class="tt-page-header__title">Einstellungen</h1>
 	</div>
 
 	{#if loading || !profileLoaded}
@@ -421,11 +421,11 @@
 					Abmelden
 				</button>
 			</div>
-			<div class="account-info">
+			<div class="tt-account-info">
 				<div class="account-row">
-					<span class="account-label">Name</span>
+					<span class="tt-account-label">Name</span>
 					<div class="account-value-with-edit">
-						<span class="account-value" data-testid="account-name">
+						<span class="tt-account-value" data-testid="account-name">
 							{$userFullName || 'Nicht festgelegt'}
 						</span>
 						<button
@@ -448,9 +448,9 @@
 					</div>
 				</div>
 				<div class="account-row">
-					<span class="account-label">E-Mail</span>
+					<span class="tt-account-label">E-Mail</span>
 					<div class="account-value-with-edit">
-						<span class="account-value" data-testid="account-email">
+						<span class="tt-account-value" data-testid="account-email">
 							{$userProfile?.email ?? 'Nicht angemeldet'}
 						</span>
 						<button
@@ -473,10 +473,10 @@
 					</div>
 				</div>
 				<div class="account-row">
-					<span class="account-label">Plan</span>
+					<span class="tt-account-label">Plan</span>
 					<div class="account-value-with-edit">
 						<span
-							class="account-value plan-text"
+							class="tt-account-value tt-plan-text"
 							class:pro={$userPlan === 'pro'}
 							data-testid="account-plan"
 						>
@@ -502,17 +502,20 @@
 
 		<!-- Arbeitgeber Section -->
 		<section class="section" data-testid="employer-section">
-			<div class="section-header">
+			<div class="section-header tt-settings-section-header">
 				<button
-					class="section-toggle"
+					class="tt-section-toggle tt-settings-section-toggle"
 					onclick={() => (expandedSections.employers = !expandedSections.employers)}
 					aria-expanded={expandedSections.employers}
 				>
-					<span class="toggle-icon" class:expanded={expandedSections.employers}>▶</span>
-					<h2>Arbeitgeber</h2>
+					<span
+						class="tt-section-toggle__icon tt-settings-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.employers}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Arbeitgeber</h2>
 				</button>
 				<button
-					class="tt-symbol-button"
+					class="tt-symbol-button tt-settings-symbol-button"
 					onclick={handleAddEmployer}
 					aria-label="Arbeitgeber hinzufügen"
 					data-testid="add-employer-btn"
@@ -524,25 +527,27 @@
 				</button>
 			</div>
 			{#if expandedSections.employers}
-				<div class="list" data-testid="employer-list">
+				<div class="list tt-settings-list">
 					{#if employers.filter((emp) => emp.isActive).length === 0}
-						<p class="empty">Keine Arbeitgeber vorhanden</p>
+						<p class="tt-empty-list tt-settings-empty-list">Keine Arbeitgeber vorhanden</p>
 					{:else}
 						{#each employers.filter((emp) => emp.isActive) as employer (employer.id)}
 							<div
-								class="tt-list-row-clickable"
+								class="tt-list-row-clickable tt-settings-list-row-clickable"
 								role="button"
 								tabindex="0"
 								data-testid="employer-item"
 								onclick={() => handleEditEmployer(employer)}
 								onkeydown={(e) => e.key === 'Enter' && handleEditEmployer(employer)}
 							>
-								<div class="tt-list-row__content">
-									<span class="tt-list-row__title" data-testid="employer-name">{employer.name}</span
+								<div class="tt-list-row__content tt-settings-list-row__content">
+									<span
+										class="tt-list-row__title tt-settings-list-row__title"
+										data-testid="employer-name">{employer.name}</span
 									>
 								</div>
 								<button
-									class="tt-btn-delete"
+									class="tt-btn-delete tt-settings-btn-delete"
 									aria-label="Löschen"
 									data-testid="delete-employer-btn"
 									onclick={(event) => {
@@ -575,17 +580,22 @@
 
 		<!-- Arbeitszeitmodelle Section (first - shorter list) -->
 		<section class="section">
-			<div class="section-header">
+			<div class="section-header tt-settings-section-header">
 				<button
-					class="section-toggle"
+					class="tt-section-toggle tt-settings-section-toggle"
 					onclick={() => (expandedSections.workTimeModels = !expandedSections.workTimeModels)}
 					aria-expanded={expandedSections.workTimeModels}
 				>
-					<span class="toggle-icon" class:expanded={expandedSections.workTimeModels}>▶</span>
-					<h2>Arbeitszeitmodelle</h2>
+					<span
+						class="tt-section-toggle__icon tt-settings-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.workTimeModels}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">
+						Arbeitszeitmodelle
+					</h2>
 				</button>
 				<button
-					class="tt-symbol-button"
+					class="tt-symbol-button tt-settings-symbol-button"
 					onclick={() => (showAddWorkTimeModel = true)}
 					aria-label="Modell hinzufügen"
 				>
@@ -598,7 +608,7 @@
 			{#if expandedSections.workTimeModels}
 				<div class="list">
 					{#if $workTimeModels.length === 0}
-						<p class="empty">Keine Arbeitszeitmodelle vorhanden</p>
+						<p class="tt-empty-list">Keine Arbeitszeitmodelle vorhanden</p>
 					{:else}
 						{#each $workTimeModels as model (model.id)}
 							<div
@@ -670,7 +680,7 @@
 			{#if expandedSections.abwesenheit}
 				<div class="list">
 					{#if abwesenheit().length === 0}
-						<p class="empty">Keine Abwesenheit vorhanden</p>
+						<p class="tt-empty-list">Keine Abwesenheit vorhanden</p>
 					{:else}
 						{#each abwesenheit() as category (category.id)}
 							<div
@@ -751,9 +761,9 @@
 							</svg>
 						</button>
 						{#if showCategoryMenu}
-							<div class="dropdown-menu">
+							<div class="tt-dropdown-menu">
 								<button
-									class="dropdown-item tt-interactive"
+									class="tt-dropdown-item tt-interactive"
 									data-testid="add-category-menu-item"
 									onclick={() => {
 										showAddCategory = true;
@@ -761,7 +771,7 @@
 									}}
 								>
 									<svg
-										class="dropdown-icon"
+										class="tt-dropdown-icon"
 										viewBox="0 0 24 24"
 										fill="none"
 										stroke="currentColor"
@@ -780,7 +790,7 @@
 									}}
 								>
 									<svg
-										class="dropdown-icon"
+										class="tt-dropdown-icon"
 										viewBox="0 0 24 24"
 										fill="none"
 										stroke="currentColor"
@@ -800,7 +810,7 @@
 									}}
 								>
 									<svg
-										class="dropdown-icon"
+										class="tt-dropdown-icon"
 										viewBox="0 0 24 24"
 										fill="none"
 										stroke="currentColor"
@@ -813,14 +823,14 @@
 									<span>Exportieren</span>
 								</button>
 								<button
-									class="dropdown-item dropdown-item-danger tt-interactive-danger"
+									class="tt-dropdown-item tt-dropdown-item--danger tt-interactive-danger"
 									onclick={() => {
 										showDeleteAllCategoriesConfirm = true;
 										showCategoryMenu = false;
 									}}
 								>
 									<svg
-										class="dropdown-icon"
+										class="tt-dropdown-icon"
 										viewBox="0 0 24 24"
 										fill="none"
 										stroke="currentColor"
@@ -841,7 +851,7 @@
 			{#if expandedSections.arbeit}
 				<div class="list" data-testid="category-list">
 					{#if taetigkeiten().length === 0}
-						<p class="empty">Keine Tätigkeiten vorhanden</p>
+						<p class="tt-empty-list">Keine Tätigkeiten vorhanden</p>
 					{:else}
 						{#each taetigkeiten() as category (category.id)}
 							<div
@@ -942,9 +952,9 @@
 		<!-- Version Section -->
 		<section class="section version-section">
 			<div class="version-info">
-				<span class="version-label">Version {appVersion}</span>
+				<span class="tt-version-label">Version {appVersion}</span>
 				{#if buildTime}
-					<span class="build-time">Build: {buildTime}</span>
+					<span class="tt-build-time">Build: {buildTime}</span>
 				{/if}
 			</div>
 		</section>
@@ -996,7 +1006,7 @@
 				{deleteAccountInProgress ? 'Wird gelöscht...' : 'Konto löschen'}
 			</button>
 			{#if deleteAccountError}
-				<span class="delete-account-error">{deleteAccountError}</span>
+				<span class="tt-delete-account-error">{deleteAccountError}</span>
 			{/if}
 		</section>
 	{/if}
@@ -1183,28 +1193,9 @@
 		gap: var(--tt-space-24);
 	}
 
-	.page-header {
-		padding: 0.75rem 1rem;
-		background-color: var(--tt-background-card);
-		border-radius: var(--tt-radius-card);
-		border: 1px solid var(--tt-border-default);
-		text-align: center;
-	}
+	/* Page header uses .tt-page-header and .tt-page-header__title from design system */
 
-	.page-header h1 {
-		margin: 0;
-		font-size: 1.1rem;
-		font-weight: 600;
-		color: var(--tt-text-primary);
-		font-family: var(--tt-font-family);
-	}
-
-	.loading {
-		display: flex;
-		justify-content: center;
-		padding: var(--tt-space-32);
-		color: var(--tt-text-muted);
-	}
+	/* Loading uses .tt-loading-text from design system */
 
 	.section {
 		display: flex;
@@ -1227,31 +1218,14 @@
 		font-family: var(--tt-font-family);
 	}
 
-	.section-toggle {
+	.tt-section-toggle {
 		display: flex;
 		align-items: center;
 		gap: var(--tt-space-8);
-		background: transparent;
-		border: none;
 		padding: 0;
-		cursor: pointer;
-		text-align: left;
-		font-family: var(--tt-font-family);
 	}
 
-	.section-toggle:hover h2 {
-		color: var(--tt-brand-primary-500);
-	}
-
-	.toggle-icon {
-		font-size: var(--tt-font-size-tiny);
-		color: var(--tt-text-muted);
-		transition: transform 0.2s ease;
-	}
-
-	.toggle-icon.expanded {
-		transform: rotate(90deg);
-	}
+	/* Visual styles use design system classes: .tt-section-toggle, .tt-section-toggle__icon, .tt-section-toggle__title, .tt-settings-section-header__title */
 
 	.header-buttons {
 		display: flex;
@@ -1262,49 +1236,14 @@
 		position: relative;
 	}
 
-	.dropdown-menu {
-		position: absolute;
-		top: 100%;
-		right: 0;
-		margin-top: var(--tt-space-4);
-		background: var(--tt-background-card);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-card);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-		z-index: 100;
-		min-width: 160px;
-		overflow: hidden;
-	}
-
-	.dropdown-item {
+	.tt-dropdown-item {
 		display: flex;
 		align-items: center;
 		gap: var(--tt-space-12);
 		width: 100%;
-		padding: var(--tt-space-12) var(--tt-space-16);
-		border: none;
-		background: var(--tt-background-card);
-		color: var(--tt-text-primary);
-		font-size: var(--tt-font-size-normal);
-		text-align: left;
-		cursor: pointer;
-		transition: background var(--tt-transition-fast);
 	}
 
-	.dropdown-icon {
-		width: 20px;
-		height: 20px;
-		flex-shrink: 0;
-		color: var(--tt-text-secondary);
-	}
-
-	.dropdown-item-danger {
-		color: var(--tt-status-danger-500);
-	}
-
-	.dropdown-item:not(:last-child) {
-		border-bottom: 1px solid var(--tt-border-subtle);
-	}
+	/* Visual styles use design system classes: .tt-dropdown-menu, .tt-dropdown-item, .tt-dropdown-icon, .tt-dropdown-item--danger */
 
 	.list {
 		display: flex;
@@ -1319,12 +1258,7 @@
 		margin-left: auto;
 	}
 
-	.empty {
-		text-align: center;
-		color: var(--tt-text-muted);
-		padding: var(--tt-space-16);
-		margin: 0;
-	}
+	/* Empty list uses .tt-empty-list from design system */
 
 	.version-section {
 		margin-top: 1rem;
@@ -1342,15 +1276,7 @@
 		font-family: var(--tt-font-family);
 	}
 
-	.version-label {
-		font-weight: 500;
-		font-family: var(--tt-font-family);
-	}
-
-	.build-time {
-		font-size: var(--tt-font-size-tiny);
-		color: var(--tt-text-muted);
-	}
+	/* Version info uses .tt-version-label and .tt-build-time from design system */
 
 	.delete-account-section {
 		margin-top: 2rem;
@@ -1358,12 +1284,9 @@
 		border-top: 1px solid var(--tt-border-default);
 	}
 
-	.delete-account-error {
+	.tt-delete-account-error {
 		display: block;
 		margin-top: 0.5rem;
-		font-size: var(--tt-font-size-small);
-		color: var(--tt-status-danger-500);
-		text-align: center;
 	}
 
 	.data-actions {
@@ -1372,22 +1295,12 @@
 		gap: var(--tt-space-8);
 	}
 
-	.dropdown-item-danger {
-		color: var(--tt-status-danger-500);
-	}
+	/* Dropdown danger item uses .tt-dropdown-item--danger from design system */
 
-	.dropdown-item-danger:hover {
-		background: var(--tt-state-danger-hover);
-	}
-
-	.account-info {
+	.tt-account-info {
 		display: flex;
 		flex-direction: column;
 		gap: var(--tt-space-8);
-		padding: var(--tt-space-16);
-		background: var(--tt-background-card);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-card);
 	}
 
 	.account-row {
@@ -1396,14 +1309,7 @@
 		align-items: center;
 	}
 
-	.account-label {
-		font-weight: 500;
-		color: var(--tt-text-muted);
-	}
-
-	.account-value {
-		color: var(--tt-text-primary);
-	}
+	/* Account labels and values use .tt-account-label and .tt-account-value from design system */
 
 	.account-value-with-edit {
 		display: flex;
@@ -1411,14 +1317,7 @@
 		gap: var(--tt-space-8);
 	}
 
-	.plan-text {
-		font-weight: 600;
-		color: var(--tt-brand-primary-500);
-	}
-
-	.plan-text.pro {
-		color: var(--tt-brand-primary-500);
-	}
+	/* Plan text uses .tt-plan-text from design system */
 
 	.section-header-with-action {
 		display: flex;
