@@ -143,8 +143,8 @@
 
 <Modal title={dialogTitle} onclose={handleClose}>
 	<div class="category-form">
-		<div class="field">
-			<label for="category-name">Name:</label>
+		<div class="tt-form-field">
+			<label for="category-name" class="tt-form-field__label">Name:</label>
 			<input
 				type="text"
 				id="category-name"
@@ -156,8 +156,8 @@
 		</div>
 
 		{#if !isAbsenceCategory}
-			<div class="field">
-				<label for="category-employer">Arbeitgeber:</label>
+			<div class="tt-form-field">
+				<label for="category-employer" class="tt-form-field__label">Arbeitgeber:</label>
 				<CustomDropdown
 					options={employerOptions}
 					value={selectedEmployerId}
@@ -169,14 +169,14 @@
 		{/if}
 
 		{#if isSystemCategory}
-			<p class="info">Systemkategorien können nicht bearbeitet werden.</p>
+			<p class="tt-info-message">Systemkategorien können nicht bearbeitet werden.</p>
 		{/if}
 
 		{#if error}
-			<p class="error">{error}</p>
+			<p class="tt-error-message">{error}</p>
 		{/if}
 
-		<div class="actions">
+		<div class="tt-form-actions">
 			<button type="button" class="tt-button-secondary" onclick={handleClose}>
 				{isSystemCategory ? 'Schließen' : 'Abbrechen'}
 			</button>
@@ -201,47 +201,8 @@
 		gap: var(--tt-space-16);
 	}
 
-	.field {
-		display: flex;
-		flex-direction: column;
-		gap: var(--tt-space-4);
-	}
-
-	.field label {
-		font-size: var(--tt-font-size-body);
-		font-weight: 500;
-		color: var(--tt-text-primary);
-	}
-
+	/* Form elements use design system classes: .tt-form-field, .tt-form-field__label, .tt-info-message, .tt-error-message, .tt-form-actions */
 	/* Inputs use design system classes: .tt-text-input, .tt-dropdown */
-
-	.info {
-		margin: 0;
-		padding: var(--tt-space-8);
-		background: var(--tt-background-card-hover);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-input);
-		color: var(--tt-text-muted);
-		font-size: var(--tt-font-size-body);
-	}
-
-	.error {
-		margin: 0;
-		padding: var(--tt-space-8);
-		background: var(--tt-status-danger-800);
-		border: 1px solid var(--tt-status-danger-500);
-		border-radius: var(--tt-radius-input);
-		color: var(--tt-status-danger-500);
-		font-size: var(--tt-font-size-body);
-	}
-
-	.actions {
-		display: flex;
-		gap: var(--tt-space-12);
-		justify-content: flex-end;
-		padding-top: var(--tt-space-8);
-		border-top: 1px solid var(--tt-border-default);
-	}
 
 	/* Buttons use design system classes: .tt-button-primary, .tt-button-secondary */
 </style>
