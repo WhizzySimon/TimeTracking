@@ -130,8 +130,12 @@ Full context: `TempAppDevDocs/QuickFixes/Refactor-CSS-Visual-Styles-To-Classes.m
 - [x] Created .tt-form-actions class
 - [x] Updated CategoryDialog.svelte
 - [x] Updated EmployerDialog.svelte
+- [x] Updated AddWorkTimeModelModal.svelte (with single-use weekday grid documented)
+- [x] Updated NameEditDialog.svelte
+- [x] Updated EmailEditDialog.svelte (with single-use success message documented)
 - [x] Visual verification in browser (CategoryDialog tested)
 - [x] Verified with npm run check
+- [x] Form patterns now reused across 5 dialog components
 
 ### Remaining Work
 
