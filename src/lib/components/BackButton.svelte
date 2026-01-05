@@ -37,13 +37,13 @@
 
 {#if canGoBack}
 	<button
-		class="nav-btn tt-interactive-dark"
+		class="tt-header-nav-button tt-interactive-dark"
 		onclick={handleBack}
 		disabled={!canGoBack}
 		aria-label="Zurück"
 	>
 		<svg
-			class="nav-icon"
+			class="tt-header-nav-button__icon"
 			viewBox="0 0 24 24"
 			fill="none"
 			stroke="currentColor"
@@ -57,26 +57,5 @@
 {/if}
 
 <style>
-	.nav-btn {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 40px;
-		height: 40px;
-		padding: 0;
-		border: 1px solid var(--tt-header-border);
-		color: var(--tt-header-text);
-		border-radius: var(--tt-radius-button);
-		cursor: pointer;
-	}
-
-	.nav-btn:disabled {
-		opacity: 0.3;
-		cursor: not-allowed;
-	}
-
-	.nav-icon {
-		width: 20px;
-		height: 20px;
-	}
+	/* Visual styles use design system classes: .tt-header-nav-button, .tt-header-nav-button:disabled, .tt-header-nav-button__icon */
 </style>

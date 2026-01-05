@@ -1001,7 +1001,38 @@ textarea {
 }
 
 /* ============================================================================
-   F) DATE NAVIGATION - Day/Week/Month navigation buttons
+   F) HEADER NAVIGATION - Back/Forward browser buttons
+   ============================================================================ */
+
+/**
+ * Header Navigation Button - Back/Forward buttons in header
+ * Used in: BackButton, ForwardButton components
+ */
+.tt-header-nav-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: 1px solid var(--tt-header-border);
+	color: var(--tt-header-text);
+	border-radius: var(--tt-radius-button);
+	cursor: pointer;
+}
+
+.tt-header-nav-button:disabled {
+	opacity: 0.3;
+	cursor: not-allowed;
+}
+
+.tt-header-nav-button__icon {
+	width: 20px;
+	height: 20px;
+}
+
+/* ============================================================================
+   G) DATE NAVIGATION - Day/Week/Month navigation buttons
    ============================================================================ */
 
 /**
