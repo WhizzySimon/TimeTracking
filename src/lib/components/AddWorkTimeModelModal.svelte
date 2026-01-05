@@ -249,8 +249,8 @@
 >
 	<div class="add-model-form">
 		<!-- Name -->
-		<div class="field">
-			<label for="model-name">Name:</label>
+		<div class="tt-form-field">
+			<label for="model-name" class="tt-form-field__label">Name:</label>
 			<input
 				type="text"
 				id="model-name"
@@ -262,8 +262,8 @@
 		</div>
 
 		<!-- Valid From -->
-		<div class="field">
-			<label for="model-valid-from">Gültig ab:</label>
+		<div class="tt-form-field">
+			<label for="model-valid-from" class="tt-form-field__label">Gültig ab:</label>
 			<input
 				type="text"
 				id="model-valid-from"
@@ -275,8 +275,8 @@
 		</div>
 
 		<!-- Employer -->
-		<div class="field">
-			<label for="model-employer">Arbeitgeber:</label>
+		<div class="tt-form-field">
+			<label for="model-employer" class="tt-form-field__label">Arbeitgeber:</label>
 			<CustomDropdown
 				options={employerOptions}
 				value={selectedEmployerId}
@@ -421,11 +421,11 @@
 
 		<!-- Error Message -->
 		{#if error}
-			<p class="error">{error}</p>
+			<p class="tt-error-message">{error}</p>
 		{/if}
 
 		<!-- Actions -->
-		<div class="actions">
+		<div class="tt-form-actions">
 			<button type="button" class="tt-button-secondary" onclick={handleClose} disabled={saving}>
 				Abbrechen
 			</button>
@@ -443,18 +443,9 @@
 		gap: var(--tt-space-16);
 	}
 
-	.field {
-		display: flex;
-		flex-direction: column;
-		gap: var(--tt-space-4);
-	}
+	/* Form elements use design system classes: .tt-form-field, .tt-form-field__label, .tt-error-message, .tt-form-actions */
 
-	.field label {
-		font-size: var(--tt-font-size-body);
-		font-weight: 500;
-		color: var(--tt-text-primary);
-	}
-
+	/* Single-use: Total hours summary display */
 	.total-summary {
 		display: flex;
 		align-items: center;
@@ -556,21 +547,5 @@
 		color: var(--tt-text-muted);
 	}
 
-	.error {
-		margin: 0;
-		padding: var(--tt-space-8);
-		background: var(--tt-status-danger-800);
-		border: 1px solid var(--tt-status-danger-500);
-		border-radius: var(--tt-radius-input);
-		color: var(--tt-status-danger-500);
-		font-size: var(--tt-font-size-body);
-	}
-
-	.actions {
-		display: flex;
-		gap: var(--tt-space-12);
-		justify-content: flex-end;
-		padding-top: var(--tt-space-8);
-		border-top: 1px solid var(--tt-border-default);
-	}
+	/* Single-use: Weekday grid layout - unique to AddWorkTimeModelModal */
 </style>
