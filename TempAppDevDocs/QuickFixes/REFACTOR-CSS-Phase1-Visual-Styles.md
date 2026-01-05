@@ -4,24 +4,29 @@
 **Type:** [x] Architecture Refactoring
 **Phase:** 1 of 2 (Visual Style Extraction)
 
-## Goal
+## Phase 1 Goals
 
-Extract all visual styling from component `<style>` tags into `.tt-*` CSS classes in `tt-design-system.css`.
+Extract **reusable** visual styles from Svelte component `<style>` blocks into CSS classes in `tt-design-system.css`.
 
-## Scope
+**Pragmatic Approach:**
 
-**Visual styles to extract:**
+**Extract to Design System:**
+- ✓ Reusable visual patterns (used in 3+ components)
+- ✓ Visual properties: colors, fonts, borders, shadows, padding, border-radius
+- ✓ Interactive states: hover, focus, active, disabled
+- ✓ Animations and transitions
 
-- Colors (text, background, border)
-- Typography (font-size, font-weight, line-height)
-- Borders, shadows, border-radius
-- Hover/active/focus states
-- Transitions and animations
+**Keep Local in Components:**
+- ✓ Single-use layouts (unique to one component)
+- ✓ Component-specific grid/flex structures
+- ✓ Unique positioning and spacing
+- ⚠️ **Must use CSS variables** (prefer semantic variables)
+- ⚠️ **Must add comment** marking as "Single-use" or "Component-specific"
 
-**Keep in components:**
-
-- Layout (flex, grid, positioning)
-- Spacing (padding, margin, gap)
+**Out of Scope (Phase 2):**
+- Organizing/optimizing the design system itself
+- Extracting base classes and inheritance hierarchies
+- Creating CSS custom properties for repeated values
 - Structural CSS (display, overflow, z-index)
 
 ## Reference Document
@@ -110,13 +115,22 @@ Full context: `TempAppDevDocs/QuickFixes/Refactor-CSS-Visual-Styles-To-Classes.m
 - [x] Verified with npm run check
 
 ### Step 9: Header Navigation & Empty State ✓
-
 - [x] Created .tt-header-nav-button classes (3 classes)
 - [x] Created .tt-empty-state classes (3 classes)
 - [x] Updated BackButton.svelte
 - [x] Updated ForwardButton.svelte
 - [x] Updated TaskList.svelte
 - [x] Visual verification in browser
+- [x] Verified with npm run check
+
+### Step 10: Form Fields & Dialog Components ✓
+- [x] Created .tt-form-field classes (2 classes)
+- [x] Created .tt-info-message class
+- [x] Created .tt-error-message class
+- [x] Created .tt-form-actions class
+- [x] Updated CategoryDialog.svelte
+- [x] Updated EmployerDialog.svelte
+- [x] Visual verification in browser (CategoryDialog tested)
 - [x] Verified with npm run check
 
 ### Remaining Work
