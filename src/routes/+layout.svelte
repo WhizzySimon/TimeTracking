@@ -658,6 +658,17 @@
 			opacity var(--tt-transition-fast);
 	}
 
+	/* Hover state for header buttons (white overlay on dark bg) */
+	@media (hover: hover) {
+		.sync-indicator:hover {
+			background: rgba(255, 255, 255, 0.12);
+		}
+	}
+
+	.sync-indicator:active {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
 	.sync-indicator.out-of-sync {
 		color: var(--tt-gray-400);
 		opacity: 0.7;

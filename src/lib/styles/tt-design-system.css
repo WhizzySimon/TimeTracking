@@ -1590,9 +1590,12 @@ textarea {
 	background: var(--tt-state-pressed);
 }
 
-/* Card variant - bundles card background with hover states.
+/* Card variant - Composite class: Card background + interactive states.
  * Use this instead of local `background: var(--tt-background-card)` + .tt-interactive
  * to avoid specificity conflicts with Svelte scoped CSS.
+ * 
+ * NOTE: Uses solid colors (card-hover/pressed) not transparent overlays,
+ * because setting background replaces the white card bg entirely.
  */
 .tt-interactive-card {
 	background: var(--tt-background-card);
@@ -1601,12 +1604,12 @@ textarea {
 
 @media (hover: hover) {
 	.tt-interactive-card:hover {
-		background: var(--tt-state-hover);
+		background: var(--tt-background-card-hover);
 	}
 }
 
 .tt-interactive-card:active {
-	background: var(--tt-state-pressed);
+	background: var(--tt-background-card-pressed);
 }
 
 /* Danger variant - red tinted overlays */
