@@ -75,8 +75,8 @@
 
 <Modal {title} onclose={handleClose}>
 	<div class="employer-form">
-		<div class="field">
-			<label for="employer-name">Name:</label>
+		<div class="tt-form-field">
+			<label for="employer-name" class="tt-form-field__label">Name:</label>
 			<input
 				type="text"
 				id="employer-name"
@@ -89,10 +89,10 @@
 		</div>
 
 		{#if error}
-			<p class="error">{error}</p>
+			<p class="tt-error-message">{error}</p>
 		{/if}
 
-		<div class="actions">
+		<div class="tt-form-actions">
 			<button type="button" class="tt-button-secondary" onclick={handleClose} disabled={saving}>
 				Abbrechen
 			</button>
@@ -116,33 +116,7 @@
 		gap: var(--tt-space-16);
 	}
 
-	.field {
-		display: flex;
-		flex-direction: column;
-		gap: var(--tt-space-4);
-	}
-
-	.field label {
-		font-size: var(--tt-font-size-body);
-		font-weight: 500;
-		color: var(--tt-text-primary);
-	}
-
-	.error {
-		margin: 0;
-		padding: var(--tt-space-8);
-		background: var(--tt-status-danger-800);
-		border: 1px solid var(--tt-status-danger-500);
-		border-radius: var(--tt-radius-input);
-		color: var(--tt-status-danger-500);
-		font-size: var(--tt-font-size-body);
-	}
-
-	.actions {
-		display: flex;
-		gap: var(--tt-space-12);
-		justify-content: flex-end;
-		padding-top: var(--tt-space-8);
-		border-top: 1px solid var(--tt-border-default);
-	}
+	/* Form elements use design system classes: .tt-form-field, .tt-form-field__label, .tt-error-message, .tt-form-actions */
+	/* Input uses design system class: .tt-text-input */
+	/* Buttons use design system classes: .tt-button-primary, .tt-button-secondary */
 </style>
