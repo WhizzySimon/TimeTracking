@@ -72,13 +72,13 @@
 				E-Mail-Adresse anmelden.
 			</p>
 		</div>
-		<div class="actions">
+		<div class="tt-form-actions">
 			<button class="tt-button-primary" onclick={handleLogoutAndClose}>Abmelden</button>
 		</div>
 	{:else}
 		<div class="form">
-			<div class="field">
-				<label for="currentEmail">Aktuelle E-Mail</label>
+			<div class="tt-form-field">
+				<label for="currentEmail" class="tt-form-field__label">Aktuelle E-Mail</label>
 				<input
 					id="currentEmail"
 					type="email"
@@ -87,8 +87,8 @@
 					class="tt-text-input"
 				/>
 			</div>
-			<div class="field">
-				<label for="newEmail">Neue E-Mail</label>
+			<div class="tt-form-field">
+				<label for="newEmail" class="tt-form-field__label">Neue E-Mail</label>
 				<input
 					id="newEmail"
 					type="email"
@@ -99,10 +99,10 @@
 				/>
 			</div>
 			{#if error}
-				<p class="error">{error}</p>
+				<p class="tt-error-message">{error}</p>
 			{/if}
 		</div>
-		<div class="actions">
+		<div class="tt-form-actions">
 			<button class="tt-button-secondary" onclick={onclose} disabled={saving}>Abbrechen</button>
 			<button class="tt-button-primary" onclick={handleSave} disabled={saving}>
 				{saving ? 'Wird gesendet...' : 'Bestätigung senden'}
@@ -119,24 +119,8 @@
 		padding: var(--tt-space-16) 0;
 	}
 
-	.field {
-		display: flex;
-		flex-direction: column;
-		gap: var(--tt-space-4);
-	}
-
-	.field label {
-		font-size: var(--tt-font-size-small);
-		color: var(--tt-text-muted);
-	}
-
+	/* Form elements use design system classes: .tt-form-field, .tt-form-field__label, .tt-error-message */
 	/* Inputs use design system class: .tt-text-input */
-
-	.error {
-		color: var(--tt-status-danger-500);
-		font-size: var(--tt-font-size-small);
-		margin: 0;
-	}
 
 	.success-message {
 		padding: var(--tt-space-16) 0;
@@ -154,13 +138,7 @@
 		color: var(--tt-text-muted);
 	}
 
-	.actions {
-		display: flex;
-		gap: var(--tt-space-12);
-		justify-content: flex-end;
-		padding-top: var(--tt-space-16);
-		border-top: 1px solid var(--tt-border-default);
-	}
+	/* Single-use: Success message display - unique to EmailEditDialog */
 
 	/* Buttons use design system classes: .tt-button-primary, .tt-button-secondary */
 </style>

@@ -28,8 +28,8 @@
 
 <Modal title="Name bearbeiten" {onclose}>
 	<div class="form">
-		<div class="field">
-			<label for="firstName">Vorname</label>
+		<div class="tt-form-field">
+			<label for="firstName" class="tt-form-field__label">Vorname</label>
 			<input
 				id="firstName"
 				type="text"
@@ -39,8 +39,8 @@
 				class="tt-text-input"
 			/>
 		</div>
-		<div class="field">
-			<label for="lastName">Nachname</label>
+		<div class="tt-form-field">
+			<label for="lastName" class="tt-form-field__label">Nachname</label>
 			<input
 				id="lastName"
 				type="text"
@@ -51,7 +51,7 @@
 			/>
 		</div>
 	</div>
-	<div class="actions">
+	<div class="tt-form-actions">
 		<button class="tt-button-secondary" onclick={onclose}>Abbrechen</button>
 		<button class="tt-button-primary" onclick={handleSave}>Speichern</button>
 	</div>
@@ -65,26 +65,8 @@
 		padding: var(--tt-space-16) 0;
 	}
 
-	.field {
-		display: flex;
-		flex-direction: column;
-		gap: var(--tt-space-4);
-	}
-
-	.field label {
-		font-size: var(--tt-font-size-small);
-		color: var(--tt-text-muted);
-	}
-
+	/* Form elements use design system classes: .tt-form-field, .tt-form-field__label, .tt-form-actions */
 	/* Inputs use design system class: .tt-text-input */
-
-	.actions {
-		display: flex;
-		gap: var(--tt-space-12);
-		justify-content: flex-end;
-		padding-top: var(--tt-space-16);
-		border-top: 1px solid var(--tt-border-default);
-	}
 
 	/* Buttons use design system classes: .tt-button-primary, .tt-button-secondary */
 </style>
