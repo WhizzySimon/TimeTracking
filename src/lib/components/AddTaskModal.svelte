@@ -11,14 +11,17 @@
   - Description (optional)
 -->
 <script lang="ts">
-	import { categories, timeEntries } from '$lib/stores';
+	import { onMount } from 'svelte';
+	import { categories, timeEntries, employers as employersStore } from '$lib/stores';
 	import { categorySort } from '$lib/stores/theme';
 	import { formatDate, formatTime } from '$lib/utils/date';
 	import { saveTimeEntry } from '$lib/storage/operations';
-	import type { TimeEntry } from '$lib/types';
+	import { getActiveEmployers } from '$lib/storage/employers';
+	import type { TimeEntry, Employer } from '$lib/types';
 	import Modal from './Modal.svelte';
 	import TimePicker from './TimePicker.svelte';
 	import CategorySelect from './CategorySelect.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		date: Date;
@@ -28,6 +31,8 @@
 	}
 
 	let { date, entry = null, onclose, onsave }: Props = $props();
+
+	let employers: Employer[] = $state([]);
 
 	// Form state - initialize from entry prop via function to avoid Svelte warning
 	function roundToFiveMinutes(time: string): string {
@@ -65,6 +70,7 @@
 
 		return {
 			categoryId: entry?.categoryId ?? '',
+			employerId: entry?.employerId ?? null,
 			startTime: initialStartTime,
 			endTime: initialEndTime,
 			description: entry?.description ?? ''
@@ -73,12 +79,29 @@
 	const initial = getInitialValues();
 
 	let categoryId = $state(initial.categoryId);
+	let employerId = $state<string | null>(initial.employerId);
 	let startTime = $state(initial.startTime);
 	let endTime = $state(initial.endTime);
 	let description = $state(initial.description);
 	let saving = $state(false);
 	let error = $state('');
 	let endTimeClicked = $state(false);
+
+	onMount(async () => {
+		// Load employers from store or fetch if empty
+		if ($employersStore.length > 0) {
+			employers = $employersStore;
+		} else {
+			employers = await getActiveEmployers();
+		}
+
+		// If no employer is set, default to the currently selected employer or first active employer
+		if (!employerId && employers.length > 0) {
+			// Use selectedEmployerId from store if available, otherwise first employer
+			const defaultId = $employersStore.length > 0 ? employers[0].id : null;
+			employerId = defaultId;
+		}
+	});
 
 	function handleEndTimeFocus() {
 		if (!endTimeClicked && !endTime && startTime) {
@@ -139,6 +162,7 @@
 				id: entry?.id ?? crypto.randomUUID(),
 				date: formatDate(date, 'ISO'),
 				categoryId,
+				employerId: employerId ?? null,
 				startTime: normalizeTime(startTime),
 				endTime: endTime ? normalizeTime(endTime) : null,
 				description: description.trim() || null,
@@ -184,10 +208,19 @@
 			/>
 		</div>
 
+		<div class="form-group">
+			<label for="employer">Arbeitgeber</label>
+			<CustomDropdown
+				options={employers.map((e) => ({ value: e.id, label: e.name }))}
+				value={employerId || ''}
+				onchange={(value) => (employerId = value)}
+			/>
+		</div>
+
 		<div class="form-row">
 			<div class="form-group">
 				<label for="startTime">Startzeit</label>
-				<TimePicker id="startTime" value={startTime} onchange={(v) => (startTime = v)} required />
+				<TimePicker id="startTime" value={startTime} onchange={(v) => (startTime = v)} />
 			</div>
 
 			<div class="form-group">

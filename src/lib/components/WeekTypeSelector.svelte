@@ -72,16 +72,17 @@
 		const weekDates = getWeekDates(weekDate);
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 
-		// Check each day for logged hours
+		// Check which days have hours
 		const daysWithHours: string[] = [];
 		const daysWithoutHours: Date[] = [];
-
 		for (const date of weekDates) {
 			const dateKey = formatDate(date, 'ISO');
 			const dayEntries = allEntries.filter((e) => e.date === dateKey);
 			const dayIst = calculateIst(dayEntries, $categories);
 			if (dayIst > 0) {
-				daysWithHours.push(formatDate(date, 'DE'));
+				// Format as weekday name instead of full date
+				const weekdayName = date.toLocaleDateString('de-DE', { weekday: 'long' });
+				daysWithHours.push(weekdayName);
 			} else {
 				daysWithoutHours.push(date);
 			}

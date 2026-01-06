@@ -6,6 +6,22 @@ Tracks each execution of the self-learning & self-improvement workflow.
 
 ---
 
+## 2026-01-06 19:33 — UI Polish: Employer Dropdown, Week Notifications, Current Row Highlighting
+
+| Step                 | Result       | Notes                                        |
+| -------------------- | ------------ | -------------------------------------------- |
+| 0: Scope check       | first commit | No previous checklist in chat                |
+| A1: Capture feedback | none         | No actionable behavioral feedback in session |
+| B1: Repeated errors  | none         | No errors repeated 3+ times                  |
+| B2: File churn       | none         | 7 files edited, each 1-2 times max           |
+| B3: Scope drift      | no plan      | Ad-hoc UI polish session                     |
+| B4: Session duration | ~1h          | normal                                       |
+| C1: Promotions       | none         | No items meet promotion criteria             |
+| C2: Read LEARNINGS   | ✓ read       | 12 items                                     |
+| C3: Hard Rule → JIT  | none         | No new Hard Rules proposed                   |
+
+---
+
 ## 2026-01-06 13:23 — Title Bar Gradient Experiment (Cutout Attempt)
 
 | Step                 | Result       | Notes                                                                                                 |

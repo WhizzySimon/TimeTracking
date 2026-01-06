@@ -332,8 +332,10 @@
 				{#each activeDays as date (formatDate(date, 'ISO'))}
 					{@const dayIst = getDayIst(date)}
 					{@const daySoll = getDaySoll(date)}
+					{@const isToday = formatDate(date, 'ISO') === formatDate(new Date(), 'ISO')}
 					<button
 						class="tt-list-row-clickable day-row"
+						class:tt-current-row={isToday}
 						type="button"
 						onclick={() => navigateToDay(date)}
 					>
@@ -427,9 +429,15 @@
 	}
 
 	.day-row__date {
-		font-weight: var(--tt-font-weight-semibold);
+		font-weight: var(--tt-font-weight-normal);
 		color: var(--tt-text-primary);
 		white-space: nowrap;
+	}
+
+	/* Current day styling - bold and colored */
+	.tt-current-row .day-row__date {
+		font-weight: var(--tt-font-weight-bold);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.day-row__type {

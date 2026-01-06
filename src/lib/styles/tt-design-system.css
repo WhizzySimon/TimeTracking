@@ -398,6 +398,22 @@ textarea {
 	background: var(--tt-background-card-pressed);
 }
 
+/* Current row highlight - for today's day or current week */
+.tt-current-row {
+	background: var(--tt-background-card-hover);
+}
+
+.tt-current-row:hover {
+	background: var(--tt-background-card-pressed);
+}
+
+/* Make date/week label bold and colored for current row */
+.tt-current-row .day-row__date,
+.tt-current-row .week-row__title {
+	font-weight: var(--tt-font-weight-bold);
+	color: var(--tt-brand-primary-500);
+}
+
 /**
  * STATIC Row - No interaction, flat appearance
  * Use for: Ist/Soll/Haben summary, Summe totals, read-only info
@@ -462,7 +478,7 @@ textarea {
 }
 
 .tt-list-row__category {
-	color: var(--tt-text-secondary);
+	color: var(--tt-brand-primary-500);
 	white-space: nowrap;
 }
 
@@ -530,8 +546,8 @@ textarea {
 
 /* Employer Label - Shows which employer an entry belongs to */
 .tt-inline-label-employer {
-	background: var(--tt-brand-primary-800);
-	color: var(--tt-brand-primary-500);
+	background: var(--tt-border-subtle);
+	color: var(--tt-text-secondary);
 }
 
 /* No-Work Label - Shows "Keine Arbeitszeit" */

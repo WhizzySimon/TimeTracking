@@ -396,16 +396,19 @@
 				{@const weekSoll = getWeekSoll(week.dates)}
 				{@const weekSaldo = weekIst - weekSoll}
 				{@const activeDays = getActiveWorkDays(week.dates)}
+				{@const now = new Date()}
+				{@const currentWeekNum = getWeekNumber(now)}
+				{@const isCurrentWeek =
+					week.weekNumber === currentWeekNum && week.year === now.getFullYear()}
 				<button
-					class="tt-list-row-clickable"
+					class="tt-list-row-clickable week-row"
+					class:tt-current-row={isCurrentWeek}
 					type="button"
 					onclick={() => navigateToWeek(week.dates)}
 				>
-					<div class="tt-list-row__content">
-						<span class="tt-list-row__title">KW {week.weekNumber}</span>
-						<span class="tt-list-row__detail">{formatWeekRange(week.dates)}</span>
-						<span class="tt-list-row__detail">({activeDays} Tage)</span>
-					</div>
+					<span class="week-row__title">KW {week.weekNumber}</span>
+					<span class="week-row__range">{formatWeekRange(week.dates)}</span>
+					<span class="week-row__days">({activeDays} Tage)</span>
 					<div class="week-hours">
 						<span class="week-hours__ist">{weekIst.toFixed(1).replace('.', ',')}</span>
 						<span class="week-hours__separator">/</span>
@@ -475,6 +478,46 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--tt-space-8);
+	}
+
+	/* Week row layout - aligned columns like day rows in week page */
+	.week-row {
+		display: grid;
+		grid-template-columns: 4rem auto auto 1fr;
+		gap: var(--tt-space-8);
+		align-items: center;
+	}
+
+	.week-row__title {
+		font-weight: var(--tt-font-weight-normal);
+		color: var(--tt-text-primary);
+		white-space: nowrap;
+	}
+
+	.week-row__range {
+		display: inline-flex;
+		align-items: center;
+		padding: var(--tt-space-4) var(--tt-space-8);
+		font-size: var(--tt-font-size-tiny);
+		font-weight: var(--tt-font-weight-medium);
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-pressed);
+		border-radius: var(--tt-radius-badge);
+		white-space: nowrap;
+		width: fit-content;
+	}
+
+	.week-row__days {
+		display: inline-flex;
+		align-items: center;
+		padding: var(--tt-space-4) var(--tt-space-8);
+		font-size: var(--tt-font-size-tiny);
+		font-weight: var(--tt-font-weight-medium);
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-pressed);
+		border-radius: var(--tt-radius-badge);
+		white-space: nowrap;
+		width: fit-content;
 	}
 
 	/* Week hours display - layout-only styles for right side */
