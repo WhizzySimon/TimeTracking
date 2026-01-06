@@ -57,7 +57,7 @@
 	/>
 	<button
 		type="button"
-		class="toggle-btn"
+		class="toggle-btn tt-interactive"
 		onclick={toggleVisibility}
 		aria-label={visible ? 'Passwort verbergen' : 'Passwort anzeigen'}
 		tabindex="-1"
@@ -107,24 +107,24 @@
 
 	.password-input {
 		width: 100%;
-		padding: 0.75rem;
+		padding: var(--tt-space-12);
 		padding-right: 2.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		font-size: var(--tt-font-size-normal);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
 	.password-input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		border-color: var(--tt-border-focus);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.password-input:disabled {
-		background: var(--surface-hover);
-		color: var(--muted);
+		background: var(--tt-background-card-hover);
+		color: var(--tt-text-muted);
 	}
 
 	.toggle-btn {
@@ -133,17 +133,16 @@
 		padding: 0.25rem;
 		border: none;
 		background: transparent;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border-radius: var(--r-input);
+		border-radius: var(--tt-radius-input);
 	}
 
 	.toggle-btn:hover {
-		color: var(--text);
-		background: var(--surface-hover);
+		color: var(--tt-text-primary);
 	}
 
 	.toggle-btn:focus {

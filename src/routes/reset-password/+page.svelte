@@ -8,6 +8,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { browser } from '$app/environment';
+	import { getSupabase, isSupabaseConfigured } from '$lib/supabase/client';
 
 	let password = $state('');
 	let confirmPassword = $state('');
@@ -15,13 +16,37 @@
 	let success = $state(false);
 	let loading = $state(false);
 	let validLink = $state(true);
+	let checking = $state(true);
 
-	onMount(() => {
+	onMount(async () => {
 		if (browser) {
+			// Check if we have a valid session for password reset
+			// Supabase auto-processes the hash fragment (detectSessionInUrl: true)
+			// so we need to check if a session was established, not the hash itself
 			const hash = window.location.hash;
-			if (!hash || !hash.includes('access_token')) {
+			const hasTokenInHash = hash && hash.includes('access_token');
+
+			if (hasTokenInHash) {
+				// Hash still present - wait for Supabase to process it
+				await new Promise((resolve) => setTimeout(resolve, 500));
+			}
+
+			// Now check if Supabase has a valid session
+			if (isSupabaseConfigured()) {
+				try {
+					const supabase = getSupabase();
+					const {
+						data: { session }
+					} = await supabase.auth.getSession();
+					validLink = session !== null;
+				} catch {
+					validLink = false;
+				}
+			} else {
 				validLink = false;
 			}
+
+			checking = false;
 		}
 	});
 
@@ -71,7 +96,11 @@
 		<h1>TimeTracker</h1>
 		<h2>Neues Passwort</h2>
 
-		{#if !validLink}
+		{#if checking}
+			<div class="checking-message">
+				<p>Link wird überprüft...</p>
+			</div>
+		{:else if !validLink}
 			<div class="error-message">
 				<p>Ungültiger oder abgelaufener Link.</p>
 				<p>Bitte fordern Sie einen neuen Link an.</p>
@@ -115,7 +144,7 @@
 					<div class="error">{error}</div>
 				{/if}
 
-				<button type="submit" class="submit-btn" disabled={loading}>
+				<button type="submit" class="tt-button-primary tt-button-full" disabled={loading}>
 					{loading ? 'Speichern...' : 'Passwort ändern'}
 				</button>
 			</form>
@@ -129,135 +158,120 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 1rem;
-		background: var(--bg);
+		padding: var(--tt-space-16);
+		background: var(--tt-background-page);
 	}
 
 	.reset-card {
 		width: 100%;
 		max-width: 400px;
-		background: var(--surface);
-		border-radius: var(--r-card);
-		padding: 2rem;
-		box-shadow: var(--elev-2);
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-32);
+		box-shadow: var(--tt-shadow-modal);
 	}
 
 	h1 {
 		margin: 0 0 0.5rem;
 		font-size: 1.75rem;
 		text-align: center;
-		color: var(--accent);
+		color: var(--tt-brand-primary-500);
 	}
 
 	h2 {
 		margin: 0 0 1.5rem;
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		text-align: center;
-		color: var(--text);
+		color: var(--tt-text-primary);
 		font-weight: 500;
 	}
 
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.field label {
-		font-size: 0.9rem;
-		color: var(--text);
+		font-size: var(--tt-font-size-body);
+		color: var(--tt-text-primary);
 		font-weight: 500;
 	}
 
 	.field input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+		padding: var(--tt-space-12);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		font-size: var(--tt-font-size-normal);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
 	.field input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
+		border-color: var(--tt-border-focus);
 	}
 
 	.field input:disabled {
-		background: var(--surface-hover);
+		background: var(--tt-background-card-hover);
 	}
 
 	.hint {
-		font-size: 0.8rem;
-		color: var(--muted);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-muted);
 	}
 
 	.error {
-		color: var(--neg);
-		font-size: 0.9rem;
-		padding: 0.75rem;
-		background: var(--neg-light);
-		border-radius: var(--r-input);
+		color: var(--tt-status-danger-500);
+		font-size: var(--tt-font-size-body);
+		padding: var(--tt-space-12);
+		background: var(--tt-status-danger-800);
+		border-radius: var(--tt-radius-input);
 		text-align: center;
+	}
+
+	.checking-message {
+		text-align: center;
+		padding: var(--tt-space-24);
+		color: var(--tt-text-muted);
 	}
 
 	.error-message {
 		text-align: center;
-		padding: 1.5rem;
-		background: var(--neg-light);
-		border-radius: var(--r-card);
+		padding: var(--tt-space-24);
+		background: var(--tt-status-danger-800);
+		border-radius: var(--tt-radius-card);
 		margin-bottom: 1rem;
 	}
 
 	.error-message p {
 		margin: 0;
-		color: var(--neg);
+		color: var(--tt-status-danger-500);
 		line-height: 1.5;
 	}
 
 	.success-message {
 		text-align: center;
-		padding: 1.5rem;
-		background: var(--pos-light);
-		border-radius: var(--r-card);
+		padding: var(--tt-space-24);
+		background: var(--tt-status-success-800);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.success-message p {
 		margin: 0;
-		color: var(--pos);
+		color: var(--tt-status-success-500);
 		line-height: 1.5;
 	}
 
 	.redirect-hint {
 		margin-top: 0.5rem !important;
-		font-size: 0.9rem;
-	}
-
-	.submit-btn {
-		padding: 0.875rem;
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		border: none;
-		border-radius: var(--r-btn);
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-		margin-top: 0.5rem;
-	}
-
-	.submit-btn:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
-	}
-
-	.submit-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.links {
@@ -267,48 +281,12 @@
 	}
 
 	.links a {
-		color: #3b82f6;
+		color: var(--tt-brand-primary-500);
 		text-decoration: none;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.links a:hover {
 		text-decoration: underline;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.reset-page {
-			background: #1a1a1a;
-		}
-
-		.reset-card {
-			background: #2a2a2a;
-		}
-
-		h2 {
-			color: #eee;
-		}
-
-		.field label {
-			color: #ddd;
-		}
-
-		.field input {
-			background: #333;
-			border-color: #444;
-			color: #eee;
-		}
-
-		.field input:focus {
-			border-color: #3b82f6;
-		}
-
-		.field input:disabled {
-			background: #2a2a2a;
-		}
-
-		.hint {
-			color: #999;
-		}
 	}
 </style>

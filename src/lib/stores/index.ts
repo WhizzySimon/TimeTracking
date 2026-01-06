@@ -11,7 +11,8 @@ import type {
 	WorkTimeModel,
 	SyncStatus,
 	WeekBounds,
-	Employer
+	Employer,
+	DayType
 } from '$lib/types';
 
 /**
@@ -49,8 +50,41 @@ export const workTimeModels = writable<WorkTimeModel[]>([]);
 /** All employers (Arbeitgeber) */
 export const employers = writable<Employer[]>([]);
 
+/** All day types (affects Soll calculation) */
+export const dayTypes = writable<DayType[]>([]);
+
 /** Currently selected employer ID (null = show all employers) */
-export const selectedEmployerId = writable<string | null>(null);
+function createSelectedEmployerStore() {
+	const STORAGE_KEY = 'tt-selected-employer-id';
+
+	// Load initial value from localStorage
+	let initialValue: string | null = null;
+	if (typeof window !== 'undefined') {
+		const stored = localStorage.getItem(STORAGE_KEY);
+		if (stored) {
+			initialValue = stored;
+		}
+	}
+
+	const { subscribe, set, update } = writable<string | null>(initialValue);
+
+	return {
+		subscribe,
+		set: (value: string | null) => {
+			if (typeof window !== 'undefined') {
+				if (value === null) {
+					localStorage.removeItem(STORAGE_KEY);
+				} else {
+					localStorage.setItem(STORAGE_KEY, value);
+				}
+			}
+			set(value);
+		},
+		update
+	};
+}
+
+export const selectedEmployerId = createSelectedEmployerStore();
 
 /** Current sync status for outbox indicator */
 export const syncStatus = writable<SyncStatus>('synced');
@@ -139,15 +173,16 @@ export const activeWorkTimeModel = derived<
 
 /**
  * Filter helper: returns true if item should be visible for the selected employer.
+ * STRICT MODE (AG-FR-060): No null/undefined fallback.
  * - If selectedEmployerId is null (Alle): show all items
- * - If selectedEmployerId is set: show items where employerId matches OR employerId is null (global)
+ * - If selectedEmployerId is set: show ONLY items where employerId === selectedId
  */
 function matchesEmployerFilter(
 	itemEmployerId: string | null | undefined,
 	selectedId: string | null
 ): boolean {
 	if (selectedId === null) return true;
-	return itemEmployerId === selectedId || itemEmployerId === null || itemEmployerId === undefined;
+	return itemEmployerId === selectedId;
 }
 
 /**
@@ -174,13 +209,23 @@ export const filteredCategories = derived<
 
 /**
  * Work time models filtered by selected employer.
- * Items with employerId === null apply to all employers.
+ * STRICT: Only shows models where employerId === selectedId.
  */
 export const filteredModels = derived<
 	[typeof workTimeModels, typeof selectedEmployerId],
 	WorkTimeModel[]
 >([workTimeModels, selectedEmployerId], ([$workTimeModels, $selectedEmployerId]) =>
 	$workTimeModels.filter((model) => matchesEmployerFilter(model.employerId, $selectedEmployerId))
+);
+
+/**
+ * Day types filtered by selected employer.
+ * STRICT: Only shows dayTypes where employerId === selectedId.
+ */
+export const filteredDayTypes = derived<[typeof dayTypes, typeof selectedEmployerId], DayType[]>(
+	[dayTypes, selectedEmployerId],
+	([$dayTypes, $selectedEmployerId]) =>
+		$dayTypes.filter((dayType) => matchesEmployerFilter(dayType.employerId, $selectedEmployerId))
 );
 
 /**

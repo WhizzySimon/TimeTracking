@@ -33,7 +33,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 3. Frage den User: "Beschreibe das Feature, das du implementieren willst."
 
 4. Nach User-Input:
-   - Erstelle `Docs/AppDocs/Features/Specs/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Specs/_template.md`
+   - Erstelle `TempAppDevDocs/Features/Specs/<feature-slug>.md` basierend auf `TempAppDevDocs/Features/Specs/_template.md`
    - Fülle aus: Goal, Scope, FR, IG, DD, Edge cases, Data & privacy, Acceptance checks
    - Zeige dem User die Spec zur Bestätigung
 
@@ -44,7 +44,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 ### Phase 2: PLAN erstellen
 
-6. Erstelle `Docs/AppDocs/Features/Plans/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Plans/_template.md`
+6. Erstelle `TempAppDevDocs/Features/Plans/<feature-slug>.md` basierend auf `TempAppDevDocs/Features/Plans/_template.md`
    - Architecture/modules
    - Data model
    - UI state model
@@ -57,11 +57,11 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
 
 ### Phase 3: TASKS erstellen
 
-8. Erstelle `Docs/Features/Tasks/<feature-slug>.md` basierend auf `Docs/AppDocs/Features/Tasks/_template.md`
+8. Erstelle `TempAppDevDocs/Features/Tasks/<feature-slug>.md` basierend auf `TempAppDevDocs/Features/Tasks/_template.md`
    - Kleine Tasks (0.5-2h)
    - Jeder Task hat: Files, Done when, Verify, Guardrails
 
-9. Füge neue Phase in `Docs/Features/IMPLEMENTATION_PROGRESS.md` hinzu - Phase-Header mit Status "Not started" - Alle Tasks als [ ] (unchecked)
+9. Füge neue Phase in `TempAppDevDocs/Features/IMPLEMENTATION_PROGRESS.md` hinzu - Phase-Header mit Status "Not started" - Alle Tasks als [ ] (unchecked)
 
 10. Checkpoint:
     - [ ] Alle Tasks haben klare "Done when" Kriterien
@@ -76,6 +76,7 @@ Nutze `/new-feature` wenn du ein **komplett neues Feature** implementieren wills
     - [ ] Integration-First: Contracts/Interfaces vor Implementierung definiert?
     - [ ] Scope-Lock: Keine neuen Requirements seit Spec-Approval hinzugefügt?
     - [ ] Test-Ready: Mindestens ein Acceptance Check ist automatisierbar?
+    - [ ] **Design System Check:** New UI patterns → add to `tt-design-system.css` first (see `frontend-ui-standards.md`)
 
 ### Phase 4: IMPLEMENT
 
@@ -97,9 +98,9 @@ Nach Phase 0-3:
 - .windsurf/rules/* (all rules)
 
 # Feature: <name>
-- Spec: Docs/AppDocs/Features/Specs/<feature>.md ✅
-- Plan: Docs/AppDocs/Features/Plans/<feature>.md ✅
-- Tasks: Docs/AppDocs/Features/Tasks/<feature>.md ✅
+- Spec: TempAppDevDocs/Features/Specs/<feature>.md ✅
+- Plan: TempAppDevDocs/Features/Plans/<feature>.md ✅
+- Tasks: TempAppDevDocs/Features/Tasks/<feature>.md ✅
 - Progress Tracker: Updated ✅
 
 Bereit für Implementation. Soll ich mit Task 1 beginnen?

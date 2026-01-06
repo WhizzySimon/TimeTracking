@@ -1,7 +1,7 @@
 /**
  * JSON Import for TimeTracker.
  * Parses and validates JSON backup files for restoration.
- * Spec refs: Docs/Features/Specs/subscription-plans.md
+ * Spec refs: TempAppDevDocs/Features/Specs/subscription-plans.md
  */
 
 import type { Category, TimeEntry, DayType, WorkTimeModel } from '$lib/types';

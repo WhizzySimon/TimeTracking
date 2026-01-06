@@ -6,7 +6,7 @@
   - Current file/step indicator
   - Cancel button
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen B)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen B)
 -->
 <script lang="ts">
 	interface Props {
@@ -47,7 +47,7 @@
 
 	{#if oncancel}
 		<div class="progress-actions">
-			<button class="btn-cancel" onclick={oncancel}>Abbrechen</button>
+			<button class="btn-cancel tt-interactive" onclick={oncancel}>Abbrechen</button>
 		</div>
 	{/if}
 </div>
@@ -56,41 +56,41 @@
 	.progress-container {
 		max-width: 500px;
 		margin: 0 auto;
-		padding: 2rem;
+		padding: var(--tt-space-32);
 		text-align: center;
 	}
 
 	.progress-header h2 {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		margin: 0 0 1.5rem;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 	}
 
 	.progress-bar-wrapper {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.progress-bar {
 		flex: 1;
 		height: 12px;
-		background: var(--bg-tertiary);
-		border-radius: 6px;
+		background: var(--tt-background-card-pressed);
+		border-radius: var(--tt-radius-button);
 		overflow: hidden;
 	}
 
 	.progress-fill {
 		height: 100%;
-		background: var(--accent-color);
-		border-radius: 6px;
+		background: var(--tt-brand-primary-500);
+		border-radius: var(--tt-radius-button);
 		transition: width 0.3s ease;
 	}
 
 	.progress-percent {
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 600;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 		min-width: 3rem;
 		text-align: right;
 	}
@@ -101,13 +101,13 @@
 	}
 
 	.current-file {
-		font-size: 0.875rem;
-		color: var(--text-secondary);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-secondary);
 		margin: 0 0 0.5rem;
 	}
 
 	.current-file .label {
-		color: var(--text-tertiary);
+		color: var(--tt-text-muted);
 	}
 
 	.current-file .value {
@@ -115,8 +115,8 @@
 	}
 
 	.current-step {
-		font-size: 0.875rem;
-		color: var(--text-tertiary);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-muted);
 		margin: 0;
 	}
 
@@ -125,16 +125,12 @@
 	}
 
 	.btn-cancel {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-text-primary);
+		border: 1px solid var(--tt-border-default);
 		padding: 0.625rem 1.25rem;
-		border-radius: 6px;
-		font-size: 0.875rem;
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
-	}
-
-	.btn-cancel:hover {
-		background: var(--bg-secondary);
 	}
 </style>

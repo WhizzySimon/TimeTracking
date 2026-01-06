@@ -1,6 +1,6 @@
 /**
  * Unit tests for validators module
- * Spec ref: Docs/Features/Specs/ai-import.md Section 9
+ * Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 9
  */
 
 import { describe, it, expect } from 'vitest';
@@ -28,12 +28,14 @@ function createCandidate(overrides: Partial<TimeEntryCandidate> = {}): TimeEntry
 }
 
 function createCategory(name: string): Category {
+	const now = Date.now();
 	return {
 		id: `cat-${name}`,
 		name,
 		type: 'user',
 		countsAsWorkTime: true,
-		createdAt: Date.now()
+		createdAt: now,
+		updatedAt: now
 	};
 }
 

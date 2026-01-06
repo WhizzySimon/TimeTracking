@@ -13,11 +13,23 @@
 	import { resolve } from '$app/paths';
 
 	const tabs = [
-		{ href: '/add', label: '+', isPlus: true },
-		{ href: '/day', label: 'Tag', isPlus: false },
-		{ href: '/week', label: 'Woche', isPlus: false },
-		{ href: '/month', label: 'Monat', isPlus: false },
-		{ href: '/analysis', label: 'Auswertung', isPlus: false }
+		{ href: '/add', label: '+', isPlus: true, icon: null, colorClass: null },
+		{ href: '/day', label: 'Tag', isPlus: false, icon: null, colorClass: 'tt-footer-tab--day' },
+		{ href: '/week', label: 'Woche', isPlus: false, icon: null, colorClass: 'tt-footer-tab--week' },
+		{
+			href: '/month',
+			label: 'Monat',
+			isPlus: false,
+			icon: null,
+			colorClass: 'tt-footer-tab--month'
+		},
+		{
+			href: '/analysis',
+			label: null,
+			isPlus: false,
+			icon: 'chart',
+			colorClass: 'tt-footer-tab--analysis'
+		}
 	] as const;
 
 	function isActive(href: string, pathname: string): boolean {
@@ -31,78 +43,39 @@
 	}
 </script>
 
-<nav class="tab-navigation" aria-label="Hauptnavigation">
+<nav class="tt-footer-nav" aria-label="Hauptnavigation">
 	{#each tabs as tab (tab.href)}
 		<a
 			href={resolve(tab.href)}
-			class="tab"
-			class:active={isActive(tab.href, $page.url.pathname)}
-			class:plus-tab={tab.isPlus}
+			class="tt-footer-tab {tab.colorClass || ''}"
+			class:tt-footer-tab--plus={tab.isPlus}
 			aria-current={isActive(tab.href, $page.url.pathname) ? 'page' : undefined}
-			aria-label={tab.isPlus ? 'Aufgabe hinzufügen' : undefined}
+			aria-label={tab.isPlus
+				? 'Aufgabe hinzufügen'
+				: tab.icon === 'chart'
+					? 'Auswertung'
+					: undefined}
 		>
-			{tab.label}
+			{#if tab.icon === 'chart'}
+				<svg
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M3 3v18h18M7 16l4-4 4 4 6-6" />
+				</svg>
+			{:else}
+				{tab.label}
+			{/if}
 		</a>
 	{/each}
 </nav>
 
 <style>
-	.tab-navigation {
-		display: flex;
-		flex-wrap: nowrap;
-		justify-content: stretch;
-		align-items: center;
-		position: fixed;
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 100%;
-		max-width: 600px;
-		background: var(--nav-bg);
-		border-top: 1px solid var(--header-border);
-		border-radius: var(--r-tab) var(--r-tab) 0 0;
-		padding: 6px 4px;
-		z-index: 100;
-		gap: 4px;
-	}
-
-	.tab {
-		flex: 1;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		min-height: 38px;
-		padding: 8px 12px;
-		text-decoration: none;
-		color: var(--nav-text);
-		font-size: 0.875rem;
-		font-weight: 500;
-		white-space: nowrap;
-		border-radius: var(--r-pill);
-		transition:
-			color var(--transition-fast),
-			background-color var(--transition-fast),
-			border-radius var(--transition-fast);
-	}
-
-	.tab:hover {
-		background-color: var(--nav-active-bg);
-		color: var(--nav-text-active);
-		border-radius: var(--r-pill);
-	}
-
-	.tab.active {
-		color: var(--nav-text-active);
-		background-color: var(--nav-active-bg);
-		border-radius: var(--r-pill);
-	}
-
-	/* Plus-Tab base: smaller fixed width, larger font */
-	.tab.plus-tab {
-		flex: 0 0 auto;
-		min-width: 48px;
-		max-width: 48px;
-		font-size: 1.5rem;
-		font-weight: 700;
-	}
+	/* All styling handled by .tt-footer-nav in design system */
 </style>

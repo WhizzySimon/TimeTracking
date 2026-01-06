@@ -26,7 +26,9 @@
 		filteredActiveWorkTimeModel
 	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { getAll, getByKey } from '$lib/storage/db';
+	import { getAll, getByKey, put } from '$lib/storage/db';
+	import { browser } from '$app/environment';
+	import type { UserPreference } from '$lib/types';
 	import { parseDate } from '$lib/utils/date';
 	import {
 		getWeekNumber,
@@ -43,10 +45,12 @@
 	import type { Category, DayType, DayTypeValue, TimeEntry, WorkTimeModel } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import WeekTypeSelector from '$lib/components/WeekTypeSelector.svelte';
-	import WeekYearPicker from '$lib/components/WeekYearPicker.svelte';
+	import WeekPicker from '$lib/components/WeekPicker.svelte';
 
+	const PREF_KEY = 'week-selected-date';
 	let loading = $state(true);
 	let showWeekPicker = $state(false);
+	let dateLoaded = $state(false);
 
 	// Week dates (Monday to Sunday)
 	let weekDates = $derived(getWeekDates($currentDate));
@@ -59,9 +63,8 @@
 
 	// Week title display (with ISO week year)
 	let weekYear = $derived(getISOWeekYear($currentDate));
-	let weekTitle = $derived(
-		isThisCurrentWeek ? `Aktuelle KW ${weekNumber}/${weekYear}` : `KW ${weekNumber}/${weekYear}`
-	);
+	let weekPrefix = $derived(isThisCurrentWeek ? 'Aktuelle Woche' : null);
+	let weekTitle = $derived(`KW ${weekNumber}/${weekYear}`);
 
 	// Navigation labels showing adjacent week numbers
 	let previousWeekLabel = $derived(() => {
@@ -154,6 +157,8 @@
 	// Navigate to day tab with selected date
 	function navigateToDay(date: Date) {
 		currentDate.set(date);
+		// Mark that we're navigating (so target page doesn't load saved date)
+		sessionStorage.setItem('date-navigation', 'true');
 		goto(resolve('/day'));
 	}
 
@@ -203,6 +208,44 @@
 	// Filter days to only show active ones in model
 	let activeDays = $derived(weekDates.filter((date) => isDayActiveInModel(date)));
 
+	// Load saved date from IndexedDB (only on page refresh, not on in-app navigation)
+	async function loadSavedDate() {
+		// Check if we navigated here from another page (e.g., Analysis)
+		const isNavigation = sessionStorage.getItem('date-navigation') === 'true';
+		sessionStorage.removeItem('date-navigation');
+
+		if (isNavigation) {
+			// Don't load saved date - respect the date set by navigation
+			dateLoaded = true;
+			return;
+		}
+
+		try {
+			const pref = await getByKey<UserPreference>('userPreferences', PREF_KEY);
+			if (pref?.value) {
+				const savedDate = new Date(pref.value);
+				if (!isNaN(savedDate.getTime())) {
+					currentDate.set(savedDate);
+				}
+			}
+		} catch {
+			// Use current date on error
+		}
+		dateLoaded = true;
+	}
+
+	// Save date to IndexedDB when it changes
+	$effect(() => {
+		if (browser && dateLoaded) {
+			const pref: UserPreference = {
+				key: PREF_KEY,
+				value: $currentDate.toISOString(),
+				updatedAt: Date.now()
+			};
+			put('userPreferences', pref);
+		}
+	});
+
 	onMount(async () => {
 		await initializeCategories();
 		// Load categories into store
@@ -214,6 +257,7 @@
 		// Load work time models
 		const allModels = await getAll<WorkTimeModel>('workTimeModels');
 		workTimeModels.set(allModels);
+		await loadSavedDate();
 		loading = false;
 	});
 </script>
@@ -226,14 +270,51 @@
 	{:else}
 		<!-- Week Navigation -->
 		<header class="week-nav">
-			<button class="nav-btn nav-btn-prev" onclick={goToPreviousWeek} aria-label="Vorherige Woche">
-				{previousWeekLabel()}
-			</button>
-			<button class="week-title" data-testid="week-title" onclick={openWeekPicker}
-				>{weekTitle}</button
+			<button
+				class="tt-nav-button tt-interactive-card"
+				onclick={goToPreviousWeek}
+				aria-label="Vorherige Woche"
 			>
-			<button class="nav-btn nav-btn-next" onclick={goToNextWeek} aria-label="Nächste Woche">
-				{nextWeekLabel()}
+				<svg
+					class="tt-nav-button__chevron"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="15 18 9 12 15 6"></polyline>
+				</svg>
+				<span class="tt-nav-button__label">{previousWeekLabel()}</span>
+			</button>
+			<button
+				class="tt-date-selector-button tt-interactive-card"
+				data-testid="week-title"
+				onclick={openWeekPicker}
+			>
+				{#if weekPrefix}
+					<span class="tt-date-selector-button__prefix">{weekPrefix}</span>
+				{/if}
+				<span class="tt-date-selector-button__date">{weekTitle}</span>
+			</button>
+			<button
+				class="tt-nav-button tt-interactive-card"
+				onclick={goToNextWeek}
+				aria-label="Nächste Woche"
+			>
+				<span class="tt-nav-button__label">{nextWeekLabel()}</span>
+				<svg
+					class="tt-nav-button__chevron"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="9 18 15 12 9 6"></polyline>
+				</svg>
 			</button>
 		</header>
 
@@ -251,21 +332,25 @@
 				{#each activeDays as date (formatDate(date, 'ISO'))}
 					{@const dayIst = getDayIst(date)}
 					{@const daySoll = getDaySoll(date)}
-					<button class="day-item" type="button" onclick={() => navigateToDay(date)}>
-						<div class="day-info">
-							<span class="day-date">{formatShortDate(date)}</span>
-							<span class="day-type">{getDayTypeLabel(date)}</span>
-						</div>
+					{@const isToday = formatDate(date, 'ISO') === formatDate(new Date(), 'ISO')}
+					<button
+						class="tt-list-row-clickable day-row"
+						class:tt-current-row={isToday}
+						type="button"
+						onclick={() => navigateToDay(date)}
+					>
+						<span class="day-row__date">{formatShortDate(date)}</span>
+						<span class="day-row__type">{getDayTypeLabel(date)}</span>
 						<div class="day-hours">
-							<span class="ist">{dayIst.toFixed(1).replace('.', ',')}</span>
-							<span class="separator">/</span>
-							<span class="soll">{daySoll.toFixed(1).replace('.', ',')}</span>
-							<span class="separator">/</span>
+							<span class="day-hours__ist">{dayIst.toFixed(1).replace('.', ',')}</span>
+							<span class="day-hours__separator">/</span>
+							<span class="day-hours__soll">{daySoll.toFixed(1).replace('.', ',')}</span>
+							<span class="day-hours__separator">/</span>
 							<span
-								class="saldo"
-								class:positive={!isFutureDay(date) && dayIst - daySoll >= 0}
-								class:negative={!isFutureDay(date) && dayIst - daySoll < 0}
-								class:future={isFutureDay(date)}
+								class="day-hours__saldo"
+								class:day-hours__saldo--positive={!isFutureDay(date) && dayIst - daySoll >= 0}
+								class:day-hours__saldo--negative={!isFutureDay(date) && dayIst - daySoll < 0}
+								class:day-hours__saldo--future={isFutureDay(date)}
 							>
 								{dayIst - daySoll >= 0 ? '+' : ''}{(dayIst - daySoll).toFixed(1).replace('.', ',')}
 							</span>
@@ -277,9 +362,9 @@
 	{/if}
 </div>
 
-<!-- Week Year Picker Modal -->
+<!-- Week Picker Modal -->
 {#if showWeekPicker}
-	<WeekYearPicker
+	<WeekPicker
 		currentDate={$currentDate}
 		timeEntries={$timeEntries}
 		onselect={handleWeekSelect}
@@ -289,19 +374,19 @@
 
 <style>
 	.week-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.loading {
 		display: flex;
 		justify-content: center;
-		padding: 2rem;
-		color: var(--muted);
+		padding: var(--tt-space-32);
+		color: var(--tt-text-muted);
 	}
 
 	/* Week Navigation */
@@ -309,140 +394,95 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
-	.nav-btn {
-		min-width: 44px;
-		height: 44px;
-		padding: 0 0.75rem;
-		border: none;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 1.25rem;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-	}
+	/* Layout properties now in design system .tt-nav-button class */
 
-	.nav-btn-prev {
-		clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%);
-	}
-
-	.nav-btn-next {
-		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%);
-	}
-
-	.nav-btn:hover {
-		background: var(--surface-hover);
-	}
-
-	.nav-btn:active {
-		background: var(--surface-active);
-	}
-
-	.week-title {
-		margin: 0;
-		font-size: 1.25rem;
-		font-weight: 600;
-		text-align: center;
+	.tt-date-selector-button {
 		flex: 1;
-		background: none;
-		border: none;
-		cursor: pointer;
-		padding: 0.5rem;
-		border-radius: var(--r-btn);
-		color: var(--text);
-	}
-
-	.week-title:hover {
-		background: var(--surface-hover);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--tt-space-4);
 	}
 
 	/* Day List */
 	.day-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.no-days {
 		text-align: center;
-		color: var(--muted);
-		padding: 2rem;
+		color: var(--tt-text-muted);
+		padding: var(--tt-space-32);
 	}
 
-	.day-item {
-		display: flex;
-		justify-content: space-between;
+	/* Day row layout - date and type as aligned columns */
+	.day-row {
+		display: grid;
+		grid-template-columns: 5.5rem auto 1fr;
+		gap: var(--tt-space-8);
 		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
-		width: 100%;
-		text-align: left;
-		cursor: pointer;
-		font-family: inherit;
-		font-size: inherit;
 	}
 
-	.day-item:hover {
-		background: var(--surface-hover);
-		border-color: var(--accent);
+	.day-row__date {
+		font-weight: var(--tt-font-weight-normal);
+		color: var(--tt-text-primary);
+		white-space: nowrap;
 	}
 
-	.day-item:active {
-		background: var(--accent-light);
+	/* Current day styling - bold and colored */
+	.tt-current-row .day-row__date {
+		font-weight: var(--tt-font-weight-bold);
+		color: var(--tt-brand-primary-500);
 	}
 
-	.day-info {
-		display: flex;
-		gap: 0.75rem;
-		align-items: baseline;
+	.day-row__type {
+		display: inline-flex;
+		align-items: center;
+		padding: var(--tt-space-4) var(--tt-space-8);
+		font-size: var(--tt-font-size-tiny);
+		font-weight: var(--tt-font-weight-medium);
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-pressed);
+		border-radius: var(--tt-radius-badge);
+		white-space: nowrap;
+		width: fit-content;
 	}
 
-	.day-date {
-		font-weight: 600;
-		color: var(--text);
-		min-width: 70px;
-	}
-
-	.day-type {
-		color: var(--muted);
-		font-size: 0.9rem;
-	}
-
+	/* Day hours display - layout-only styles for right side */
 	.day-hours {
 		display: flex;
-		gap: 0.25rem;
-		font-size: 0.9rem;
-		color: var(--muted);
+		gap: var(--tt-space-4);
+		font-size: var(--tt-font-size-body);
+		color: var(--tt-text-muted);
+		margin-left: auto;
 	}
 
-	.day-hours .ist {
-		color: var(--text);
+	.day-hours__ist {
+		color: var(--tt-text-primary);
 	}
 
-	.day-hours .separator {
-		color: var(--muted);
+	.day-hours__separator {
+		color: var(--tt-text-muted);
 	}
 
-	.day-hours .soll {
-		color: var(--muted);
+	.day-hours__soll {
+		color: var(--tt-text-muted);
 	}
 
-	.day-hours .saldo.positive {
-		color: var(--pos);
+	.day-hours__saldo--positive {
+		color: var(--tt-saldo-positive);
 	}
 
-	.day-hours .saldo.negative {
-		color: var(--neg);
+	.day-hours__saldo--negative {
+		color: var(--tt-status-danger-500);
 	}
 
-	.day-hours .saldo.future {
-		color: var(--muted);
+	.day-hours__saldo--future {
+		color: var(--tt-text-muted);
 	}
 </style>

@@ -2,7 +2,7 @@
   Plus-Tab - Quick task start view
   
   Spec refs:
-  - Docs/Features/Specs/P07-20251223-quick-start-ux.md (Phase 8)
+  - TempAppDevDocs/Features/Specs/P07-20251223-quick-start-ux.md (Phase 8)
   
   Features:
   1. Smart suggestions (Top 5 based on context)
@@ -19,7 +19,8 @@
 		employers,
 		activeEmployers,
 		selectedEmployerId,
-		filteredCategories
+		filteredCategories,
+		currentDate
 	} from '$lib/stores';
 	import { initializeCategories, getAllCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
@@ -29,6 +30,7 @@
 	import type { TimeEntry } from '$lib/types';
 	import CategoryList from '$lib/components/CategoryList.svelte';
 	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
+	import { setNeverAddedAnEntry, neverAddedAnEntry } from '$lib/stores/user';
 
 	let loading = $state(true);
 	let showCreateCategoryDialog = $state(false);
@@ -58,8 +60,10 @@
 		}
 
 		// TT-FR-003: Create new task with startTime=now, endTime=null (running)
-		// AG-FR-040: New entry inherits current employer selection
-		const currentEmployerId = $selectedEmployerId;
+		// AG-FR-040: Entry always inherits the category's employer
+		// (header filter is just for display, not for assigning properties)
+		const category = $filteredCategories.find((c) => c.id === categoryId);
+		const entryEmployerId = category?.employerId ?? null;
 		const newEntry: TimeEntry = {
 			id: `entry-${crypto.randomUUID()}`,
 			date: currentDateStr,
@@ -69,13 +73,22 @@
 			description: null,
 			createdAt: Date.now(),
 			updatedAt: Date.now(),
-			employerId: currentEmployerId
+			employerId: entryEmployerId
 		};
 		await saveTimeEntry(newEntry);
+
+		// Mark that user has added their first entry
+		setNeverAddedAnEntry(false);
 
 		// Reload all entries from IndexedDB to update the store
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
+
+		// Set current date to today so Day tab shows the newly started task
+		currentDate.set(now);
+
+		// Mark navigation so day-page doesn't load saved date
+		sessionStorage.setItem('date-navigation', 'true');
 
 		// Phase 8: Redirect to Day tab after starting task
 		goto(resolve('/day'));
@@ -106,10 +119,11 @@
 </script>
 
 <div class="add-page">
-	<h1>Aufgabe starten</h1>
-
+	{#if $neverAddedAnEntry}
+		<div class="tt-info-hint">Klicke auf einen Eintrag, um die Zeit zu starten</div>
+	{/if}
 	{#if loading}
-		<p class="loading">Laden...</p>
+		<div class="tt-loading-text">Laden...</div>
 	{:else}
 		<CategoryList
 			categories={$filteredCategories}
@@ -119,10 +133,6 @@
 			selectedEmployerId={$selectedEmployerId}
 			oncreatecategory={() => (showCreateCategoryDialog = true)}
 		/>
-
-		<button class="create-category-btn" onclick={() => (showCreateCategoryDialog = true)}>
-			+ Kategorie erstellen
-		</button>
 	{/if}
 </div>
 
@@ -138,61 +148,15 @@
 
 <style>
 	.add-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		min-height: calc(100vh - 120px);
 	}
 
-	h1 {
-		font-size: 1.25rem;
-		font-weight: 600;
-		margin-bottom: 1rem;
-		color: var(--text-primary, #1f2937);
+	.tt-info-hint {
+		margin-bottom: var(--tt-space-16);
 	}
 
-	.loading {
-		color: var(--text-secondary, #6b7280);
-		text-align: center;
-		padding: 2rem;
-	}
-
-	:global(.dark) h1 {
-		color: var(--text-primary-dark, #f3f4f6);
-	}
-
-	:global(.dark) .loading {
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	.create-category-btn {
-		display: block;
-		width: 100%;
-		margin-top: 1.5rem;
-		padding: 0.75rem 1rem;
-		border: 2px dashed var(--border, #e5e7eb);
-		border-radius: var(--r-btn, 0.5rem);
-		background: transparent;
-		color: var(--text-secondary, #6b7280);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all 0.15s ease;
-	}
-
-	.create-category-btn:hover {
-		border-color: var(--accent, #3b82f6);
-		color: var(--accent, #3b82f6);
-		background: var(--accent-light, #eff6ff);
-	}
-
-	:global(.dark) .create-category-btn {
-		border-color: var(--border-dark, #374151);
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	:global(.dark) .create-category-btn:hover {
-		border-color: var(--accent, #3b82f6);
-		color: var(--accent, #3b82f6);
-		background: rgba(59, 130, 246, 0.1);
-	}
+	/* Visual styles use design system classes: .tt-info-hint, .tt-loading-text */
 </style>

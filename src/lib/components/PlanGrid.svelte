@@ -101,19 +101,19 @@
 	.plans-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 16px;
+		gap: var(--tt-space-16);
 	}
 
 	.plan-card {
 		padding: 20px;
-		border: 1px solid var(--border);
-		border-radius: 12px;
-		background: var(--bg);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-modal);
+		background: var(--tt-background-page);
 	}
 
 	.plan-card.current {
-		border-color: var(--accent);
-		box-shadow: 0 0 0 2px var(--accent-subtle, rgba(var(--accent-rgb), 0.2));
+		border-color: var(--tt-brand-primary-500);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.plan-card.coming-soon {
@@ -123,36 +123,36 @@
 	.plan-header {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: var(--tt-space-8);
 		margin-bottom: 8px;
 	}
 
 	.plan-name {
 		margin: 0;
 		font-size: 1.125rem;
-		color: var(--fg);
+		color: var(--tt-text-primary);
 	}
 
 	.current-badge {
-		font-size: 0.75rem;
-		background: var(--accent);
+		font-size: var(--tt-font-size-tiny);
+		background: var(--tt-brand-primary-500);
 		color: white;
 		padding: 2px 8px;
-		border-radius: 12px;
+		border-radius: var(--tt-radius-modal);
 	}
 
 	.coming-soon-badge {
-		font-size: 0.75rem;
-		background: var(--muted);
+		font-size: var(--tt-font-size-tiny);
+		background: var(--tt-text-muted);
 		color: white;
 		padding: 2px 8px;
-		border-radius: 12px;
+		border-radius: var(--tt-radius-modal);
 	}
 
 	.plan-price {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
-		color: var(--fg);
+		color: var(--tt-text-primary);
 		margin-bottom: 16px;
 	}
 
@@ -162,22 +162,22 @@
 		padding: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--tt-space-8);
 	}
 
 	.features-list li {
 		display: flex;
 		align-items: center;
-		gap: 8px;
-		font-size: 0.875rem;
+		gap: var(--tt-space-8);
+		font-size: var(--tt-font-size-small);
 	}
 
 	.features-list li.included {
-		color: var(--fg);
+		color: var(--tt-text-primary);
 	}
 
 	.features-list li.excluded {
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.feature-icon {
@@ -189,10 +189,10 @@
 		margin-top: 16px;
 		width: 100%;
 		padding: 12px;
-		background: var(--accent);
+		background: var(--tt-brand-primary-500);
 		color: white;
 		border: none;
-		border-radius: 8px;
+		border-radius: var(--tt-radius-card);
 		font-weight: 500;
 		cursor: pointer;
 	}

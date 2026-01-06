@@ -9,6 +9,7 @@
 -->
 <script lang="ts">
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 	import type { TimeEntry } from '$lib/types';
 
 	interface Props {
@@ -63,6 +64,9 @@
 	// Generate year options
 	const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 
+	// Year options for dropdown
+	let yearOptions = $derived(years.map((y) => ({ value: String(y), label: String(y) })));
+
 	// Month names in German
 	const monthNames = [
 		'Januar',
@@ -94,6 +98,14 @@
 	}
 
 	let validMonthRange = $derived(getValidMonthRange(selectedYear));
+
+	// Month options for dropdown
+	let monthOptions = $derived(
+		Array.from(
+			{ length: validMonthRange.max - validMonthRange.min + 1 },
+			(_, i) => validMonthRange.min + i
+		).map((m) => ({ value: String(m), label: monthNames[m] }))
+	);
 
 	// Ensure selected month is valid for the year
 	$effect(() => {
@@ -194,21 +206,21 @@
 		<div class="selectors">
 			<div class="field">
 				<label for="year-select">Jahr:</label>
-				<select id="year-select" bind:value={selectedYear} class="select-input">
-					{#each years as year (year)}
-						<option value={year}>{year}</option>
-					{/each}
-				</select>
+				<CustomDropdown
+					options={yearOptions}
+					value={String(selectedYear)}
+					onchange={(value) => (selectedYear = parseInt(value))}
+				/>
 			</div>
 
 			<!-- Month selector -->
 			<div class="field">
 				<label for="month-select">Monat:</label>
-				<select id="month-select" bind:value={selectedMonth} class="select-input">
-					{#each Array.from({ length: validMonthRange.max - validMonthRange.min + 1 }, (_, i) => validMonthRange.min + i) as month (month)}
-						<option value={month}>{monthNames[month]}</option>
-					{/each}
-				</select>
+				<CustomDropdown
+					options={monthOptions}
+					value={String(selectedMonth)}
+					onchange={(value) => (selectedMonth = parseInt(value))}
+				/>
 			</div>
 		</div>
 
@@ -228,7 +240,7 @@
 			{#each Array.from({ length: daysInMonth }, (_, i) => i + 1) as day (day)}
 				<button
 					type="button"
-					class="day-cell"
+					class="day-cell tt-interactive"
 					class:selected={day === selectedDay}
 					class:today={isToday(day)}
 					class:disabled={!isValidDay(day)}
@@ -242,8 +254,8 @@
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose}>Abbrechen</button>
-			<button type="button" class="btn-primary" onclick={handleSelect}>Auswählen</button>
+			<button type="button" class="tt-button-secondary" onclick={handleClose}>Abbrechen</button>
+			<button type="button" class="tt-button-primary" onclick={handleSelect}>Auswählen</button>
 		</div>
 	</div>
 </Modal>
@@ -252,75 +264,60 @@
 	.day-picker {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.today-btn {
 		padding: 0.75rem 1rem;
-		border: 1px solid var(--accent);
-		border-radius: var(--r-btn);
-		background: var(--accent-light);
-		color: var(--accent);
-		font-size: 1rem;
+		border: 1px solid var(--tt-brand-primary-500);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-brand-primary-800);
+		color: var(--tt-brand-primary-500);
+		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
 		cursor: pointer;
 	}
 
 	.today-btn:hover {
-		background: var(--accent-light);
+		background: var(--tt-brand-primary-800);
 		opacity: 0.9;
 	}
 
 	.divider {
 		text-align: center;
-		color: var(--muted);
-		font-size: 0.9rem;
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-body);
 	}
 
 	.selectors {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 		flex: 1;
 	}
 
 	.field label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--text);
-	}
-
-	.select-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.select-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		color: var(--tt-text-primary);
 	}
 
 	.day-grid {
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
-		gap: 4px;
+		gap: var(--tt-space-4);
 	}
 
 	.day-header {
 		text-align: center;
-		font-size: 0.8rem;
+		font-size: var(--tt-font-size-small);
 		font-weight: 600;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		padding: 0.25rem;
 	}
 
@@ -329,16 +326,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border: 1px solid var(--border-light);
-		border-radius: var(--r-input);
-		background: var(--surface);
-		font-size: 0.9rem;
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		background: var(--tt-background-card);
+		font-size: var(--tt-font-size-body);
 		cursor: pointer;
-		color: var(--text);
-	}
-
-	.day-cell:hover:not(:disabled) {
-		background: var(--surface-hover);
+		color: var(--tt-text-primary);
 	}
 
 	.day-cell.empty {
@@ -348,14 +341,14 @@
 	}
 
 	.day-cell.selected {
-		background: var(--accent);
+		background: var(--tt-brand-primary-500);
 		color: white;
-		border-color: var(--accent);
+		border-color: var(--tt-brand-primary-500);
 	}
 
 	.day-cell.today:not(.selected) {
-		border-color: var(--accent);
-		color: var(--accent);
+		border-color: var(--tt-brand-primary-500);
+		color: var(--tt-brand-primary-500);
 		font-weight: 600;
 	}
 
@@ -366,38 +359,9 @@
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: 0.5rem;
-		border-top: 1px solid var(--border-light);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover {
-		background: var(--btn-primary-hover);
+		border-top: 1px solid var(--tt-border-default);
 	}
 </style>

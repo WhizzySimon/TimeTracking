@@ -11,12 +11,6 @@
 		onclose();
 	}
 
-	function handleBackdropClick(event: MouseEvent) {
-		if (event.target === event.currentTarget) {
-			onclose();
-		}
-	}
-
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
 			onclose();
@@ -24,18 +18,23 @@
 	}
 </script>
 
-<div
-	class="modal-backdrop"
-	onclick={handleBackdropClick}
-	onkeydown={handleKeydown}
-	role="dialog"
-	aria-modal="true"
-	tabindex="-1"
->
+<div class="modal-backdrop" onkeydown={handleKeydown} role="dialog" aria-modal="true" tabindex="-1">
 	<div class="modal">
 		<header class="modal-header">
 			<h2>Plan wählen</h2>
-			<button class="close-btn" onclick={onclose} aria-label="Schließen">×</button>
+			<button class="tt-symbol-button" onclick={onclose} aria-label="Schließen">
+				<svg
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<line x1="18" y1="6" x2="6" y2="18"></line>
+					<line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
+			</button>
 		</header>
 
 		<div class="modal-body">
@@ -52,22 +51,22 @@
 	.modal-backdrop {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
+		background: var(--tt-backdrop-bg);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		z-index: 1000;
-		padding: 1rem;
+		padding: var(--tt-space-16);
 	}
 
 	.modal {
-		background: var(--surface);
-		border-radius: 12px;
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-modal);
 		width: 100%;
 		max-width: 900px;
 		max-height: 90vh;
 		overflow-y: auto;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+		box-shadow: var(--tt-shadow-modal);
 	}
 
 	.modal-header {
@@ -75,28 +74,16 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 16px 20px;
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--tt-border-default);
 	}
 
 	.modal-header h2 {
 		margin: 0;
-		font-size: 1.25rem;
-		color: var(--fg);
+		font-size: var(--tt-font-size-title);
+		color: var(--tt-text-primary);
 	}
 
-	.close-btn {
-		background: none;
-		border: none;
-		font-size: 1.5rem;
-		color: var(--muted);
-		cursor: pointer;
-		padding: 0;
-		line-height: 1;
-	}
-
-	.close-btn:hover {
-		color: var(--fg);
-	}
+	/* Close button uses .tt-symbol-button from design system */
 
 	.modal-body {
 		padding: 20px;
@@ -104,7 +91,7 @@
 
 	.modal-footer {
 		padding: 16px 20px;
-		border-top: 1px solid var(--border);
+		border-top: 1px solid var(--tt-border-default);
 		display: flex;
 		justify-content: flex-end;
 	}
@@ -112,13 +99,13 @@
 	.close-btn-secondary {
 		padding: 10px 20px;
 		background: transparent;
-		color: var(--muted);
-		border: 1px solid var(--border);
-		border-radius: 8px;
+		color: var(--tt-text-muted);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
 		cursor: pointer;
 	}
 
 	.close-btn-secondary:hover {
-		border-color: var(--muted);
+		border-color: var(--tt-text-muted);
 	}
 </style>

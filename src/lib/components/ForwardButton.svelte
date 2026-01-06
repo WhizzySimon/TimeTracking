@@ -3,41 +3,80 @@
   
   Features:
   - Uses browser history (history.forward())
-  - Always visible (like standard browsers)
-  - Browser handles disabled state internally
+  - Disabled when no forward history available
+  - Reactive state based on navigation changes
   - Arrow-shaped background like navigation buttons
 -->
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
+
+	let canGoForward = $state(false);
+	let hasNavigatedBack = $state(false);
+
+	onMount(() => {
+		if (!browser) return;
+
+		// Track navigation to detect when user goes back
+		const handlePopState = () => {
+			// When user navigates back, enable forward button
+			hasNavigatedBack = true;
+			// Check if we can still go forward after this navigation
+			updateForwardState();
+		};
+
+		// Track when user navigates forward or to a new page
+		const handleNavigation = () => {
+			// After a brief delay, check if forward is still possible
+			setTimeout(updateForwardState, 100);
+		};
+
+		function updateForwardState() {
+			// We can go forward if we've navigated back and haven't reached the end
+			// This is a heuristic since browsers don't expose forward history length
+			canGoForward = hasNavigatedBack;
+		}
+
+		window.addEventListener('popstate', handlePopState);
+		window.addEventListener('pushstate', handleNavigation);
+
+		return () => {
+			window.removeEventListener('popstate', handlePopState);
+			window.removeEventListener('pushstate', handleNavigation);
+		};
+	});
+
 	function handleForward() {
-		window.history.forward();
+		if (canGoForward) {
+			window.history.forward();
+			// After going forward, we might not be able to go forward anymore
+			setTimeout(() => {
+				// If we're at the end of forward history, disable the button
+				canGoForward = false;
+			}, 100);
+		}
 	}
 </script>
 
-<button class="forward-btn" onclick={handleForward} aria-label="Vorwärts"> Vor </button>
+<button
+	class="tt-header-nav-button tt-interactive-dark"
+	onclick={handleForward}
+	disabled={!canGoForward}
+	aria-label="Vorwärts"
+>
+	<svg
+		class="tt-header-nav-button__icon"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	>
+		<polyline points="9 18 15 12 9 6"></polyline>
+	</svg>
+</button>
 
 <style>
-	.forward-btn {
-		width: 70px;
-		height: 32px;
-		padding: 6px 12px;
-		border: none;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 0.875rem;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%);
-		transition: opacity 0.2s;
-	}
-
-	.forward-btn:hover {
-		opacity: 0.9;
-	}
-
-	.forward-btn:active {
-		opacity: 0.8;
-	}
+	/* Visual styles use design system classes: .tt-header-nav-button, .tt-header-nav-button:disabled, .tt-header-nav-button__icon */
 </style>

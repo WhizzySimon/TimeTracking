@@ -19,7 +19,13 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const projectRoot = join(__dirname, '..', '..');
-const devlogDir = join(projectRoot, 'Docs', 'DevFramework', 'FrameworkSelfImprovementLogs');
+const devlogDir = join(
+	projectRoot,
+	'TempAppDevDocs',
+	'Archive',
+	'SSD Analysis',
+	'chat-history-analysis_2025-12-24'
+);
 
 let hasErrors = false;
 
@@ -33,7 +39,7 @@ function success(msg) {
 }
 
 function extractTagsFromTagsMd() {
-	const tagsPath = join(projectRoot, 'Docs', 'DevFramework', 'Archive', 'SSD Analysis', 'TAGS.md');
+	const tagsPath = join(projectRoot, 'TempAppDevDocs', 'Archive', 'SSD Analysis', 'TAGS.md');
 	const content = readFileSync(tagsPath, 'utf-8');
 	const tags = new Set();
 	const aliasMap = new Map();

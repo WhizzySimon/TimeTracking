@@ -6,7 +6,7 @@
   - Save current mapping as preset
   - Delete presets
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 7
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 7
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';
@@ -84,11 +84,25 @@
 		<ul class="preset-list">
 			{#each presets as preset (preset.id)}
 				<li class="preset-item">
-					<button class="preset-btn" onclick={() => handleSelect(preset)}>
+					<button class="preset-btn tt-interactive" onclick={() => handleSelect(preset)}>
 						{preset.name}
 					</button>
 					<button class="delete-btn" onclick={() => handleDelete(preset.id)} title="Löschen">
-						×
+						<svg
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<polyline points="3 6 5 6 21 6"></polyline>
+							<path
+								d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+							></path>
+						</svg>
 					</button>
 				</li>
 			{/each}
@@ -110,6 +124,23 @@
 				onclick={(e) => e.stopPropagation()}
 				onkeydown={(e) => e.stopPropagation()}
 			>
+				<button
+					class="tt-symbol-button close-btn-pos"
+					onclick={() => (showSaveDialog = false)}
+					aria-label="Schließen"
+				>
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
 				<h4>Preset speichern</h4>
 				<input
 					type="text"
@@ -131,10 +162,10 @@
 
 <style>
 	.preset-selector {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 8px;
-		padding: 1rem;
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-16);
 	}
 
 	.preset-header {
@@ -145,18 +176,18 @@
 	}
 
 	.preset-header h3 {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		margin: 0;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.btn-add {
 		padding: 0.25rem 0.5rem;
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		color: white;
 		border: none;
-		border-radius: 4px;
-		font-size: 0.75rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-tiny);
 		cursor: pointer;
 	}
 
@@ -167,8 +198,8 @@
 
 	.loading,
 	.empty {
-		font-size: 0.875rem;
-		color: var(--text-tertiary);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-muted);
 		margin: 0;
 	}
 
@@ -178,28 +209,24 @@
 		padding: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.preset-item {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.preset-btn {
 		flex: 1;
-		padding: 0.5rem;
-		background: var(--bg-primary);
-		border: 1px solid var(--border-color);
-		border-radius: 4px;
+		padding: var(--tt-space-8);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-badge);
 		text-align: left;
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
-	}
-
-	.preset-btn:hover {
-		background: var(--bg-tertiary);
 	}
 
 	.delete-btn {
@@ -208,20 +235,20 @@
 		padding: 0;
 		background: none;
 		border: none;
-		color: var(--text-tertiary);
-		font-size: 1.25rem;
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-title);
 		cursor: pointer;
 		line-height: 1;
 	}
 
 	.delete-btn:hover {
-		color: var(--error-color, #ef4444);
+		color: var(--tt-status-danger-500);
 	}
 
 	.save-dialog-overlay {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
+		background: var(--tt-backdrop-bg);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -229,60 +256,68 @@
 	}
 
 	.save-dialog {
-		background: var(--bg-primary);
-		padding: 1.5rem;
-		border-radius: 8px;
+		background: var(--tt-background-card);
+		padding: var(--tt-space-24);
+		border-radius: var(--tt-radius-card);
 		width: 300px;
+		position: relative;
+	}
+
+	.close-btn-pos {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		z-index: 1;
 	}
 
 	.save-dialog h4 {
 		margin: 0 0 1rem;
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 	}
 
 	.save-dialog input {
 		width: 100%;
-		padding: 0.5rem;
-		border: 1px solid var(--border-color);
-		border-radius: 4px;
-		font-size: 0.875rem;
-		background: var(--bg-secondary);
-		color: var(--text-primary);
+		padding: var(--tt-space-8);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-small);
+		background: var(--tt-background-card-hover);
+		color: var(--tt-text-primary);
 	}
 
 	.save-dialog input.error {
-		border-color: var(--error-color, #ef4444);
+		border-color: var(--tt-status-danger-500);
 	}
 
 	.error-text {
-		color: var(--error-color, #ef4444);
-		font-size: 0.75rem;
+		color: var(--tt-status-danger-500);
+		font-size: var(--tt-font-size-tiny);
 		margin: 0.25rem 0 0;
 	}
 
 	.dialog-actions {
 		display: flex;
 		justify-content: flex-end;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		margin-top: 1rem;
 	}
 
 	.btn-cancel,
 	.btn-save {
 		padding: 0.5rem 1rem;
-		border-radius: 4px;
-		font-size: 0.875rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
 		border: none;
 	}
 
 	.btn-cancel {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-text-primary);
 	}
 
 	.btn-save {
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		color: white;
 	}
 </style>

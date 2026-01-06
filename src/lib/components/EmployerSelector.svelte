@@ -55,7 +55,7 @@
 <div class="employer-selector" class:compact bind:this={dropdownElement}>
 	<button
 		type="button"
-		class="selector-button"
+		class="selector-button tt-interactive"
 		onclick={toggleDropdown}
 		aria-haspopup="listbox"
 		aria-expanded={isOpen}
@@ -81,29 +81,31 @@
 	</button>
 	{#if isOpen}
 		<div class="dropdown" role="listbox">
-			<button
-				type="button"
-				class="option"
-				class:selected={value === null}
-				onclick={() => selectEmployer(null)}
-				role="option"
-				aria-selected={value === null}
-			>
-				Alle Arbeitgeber
-			</button>
-			{#each activeEmployers as employer (employer.id)}
+			{#if value !== null}
 				<button
 					type="button"
-					class="option"
-					class:selected={employer.id === value}
-					onclick={() => selectEmployer(employer.id)}
+					class="option tt-interactive"
+					onclick={() => selectEmployer(null)}
 					role="option"
-					aria-selected={employer.id === value}
+					aria-selected={false}
 				>
-					{employer.name}
+					Alle Arbeitgeber
 				</button>
+			{/if}
+			{#each activeEmployers as employer (employer.id)}
+				{#if employer.id !== value}
+					<button
+						type="button"
+						class="option tt-interactive"
+						onclick={() => selectEmployer(employer.id)}
+						role="option"
+						aria-selected={false}
+					>
+						{employer.name}
+					</button>
+				{/if}
 			{/each}
-			{#if activeEmployers.length === 0}
+			{#if activeEmployers.length === 0 && value !== null}
 				<div class="no-employers">Keine Arbeitgeber vorhanden</div>
 			{/if}
 		</div>
@@ -119,34 +121,40 @@
 	.selector-button {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		padding: 0.5rem 0.75rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
-		background: var(--surface);
-		color: var(--text);
-		font-size: 0.9rem;
+		border: none;
+		border-radius: var(--tt-radius-input);
+		background: var(--tt-brand-accent-300);
+		color: var(--tt-brand-primary-700);
+		font-size: var(--tt-font-size-body);
+		font-weight: var(--tt-font-weight-normal);
 		cursor: pointer;
 		transition:
-			border-color 0.15s ease,
+			background 0.15s ease,
 			box-shadow 0.15s ease;
 		min-width: 160px;
 	}
 
-	.compact .selector-button {
-		padding: 0.375rem 0.5rem;
-		font-size: 0.85rem;
-		min-width: 120px;
+	@media (hover: hover) {
+		.selector-button:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+		}
 	}
 
-	.selector-button:hover {
-		border-color: var(--accent);
+	.selector-button:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300));
+	}
+
+	.compact .selector-button {
+		padding: 0.375rem 0.5rem;
+		font-size: var(--tt-font-size-small);
+		min-width: 120px;
 	}
 
 	.selector-button:focus {
 		outline: none;
-		border-color: var(--accent);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		box-shadow: 0 0 0 2px var(--tt-brand-accent-600);
 	}
 
 	.selected-text {
@@ -160,7 +168,7 @@
 	.chevron {
 		flex-shrink: 0;
 		transition: transform 0.15s ease;
-		color: var(--muted);
+		color: var(--tt-brand-primary-700);
 	}
 
 	.chevron.open {
@@ -175,10 +183,10 @@
 		min-width: 100%;
 		max-height: 240px;
 		overflow-y: auto;
-		background: var(--surface);
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
-		box-shadow: var(--elev-2);
+		background: var(--tt-brand-accent-200);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		box-shadow: var(--tt-shadow-modal);
 		z-index: 200;
 		margin-top: 4px;
 	}
@@ -189,30 +197,32 @@
 		padding: 0.5rem 0.75rem;
 		text-align: left;
 		border: none;
-		background: none;
-		color: var(--text);
+		background: transparent;
+		color: var(--tt-brand-primary-700);
 		cursor: pointer;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
+		transition: background 0.15s ease;
+	}
+
+	@media (hover: hover) {
+		.option:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+		}
+	}
+
+	.option:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
 	}
 
 	.compact .option {
 		padding: 0.375rem 0.5rem;
-		font-size: 0.85rem;
-	}
-
-	.option:hover {
-		background: var(--surface-hover);
-	}
-
-	.option.selected {
-		background: var(--accent-light);
-		color: var(--accent);
+		font-size: var(--tt-font-size-small);
 	}
 
 	.no-employers {
-		padding: 0.75rem;
-		color: var(--muted);
+		padding: var(--tt-space-12);
+		color: var(--tt-text-muted);
 		text-align: center;
-		font-size: 0.85rem;
+		font-size: var(--tt-font-size-small);
 	}
 </style>

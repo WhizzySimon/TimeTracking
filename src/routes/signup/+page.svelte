@@ -126,7 +126,7 @@
 				<div class="error">{error}</div>
 			{/if}
 
-			<button type="submit" class="submit-btn" disabled={loading}>
+			<button type="submit" class="tt-button-primary tt-button-full" disabled={loading}>
 				{loading ? 'Registrieren...' : 'Registrieren'}
 			</button>
 		</form>
@@ -143,116 +143,95 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 1rem;
-		background: var(--bg);
+		padding: var(--tt-space-16);
+		background: var(--tt-background-page);
 	}
 
 	.signup-card {
 		width: 100%;
 		max-width: 400px;
-		background: var(--surface);
-		border-radius: var(--r-card);
-		padding: 2rem;
-		box-shadow: var(--elev-2);
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-32);
+		box-shadow: var(--tt-shadow-modal);
 	}
 
 	h1 {
 		margin: 0 0 0.5rem;
 		font-size: 1.75rem;
 		text-align: center;
-		color: var(--accent);
+		color: var(--tt-brand-primary-500);
 	}
 
 	h2 {
 		margin: 0 0 1.5rem;
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		text-align: center;
-		color: var(--text);
+		color: var(--tt-text-primary);
 		font-weight: 500;
 	}
 
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.field label {
-		font-size: 0.9rem;
-		color: var(--text);
+		font-size: var(--tt-font-size-body);
+		color: var(--tt-text-primary);
 		font-weight: 500;
 	}
 
 	.field input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+		padding: var(--tt-space-12);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		font-size: var(--tt-font-size-normal);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
 	.field input::placeholder {
-		color: var(--input-placeholder);
+		color: var(--tt-text-muted);
 	}
 
 	.field input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
+		border-color: var(--tt-border-focus);
 	}
 
 	.field input:disabled {
-		background: var(--surface-hover);
+		background: var(--tt-background-card-hover);
 	}
 
 	.hint {
-		font-size: 0.8rem;
-		color: var(--muted);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-muted);
 	}
 
 	.error {
-		color: var(--neg);
-		font-size: 0.9rem;
-		padding: 0.75rem;
-		background: var(--neg-light);
-		border-radius: var(--r-input);
+		color: var(--tt-status-danger-500);
+		font-size: var(--tt-font-size-body);
+		padding: var(--tt-space-12);
+		background: var(--tt-status-danger-800);
+		border-radius: var(--tt-radius-input);
 		text-align: center;
 	}
 
 	.success {
-		color: var(--pos);
-		font-size: 0.9rem;
-		padding: 0.75rem;
-		background: var(--pos-light);
-		border-radius: var(--r-input);
+		color: var(--tt-status-success-500);
+		font-size: var(--tt-font-size-body);
+		padding: var(--tt-space-12);
+		background: var(--tt-status-success-800);
+		border-radius: var(--tt-radius-input);
 		text-align: center;
-	}
-
-	.submit-btn {
-		padding: 0.875rem;
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		border: none;
-		border-radius: var(--r-btn);
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-		margin-top: 0.5rem;
-	}
-
-	.submit-btn:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
-	}
-
-	.submit-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
 	}
 
 	.links {
@@ -260,13 +239,13 @@
 		justify-content: center;
 		margin-top: 1.5rem;
 		padding-top: 1rem;
-		border-top: 1px solid var(--border);
+		border-top: 1px solid var(--tt-border-default);
 	}
 
 	.links a {
-		color: var(--accent);
+		color: var(--tt-brand-primary-500);
 		text-decoration: none;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.links a:hover {

@@ -38,12 +38,6 @@
 		}
 	}
 
-	function handleBackdropClick(event: MouseEvent) {
-		if (event.target === event.currentTarget) {
-			onclose();
-		}
-	}
-
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
 			onclose();
@@ -56,7 +50,6 @@
 {:else}
 	<div
 		class="dialog-backdrop"
-		onclick={handleBackdropClick}
 		onkeydown={handleKeydown}
 		role="dialog"
 		aria-modal="true"
@@ -65,7 +58,19 @@
 		<div class="dialog">
 			<header class="dialog-header">
 				<h2>Daten exportieren</h2>
-				<button class="close-btn" onclick={onclose} aria-label="Schließen">×</button>
+				<button class="tt-symbol-button" onclick={onclose} aria-label="Schließen">
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
 			</header>
 
 			<div class="dialog-body">
@@ -92,7 +97,7 @@
 						<input type="radio" name="format" value="pdf" bind:group={selectedFormat} />
 						<div class="format-info">
 							<span class="format-name">PDF</span>
-							<span class="format-desc">Druckbare Übersicht (kommt bald)</span>
+							<span class="format-desc">Druckbare Übersicht</span>
 						</div>
 					</label>
 				</div>
@@ -103,8 +108,9 @@
 			</div>
 
 			<footer class="dialog-footer">
-				<button class="btn-secondary" onclick={onclose} disabled={exporting}>Abbrechen</button>
-				<button class="btn-primary" onclick={handleExport} disabled={exporting}>
+				<button class="tt-button-secondary" onclick={onclose} disabled={exporting}>Abbrechen</button
+				>
+				<button class="tt-button-primary" onclick={handleExport} disabled={exporting}>
 					{#if exporting}
 						Exportiere...
 					{:else}
@@ -120,7 +126,7 @@
 	.dialog-backdrop {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
+		background: var(--tt-backdrop-bg);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -128,11 +134,11 @@
 	}
 
 	.dialog {
-		background: var(--card-bg, var(--surface, #ffffff));
-		border-radius: 12px;
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-modal);
 		width: 90%;
 		max-width: 400px;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+		box-shadow: var(--tt-shadow-modal);
 	}
 
 	.dialog-header {
@@ -140,28 +146,16 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 16px 20px;
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--tt-border-default);
 	}
 
 	.dialog-header h2 {
 		margin: 0;
 		font-size: 1.125rem;
-		color: var(--fg);
+		color: var(--tt-text-primary);
 	}
 
-	.close-btn {
-		background: none;
-		border: none;
-		font-size: 1.5rem;
-		color: var(--muted);
-		cursor: pointer;
-		padding: 0;
-		line-height: 1;
-	}
-
-	.close-btn:hover {
-		color: var(--fg);
-	}
+	/* Close button uses .tt-symbol-button from design system */
 
 	.dialog-body {
 		padding: 20px;
@@ -169,34 +163,35 @@
 
 	.description {
 		margin: 0 0 16px;
-		color: var(--muted);
-		font-size: 0.875rem;
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-small);
 	}
 
 	.format-options {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--tt-space-8);
 	}
 
 	.format-option {
 		display: flex;
 		align-items: center;
-		gap: 12px;
+		gap: var(--tt-space-12);
 		padding: 12px;
-		border: 1px solid var(--border);
-		border-radius: 8px;
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
 		cursor: pointer;
 		transition: border-color 0.2s;
 	}
 
 	.format-option:hover {
-		border-color: var(--accent);
+		border-color: var(--tt-brand-primary-500);
+		background: var(--tt-state-hover);
 	}
 
 	.format-option:has(input:checked) {
-		border-color: var(--accent);
-		background: var(--accent-subtle, rgba(var(--accent-rgb), 0.1));
+		border-color: var(--tt-brand-primary-500);
+		background: var(--tt-brand-primary-800);
 	}
 
 	.format-option input {
@@ -211,67 +206,28 @@
 
 	.format-name {
 		font-weight: 600;
-		color: var(--fg);
+		color: var(--tt-text-primary);
 	}
 
 	.format-desc {
-		font-size: 0.75rem;
-		color: var(--muted);
+		font-size: var(--tt-font-size-tiny);
+		color: var(--tt-text-muted);
 	}
 
 	.error-message {
 		margin-top: 12px;
 		padding: 8px 12px;
-		background: var(--danger-subtle, #fee2e2);
-		color: var(--danger, #dc2626);
-		border-radius: 6px;
-		font-size: 0.875rem;
+		background: var(--tt-status-danger-800);
+		color: var(--tt-status-danger-500);
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
 	}
 
 	.dialog-footer {
 		display: flex;
 		justify-content: flex-end;
-		gap: 8px;
+		gap: var(--tt-space-8);
 		padding: 16px 20px;
-		border-top: 1px solid var(--border);
-	}
-
-	.btn-primary,
-	.btn-secondary {
-		padding: 10px 20px;
-		border-radius: 8px;
-		font-weight: 500;
-		cursor: pointer;
-		transition: opacity 0.2s;
-	}
-
-	.btn-primary {
-		background: var(--accent);
-		color: white;
-		border: none;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		opacity: 0.9;
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn-secondary {
-		background: transparent;
-		color: var(--muted);
-		border: 1px solid var(--border);
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		border-color: var(--muted);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		border-top: 1px solid var(--tt-border-default);
 	}
 </style>

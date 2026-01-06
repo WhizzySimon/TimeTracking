@@ -18,6 +18,7 @@
 	import { formatDate, parseDate } from '$lib/utils/date';
 	import type { WorkTimeModel, Employer } from '$lib/types';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		/** Existing model to edit (null for new) */
@@ -90,6 +91,9 @@
 	let saving = $state(false);
 	let employers = $state<Employer[]>([]);
 
+	// Convert employers to dropdown options
+	let employerOptions = $derived(employers.map((e) => ({ value: e.id, label: e.name })));
+
 	// Employer selection - initialize from model
 	function getInitialEmployerId() {
 		return initialModel?.employerId ?? '';
@@ -100,6 +104,10 @@
 
 	onMount(async () => {
 		employers = await getActiveEmployers();
+		// Pre-select first employer if none selected (new model)
+		if (!selectedEmployerId && employers.length > 0) {
+			selectedEmployerId = employers[0].id;
+		}
 	});
 
 	// Calculate total hours
@@ -154,6 +162,12 @@
 			return;
 		}
 
+		// STRICT: Require employer selection for work time models
+		if (selectedEmployerId === '') {
+			error = 'Bitte zuerst Arbeitgeber auswählen';
+			return;
+		}
+
 		const parsedDate = parseDate(validFrom);
 		if (!parsedDate) {
 			error = 'Ungültiges Datum (Format: TT.MM.JJJJ)';
@@ -197,7 +211,7 @@
 				fridayIsWorkday,
 				saturdayIsWorkday,
 				sundayIsWorkday,
-				employerId: selectedEmployerId === '' ? null : selectedEmployerId,
+				employerId: selectedEmployerId,
 				createdAt: initialModel?.createdAt ?? Date.now(),
 				updatedAt: Date.now()
 			};
@@ -235,46 +249,41 @@
 >
 	<div class="add-model-form">
 		<!-- Name -->
-		<div class="field">
-			<label for="model-name">Name:</label>
+		<div class="tt-form-field">
+			<label for="model-name" class="tt-form-field__label">Name:</label>
 			<input
 				type="text"
 				id="model-name"
 				bind:value={name}
 				placeholder="z.B. Vollzeit 40h"
-				class="text-input"
+				class="tt-text-input"
 				disabled={saving}
 			/>
 		</div>
 
 		<!-- Valid From -->
-		<div class="field">
-			<label for="model-valid-from">Gültig ab:</label>
+		<div class="tt-form-field">
+			<label for="model-valid-from" class="tt-form-field__label">Gültig ab:</label>
 			<input
 				type="text"
 				id="model-valid-from"
 				bind:value={validFrom}
 				placeholder="TT.MM.JJJJ"
-				class="text-input"
+				class="tt-text-input"
 				disabled={saving}
 			/>
 		</div>
 
 		<!-- Employer -->
-		<div class="field">
-			<label for="model-employer">Arbeitgeber:</label>
-			<select
-				id="model-employer"
-				data-testid="model-employer-select"
-				bind:value={selectedEmployerId}
-				class="select-input"
+		<div class="tt-form-field">
+			<label for="model-employer" class="tt-form-field__label">Arbeitgeber:</label>
+			<CustomDropdown
+				options={employerOptions}
+				value={selectedEmployerId}
+				onchange={(id) => (selectedEmployerId = id)}
 				disabled={saving}
-			>
-				<option value="">Alle Arbeitgeber</option>
-				{#each employers as employer (employer.id)}
-					<option value={employer.id}>{employer.name}</option>
-				{/each}
-			</select>
+				placeholder="Arbeitgeber auswählen..."
+			/>
 		</div>
 
 		<!-- Total Summary -->
@@ -412,15 +421,15 @@
 
 		<!-- Error Message -->
 		{#if error}
-			<p class="error">{error}</p>
+			<p class="tt-error-message">{error}</p>
 		{/if}
 
 		<!-- Actions -->
-		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose} disabled={saving}>
+		<div class="tt-form-actions">
+			<button type="button" class="tt-button-secondary" onclick={handleClose} disabled={saving}>
 				Abbrechen
 			</button>
-			<button type="button" class="btn-primary" onclick={handleSave} disabled={saving}>
+			<button type="button" class="tt-button-primary" onclick={handleSave} disabled={saving}>
 				{saving ? 'Speichern...' : 'Speichern'}
 			</button>
 		</div>
@@ -431,111 +440,58 @@
 	.add-model-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
-	.field {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-	}
+	/* Form elements use design system classes: .tt-form-field, .tt-form-field__label, .tt-error-message, .tt-form-actions */
 
-	.field label {
-		font-size: 0.9rem;
-		font-weight: 500;
-		color: var(--text);
-	}
-
-	.text-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.text-input::placeholder {
-		color: var(--input-placeholder);
-	}
-
-	.text-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
-	}
-
-	.text-input:disabled {
-		background: var(--surface-hover);
-		color: var(--muted);
-	}
-
-	.select-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.select-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
-	}
-
-	.select-input:disabled {
-		background: var(--surface-hover);
-		color: var(--muted);
-	}
-
+	/* Single-use: Total hours summary display */
 	.total-summary {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem;
-		background: var(--accent-light);
-		border: 1px solid var(--border);
-		border-radius: var(--r-card);
+		gap: var(--tt-space-8);
+		padding: var(--tt-space-12);
+		background: var(--tt-status-info-faded);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.total-label {
-		font-size: 0.9rem;
-		color: var(--muted);
+		font-size: var(--tt-font-size-body);
+		color: var(--tt-text-muted);
 	}
 
 	.total-value {
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 600;
-		color: var(--accent);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.total-separator {
-		color: var(--border);
+		color: var(--tt-border-default);
 	}
 
 	.weekdays {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.section-title {
 		margin: 0;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 600;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.weekday-header {
 		display: grid;
 		grid-template-columns: 2.5rem 5rem 1fr;
-		gap: 0.5rem;
-		padding: 0.25rem 0;
-		font-size: 0.75rem;
+		gap: var(--tt-space-8);
+		padding: var(--tt-space-4) 0;
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		text-align: center;
 	}
 
@@ -546,20 +502,20 @@
 	.weekday-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.weekday-row {
 		display: grid;
 		grid-template-columns: 2.5rem 5rem 1fr;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		align-items: center;
 	}
 
 	.day-label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.weekday-row input[type='checkbox'] {
@@ -571,79 +527,25 @@
 
 	.hours-input {
 		width: 100%;
-		padding: 0.5rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 0.9rem;
+		padding: var(--tt-space-8);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		font-size: var(--tt-font-size-body);
 		text-align: center;
-		background: var(--input-bg);
-		color: var(--input-text);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
 	}
 
 	.hours-input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		border-color: var(--tt-brand-primary-500);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.hours-input:disabled {
-		background: var(--surface-hover);
-		color: var(--muted);
+		background: var(--tt-background-card-hover);
+		color: var(--tt-text-muted);
 	}
 
-	.error {
-		margin: 0;
-		padding: 0.5rem;
-		background: var(--neg-light);
-		border: 1px solid var(--neg);
-		border-radius: var(--r-input);
-		color: var(--neg);
-		font-size: 0.9rem;
-	}
-
-	.actions {
-		display: flex;
-		gap: 0.75rem;
-		justify-content: flex-end;
-		padding-top: 0.5rem;
-		border-top: 1px solid var(--border);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
+	/* Single-use: Weekday grid layout - unique to AddWorkTimeModelModal */
 </style>

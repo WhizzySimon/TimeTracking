@@ -39,6 +39,46 @@
 	// Get top 5 categories using smart context-aware suggestions
 	let topCategories = $derived(getSmartTopCategories(5, entries, categories));
 
+	// Group top categories by employer when "Alle" is selected
+	interface TopCategoryGroup {
+		employerId: string | null;
+		employerName: string;
+		categories: Category[];
+	}
+
+	let groupedTopCategories = $derived.by(() => {
+		if (!hasMultipleEmployers || selectedEmployerId !== null) {
+			return null;
+		}
+
+		const groups: TopCategoryGroup[] = [];
+
+		for (const employer of employers) {
+			const employerCats = topCategories.filter((cat) => cat.employerId === employer.id);
+			if (employerCats.length > 0) {
+				groups.push({
+					employerId: employer.id,
+					employerName: employer.name,
+					categories: employerCats
+				});
+			}
+		}
+
+		// Add global categories (no employer) if any
+		const globalCats = topCategories.filter(
+			(cat) => cat.employerId === null || cat.employerId === undefined
+		);
+		if (globalCats.length > 0) {
+			groups.push({
+				employerId: null,
+				employerName: 'Allgemein',
+				categories: globalCats
+			});
+		}
+
+		return groups.length > 0 ? groups : null;
+	});
+
 	// Get all user categories (excluding system)
 	let allUserCategories = $derived(categories.filter((c) => c.type === 'user'));
 
@@ -124,32 +164,60 @@
 		<!-- Top 5 Smart Suggestions -->
 		{#if topCategories.length > 0}
 			<section class="section top-section" data-testid="smart-suggestions-section">
-				<h2 class="section-title" data-testid="smart-suggestions-heading">Vorschläge</h2>
-				<div class="category-grid">
-					{#each topCategories as category (category.id)}
-						<button
-							class="category-btn top-btn"
-							onclick={() => onselect(category.id)}
-							aria-label={`${category.name} starten`}
-						>
-							{category.name}
-						</button>
+				{#if groupedTopCategories}
+					<!-- Grouped view: multiple employers, "Alle" selected -->
+					{#each groupedTopCategories as group (group.employerId ?? 'global')}
+						<div class="suggestion-group">
+							<h2 class="section-title" data-testid="smart-suggestions-heading">
+								Vorschläge {group.employerName}
+							</h2>
+							<div class="category-grid">
+								{#each group.categories as category (category.id)}
+									<button
+										class="tt-chip tt-chip--suggestion"
+										onclick={() => onselect(category.id)}
+										aria-label={`${category.name} starten`}
+									>
+										{category.name}
+									</button>
+								{/each}
+							</div>
+						</div>
 					{/each}
-				</div>
+				{:else}
+					<!-- Single employer or specific employer selected -->
+					<h2 class="section-title" data-testid="smart-suggestions-heading">Vorschläge</h2>
+					<div class="category-grid">
+						{#each topCategories as category (category.id)}
+							<button
+								class="tt-chip tt-chip--suggestion"
+								onclick={() => onselect(category.id)}
+								aria-label={`${category.name} starten`}
+							>
+								{category.name}
+							</button>
+						{/each}
+					</div>
+				{/if}
 			</section>
-
-			{#if oncreatecategory}
-				<button class="create-category-btn-top" onclick={oncreatecategory}>
-					+ Kategorie erstellen
-				</button>
-			{/if}
 		{/if}
 
 		<!-- Remaining categories A-Z (grouped by employer when multiple employers exist) -->
 		{#if remainingCategories.length > 0}
 			<section class="section all-section" data-testid="all-categories-section">
-				<h2 class="section-title" data-testid="all-categories-heading">Alle Kategorien</h2>
-				<input type="text" class="filter-input" placeholder="Filtern..." bind:value={filterText} />
+				<div class="filter-row">
+					<input
+						type="text"
+						class="tt-text-input"
+						placeholder="Filtern..."
+						bind:value={filterText}
+					/>
+					{#if oncreatecategory}
+						<button class="tt-button-secondary tt-button-small" onclick={oncreatecategory}>
+							Tätigkeit erstellen
+						</button>
+					{/if}
+				</div>
 
 				{#if filteredGroupedCategories}
 					<!-- Grouped view: multiple employers, "Alle" selected -->
@@ -159,7 +227,7 @@
 							<div class="category-list-vertical">
 								{#each group.categories as category (category.id)}
 									<button
-										class="category-btn list-btn"
+										class="tt-list-row-clickable"
 										onclick={() => onselect(category.id)}
 										aria-label={`${category.name} starten`}
 									>
@@ -174,7 +242,7 @@
 					<div class="category-list-vertical">
 						{#each filteredCategories as category (category.id)}
 							<button
-								class="category-btn list-btn"
+								class="tt-list-row-clickable"
 								onclick={() => onselect(category.id)}
 								aria-label={`${category.name} starten`}
 							>
@@ -192,200 +260,85 @@
 	.category-list {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
-		padding: 0.5rem 0;
+		gap: var(--tt-space-24);
+		padding: var(--tt-space-8) 0;
 	}
 
 	.empty-state {
 		text-align: center;
-		padding: 2rem 1rem;
-		color: var(--text-secondary, #6b7280);
+		padding: var(--tt-space-32) var(--tt-space-16);
+		color: var(--tt-text-muted);
 	}
 
 	.settings-link {
 		display: inline-block;
-		margin-top: 1rem;
-		color: var(--accent);
+		margin-top: var(--tt-space-16);
+		color: var(--tt-brand-primary-500);
 		text-decoration: underline;
 	}
 
 	.section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.section-title {
-		font-size: 0.75rem;
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		color: var(--text-secondary, #6b7280);
+		color: var(--tt-text-muted);
 		margin: 0;
 	}
 
 	.category-grid {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.category-list-vertical {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.employer-group {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
-		margin-top: 0.5rem;
+		gap: var(--tt-space-8);
+		margin-top: var(--tt-space-8);
+	}
+
+	.suggestion-group {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-12);
+	}
+
+	.suggestion-group:not(:first-child) {
+		margin-top: var(--tt-space-16);
 	}
 
 	.group-title {
 		font-size: 0.8125rem;
 		font-weight: 500;
-		color: var(--text-secondary, #6b7280);
+		color: var(--tt-text-muted);
 		margin: 0;
-		padding-left: 0.25rem;
+		padding-left: var(--tt-space-4);
 	}
 
-	.filter-input {
+	.filter-row {
+		display: flex;
+		gap: var(--tt-space-8);
+		align-items: center;
 		width: 100%;
-		padding: 0.625rem 0.875rem;
-		border: 1px solid var(--border-color, #d1d5db);
-		border-radius: var(--r-input, 0.5rem);
-		font-size: 0.875rem;
-		background: var(--bg-primary, #ffffff);
-		color: var(--text-primary, #1f2937);
-		outline: none;
-		transition: border-color var(--transition-fast, 0.15s);
 	}
 
-	.filter-input:focus {
-		border-color: var(--accent);
-	}
-
-	.filter-input::placeholder {
-		color: var(--text-secondary, #6b7280);
-	}
-
-	.category-btn {
-		border: none;
-		border-radius: var(--r-btn, 0.5rem);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all var(--transition-fast, 0.15s);
-		text-align: left;
-	}
-
-	/* Top suggestion buttons - prominent style */
-	.top-btn {
+	/* Override tt-text-input to flex properly in filter row */
+	.filter-row :global(.tt-text-input) {
 		flex: 1 1 auto;
-		min-width: 100px;
-		max-width: calc(50% - 0.25rem);
-		padding: 0.875rem 1rem;
-		background: var(--accent);
-		color: white;
-		font-weight: 500;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		text-align: center;
-	}
-
-	.top-btn:hover {
-		background: var(--accent-dark, #1d4ed8);
-		transform: translateY(-1px);
-	}
-
-	.top-btn:active {
-		transform: scale(0.98);
-	}
-
-	/* List buttons - subtle style */
-	.list-btn {
-		width: 100%;
-		padding: 0.75rem 1rem;
-		background: var(--bg-secondary, #f3f4f6);
-		color: var(--text-primary, #1f2937);
-	}
-
-	.list-btn:hover {
-		background: var(--bg-tertiary, #e5e7eb);
-	}
-
-	.list-btn:active {
-		background: var(--bg-tertiary, #e5e7eb);
-		transform: scale(0.99);
-	}
-
-	/* Dark mode */
-	:global(.dark) .empty-state {
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	:global(.dark) .section-title {
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	:global(.dark) .group-title {
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	:global(.dark) .list-btn {
-		background: var(--bg-secondary-dark, #374151);
-		color: var(--text-primary-dark, #f3f4f6);
-	}
-
-	:global(.dark) .list-btn:hover {
-		background: var(--bg-tertiary-dark, #4b5563);
-	}
-
-	:global(.dark) .filter-input {
-		background: var(--bg-secondary-dark, #374151);
-		border-color: var(--border-color-dark, #4b5563);
-		color: var(--text-primary-dark, #f3f4f6);
-	}
-
-	:global(.dark) .filter-input::placeholder {
-		color: var(--text-secondary-dark, #9ca3af);
-	}
-
-	.create-category-btn-top {
-		width: 100%;
-		padding: 0.75rem 1rem;
-		background: var(--bg-secondary, #f3f4f6);
-		color: var(--text-primary, #1f2937);
-		border: 1px dashed var(--border-color, #d1d5db);
-		border-radius: var(--r-btn, 0.5rem);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all var(--transition-fast, 0.15s);
-		margin-top: 0.5rem;
-	}
-
-	.create-category-btn-top:hover {
-		background: var(--bg-tertiary, #e5e7eb);
-		border-color: var(--accent);
-	}
-
-	:global(.dark) .create-category-btn-top {
-		background: var(--bg-secondary-dark, #374151);
-		color: var(--text-primary-dark, #f3f4f6);
-		border-color: var(--border-color-dark, #4b5563);
-	}
-
-	:global(.dark) .create-category-btn-top:hover {
-		background: var(--bg-tertiary-dark, #4b5563);
-		border-color: var(--accent);
-	}
-
-	/* Responsive - full width on small screens */
-	@media (max-width: 360px) {
-		.top-btn {
-			max-width: 100%;
-		}
+		min-width: 0;
 	}
 </style>

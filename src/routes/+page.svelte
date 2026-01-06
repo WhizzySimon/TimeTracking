@@ -42,6 +42,6 @@
 		justify-content: center;
 		align-items: center;
 		height: 50vh;
-		color: #666;
+		color: var(--tt-text-muted);
 	}
 </style>

@@ -19,10 +19,12 @@
 		workTimeModels,
 		filteredEntries,
 		filteredCategories,
-		filteredActiveWorkTimeModel
+		filteredModels
 	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
-	import { getAll, getByKey } from '$lib/storage/db';
+	import { getAll, getByKey, put } from '$lib/storage/db';
+	import { browser } from '$app/environment';
+	import type { UserPreference } from '$lib/types';
 	import { parseDate } from '$lib/utils/date';
 	import { getWeekNumber, formatDate, getDayOfWeek, startOfDay } from '$lib/utils/date';
 	import { calculateIst, calculateSoll, calculateSaldo } from '$lib/utils/calculations';
@@ -30,8 +32,10 @@
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import MonthYearPicker from '$lib/components/MonthYearPicker.svelte';
 
+	const PREF_KEY = 'month-selected-date';
 	let loading = $state(true);
 	let showMonthPicker = $state(false);
+	let dateLoaded = $state(false);
 	// Month names in German
 	const monthNames = [
 		'Januar',
@@ -75,11 +79,8 @@
 	});
 
 	// Month title display
-	let monthTitle = $derived(
-		isThisCurrentMonth()
-			? `Aktueller Monat: ${monthNames[currentMonth]} ${currentYear}`
-			: `${monthNames[currentMonth]} ${currentYear}`
-	);
+	let monthPrefix = $derived(isThisCurrentMonth() ? 'Aktueller Monat' : null);
+	let monthTitle = $derived(`${monthNames[currentMonth]} ${currentYear}`);
 
 	// Navigation labels showing adjacent month abbreviations
 	let previousMonthLabel = $derived(() => {
@@ -168,7 +169,8 @@
 			if (!isDayActiveInModel(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-			total += calculateSoll(date, dayType, $filteredActiveWorkTimeModel);
+			const model = getActiveModelForDate(date);
+			total += calculateSoll(date, dayType, model);
 		}
 		return total;
 	});
@@ -216,15 +218,27 @@
 		// Set to the first day of the week
 		if (weekDates.length > 0) {
 			currentDate.set(weekDates[0]);
+			// Mark that we're navigating (so target page doesn't load saved date)
+			sessionStorage.setItem('date-navigation', 'true');
 			goto(resolve('/week'));
 		}
 	}
 
+	// Get active work time model for a specific date (respects employer filter)
+	function getActiveModelForDate(date: Date): WorkTimeModel | null {
+		const dateStr = formatDate(date, 'ISO');
+		const validModels = $filteredModels
+			.filter((model) => model.validFrom <= dateStr)
+			.sort((a, b) => b.validFrom.localeCompare(a.validFrom));
+		return validModels[0] ?? null;
+	}
+
 	// Check if a day is active in the work time model (respects employer filter)
 	function isDayActiveInModel(date: Date): boolean {
-		if (!$filteredActiveWorkTimeModel) return true;
+		const model = getActiveModelForDate(date);
+		if (!model) return true;
 		const weekday = getDayOfWeek(date);
-		const hours = $filteredActiveWorkTimeModel[weekday];
+		const hours = model[weekday];
 		return hours !== null;
 	}
 
@@ -248,7 +262,8 @@
 			if (!isDayActiveInModel(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-			total += calculateSoll(date, dayType, $filteredActiveWorkTimeModel);
+			const model = getActiveModelForDate(date);
+			total += calculateSoll(date, dayType, model);
 		}
 		return total;
 	}
@@ -268,6 +283,44 @@
 		return dates.filter((d) => isDayActiveInModel(d)).length;
 	}
 
+	// Load saved date from IndexedDB (only on page refresh, not on in-app navigation)
+	async function loadSavedDate() {
+		// Check if we navigated here from another page (e.g., Analysis)
+		const isNavigation = sessionStorage.getItem('date-navigation') === 'true';
+		sessionStorage.removeItem('date-navigation');
+
+		if (isNavigation) {
+			// Don't load saved date - respect the date set by navigation
+			dateLoaded = true;
+			return;
+		}
+
+		try {
+			const pref = await getByKey<UserPreference>('userPreferences', PREF_KEY);
+			if (pref?.value) {
+				const savedDate = new Date(pref.value);
+				if (!isNaN(savedDate.getTime())) {
+					currentDate.set(savedDate);
+				}
+			}
+		} catch {
+			// Use current date on error
+		}
+		dateLoaded = true;
+	}
+
+	// Save date to IndexedDB when it changes
+	$effect(() => {
+		if (browser && dateLoaded) {
+			const pref: UserPreference = {
+				key: PREF_KEY,
+				value: $currentDate.toISOString(),
+				updatedAt: Date.now()
+			};
+			put('userPreferences', pref);
+		}
+	});
+
 	onMount(async () => {
 		await initializeCategories();
 		const allCategories = await getAll<Category>('categories');
@@ -276,6 +329,7 @@
 		timeEntries.set(allEntries);
 		const allModels = await getAll<WorkTimeModel>('workTimeModels');
 		workTimeModels.set(allModels);
+		await loadSavedDate();
 		loading = false;
 	});
 </script>
@@ -289,15 +343,46 @@
 		<!-- Month Navigation -->
 		<header class="month-nav">
 			<button
-				class="nav-btn nav-btn-prev"
+				class="tt-nav-button tt-interactive-card"
 				onclick={goToPreviousMonth}
 				aria-label="Vorheriger Monat"
 			>
-				{previousMonthLabel()}
+				<svg
+					class="tt-nav-button__chevron"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="15 18 9 12 15 6"></polyline>
+				</svg>
+				<span class="tt-nav-button__label">{previousMonthLabel()}</span>
 			</button>
-			<button class="month-title" onclick={openMonthPicker}>{monthTitle}</button>
-			<button class="nav-btn nav-btn-next" onclick={goToNextMonth} aria-label="Nächster Monat">
-				{nextMonthLabel()}
+			<button class="tt-date-selector-button tt-interactive-card" onclick={openMonthPicker}>
+				{#if monthPrefix}
+					<span class="tt-date-selector-button__prefix">{monthPrefix}</span>
+				{/if}
+				<span class="tt-date-selector-button__date">{monthTitle}</span>
+			</button>
+			<button
+				class="tt-nav-button tt-interactive-card"
+				onclick={goToNextMonth}
+				aria-label="Nächster Monat"
+			>
+				<span class="tt-nav-button__label">{nextMonthLabel()}</span>
+				<svg
+					class="tt-nav-button__chevron"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="9 18 15 12 9 6"></polyline>
+				</svg>
 			</button>
 		</header>
 
@@ -311,18 +396,29 @@
 				{@const weekSoll = getWeekSoll(week.dates)}
 				{@const weekSaldo = weekIst - weekSoll}
 				{@const activeDays = getActiveWorkDays(week.dates)}
-				<button class="week-item" type="button" onclick={() => navigateToWeek(week.dates)}>
-					<div class="week-info">
-						<span class="week-number">KW {week.weekNumber}</span>
-						<span class="week-range">{formatWeekRange(week.dates)}</span>
-						<span class="week-days">({activeDays} Tage)</span>
-					</div>
+				{@const now = new Date()}
+				{@const currentWeekNum = getWeekNumber(now)}
+				{@const isCurrentWeek =
+					week.weekNumber === currentWeekNum && week.year === now.getFullYear()}
+				<button
+					class="tt-list-row-clickable week-row"
+					class:tt-current-row={isCurrentWeek}
+					type="button"
+					onclick={() => navigateToWeek(week.dates)}
+				>
+					<span class="week-row__title">KW {week.weekNumber}</span>
+					<span class="week-row__range">{formatWeekRange(week.dates)}</span>
+					<span class="week-row__days">({activeDays} Tage)</span>
 					<div class="week-hours">
-						<span class="ist">{weekIst.toFixed(1).replace('.', ',')}</span>
-						<span class="separator">/</span>
-						<span class="soll">{weekSoll.toFixed(1).replace('.', ',')}</span>
-						<span class="separator">/</span>
-						<span class="saldo" class:positive={weekSaldo >= 0} class:negative={weekSaldo < 0}>
+						<span class="week-hours__ist">{weekIst.toFixed(1).replace('.', ',')}</span>
+						<span class="week-hours__separator">/</span>
+						<span class="week-hours__soll">{weekSoll.toFixed(1).replace('.', ',')}</span>
+						<span class="week-hours__separator">/</span>
+						<span
+							class="week-hours__saldo"
+							class:week-hours__saldo--positive={weekSaldo >= 0}
+							class:week-hours__saldo--negative={weekSaldo < 0}
+						>
 							{weekSaldo >= 0 ? '+' : ''}{weekSaldo.toFixed(1).replace('.', ',')}
 						</span>
 					</div>
@@ -344,19 +440,19 @@
 
 <style>
 	.month-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.loading {
 		display: flex;
 		justify-content: center;
-		padding: 2rem;
-		color: var(--muted);
+		padding: var(--tt-space-32);
+		color: var(--tt-text-muted);
 	}
 
 	/* Month Navigation */
@@ -364,135 +460,92 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
-	.nav-btn {
-		min-width: 44px;
-		height: 44px;
-		padding: 0 0.75rem;
-		border: none;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 1rem;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-	}
+	/* Layout properties now in design system .tt-nav-button class */
 
-	.nav-btn-prev {
-		clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%);
-	}
-
-	.nav-btn-next {
-		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%);
-	}
-
-	.nav-btn:hover {
-		background: var(--surface-hover);
-	}
-
-	.nav-btn:active {
-		background: var(--surface-active);
-	}
-
-	.month-title {
-		margin: 0;
-		font-size: 1.1rem;
-		font-weight: 600;
-		text-align: center;
+	.tt-date-selector-button {
 		flex: 1;
-		background: none;
-		border: none;
-		cursor: pointer;
-		padding: 0.5rem;
-		border-radius: var(--r-btn);
-		color: var(--text);
-	}
-
-	.month-title:hover {
-		background: var(--surface-hover);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--tt-space-4);
 	}
 
 	/* Week List */
 	.week-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
-	.week-item {
-		display: flex;
-		justify-content: space-between;
+	/* Week row layout - aligned columns like day rows in week page */
+	.week-row {
+		display: grid;
+		grid-template-columns: 4rem auto auto 1fr;
+		gap: var(--tt-space-8);
 		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
-		width: 100%;
-		text-align: left;
-		cursor: pointer;
-		font-family: inherit;
-		font-size: inherit;
 	}
 
-	.week-item:hover {
-		background: var(--surface-hover);
-		border-color: var(--accent);
+	.week-row__title {
+		font-weight: var(--tt-font-weight-normal);
+		color: var(--tt-text-primary);
+		white-space: nowrap;
 	}
 
-	.week-item:active {
-		background: var(--accent-light);
+	.week-row__range {
+		display: inline-flex;
+		align-items: center;
+		padding: var(--tt-space-4) var(--tt-space-8);
+		font-size: var(--tt-font-size-tiny);
+		font-weight: var(--tt-font-weight-medium);
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-pressed);
+		border-radius: var(--tt-radius-badge);
+		white-space: nowrap;
+		width: fit-content;
 	}
 
-	.week-info {
-		display: flex;
-		gap: 0.5rem;
-		align-items: baseline;
+	.week-row__days {
+		display: inline-flex;
+		align-items: center;
+		padding: var(--tt-space-4) var(--tt-space-8);
+		font-size: var(--tt-font-size-tiny);
+		font-weight: var(--tt-font-weight-medium);
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-pressed);
+		border-radius: var(--tt-radius-badge);
+		white-space: nowrap;
+		width: fit-content;
 	}
 
-	.week-number {
-		font-weight: 600;
-		color: var(--text);
-		min-width: 50px;
-	}
-
-	.week-range {
-		color: var(--muted);
-		font-size: 0.9rem;
-	}
-
-	.week-days {
-		color: var(--muted);
-		font-size: 0.8rem;
-	}
-
+	/* Week hours display - layout-only styles for right side */
 	.week-hours {
 		display: flex;
-		gap: 0.25rem;
-		font-size: 0.9rem;
-		color: var(--muted);
+		gap: var(--tt-space-4);
+		font-size: var(--tt-font-size-body);
+		color: var(--tt-text-muted);
+		margin-left: auto;
 	}
 
-	.week-hours .ist {
-		color: var(--text);
+	.week-hours__ist {
+		color: var(--tt-text-primary);
 	}
 
-	.week-hours .separator {
-		color: var(--muted);
+	.week-hours__separator {
+		color: var(--tt-text-muted);
 	}
 
-	.week-hours .soll {
-		color: var(--muted);
+	.week-hours__soll {
+		color: var(--tt-text-muted);
 	}
 
-	.week-hours .saldo.positive {
-		color: var(--pos);
+	.week-hours__saldo--positive {
+		color: var(--tt-saldo-positive);
 	}
 
-	.week-hours .saldo.negative {
-		color: var(--neg);
+	.week-hours__saldo--negative {
+		color: var(--tt-status-danger-500);
 	}
 </style>

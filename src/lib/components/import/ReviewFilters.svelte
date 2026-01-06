@@ -5,7 +5,7 @@
   - Show only uncertain toggle
   - Confidence threshold slider
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen C)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen C)
 -->
 <script lang="ts">
 	interface Props {
@@ -52,20 +52,20 @@
 	.review-filters {
 		display: flex;
 		align-items: center;
-		gap: 1.5rem;
+		gap: var(--tt-space-24);
 		padding: 0.75rem 1rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 8px;
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
 		flex-wrap: wrap;
 	}
 
 	.filter-toggle {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.875rem;
-		color: var(--text-primary);
+		gap: var(--tt-space-8);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-primary);
 		cursor: pointer;
 	}
 
@@ -78,12 +78,12 @@
 	.confidence-slider {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.confidence-slider label {
-		font-size: 0.875rem;
-		color: var(--text-secondary);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-secondary);
 		white-space: nowrap;
 	}
 
@@ -92,7 +92,7 @@
 		height: 6px;
 		-webkit-appearance: none;
 		appearance: none;
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 		border-radius: 3px;
 		cursor: pointer;
 	}
@@ -101,7 +101,7 @@
 		-webkit-appearance: none;
 		width: 16px;
 		height: 16px;
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		border-radius: 50%;
 		cursor: pointer;
 	}
@@ -109,7 +109,7 @@
 	.confidence-slider input[type='range']::-moz-range-thumb {
 		width: 16px;
 		height: 16px;
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		border-radius: 50%;
 		cursor: pointer;
 		border: none;

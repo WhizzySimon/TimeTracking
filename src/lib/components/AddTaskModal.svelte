@@ -11,14 +11,17 @@
   - Description (optional)
 -->
 <script lang="ts">
-	import { categories, timeEntries } from '$lib/stores';
+	import { onMount } from 'svelte';
+	import { categories, timeEntries, employers as employersStore } from '$lib/stores';
 	import { categorySort } from '$lib/stores/theme';
 	import { formatDate, formatTime } from '$lib/utils/date';
 	import { saveTimeEntry } from '$lib/storage/operations';
-	import type { TimeEntry } from '$lib/types';
+	import { getActiveEmployers } from '$lib/storage/employers';
+	import type { TimeEntry, Employer } from '$lib/types';
 	import Modal from './Modal.svelte';
 	import TimePicker from './TimePicker.svelte';
 	import CategorySelect from './CategorySelect.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		date: Date;
@@ -28,6 +31,8 @@
 	}
 
 	let { date, entry = null, onclose, onsave }: Props = $props();
+
+	let employers: Employer[] = $state([]);
 
 	// Form state - initialize from entry prop via function to avoid Svelte warning
 	function roundToFiveMinutes(time: string): string {
@@ -65,6 +70,7 @@
 
 		return {
 			categoryId: entry?.categoryId ?? '',
+			employerId: entry?.employerId ?? null,
 			startTime: initialStartTime,
 			endTime: initialEndTime,
 			description: entry?.description ?? ''
@@ -73,12 +79,29 @@
 	const initial = getInitialValues();
 
 	let categoryId = $state(initial.categoryId);
+	let employerId = $state<string | null>(initial.employerId);
 	let startTime = $state(initial.startTime);
 	let endTime = $state(initial.endTime);
 	let description = $state(initial.description);
 	let saving = $state(false);
 	let error = $state('');
 	let endTimeClicked = $state(false);
+
+	onMount(async () => {
+		// Load employers from store or fetch if empty
+		if ($employersStore.length > 0) {
+			employers = $employersStore;
+		} else {
+			employers = await getActiveEmployers();
+		}
+
+		// If no employer is set, default to the currently selected employer or first active employer
+		if (!employerId && employers.length > 0) {
+			// Use selectedEmployerId from store if available, otherwise first employer
+			const defaultId = $employersStore.length > 0 ? employers[0].id : null;
+			employerId = defaultId;
+		}
+	});
 
 	function handleEndTimeFocus() {
 		if (!endTimeClicked && !endTime && startTime) {
@@ -139,6 +162,7 @@
 				id: entry?.id ?? crypto.randomUUID(),
 				date: formatDate(date, 'ISO'),
 				categoryId,
+				employerId: employerId ?? null,
 				startTime: normalizeTime(startTime),
 				endTime: endTime ? normalizeTime(endTime) : null,
 				description: description.trim() || null,
@@ -172,7 +196,7 @@
 		{/if}
 
 		<div class="form-group">
-			<label for="category">Kategorie</label>
+			<label for="category">Tätigkeit</label>
 			<CategorySelect
 				id="category"
 				categories={selectableCategories}
@@ -184,10 +208,19 @@
 			/>
 		</div>
 
+		<div class="form-group">
+			<label for="employer">Arbeitgeber</label>
+			<CustomDropdown
+				options={employers.map((e) => ({ value: e.id, label: e.name }))}
+				value={employerId || ''}
+				onchange={(value) => (employerId = value)}
+			/>
+		</div>
+
 		<div class="form-row">
 			<div class="form-group">
 				<label for="startTime">Startzeit</label>
-				<TimePicker id="startTime" value={startTime} onchange={(v) => (startTime = v)} required />
+				<TimePicker id="startTime" value={startTime} onchange={(v) => (startTime = v)} />
 			</div>
 
 			<div class="form-group">
@@ -209,10 +242,10 @@
 		</div>
 
 		<div class="form-actions">
-			<button type="button" class="btn-secondary" onclick={onclose} disabled={saving}>
+			<button type="button" class="tt-button-secondary" onclick={onclose} disabled={saving}>
 				Abbrechen
 			</button>
-			<button type="submit" class="btn-primary" disabled={saving}>
+			<button type="submit" class="tt-button-primary" disabled={saving}>
 				{saving ? 'Speichern...' : 'Speichern'}
 			</button>
 		</div>
@@ -223,26 +256,26 @@
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.error-message {
-		background: var(--neg-light);
-		color: var(--neg);
-		padding: 0.75rem;
-		border-radius: var(--r-input);
-		font-size: 0.9rem;
+		background: var(--tt-status-danger-800);
+		color: var(--tt-status-danger-500);
+		padding: var(--tt-space-12);
+		border-radius: var(--tt-radius-input);
+		font-size: var(--tt-font-size-body);
 	}
 
 	.form-group {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.form-row {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.form-row .form-group {
@@ -251,72 +284,33 @@
 
 	label {
 		font-weight: 500;
-		font-size: 0.9rem;
-		color: var(--text);
+		font-size: var(--tt-font-size-body);
+		color: var(--tt-text-primary);
 	}
 
 	input {
 		padding: 0.5rem 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		font-size: var(--tt-font-size-normal);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
 	input::placeholder {
-		color: var(--input-placeholder);
+		color: var(--tt-text-muted);
 	}
 
 	input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		border-color: var(--tt-border-focus);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.form-actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		margin-top: 0.5rem;
-	}
-
-	.btn-primary,
-	.btn-secondary {
-		padding: 0.5rem 1rem;
-		border-radius: var(--r-btn);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all var(--transition-normal);
-	}
-
-	.btn-primary {
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		border: none;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.btn-secondary {
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		border: 1px solid var(--btn-secondary-border);
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
 	}
 </style>

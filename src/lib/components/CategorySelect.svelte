@@ -101,7 +101,7 @@
 	<input
 		{id}
 		type="text"
-		class="category-input"
+		class="tt-text-input"
 		value={isOpen ? searchText : displayText}
 		placeholder="Kategorie suchen..."
 		onfocus={handleInputFocus}
@@ -120,8 +120,8 @@
 				{#each filteredCategories as category (category.id)}
 					<button
 						type="button"
-						class="option"
-						class:selected={category.id === value}
+						class="tt-list-row-clickable"
+						class:is-selected={category.id === value}
 						onmousedown={() => selectCategory(category)}
 					>
 						{category.name}
@@ -138,26 +138,6 @@
 		width: 100%;
 	}
 
-	.category-input {
-		width: 100%;
-		padding: 0.5rem 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.category-input::placeholder {
-		color: var(--input-placeholder);
-	}
-
-	.category-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
-	}
-
 	.dropdown {
 		position: absolute;
 		top: 100%;
@@ -165,39 +145,18 @@
 		right: 0;
 		max-height: 200px;
 		overflow-y: auto;
-		background: var(--surface);
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
-		box-shadow: var(--elev-2);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		box-shadow: var(--tt-shadow-md);
 		z-index: 100;
-		margin-top: 4px;
-	}
-
-	.option {
-		display: block;
-		width: 100%;
-		padding: 0.5rem 0.75rem;
-		text-align: left;
-		border: none;
-		background: none;
-		color: var(--text);
-		cursor: pointer;
-		font-size: 1rem;
-	}
-
-	.option:hover {
-		background: var(--surface-hover);
-	}
-
-	.option.selected {
-		background: var(--accent-light);
-		color: var(--accent);
+		margin-top: var(--tt-space-4);
 	}
 
 	.no-results {
-		padding: 0.75rem;
-		color: var(--muted);
+		padding: var(--tt-space-12);
+		color: var(--tt-text-muted);
 		text-align: center;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 </style>

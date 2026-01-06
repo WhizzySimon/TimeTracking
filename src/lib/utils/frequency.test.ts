@@ -546,11 +546,13 @@ function createEntryWithTime(categoryId: string, date: string, startTime: string
 }
 
 function createCategory(id: string, name: string, type: 'system' | 'user'): Category {
+	const now = Date.now();
 	return {
 		id,
 		name,
 		type,
 		countsAsWorkTime: type === 'user',
-		createdAt: Date.now()
+		createdAt: now,
+		updatedAt: now
 	};
 }

@@ -17,6 +17,7 @@ export interface Category {
 	type: CategoryType;
 	countsAsWorkTime: boolean;
 	createdAt: number;
+	updatedAt: number;
 	employerId?: string | null; // null = visible in all employers (AG-FR-030)
 }
 
@@ -38,6 +39,7 @@ export interface DayType {
 	date: string; // YYYY-MM-DD (primary key)
 	type: DayTypeValue;
 	updatedAt: number;
+	employerId?: string | null; // Required for employer filtering (AG-FR-050)
 }
 
 /**
@@ -168,6 +170,8 @@ export interface UserProfile {
 	id: string;
 	email: string;
 	plan: UserPlan;
+	firstName?: string;
+	lastName?: string;
 	stripeCustomerId?: string;
 	subscriptionStatus?: string;
 	subscriptionEndsAt?: string;

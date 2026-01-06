@@ -8,9 +8,11 @@
   - Import button to save entries
 -->
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { categories, timeEntries } from '$lib/stores';
 	import { saveTimeEntry, saveUserCategory } from '$lib/storage/operations';
-	import type { Category } from '$lib/types';
+	import { getActiveEmployers } from '$lib/storage/employers';
+	import type { Category, Employer } from '$lib/types';
 	import {
 		parseExcelWorkbook,
 		buildCategoryMap,
@@ -19,6 +21,7 @@
 		type ImportPreview
 	} from '$lib/import/excelImport';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		onclose?: () => void;
@@ -37,6 +40,18 @@
 		createdCategories: string[];
 	} | null = $state(null);
 	let parseError: string | null = $state(null);
+	let employers = $state<Employer[]>([]);
+	let selectedEmployerId = $state<string>('');
+
+	// Convert employers to dropdown options
+	let employerOptions = $derived([
+		{ value: '', label: 'Kein Arbeitgeber (Alle)' },
+		...employers.map((e) => ({ value: e.id, label: e.name }))
+	]);
+
+	onMount(async () => {
+		employers = await getActiveEmployers();
+	});
 
 	function handleFileSelect(event: Event) {
 		const input = event.target as HTMLInputElement;
@@ -77,12 +92,14 @@
 			let currentCategories = $categories;
 
 			for (const activityName of unknownActivities) {
+				const now = Date.now();
 				const newCategory: Category = {
 					id: crypto.randomUUID(),
 					name: activityName,
 					type: 'user',
 					countsAsWorkTime: true,
-					createdAt: Date.now()
+					createdAt: now,
+					updatedAt: now
 				};
 				await saveUserCategory(newCategory);
 				currentCategories = [...currentCategories, newCategory];
@@ -98,13 +115,19 @@
 			const categoryMap = buildCategoryMap(currentCategories);
 			const { entries, skipped } = convertToTimeEntries(preview.records, categoryMap);
 
+			// Assign selected employer to all entries
+			const entriesWithEmployer = entries.map((entry) => ({
+				...entry,
+				employerId: selectedEmployerId || null
+			}));
+
 			// Save all entries
-			for (const entry of entries) {
+			for (const entry of entriesWithEmployer) {
 				await saveTimeEntry(entry);
 			}
 
 			// Update store
-			timeEntries.update((current) => [...current, ...entries]);
+			timeEntries.update((current) => [...current, ...entriesWithEmployer]);
 
 			importResult = {
 				success: true,
@@ -137,6 +160,16 @@
 
 <Modal title="Excel-Import" onclose={handleClose}>
 	<div class="import-modal">
+		<!-- Employer Selection -->
+		<div class="employer-section">
+			<label for="import-employer">Arbeitgeber für importierte Zeitdaten:</label>
+			<CustomDropdown
+				options={employerOptions}
+				value={selectedEmployerId}
+				onchange={(id) => (selectedEmployerId = id)}
+			/>
+		</div>
+
 		<!-- File Upload -->
 		<div class="upload-section">
 			<label class="upload-label">
@@ -228,11 +261,11 @@
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose}>
+			<button type="button" class="tt-button-secondary" onclick={handleClose}>
 				{importResult?.success ? 'Schließen' : 'Abbrechen'}
 			</button>
 			{#if preview && !importResult?.success}
-				<button type="button" class="btn-primary" onclick={handleImport} disabled={importing}>
+				<button type="button" class="tt-button-primary" onclick={handleImport} disabled={importing}>
 					{#if importing}
 						Importiere...
 					{:else}
@@ -248,7 +281,34 @@
 	.import-modal {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
+	}
+
+	.employer-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-8);
+	}
+
+	.employer-section label {
+		font-size: var(--tt-font-size-body);
+		font-weight: 500;
+		color: var(--tt-text-primary);
+	}
+
+	.employer-select {
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
+		font-size: var(--tt-font-size-body);
+	}
+
+	.employer-select:focus {
+		outline: none;
+		border-color: var(--tt-border-focus);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.upload-section {
@@ -267,35 +327,35 @@
 	.upload-btn {
 		display: inline-block;
 		padding: 0.75rem 1.5rem;
-		background: var(--surface-hover);
-		border: 2px dashed var(--border);
-		border-radius: var(--r-btn);
-		color: var(--text);
-		font-size: 0.9rem;
+		background: var(--tt-background-card);
+		border: 2px dashed var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		color: var(--tt-text-primary);
+		font-size: var(--tt-font-size-body);
 		transition: all 0.2s;
 	}
 
 	.upload-btn:hover {
-		background: var(--surface-active);
-		border-color: var(--accent);
+		background: var(--tt-state-hover);
+		border-color: var(--tt-brand-primary-500);
 	}
 
 	.preview-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.preview-section h3 {
 		margin: 0;
-		font-size: 1rem;
+		font-size: var(--tt-font-size-normal);
 		font-weight: 600;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.stats {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 		justify-content: center;
 	}
 
@@ -304,146 +364,113 @@
 		flex-direction: column;
 		align-items: center;
 		padding: 0.75rem 1rem;
-		background: var(--accent-light);
-		border: 1px solid var(--accent);
-		border-radius: var(--r-card);
+		background: var(--tt-brand-primary-800);
+		border: 1px solid var(--tt-brand-primary-500);
+		border-radius: var(--tt-radius-card);
 		min-width: 80px;
 	}
 
 	.stat-value {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
-		color: var(--accent);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.stat-label {
-		font-size: 0.75rem;
-		color: var(--muted);
+		font-size: var(--tt-font-size-tiny);
+		color: var(--tt-text-muted);
 	}
 
 	.warning-box {
-		padding: 0.75rem;
-		background: var(--warning-light);
-		border: 1px solid var(--warning);
-		border-radius: var(--r-card);
+		padding: var(--tt-space-12);
+		background: var(--tt-status-warning-50);
+		border: 1px solid var(--tt-status-warning-500);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.warning-title {
 		margin: 0 0 0.5rem 0;
 		font-weight: 600;
-		color: var(--warning);
+		color: var(--tt-status-warning-500);
 	}
 
 	.warning-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
-		font-size: 0.85rem;
-		color: var(--warning);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-status-warning-500);
 	}
 
 	.error-box {
-		padding: 0.75rem;
-		background: var(--neg-light);
-		border: 1px solid var(--neg);
-		border-radius: var(--r-card);
+		padding: var(--tt-space-12);
+		background: var(--tt-status-danger-800);
+		border: 1px solid var(--tt-status-danger-500);
+		border-radius: var(--tt-radius-card);
 	}
 
 	/* Info box for new categories */
 	.info-box {
-		padding: 0.75rem;
-		background: var(--accent-light);
-		border: 1px solid var(--accent);
-		border-radius: var(--r-card);
+		padding: var(--tt-space-12);
+		background: var(--tt-brand-primary-800);
+		border: 1px solid var(--tt-brand-primary-500);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.info-title {
 		margin: 0 0 0.25rem 0;
 		font-weight: 600;
-		color: var(--accent);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.info-hint {
 		margin: 0 0 0.5rem 0;
-		font-size: 0.85rem;
-		color: var(--accent);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.info-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
-		font-size: 0.85rem;
-		color: var(--accent);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.error-box ul {
 		margin: 0;
 		padding-left: 1.25rem;
-		font-size: 0.85rem;
-		color: var(--neg);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-status-danger-500);
 	}
 
 	.error-box p {
 		margin: 0;
-		color: var(--neg);
+		color: var(--tt-status-danger-500);
 	}
 
 	.success-box {
-		padding: 0.75rem;
-		background: var(--pos-light);
-		border: 1px solid var(--pos);
-		border-radius: var(--r-card);
+		padding: var(--tt-space-12);
+		background: var(--tt-status-success-800);
+		border: 1px solid var(--tt-status-success-500);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.success-box p {
 		margin: 0;
-		color: var(--pos);
+		color: var(--tt-status-success-500);
 		font-weight: 500;
 	}
 
 	.success-box .created-categories {
 		margin-top: 0.5rem;
 		font-weight: 400;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: 0.5rem;
-		border-top: 1px solid var(--border-light);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		border-top: 1px solid var(--tt-border-default);
 	}
 </style>

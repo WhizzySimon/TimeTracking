@@ -9,6 +9,7 @@
 <script lang="ts">
 	import { getWeekNumber, getISOWeekYear } from '$lib/utils/date';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 	import type { TimeEntry } from '$lib/types';
 
 	interface Props {
@@ -58,6 +59,9 @@
 
 	// Generate year options from earliest entry year to end of next month year
 	const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+
+	// Year options for dropdown
+	let yearOptions = $derived(years.map((y) => ({ value: String(y), label: String(y) })));
 
 	// Get number of weeks in a year (52 or 53)
 	function getWeeksInYear(year: number): number {
@@ -124,36 +128,41 @@
 <Modal title="Woche wählen" onclose={handleClose}>
 	<div class="week-picker">
 		<!-- Quick action -->
-		<button type="button" class="current-week-btn" onclick={handleGoToCurrentWeek}>
+		<button type="button" class="current-week-btn tt-interactive" onclick={handleGoToCurrentWeek}>
 			Zur aktuellen Woche
 		</button>
 
 		<div class="divider">oder</div>
 
-		<!-- Year selector -->
-		<div class="field">
-			<label for="year-select">Jahr:</label>
-			<select id="year-select" bind:value={selectedYear} class="select-input">
-				{#each years as year (year)}
-					<option value={year}>{year}</option>
-				{/each}
-			</select>
-		</div>
+		<!-- Year and Week selectors in one row -->
+		<div class="selectors">
+			<div class="field">
+				<label for="year-select">Jahr:</label>
+				<CustomDropdown
+					options={yearOptions}
+					value={String(selectedYear)}
+					onchange={(value) => (selectedYear = parseInt(value))}
+				/>
+			</div>
 
-		<!-- Week selector -->
-		<div class="field">
-			<label for="week-select">Kalenderwoche:</label>
-			<select id="week-select" bind:value={selectedWeek} class="select-input">
-				{#each Array.from({ length: validWeekRange.max - validWeekRange.min + 1 }, (_, i) => validWeekRange.min + i) as week (week)}
-					<option value={week}>KW {week}</option>
-				{/each}
-			</select>
+			<div class="field">
+				<label for="week-input">Kalenderwoche:</label>
+				<input
+					id="week-input"
+					type="number"
+					class="week-input"
+					bind:value={selectedWeek}
+					min={validWeekRange.min}
+					max={validWeekRange.max}
+					placeholder="KW"
+				/>
+			</div>
 		</div>
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose}>Abbrechen</button>
-			<button type="button" class="btn-primary" onclick={handleSelect}>Auswählen</button>
+			<button type="button" class="tt-button-secondary" onclick={handleClose}>Abbrechen</button>
+			<button type="button" class="tt-button-primary" onclick={handleSelect}>Auswählen</button>
 		</div>
 	</div>
 </Modal>
@@ -162,92 +171,64 @@
 	.week-picker {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.current-week-btn {
 		padding: 0.75rem 1rem;
-		border: 1px solid var(--accent);
-		border-radius: var(--r-btn);
-		background: var(--accent-light);
-		color: var(--accent);
-		font-size: 1rem;
+		border: 1px solid var(--tt-brand-primary-500);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-brand-primary-800);
+		color: var(--tt-brand-primary-500);
+		font-size: var(--tt-font-size-normal);
 		font-weight: 500;
 		cursor: pointer;
 	}
 
-	.current-week-btn:hover {
-		background: var(--accent-light);
-		opacity: 0.9;
-	}
-
 	.divider {
 		text-align: center;
-		color: var(--muted);
-		font-size: 0.9rem;
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-body);
+	}
+
+	.selectors {
+		display: flex;
+		gap: var(--tt-space-16);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
+		flex: 1;
 	}
 
 	.field label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
-	.select-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+	.week-input {
+		padding: var(--tt-space-8) var(--tt-space-12);
+		border: var(--tt-border-touchable-width) solid var(--tt-border-touchable-color);
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-normal);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
-	.select-input:focus {
+	.week-input:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		border-color: var(--tt-brand-primary-500);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: 0.5rem;
-		border-top: 1px solid var(--border-light);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover {
-		background: var(--btn-primary-hover);
+		border-top: 1px solid var(--tt-border-default);
 	}
 </style>

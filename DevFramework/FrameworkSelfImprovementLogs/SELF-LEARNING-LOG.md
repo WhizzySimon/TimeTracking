@@ -6,6 +6,54 @@ Tracks each execution of the self-learning & self-improvement workflow.
 
 ---
 
+## 2026-01-06 19:33 — UI Polish: Employer Dropdown, Week Notifications, Current Row Highlighting
+
+| Step                 | Result       | Notes                                        |
+| -------------------- | ------------ | -------------------------------------------- |
+| 0: Scope check       | first commit | No previous checklist in chat                |
+| A1: Capture feedback | none         | No actionable behavioral feedback in session |
+| B1: Repeated errors  | none         | No errors repeated 3+ times                  |
+| B2: File churn       | none         | 7 files edited, each 1-2 times max           |
+| B3: Scope drift      | no plan      | Ad-hoc UI polish session                     |
+| B4: Session duration | ~1h          | normal                                       |
+| C1: Promotions       | none         | No items meet promotion criteria             |
+| C2: Read LEARNINGS   | ✓ read       | 12 items                                     |
+| C3: Hard Rule → JIT  | none         | No new Hard Rules proposed                   |
+
+---
+
+## 2026-01-06 13:23 — Title Bar Gradient Experiment (Cutout Attempt)
+
+| Step                 | Result       | Notes                                                                                                 |
+| -------------------- | ------------ | ----------------------------------------------------------------------------------------------------- |
+| 0: Scope check       | first commit | No previous checklist in chat                                                                         |
+| A1: Capture feedback | 1 item       | User frustration with repeated failed attempts - CSS stacking context limitation not understood early |
+| B1: Repeated errors  | 1 detected   | Same z-index/cutout approach tried 10+ times without working - should have pivoted sooner             |
+| B2: File churn       | 1 file       | styleguide/+page.svelte edited many times iterating on cutout CSS                                     |
+| B3: Scope drift      | no plan      | Experimental style guide work                                                                         |
+| B4: Session duration | ~2h          | long - cutout effect proved impossible with CSS-only approach                                         |
+| C1: Promotions       | none         | No items meet promotion criteria                                                                      |
+| C2: Read LEARNINGS   | ✓ read       | 12 items                                                                                              |
+| C3: Hard Rule → JIT  | none         | No hard rules to propose                                                                              |
+
+---
+
+## 2026-01-06 10:20
+
+| Step                 | Result       | Notes                             |
+| -------------------- | ------------ | --------------------------------- |
+| 0: Scope check       | first commit | No previous checklist in chat     |
+| A1: Capture feedback | none         | No corrective feedback in session |
+| B1: Repeated errors  | none         | No errors repeated 3+ times       |
+| B2: File churn       | none         | Single file edited (styleguide)   |
+| B3: Scope drift      | no plan      | Experimental style guide work     |
+| B4: Session duration | ~20m         | normal                            |
+| C1: Promotions       | none         | No items meet promotion criteria  |
+| C2: Read LEARNINGS   | ✓ read       | 0 items in file                   |
+| C3: Hard Rule → JIT  | none         | No hard rules to propose          |
+
+---
+
 ## Log Format
 
 Each entry follows this format:
@@ -32,19 +80,163 @@ Each entry follows this format:
 
 (newest first)
 
+## 2026-01-04 11:02 — Design System Audit & Test Infrastructure Cleanup
+
+| Step                 | Result | Notes                                                                    |
+| -------------------- | ------ | ------------------------------------------------------------------------ |
+| 0: Scope check       | first  | First commit in this chat                                                |
+| A1: Capture feedback | 1 item | User feedback on workflow: ticket should be created BEFORE code changes  |
+| B1: Repeated errors  | none   | No repeated errors                                                       |
+| B2: File churn       | none   | Design system changes spread across files appropriately                  |
+| B3: Scope drift      | none   | Scope expanded to include test cleanup (user-approved)                   |
+| B4: Session duration | ~1h    | normal                                                                   |
+| C1: Promotions       | none   | No items meet promotion criteria                                         |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                                                 |
+| C3: Hard Rule → JIT  | none   | Workflow updated (fixOrChange.md) with ticket reminder - already applied |
+
+---
+
+## 2026-01-04 02:33 — CSS Design System Refactoring & Component Unification
+
+| Step                 | Result  | Notes                                                              |
+| -------------------- | ------- | ------------------------------------------------------------------ |
+| 0: Scope check       | first   | First commit in this chat                                          |
+| A1: Capture feedback | 1 item  | User confirmed data issue, not code issue                          |
+| B1: Repeated errors  | none    | No repeated errors                                                 |
+| B2: File churn       | 2 files | CustomDropdown.svelte, ImportCategoriesModal.svelte edited 3x each |
+| B3: Scope drift      | none    | CSS refactoring session — design system consolidation              |
+| B4: Session duration | ~45m    | normal                                                             |
+| C1: Promotions       | none    | No items meet promotion criteria                                   |
+| C2: Read LEARNINGS   | ✓ read  | 12 items                                                           |
+| C3: Hard Rule → JIT  | none    | No new Hard Rules proposed                                         |
+
+---
+
+## 2026-01-02 22:13 — UI/UX Polish & Dialog Design System Migration
+
+| Step                 | Result | Notes                                             |
+| -------------------- | ------ | ------------------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                         |
+| A1: Capture feedback | none   | No corrective feedback in session                 |
+| B1: Repeated errors  | none   | No repeated errors                                |
+| B2: File churn       | none   | 19 files edited, each 1-2 times max               |
+| B3: Scope drift      | none   | UI polish session — dialogs, buttons, close icons |
+| B4: Session duration | ~20m   | normal                                            |
+| C1: Promotions       | none   | No items meet promotion criteria                  |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                          |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                        |
+
+---
+
+## 2026-01-02 20:28 — CSS-2 Week Page Migration
+
+| Step                 | Result      | Notes                                       |
+| -------------------- | ----------- | ------------------------------------------- |
+| 0: Scope check       | incremental | After CSS-1 commit in same chat             |
+| A1: Capture feedback | 1 item      | Evidence bundle file exists error → fixed   |
+| B1: Repeated errors  | none        | No repeated errors                          |
+| B2: File churn       | none        | 1 file edited once                          |
+| B3: Scope drift      | none        | Only week page — on scope                   |
+| B4: Session duration | ~5m         | normal                                      |
+| C1: Promotions       | none        | Feedback captured in pre-commit.md directly |
+| C2: Read LEARNINGS   | skipped     | Same session                                |
+| C3: Hard Rule → JIT  | done        | Added find_by_name check to pre-commit.md   |
+
+---
+
+## 2026-01-02 20:15 — CSS-1 Day Page Migration
+
+| Step                 | Result | Notes                                             |
+| -------------------- | ------ | ------------------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                         |
+| A1: Capture feedback | none   | No corrective feedback from user                  |
+| B1: Repeated errors  | none   | No repeated errors                                |
+| B2: File churn       | none   | Each file edited once (3 files, -175 lines total) |
+| B3: Scope drift      | none   | All files match CSS-1 task scope                  |
+| B4: Session duration | ~10m   | normal                                            |
+| C1: Promotions       | none   | No items meet promotion criteria                  |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                          |
+| C3: Hard Rule → JIT  | none   | No new rules proposed                             |
+
+---
+
+## 2026-01-02 10:20 — Framework-Evolution (mindset, principles, learnings)
+
+| Step                 | Result   | Notes                                                                |
+| -------------------- | -------- | -------------------------------------------------------------------- |
+| 0: Scope check       | first    | First commit in this chat                                            |
+| A1: Capture feedback | 14 items | Extensive session: zoom-out, quality/haste, translate human concepts |
+| B1: Repeated errors  | none     | No repeated errors                                                   |
+| B2: File churn       | none     | Iterative improvement but purposeful                                 |
+| B3: Scope drift      | none     | All files match framework evolution scope                            |
+| B4: Session duration | ~30m     | normal                                                               |
+| C1: Promotions       | 12 items | Promoted to LEARNINGS.md (now 12/30)                                 |
+| C2: Read LEARNINGS   | ✓ read   | 12 items                                                             |
+| C3: Hard Rule → JIT  | done     | Multiple rules added to mindset.md, framework-principles.md created  |
+
+---
+
+## 2026-01-01 10:17 — UI-Batch-Fixes (Day nav, Settings icons, Bulk delete)
+
+| Step                 | Result | Notes                                                       |
+| -------------------- | ------ | ----------------------------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                                   |
+| A1: Capture feedback | 1 item | User feedback on UI rules (dialog close, jumping elements)  |
+| B1: Repeated errors  | none   | No repeated errors                                          |
+| B2: File churn       | none   | Each file edited once                                       |
+| B3: Scope drift      | none   | All files match batch fix scope                             |
+| B4: Session duration | ~25m   | normal                                                      |
+| C1: Promotions       | none   | Feedback captured directly in frontend-ux-standards.md      |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                                     |
+| C3: Hard Rule → JIT  | done   | UI rules added to frontend-ux-standards.md per user request |
+
+---
+
+## 2026-01-01 08:09 — FIX-abwesenheit-no-arbeitgeber
+
+| Step                 | Result | Notes                                     |
+| -------------------- | ------ | ----------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                 |
+| A1: Capture feedback | none   | No corrective feedback                    |
+| B1: Repeated errors  | none   | No repeated errors                        |
+| B2: File churn       | none   | Each file edited once                     |
+| B3: Scope drift      | none   | Only CategoryDialog + settings — on scope |
+| B4: Session duration | ~16m   | normal                                    |
+| C1: Promotions       | none   | No items meet promotion criteria          |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                   |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                |
+
+---
+
+## 2025-12-31 15:42 — Fix Update Banner Bug
+
+| Step                 | Result | Notes                                  |
+| -------------------- | ------ | -------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat              |
+| A1: Capture feedback | none   | No corrective feedback                 |
+| B1: Repeated errors  | none   | No repeated errors                     |
+| B2: File churn       | none   | Each file edited once                  |
+| B3: Scope drift      | none   | All files match SW/update banner scope |
+| B4: Session duration | ~45m   | normal                                 |
+| C1: Promotions       | none   | No items meet promotion criteria       |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed             |
+
+---
+
 ## 2024-12-30 15:10 — Task A2.1 Arbeitgeber Filter Global
 
-| Step                 | Result | Notes                                                      |
-| -------------------- | ------ | ---------------------------------------------------------- |
-| 0: Scope check       | first commit | This is the first commit in this chat                   |
-| A1: Capture feedback | none   | No corrective feedback in session                          |
-| B1: Repeated errors  | none   | No repeated errors                                         |
-| B2: File churn       | none   | day/+page.svelte edited once (single bug fix)              |
-| B3: Scope drift      | none   | Only day page modified - matches audit findings            |
-| B4: Session duration | ~1h 30m | normal (includes audit, testing, documentation)           |
-| C1: Promotions       | none   | No items meet promotion criteria                           |
-| C2: Read LEARNINGS   | ✓ read | 5 items                                                    |
-| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                                 |
+| Step                 | Result       | Notes                                           |
+| -------------------- | ------------ | ----------------------------------------------- |
+| 0: Scope check       | first commit | This is the first commit in this chat           |
+| A1: Capture feedback | none         | No corrective feedback in session               |
+| B1: Repeated errors  | none         | No repeated errors                              |
+| B2: File churn       | none         | day/+page.svelte edited once (single bug fix)   |
+| B3: Scope drift      | none         | Only day page modified - matches audit findings |
+| B4: Session duration | ~1h 30m      | normal (includes audit, testing, documentation) |
+| C1: Promotions       | none         | No items meet promotion criteria                |
+| C2: Read LEARNINGS   | ✓ read       | 5 items                                         |
+| C3: Hard Rule → JIT  | none         | No new Hard Rules proposed                      |
 
 ---
 
@@ -366,3 +558,125 @@ Each entry follows this format:
 | C1: Promotions       | none   | No items meet promotion criteria   |
 | C2: Read LEARNINGS   | ✓ read | 5 items                            |
 | C3: Hard Rule → JIT  | none   | No new Hard Rules proposed         |
+
+## 2025-12-31 12:35 — UI-Fixes-Batch
+
+| Step                 | Result | Notes                            |
+| -------------------- | ------ | -------------------------------- |
+| 0: Scope check       | first  | First commit in this chat        |
+| A1: Capture feedback | none   | No corrective feedback           |
+| B1: Repeated errors  | none   | No repeated errors               |
+| B2: File churn       | none   | Each file edited once            |
+| B3: Scope drift      | none   | Ad-hoc fixes, no formal plan     |
+| B4: Session duration | ~15m   | normal                           |
+| C1: Promotions       | none   | No items meet promotion criteria |
+| C2: Read LEARNINGS   | ✓ read | 5 items                          |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed       |
+
+---
+
+## 2025-12-31 15:24 — LWW Sync Merge Implementation
+
+| Step                 | Result | Notes                            |
+| -------------------- | ------ | -------------------------------- |
+| 0: Scope check       | first  | First commit in this chat        |
+| A1: Capture feedback | none   | No corrective feedback           |
+| B1: Repeated errors  | none   | No repeated errors               |
+| B2: File churn       | none   | Each file edited 1-2 times       |
+| B3: Scope drift      | none   | Bug fix session, no formal plan  |
+| B4: Session duration | ~25m   | normal                           |
+| C1: Promotions       | none   | No items meet promotion criteria |
+| C2: Read LEARNINGS   | ✓ read | 5 items                          |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed       |
+
+---
+
+## 2025-12-31 15:55 — Strict Employer Model
+
+| Step                 | Result | Notes                                   |
+| -------------------- | ------ | --------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat               |
+| A1: Capture feedback | none   | No corrective feedback                  |
+| B1: Repeated errors  | none   | No repeated errors                      |
+| B2: File churn       | none   | Each file edited once                   |
+| B3: Scope drift      | none   | Files match strict employer model scope |
+| B4: Session duration | ~30m   | normal                                  |
+| C1: Promotions       | none   | No items meet promotion criteria        |
+| C2: Read LEARNINGS   | ✓ read | 5 items                                 |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed              |
+
+---
+
+## 2025-12-31 11:54 — FIX-analysis-calculations
+
+| Step                 | Result | Notes                               |
+| -------------------- | ------ | ----------------------------------- |
+| 0: Scope check       | first  | First commit in this chat           |
+| A1: Capture feedback | none   | No corrective feedback              |
+| B1: Repeated errors  | none   | No repeated errors                  |
+| B2: File churn       | none   | Each file edited 1-2 times          |
+| B3: Scope drift      | none   | Bug fix session, no plan            |
+| B4: Session duration | ~8h    | long (spans multiple mini-sessions) |
+| C1: Promotions       | none   | No items meet promotion criteria    |
+| C2: Read LEARNINGS   | ✓ read | 5 items                             |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed          |
+
+## 2026-01-02 08:20
+
+| Step                 | Result | Notes                            |
+| -------------------- | ------ | -------------------------------- |
+| 0: Scope check       | first  | First commit in this chat        |
+| A1: Capture feedback | 1 item | User explained panic-close need  |
+| B1: Repeated errors  | none   | No repeated errors               |
+| B2: File churn       | none   | Each file edited 1-2 times max   |
+| B3: Scope drift      | none   | UI improvement, no formal plan   |
+| B4: Session duration | ~10m   | normal                           |
+| C1: Promotions       | none   | No items meet promotion criteria |
+| C2: Read LEARNINGS   | ✓ read | 5 items                          |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed       |
+
+## 2026-01-03 08:35 — Settings Batch Fixes
+
+| Step                 | Result | Notes                                                              |
+| -------------------- | ------ | ------------------------------------------------------------------ |
+| 0: Scope check       | first  | First commit in this chat                                          |
+| A1: Capture feedback | 1 item | User: "why don't you go ahead and test it yourself" - use browser! |
+| B1: Repeated errors  | none   | No repeated errors                                                 |
+| B2: File churn       | none   | Each file edited once                                              |
+| B3: Scope drift      | none   | 4 fixes as planned in ticket                                       |
+| B4: Session duration | ~12m   | normal                                                             |
+| C1: Promotions       | none   | Feedback added to INBOX                                            |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                                           |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed                                         |
+
+---
+
+## 2026-01-03 09:00 — UI Consistency Fixes
+
+| Step                 | Result | Notes                                    |
+| -------------------- | ------ | ---------------------------------------- |
+| 0: Scope check       | first  | First commit in this chat                |
+| A1: Capture feedback | none   | No corrective feedback in session        |
+| B1: Repeated errors  | none   | No repeated errors                       |
+| B2: File churn       | none   | 3 files edited once each                 |
+| B3: Scope drift      | none   | All files match UI consistency fix scope |
+| B4: Session duration | ~8m    | normal                                   |
+| C1: Promotions       | none   | No items meet promotion criteria         |
+| C2: Read LEARNINGS   | ✓ read | 12 items                                 |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed               |
+
+---
+
+## 2026-01-02 19:25
+
+| Step                 | Result | Notes                             |
+| -------------------- | ------ | --------------------------------- |
+| 0: Scope check       | first  | First commit in this chat         |
+| A1: Capture feedback | none   | No corrective feedback            |
+| B1: Repeated errors  | none   | No repeated errors                |
+| B2: File churn       | none   | Each file edited 1-2 times max    |
+| B3: Scope drift      | none   | CSS refinement, aligned with task |
+| B4: Session duration | ~25m   | normal                            |
+| C1: Promotions       | none   | No items meet promotion criteria  |
+| C2: Read LEARNINGS   | ✓ read | 5 items                           |
+| C3: Hard Rule → JIT  | none   | No new Hard Rules proposed        |

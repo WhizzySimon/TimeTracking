@@ -39,7 +39,7 @@ Identify:
 ### 2. Check IMPLEMENTATION_PROGRESS.md
 
 ```
-Read: Docs/Features/IMPLEMENTATION_PROGRESS.md
+Read: TempAppDevDocs/Features/IMPLEMENTATION_PROGRESS.md
 ```
 
 Extract:
@@ -52,17 +52,17 @@ Extract:
 
 If the current phase has a Tasks file, read it:
 
-- `Docs/Features/Tasks/<phase-name>.md`
+- `TempAppDevDocs/Features/Tasks/<phase-name>.md`
 
 ### 4. Cross-Reference Chat vs Docs
 
 Create a sync status table:
 
-| Area                       | In Sync? | Action Needed              |
-| -------------------------- | -------- | -------------------------- |
-| CHANGELOG.md               | ✅/❌    | Add entry if work was done |
-| IMPLEMENTATION_PROGRESS.md | ✅/❌    | Update if tasks completed  |
-| LEARNINGS-INBOX.md         | ✅/❌    | Add lessons if any         |
+| Area                                  | In Sync? | Action Needed              |
+| ------------------------------------- | -------- | -------------------------- |
+| AllProjectChangesLoggedAtPreCommit.md | ✅/❌    | Add entry if work was done |
+| IMPLEMENTATION_PROGRESS.md            | ✅/❌    | Update if tasks completed  |
+| LEARNINGS-INBOX.md                    | ✅/❌    | Add lessons if any         |
 
 ### 5. Report Summary
 
@@ -87,7 +87,7 @@ Output:
 ## Sync Status
 | Area                       | In Sync? |
 | -------------------------- | -------- |
-| CHANGELOG.md               | ✅       |
+| AllProjectChangesLoggedAtPreCommit.md | ✅ |
 | IMPLEMENTATION_PROGRESS.md | ✅       |
 | LEARNINGS-INBOX.md         | ✅       |
 

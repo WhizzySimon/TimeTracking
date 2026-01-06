@@ -1,7 +1,7 @@
 /**
  * CSV Export for TimeTracker.
  * Exports time entries as a CSV file for Excel/Sheets.
- * Spec refs: Docs/Features/Specs/subscription-plans.md
+ * Spec refs: TempAppDevDocs/Features/Specs/subscription-plans.md
  */
 
 import { getAll } from '$lib/storage/db';

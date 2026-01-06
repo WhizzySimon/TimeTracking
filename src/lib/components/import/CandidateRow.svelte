@@ -6,10 +6,11 @@
   - Status indicator
   - Selection checkbox
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen C)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen C)
 -->
 <script lang="ts">
 	import type { TimeEntryCandidate } from '$lib/import/types';
+	import DateInput from '../DateInput.svelte';
 
 	interface Props {
 		candidate: TimeEntryCandidate;
@@ -120,7 +121,7 @@
 
 	<td class="col-date" ondblclick={() => startEdit('date', candidate.date)}>
 		{#if editingField === 'date'}
-			<input type="date" bind:value={editValue} onblur={saveEdit} onkeydown={handleKeydown} />
+			<DateInput bind:value={editValue} onchange={saveEdit} />
 		{:else}
 			{formatDate(candidate.date)}
 		{/if}
@@ -193,25 +194,25 @@
 	}
 
 	tr:hover {
-		background: var(--bg-secondary);
+		background: var(--tt-state-hover);
 	}
 
 	tr.selected {
-		background: var(--accent-color-light, rgba(59, 130, 246, 0.1));
+		background: var(--tt-brand-primary-500-light, rgba(59, 130, 246, 0.1));
 	}
 
 	tr.blocked {
 		opacity: 0.5;
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 	}
 
 	tr.edited {
-		border-left: 3px solid var(--accent-color);
+		border-left: 3px solid var(--tt-brand-primary-500);
 	}
 
 	td {
 		padding: 0.5rem 0.75rem;
-		border-bottom: 1px solid var(--border-color);
+		border-bottom: 1px solid var(--tt-border-default);
 		cursor: default;
 	}
 
@@ -252,42 +253,41 @@
 	input {
 		width: 100%;
 		padding: 0.25rem;
-		border: 1px solid var(--accent-color);
-		border-radius: 4px;
-		background: var(--bg-primary);
-		color: var(--text-primary);
-		font-size: 0.875rem;
+		border: 1px solid var(--tt-brand-primary-500);
+		border-radius: var(--tt-radius-badge);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
+		font-size: var(--tt-font-size-small);
 	}
 
 	input[type='number'] {
 		width: 60px;
 	}
 
-	input[type='time'],
-	input[type='date'] {
+	input[type='time'] {
 		width: 100%;
 	}
 
 	.status-badge {
 		display: inline-block;
 		padding: 0.125rem 0.375rem;
-		border-radius: 4px;
-		font-size: 0.75rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 	}
 
 	.status-ok {
-		background: var(--success-color, #22c55e);
+		background: var(--tt-status-success-500);
 		color: white;
 	}
 
 	.status-warning {
-		background: var(--warning-color, #f59e0b);
+		background: var(--tt-status-warning-500);
 		color: white;
 	}
 
 	.status-error {
-		background: var(--error-color, #ef4444);
+		background: var(--tt-status-danger-500);
 		color: white;
 	}
 </style>

@@ -19,10 +19,13 @@
 		timeEntries,
 		categories,
 		workTimeModels,
+		dayTypes,
 		currentDate,
 		filteredEntries,
 		filteredCategories,
-		filteredModels
+		filteredModels,
+		filteredDayTypes,
+		selectedEmployerId
 	} from '$lib/stores';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll, getByKey, put } from '$lib/storage/db';
@@ -55,6 +58,10 @@
 		zeiten: true,
 		taetigkeiten: true
 	});
+
+	function toggleSection(section: 'zeiten' | 'taetigkeiten') {
+		expandedSections[section] = !expandedSections[section];
+	}
 
 	// Default range: 01.01.current year to today
 	const defaultRange = {
@@ -113,6 +120,161 @@
 
 	// Calculate totals for the range
 	let totalIst = $derived(calculateIst(rangeEntries, $filteredCategories));
+	let totalSoll = $derived(calculateTotalSoll());
+	let totalSaldo = $derived(calculateSaldo(totalIst, totalSoll));
+
+	// ============================================================================
+	// DEBUG: Analysis diagnostic logging (remove after verification)
+	// Set to false to disable logging
+	// ============================================================================
+	const ANALYSIS_DEBUG = true;
+
+	$effect(() => {
+		if (!ANALYSIS_DEBUG || !browser || loading) return;
+
+		console.group('[Analysis Debug]');
+
+		// 1. Employer filter state
+		const employerLabel = $selectedEmployerId === null ? 'ALL' : $selectedEmployerId;
+		console.log(`selectedEmployerId: ${employerLabel}`);
+
+		// 2. Counts BEFORE employer filtering (all data)
+		console.log('BEFORE employer filter:', {
+			entries: $timeEntries.length,
+			categories: $categories.length,
+			dayTypes: $dayTypes.length,
+			models: $workTimeModels.length
+		});
+
+		// 3. Counts AFTER employer filtering
+		console.log('AFTER employer filter:', {
+			entries: $filteredEntries.length,
+			categories: $filteredCategories.length,
+			dayTypes: $filteredDayTypes.length,
+			models: $filteredModels.length
+		});
+
+		// 4. Range entries analysis
+		const categoryMap = new Map($filteredCategories.map((cat) => [cat.id, cat]));
+		let matchedCount = 0,
+			unmatchedCount = 0,
+			notWorkTimeCount = 0;
+		const unmatchedCategoryIds = new Set<string>();
+
+		for (const entry of rangeEntries) {
+			if (!entry.endTime) continue;
+			const category = categoryMap.get(entry.categoryId);
+			if (!category) {
+				unmatchedCount++;
+				unmatchedCategoryIds.add(entry.categoryId);
+			} else if (!category.countsAsWorkTime) {
+				notWorkTimeCount++;
+			} else {
+				matchedCount++;
+			}
+		}
+
+		console.log('rangeEntries:', {
+			total: rangeEntries.length,
+			matchedToCategory: matchedCount,
+			countsAsWorkTimeFalse: notWorkTimeCount,
+			unmatchedCategoryId: unmatchedCount,
+			unmatchedIds: unmatchedCategoryIds.size > 0 ? [...unmatchedCategoryIds] : '(none)'
+		});
+
+		// 5. Soll calculation details
+		let totalDaysInRange = 0,
+			arbeitstagsCount = 0,
+			nonWorkDayCount = 0;
+		const dayTypeSamples: string[] = [];
+		let modelUsed: string | null = null;
+		let modelNullCount = 0;
+
+		let current = parseDate(rangeStartStr);
+		const end = parseDate(rangeEndStr);
+		if (current && end) {
+			while (current <= end) {
+				totalDaysInRange++;
+				const dateKey = formatDate(current, 'ISO');
+				const dayType = dayTypesCache.get(dateKey) ?? 'arbeitstag';
+				const model = getActiveModelForDate(current);
+
+				if (model && !modelUsed) modelUsed = model.name;
+				if (!model) modelNullCount++;
+
+				if (dayType === 'arbeitstag') {
+					arbeitstagsCount++;
+				} else {
+					nonWorkDayCount++;
+					if (dayTypeSamples.length < 5) dayTypeSamples.push(`${dateKey}:${dayType}`);
+				}
+				current = addDays(current, 1);
+			}
+		}
+
+		console.log('Soll calculation:', {
+			totalDays: totalDaysInRange,
+			arbeitstags: arbeitstagsCount,
+			nonWorkDays: nonWorkDayCount,
+			nonWorkSamples: dayTypeSamples.length > 0 ? dayTypeSamples : '(none)',
+			modelUsed: modelUsed ?? '(none)',
+			daysWithNoModel: modelNullCount,
+			totalSoll: totalSoll.toFixed(2) + 'h'
+		});
+
+		// 6. Ø/Woche denominator
+		const workDays = countWorkDaysInRange();
+		const effectiveWeeks = calculateEffectiveWeeks();
+		console.log('Ø/Woche denominator:', {
+			workDaysInRange: workDays,
+			effectiveWeeks: effectiveWeeks.toFixed(2)
+		});
+
+		// 7. Missing employerId counts (should be 0 after migration)
+		const entriesMissingEmployerId = rangeEntries.filter(
+			(e) => e.employerId === null || e.employerId === undefined
+		).length;
+		const categoriesMissingEmployerId = $filteredCategories.filter(
+			(c) =>
+				c.type !== 'system' &&
+				c.countsAsWorkTime === true && // Absence categories (countsAsWorkTime=false) correctly have null employerId
+				(c.employerId === null || c.employerId === undefined)
+		).length;
+		const modelsMissingEmployerId = $filteredModels.filter(
+			(m) => m.employerId === null || m.employerId === undefined
+		).length;
+		const dayTypesMissingEmployerId = $filteredDayTypes.filter(
+			(d) => d.employerId === null || d.employerId === undefined
+		).length;
+
+		if (
+			entriesMissingEmployerId > 0 ||
+			categoriesMissingEmployerId > 0 ||
+			modelsMissingEmployerId > 0 ||
+			dayTypesMissingEmployerId > 0
+		) {
+			console.warn('MISSING employerId (should be 0 after migration):', {
+				entries: entriesMissingEmployerId,
+				categories: categoriesMissingEmployerId,
+				models: modelsMissingEmployerId,
+				dayTypes: dayTypesMissingEmployerId
+			});
+		} else {
+			console.log('employerId coverage: ✓ all records have employerId');
+		}
+
+		// 8. Final totals
+		console.log('TOTALS:', {
+			Ist: totalIst.toFixed(2) + 'h',
+			Soll: totalSoll.toFixed(2) + 'h',
+			Saldo: totalSaldo.toFixed(2) + 'h'
+		});
+
+		console.groupEnd();
+	});
+	// ============================================================================
+	// END DEBUG
+	// ============================================================================
 
 	// Calculate total Soll by iterating through dates
 	function calculateTotalSoll(): number {
@@ -130,9 +292,6 @@
 		}
 		return total;
 	}
-
-	let totalSoll = $derived(calculateTotalSoll());
-	let totalSaldo = $derived(calculateSaldo(totalIst, totalSoll));
 
 	// Get active work time model for a specific date, respecting employer filter
 	function getActiveModelForDate(date: Date): WorkTimeModel | null {
@@ -420,6 +579,8 @@
 			const [year, month] = key.split('-').map(Number);
 			// Set currentDate to first day of the month
 			currentDate.set(new Date(year, month - 1, 1));
+			// Mark that we're navigating (so target page doesn't load saved date)
+			sessionStorage.setItem('date-navigation', 'true');
 			goto(resolve('/month'));
 		} else {
 			// Week key format: "2025-W01"
@@ -437,6 +598,8 @@
 			const targetDate = new Date(firstThursday);
 			targetDate.setDate(firstThursday.getDate() + (week - 1) * 7);
 			currentDate.set(targetDate);
+			// Mark that we're navigating (so target page doesn't load saved date)
+			sessionStorage.setItem('date-navigation', 'true');
 			goto(resolve('/week'));
 		}
 	}
@@ -464,7 +627,8 @@
 		}
 	});
 
-	onMount(async () => {
+	// Refresh data from database when page becomes visible (handles navigation back)
+	async function refreshData() {
 		await initializeCategories();
 		const allCategories = await getAll<Category>('categories');
 		categories.set(allCategories);
@@ -472,9 +636,25 @@
 		timeEntries.set(allEntries);
 		const allModels = await getAll<WorkTimeModel>('workTimeModels');
 		workTimeModels.set(allModels);
-		await loadSavedRange();
-		await loadDayTypesForRange();
-		loading = false;
+	}
+
+	onMount(() => {
+		// Initial data load
+		(async () => {
+			await refreshData();
+			await loadSavedRange();
+			await loadDayTypesForRange();
+			loading = false;
+		})();
+
+		// Refresh data when page becomes visible again (e.g., after navigating back from settings)
+		const handleVisibilityChange = () => {
+			if (document.visibilityState === 'visible') {
+				refreshData();
+			}
+		};
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+		return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
 	});
 </script>
 
@@ -485,10 +665,9 @@
 		</div>
 	{:else}
 		<!-- Date Range Selector -->
-		<div class="range-section">
-			<span class="range-label" data-testid="range-label">Zeitraum:</span>
-			<button class="range-button" onclick={() => (showRangeSelector = true)}>
-				{rangeDisplay}
+		<div class="range-selector-row">
+			<button class="tt-range-button tt-interactive" onclick={() => (showRangeSelector = true)}>
+				<span class="tt-range-button__date">{rangeDisplay}</span>
 			</button>
 		</div>
 
@@ -498,12 +677,15 @@
 		<!-- Zeiten Section (Period List) -->
 		<section class="collapsible-section">
 			<button
-				class="section-toggle"
+				class="tt-section-toggle"
 				onclick={() => (expandedSections.zeiten = !expandedSections.zeiten)}
 				aria-expanded={expandedSections.zeiten}
 			>
-				<span class="toggle-icon" class:expanded={expandedSections.zeiten}>▶</span>
-				<h3 class="section-title">Zeiten</h3>
+				<span
+					class="tt-section-toggle__icon"
+					class:tt-section-toggle__icon--expanded={expandedSections.zeiten}>▶</span
+				>
+				<h3 class="tt-section-toggle__title">Zeiten</h3>
 			</button>
 			{#if expandedSections.zeiten}
 				<div class="period-list">
@@ -512,17 +694,19 @@
 					{:else}
 						{#each periodGroups as period (period.key)}
 							{@const periodSaldo = period.ist - period.soll}
-							<button class="period-item clickable" onclick={() => navigateToPeriod(period.key)}>
-								<span class="period-label">{period.label}</span>
-								<div class="period-hours">
-									<span class="ist">{formatHours(period.ist)}</span>
-									<span class="separator">/</span>
-									<span class="soll">{formatHours(period.soll)}</span>
-									<span class="separator">/</span>
+							<button class="tt-list-row-clickable" onclick={() => navigateToPeriod(period.key)}>
+								<div class="tt-list-row__content">
+									<span class="tt-list-row__title">{period.label}</span>
+								</div>
+								<div class="tt-period-hours">
+									<span class="tt-period-hours__ist">{formatHours(period.ist)}</span>
+									<span class="tt-period-hours__separator">/</span>
+									<span class="tt-period-hours__soll">{formatHours(period.soll)}</span>
+									<span class="tt-period-hours__separator">/</span>
 									<span
-										class="saldo"
-										class:positive={periodSaldo >= 0}
-										class:negative={periodSaldo < 0}
+										class="tt-period-hours__saldo"
+										class:tt-period-hours__saldo--positive={periodSaldo >= 0}
+										class:tt-period-hours__saldo--negative={periodSaldo < 0}
 									>
 										{periodSaldo >= 0 ? '+' : ''}{formatHours(periodSaldo)}
 									</span>
@@ -534,44 +718,55 @@
 			{/if}
 		</section>
 
-		<!-- Tätigkeiten Section (Category Breakdown) -->
+		<!-- Einträge Section (Category Breakdown) -->
 		{#if categoryBreakdown.length > 0}
 			<section class="collapsible-section">
 				<div class="section-header-row">
 					<button
-						class="section-toggle"
-						onclick={() => (expandedSections.taetigkeiten = !expandedSections.taetigkeiten)}
+						class="tt-section-toggle"
+						onclick={() => toggleSection('taetigkeiten')}
 						aria-expanded={expandedSections.taetigkeiten}
 					>
-						<span class="toggle-icon" class:expanded={expandedSections.taetigkeiten}>▶</span>
-						<h3 class="section-title">Tätigkeiten</h3>
+						<span
+							class="tt-section-toggle__icon"
+							class:tt-section-toggle__icon--expanded={expandedSections.taetigkeiten}>▶</span
+						>
+						<h3 class="tt-section-toggle__title">Einträge</h3>
 					</button>
 					<div class="column-headers">
-						<span class="header-label">Gesamt</span>
-						<span class="header-label">Ø/Woche</span>
+						<span class="tt-column-header-label">Gesamt</span>
+						<span class="tt-column-header-label">Ø/Woche</span>
 					</div>
 				</div>
 				<!-- Total Sum Row - Always visible -->
-				<div class="category-item total-row">
-					<span class="category-name total-label">Summe</span>
-					<div class="category-values">
-						<span class="category-hours total-value">{formatHours(totalCategoryHours)}</span>
-						<span class="category-average total-value">{formatHours(totalCategoryAverage)}</span>
+				<div class="tt-list-row-static tt-summary-total-row">
+					<span class="tt-summary-total-row__label">Summe</span>
+					<div class="summary-values">
+						<span class="tt-summary-value tt-summary-value--secondary"
+							>{formatHours(totalCategoryHours)}</span
+						>
+						<span class="tt-summary-value tt-summary-value--primary"
+							>{formatHours(totalCategoryAverage)}</span
+						>
 					</div>
 				</div>
 				<!-- Category list - Collapsible -->
 				{#if expandedSections.taetigkeiten}
 					{#each categoryBreakdown as cat (cat.name)}
-						<div class="category-item">
-							<span class="category-name">
+						<div class="tt-list-row-static category-row">
+							<span class="tt-category-name">
 								{cat.name}
 								{#if !cat.countsAsWorkTime}
-									<span class="no-work-badge">Keine Arbeitszeit</span>
+									<span class="tt-no-work-badge">Keine Arbeitszeit</span>
 								{/if}
 							</span>
-							<div class="category-values">
-								<span class="category-hours">{formatHours(cat.hours)}</span>
-								<span class="category-average">{formatHours(cat.averagePerWeek)}</span>
+							<div class="summary-values">
+								<span class="tt-summary-value tt-summary-value--secondary"
+									>{formatHours(cat.hours)}</span
+								>
+								<span class="tt-summary-value tt-summary-value--primary"
+									>{formatHours(cat.averagePerWeek)}</span
+								>
 							</div>
 						</div>
 					{/each}
@@ -597,183 +792,61 @@
 
 <style>
 	.analysis-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
-	.loading {
-		display: flex;
-		justify-content: center;
-		padding: 2rem;
-		color: #666;
-	}
+	/* Loading uses .tt-loading-text from design system */
 
-	/* Date Range Selector */
-	.range-section {
+	/* Date Range Selector - right-aligned with auto-width */
+	.range-selector-row {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		flex-wrap: wrap;
+		justify-content: center;
+		padding: var(--tt-space-12) 0;
 	}
 
-	.range-label {
-		font-weight: 500;
-		color: var(--text);
-	}
-
-	.range-button {
-		padding: 0.5rem 1rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		background: var(--surface);
-		font-size: 1rem;
-		cursor: pointer;
-		color: var(--text);
-	}
-
-	.range-button:hover {
-		background: var(--surface-hover);
-		border-color: var(--border);
+	.tt-range-button {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--tt-space-4);
 	}
 
 	/* Period List */
 	.period-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
-	.no-periods {
-		text-align: center;
-		color: var(--muted);
-		padding: 2rem;
-	}
+	/* No periods uses .tt-empty-state from design system */
 
-	.period-item {
+	.tt-period-hours {
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--surface);
-		border: 1px solid var(--border-light);
-		border-radius: var(--r-card);
-		width: 100%;
-		text-align: left;
-		font-size: inherit;
-	}
-
-	.period-item.clickable {
-		cursor: pointer;
-		transition:
-			background-color 0.15s ease,
-			border-color 0.15s ease;
-	}
-
-	.period-item.clickable:hover {
-		background: var(--surface-hover);
-		border-color: var(--accent);
-	}
-
-	.period-item.clickable:active {
-		background: var(--accent-light);
-	}
-
-	.period-label {
-		font-weight: 600;
-		color: var(--text);
-	}
-
-	.period-hours {
-		display: flex;
-		gap: 0.25rem;
-		font-size: 0.9rem;
-		color: var(--muted);
-	}
-
-	.period-hours .ist {
-		color: var(--text);
-	}
-
-	.period-hours .separator {
-		color: var(--muted);
-	}
-
-	.period-hours .soll {
-		color: #666;
-	}
-
-	.period-hours .saldo.positive {
-		color: #16a34a;
-	}
-
-	.period-hours .saldo.negative {
-		color: #dc2626;
+		gap: var(--tt-space-4);
+		margin-left: auto;
 	}
 
 	/* Collapsible Sections */
 	.collapsible-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
-	.section-toggle {
+	.tt-section-toggle {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		background: none;
-		border: none;
+		gap: var(--tt-space-8);
 		padding: 0;
-		cursor: pointer;
-		text-align: left;
 	}
 
-	.toggle-icon {
-		display: inline-block;
-		font-size: 0.7rem;
-		color: #666;
-		transition: transform 0.2s ease;
-	}
-
-	.toggle-icon.expanded {
-		transform: rotate(90deg);
-	}
-
-	.section-title {
-		margin: 0;
-		font-size: 1rem;
-		font-weight: 600;
-		color: var(--text);
-	}
-
-	.category-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.5rem 0.75rem;
-		background: var(--surface);
-		border: 1px solid var(--border-light);
-		border-radius: var(--r-input);
-	}
-
-	.category-name {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		color: var(--text);
-	}
-
-	.no-work-badge {
-		font-size: 0.7rem;
-		padding: 2px 6px;
-		background: var(--surface-hover);
-		color: var(--muted);
-		border-radius: var(--r-input);
-	}
+	/* Visual styles use design system classes: .tt-section-toggle, .tt-section-toggle__icon, .tt-section-toggle__title, .tt-no-work-badge */
 
 	.section-header-row {
 		display: flex;
@@ -783,48 +856,32 @@
 
 	.column-headers {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
-	.header-label {
-		font-size: 0.75rem;
-		color: var(--muted);
-		min-width: 60px;
-		text-align: right;
-	}
+	/* Header labels use .tt-column-header-label from design system */
 
-	.category-values {
+	.tt-summary-total-row {
+		margin-bottom: var(--tt-space-8);
+		justify-content: space-between;
 		display: flex;
-		gap: 1rem;
+		align-items: center;
 	}
 
-	.category-hours {
-		font-weight: 600;
-		color: var(--text);
-		min-width: 60px;
-		text-align: right;
+	.category-row {
+		justify-content: space-between;
 	}
 
-	.category-average {
-		font-weight: 500;
-		color: var(--muted);
-		min-width: 60px;
-		text-align: right;
+	.tt-category-name {
+		flex: 1;
+		min-width: 0;
 	}
 
-	.total-row {
-		background: var(--accent-light);
-		border-color: var(--accent);
-		margin-bottom: 0.5rem;
+	.summary-values {
+		display: flex;
+		gap: var(--tt-space-16);
+		flex-shrink: 0;
 	}
 
-	.total-label {
-		font-weight: 700;
-		color: var(--accent);
-	}
-
-	.total-value {
-		font-weight: 700;
-		color: var(--accent);
-	}
+	/* Summary values use .tt-summary-value, .tt-summary-value--primary, .tt-summary-value--secondary from design system */
 </style>

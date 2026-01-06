@@ -14,27 +14,30 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { categories, workTimeModels, employers as employersStore } from '$lib/stores';
-	import { getAllEmployers, deleteEmployer } from '$lib/storage/employers';
-	import { userProfile, userPlan } from '$lib/stores/user';
-	import { logout } from '$lib/api/auth';
 	import {
-		theme,
-		shape,
-		setTheme,
-		setShape,
-		THEME_OPTIONS,
-		type ThemeValue,
-		type ShapeValue
-	} from '$lib/stores/theme';
+		categories,
+		workTimeModels,
+		employers as employersStore,
+		selectedEmployerId,
+		filteredCategories
+	} from '$lib/stores';
+	import { getAllEmployers, deleteEmployer } from '$lib/storage/employers';
+	import { userProfile, userPlan, userFullName } from '$lib/stores/user';
+	import { logout } from '$lib/api/auth';
 	import { initializeCategories } from '$lib/storage/categories';
 	import { getAll } from '$lib/storage/db';
-	import { deleteUserCategoryWithSync, deleteWorkTimeModel } from '$lib/storage/operations';
+	import {
+		deleteUserCategoryWithSync,
+		deleteWorkTimeModel,
+		deleteAllUserCategories,
+		deleteAllTimeEntries
+	} from '$lib/storage/operations';
+	import { timeEntries } from '$lib/stores';
 	import { downloadCategoriesFile } from '$lib/utils/categoryIO';
 	import { deleteAccount } from '$lib/api/auth';
 	import { clearSession } from '$lib/stores/auth';
-	import type { Category, WorkTimeModel, Employer } from '$lib/types';
-	import AddCategoryModal from '$lib/components/AddCategoryModal.svelte';
+	import type { Category, WorkTimeModel, Employer, TimeEntry } from '$lib/types';
+	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
 	import ImportCategoriesModal from '$lib/components/ImportCategoriesModal.svelte';
 	import ImportExcelModal from '$lib/components/ImportExcelModal.svelte';
@@ -42,8 +45,10 @@
 	import ExportDialog from '$lib/components/ExportDialog.svelte';
 	import PlanComparison from '$lib/components/PlanComparison.svelte';
 	import EmployerDialog from '$lib/components/EmployerDialog.svelte';
-	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
-	import StundenzettelExport from '$lib/components/StundenzettelExport.svelte';
+	import NameEditDialog from '$lib/components/NameEditDialog.svelte';
+	import EmailEditDialog from '$lib/components/EmailEditDialog.svelte';
+	import CustomDropdown from '$lib/components/CustomDropdown.svelte';
+	import { colorScheme, COLOR_SCHEMES, type ColorSchemeName } from '$lib/stores/colorScheme';
 	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
 
 	function calculateModelTotalHours(model: WorkTimeModel): number {
@@ -80,7 +85,9 @@
 	});
 
 	let taetigkeiten = $derived(() => {
-		return $categories
+		// Use filteredCategories when employer is selected, otherwise show all
+		const sourceCategories = $selectedEmployerId ? $filteredCategories : $categories;
+		return sourceCategories
 			.filter((c) => c.countsAsWorkTime)
 			.sort((a, b) => a.name.localeCompare(b.name, 'de'));
 	});
@@ -92,7 +99,51 @@
 		return employer?.name ?? 'Unbekannt';
 	}
 
+	// Compute time data range per employer
+	let timeDataRangePerEmployer = $derived(() => {
+		const ranges: {
+			employerId: string;
+			employerName: string;
+			earliest: string;
+			latest: string;
+			count: number;
+		}[] = [];
+
+		// Group entries by employer
+		const entriesByEmployer = new Map<string, { dates: string[]; count: number }>();
+
+		for (const entry of $timeEntries) {
+			const empId = entry.employerId ?? 'none';
+			if (!entriesByEmployer.has(empId)) {
+				entriesByEmployer.set(empId, { dates: [], count: 0 });
+			}
+			const data = entriesByEmployer.get(empId)!;
+			data.dates.push(entry.date);
+			data.count++;
+		}
+
+		// Calculate range for each employer
+		for (const [empId, data] of entriesByEmployer) {
+			if (data.dates.length === 0) continue;
+			const sorted = [...data.dates].sort();
+			const earliest = sorted[0];
+			const latest = sorted[sorted.length - 1];
+			const employer = employers.find((e) => e.id === empId);
+			ranges.push({
+				employerId: empId,
+				employerName: employer?.name ?? 'Ohne Arbeitgeber',
+				earliest,
+				latest,
+				count: data.count
+			});
+		}
+
+		// Sort by employer name
+		return ranges.sort((a, b) => a.employerName.localeCompare(b.employerName, 'de'));
+	});
+
 	let loading = $state(true);
+	let profileLoaded = $derived($userProfile !== null);
 	let appVersion = $state('');
 	let buildTime = $state('');
 	let showAddCategory = $state(false);
@@ -101,7 +152,6 @@
 	let showImportCategories = $state(false);
 	let showImportExcel = $state(false);
 	let showExportDialog = $state(false);
-	let showStundenzettelExport = $state(false);
 	let showPlanComparison = $state(false);
 	let showDeleteConfirm = $state(false);
 	let showDeleteModelConfirm = $state(false);
@@ -118,40 +168,39 @@
 	let employers = $state<Employer[]>([]);
 	let showCategoryDialog = $state(false);
 	let categoryToEdit: Category | null = $state(null);
-	let logoutInProgress = $state(false);
+	let showNameEditDialog = $state(false);
+	let showEmailEditDialog = $state(false);
+	let showDeleteAllCategoriesConfirm = $state(false);
+	let showDeleteAllTimeEntriesConfirm = $state(false);
+	let deleteAllInProgress = $state(false);
 	let expandedSections = $state({
+		konto: false,
 		employers: false,
 		workTimeModels: false,
 		abwesenheit: false,
-		arbeit: false
+		arbeit: false,
+		zeitdaten: false,
+		entwicklung: false
 	});
-	let currentTheme = $state<ThemeValue>('cool');
-	let currentShape = $state<ShapeValue>('soft');
-
-	// Subscribe to theme and shape stores
-	$effect(() => {
-		const unsubTheme = theme.subscribe((value) => {
-			currentTheme = value;
-		});
-		const unsubShape = shape.subscribe((value) => {
-			currentShape = value;
-		});
-		return () => {
-			unsubTheme();
-			unsubShape();
-		};
-	});
-
-	function handleThemeChange(newTheme: ThemeValue) {
-		setTheme(newTheme);
-	}
-
-	function handleShapeChange(newShape: ShapeValue) {
-		setShape(newShape);
-	}
-
 	let deleteAccountInProgress = $state(false);
 	let deleteAccountError = $state<string | null>(null);
+
+	// Color scheme options for dropdown
+	const colorSchemeOptions = Object.entries(COLOR_SCHEMES).map(([key, scheme]) => ({
+		value: key,
+		label: scheme.label
+	}));
+
+	function handleColorSchemeChange(value: string) {
+		colorScheme.set(value as ColorSchemeName);
+	}
+
+	function resetColorScheme() {
+		if (browser) {
+			localStorage.removeItem('tt-color-scheme');
+			window.location.reload();
+		}
+	}
 
 	function closeCategoryMenu(event: MouseEvent) {
 		const target = event.target as HTMLElement;
@@ -247,6 +296,9 @@
 		workTimeModels.set(allModels);
 		employers = await getAllEmployers();
 		employersStore.set(employers);
+		// Load time entries for Zeitdaten summary
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
 		loading = false;
 
 		if (browser) {
@@ -262,14 +314,13 @@
 	});
 
 	async function handleLogout() {
-		logoutInProgress = true;
+		showLogoutConfirm = false;
 		try {
 			await logout();
 			await clearSession();
-			goto(resolve('/login'));
+			goto(resolve('/login') + '?logout=1');
 		} catch (e) {
 			console.error('[Settings] Logout failed:', e);
-			logoutInProgress = false;
 		}
 	}
 
@@ -348,136 +399,246 @@
 			deleteAccountInProgress = false;
 		}
 	}
+
+	async function handleDeleteAllCategories() {
+		deleteAllInProgress = true;
+		showDeleteAllCategoriesConfirm = false;
+		try {
+			const result = await deleteAllUserCategories($categories);
+			// Reload categories from IndexedDB
+			const allCategories = await getAll<Category>('categories');
+			categories.set(allCategories);
+			console.log(`[Settings] Deleted ${result.deleted} categories`);
+		} catch (e) {
+			console.error('[Settings] Delete all categories failed:', e);
+		} finally {
+			deleteAllInProgress = false;
+		}
+	}
+
+	async function handleDeleteAllTimeEntries() {
+		deleteAllInProgress = true;
+		showDeleteAllTimeEntriesConfirm = false;
+		try {
+			const result = await deleteAllTimeEntries($timeEntries);
+			// Clear time entries store
+			timeEntries.set([]);
+			console.log(`[Settings] Deleted ${result.deleted} time entries`);
+		} catch (e) {
+			console.error('[Settings] Delete all time entries failed:', e);
+		} finally {
+			deleteAllInProgress = false;
+		}
+	}
 </script>
 
 <svelte:window onclick={closeCategoryMenu} />
 
 <div class="settings-page">
-	{#if loading}
+	<!-- Page Header -->
+	<div class="tt-page-header">
+		<h1 class="tt-page-header__title">Einstellungen</h1>
+	</div>
+
+	{#if loading || !profileLoaded}
 		<div class="loading">
 			<p>Laden...</p>
 		</div>
 	{:else}
 		<!-- Konto Section -->
 		<section class="section" data-testid="account-section">
-			<div class="section-header">
-				<h2>Konto</h2>
-			</div>
-			<div class="account-info">
-				<div class="account-row">
-					<span class="account-label">E-Mail</span>
-					<span class="account-value" data-testid="account-email"
-						>{$userProfile?.email ?? 'Nicht angemeldet'}</span
-					>
-				</div>
-				<div class="account-row">
-					<span class="account-label">Plan</span>
-					<span
-						class="account-value plan-badge"
-						class:pro={$userPlan === 'pro'}
-						data-testid="account-plan"
-					>
-						{$userPlan === 'pro' ? 'Pro' : 'Free'}
-					</span>
-				</div>
-			</div>
-			<div class="account-actions">
-				<button class="secondary-btn" onclick={handlePlanChange} data-testid="change-plan-btn">
-					Plan ändern
-				</button>
+			<div class="section-header section-header-with-action">
 				<button
-					class="secondary-btn logout-btn"
-					onclick={() => (showLogoutConfirm = true)}
-					disabled={logoutInProgress}
-					data-testid="logout-btn"
+					class="tt-section-toggle"
+					onclick={() => (expandedSections.konto = !expandedSections.konto)}
+					aria-expanded={expandedSections.konto}
 				>
-					{logoutInProgress ? 'Abmelden...' : 'Abmelden'}
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.konto}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Konto</h2>
+				</button>
+				<button class="logout-button tt-interactive" onclick={() => (showLogoutConfirm = true)}>
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+						<polyline points="16 17 21 12 16 7"></polyline>
+						<line x1="21" y1="12" x2="9" y2="12"></line>
+					</svg>
+					Abmelden
 				</button>
 			</div>
-		</section>
-
-		<!-- Appearance Section -->
-		<section class="section">
-			<div class="section-header">
-				<h2>Erscheinungsbild</h2>
-			</div>
-			<div class="theme-selector">
-				<span class="theme-label">Farben</span>
-				<select
-					class="theme-dropdown"
-					value={currentTheme}
-					onchange={(e) => handleThemeChange(e.currentTarget.value as ThemeValue)}
-				>
-					{#each THEME_OPTIONS as option (option.value)}
-						<option value={option.value}>{option.label}</option>
-					{/each}
-				</select>
-			</div>
-			<div class="theme-selector">
-				<span class="theme-label">Ecken</span>
-				<div class="theme-toggle">
+			{#if expandedSections.konto}
+				<div class="tt-account-info">
+					<div class="account-row">
+						<span class="tt-account-label">Name</span>
+						<div class="account-value-with-edit">
+							<span class="tt-account-value" data-testid="account-name">
+								{$userFullName || 'Nicht festgelegt'}
+							</span>
+							<button
+								class="tt-symbol-button"
+								aria-label="Name bearbeiten"
+								onclick={() => (showNameEditDialog = true)}
+							>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+								</svg>
+							</button>
+						</div>
+					</div>
+					<div class="account-row">
+						<span class="tt-account-label">E-Mail</span>
+						<div class="account-value-with-edit">
+							<span class="tt-account-value" data-testid="account-email">
+								{$userProfile?.email ?? 'Nicht angemeldet'}
+							</span>
+							<button
+								class="tt-symbol-button"
+								aria-label="E-Mail bearbeiten"
+								onclick={() => (showEmailEditDialog = true)}
+							>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+								</svg>
+							</button>
+						</div>
+					</div>
+					<div class="account-row">
+						<span class="tt-account-label">Plan</span>
+						<div class="account-value-with-edit">
+							<span
+								class="tt-account-value tt-plan-text"
+								class:pro={$userPlan === 'pro'}
+								data-testid="account-plan"
+							>
+								{$userPlan === 'pro' ? 'Pro' : 'Free'}
+							</span>
+							<button class="tt-symbol-button" aria-label="Plan ändern" onclick={handlePlanChange}>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+								</svg>
+							</button>
+						</div>
+					</div>
 					<button
-						class="theme-option"
-						class:active={currentShape === 'sharp'}
-						onclick={() => handleShapeChange('sharp')}
+						class="tt-button-secondary tt-button-full"
+						onclick={() => (showDeleteAccountConfirm = true)}
+						disabled={deleteAccountInProgress}
 					>
-						Eckig
+						{deleteAccountInProgress ? 'Wird gelöscht...' : 'Konto löschen'}
 					</button>
-					<button
-						class="theme-option"
-						class:active={currentShape === 'soft'}
-						onclick={() => handleShapeChange('soft')}
-					>
-						Rund
-					</button>
+					{#if deleteAccountError}
+						<span class="tt-delete-account-error">{deleteAccountError}</span>
+					{/if}
 				</div>
-			</div>
+			{/if}
 		</section>
 
 		<!-- Arbeitgeber Section -->
 		<section class="section" data-testid="employer-section">
-			<div class="section-header">
+			<div class="section-header tt-settings-section-header">
 				<button
-					class="section-toggle"
+					class="tt-section-toggle tt-settings-section-toggle"
 					onclick={() => (expandedSections.employers = !expandedSections.employers)}
 					aria-expanded={expandedSections.employers}
 				>
-					<span class="toggle-icon" class:expanded={expandedSections.employers}>▶</span>
-					<h2>Arbeitgeber</h2>
+					<span
+						class="tt-section-toggle__icon tt-settings-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.employers}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Arbeitgeber</h2>
 				</button>
 				<button
-					class="icon-btn"
+					class="tt-symbol-button tt-settings-symbol-button"
 					onclick={handleAddEmployer}
 					aria-label="Arbeitgeber hinzufügen"
-					data-testid="add-employer-btn">+</button
+					data-testid="add-employer-btn"
 				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+				</button>
 			</div>
 			{#if expandedSections.employers}
-				<div class="list" data-testid="employer-list">
+				<div class="list tt-settings-list">
 					{#if employers.filter((emp) => emp.isActive).length === 0}
-						<p class="empty">Keine Arbeitgeber vorhanden</p>
+						<p class="tt-empty-list tt-settings-empty-list">Keine Arbeitgeber vorhanden</p>
 					{:else}
 						{#each employers.filter((emp) => emp.isActive) as employer (employer.id)}
 							<div
-								class="list-item clickable"
+								class="tt-list-row-clickable tt-settings-list-row-clickable"
 								role="button"
 								tabindex="0"
 								data-testid="employer-item"
 								onclick={() => handleEditEmployer(employer)}
-								onkeydown={(event) => event.key === 'Enter' && handleEditEmployer(employer)}
+								onkeydown={(e) => e.key === 'Enter' && handleEditEmployer(employer)}
 							>
-								<div class="item-info">
-									<span class="item-name" data-testid="employer-name">{employer.name}</span>
+								<div class="tt-list-row__content tt-settings-list-row__content">
+									<span
+										class="tt-list-row__title tt-settings-list-row__title"
+										data-testid="employer-name">{employer.name}</span
+									>
 								</div>
 								<button
-									class="delete-btn"
+									class="tt-btn-delete tt-settings-btn-delete"
 									aria-label="Löschen"
 									data-testid="delete-employer-btn"
 									onclick={(event) => {
 										event.stopPropagation();
 										handleDeleteEmployer(employer);
-									}}>×</button
+									}}
 								>
+									<svg
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path
+											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+										></path>
+									</svg>
+								</button>
 							</div>
 						{/each}
 					{/if}
@@ -487,48 +648,74 @@
 
 		<!-- Arbeitszeitmodelle Section (first - shorter list) -->
 		<section class="section">
-			<div class="section-header">
+			<div class="section-header tt-settings-section-header">
 				<button
-					class="section-toggle"
+					class="tt-section-toggle tt-settings-section-toggle"
 					onclick={() => (expandedSections.workTimeModels = !expandedSections.workTimeModels)}
 					aria-expanded={expandedSections.workTimeModels}
 				>
-					<span class="toggle-icon" class:expanded={expandedSections.workTimeModels}>▶</span>
-					<h2>Arbeitszeitmodelle</h2>
+					<span
+						class="tt-section-toggle__icon tt-settings-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.workTimeModels}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">
+						Arbeitszeitmodelle
+					</h2>
 				</button>
 				<button
-					class="icon-btn"
+					class="tt-symbol-button tt-settings-symbol-button"
 					onclick={() => (showAddWorkTimeModel = true)}
-					aria-label="Modell hinzufügen">+</button
+					aria-label="Modell hinzufügen"
 				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+				</button>
 			</div>
 			{#if expandedSections.workTimeModels}
 				<div class="list">
 					{#if $workTimeModels.length === 0}
-						<p class="empty">Keine Arbeitszeitmodelle vorhanden</p>
+						<p class="tt-empty-list">Keine Arbeitszeitmodelle vorhanden</p>
 					{:else}
 						{#each $workTimeModels as model (model.id)}
 							<div
-								class="list-item clickable"
+								class="tt-list-row-clickable"
 								role="button"
 								tabindex="0"
 								onclick={() => handleEditModel(model)}
 								onkeydown={(e) => e.key === 'Enter' && handleEditModel(model)}
 							>
-								<div class="item-info">
-									<span class="item-name">{model.name}</span>
-									<span class="item-detail">
+								<div class="tt-list-row__content work-time-model-row">
+									<span class="tt-list-row__title">{model.name}</span>
+									<span class="tt-list-row__detail work-time-model-detail">
 										{calculateModelTotalHours(model)}h/Woche • {countModelWorkdays(model)} Tage • ab {model.validFrom}
 									</span>
 								</div>
 								<button
-									class="delete-btn"
+									class="tt-btn-delete"
 									aria-label="Löschen"
 									onclick={(e) => {
 										e.stopPropagation();
 										handleDeleteModel(model);
-									}}>×</button
+									}}
 								>
+									<svg
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path
+											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+										></path>
+									</svg>
+								</button>
 							</div>
 						{/each}
 					{/if}
@@ -540,27 +727,35 @@
 		<section class="section">
 			<div class="section-header">
 				<button
-					class="section-toggle"
+					class="tt-section-toggle"
 					onclick={() => (expandedSections.abwesenheit = !expandedSections.abwesenheit)}
 					aria-expanded={expandedSections.abwesenheit}
 				>
-					<span class="toggle-icon" class:expanded={expandedSections.abwesenheit}>▶</span>
-					<h2>Abwesenheit</h2>
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.abwesenheit}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Abwesenheit</h2>
 				</button>
 				<button
-					class="icon-btn"
+					class="tt-symbol-button"
 					aria-label="Abwesenheitskategorie hinzufügen"
-					onclick={() => (showAddAbsenceCategory = true)}>+</button
+					onclick={() => (showAddAbsenceCategory = true)}
 				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+				</button>
 			</div>
 			{#if expandedSections.abwesenheit}
 				<div class="list">
 					{#if abwesenheit().length === 0}
-						<p class="empty">Keine Abwesenheit vorhanden</p>
+						<p class="tt-empty-list">Keine Abwesenheit vorhanden</p>
 					{:else}
 						{#each abwesenheit() as category (category.id)}
 							<div
-								class="list-item clickable"
+								class="tt-list-row-clickable"
 								data-testid="category-item"
 								data-category-type={category.type}
 								data-counts-as-work="false"
@@ -569,26 +764,43 @@
 								onclick={() => handleEditCategory(category)}
 								onkeydown={(event) => event.key === 'Enter' && handleEditCategory(category)}
 							>
-								<div class="item-info">
-									<span class="item-name" data-testid="category-name">
+								<div class="tt-list-row__content">
+									<span class="tt-list-row__title" data-testid="category-name">
 										{category.name}
-										<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
 									</span>
-									{#if category.employerId}
-										<span class="item-employer">{getEmployerName(category.employerId)}</span>
+								</div>
+								<div class="row-right-section">
+									<CategoryBadge countsAsWorkTime={category.countsAsWorkTime} />
+									{#if category.type !== 'system'}
+										<button
+											class="tt-btn-delete"
+											aria-label="Löschen"
+											data-testid="delete-category-btn"
+											onclick={(event) => {
+												event.stopPropagation();
+												handleDeleteCategory(category);
+											}}
+										>
+											<svg
+												width="16"
+												height="16"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<polyline points="3 6 5 6 21 6"></polyline>
+												<path
+													d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+												></path>
+											</svg>
+										</button>
+									{:else}
+										<div class="tt-btn-delete-placeholder"></div>
 									{/if}
 								</div>
-								{#if category.type !== 'system'}
-									<button
-										class="delete-btn"
-										aria-label="Löschen"
-										data-testid="delete-category-btn"
-										onclick={(event) => {
-											event.stopPropagation();
-											handleDeleteCategory(category);
-										}}>×</button
-									>
-								{/if}
 							</div>
 						{/each}
 					{/if}
@@ -600,55 +812,114 @@
 		<section class="section">
 			<div class="section-header">
 				<button
-					class="section-toggle"
+					class="tt-section-toggle"
 					onclick={() => (expandedSections.arbeit = !expandedSections.arbeit)}
 					aria-expanded={expandedSections.arbeit}
 				>
-					<span class="toggle-icon" class:expanded={expandedSections.arbeit}>▶</span>
-					<h2>Tätigkeiten</h2>
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.arbeit}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Tätigkeiten</h2>
 				</button>
 				<div class="header-buttons">
 					<div class="menu-container">
 						<button
-							class="menu-btn"
+							class="tt-symbol-button"
 							data-testid="category-menu-btn"
 							onclick={() => (showCategoryMenu = !showCategoryMenu)}
 							aria-label="Menü"
 						>
-							⋮
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<circle cx="12" cy="12" r="1"></circle>
+								<circle cx="12" cy="5" r="1"></circle>
+								<circle cx="12" cy="19" r="1"></circle>
+							</svg>
 						</button>
 						{#if showCategoryMenu}
-							<div class="dropdown-menu">
+							<div class="tt-dropdown-menu">
 								<button
-									class="dropdown-item"
+									class="tt-dropdown-item tt-interactive"
 									data-testid="add-category-menu-item"
 									onclick={() => {
 										showAddCategory = true;
 										showCategoryMenu = false;
 									}}
 								>
-									<span class="dropdown-icon">+</span>
+									<svg
+										class="tt-dropdown-icon"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<line x1="12" y1="5" x2="12" y2="19"></line>
+										<line x1="5" y1="12" x2="19" y2="12"></line>
+									</svg>
 									<span>Hinzufügen</span>
 								</button>
 								<button
-									class="dropdown-item"
+									class="tt-dropdown-item tt-interactive"
 									onclick={() => {
 										showImportCategories = true;
 										showCategoryMenu = false;
 									}}
 								>
-									<span class="dropdown-icon">←</span>
+									<svg
+										class="tt-dropdown-icon"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+										<polyline points="7 10 12 15 17 10"></polyline>
+										<line x1="12" y1="15" x2="12" y2="3"></line>
+									</svg>
 									<span>Importieren</span>
 								</button>
 								<button
-									class="dropdown-item"
+									class="tt-dropdown-item tt-dropdown-item--interactive tt-interactive"
 									onclick={() => {
-										downloadCategoriesFile($categories);
+										const employerName = getEmployerName($selectedEmployerId);
+										const filename = `Backup-Tätigkeiten-${employerName}.txt`;
+										downloadCategoriesFile($categories, filename);
 										showCategoryMenu = false;
 									}}
 								>
-									<span class="dropdown-icon">→</span>
+									<svg
+										class="tt-dropdown-icon"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+										<polyline points="17 8 12 3 7 8"></polyline>
+										<line x1="12" y1="3" x2="12" y2="15"></line>
+									</svg>
 									<span>Exportieren</span>
+								</button>
+								<button
+									class="tt-dropdown-item tt-dropdown-item--danger tt-interactive-danger"
+									onclick={() => {
+										showDeleteAllCategoriesConfirm = true;
+										showCategoryMenu = false;
+									}}
+								>
+									<svg
+										class="tt-dropdown-icon"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path
+											d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+										></path>
+									</svg>
+									<span>Löschen</span>
 								</button>
 							</div>
 						{/if}
@@ -658,11 +929,11 @@
 			{#if expandedSections.arbeit}
 				<div class="list" data-testid="category-list">
 					{#if taetigkeiten().length === 0}
-						<p class="empty">Keine Tätigkeiten vorhanden</p>
+						<p class="tt-empty-list">Keine Tätigkeiten vorhanden</p>
 					{:else}
 						{#each taetigkeiten() as category (category.id)}
 							<div
-								class="list-item clickable"
+								class="tt-list-row-clickable"
 								data-testid="category-item"
 								data-category-type={category.type}
 								data-counts-as-work="true"
@@ -671,23 +942,44 @@
 								onclick={() => handleEditCategory(category)}
 								onkeydown={(event) => event.key === 'Enter' && handleEditCategory(category)}
 							>
-								<div class="item-info">
-									<span class="item-name" data-testid="category-name">{category.name}</span>
+								<div class="tt-list-row__content">
+									<span class="tt-list-row__title" data-testid="category-name">{category.name}</span
+									>
+								</div>
+								<div class="row-right-section">
 									{#if category.employerId}
-										<span class="item-employer">{getEmployerName(category.employerId)}</span>
+										<span class="tt-inline-label-employer"
+											>{getEmployerName(category.employerId)}</span
+										>
+									{/if}
+									{#if category.type !== 'system'}
+										<button
+											class="tt-btn-delete"
+											aria-label="Löschen"
+											data-testid="delete-category-btn"
+											onclick={(event) => {
+												event.stopPropagation();
+												handleDeleteCategory(category);
+											}}
+										>
+											<svg
+												width="16"
+												height="16"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<polyline points="3 6 5 6 21 6"></polyline>
+												<path
+													d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+												></path>
+											</svg>
+										</button>
 									{/if}
 								</div>
-								{#if category.type !== 'system'}
-									<button
-										class="delete-btn"
-										aria-label="Löschen"
-										data-testid="delete-category-btn"
-										onclick={(event) => {
-											event.stopPropagation();
-											handleDeleteCategory(category);
-										}}>×</button
-									>
-								{/if}
 							</div>
 						{/each}
 					{/if}
@@ -698,59 +990,140 @@
 		<!-- Daten Section (Export/Import) -->
 		<section class="section" data-testid="data-section">
 			<div class="section-header">
-				<h2>Daten</h2>
-			</div>
-			<div class="data-actions">
-				<button class="data-btn" onclick={() => (showExportDialog = true)} data-testid="export-btn">
-					Exportieren
-				</button>
 				<button
-					class="data-btn"
-					onclick={() => (showStundenzettelExport = true)}
-					data-testid="stundenzettel-export-btn"
+					class="tt-section-toggle"
+					onclick={() => (expandedSections.zeitdaten = !expandedSections.zeitdaten)}
+					aria-expanded={expandedSections.zeitdaten}
 				>
-					Stundenzettel
-				</button>
-				<button class="data-btn" onclick={() => goto(resolve('/import'))} data-testid="import-btn">
-					Importieren
-				</button>
-				<button class="data-btn secondary" onclick={() => (showImportExcel = true)}>
-					Excel-Datei importieren
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.zeitdaten}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Zeitdaten</h2>
 				</button>
 			</div>
+			{#if expandedSections.zeitdaten}
+				<!-- Time data range preview per employer -->
+				{#if timeDataRangePerEmployer().length > 0}
+					<div class="time-data-preview">
+						{#each timeDataRangePerEmployer() as range}
+							<div class="time-data-preview__item">
+								<span class="time-data-preview__employer">{range.employerName}</span>
+								<span class="time-data-preview__range"
+									>{range.earliest.split('-').reverse().join('.')} – {range.latest
+										.split('-')
+										.reverse()
+										.join('.')}</span
+								>
+								<span class="time-data-preview__count">({range.count} Einträge)</span>
+							</div>
+						{/each}
+					</div>
+				{:else}
+					<div class="time-data-preview time-data-preview--empty">
+						<span class="tt-text-muted">Keine Zeitdaten vorhanden</span>
+					</div>
+				{/if}
+				<div class="data-actions">
+					<a
+						href="/stundenzettel"
+						class="tt-button-primary tt-button-full"
+						data-testid="stundenzettel-export-btn"
+					>
+						Stundenzettel herunterladen
+					</a>
+					<button
+						class="tt-button-secondary tt-button-full"
+						onclick={() => (showExportDialog = true)}
+						data-testid="export-btn"
+					>
+						Backup exportieren
+					</button>
+					<button
+						class="tt-button-secondary tt-button-full"
+						onclick={() => goto(resolve('/import'))}
+						data-testid="import-btn"
+					>
+						Backup importieren
+					</button>
+					{#if $userProfile?.firstName === 'Friedemann' || $userProfile?.firstName === 'Samuel'}
+						<button
+							class="tt-button-secondary tt-button-full"
+							onclick={() => (showImportExcel = true)}
+						>
+							Excel-Datei importieren
+						</button>
+					{/if}
+					<button
+						class="tt-button-danger-outline tt-button-full"
+						onclick={() => (showDeleteAllTimeEntriesConfirm = true)}
+						disabled={deleteAllInProgress}
+					>
+						{deleteAllInProgress ? 'Wird gelöscht...' : 'Zeitdaten löschen'}
+					</button>
+				</div>
+			{/if}
 		</section>
 
 		<!-- Version Section -->
 		<section class="section version-section">
 			<div class="version-info">
-				<span class="version-label">Version {appVersion}</span>
+				<span class="tt-version-label">Version {appVersion}</span>
 				{#if buildTime}
-					<span class="build-time">Build: {buildTime}</span>
+					<span class="tt-build-time">Build: {buildTime}</span>
 				{/if}
 			</div>
 		</section>
 
-		<!-- Delete Account Section -->
-		<section class="section delete-account-section">
-			<button
-				class="delete-account-btn"
-				onclick={() => (showDeleteAccountConfirm = true)}
-				disabled={deleteAccountInProgress}
-			>
-				{deleteAccountInProgress ? 'Wird gelöscht...' : 'Konto löschen'}
-			</button>
-			{#if deleteAccountError}
-				<span class="delete-account-error">{deleteAccountError}</span>
-			{/if}
-		</section>
+		<!-- Development Section (Color Scheme Switcher) - Only for Samuel -->
+		{#if $userProfile?.firstName === 'Samuel'}
+			<section class="section">
+				<div class="section-header">
+					<button
+						class="tt-section-toggle"
+						onclick={() => (expandedSections.entwicklung = !expandedSections.entwicklung)}
+						aria-expanded={expandedSections.entwicklung}
+					>
+						<span
+							class="tt-section-toggle__icon"
+							class:tt-section-toggle__icon--expanded={expandedSections.entwicklung}>▶</span
+						>
+						<h2 class="tt-section-toggle__title tt-settings-section-header__title">Entwicklung</h2>
+					</button>
+				</div>
+				{#if expandedSections.entwicklung}
+					<div class="dev-settings">
+						<div class="tt-labeled-dropdown">
+							<span class="tt-labeled-dropdown__label">Farbschema</span>
+							<CustomDropdown
+								options={colorSchemeOptions}
+								value={$colorScheme}
+								onchange={handleColorSchemeChange}
+							/>
+						</div>
+						<div class="color-preview">
+							<div class="color-swatch primary" style="background: var(--tt-brand-primary-500);">
+								<span>Primary<br />{COLOR_SCHEMES[$colorScheme].primary}</span>
+							</div>
+							<div class="color-swatch secondary" style="background: var(--tt-brand-accent-300);">
+								<span>Secondary<br />{COLOR_SCHEMES[$colorScheme].secondary}</span>
+							</div>
+						</div>
+						<button class="reset-btn tt-interactive" onclick={resetColorScheme}>
+							Cache leeren & neu laden
+						</button>
+					</div>
+				{/if}
+			</section>
+		{/if}
 	{/if}
 </div>
 
 <!-- Add Work Category Modal -->
 {#if showAddCategory}
-	<AddCategoryModal
-		title="Neue Tätigkeit"
-		countsAsWorkTime={true}
+	<CategoryDialog
+		mode="create"
+		categoryType="user"
 		onsave={() => (showAddCategory = false)}
 		onclose={() => (showAddCategory = false)}
 	/>
@@ -758,8 +1131,9 @@
 
 <!-- Add Absence Category Modal -->
 {#if showAddAbsenceCategory}
-	<AddCategoryModal
-		title="Neue Abwesenheitskategorie"
+	<CategoryDialog
+		mode="create"
+		categoryType="user"
 		countsAsWorkTime={false}
 		onsave={() => (showAddAbsenceCategory = false)}
 		onclose={() => (showAddAbsenceCategory = false)}
@@ -786,9 +1160,11 @@
 
 <!-- Delete Category Confirmation -->
 {#if showDeleteConfirm && categoryToDelete}
+	{@const isAbsence = !categoryToDelete.countsAsWorkTime}
+	{@const typeLabel = isAbsence ? 'Abwesenheit' : 'Tätigkeit'}
 	<ConfirmDialog
-		title="Kategorie löschen"
-		message={`Kategorie "${categoryToDelete.name}" wirklich löschen?`}
+		title="{typeLabel} löschen"
+		message={`${typeLabel} "${categoryToDelete.name}" wirklich löschen?`}
 		confirmLabel="Löschen"
 		confirmStyle="danger"
 		onconfirm={confirmDeleteCategory}
@@ -836,17 +1212,6 @@
 	<ExportDialog onclose={() => (showExportDialog = false)} />
 {/if}
 
-<!-- Stundenzettel Export Dialog -->
-{#if showStundenzettelExport}
-	<StundenzettelExport
-		onclose={() => (showStundenzettelExport = false)}
-		onexport={(data) => {
-			console.log('[Settings] Stundenzettel export data:', data);
-			showStundenzettelExport = false;
-		}}
-	/>
-{/if}
-
 <!-- Plan Comparison Modal -->
 {#if showPlanComparison}
 	<PlanComparison onclose={() => (showPlanComparison = false)} />
@@ -882,100 +1247,58 @@
 	/>
 {/if}
 
+<!-- Name Edit Dialog -->
+{#if showNameEditDialog}
+	<NameEditDialog onclose={() => (showNameEditDialog = false)} />
+{/if}
+
+<!-- Email Edit Dialog -->
+{#if showEmailEditDialog}
+	<EmailEditDialog onclose={() => (showEmailEditDialog = false)} />
+{/if}
+
+<!-- Delete All Categories Confirmation -->
+{#if showDeleteAllCategoriesConfirm}
+	<ConfirmDialog
+		title="Alle Tätigkeiten löschen"
+		message="Möchten Sie wirklich alle Tätigkeiten löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+		confirmLabel="Alle löschen"
+		confirmStyle="danger"
+		onconfirm={handleDeleteAllCategories}
+		oncancel={() => (showDeleteAllCategoriesConfirm = false)}
+	/>
+{/if}
+
+<!-- Delete All Time Entries Confirmation -->
+{#if showDeleteAllTimeEntriesConfirm}
+	<ConfirmDialog
+		title="Alle Zeitdaten löschen"
+		message="Möchten Sie wirklich alle Zeitdaten löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+		confirmLabel="Alle löschen"
+		confirmStyle="danger"
+		onconfirm={handleDeleteAllTimeEntries}
+		oncancel={() => (showDeleteAllTimeEntriesConfirm = false)}
+	/>
+{/if}
+
 <style>
 	.settings-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--tt-space-24);
 	}
 
-	.loading {
-		display: flex;
-		justify-content: center;
-		padding: 2rem;
-		color: var(--muted);
-	}
+	/* Page header uses .tt-page-header and .tt-page-header__title from design system */
 
-	.theme-selector {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
-	}
-
-	.theme-label {
-		font-weight: 500;
-		color: var(--text);
-	}
-
-	.theme-dropdown {
-		padding: 0.5rem 2rem 0.5rem 0.75rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
-		background: var(--input-bg);
-		color: var(--text);
-		font-size: 0.9rem;
-		font-weight: 500;
-		cursor: pointer;
-		appearance: none;
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
-		background-repeat: no-repeat;
-		background-position: right 0.5rem center;
-		min-width: 100px;
-	}
-
-	.theme-dropdown:hover {
-		border-color: var(--input-border-hover, var(--border));
-	}
-
-	.theme-dropdown:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: var(--focus-ring);
-	}
-
-	.theme-toggle {
-		display: flex;
-		gap: 0;
-		border-radius: var(--r-pill);
-		overflow: hidden;
-		border: 1px solid var(--border);
-	}
-
-	.theme-option {
-		padding: 0.5rem 1rem;
-		border: none;
-		background: var(--surface);
-		color: var(--muted);
-		font-size: 0.9rem;
-		font-weight: 500;
-		cursor: pointer;
-		transition: all var(--transition-fast);
-	}
-
-	.theme-option:first-child {
-		border-right: 1px solid var(--border);
-	}
-
-	.theme-option:hover:not(.active) {
-		background: var(--surface-hover);
-	}
-
-	.theme-option.active {
-		background: var(--accent);
-		color: white;
-	}
+	/* Loading uses .tt-loading-text from design system */
 
 	.section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.section-header {
@@ -987,296 +1310,140 @@
 
 	.section-header h2 {
 		margin: 0;
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		font-weight: 600;
-		color: var(--text);
+		color: var(--tt-text-primary);
+		font-family: var(--tt-font-family);
 	}
 
-	.section-toggle {
+	.tt-section-toggle {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		background: transparent;
-		border: none;
+		gap: var(--tt-space-8);
 		padding: 0;
-		cursor: pointer;
-		text-align: left;
 	}
 
-	.section-toggle:hover h2 {
-		color: var(--accent);
-	}
-
-	.toggle-icon {
-		font-size: 0.75rem;
-		color: var(--muted);
-		transition: transform var(--transition-normal);
-	}
-
-	.toggle-icon.expanded {
-		transform: rotate(90deg);
-	}
+	/* Visual styles use design system classes: .tt-section-toggle, .tt-section-toggle__icon, .tt-section-toggle__title, .tt-settings-section-header__title */
 
 	.header-buttons {
 		display: flex;
-		gap: 0.5rem;
-	}
-
-	.icon-btn {
-		width: 32px;
-		height: 32px;
-		border: none;
-		border-radius: var(--r-btn);
-		background: transparent;
-		color: var(--accent);
-		font-size: 1.5rem;
-		font-weight: 300;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.icon-btn:hover {
-		background: var(--accent-light);
+		gap: var(--tt-space-8);
 	}
 
 	.menu-container {
 		position: relative;
 	}
 
-	.menu-btn {
-		width: 32px;
-		height: 32px;
-		border: none;
-		border-radius: var(--r-btn);
-		background: transparent;
-		color: var(--muted);
-		font-size: 1.25rem;
-		cursor: pointer;
+	.tt-dropdown-item {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-	}
-
-	.menu-btn:hover {
-		background: var(--surface-hover);
-		color: var(--text);
-	}
-
-	.dropdown-menu {
-		position: absolute;
-		top: 100%;
-		right: 0;
-		margin-top: 0.25rem;
-		background: var(--surface);
-		border: 1px solid var(--border);
-		border-radius: var(--r-card);
-		box-shadow: var(--elev-2);
-		z-index: 100;
-		min-width: 140px;
-		overflow: hidden;
-	}
-
-	.dropdown-item {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-12);
 		width: 100%;
-		padding: 0.75rem 1rem;
-		border: none;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 0.9rem;
-		text-align: left;
-		cursor: pointer;
 	}
 
-	.dropdown-icon {
-		width: 1rem;
-		text-align: center;
-		flex-shrink: 0;
-	}
-
-	.dropdown-item:hover {
-		background: var(--surface-hover);
-	}
-
-	.dropdown-item:not(:last-child) {
-		border-bottom: 1px solid var(--border);
-	}
+	/* Visual styles use design system classes: .tt-dropdown-menu, .tt-dropdown-item, .tt-dropdown-icon, .tt-dropdown-item--danger */
 
 	.list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
-	.empty {
-		text-align: center;
-		color: var(--muted);
-		padding: 1rem;
-		margin: 0;
-	}
-
-	.list-item {
+	.work-time-model-row {
 		display: flex;
+		flex-direction: row;
+		align-items: center;
 		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
-	}
-
-	.list-item.clickable {
-		cursor: pointer;
-	}
-
-	.list-item.clickable:hover {
-		background: var(--surface-hover);
-		border-color: var(--card-hover-border);
-	}
-
-	.item-info {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
 		flex: 1;
+		min-width: 0;
 	}
 
-	.item-name {
-		font-weight: 500;
-		color: var(--text);
+	.work-time-model-detail {
+		margin-left: auto;
+		text-align: right;
 	}
 
-	.item-detail {
-		font-size: 0.85rem;
-		color: var(--muted);
-	}
-
-	.item-employer {
-		font-size: 0.8rem;
-		color: var(--accent);
-		font-weight: 400;
-	}
-
-	.delete-btn {
-		width: 32px;
-		height: 32px;
-		border: none;
-		border-radius: var(--r-btn);
-		background: transparent;
-		color: var(--neg);
-		font-size: 1.25rem;
-		cursor: pointer;
+	.row-right-section {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		gap: var(--tt-space-8);
+		margin-left: auto;
 	}
 
-	.delete-btn:hover {
-		background: var(--neg-light);
-	}
+	/* Empty list uses .tt-empty-list from design system */
 
 	.version-section {
 		margin-top: 1rem;
 		padding-top: 1rem;
-		border-top: 1px solid var(--border);
+		border-top: 1px solid var(--tt-border-default);
+		font-family: var(--tt-font-family);
 	}
 
 	.version-info {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
-		color: var(--muted);
-		font-size: 0.85rem;
+		gap: var(--tt-space-4);
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-small);
+		font-family: var(--tt-font-family);
 	}
 
-	.version-label {
-		font-weight: 500;
-	}
+	/* Version info uses .tt-version-label and .tt-build-time from design system */
 
-	.build-time {
-		font-size: 0.75rem;
-		color: var(--muted);
-	}
-
-	.delete-account-section {
-		margin-top: 2rem;
-		padding-top: 1rem;
-		border-top: 1px solid var(--border);
-	}
-
-	.delete-account-btn {
-		width: 100%;
-		padding: 0.875rem;
-		background: var(--btn-danger-bg);
-		color: var(--btn-danger-text);
-		border: none;
-		border-radius: var(--r-btn);
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.delete-account-btn:hover:not(:disabled) {
-		background: var(--btn-danger-hover);
-	}
-
-	.delete-account-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.delete-account-error {
+	.tt-delete-account-error {
 		display: block;
 		margin-top: 0.5rem;
-		font-size: 0.85rem;
-		color: var(--neg);
-		text-align: center;
 	}
 
 	.data-actions {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
-	.data-btn {
-		width: 100%;
-		padding: 0.875rem;
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		border: none;
-		border-radius: var(--r-btn);
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.data-btn:hover {
-		background: var(--btn-primary-hover);
-	}
-
-	.data-btn.secondary {
-		background: var(--card-bg);
-		color: var(--fg);
-		border: 1px solid var(--card-border);
-	}
-
-	.data-btn.secondary:hover {
-		background: var(--card-bg-hover);
-	}
-
-	.account-info {
+	/* Time data preview per employer */
+	.time-data-preview {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
-		padding: 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
+		gap: var(--tt-space-4);
+		padding: var(--tt-space-12);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-card);
+		margin-bottom: var(--tt-space-12);
+	}
+
+	.time-data-preview--empty {
+		text-align: center;
+	}
+
+	.time-data-preview__item {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--tt-space-8);
+		align-items: baseline;
+		font-size: var(--tt-font-size-small);
+	}
+
+	.time-data-preview__employer {
+		font-weight: var(--tt-font-weight-semibold);
+		color: var(--tt-text-primary);
+	}
+
+	.time-data-preview__range {
+		color: var(--tt-text-secondary);
+	}
+
+	.time-data-preview__count {
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-tiny);
+	}
+
+	/* Dropdown danger item uses .tt-dropdown-item--danger from design system */
+
+	.tt-account-info {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-8);
 	}
 
 	.account-row {
@@ -1285,62 +1452,75 @@
 		align-items: center;
 	}
 
-	.account-label {
-		font-weight: 500;
-		color: var(--muted);
-	}
+	/* Account labels and values use .tt-account-label and .tt-account-value from design system */
 
-	.account-value {
-		color: var(--text);
-	}
-
-	.plan-badge {
-		padding: 0.25rem 0.75rem;
-		border-radius: var(--r-pill);
-		background: var(--surface);
-		font-weight: 500;
-		font-size: 0.85rem;
-	}
-
-	.plan-badge.pro {
-		background: var(--accent);
-		color: white;
-	}
-
-	.account-actions {
+	.account-value-with-edit {
 		display: flex;
-		gap: 0.75rem;
+		align-items: center;
+		gap: var(--tt-space-8);
 	}
 
-	.secondary-btn {
-		flex: 1;
-		padding: 0.75rem 1rem;
-		background: var(--surface);
-		color: var(--text);
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		font-size: 0.9rem;
-		font-weight: 500;
+	/* Plan text uses .tt-plan-text from design system */
+
+	.section-header-with-action {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-right: 0;
+	}
+
+	.logout-button {
+		display: flex;
+		align-items: center;
+		gap: var(--tt-space-8);
+		padding: var(--tt-space-8) var(--tt-space-12);
+		background: transparent;
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		color: var(--tt-text-secondary);
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
-		transition: all var(--transition-fast);
+		transition: background var(--tt-transition-fast);
 	}
 
-	.secondary-btn:hover:not(:disabled) {
-		background: var(--surface-hover);
-		border-color: var(--card-hover-border);
+	/* Development section styles */
+	.dev-settings {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-16);
+		padding: var(--tt-space-12);
 	}
 
-	.secondary-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
+	.color-preview {
+		display: flex;
+		gap: var(--tt-space-12);
 	}
 
-	.secondary-btn.logout-btn {
-		color: var(--neg);
-		border-color: var(--neg);
+	.color-swatch {
+		flex: 1;
+		padding: var(--tt-space-16);
+		border-radius: var(--tt-radius-card);
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
-	.secondary-btn.logout-btn:hover:not(:disabled) {
-		background: var(--neg-light);
+	.color-swatch span {
+		color: white;
+		font-weight: var(--tt-font-weight-semibold);
+		font-size: var(--tt-font-size-small);
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+		text-align: center;
+	}
+
+	.reset-btn {
+		padding: var(--tt-space-8) var(--tt-space-16);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		color: var(--tt-text-secondary);
+		font-size: var(--tt-font-size-small);
+		cursor: pointer;
+		transition: background var(--tt-transition-fast);
 	}
 </style>

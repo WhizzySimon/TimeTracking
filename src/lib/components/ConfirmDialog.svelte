@@ -61,17 +61,16 @@
 
 <Modal title={dialogTitle} onclose={handleClose}>
 	<div class="confirm-dialog">
-		<p class="message">{message}</p>
+		<p class="tt-dialog-message">{message}</p>
 		<div class="actions">
 			{#if type === 'confirm'}
-				<button type="button" class="btn-secondary" onclick={handleCancel}>
+				<button type="button" class="tt-button-secondary" onclick={handleCancel}>
 					{cancelLabel}
 				</button>
 			{/if}
 			<button
 				type="button"
-				class="btn-confirm"
-				class:danger={confirmStyle === 'danger'}
+				class={confirmStyle === 'danger' ? 'tt-button-danger' : 'tt-button-primary'}
 				onclick={handleConfirm}
 			>
 				{confirmLabel}
@@ -84,56 +83,16 @@
 	.confirm-dialog {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--tt-space-24);
 	}
 
-	.message {
-		margin: 0;
-		font-size: 1rem;
-		line-height: 1.5;
-		color: var(--text);
-	}
+	/* Message text uses .tt-dialog-message from design system */
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 	}
 
-	.btn-secondary,
-	.btn-confirm {
-		padding: 0.625rem 1.25rem;
-		border-radius: var(--r-btn);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: all var(--transition-normal);
-	}
-
-	.btn-secondary {
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		border: 1px solid var(--btn-secondary-border);
-	}
-
-	.btn-secondary:hover {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-confirm {
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		border: none;
-	}
-
-	.btn-confirm:hover {
-		background: var(--btn-primary-hover);
-	}
-
-	.btn-confirm.danger {
-		background: var(--btn-danger-bg);
-	}
-
-	.btn-confirm.danger:hover {
-		background: var(--btn-danger-hover);
-	}
+	/* Buttons use design system classes: .tt-button-primary, .tt-button-secondary, .tt-button-danger */
 </style>

@@ -34,12 +34,6 @@
 		}
 	}
 
-	function handleBackdropClick(event: MouseEvent) {
-		if (event.target === event.currentTarget) {
-			onclose();
-		}
-	}
-
 	// Drag handlers
 	function handleMouseDown(event: MouseEvent) {
 		if (!modalElement) return;
@@ -91,15 +85,9 @@
 	});
 </script>
 
-<div
-	class="modal-backdrop"
-	role="button"
-	tabindex="-1"
-	onclick={handleBackdropClick}
-	onkeydown={(e) => e.key === 'Enter' && handleBackdropClick(e as unknown as MouseEvent)}
->
+<div class="modal-backdrop tt-modal-backdrop" role="button" tabindex="-1" onkeydown={handleKeydown}>
 	<div
-		class="modal-content"
+		class="modal-content tt-modal-content"
 		class:dragged={hasBeenDragged}
 		role="dialog"
 		aria-modal="true"
@@ -109,19 +97,31 @@
 		style={hasBeenDragged ? `left: ${position.x}px; top: ${position.y}px;` : ''}
 	>
 		<header
-			class="modal-header"
+			class="modal-header tt-modal-header"
 			role="button"
 			tabindex="-1"
 			onmousedown={handleMouseDown}
 			style="cursor: {isDragging ? 'grabbing' : 'grab'};"
 		>
-			<h2 id="modal-title">{title}</h2>
+			<h2 id="modal-title" class="tt-modal-header__title">{title}</h2>
 			<button
-				class="close-btn"
+				class="tt-symbol-button"
 				onclick={onclose}
 				onmousedown={(e) => e.stopPropagation()}
-				aria-label="Schließen">×</button
+				aria-label="Schließen"
 			>
+				<svg
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<line x1="18" y1="6" x2="6" y2="18"></line>
+					<line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
+			</button>
 		</header>
 		<div class="modal-body">
 			{@render children?.()}
@@ -133,7 +133,6 @@
 	.modal-backdrop {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
 		display: flex;
 		align-items: flex-start;
 		justify-content: center;
@@ -143,13 +142,10 @@
 	}
 
 	.modal-content {
-		background: var(--surface);
-		border-radius: var(--r-modal);
 		width: 100%;
 		max-width: 400px;
 		max-height: calc(100vh - 4rem);
 		overflow-y: auto;
-		box-shadow: var(--elev-2);
 	}
 
 	.modal-content.dragged {
@@ -162,36 +158,12 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 1rem 1rem 0.5rem;
-		border-bottom: 1px solid var(--border);
 	}
 
-	.modal-header h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		font-weight: 600;
-		color: var(--text);
-	}
-
-	.close-btn {
-		width: 32px;
-		height: 32px;
-		border: none;
-		background: none;
-		font-size: 1.5rem;
-		cursor: pointer;
-		color: var(--muted);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: var(--r-btn);
-	}
-
-	.close-btn:hover {
-		background: var(--surface-hover);
-		color: var(--text);
-	}
+	/* Visual styles use design system classes: .tt-modal-backdrop, .tt-modal-content, .tt-modal-header, .tt-modal-header__title */
+	/* Close button uses .tt-symbol-button from design system */
 
 	.modal-body {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 	}
 </style>

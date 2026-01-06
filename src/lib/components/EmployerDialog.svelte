@@ -75,30 +75,30 @@
 
 <Modal {title} onclose={handleClose}>
 	<div class="employer-form">
-		<div class="field">
-			<label for="employer-name">Name:</label>
+		<div class="tt-form-field">
+			<label for="employer-name" class="tt-form-field__label">Name:</label>
 			<input
 				type="text"
 				id="employer-name"
 				data-testid="employer-name-input"
 				bind:value={name}
 				placeholder="z.B. Firma GmbH"
-				class="text-input"
+				class="tt-text-input"
 				disabled={saving}
 			/>
 		</div>
 
 		{#if error}
-			<p class="error">{error}</p>
+			<p class="tt-error-message">{error}</p>
 		{/if}
 
-		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose} disabled={saving}>
+		<div class="tt-form-actions">
+			<button type="button" class="tt-button-secondary" onclick={handleClose} disabled={saving}>
 				Abbrechen
 			</button>
 			<button
 				type="button"
-				class="btn-primary"
+				class="tt-button-primary"
 				data-testid="save-employer-btn"
 				onclick={handleSave}
 				disabled={saving}
@@ -113,98 +113,10 @@
 	.employer-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
-	.field {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-	}
-
-	.field label {
-		font-size: 0.9rem;
-		font-weight: 500;
-		color: var(--text);
-	}
-
-	.text-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.text-input::placeholder {
-		color: var(--input-placeholder);
-	}
-
-	.text-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
-	}
-
-	.text-input:disabled {
-		background: var(--surface-hover);
-		color: var(--muted);
-	}
-
-	.error {
-		margin: 0;
-		padding: 0.5rem;
-		background: var(--neg-light);
-		border: 1px solid var(--neg);
-		border-radius: var(--r-input);
-		color: var(--neg);
-		font-size: 0.9rem;
-	}
-
-	.actions {
-		display: flex;
-		gap: 0.75rem;
-		justify-content: flex-end;
-		padding-top: 0.5rem;
-		border-top: 1px solid var(--border);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
+	/* Form elements use design system classes: .tt-form-field, .tt-form-field__label, .tt-error-message, .tt-form-actions */
+	/* Input uses design system class: .tt-text-input */
+	/* Buttons use design system classes: .tt-button-primary, .tt-button-secondary */
 </style>

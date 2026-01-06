@@ -36,39 +36,26 @@
 </script>
 
 {#if canGoBack}
-	<button class="back-btn" onclick={handleBack} disabled={!canGoBack} aria-label="Zurück">
-		Zurück
+	<button
+		class="tt-header-nav-button tt-interactive-dark"
+		onclick={handleBack}
+		disabled={!canGoBack}
+		aria-label="Zurück"
+	>
+		<svg
+			class="tt-header-nav-button__icon"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<polyline points="15 18 9 12 15 6"></polyline>
+		</svg>
 	</button>
 {/if}
 
 <style>
-	.back-btn {
-		width: 70px;
-		height: 32px;
-		padding: 6px 12px;
-		border: none;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 0.875rem;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%);
-		transition: opacity 0.2s;
-	}
-
-	.back-btn:hover:not(:disabled) {
-		opacity: 0.9;
-	}
-
-	.back-btn:active:not(:disabled) {
-		opacity: 0.8;
-	}
-
-	.back-btn:disabled {
-		opacity: 0.3;
-		cursor: not-allowed;
-	}
+	/* Visual styles use design system classes: .tt-header-nav-button, .tt-header-nav-button:disabled, .tt-header-nav-button__icon */
 </style>

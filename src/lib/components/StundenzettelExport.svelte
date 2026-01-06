@@ -18,6 +18,9 @@
 	import type { Employer, TimeEntry, Category } from '$lib/types';
 	import { SvelteSet } from 'svelte/reactivity';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
+	import DateInput from './DateInput.svelte';
+	import { userFullName } from '$lib/stores/user';
 	import {
 		exportStundenzettelExcel,
 		exportStundenzettelPdf,
@@ -35,7 +38,7 @@
 	// Available columns for export
 	const AVAILABLE_COLUMNS = [
 		{ id: 'date', label: 'Datum', defaultSelected: true },
-		{ id: 'category', label: 'Kategorie', defaultSelected: true },
+		{ id: 'category', label: 'Eintrag', defaultSelected: true },
 		{ id: 'startTime', label: 'Von', defaultSelected: true },
 		{ id: 'endTime', label: 'Bis', defaultSelected: true },
 		{ id: 'duration', label: 'Dauer', defaultSelected: true },
@@ -48,6 +51,9 @@
 	let employers = $state<Employer[]>([]);
 	let categories = $state<Category[]>([]);
 	let selectedEmployerId = $state<string>('');
+
+	// Convert employers to dropdown options
+	let employerOptions = $derived(employers.map((e) => ({ value: e.id, label: e.name })));
 	let startDate = $state(getDefaultStartDate());
 	let endDate = $state(getDefaultEndDate());
 	let selectedColumns = new SvelteSet<ColumnId>(
@@ -58,15 +64,20 @@
 	let loading = $state(false);
 	let isExporting = $state(false);
 	let error = $state('');
+	let exportFormat: 'pdf' | 'excel' = $state('pdf');
 
 	function getDefaultStartDate(): string {
+		// Pre-select last complete month
 		const today = new Date();
-		return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-01`;
+		const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+		return `${lastMonth.getFullYear()}-${String(lastMonth.getMonth() + 1).padStart(2, '0')}-01`;
 	}
 
 	function getDefaultEndDate(): string {
+		// Pre-select last day of last month
 		const today = new Date();
-		return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+		const lastDayOfLastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+		return `${lastDayOfLastMonth.getFullYear()}-${String(lastDayOfLastMonth.getMonth() + 1).padStart(2, '0')}-${String(lastDayOfLastMonth.getDate()).padStart(2, '0')}`;
 	}
 
 	function formatDisplayDate(dateStr: string): string {
@@ -234,32 +245,38 @@
 
 <Modal title="Stundenzettel exportieren" {onclose}>
 	<div class="export-form">
-		<!-- Employer Selection -->
-		<div class="field">
-			<label for="employer-select">Arbeitgeber:</label>
-			{#if employers.length === 0}
-				<p class="no-employers">
-					Keine Arbeitgeber vorhanden. Erstelle zuerst einen Arbeitgeber in den Einstellungen.
-				</p>
+		<!-- User Name Display -->
+		<div class="user-name-display">
+			{#if $userFullName}
+				<span class="user-name">{$userFullName}</span>
 			{:else}
-				<select id="employer-select" class="select-input" bind:value={selectedEmployerId}>
-					{#each employers as employer (employer.id)}
-						<option value={employer.id}>{employer.name}</option>
-					{/each}
-				</select>
+				<span class="user-name-warning">Bitte Name im Abschnitt Konto festlegen</span>
 			{/if}
 		</div>
 
+		<!-- Employer Selection -->
+		{#if employers.length === 0}
+			<div class="field">
+				<label for="employer-select">Arbeitgeber:</label>
+				<p class="no-employers">
+					Keine Arbeitgeber vorhanden. Erstelle zuerst einen Arbeitgeber in den Einstellungen.
+				</p>
+			</div>
+		{:else}
+			<div class="tt-labeled-dropdown">
+				<span class="tt-labeled-dropdown__label">Arbeitgeber</span>
+				<CustomDropdown
+					options={employerOptions}
+					value={selectedEmployerId}
+					onchange={(id) => (selectedEmployerId = id)}
+				/>
+			</div>
+		{/if}
+
 		<!-- Date Range -->
 		<div class="date-range">
-			<div class="field">
-				<label for="start-date">Von:</label>
-				<input type="date" id="start-date" class="date-input" bind:value={startDate} />
-			</div>
-			<div class="field">
-				<label for="end-date">Bis:</label>
-				<input type="date" id="end-date" class="date-input" bind:value={endDate} />
-			</div>
+			<DateInput bind:value={startDate} label="Von:" id="start-date" />
+			<DateInput bind:value={endDate} label="Bis:" id="end-date" />
 		</div>
 
 		<!-- Column Selection -->
@@ -267,9 +284,10 @@
 			<span class="field-label">Spalten:</span>
 			<div class="columns-grid">
 				{#each AVAILABLE_COLUMNS as column (column.id)}
-					<label class="column-checkbox">
+					<label class="tt-checkbox-label">
 						<input
 							type="checkbox"
+							class="tt-checkbox"
 							checked={selectedColumns.has(column.id)}
 							onchange={() => toggleColumn(column.id)}
 						/>
@@ -358,24 +376,31 @@
 			<p class="error">{error}</p>
 		{/if}
 
+		<!-- Export Format Selection -->
+		<div class="field">
+			<span class="field-label">Format:</span>
+			<div class="format-options">
+				<label class="format-radio">
+					<input type="radio" name="export-format" value="pdf" bind:group={exportFormat} />
+					<span>PDF</span>
+				</label>
+				<label class="format-radio">
+					<input type="radio" name="export-format" value="excel" bind:group={exportFormat} />
+					<span>Excel</span>
+				</label>
+			</div>
+		</div>
+
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={onclose}> Abbrechen </button>
+			<button type="button" class="tt-button-secondary" onclick={onclose}> Abbrechen </button>
 			<button
 				type="button"
-				class="btn-primary"
-				onclick={handlePdfExport}
+				class="tt-button-primary"
+				onclick={() => (exportFormat === 'pdf' ? handlePdfExport() : handleExcelExport())}
 				disabled={employers.length === 0 || loading || isExporting || processedEntries.length === 0}
 			>
-				{isExporting ? 'Exportiere...' : 'PDF exportieren'}
-			</button>
-			<button
-				type="button"
-				class="btn-primary"
-				onclick={handleExcelExport}
-				disabled={employers.length === 0 || loading || isExporting || processedEntries.length === 0}
-			>
-				{isExporting ? 'Exportiere...' : 'Excel exportieren'}
+				{isExporting ? 'Exportiere...' : 'Exportieren'}
 			</button>
 		</div>
 	</div>
@@ -385,135 +410,112 @@
 	.export-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
+	}
+
+	.user-name-display {
+		padding: var(--tt-space-12);
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-card);
+		text-align: center;
+		font-weight: 500;
+	}
+
+	.user-name {
+		color: var(--tt-text-primary);
+		font-size: 1.1rem;
+	}
+
+	.user-name-warning {
+		color: var(--tt-status-danger-500);
+		font-size: var(--tt-font-size-body);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.field label,
 	.field-label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--text);
-	}
-
-	.select-input,
-	.date-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.select-input:focus,
-	.date-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		color: var(--tt-text-primary);
 	}
 
 	.no-employers {
 		margin: 0;
-		padding: 0.75rem;
-		background: var(--surface-hover);
-		border-radius: var(--r-input);
-		color: var(--muted);
-		font-size: 0.9rem;
+		padding: var(--tt-space-12);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-input);
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-body);
 	}
 
 	.date-range {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.columns-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 0.5rem;
-	}
-
-	.column-checkbox {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.5rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
-		cursor: pointer;
-		font-size: 0.9rem;
-	}
-
-	.column-checkbox:hover {
-		background: var(--surface-hover);
-	}
-
-	.column-checkbox:has(input:checked) {
-		border-color: var(--accent);
-		background: var(--accent-light);
-	}
-
-	.column-checkbox input {
-		margin: 0;
+		gap: var(--tt-space-8);
 	}
 
 	.preview-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.preview-section .field-label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.loading,
 	.no-entries {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		text-align: center;
-		color: var(--muted);
-		background: var(--surface-hover);
-		border-radius: var(--r-input);
-		font-size: 0.9rem;
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-input);
+		font-size: var(--tt-font-size-body);
 	}
 
 	.preview-table-container {
 		max-height: 200px;
 		overflow: auto;
-		border: 1px solid var(--border);
-		border-radius: var(--r-input);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
 	}
 
 	.preview-table {
 		width: 100%;
 		border-collapse: collapse;
-		font-size: 0.8rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.preview-table th,
 	.preview-table td {
-		padding: 0.5rem;
+		padding: var(--tt-space-8);
 		text-align: left;
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--tt-border-default);
 	}
 
 	.preview-table th {
-		background: var(--surface-hover);
+		background: var(--tt-background-card-hover);
 		font-weight: 600;
 		position: sticky;
 		top: 0;
 	}
 
 	.preview-table tbody tr:hover {
-		background: var(--surface-hover);
+		background: var(--tt-state-hover);
 	}
 
 	.description-cell {
@@ -525,63 +527,50 @@
 
 	.more-rows td {
 		text-align: center;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		font-style: italic;
 	}
 
 	.error {
 		margin: 0;
-		padding: 0.5rem;
-		background: var(--neg-light);
-		border: 1px solid var(--neg);
-		border-radius: var(--r-input);
-		color: var(--neg);
-		font-size: 0.9rem;
+		padding: var(--tt-space-8);
+		background: var(--tt-status-danger-800);
+		border: 1px solid var(--tt-status-danger-500);
+		border-radius: var(--tt-radius-input);
+		color: var(--tt-status-danger-500);
+		font-size: var(--tt-font-size-body);
+	}
+
+	.format-options {
+		display: flex;
+		gap: var(--tt-space-16);
+	}
+
+	.format-radio {
+		display: flex;
+		align-items: center;
+		gap: var(--tt-space-8);
+		cursor: pointer;
+		font-size: var(--tt-font-size-body);
+	}
+
+	.format-radio input[type='radio'] {
+		cursor: pointer;
+		width: 18px;
+		height: 18px;
+	}
+
+	.format-radio span {
+		user-select: none;
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
 		justify-content: flex-end;
-		padding-top: 0.5rem;
-		border-top: 1px solid var(--border);
+		gap: var(--tt-space-8);
+		padding-top: 1rem;
+		border-top: 1px solid var(--tt-border-default);
 	}
 
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
+	/* Uses design system classes: .tt-button-primary, .tt-button-secondary */
 </style>

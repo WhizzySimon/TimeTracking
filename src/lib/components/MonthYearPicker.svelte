@@ -8,6 +8,7 @@
 -->
 <script lang="ts">
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 	import type { TimeEntry } from '$lib/types';
 
 	interface Props {
@@ -71,6 +72,9 @@
 	const endYear = nextMonth.getFullYear();
 	const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 
+	// Year options for dropdown
+	let yearOptions = $derived(years.map((y) => ({ value: String(y), label: String(y) })));
+
 	// Get valid month range for a given year
 	function getValidMonthRange(year: number): { min: number; max: number } {
 		let min = 0;
@@ -87,6 +91,14 @@
 	}
 
 	let validMonthRange = $derived(getValidMonthRange(selectedYear));
+
+	// Available months for the selected year
+	let availableMonths = $derived(
+		Array.from(
+			{ length: validMonthRange.max - validMonthRange.min + 1 },
+			(_, i) => validMonthRange.min + i
+		)
+	);
 
 	// Ensure selected month is valid when year changes
 	$effect(() => {
@@ -117,30 +129,38 @@
 <Modal title="Monat wählen" onclose={() => onclose?.()}>
 	<div class="picker-content">
 		<!-- Quick action -->
-		<button type="button" class="quick-btn" onclick={goToCurrentMonth}>
+		<button type="button" class="quick-btn tt-interactive" onclick={goToCurrentMonth}>
 			Zum aktuellen Monat
 		</button>
 
 		<div class="divider">oder</div>
 
-		<!-- Year/Month selectors -->
-		<div class="selectors">
-			<div class="selector-group">
-				<label for="year-select">Jahr:</label>
-				<select id="year-select" bind:value={selectedYear} class="select-input">
-					{#each years as year (year)}
-						<option value={year}>{year}</option>
-					{/each}
-				</select>
-			</div>
+		<!-- Year selector -->
+		<div class="year-selector">
+			<label for="year-select">Jahr:</label>
+			<CustomDropdown
+				options={yearOptions}
+				value={String(selectedYear)}
+				onchange={(value) => (selectedYear = parseInt(value))}
+			/>
+		</div>
 
-			<div class="selector-group">
-				<label for="month-select">Monat:</label>
-				<select id="month-select" bind:value={selectedMonth} class="select-input">
-					{#each Array.from({ length: validMonthRange.max - validMonthRange.min + 1 }, (_, i) => validMonthRange.min + i) as month (month)}
-						<option value={month}>{monthNames[month]}</option>
-					{/each}
-				</select>
+		<!-- Month grid -->
+		<div class="month-section">
+			<label>Monat:</label>
+			<div class="month-grid">
+				{#each monthNames as monthName, index (index)}
+					<button
+						type="button"
+						class="month-btn tt-interactive"
+						class:selected={selectedMonth === index}
+						class:disabled={!availableMonths.includes(index)}
+						disabled={!availableMonths.includes(index)}
+						onclick={() => (selectedMonth = index)}
+					>
+						{monthName.substring(0, 3)}
+					</button>
+				{/each}
 			</div>
 		</div>
 
@@ -156,96 +176,115 @@
 	.picker-content {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.quick-btn {
 		width: 100%;
-		padding: 0.75rem;
-		background: var(--surface);
-		border: 2px solid var(--accent);
-		border-radius: var(--r-btn);
-		color: var(--accent);
+		padding: var(--tt-space-12);
+		background: var(--tt-background-card);
+		border: 2px solid var(--tt-brand-primary-500);
+		border-radius: var(--tt-radius-button);
+		color: var(--tt-brand-primary-500);
 		font-weight: 600;
 		cursor: pointer;
-		font-size: 1rem;
-	}
-
-	.quick-btn:hover {
-		background: var(--accent-light);
+		font-size: var(--tt-font-size-normal);
 	}
 
 	.divider {
 		text-align: center;
-		color: var(--muted);
-		font-size: 0.9rem;
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-body);
 	}
 
-	.selectors {
-		display: flex;
-		gap: 1rem;
-	}
-
-	.selector-group {
-		flex: 1;
+	.year-selector {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
-	.selector-group label {
-		font-size: 0.85rem;
-		color: var(--muted);
+	.year-selector label {
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-muted);
 	}
 
-	.select-input {
-		padding: 0.5rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
+	.month-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-8);
 	}
 
-	.select-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+	.month-section label {
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-muted);
+	}
+
+	.month-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--tt-space-8);
+	}
+
+	.month-btn {
+		padding: var(--tt-space-8);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
+		font-size: var(--tt-font-size-small);
+		font-weight: 500;
+		cursor: pointer;
+		transition:
+			background var(--tt-transition-fast),
+			border-color var(--tt-transition-fast),
+			color var(--tt-transition-fast);
+	}
+
+	.month-btn.selected {
+		background: var(--tt-brand-primary-500);
+		border-color: var(--tt-brand-primary-500);
+		color: white;
+		font-weight: 600;
+	}
+
+	.month-btn.disabled {
+		opacity: 0.3;
+		cursor: not-allowed;
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		margin-top: 0.5rem;
 	}
 
 	.btn-cancel,
 	.btn-select {
 		flex: 1;
-		padding: 0.75rem;
-		border-radius: var(--r-btn);
-		font-size: 1rem;
+		padding: var(--tt-space-12);
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 	}
 
 	.btn-cancel {
-		background: var(--btn-secondary-bg);
-		border: 1px solid var(--btn-secondary-border);
-		color: var(--btn-secondary-text);
+		background: var(--tt-button-secondary-bg);
+		border: 1px solid var(--tt-button-secondary-border);
+		color: var(--tt-button-secondary-text);
 	}
 
 	.btn-cancel:hover {
-		background: var(--btn-secondary-hover);
+		background: var(--tt-button-secondary-hover);
 	}
 
 	.btn-select {
-		background: var(--btn-primary-bg);
+		background: var(--tt-button-primary-bg);
 		border: none;
-		color: var(--btn-primary-text);
+		color: var(--tt-button-primary-text);
 		font-weight: 600;
 	}
 
 	.btn-select:hover {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 </style>

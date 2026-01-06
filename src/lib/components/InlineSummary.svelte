@@ -19,66 +19,45 @@
 	let { ist, soll, saldo }: Props = $props();
 </script>
 
-<div class="inline-summary">
-	<span class="summary-item">
-		<span class="label">Ist:</span>
-		<span class="value">{formatHours(ist)}</span>
+<div class="tt-summary-display">
+	<span class="tt-summary-label">Zusammenfassung</span>
+	<span class="tt-summary-display__item">
+		<span class="tt-summary-display__label">Ist:</span>
+		<span class="tt-summary-display__value">{formatHours(ist)}</span>
 	</span>
-	<span class="summary-item">
-		<span class="label">Soll:</span>
-		<span class="value">{formatHours(soll)}</span>
+	<span class="tt-summary-display__item">
+		<span class="tt-summary-display__label">Soll:</span>
+		<span class="tt-summary-display__value">{formatHours(soll)}</span>
 	</span>
-	<span class="summary-item">
-		<span class="label">Haben:</span>
-		<span class="value" class:positive={saldo > 0} class:negative={saldo < 0}>
+	<span class="tt-summary-display__item">
+		<span class="tt-summary-display__label">Haben:</span>
+		<span
+			class="tt-summary-display__value"
+			class:tt-summary-display__value-positive={saldo > 0}
+			class:tt-summary-display__value-negative={saldo < 0}
+		>
 			{formatHours(saldo, true)}
 		</span>
 	</span>
 </div>
 
 <style>
-	.inline-summary {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-		padding: 0.75rem 1rem;
-		background-color: var(--summary-bg);
-		border-radius: var(--r-card);
-		font-size: 0.9rem;
-		border: 1px solid var(--border);
+	.tt-summary-label {
+		margin-right: auto;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		min-width: 0;
 	}
 
-	.summary-item {
-		display: flex;
-		gap: 0.25rem;
-		align-items: baseline;
-	}
-
-	.label {
-		color: var(--summary-label);
-		font-weight: 500;
-	}
-
-	.value {
-		font-weight: 600;
-		color: var(--summary-value);
-	}
-
-	.value.positive {
-		color: var(--pos);
-	}
-
-	.value.negative {
-		color: var(--neg);
-	}
-
+	/* Layout override for narrow screens */
 	@media (max-width: 360px) {
-		.inline-summary {
+		.tt-summary-display {
 			flex-direction: column;
-			gap: 0.5rem;
+			gap: var(--tt-space-8);
 		}
 
-		.summary-item {
+		.tt-summary-display__item {
 			justify-content: space-between;
 			width: 100%;
 		}

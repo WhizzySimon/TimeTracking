@@ -25,17 +25,17 @@ For bugs, behavior changes, and small improvements.
 | **Moderate** | Opus 4          | 4x      | Multi-file change, needs judgment, clear root cause     |
 | **Complex**  | Opus 4 Thinking | 5x      | Unclear root cause, multi-step debugging, architectural |
 
-**Wait for user to confirm model selection before proceeding.**
+**STOP HERE. Do not proceed until user confirms model selection.**
+**After confirmation → Create ticket (Step 1) BEFORE any code changes.**
 
 ---
 
-## Step 1: Create Ticket (AUTOMATIC)
+## Step 1: Create Ticket
 
-// turbo
-**Agent: Create this file immediately when /fixOrChange is invoked:**
+**Agent: Create this file ONLY AFTER user confirms model selection:**
 
 ```
-Docs/Temp/FIX-<short-name>.md
+TempAppDevDocs/QuickFixes/FIX-<short-name>.md
 ```
 
 With content:
@@ -121,7 +121,7 @@ Update verification checkboxes in ticket.
 1. Mark ticket status as VERIFIED
 2. Stage ticket with your changes
 3. Run `/commit` workflow
-4. After successful commit: delete ticket (or move to `Docs/Archive/`)
+4. After successful commit: delete ticket (or move to `TempAppDevDocs/Archive/`)
 
 ---
 
@@ -129,7 +129,7 @@ Update verification checkboxes in ticket.
 
 Create separate tickets:
 
-- `Docs/Temp/FIX-paywall-price.md`
-- `Docs/Temp/FIX-employer-dropdown.md`
+- `TempAppDevDocs/QuickFixes/FIX-paywall-price.md`
+- `TempAppDevDocs/QuickFixes/FIX-employer-dropdown.md`
 
 Each tracks its own verification status.

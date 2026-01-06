@@ -6,7 +6,7 @@
   - Warning for skipped entries
   - Confirm/Cancel buttons
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen D)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen D)
 -->
 <script lang="ts">
 	import type { TimeEntryCandidate } from '$lib/import/types';
@@ -94,34 +94,34 @@
 	.commit-container {
 		max-width: 500px;
 		margin: 0 auto;
-		padding: 1rem;
+		padding: var(--tt-space-16);
 	}
 
 	h2 {
-		font-size: 1.25rem;
+		font-size: var(--tt-font-size-title);
 		margin: 0 0 1.5rem;
 		text-align: center;
 	}
 
 	.summary-card {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 8px;
-		padding: 1rem;
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-16);
 		margin-bottom: 1rem;
 	}
 
 	.summary-card h3 {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		margin: 0 0 0.75rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.summary-list {
 		margin: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.summary-item {
@@ -131,24 +131,24 @@
 	}
 
 	.summary-item dt {
-		font-size: 0.875rem;
-		color: var(--text-secondary);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-secondary);
 	}
 
 	.summary-item dd {
 		margin: 0;
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		font-weight: 600;
-		color: var(--text-primary);
+		color: var(--tt-text-primary);
 	}
 
 	.warning-card {
 		display: flex;
-		gap: 0.75rem;
-		padding: 1rem;
-		background: var(--warning-color-light, rgba(245, 158, 11, 0.1));
-		border: 1px solid var(--warning-color, #f59e0b);
-		border-radius: 8px;
+		gap: var(--tt-space-12);
+		padding: var(--tt-space-16);
+		background: var(--tt-status-warning-500-light, rgba(245, 158, 11, 0.1));
+		border: 1px solid var(--tt-status-warning-500);
+		border-radius: var(--tt-radius-card);
 		margin-bottom: 1.5rem;
 	}
 
@@ -158,7 +158,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--warning-color, #f59e0b);
+		background: var(--tt-status-warning-500);
 		color: white;
 		border-radius: 50%;
 		font-weight: 600;
@@ -166,7 +166,7 @@
 	}
 
 	.warning-text {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.warning-text strong {
@@ -176,33 +176,33 @@
 
 	.warning-text p {
 		margin: 0;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.commit-actions {
 		display: flex;
 		justify-content: space-between;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.btn-cancel,
 	.btn-confirm {
 		flex: 1;
 		padding: 0.75rem 1rem;
-		border-radius: 8px;
-		font-size: 1rem;
+		border-radius: var(--tt-radius-card);
+		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 		border: none;
 	}
 
 	.btn-cancel {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-text-primary);
+		border: 1px solid var(--tt-border-default);
 	}
 
 	.btn-confirm {
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		color: white;
 	}
 

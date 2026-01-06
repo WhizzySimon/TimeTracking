@@ -56,12 +56,6 @@
 		dispatch('close');
 	}
 
-	function handleBackdropClick(event: MouseEvent) {
-		if (event.target === event.currentTarget && isModal) {
-			handleContinueFree();
-		}
-	}
-
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape' && isModal) {
 			handleContinueFree();
@@ -74,7 +68,6 @@
 {#if isModal}
 	<div
 		class="paywall-backdrop"
-		onclick={handleBackdropClick}
 		onkeydown={handleKeydown}
 		role="dialog"
 		aria-modal="true"
@@ -91,6 +84,25 @@
 {/if}
 
 {#snippet paywallContent()}
+	{#if isModal}
+		<button
+			class="tt-symbol-button close-btn-pos"
+			onclick={handleContinueFree}
+			aria-label="Schließen"
+		>
+			<svg
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<line x1="18" y1="6" x2="6" y2="18"></line>
+				<line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+	{/if}
 	<div class="paywall-header">
 		<div class="paywall-icon">
 			<svg
@@ -112,7 +124,7 @@
 	<PlanGrid onselect={handlePlanSelect} showCurrentBadge={false} />
 
 	<div class="actions">
-		<button class="btn-secondary" onclick={handleContinueFree}>Weiter mit Free</button>
+		<button class="tt-button-secondary" onclick={handleContinueFree}>Weiter mit Free</button>
 	</div>
 
 	<p class="free-note">Alle anderen Funktionen bleiben kostenlos verfügbar.</p>
@@ -139,19 +151,19 @@
 	.paywall-icon {
 		font-size: 3rem;
 		margin-bottom: 1rem;
-		color: var(--accent);
+		color: var(--tt-brand-primary-500);
 	}
 
 	.paywall-title {
 		font-size: 1.5rem;
 		font-weight: 700;
 		margin: 0 0 0.5rem 0;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.paywall-subtitle {
-		font-size: 1rem;
-		color: var(--muted);
+		font-size: var(--tt-font-size-normal);
+		color: var(--tt-text-muted);
 		margin: 0 0 1.5rem 0;
 	}
 
@@ -161,46 +173,27 @@
 		margin-top: 1.5rem;
 	}
 
-	.btn-secondary {
-		padding: 0.875rem 1.5rem;
-		background: transparent;
-		color: var(--muted);
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		font-size: 1rem;
-		font-weight: 500;
-		cursor: pointer;
-		transition:
-			background-color 0.15s ease,
-			border-color 0.15s ease;
-	}
-
-	.btn-secondary:hover {
-		background: var(--surface-hover);
-		border-color: var(--border);
-	}
-
 	.free-note {
 		margin-top: 1rem;
-		font-size: 0.85rem;
-		color: var(--muted);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-muted);
 		text-align: center;
 	}
 
 	.paywall-backdrop {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
+		background: var(--tt-backdrop-bg);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		z-index: 1000;
-		padding: 1rem;
+		padding: var(--tt-space-16);
 	}
 
 	.paywall-modal {
-		background: var(--surface);
-		border-radius: var(--r-card);
+		background: var(--tt-background-card);
+		border-radius: var(--tt-radius-card);
 		padding: 2rem 1.5rem;
 		max-width: 900px;
 		width: 100%;
@@ -209,6 +202,14 @@
 		display: flex;
 		flex-direction: column;
 		align-items: stretch;
-		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+		box-shadow: var(--tt-shadow-modal);
+		position: relative;
+	}
+
+	.close-btn-pos {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		z-index: 1;
 	}
 </style>

@@ -13,6 +13,7 @@
 	import { getAllEmployers } from '$lib/storage/employers';
 	import type { Category, Employer } from '$lib/types';
 	import Modal from './Modal.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		onclose: () => void;
@@ -28,8 +29,18 @@
 	let employers = $state<Employer[]>([]);
 	let selectedEmployerId = $state<string>('');
 
+	// Convert employers to dropdown options (no "Alle" option - must select specific employer)
+	let employerOptions = $derived(
+		employers.filter((e) => e.isActive).map((e) => ({ value: e.id, label: e.name }))
+	);
+
 	onMount(async () => {
 		employers = await getAllEmployers();
+		// Pre-select first active employer
+		const activeEmployers = employers.filter((e) => e.isActive);
+		if (activeEmployers.length > 0) {
+			selectedEmployerId = activeEmployers[0].id;
+		}
 	});
 
 	async function handleFileUpload(event: Event) {
@@ -52,6 +63,12 @@
 			return;
 		}
 
+		// STRICT: Require employer selection for category import
+		if (!selectedEmployerId) {
+			error = 'Bitte zuerst Arbeitgeber auswählen';
+			return;
+		}
+
 		importing = true;
 		error = '';
 		result = null;
@@ -63,13 +80,13 @@
 				textInput,
 				existingCategories,
 				systemNames,
-				selectedEmployerId || undefined
+				selectedEmployerId
 			);
 
 			let importedCount = 0;
 			for (const cat of toImport) {
 				try {
-					await addUserCategory(cat.name, cat.countsAsWorkTime, selectedEmployerId || undefined);
+					await addUserCategory(cat.name, cat.countsAsWorkTime, selectedEmployerId);
 					importedCount++;
 				} catch (e) {
 					console.warn(`Failed to import category "${cat.name}":`, e);
@@ -82,12 +99,8 @@
 
 			result = { imported: importedCount, skipped: skippedCount };
 
-			if (importedCount > 0) {
-				// Auto-close after short delay if successful
-				setTimeout(() => {
-					onsave();
-				}, 1500);
-			}
+			// Close immediately after import completes
+			onsave();
 		} catch (e) {
 			error = 'Fehler beim Importieren';
 			console.error('Import error:', e);
@@ -104,12 +117,11 @@
 		{#if employers.filter((e) => e.isActive).length > 0}
 			<div class="employer-select">
 				<label for="employer-dropdown">Arbeitgeber</label>
-				<select id="employer-dropdown" class="employer-dropdown" bind:value={selectedEmployerId}>
-					<option value="">Alle Arbeitgeber</option>
-					{#each employers.filter((e) => e.isActive) as employer (employer.id)}
-						<option value={employer.id}>{employer.name}</option>
-					{/each}
-				</select>
+				<CustomDropdown
+					options={employerOptions}
+					value={selectedEmployerId}
+					onchange={(id) => (selectedEmployerId = id)}
+				/>
 			</div>
 		{/if}
 
@@ -120,13 +132,14 @@
 			</label>
 		</div>
 
-		<div class="text-input">
+		<div class="textarea-field">
 			<label for="categories-text">Oder direkt eingeben:</label>
 			<textarea
 				id="categories-text"
+				class="tt-textarea"
 				bind:value={textInput}
 				placeholder="Kategorie 1, Kategorie 2, Kategorie 3"
-				rows="4"
+				rows="6"
 				disabled={importing}
 			></textarea>
 		</div>
@@ -169,41 +182,26 @@
 	.import-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.hint {
-		font-size: 0.9rem;
-		color: var(--muted);
-		background: var(--surface-hover);
-		padding: 0.75rem;
-		border-radius: var(--r-input);
+		font-size: var(--tt-font-size-body);
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-hover);
+		padding: var(--tt-space-12);
+		border-radius: var(--tt-radius-input);
 	}
 
 	.employer-select {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.employer-select label {
-		font-size: 0.9rem;
-		color: var(--text);
-	}
-
-	.employer-dropdown {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		background: var(--input-bg);
-		color: var(--input-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.employer-dropdown:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
+		font-size: var(--tt-font-size-body);
+		color: var(--tt-text-primary);
 	}
 
 	.file-upload {
@@ -222,105 +220,109 @@
 	.file-btn {
 		display: inline-block;
 		padding: 0.5rem 1rem;
-		border: 1px solid var(--accent);
-		border-radius: var(--r-btn);
-		background: var(--surface);
-		color: var(--accent);
-		font-size: 0.9rem;
+		border: 1px solid var(--tt-brand-primary-500);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-background-card);
+		color: var(--tt-brand-primary-500);
+		font-size: var(--tt-font-size-body);
 		cursor: pointer;
 	}
 
 	.file-btn:hover {
-		background: var(--accent-light);
+		background: var(--tt-state-hover);
 	}
 
-	.text-input {
+	.textarea-field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
-	.text-input label {
-		font-size: 0.9rem;
-		color: var(--text);
+	.textarea-field label {
+		font-size: var(--tt-font-size-body);
+		font-weight: 500;
+		color: var(--tt-text-primary);
 	}
 
-	.text-input textarea {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
+	.tt-textarea {
+		width: 100%;
+		min-height: 120px;
+		padding: var(--tt-space-12);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-input);
+		font-size: var(--tt-font-size-normal);
 		font-family: inherit;
 		resize: vertical;
-		background: var(--input-bg);
-		color: var(--input-text);
+		background: var(--tt-background-input);
+		color: var(--tt-text-primary);
 	}
 
-	.text-input textarea:focus {
+	.tt-textarea:focus {
 		outline: none;
-		border-color: var(--input-focus-border);
+		border-color: var(--tt-brand-primary-500);
+		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.error {
-		color: var(--neg);
-		font-size: 0.9rem;
-		padding: 0.5rem;
-		background: var(--neg-light);
-		border-radius: var(--r-input);
+		color: var(--tt-status-danger-500);
+		font-size: var(--tt-font-size-body);
+		padding: var(--tt-space-8);
+		background: var(--tt-status-danger-800);
+		border-radius: var(--tt-radius-input);
 	}
 
 	.result {
-		font-size: 0.9rem;
-		padding: 0.75rem;
-		background: var(--surface-hover);
-		border-radius: var(--r-input);
+		font-size: var(--tt-font-size-body);
+		padding: var(--tt-space-12);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-input);
 		text-align: center;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.result.success {
-		background: var(--pos-light);
-		color: var(--pos);
+		background: var(--tt-status-success-800);
+		color: var(--tt-status-success-500);
 	}
 
 	.skipped {
-		color: var(--muted);
-		font-size: 0.85rem;
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-small);
 	}
 
 	.actions {
 		display: flex;
 		justify-content: flex-end;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		margin-top: 0.5rem;
 	}
 
 	.cancel-btn {
 		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
+		border: 1px solid var(--tt-button-secondary-border);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-secondary-bg);
+		color: var(--tt-button-secondary-text);
+		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 	}
 
 	.cancel-btn:hover:not(:disabled) {
-		background: var(--btn-secondary-hover);
+		background: var(--tt-button-secondary-hover);
 	}
 
 	.import-btn {
 		padding: 0.75rem 1.5rem;
 		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-button-primary-bg);
+		color: var(--tt-button-primary-text);
+		font-size: var(--tt-font-size-normal);
 		cursor: pointer;
 	}
 
 	.import-btn:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
+		background: var(--tt-button-primary-hover);
 	}
 
 	.import-btn:disabled,

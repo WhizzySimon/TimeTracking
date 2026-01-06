@@ -65,12 +65,14 @@
 		saving = true;
 
 		try {
+			const now = Date.now();
 			const newCategory: Category = {
 				id: crypto.randomUUID(),
 				name: trimmedName,
 				type: 'user',
 				countsAsWorkTime: fixedCountsAsWorkTime ?? countsAsWorkTimeState,
-				createdAt: Date.now()
+				createdAt: now,
+				updatedAt: now
 			};
 
 			await put('categories', newCategory);
@@ -102,7 +104,7 @@
 				data-testid="new-category-name"
 				bind:value={name}
 				placeholder="z.B. Meeting"
-				class="text-input"
+				class="tt-text-input"
 				disabled={saving}
 			/>
 		</div>
@@ -123,12 +125,12 @@
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose} disabled={saving}>
+			<button type="button" class="tt-button-secondary" onclick={handleClose} disabled={saving}>
 				Abbrechen
 			</button>
 			<button
 				type="button"
-				class="btn-primary"
+				class="tt-button-primary"
 				data-testid="add-category-btn"
 				onclick={handleSave}
 				disabled={saving}
@@ -143,43 +145,19 @@
 	.add-category-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
 	.field label {
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--text);
-	}
-
-	.text-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.text-input::placeholder {
-		color: var(--input-placeholder);
-	}
-
-	.text-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
-	}
-
-	.text-input:disabled {
-		background: var(--surface-hover);
-		color: var(--muted);
+		color: var(--tt-text-primary);
 	}
 
 	.checkbox-field {
@@ -190,7 +168,7 @@
 	.checkbox-field label {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		cursor: pointer;
 	}
 
@@ -202,57 +180,19 @@
 
 	.error {
 		margin: 0;
-		padding: 0.5rem;
-		background: var(--neg-light);
-		border: 1px solid var(--neg);
-		border-radius: var(--r-input);
-		color: var(--neg);
-		font-size: 0.9rem;
+		padding: var(--tt-space-8);
+		background: var(--tt-status-danger-800);
+		border: 1px solid var(--tt-status-danger-500);
+		border-radius: var(--tt-radius-input);
+		color: var(--tt-status-danger-500);
+		font-size: var(--tt-font-size-body);
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: 0.5rem;
-		border-top: 1px solid var(--border);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover:not(:disabled) {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-secondary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover:not(:disabled) {
-		background: var(--btn-primary-hover);
-	}
-
-	.btn-primary:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		border-top: 1px solid var(--tt-border-default);
 	}
 </style>

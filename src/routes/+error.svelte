@@ -37,8 +37,8 @@
 		</p>
 
 		<div class="error-actions">
-			<button class="btn-primary" onclick={handleReload}>Seite neu laden</button>
-			<button class="btn-secondary" onclick={handleGoHome}>Zur Startseite</button>
+			<button class="tt-button-primary" onclick={handleReload}>Seite neu laden</button>
+			<button class="tt-button-secondary" onclick={handleGoHome}>Zur Startseite</button>
 		</div>
 
 		{#if $page.error?.message}
@@ -56,17 +56,17 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 1rem;
-		background: var(--bg);
+		padding: var(--tt-space-16);
+		background: var(--tt-background-page);
 	}
 
 	.error-content {
 		max-width: 400px;
 		text-align: center;
-		background: var(--surface);
-		padding: 2rem;
-		border-radius: var(--r-card);
-		box-shadow: var(--elev-2);
+		background: var(--tt-background-card);
+		padding: var(--tt-space-32);
+		border-radius: var(--tt-radius-card);
+		box-shadow: var(--tt-shadow-modal);
 	}
 
 	.error-icon {
@@ -77,49 +77,19 @@
 	h1 {
 		margin: 0 0 0.5rem;
 		font-size: 1.5rem;
-		color: var(--text);
+		color: var(--tt-text-primary);
 	}
 
 	.error-message {
 		margin: 0 0 1.5rem;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 		line-height: 1.5;
 	}
 
 	.error-actions {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: background 0.2s;
-	}
-
-	.btn-primary:hover {
-		background: var(--btn-primary-hover);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-		transition: background 0.2s;
-	}
-
-	.btn-secondary:hover {
-		background: var(--btn-secondary-hover);
+		gap: var(--tt-space-12);
 	}
 
 	.error-details {
@@ -129,17 +99,17 @@
 
 	.error-details summary {
 		cursor: pointer;
-		color: var(--muted);
-		font-size: 0.875rem;
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-small);
 	}
 
 	.error-details pre {
 		margin-top: 0.5rem;
-		padding: 0.75rem;
-		background: var(--surface-hover);
-		border-radius: var(--r-input);
-		font-size: 0.75rem;
+		padding: var(--tt-space-12);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-input);
+		font-size: var(--tt-font-size-tiny);
 		overflow-x: auto;
-		color: var(--neg);
+		color: var(--tt-status-danger-500);
 	}
 </style>

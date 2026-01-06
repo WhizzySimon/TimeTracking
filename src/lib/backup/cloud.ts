@@ -8,7 +8,14 @@ import { getCurrentUserId } from '$lib/api/auth';
 import { exportSnapshot, type DatabaseSnapshot } from './snapshot';
 import { importSnapshot } from './restore';
 import { put, getByKey, getAll } from '$lib/storage/db';
-import type { TimeEntry } from '$lib/types';
+import type {
+	TimeEntry,
+	Category,
+	DayType,
+	WorkTimeModel,
+	UserPreference,
+	Employer
+} from '$lib/types';
 
 const SYNC_META_KEY = 'cloudSyncMeta';
 
@@ -26,7 +33,7 @@ export interface CloudSyncMeta {
 /**
  * Sync action determined by comparing local and cloud state.
  */
-export type SyncAction = 'upload' | 'restore' | 'conflict' | 'noop';
+export type SyncAction = 'upload' | 'restore' | 'conflict' | 'merge' | 'noop';
 
 /**
  * Determine what sync action to take based on local meta and cloud state.
@@ -47,9 +54,9 @@ export function determineSyncAction(
 		return 'restore';
 	}
 
-	// Never synced but both have data: conflict (user must choose)
+	// Never synced but both have data: merge using LWW strategy
 	if (neverSynced && cloudHasData && localHasData) {
-		return 'conflict';
+		return 'merge';
 	}
 
 	// Never synced, no cloud data: upload local data
@@ -63,7 +70,7 @@ export function determineSyncAction(
 			new Date(cloudUpdatedAt) > new Date(localMeta.lastCloudUpdatedAt));
 
 	if (hasLocalChanges && cloudChanged) {
-		return 'conflict';
+		return 'merge';
 	}
 	if (hasLocalChanges) {
 		return 'upload';
@@ -251,6 +258,102 @@ export async function getCloudSnapshotWithMeta(): Promise<CloudSnapshotWithMeta>
 }
 
 /**
+ * Merge two arrays using Last-Write-Wins (LWW) strategy.
+ * For each unique ID, keeps the entry with the higher updatedAt timestamp.
+ * @param local Local entries
+ * @param cloud Cloud entries
+ * @returns Merged array with newer entries from either source
+ */
+function mergeByLWW<T extends { id: string; updatedAt: number }>(local: T[], cloud: T[]): T[] {
+	const merged = new Map<string, T>();
+
+	// Add all cloud entries first
+	for (const item of cloud) {
+		merged.set(item.id, item);
+	}
+
+	// Override with local if newer (higher updatedAt wins)
+	for (const item of local) {
+		const existing = merged.get(item.id);
+		if (!existing || item.updatedAt > existing.updatedAt) {
+			merged.set(item.id, item);
+		}
+	}
+
+	return Array.from(merged.values());
+}
+
+/**
+ * Merge UserPreference arrays using LWW (keyed by 'key' instead of 'id').
+ */
+function mergeUserPreferencesByLWW(
+	local: UserPreference[],
+	cloud: UserPreference[]
+): UserPreference[] {
+	const merged = new Map<string, UserPreference>();
+
+	for (const item of cloud) {
+		merged.set(item.key, item);
+	}
+
+	for (const item of local) {
+		const existing = merged.get(item.key);
+		if (!existing || item.updatedAt > existing.updatedAt) {
+			merged.set(item.key, item);
+		}
+	}
+
+	return Array.from(merged.values());
+}
+
+/**
+ * Merge DayType arrays using LWW (keyed by date instead of id).
+ */
+function mergeDayTypesByLWW(local: DayType[], cloud: DayType[]): DayType[] {
+	const merged = new Map<string, DayType>();
+
+	for (const item of cloud) {
+		merged.set(item.date, item);
+	}
+
+	for (const item of local) {
+		const existing = merged.get(item.date);
+		if (!existing || item.updatedAt > existing.updatedAt) {
+			merged.set(item.date, item);
+		}
+	}
+
+	return Array.from(merged.values());
+}
+
+/**
+ * Merge two snapshots using Last-Write-Wins (LWW) per entry.
+ * For each entity type, compares entries by ID and keeps the one with higher updatedAt.
+ * @param local Local snapshot
+ * @param cloud Cloud snapshot
+ * @returns Merged snapshot
+ */
+export function mergeSnapshots(local: DatabaseSnapshot, cloud: DatabaseSnapshot): DatabaseSnapshot {
+	return {
+		meta: {
+			...local.meta,
+			exportedAt: new Date().toISOString(),
+			exportedAtMs: Date.now()
+		},
+		categories: mergeByLWW<Category>(local.categories, cloud.categories),
+		timeEntries: mergeByLWW<TimeEntry>(local.timeEntries, cloud.timeEntries),
+		dayTypes: mergeDayTypesByLWW(local.dayTypes, cloud.dayTypes),
+		workTimeModels: mergeByLWW<WorkTimeModel>(local.workTimeModels, cloud.workTimeModels),
+		outbox: local.outbox, // Outbox is local-only, never merged
+		userPreferences: mergeUserPreferencesByLWW(
+			local.userPreferences ?? [],
+			cloud.userPreferences ?? []
+		),
+		employers: mergeByLWW<Employer>(local.employers ?? [], cloud.employers ?? [])
+	};
+}
+
+/**
  * Result of a sync operation.
  */
 export interface SyncResult {
@@ -326,8 +429,27 @@ export async function syncWithCloud(): Promise<SyncResult> {
 				return { success: true, action: 'restore' };
 			}
 
+			case 'merge': {
+				if (!cloudData.snapshot) {
+					return { success: false, action: 'merge', error: 'Cloud-Snapshot nicht gefunden' };
+				}
+				// Get local snapshot
+				const localSnapshot = await exportSnapshot();
+				// Merge using LWW strategy
+				const mergedSnapshot = mergeSnapshots(localSnapshot, cloudData.snapshot);
+				// Import merged snapshot locally
+				await importSnapshot(mergedSnapshot);
+				// Upload merged snapshot to cloud
+				const uploadResult = await saveToCloud();
+				if (!uploadResult.success) {
+					return { success: false, action: 'merge', error: uploadResult.error };
+				}
+				console.log('[CloudSync] Merged local and cloud data using LWW');
+				return { success: true, action: 'merge' };
+			}
+
 			case 'conflict':
-				// Don't execute - return flag for UI to handle
+				// Fallback for edge cases - should rarely happen with LWW merge
 				return {
 					success: true,
 					action: 'conflict',

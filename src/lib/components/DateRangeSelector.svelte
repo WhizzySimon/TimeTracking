@@ -5,13 +5,15 @@
   - ui-logic-spec-v1.md Section 5.2 (Zeitraum-Selector)
   
   Features:
-  - Schnellwahl: "Aktuelles Jahr" button
-  - Manuell: Two date fields (Von, Bis) with DD.MM.YYYY format
+  - Schnellwahl: Quick select buttons
+  - Manuell: DayPicker dialogs for Von/Bis selection
   - Validation: Von <= Bis
 -->
 <script lang="ts">
 	import { formatDate, parseDate } from '$lib/utils/date';
 	import Modal from './Modal.svelte';
+	import DayPicker from './DayPicker.svelte';
+	import { timeEntries } from '$lib/stores';
 
 	interface Props {
 		/** Current start date (ISO format YYYY-MM-DD) */
@@ -26,25 +28,28 @@
 
 	let { startDate, endDate, onsave, onclose }: Props = $props();
 
-	// Local state for editing
-	let startInput = $state('');
-	let endInput = $state('');
+	// Local state for editing (as Date objects)
+	let startDateObj = $state<Date>(new Date());
+	let endDateObj = $state<Date>(new Date());
 	let error = $state('');
 
-	// Initialize inputs from props
+	// DayPicker dialog states
+	let showStartPicker = $state(false);
+	let showEndPicker = $state(false);
+
+	// Initialize from props
 	$effect(() => {
 		const start = parseDate(startDate);
 		const end = parseDate(endDate);
-		if (start) startInput = formatDate(start, 'DE');
-		if (end) endInput = formatDate(end, 'DE');
+		if (start) startDateObj = start;
+		if (end) endDateObj = end;
 	});
 
 	// Quick select: current year
 	function selectCurrentYear() {
 		const now = new Date();
-		const yearStart = new Date(now.getFullYear(), 0, 1);
-		startInput = formatDate(yearStart, 'DE');
-		endInput = formatDate(now, 'DE');
+		startDateObj = new Date(now.getFullYear(), 0, 1);
+		endDateObj = now;
 		error = '';
 	}
 
@@ -52,54 +57,50 @@
 	function selectLastYear() {
 		const now = new Date();
 		const lastYear = now.getFullYear() - 1;
-		const yearStart = new Date(lastYear, 0, 1);
-		const yearEnd = new Date(lastYear, 11, 31);
-		startInput = formatDate(yearStart, 'DE');
-		endInput = formatDate(yearEnd, 'DE');
+		startDateObj = new Date(lastYear, 0, 1);
+		endDateObj = new Date(lastYear, 11, 31);
 		error = '';
 	}
 
 	// Quick select: current month (1st to today)
 	function selectCurrentMonth() {
 		const now = new Date();
-		const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-		startInput = formatDate(monthStart, 'DE');
-		endInput = formatDate(now, 'DE');
+		startDateObj = new Date(now.getFullYear(), now.getMonth(), 1);
+		endDateObj = now;
 		error = '';
 	}
 
 	// Quick select: last month (full month)
 	function selectLastMonth() {
 		const now = new Date();
-		const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0); // Last day of previous month
-		const lastMonthStart = new Date(lastMonthEnd.getFullYear(), lastMonthEnd.getMonth(), 1);
-		startInput = formatDate(lastMonthStart, 'DE');
-		endInput = formatDate(lastMonthEnd, 'DE');
+		const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0);
+		startDateObj = new Date(lastMonthEnd.getFullYear(), lastMonthEnd.getMonth(), 1);
+		endDateObj = lastMonthEnd;
+		error = '';
+	}
+
+	// DayPicker handlers
+	function handleStartSelect(date: Date) {
+		startDateObj = date;
+		showStartPicker = false;
+		error = '';
+	}
+
+	function handleEndSelect(date: Date) {
+		endDateObj = date;
+		showEndPicker = false;
 		error = '';
 	}
 
 	// Validate and save
 	function handleSave() {
-		const start = parseDate(startInput);
-		const end = parseDate(endInput);
-
-		if (!start) {
-			error = 'Ungültiges Startdatum (Format: TT.MM.JJJJ)';
-			return;
-		}
-
-		if (!end) {
-			error = 'Ungültiges Enddatum (Format: TT.MM.JJJJ)';
-			return;
-		}
-
-		if (start > end) {
+		if (startDateObj > endDateObj) {
 			error = 'Startdatum muss vor Enddatum liegen';
 			return;
 		}
 
 		error = '';
-		onsave?.(formatDate(start, 'ISO'), formatDate(end, 'ISO'));
+		onsave?.(formatDate(startDateObj, 'ISO'), formatDate(endDateObj, 'ISO'));
 	}
 
 	function handleClose() {
@@ -113,37 +114,44 @@
 		<div class="section">
 			<h3 class="section-title">Schnellwahl</h3>
 			<div class="quick-btns">
-				<button type="button" class="quick-btn" onclick={selectCurrentYear}>Aktuelles Jahr</button>
-				<button type="button" class="quick-btn" onclick={selectLastYear}>Letztes Jahr</button>
-				<button type="button" class="quick-btn" onclick={selectCurrentMonth}>Aktueller Monat</button
+				<button type="button" class="quick-btn tt-interactive" onclick={selectCurrentYear}
+					>Aktuelles Jahr</button
 				>
-				<button type="button" class="quick-btn" onclick={selectLastMonth}>Letzter Monat</button>
+				<button type="button" class="quick-btn tt-interactive" onclick={selectLastYear}
+					>Letztes Jahr</button
+				>
+				<button type="button" class="quick-btn tt-interactive" onclick={selectCurrentMonth}
+					>Aktueller Monat</button
+				>
+				<button type="button" class="quick-btn tt-interactive" onclick={selectLastMonth}
+					>Letzter Monat</button
+				>
 			</div>
 		</div>
 
-		<!-- Manual Input -->
+		<!-- Date Selection with DayPicker -->
 		<div class="section">
-			<h3 class="section-title">Manuell</h3>
+			<h3 class="section-title">Zeitraum</h3>
 			<div class="date-fields">
 				<div class="field">
-					<label for="range-start">Von:</label>
-					<input
-						type="text"
-						id="range-start"
-						bind:value={startInput}
-						placeholder="TT.MM.JJJJ"
-						class="date-input"
-					/>
+					<span class="field-label">Von:</span>
+					<button
+						type="button"
+						class="tt-date-selector-button tt-interactive-card"
+						onclick={() => (showStartPicker = true)}
+					>
+						<span class="tt-date-selector-button__date">{formatDate(startDateObj, 'DE')}</span>
+					</button>
 				</div>
 				<div class="field">
-					<label for="range-end">Bis:</label>
-					<input
-						type="text"
-						id="range-end"
-						bind:value={endInput}
-						placeholder="TT.MM.JJJJ"
-						class="date-input"
-					/>
+					<span class="field-label">Bis:</span>
+					<button
+						type="button"
+						class="tt-date-selector-button tt-interactive-card"
+						onclick={() => (showEndPicker = true)}
+					>
+						<span class="tt-date-selector-button__date">{formatDate(endDateObj, 'DE')}</span>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -155,130 +163,102 @@
 
 		<!-- Actions -->
 		<div class="actions">
-			<button type="button" class="btn-secondary" onclick={handleClose}> Abbrechen </button>
-			<button type="button" class="btn-primary" onclick={handleSave}> Übernehmen </button>
+			<button type="button" class="tt-button-secondary" onclick={handleClose}> Abbrechen </button>
+			<button type="button" class="tt-button-primary" onclick={handleSave}> Übernehmen </button>
 		</div>
 	</div>
 </Modal>
+
+<!-- Start Date Picker Dialog -->
+{#if showStartPicker}
+	<DayPicker
+		currentDate={startDateObj}
+		timeEntries={$timeEntries}
+		onselect={handleStartSelect}
+		onclose={() => (showStartPicker = false)}
+	/>
+{/if}
+
+<!-- End Date Picker Dialog -->
+{#if showEndPicker}
+	<DayPicker
+		currentDate={endDateObj}
+		timeEntries={$timeEntries}
+		onselect={handleEndSelect}
+		onclose={() => (showEndPicker = false)}
+	/>
+{/if}
 
 <style>
 	.range-selector {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--tt-space-24);
 	}
 
 	.section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.section-title {
 		margin: 0;
-		font-size: 0.9rem;
+		font-size: var(--tt-font-size-body);
 		font-weight: 600;
-		color: var(--muted);
+		color: var(--tt-text-muted);
 	}
 
 	.quick-btns {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.quick-btn {
 		padding: 0.75rem 1rem;
-		border: 1px solid var(--border);
-		border-radius: var(--r-btn);
-		background: var(--surface);
-		color: var(--text);
-		font-size: 0.9rem;
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		background: var(--tt-background-card);
+		color: var(--tt-text-primary);
+		font-size: var(--tt-font-size-body);
 		cursor: pointer;
 		text-align: center;
-	}
-
-	.quick-btn:hover {
-		background: var(--surface-hover);
-		border-color: var(--accent);
 	}
 
 	.date-fields {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--tt-space-4);
 	}
 
-	.field label {
-		font-size: 0.9rem;
+	.field-label {
+		font-size: var(--tt-font-size-body);
 		font-weight: 500;
-		color: var(--text);
-	}
-
-	.date-input {
-		padding: 0.75rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-	}
-
-	.date-input:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
+		color: var(--tt-text-primary);
 	}
 
 	.error {
 		margin: 0;
-		padding: 0.5rem;
-		background: var(--neg-light);
-		border: 1px solid var(--neg);
-		border-radius: var(--r-input);
-		color: var(--neg);
-		font-size: 0.9rem;
+		padding: var(--tt-space-8);
+		background: var(--tt-status-danger-800);
+		border: 1px solid var(--tt-status-danger-500);
+		border-radius: var(--tt-radius-input);
+		color: var(--tt-status-danger-500);
+		font-size: var(--tt-font-size-body);
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 		justify-content: flex-end;
 		padding-top: 0.5rem;
-		border-top: 1px solid var(--border-light);
-	}
-
-	.btn-secondary {
-		padding: 0.75rem 1.5rem;
-		border: 1px solid var(--btn-secondary-border);
-		border-radius: var(--r-btn);
-		background: var(--btn-secondary-bg);
-		color: var(--btn-secondary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-secondary:hover {
-		background: var(--btn-secondary-hover);
-	}
-
-	.btn-primary {
-		padding: 0.75rem 1.5rem;
-		border: none;
-		border-radius: var(--r-btn);
-		background: var(--btn-primary-bg);
-		color: var(--btn-primary-text);
-		font-size: 1rem;
-		cursor: pointer;
-	}
-
-	.btn-primary:hover {
-		background: var(--btn-primary-hover);
+		border-top: 1px solid var(--tt-border-default);
 	}
 </style>

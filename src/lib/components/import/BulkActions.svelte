@@ -6,7 +6,7 @@
   - Round durations
   - Select/deselect all
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen C)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen C)
 -->
 <script lang="ts">
 	import type { Category } from '$lib/types';
@@ -59,13 +59,19 @@
 	{#if selectedCount > 0}
 		<div class="actions">
 			<div class="dropdown-wrapper">
-				<button class="action-btn" onclick={() => (showCategoryDropdown = !showCategoryDropdown)}>
+				<button
+					class="action-btn tt-interactive"
+					onclick={() => (showCategoryDropdown = !showCategoryDropdown)}
+				>
 					Kategorie setzen
 				</button>
 				{#if showCategoryDropdown}
 					<div class="dropdown-menu">
 						{#each categories as category (category.id)}
-							<button class="dropdown-item" onclick={() => handleCategorySelect(category.id)}>
+							<button
+								class="dropdown-item tt-interactive"
+								onclick={() => handleCategorySelect(category.id)}
+							>
 								{category.name}
 							</button>
 						{/each}
@@ -77,14 +83,23 @@
 			</div>
 
 			<div class="dropdown-wrapper">
-				<button class="action-btn" onclick={() => (showRoundDropdown = !showRoundDropdown)}>
+				<button
+					class="action-btn tt-interactive"
+					onclick={() => (showRoundDropdown = !showRoundDropdown)}
+				>
 					Dauer runden
 				</button>
 				{#if showRoundDropdown}
 					<div class="dropdown-menu">
-						<button class="dropdown-item" onclick={() => handleRoundSelect(5)}>auf 5 Min</button>
-						<button class="dropdown-item" onclick={() => handleRoundSelect(15)}>auf 15 Min</button>
-						<button class="dropdown-item" onclick={() => handleRoundSelect(30)}>auf 30 Min</button>
+						<button class="dropdown-item tt-interactive" onclick={() => handleRoundSelect(5)}
+							>auf 5 Min</button
+						>
+						<button class="dropdown-item tt-interactive" onclick={() => handleRoundSelect(15)}
+							>auf 15 Min</button
+						>
+						<button class="dropdown-item tt-interactive" onclick={() => handleRoundSelect(30)}
+							>auf 30 Min</button
+						>
 					</div>
 				{/if}
 			</div>
@@ -98,29 +113,29 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.75rem 1rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 8px;
-		gap: 1rem;
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
+		gap: var(--tt-space-16);
 		flex-wrap: wrap;
 	}
 
 	.selection-info {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.count {
-		font-size: 0.875rem;
-		color: var(--text-secondary);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-secondary);
 	}
 
 	.link-btn {
 		background: none;
 		border: none;
-		color: var(--accent-color);
-		font-size: 0.875rem;
+		color: var(--tt-brand-primary-500);
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
 		padding: 0;
 	}
@@ -131,7 +146,7 @@
 
 	.actions {
 		display: flex;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 	}
 
 	.dropdown-wrapper {
@@ -140,16 +155,12 @@
 
 	.action-btn {
 		padding: 0.5rem 0.75rem;
-		background: var(--bg-primary);
-		border: 1px solid var(--border-color);
-		border-radius: 6px;
-		font-size: 0.875rem;
-		color: var(--text-primary);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-primary);
 		cursor: pointer;
-	}
-
-	.action-btn:hover {
-		background: var(--bg-tertiary);
 	}
 
 	.dropdown-menu {
@@ -158,10 +169,10 @@
 		right: 0;
 		margin-top: 0.25rem;
 		min-width: 150px;
-		background: var(--bg-primary);
-		border: 1px solid var(--border-color);
-		border-radius: 6px;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		background: var(--tt-background-card);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-button);
+		box-shadow: var(--tt-shadow-dropdown);
 		z-index: 100;
 		overflow: hidden;
 	}
@@ -169,25 +180,21 @@
 	.dropdown-item {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--tt-space-8);
 		width: 100%;
 		padding: 0.5rem 0.75rem;
 		background: none;
 		border: none;
-		font-size: 0.875rem;
-		color: var(--text-primary);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-primary);
 		cursor: pointer;
 		text-align: left;
-	}
-
-	.dropdown-item:hover {
-		background: var(--bg-secondary);
 	}
 
 	.dropdown-empty {
 		display: block;
 		padding: 0.5rem 0.75rem;
-		font-size: 0.875rem;
-		color: var(--text-tertiary);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-muted);
 	}
 </style>

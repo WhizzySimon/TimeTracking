@@ -1,6 +1,6 @@
 /**
  * OpenAI API wrapper for AI Import
- * Spec ref: Docs/Features/Specs/ai-import.md Section 8
+ * Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 8
  */
 
 import type { Category } from '$lib/types';

@@ -1,7 +1,7 @@
 /**
  * JSON Export for TimeTracker.
  * Exports all user data as a JSON file for backup/transfer.
- * Spec refs: Docs/Features/Specs/subscription-plans.md
+ * Spec refs: TempAppDevDocs/Features/Specs/subscription-plans.md
  */
 
 import { getAll } from '$lib/storage/db';

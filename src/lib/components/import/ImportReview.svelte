@@ -7,7 +7,7 @@
   - Inline editing support (placeholder)
   - Issue summary panel
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen C)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen C)
 -->
 <script lang="ts">
 	import { SvelteSet } from 'svelte/reactivity';
@@ -23,7 +23,14 @@
 
 	let { candidates, issues = [], onselectionchange, oncommit, oncancel }: Props = $props();
 
+	// Pre-select all valid entries by default
 	let selectedIds = new SvelteSet<string>();
+
+	// Initialize selection when candidates change
+	$effect(() => {
+		selectedIds.clear();
+		candidates.filter((c) => !c.flags.includes('hard_block')).forEach((c) => selectedIds.add(c.id));
+	});
 
 	let selectableCount = $derived(candidates.filter((c) => !c.flags.includes('hard_block')).length);
 	let selectedCount = $derived(selectedIds.size);
@@ -88,6 +95,23 @@
 </script>
 
 <div class="review-container">
+	<!-- Action buttons at top -->
+	<div class="review-header">
+		<div class="selection-info">
+			{selectedCount} von {candidates.length} ausgewählt
+		</div>
+		<div class="review-actions">
+			{#if oncancel}
+				<button class="btn-cancel" onclick={oncancel}>Zurück</button>
+			{/if}
+			{#if oncommit}
+				<button class="btn-commit" onclick={oncommit} disabled={selectedCount === 0}>
+					{selectedCount} importieren
+				</button>
+			{/if}
+		</div>
+	</div>
+
 	{#if issues.length > 0}
 		<div class="issues-panel">
 			<h3>Probleme ({issues.length})</h3>
@@ -155,42 +179,39 @@
 			</tbody>
 		</table>
 	</div>
-
-	<div class="review-footer">
-		<div class="selection-info">
-			{selectedCount} von {candidates.length} ausgewählt
-		</div>
-		<div class="review-actions">
-			{#if oncancel}
-				<button class="btn-cancel" onclick={oncancel}>Zurück</button>
-			{/if}
-			{#if oncommit}
-				<button class="btn-commit" onclick={oncommit} disabled={selectedCount === 0}>
-					{selectedCount} importieren
-				</button>
-			{/if}
-		</div>
-	</div>
 </div>
 
 <style>
 	.review-container {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
+	}
+
+	.review-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.75rem 1rem;
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
+		position: sticky;
+		top: 0;
+		z-index: 10;
 	}
 
 	.issues-panel {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 8px;
-		padding: 1rem;
+		background: var(--tt-background-card-hover);
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
+		padding: var(--tt-space-16);
 	}
 
 	.issues-panel h3 {
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 		margin: 0 0 0.75rem;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.issues-list {
@@ -202,14 +223,14 @@
 	.issue-item {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.875rem;
+		gap: var(--tt-space-8);
+		font-size: var(--tt-font-size-small);
 		padding: 0.25rem 0;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 	}
 
 	.issue-item.error {
-		color: var(--error-color, #ef4444);
+		color: var(--tt-status-danger-500);
 	}
 
 	.issue-icon {
@@ -219,53 +240,53 @@
 		align-items: center;
 		justify-content: center;
 		border-radius: 50%;
-		background: var(--bg-tertiary);
-		font-size: 0.75rem;
+		background: var(--tt-background-card-pressed);
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 	}
 
 	.issue-item.error .issue-icon {
-		background: var(--error-color, #ef4444);
+		background: var(--tt-status-danger-500);
 		color: white;
 	}
 
 	.table-wrapper {
 		overflow-x: auto;
-		border: 1px solid var(--border-color);
-		border-radius: 8px;
+		border: 1px solid var(--tt-border-default);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.review-table {
 		width: 100%;
 		border-collapse: collapse;
-		font-size: 0.875rem;
+		font-size: var(--tt-font-size-small);
 	}
 
 	.review-table th,
 	.review-table td {
 		padding: 0.625rem 0.75rem;
 		text-align: left;
-		border-bottom: 1px solid var(--border-color);
+		border-bottom: 1px solid var(--tt-border-default);
 	}
 
 	.review-table th {
-		background: var(--bg-secondary);
+		background: var(--tt-background-card-hover);
 		font-weight: 600;
-		color: var(--text-secondary);
+		color: var(--tt-text-secondary);
 		white-space: nowrap;
 	}
 
 	.review-table tbody tr:hover {
-		background: var(--bg-secondary);
+		background: var(--tt-state-hover);
 	}
 
 	.review-table tbody tr.selected {
-		background: var(--accent-color-light, rgba(59, 130, 246, 0.1));
+		background: var(--tt-brand-primary-500-light, rgba(59, 130, 246, 0.1));
 	}
 
 	.review-table tbody tr.blocked {
 		opacity: 0.5;
-		background: var(--bg-tertiary);
+		background: var(--tt-background-card-pressed);
 	}
 
 	.col-select {
@@ -305,23 +326,23 @@
 	.status-badge {
 		display: inline-block;
 		padding: 0.125rem 0.375rem;
-		border-radius: 4px;
-		font-size: 0.75rem;
+		border-radius: var(--tt-radius-badge);
+		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
 	}
 
 	.status-ok {
-		background: var(--success-color, #22c55e);
+		background: var(--tt-status-success-500);
 		color: white;
 	}
 
 	.status-warning {
-		background: var(--warning-color, #f59e0b);
+		background: var(--tt-status-warning-500);
 		color: white;
 	}
 
 	.status-error {
-		background: var(--error-color, #ef4444);
+		background: var(--tt-status-danger-500);
 		color: white;
 	}
 
@@ -333,33 +354,34 @@
 	}
 
 	.selection-info {
-		font-size: 0.875rem;
-		color: var(--text-secondary);
+		font-size: var(--tt-font-size-small);
+		color: var(--tt-text-secondary);
 	}
 
 	.review-actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--tt-space-12);
 	}
 
 	.btn-cancel,
 	.btn-commit {
 		padding: 0.625rem 1.25rem;
-		border-radius: 6px;
-		font-size: 0.875rem;
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
 		cursor: pointer;
 		border: none;
 	}
 
 	.btn-cancel {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
+		background: var(--tt-background-card-pressed);
+		color: var(--tt-text-primary);
+		border: 1px solid var(--tt-border-default);
 	}
 
 	.btn-commit {
-		background: var(--accent-color);
+		background: var(--tt-brand-primary-500);
 		color: white;
+		font-weight: 500;
 	}
 
 	.btn-commit:disabled {

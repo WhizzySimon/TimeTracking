@@ -4,7 +4,7 @@
  * Parses Excel files (.xlsx, .xls) into structured data.
  * Uses SheetJS library for parsing.
  *
- * Spec ref: Docs/Features/Specs/ai-import.md Section 8
+ * Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 8
  */
 
 import type { TimeEntryCandidate } from '../types';

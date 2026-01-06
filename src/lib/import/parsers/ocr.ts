@@ -4,7 +4,7 @@
  * Extracts text from images using browser-native or external OCR.
  * Handwritten text is flagged with low confidence.
  *
- * Spec ref: Docs/Features/Specs/ai-import.md Section 8
+ * Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 8
  */
 
 import type { TimeEntryCandidate } from '../types';

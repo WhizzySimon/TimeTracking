@@ -18,6 +18,7 @@
 	import { categories } from '$lib/stores';
 	import type { DayType, DayTypeValue, TimeEntry } from '$lib/types';
 	import ConfirmDialog from './ConfirmDialog.svelte';
+	import CustomDropdown from './CustomDropdown.svelte';
 
 	interface Props {
 		weekDate: Date;
@@ -35,6 +36,13 @@
 	let selectedValue: WeekTypeValue = $state('arbeitswoche');
 	let daysToChange: Date[] = $state([]);
 	let hasMixedWeek = $state(false);
+
+	const weekTypeOptions = [
+		{ value: 'arbeitswoche', label: 'Arbeitswoche' },
+		{ value: 'urlaub', label: 'Urlaub' },
+		{ value: 'krank', label: 'Krank' },
+		{ value: 'feiertag', label: 'Feiertag' }
+	];
 
 	// Reset selectedValue when week changes so the same option can be selected again
 	$effect(() => {
@@ -57,24 +65,24 @@
 		}
 	}
 
-	async function handleChange(event: Event) {
-		const select = event.target as HTMLSelectElement;
-		const newValue = select.value as WeekTypeValue;
-		pendingWeekType = newValue;
+	async function handleChange(newValue: string) {
+		const typedValue = newValue as WeekTypeValue;
+		pendingWeekType = typedValue;
 
 		const weekDates = getWeekDates(weekDate);
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 
-		// Check each day for logged hours
+		// Check which days have hours
 		const daysWithHours: string[] = [];
 		const daysWithoutHours: Date[] = [];
-
 		for (const date of weekDates) {
 			const dateKey = formatDate(date, 'ISO');
 			const dayEntries = allEntries.filter((e) => e.date === dateKey);
 			const dayIst = calculateIst(dayEntries, $categories);
 			if (dayIst > 0) {
-				daysWithHours.push(formatDate(date, 'DE'));
+				// Format as weekday name instead of full date
+				const weekdayName = date.toLocaleDateString('de-DE', { weekday: 'long' });
+				daysWithHours.push(weekdayName);
 			} else {
 				daysWithoutHours.push(date);
 			}
@@ -84,8 +92,8 @@
 		hasMixedWeek = daysWithHours.length > 0;
 
 		// If changing to non-work type and some days have hours, show notification
-		if (newValue !== 'arbeitswoche' && daysWithHours.length > 0) {
-			notificationMessage = `Folgende Tage haben bereits Arbeitszeit und bleiben Arbeitstag: ${daysWithHours.join(', ')}. Die restlichen Tage werden auf "${getWeekTypeLabel(newValue)}" gesetzt.`;
+		if (typedValue !== 'arbeitswoche' && daysWithHours.length > 0) {
+			notificationMessage = `Folgende Tage haben bereits Arbeitszeit und bleiben Arbeitstag: ${daysWithHours.join(', ')}. Die restlichen Tage werden auf "${getWeekTypeLabel(typedValue)}" gesetzt.`;
 			showNotification = true;
 		} else {
 			// All days can be changed, or changing to Arbeitswoche
@@ -157,19 +165,9 @@
 	}
 </script>
 
-<div class="week-type-section">
-	<label for="week-type">Wochenart:</label>
-	<select
-		id="week-type"
-		class="week-type-select"
-		bind:value={selectedValue}
-		onchange={handleChange}
-	>
-		<option value="arbeitswoche">Arbeitswoche</option>
-		<option value="urlaub">Urlaub</option>
-		<option value="krank">Krank</option>
-		<option value="feiertag">Feiertag</option>
-	</select>
+<div class="tt-labeled-dropdown">
+	<span class="tt-labeled-dropdown__label">Wochenart</span>
+	<CustomDropdown options={weekTypeOptions} value={selectedValue} onchange={handleChange} />
 </div>
 
 {#if showNotification}
@@ -195,36 +193,5 @@
 {/if}
 
 <style>
-	.week-type-section {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-	}
-
-	.week-type-section label {
-		font-weight: 500;
-		color: var(--text);
-	}
-
-	.week-type-select {
-		padding: 0.5rem 1rem;
-		border: 1px solid var(--input-border);
-		border-radius: var(--r-input);
-		font-size: 1rem;
-		background: var(--input-bg);
-		color: var(--input-text);
-		min-width: 150px;
-		cursor: pointer;
-	}
-
-	.week-type-select:hover {
-		border-color: var(--border);
-	}
-
-	.week-type-select:focus {
-		outline: none;
-		border-color: var(--input-focus-border);
-		box-shadow: 0 0 0 2px var(--accent-light);
-	}
+	/* Uses design system .tt-labeled-dropdown class and CustomDropdown component */
 </style>

@@ -66,12 +66,14 @@ describe('calculateDuration', () => {
 });
 
 describe('calculateIst', () => {
+	const now = Date.now();
 	const workCategory: Category = {
 		id: 'work-1',
 		name: 'Development',
 		type: 'user',
 		countsAsWorkTime: true,
-		createdAt: Date.now()
+		createdAt: now,
+		updatedAt: now
 	};
 
 	const pauseCategory: Category = {
@@ -79,7 +81,8 @@ describe('calculateIst', () => {
 		name: 'Pause',
 		type: 'system',
 		countsAsWorkTime: false,
-		createdAt: Date.now()
+		createdAt: now,
+		updatedAt: now
 	};
 
 	const categories = [workCategory, pauseCategory];

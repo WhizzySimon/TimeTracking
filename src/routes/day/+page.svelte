@@ -20,12 +20,13 @@
 		filteredEntries,
 		filteredCategories,
 		filteredActiveWorkTimeModel,
-		filteredRunningEntry,
-		selectedEmployerId
+		filteredRunningEntry
 	} from '$lib/stores';
 	import { formatDate, isToday, addDays, formatTime } from '$lib/utils/date';
 	import { calculateSoll, calculateSaldo, calculateIst } from '$lib/utils/calculations';
-	import { getByKey, getAll } from '$lib/storage/db';
+	import { getByKey, getAll, put } from '$lib/storage/db';
+	import { browser } from '$app/environment';
+	import type { UserPreference } from '$lib/types';
 	import { deleteTimeEntry, saveTimeEntry } from '$lib/storage/operations';
 	import type { Category, DayType, DayTypeValue, TimeEntry } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
@@ -38,7 +39,9 @@
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import DayPicker from '$lib/components/DayPicker.svelte';
 
+	const PREF_KEY = 'day-selected-date';
 	let loading = $state(true);
+	let dateLoaded = $state(false);
 
 	// Day type for current date (loaded from IndexedDB)
 	let dayType: DayTypeValue = $state('arbeitstag');
@@ -51,8 +54,11 @@
 	let showDayPicker = $state(false);
 
 	// Filter entries for current date (respects employer filter)
+	// Exclude running tasks - they're shown in the header
 	let dayEntries = $derived(
-		$filteredEntries.filter((entry) => entry.date === formatDate($currentDate, 'ISO'))
+		$filteredEntries.filter(
+			(entry) => entry.date === formatDate($currentDate, 'ISO') && entry.endTime !== null
+		)
 	);
 
 	// Calculate Ist from day entries (only completed tasks with countsAsWorkTime categories)
@@ -68,23 +74,27 @@
 	const weekdayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 
 	// Reactive date display with weekday
+	let datePrefix = $derived(() => {
+		if (isToday($currentDate)) {
+			return 'Heute';
+		}
+		return null;
+	});
+
 	let dateDisplay = $derived(() => {
 		const weekday = weekdayNames[$currentDate.getDay()];
-		if (isToday($currentDate)) {
-			return `Heute, ${weekday} ${formatDate($currentDate, 'DE')}`;
-		}
 		return `${weekday} ${formatDate($currentDate, 'DE')}`;
 	});
 
-	// Navigation labels showing adjacent day numbers
+	// Navigation labels showing adjacent day weekday abbreviations
 	let previousDayLabel = $derived(() => {
 		const prevDay = addDays($currentDate, -1);
-		return prevDay.getDate();
+		return weekdayNames[prevDay.getDay()];
 	});
 
 	let nextDayLabel = $derived(() => {
 		const nextDay = addDays($currentDate, 1);
-		return nextDay.getDate();
+		return weekdayNames[nextDay.getDay()];
 	});
 
 	// Load day type when date changes
@@ -201,12 +211,13 @@
 		}
 
 		// TT-FR-014: Create new task with same category
-		// Inherit employerId from original entry or current selection
+		// Inherit employerId from original entry (which came from its category)
+		const category = $filteredCategories.find((c) => c.id === entry.categoryId);
 		const newEntry: TimeEntry = {
 			id: `entry-${crypto.randomUUID()}`,
 			date: currentDateStr,
 			categoryId: entry.categoryId,
-			employerId: entry.employerId ?? $selectedEmployerId,
+			employerId: entry.employerId ?? category?.employerId ?? null,
 			startTime: currentTimeStr,
 			endTime: null,
 			description: null,
@@ -235,6 +246,44 @@
 		}
 	});
 
+	// Load saved date from IndexedDB (only on page refresh, not on in-app navigation)
+	async function loadSavedDate() {
+		// Check if we navigated here from another page
+		const isNavigation = sessionStorage.getItem('date-navigation') === 'true';
+		sessionStorage.removeItem('date-navigation');
+
+		if (isNavigation) {
+			// Don't load saved date - respect the date set by navigation
+			dateLoaded = true;
+			return;
+		}
+
+		try {
+			const pref = await getByKey<UserPreference>('userPreferences', PREF_KEY);
+			if (pref?.value) {
+				const savedDate = new Date(pref.value);
+				if (!isNaN(savedDate.getTime())) {
+					currentDate.set(savedDate);
+				}
+			}
+		} catch {
+			// Use current date on error
+		}
+		dateLoaded = true;
+	}
+
+	// Save date to IndexedDB when it changes
+	$effect(() => {
+		if (browser && dateLoaded) {
+			const pref: UserPreference = {
+				key: PREF_KEY,
+				value: $currentDate.toISOString(),
+				updatedAt: Date.now()
+			};
+			put('userPreferences', pref);
+		}
+	});
+
 	onMount(async () => {
 		await initializeCategories();
 		// Load categories into store
@@ -243,6 +292,7 @@
 		// Load all time entries
 		const allEntries = await getAll<TimeEntry>('timeEntries');
 		timeEntries.set(allEntries);
+		await loadSavedDate();
 		loading = false;
 	});
 </script>
@@ -255,12 +305,47 @@
 	{:else}
 		<!-- Date Navigation -->
 		<header class="date-nav">
-			<button class="nav-btn nav-btn-prev" onclick={goToPreviousDay} aria-label="Vorheriger Tag">
-				{previousDayLabel()}
+			<button
+				class="tt-nav-button tt-interactive-card"
+				onclick={goToPreviousDay}
+				aria-label="Vorheriger Tag"
+			>
+				<svg
+					class="tt-nav-button__chevron"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="15 18 9 12 15 6"></polyline>
+				</svg>
+				<span class="tt-nav-button__label">{previousDayLabel()}</span>
 			</button>
-			<button class="date-title" onclick={openDayPicker}>{dateDisplay()}</button>
-			<button class="nav-btn nav-btn-next" onclick={goToNextDay} aria-label="Nächster Tag">
-				{nextDayLabel()}
+			<button class="tt-date-selector-button tt-interactive-card" onclick={openDayPicker}>
+				{#if datePrefix()}
+					<span class="tt-date-selector-button__prefix">{datePrefix()}</span>
+				{/if}
+				<span class="tt-date-selector-button__date">{dateDisplay()}</span>
+			</button>
+			<button
+				class="tt-nav-button tt-interactive-card"
+				onclick={goToNextDay}
+				aria-label="Nächster Tag"
+			>
+				<span class="tt-nav-button__label">{nextDayLabel()}</span>
+				<svg
+					class="tt-nav-button__chevron"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="9 18 15 12 9 6"></polyline>
+				</svg>
 			</button>
 		</header>
 
@@ -315,19 +400,19 @@
 
 <style>
 	.day-page {
-		padding: 1rem;
+		padding: var(--tt-space-16);
 		max-width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
 	.loading {
 		display: flex;
 		justify-content: center;
-		padding: 2rem;
-		color: var(--muted);
+		padding: var(--tt-space-32);
+		color: var(--tt-text-muted);
 	}
 
 	/* Date Navigation */
@@ -335,56 +420,16 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 	}
 
-	.nav-btn {
-		min-width: 44px;
-		height: 44px;
-		padding: 0 0.75rem;
-		border: none;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 1.25rem;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		clip-path: polygon(15% 0%, 100% 0%, 85% 50%, 100% 100%, 15% 100%, 0% 50%);
-	}
+	/* Layout properties now in design system .tt-nav-button class */
 
-	.nav-btn-prev {
-		clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%);
-	}
-
-	.nav-btn-next {
-		clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%);
-	}
-
-	.nav-btn:hover {
-		background: var(--surface-hover);
-	}
-
-	.nav-btn:active {
-		background: var(--surface-active);
-	}
-
-	.date-title {
-		margin: 0;
-		font-size: 1.25rem;
-		font-weight: 600;
-		text-align: center;
+	.tt-date-selector-button {
 		flex: 1;
-		background: none;
-		border: none;
-		cursor: pointer;
-		padding: 0.5rem;
-		border-radius: var(--r-btn);
-		color: var(--text);
-	}
-
-	.date-title:hover {
-		background: var(--surface-hover);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--tt-space-4);
 	}
 </style>

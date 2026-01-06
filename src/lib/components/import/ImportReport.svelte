@@ -5,7 +5,7 @@
   - Imported count, skipped count, errors
   - Navigation buttons
   
-  Spec ref: Docs/Features/Specs/ai-import.md Section 6 (Screen E)
+  Spec ref: TempAppDevDocs/Features/Specs/ai-import.md Section 6 (Screen E)
 -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
@@ -49,8 +49,8 @@
 	</dl>
 
 	<div class="report-actions">
-		<button class="btn-secondary" onclick={onnewimport}>Neuer Import</button>
-		<button class="btn-primary" onclick={handleGoToDay}>Zum Tag-Tab</button>
+		<button class="tt-button-secondary" onclick={onnewimport}>Neuer Import</button>
+		<button class="tt-button-primary" onclick={handleGoToDay}>Zum Tag-Tab</button>
 	</div>
 </div>
 
@@ -58,7 +58,7 @@
 	.report-container {
 		max-width: 400px;
 		margin: 0 auto;
-		padding: 2rem;
+		padding: var(--tt-space-32);
 		text-align: center;
 	}
 
@@ -69,7 +69,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--success-color, #22c55e);
+		background: var(--tt-status-success-500);
 		color: white;
 		border-radius: 50%;
 		font-size: 2rem;
@@ -83,7 +83,7 @@
 	.report-stats {
 		display: flex;
 		justify-content: center;
-		gap: 1.5rem;
+		gap: var(--tt-space-24);
 		margin-bottom: 2rem;
 	}
 
@@ -92,8 +92,8 @@
 	}
 
 	.stat-item dt {
-		font-size: 0.75rem;
-		color: var(--text-tertiary);
+		font-size: var(--tt-font-size-tiny);
+		color: var(--tt-text-muted);
 		margin-bottom: 0.25rem;
 		text-transform: uppercase;
 	}
@@ -105,40 +105,20 @@
 	}
 
 	.stat-item.success dd {
-		color: var(--success-color, #22c55e);
+		color: var(--tt-status-success-500);
 	}
 
 	.stat-item.skipped dd {
-		color: var(--warning-color, #f59e0b);
+		color: var(--tt-status-warning-500);
 	}
 
 	.stat-item.error dd {
-		color: var(--error-color, #ef4444);
+		color: var(--tt-status-danger-500);
 	}
 
 	.report-actions {
 		display: flex;
-		gap: 1rem;
+		gap: var(--tt-space-16);
 		justify-content: center;
-	}
-
-	.btn-secondary,
-	.btn-primary {
-		padding: 0.75rem 1.25rem;
-		border-radius: 8px;
-		font-size: 1rem;
-		cursor: pointer;
-		border: none;
-	}
-
-	.btn-secondary {
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
-	}
-
-	.btn-primary {
-		background: var(--accent-color);
-		color: white;
 	}
 </style>

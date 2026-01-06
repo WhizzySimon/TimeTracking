@@ -6,8 +6,7 @@ const ASSETS_TO_CACHE = [
   '/favicon.png',
   '/apple-touch-icon.png',
   '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/version.json'
+  '/icons/icon-512.png'
 ];
 
 let CACHE_NAME = CACHE_PREFIX + 'v1';
@@ -43,6 +42,12 @@ self.addEventListener('fetch', (event) => {
   
   // Skip cross-origin requests (Supabase API, etc.)
   if (url.origin !== self.location.origin) {
+    return;
+  }
+
+  // version.json: always fetch from network, never cache (for update detection)
+  if (url.pathname === '/version.json') {
+    event.respondWith(fetch(event.request));
     return;
   }
   

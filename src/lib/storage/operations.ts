@@ -32,10 +32,12 @@ function markChanged(): void {
  */
 export async function saveTimeEntry(entry: TimeEntry): Promise<void> {
 	// Round times to 5-minute increments (centralized - no need to round at call sites)
+	// Always set updatedAt to current time for LWW merge support
 	const normalizedEntry: TimeEntry = {
 		...entry,
 		startTime: roundToFiveMinutes(entry.startTime),
-		endTime: entry.endTime ? roundToFiveMinutes(entry.endTime) : null
+		endTime: entry.endTime ? roundToFiveMinutes(entry.endTime) : null,
+		updatedAt: Date.now()
 	};
 
 	await put('timeEntries', normalizedEntry);
@@ -58,8 +60,13 @@ export async function deleteTimeEntry(id: string): Promise<void> {
  * Save a day type and add to outbox.
  */
 export async function saveDayType(dayType: DayType): Promise<void> {
-	await put('dayTypes', dayType);
-	await addToOutbox('dayType_upsert', dayType);
+	// Always set updatedAt to current time for LWW merge support
+	const normalizedDayType: DayType = {
+		...dayType,
+		updatedAt: Date.now()
+	};
+	await put('dayTypes', normalizedDayType);
+	await addToOutbox('dayType_upsert', normalizedDayType);
 	markChanged();
 	triggerSync();
 }
@@ -68,8 +75,13 @@ export async function saveDayType(dayType: DayType): Promise<void> {
  * Save a work time model and add to outbox.
  */
 export async function saveWorkTimeModel(model: WorkTimeModel): Promise<void> {
-	await put('workTimeModels', model);
-	await addToOutbox('workTimeModel_upsert', model);
+	// Always set updatedAt to current time for LWW merge support
+	const normalizedModel: WorkTimeModel = {
+		...model,
+		updatedAt: Date.now()
+	};
+	await put('workTimeModels', normalizedModel);
+	await addToOutbox('workTimeModel_upsert', normalizedModel);
 	markChanged();
 	triggerSync();
 }
@@ -89,10 +101,15 @@ export async function deleteWorkTimeModel(id: string): Promise<void> {
  * Note: System categories are not synced (they're fixed).
  */
 export async function saveUserCategory(category: Category): Promise<void> {
-	await put('categories', category);
+	// Always set updatedAt to current time for LWW merge support
+	const normalizedCategory: Category = {
+		...category,
+		updatedAt: Date.now()
+	};
+	await put('categories', normalizedCategory);
 	markChanged();
-	if (category.type === 'user') {
-		await addToOutbox('category_upsert', category);
+	if (normalizedCategory.type === 'user') {
+		await addToOutbox('category_upsert', normalizedCategory);
 		triggerSync();
 	}
 }
@@ -105,4 +122,45 @@ export async function deleteUserCategoryWithSync(id: string): Promise<void> {
 	await addToOutbox('category_delete', { id });
 	markChanged();
 	triggerSync();
+}
+
+/**
+ * Delete all user categories (Tätigkeiten - countsAsWorkTime=true) and sync.
+ * System categories are preserved.
+ */
+export async function deleteAllUserCategories(
+	allCategories: Category[]
+): Promise<{ deleted: number }> {
+	const userWorkCategories = allCategories.filter(
+		(c) => c.type === 'user' && c.countsAsWorkTime === true
+	);
+
+	for (const cat of userWorkCategories) {
+		await deleteByKey('categories', cat.id);
+		await addToOutbox('category_delete', { id: cat.id });
+	}
+
+	if (userWorkCategories.length > 0) {
+		markChanged();
+		triggerSync();
+	}
+
+	return { deleted: userWorkCategories.length };
+}
+
+/**
+ * Delete all time entries and sync.
+ */
+export async function deleteAllTimeEntries(allEntries: TimeEntry[]): Promise<{ deleted: number }> {
+	for (const entry of allEntries) {
+		await deleteByKey('timeEntries', entry.id);
+		await addToOutbox('entry_delete', { id: entry.id });
+	}
+
+	if (allEntries.length > 0) {
+		markChanged();
+		triggerSync();
+	}
+
+	return { deleted: allEntries.length };
 }

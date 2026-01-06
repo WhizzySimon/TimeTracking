@@ -14,18 +14,19 @@
   - Beenden button (running) or Resume button (completed)
 -->
 <script lang="ts">
-	import type { TimeEntry, Category } from '$lib/types';
+	import type { TimeEntry, Category, Employer } from '$lib/types';
 
 	interface Props {
 		entry: TimeEntry;
 		category: Category | undefined;
+		employer?: Employer | undefined;
 		onclick?: () => void;
 		ondelete?: () => void;
 		onend?: () => void;
 		onresume?: () => void;
 	}
 
-	let { entry, category, onclick, ondelete, onend, onresume }: Props = $props();
+	let { entry, category, employer, onclick, ondelete, onend, onresume }: Props = $props();
 
 	function handleDelete(event: MouseEvent) {
 		event.stopPropagation();
@@ -50,147 +51,70 @@
 </script>
 
 <div
-	class="task-item"
-	class:running={isRunning}
+	class={isRunning
+		? 'tt-list-row-clickable tt-interactive-accent task-item-running'
+		: 'tt-list-row-clickable'}
 	role="button"
 	tabindex="0"
 	data-testid={isRunning ? 'task-item-running' : 'task-item'}
 	{onclick}
 	onkeydown={(e) => e.key === 'Enter' && onclick?.()}
 >
-	<div class="task-header">
-		<div class="task-main">
-			<span class="task-time">{timeDisplay}</span>
-			<span class="task-category">{category?.name ?? 'Unbekannt'}</span>
-		</div>
-		<div class="task-actions">
-			{#if isRunning}
-				<button class="end-btn" onclick={handleEnd} aria-label="Beenden">Beenden</button>
-			{:else}
-				<button class="resume-btn" onclick={handleResume} aria-label="Fortsetzen">▶</button>
-			{/if}
-			<button class="delete-btn" onclick={handleDelete} aria-label="Löschen">×</button>
-		</div>
+	<div class="tt-list-row__content-compact">
+		<span class="tt-list-row__time">{timeDisplay}</span>
+		<span class="tt-list-row__separator"></span>
+		<span class="tt-list-row__category">{category?.name ?? 'Unbekannt'}</span>
 	</div>
 	{#if entry.description}
-		<div class="task-description">{entry.description}</div>
+		<div class="tt-list-row__detail">{entry.description}</div>
 	{/if}
+	<div class="employer-label-container">
+		{#if category?.countsAsWorkTime}
+			<span class="tt-inline-label-employer">{employer?.name ?? 'Unbekannt'}</span>
+		{:else}
+			<span class="tt-inline-label-no-work">Keine Arbeitszeit</span>
+		{/if}
+	</div>
+	<div class="tt-list-row__actions">
+		{#if isRunning}
+			<button class="tt-button-primary tt-button-small" onclick={handleEnd} aria-label="Beenden"
+				>Beenden</button
+			>
+		{:else}
+			<button class="tt-symbol-button" onclick={handleResume} aria-label="Fortsetzen">
+				<span class="tt-play-icon"></span>
+			</button>
+		{/if}
+		<button class="tt-delete-button" onclick={handleDelete} aria-label="Löschen">
+			<svg
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<polyline points="3 6 5 6 21 6"></polyline>
+				<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+				></path>
+			</svg>
+		</button>
+	</div>
 </div>
 
 <style>
-	.task-item {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-		padding: 0.75rem 1rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: var(--r-card);
-		cursor: pointer;
-		text-align: left;
-		width: 100%;
-		box-sizing: border-box;
-		transition: all var(--transition-normal);
+	/* Running task variant - highlighted border only (background handled by tt-interactive-accent) */
+	.task-item-running {
+		border-color: var(--tt-brand-accent-300) !important;
 	}
 
-	.task-item:hover {
-		border-color: var(--accent);
-		box-shadow: var(--elev-1);
-	}
-
-	.task-item.running {
-		border-color: var(--warning);
-		background: var(--warning-light);
-	}
-
-	.task-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.task-main {
+	/* Employer label positioned to the right */
+	.employer-label-container {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		flex: 1;
-	}
-
-	.task-actions {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-		flex-shrink: 0;
-	}
-
-	.end-btn {
-		padding: 0.25rem 0.5rem;
-		border: 1px solid var(--accent);
-		background: var(--accent);
-		color: white;
-		font-size: 0.75rem;
-		font-weight: 500;
-		cursor: pointer;
-		border-radius: var(--r-btn);
-	}
-
-	.end-btn:hover {
-		background: var(--accent-dark, #0056b3);
-	}
-
-	.resume-btn {
-		width: 28px;
-		height: 28px;
-		border: 1px solid var(--accent);
-		background: transparent;
-		color: var(--accent);
-		font-size: 0.875rem;
-		cursor: pointer;
-		border-radius: var(--r-btn);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.resume-btn:hover {
-		background: var(--accent-light);
-	}
-
-	.delete-btn {
-		width: 28px;
-		height: 28px;
-		border: none;
-		background: transparent;
-		color: var(--muted);
-		font-size: 1.25rem;
-		cursor: pointer;
-		border-radius: var(--r-btn);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-shrink: 0;
-	}
-
-	.delete-btn:hover {
-		background: var(--neg-light);
-		color: var(--neg);
-	}
-
-	.task-time {
-		font-weight: 600;
-		font-size: 0.95rem;
-		color: var(--text);
-	}
-
-	.task-category {
-		font-size: 0.9rem;
-		color: var(--muted);
-	}
-
-	.task-description {
-		font-size: 0.85rem;
-		color: var(--muted);
-		font-style: italic;
+		margin-left: auto;
+		margin-right: var(--tt-space-8);
 	}
 </style>
