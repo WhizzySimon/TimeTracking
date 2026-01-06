@@ -6,6 +6,22 @@ Tracks each execution of the self-learning & self-improvement workflow.
 
 ---
 
+## 2026-01-06 13:23 — Title Bar Gradient Experiment (Cutout Attempt)
+
+| Step                 | Result       | Notes                                                                                                 |
+| -------------------- | ------------ | ----------------------------------------------------------------------------------------------------- |
+| 0: Scope check       | first commit | No previous checklist in chat                                                                         |
+| A1: Capture feedback | 1 item       | User frustration with repeated failed attempts - CSS stacking context limitation not understood early |
+| B1: Repeated errors  | 1 detected   | Same z-index/cutout approach tried 10+ times without working - should have pivoted sooner             |
+| B2: File churn       | 1 file       | styleguide/+page.svelte edited many times iterating on cutout CSS                                     |
+| B3: Scope drift      | no plan      | Experimental style guide work                                                                         |
+| B4: Session duration | ~2h          | long - cutout effect proved impossible with CSS-only approach                                         |
+| C1: Promotions       | none         | No items meet promotion criteria                                                                      |
+| C2: Read LEARNINGS   | ✓ read       | 12 items                                                                                              |
+| C3: Hard Rule → JIT  | none         | No hard rules to propose                                                                              |
+
+---
+
 ## 2026-01-06 10:20
 
 | Step                 | Result       | Notes                             |
