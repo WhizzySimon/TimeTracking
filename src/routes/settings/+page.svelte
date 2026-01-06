@@ -1037,7 +1037,7 @@
 						onclick={() => (showExportDialog = true)}
 						data-testid="export-btn"
 					>
-						Manuelles Backup
+						Backup exportieren
 					</button>
 					<button
 						class="tt-button-secondary tt-button-full"
