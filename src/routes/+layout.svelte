@@ -63,6 +63,7 @@
 	let hasUpdate = $state(false);
 	let syncNeeded = $state(true);
 	let showProPaywall = $state(false);
+	let installBannerDismissed = $state(false);
 
 	// Conflict resolution state
 	let pendingCloudSnapshot = $state<DatabaseSnapshot | null>(null);
@@ -95,6 +96,11 @@
 		clearUserProfile();
 		clearCachedPlan();
 		goto(resolve('/login') + '?logout=1');
+	}
+
+	function dismissInstallBanner() {
+		installBannerDismissed = true;
+		localStorage.setItem('installBannerDismissed', 'true');
 	}
 
 	function handleRunningTaskClick() {
@@ -298,6 +304,10 @@
 			canInstall = state.canInstall && !state.isInstalled;
 		});
 
+		// Load install banner dismissal state
+		const dismissed = localStorage.getItem('installBannerDismissed');
+		installBannerDismissed = dismissed === 'true';
+
 		// Setup SW update detection
 		setupUpdateDetection();
 		updateAvailable.subscribe((available) => {
@@ -480,9 +490,27 @@
 			<div class="update-banner">
 				<button class="update-btn" onclick={applyUpdate}> Update verfügbar – neu laden </button>
 			</div>
-		{:else if canInstall}
+		{:else if canInstall && (!installBannerDismissed || $page.url.pathname === '/settings')}
 			<div class="install-banner">
 				<button class="install-btn" onclick={triggerInstall}> App installieren </button>
+				{#if $page.url.pathname !== '/settings'}
+					<button class="close-btn" onclick={dismissInstallBanner} aria-label="Banner schließen">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
+					</button>
+				{/if}
 			</div>
 		{/if}
 		{#if $runningEntry}
@@ -716,6 +744,8 @@
 		justify-content: center;
 		align-items: center;
 		border-radius: var(--tt-radius-card);
+		position: relative;
+		gap: var(--tt-space-12);
 	}
 
 	.install-btn {
@@ -733,6 +763,25 @@
 
 	.install-btn:hover {
 		opacity: 0.9;
+	}
+
+	.close-btn {
+		background: transparent;
+		border: none;
+		color: var(--tt-text-secondary);
+		cursor: pointer;
+		padding: var(--tt-space-4);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--tt-radius-button);
+		transition: background-color 0.2s;
+		flex-shrink: 0;
+	}
+
+	.close-btn:hover {
+		background: var(--tt-bg-secondary);
+		color: var(--tt-text-primary);
 	}
 
 	.running-task-header {

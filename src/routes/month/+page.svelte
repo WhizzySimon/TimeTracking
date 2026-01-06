@@ -489,8 +489,6 @@
 	}
 
 	.week-row__title {
-		font-weight: var(--tt-font-weight-normal);
-		color: var(--tt-text-primary);
 		white-space: nowrap;
 	}
 
