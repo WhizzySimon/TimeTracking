@@ -649,6 +649,7 @@ textarea {
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
 	white-space: nowrap;
+	text-decoration: none;
 	transition: background var(--tt-transition-fast);
 }
 
@@ -772,6 +773,7 @@ textarea {
  */
 .tt-button-full {
 	width: 100%;
+	box-sizing: border-box;
 }
 
 /**
@@ -2132,10 +2134,10 @@ textarea {
 	align-items: center;
 	justify-content: space-between;
 	gap: var(--tt-space-12);
-	padding: var(--tt-space-12) var(--tt-space-16);
-	background: var(--tt-background-card);
-	border: 1px solid var(--tt-border-subtle);
-	border-radius: var(--tt-radius-card);
+	padding: 0 0 0 var(--tt-space-16);
+	background: var(--tt-background-page);
+	border: none;
+	border-radius: 0;
 }
 
 .tt-labeled-dropdown__label {

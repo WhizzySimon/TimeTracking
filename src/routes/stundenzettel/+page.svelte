@@ -1,14 +1,10 @@
 <!--
-  StundenzettelExport component - export time entries for a specific employer
+  Stundenzettel Export Page
   
-  Spec refs:
-  - multi-arbeitgeber.md Task A2.14
+  Full-page export interface for generating Stundenzettel (time sheets)
+  for a specific employer and date range.
   
-  Features:
-  - Employer selector (required, no combined export)
-  - Date range picker
-  - Column selection checkboxes
-  - Preview table
+  Uses DayPicker dialogs for date selection (same as day page).
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';
@@ -17,23 +13,17 @@
 	import { getAllCategories } from '$lib/storage/categories';
 	import type { Employer, TimeEntry, Category } from '$lib/types';
 	import { SvelteSet } from 'svelte/reactivity';
-	import Modal from './Modal.svelte';
-	import CustomDropdown from './CustomDropdown.svelte';
-	import DateInput from './DateInput.svelte';
+	import CustomDropdown from '$lib/components/CustomDropdown.svelte';
+	import DayPicker from '$lib/components/DayPicker.svelte';
 	import { userFullName } from '$lib/stores/user';
+	import { timeEntries } from '$lib/stores';
+	import { formatDate } from '$lib/utils/date';
 	import {
 		exportStundenzettelExcel,
 		exportStundenzettelPdf,
 		type ExportData,
 		type ProcessedEntry
 	} from '$lib/export/stundenzettel-export';
-
-	interface Props {
-		onclose: () => void;
-		onexport?: (data: ExportData) => void;
-	}
-
-	let { onclose, onexport }: Props = $props();
 
 	// Available columns for export
 	const AVAILABLE_COLUMNS = [
@@ -50,52 +40,57 @@
 	// State
 	let employers = $state<Employer[]>([]);
 	let categories = $state<Category[]>([]);
-	let selectedEmployerId = $state<string>('');
-
-	// Convert employers to dropdown options
-	let employerOptions = $derived(employers.map((e) => ({ value: e.id, label: e.name })));
+	let selectedEmployerId = $state('');
 	let startDate = $state(getDefaultStartDate());
 	let endDate = $state(getDefaultEndDate());
-	let selectedColumns = new SvelteSet<ColumnId>(
-		AVAILABLE_COLUMNS.filter((col) => col.defaultSelected).map((col) => col.id)
+	let selectedColumns = $state(
+		new SvelteSet<ColumnId>(
+			AVAILABLE_COLUMNS.filter((col) => col.defaultSelected).map((col) => col.id)
+		)
 	);
+
 	let entries = $state<TimeEntry[]>([]);
 	let processedEntries = $state<ProcessedEntry[]>([]);
 	let loading = $state(false);
-	let isExporting = $state(false);
 	let error = $state('');
-	let exportFormat: 'pdf' | 'excel' = $state('pdf');
+	let isExporting = $state(false);
 
-	function getDefaultStartDate(): string {
-		// Pre-select last complete month
+	// Day picker dialog states
+	let showStartDatePicker = $state(false);
+	let showEndDatePicker = $state(false);
+
+	function getDefaultStartDate(): Date {
+		// Pre-select first day of last month
 		const today = new Date();
-		const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-		return `${lastMonth.getFullYear()}-${String(lastMonth.getMonth() + 1).padStart(2, '0')}-01`;
+		return new Date(today.getFullYear(), today.getMonth() - 1, 1);
 	}
 
-	function getDefaultEndDate(): string {
+	function getDefaultEndDate(): Date {
 		// Pre-select last day of last month
 		const today = new Date();
-		const lastDayOfLastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-		return `${lastDayOfLastMonth.getFullYear()}-${String(lastDayOfLastMonth.getMonth() + 1).padStart(2, '0')}-${String(lastDayOfLastMonth.getDate()).padStart(2, '0')}`;
+		return new Date(today.getFullYear(), today.getMonth(), 0);
 	}
 
+	// Computed: employer options for dropdown
+	let employerOptions = $derived(
+		employers.map((emp) => ({
+			value: emp.id,
+			label: emp.name
+		}))
+	);
+
 	function formatDisplayDate(dateStr: string): string {
-		const date = new Date(dateStr);
-		return date.toLocaleDateString('de-DE', {
-			day: '2-digit',
-			month: '2-digit',
-			year: 'numeric'
-		});
+		const [year, month, day] = dateStr.split('-');
+		return `${day}.${month}.${year}`;
 	}
 
 	function calculateDuration(startTime: string, endTime: string | null): string {
 		if (!endTime) return '-';
-		const [startHours, startMinutes] = startTime.split(':').map(Number);
-		const [endHours, endMinutes] = endTime.split(':').map(Number);
-		const startTotalMinutes = startHours * 60 + startMinutes;
-		const endTotalMinutes = endHours * 60 + endMinutes;
-		const durationMinutes = endTotalMinutes - startTotalMinutes;
+		const [startH, startM] = startTime.split(':').map(Number);
+		const [endH, endM] = endTime.split(':').map(Number);
+		const startMinutes = startH * 60 + startM;
+		const endMinutes = endH * 60 + endM;
+		const durationMinutes = endMinutes - startMinutes;
 		if (durationMinutes < 0) return '-';
 		const hours = Math.floor(durationMinutes / 60);
 		const minutes = durationMinutes % 60;
@@ -122,7 +117,7 @@
 				selectedEmployerId = employers[0].id;
 			}
 		} catch (err) {
-			console.error('[StundenzettelExport] Failed to load employers:', err);
+			console.error('[StundenzettelPage] Failed to load employers:', err);
 			error = 'Fehler beim Laden der Arbeitgeber';
 		}
 	}
@@ -131,7 +126,7 @@
 		try {
 			categories = await getAllCategories();
 		} catch (err) {
-			console.error('[StundenzettelExport] Failed to load categories:', err);
+			console.error('[StundenzettelPage] Failed to load categories:', err);
 		}
 	}
 
@@ -146,7 +141,9 @@
 		error = '';
 
 		try {
-			const allEntries = await getEntriesByDateRange<TimeEntry>('timeEntries', startDate, endDate);
+			const startISO = formatDate(startDate, 'ISO');
+			const endISO = formatDate(endDate, 'ISO');
+			const allEntries = await getEntriesByDateRange<TimeEntry>('timeEntries', startISO, endISO);
 
 			// Filter by employer
 			entries = allEntries.filter((entry) => entry.employerId === selectedEmployerId);
@@ -168,7 +165,7 @@
 				description: entry.description ?? ''
 			}));
 		} catch (err) {
-			console.error('[StundenzettelExport] Failed to load entries:', err);
+			console.error('[StundenzettelPage] Failed to load entries:', err);
 			error = 'Fehler beim Laden der Einträge';
 		} finally {
 			loading = false;
@@ -184,8 +181,8 @@
 		return {
 			employerId: selectedEmployerId,
 			employerName: getSelectedEmployerName(),
-			startDate,
-			endDate,
+			startDate: formatDate(startDate, 'ISO'),
+			endDate: formatDate(endDate, 'ISO'),
 			columns: Array.from(selectedColumns),
 			entries: processedEntries
 		};
@@ -200,10 +197,9 @@
 		try {
 			const exportData = buildExportData();
 			await exportStundenzettelExcel(exportData);
-			console.log('[StundenzettelExport] Excel export completed');
-			onexport?.(exportData);
+			console.log('[StundenzettelPage] Excel export completed');
 		} catch (err) {
-			console.error('[StundenzettelExport] Excel export failed:', err);
+			console.error('[StundenzettelPage] Excel export failed:', err);
 			error = 'Export fehlgeschlagen. Bitte erneut versuchen.';
 		} finally {
 			isExporting = false;
@@ -219,14 +215,24 @@
 		try {
 			const exportData = buildExportData();
 			await exportStundenzettelPdf(exportData);
-			console.log('[StundenzettelExport] PDF export completed');
-			onexport?.(exportData);
+			console.log('[StundenzettelPage] PDF export completed');
 		} catch (err) {
-			console.error('[StundenzettelExport] PDF export failed:', err);
+			console.error('[StundenzettelPage] PDF export failed:', err);
 			error = 'Export fehlgeschlagen. Bitte erneut versuchen.';
 		} finally {
 			isExporting = false;
 		}
+	}
+
+	// Day picker handlers
+	function handleStartDateSelect(date: Date) {
+		startDate = date;
+		showStartDatePicker = false;
+	}
+
+	function handleEndDateSelect(date: Date) {
+		endDate = date;
+		showEndDatePicker = false;
 	}
 
 	// Load data on mount
@@ -243,10 +249,15 @@
 	});
 </script>
 
-<Modal title="Stundenzettel exportieren" {onclose}>
-	<div class="export-form">
+<svelte:head>
+	<title>Stundenzettel | TimeTracker</title>
+</svelte:head>
+
+<div class="stundenzettel-page">
+	<main class="page-content">
 		<!-- User Name Display -->
-		<div class="user-name-display">
+		<div class="user-info">
+			<span class="user-label">Name:</span>
 			{#if $userFullName}
 				<span class="user-name">{$userFullName}</span>
 			{:else}
@@ -273,10 +284,26 @@
 			</div>
 		{/if}
 
-		<!-- Date Range -->
+		<!-- Date Range with DayPicker buttons -->
 		<div class="date-range">
-			<DateInput bind:value={startDate} label="Von:" id="start-date" />
-			<DateInput bind:value={endDate} label="Bis:" id="end-date" />
+			<div class="date-field">
+				<span class="date-field__label">Von:</span>
+				<button
+					class="tt-date-selector-button tt-interactive-card"
+					onclick={() => (showStartDatePicker = true)}
+				>
+					<span class="tt-date-selector-button__date">{formatDate(startDate, 'DE')}</span>
+				</button>
+			</div>
+			<div class="date-field">
+				<span class="date-field__label">Bis:</span>
+				<button
+					class="tt-date-selector-button tt-interactive-card"
+					onclick={() => (showEndDatePicker = true)}
+				>
+					<span class="tt-date-selector-button__date">{formatDate(endDate, 'DE')}</span>
+				</button>
+			</div>
 		</div>
 
 		<!-- Column Selection -->
@@ -318,7 +345,7 @@
 									<th>Datum</th>
 								{/if}
 								{#if selectedColumns.has('category')}
-									<th>Kategorie</th>
+									<th>Eintrag</th>
 								{/if}
 								{#if selectedColumns.has('startTime')}
 									<th>Von</th>
@@ -353,17 +380,13 @@
 										<td>{entry.duration}</td>
 									{/if}
 									{#if selectedColumns.has('description')}
-										<td class="description-cell">{entry.description || '-'}</td>
+										<td>{entry.description}</td>
 									{/if}
 								</tr>
 							{/each}
 							{#if processedEntries.length > 5}
-								<tr class="more-rows">
-									<td colspan={selectedColumns.size}>
-										... und {processedEntries.length - 5} weitere {processedEntries.length - 5 === 1
-											? 'Eintrag'
-											: 'Einträge'}
-									</td>
+								<tr class="more-entries">
+									<td colspan="6">... und {processedEntries.length - 5} weitere Einträge</td>
 								</tr>
 							{/if}
 						</tbody>
@@ -372,63 +395,94 @@
 			{/if}
 		</div>
 
+		<!-- Error Message -->
 		{#if error}
 			<p class="error">{error}</p>
 		{/if}
 
-		<!-- Export Format Selection -->
-		<div class="field">
-			<span class="field-label">Format:</span>
-			<div class="format-options">
-				<label class="format-radio">
-					<input type="radio" name="export-format" value="pdf" bind:group={exportFormat} />
-					<span>PDF</span>
-				</label>
-				<label class="format-radio">
-					<input type="radio" name="export-format" value="excel" bind:group={exportFormat} />
-					<span>Excel</span>
-				</label>
-			</div>
-		</div>
-
-		<!-- Actions -->
-		<div class="actions">
-			<button type="button" class="tt-button-secondary" onclick={onclose}> Abbrechen </button>
+		<!-- Export Actions -->
+		<div class="export-actions">
 			<button
-				type="button"
-				class="tt-button-primary"
-				onclick={() => (exportFormat === 'pdf' ? handlePdfExport() : handleExcelExport())}
-				disabled={employers.length === 0 || loading || isExporting || processedEntries.length === 0}
+				class="tt-button-secondary tt-button-full"
+				onclick={handleExcelExport}
+				disabled={isExporting || processedEntries.length === 0}
 			>
-				{isExporting ? 'Exportiere...' : 'Exportieren'}
+				{isExporting ? 'Exportiere...' : 'Excel exportieren'}
+			</button>
+			<button
+				class="tt-button-primary tt-button-full"
+				onclick={handlePdfExport}
+				disabled={isExporting || processedEntries.length === 0}
+			>
+				{isExporting ? 'Exportiere...' : 'PDF exportieren'}
 			</button>
 		</div>
-	</div>
-</Modal>
+	</main>
+</div>
+
+<!-- Start Date Picker -->
+{#if showStartDatePicker}
+	<DayPicker
+		currentDate={startDate}
+		timeEntries={$timeEntries}
+		onselect={handleStartDateSelect}
+		onclose={() => (showStartDatePicker = false)}
+	/>
+{/if}
+
+<!-- End Date Picker -->
+{#if showEndDatePicker}
+	<DayPicker
+		currentDate={endDate}
+		timeEntries={$timeEntries}
+		onselect={handleEndDateSelect}
+		onclose={() => (showEndDatePicker = false)}
+	/>
+{/if}
 
 <style>
-	.export-form {
+	.stundenzettel-page {
+		min-height: 100vh;
+		max-width: 100vw;
+		overflow-x: hidden;
+		background: var(--tt-background-page);
+		display: flex;
+		flex-direction: column;
+	}
+
+	.page-content {
+		flex: 1;
+		padding: var(--tt-space-16);
 		display: flex;
 		flex-direction: column;
 		gap: var(--tt-space-16);
+		max-width: 600px;
+		margin: 0 auto;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
-	.user-name-display {
+	.user-info {
+		display: flex;
+		align-items: center;
+		gap: var(--tt-space-8);
 		padding: var(--tt-space-12);
 		background: var(--tt-background-card);
 		border-radius: var(--tt-radius-card);
-		text-align: center;
+	}
+
+	.user-label {
 		font-weight: 500;
+		color: var(--tt-text-muted);
 	}
 
 	.user-name {
 		color: var(--tt-text-primary);
-		font-size: 1.1rem;
 	}
 
 	.user-name-warning {
-		color: var(--tt-status-danger-500);
-		font-size: var(--tt-font-size-body);
+		color: var(--tt-status-warning-500);
+		font-style: italic;
 	}
 
 	.field {
@@ -437,7 +491,6 @@
 		gap: var(--tt-space-4);
 	}
 
-	.field label,
 	.field-label {
 		font-size: var(--tt-font-size-body);
 		font-weight: 500;
@@ -459,6 +512,18 @@
 		gap: var(--tt-space-12);
 	}
 
+	.date-field {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-4);
+	}
+
+	.date-field__label {
+		font-size: var(--tt-font-size-body);
+		font-weight: 500;
+		color: var(--tt-text-primary);
+	}
+
 	.columns-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -471,12 +536,6 @@
 		gap: var(--tt-space-8);
 	}
 
-	.preview-section .field-label {
-		font-size: var(--tt-font-size-body);
-		font-weight: 500;
-		color: var(--tt-text-primary);
-	}
-
 	.loading,
 	.no-entries {
 		padding: var(--tt-space-16);
@@ -484,14 +543,12 @@
 		color: var(--tt-text-muted);
 		background: var(--tt-background-card-hover);
 		border-radius: var(--tt-radius-input);
-		font-size: var(--tt-font-size-body);
 	}
 
 	.preview-table-container {
-		max-height: 200px;
-		overflow: auto;
+		overflow-x: auto;
 		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-input);
+		border-radius: var(--tt-radius-card);
 	}
 
 	.preview-table {
@@ -510,30 +567,22 @@
 	.preview-table th {
 		background: var(--tt-background-card-hover);
 		font-weight: 600;
-		position: sticky;
-		top: 0;
-	}
-
-	.preview-table tbody tr:hover {
-		background: var(--tt-state-hover);
-	}
-
-	.description-cell {
-		max-width: 150px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.more-rows td {
-		text-align: center;
 		color: var(--tt-text-muted);
+	}
+
+	.preview-table td {
+		color: var(--tt-text-primary);
+	}
+
+	.more-entries td {
+		text-align: center;
 		font-style: italic;
+		color: var(--tt-text-muted);
 	}
 
 	.error {
 		margin: 0;
-		padding: var(--tt-space-8);
+		padding: var(--tt-space-12);
 		background: var(--tt-status-danger-800);
 		border: 1px solid var(--tt-status-danger-500);
 		border-radius: var(--tt-radius-input);
@@ -541,36 +590,9 @@
 		font-size: var(--tt-font-size-body);
 	}
 
-	.format-options {
-		display: flex;
-		gap: var(--tt-space-16);
+	.export-actions {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--tt-space-12);
 	}
-
-	.format-radio {
-		display: flex;
-		align-items: center;
-		gap: var(--tt-space-8);
-		cursor: pointer;
-		font-size: var(--tt-font-size-body);
-	}
-
-	.format-radio input[type='radio'] {
-		cursor: pointer;
-		width: 18px;
-		height: 18px;
-	}
-
-	.format-radio span {
-		user-select: none;
-	}
-
-	.actions {
-		display: flex;
-		justify-content: flex-end;
-		gap: var(--tt-space-8);
-		padding-top: 1rem;
-		border-top: 1px solid var(--tt-border-default);
-	}
-
-	/* Uses design system classes: .tt-button-primary, .tt-button-secondary */
 </style>

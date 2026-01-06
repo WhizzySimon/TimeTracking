@@ -213,7 +213,7 @@
 						bind:value={filterText}
 					/>
 					{#if oncreatecategory}
-						<button class="tt-button-primary tt-button-small" onclick={oncreatecategory}>
+						<button class="tt-button-secondary tt-button-small" onclick={oncreatecategory}>
 							Tätigkeit erstellen
 						</button>
 					{/if}

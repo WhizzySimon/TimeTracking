@@ -172,7 +172,7 @@
 		{/if}
 
 		<div class="form-group">
-			<label for="category">Kategorie</label>
+			<label for="category">Tätigkeit</label>
 			<CategorySelect
 				id="category"
 				categories={selectableCategories}

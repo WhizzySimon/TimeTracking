@@ -120,7 +120,7 @@ function getInitialScheme(): ColorSchemeName {
 			return stored as ColorSchemeName;
 		}
 	}
-	return 'scheme-2'; // Default to Mittel
+	return 'scheme-1'; // Default to Original
 }
 
 // Create the store

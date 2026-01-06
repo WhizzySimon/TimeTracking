@@ -5,13 +5,15 @@
   - ui-logic-spec-v1.md Section 5.2 (Zeitraum-Selector)
   
   Features:
-  - Schnellwahl: "Aktuelles Jahr" button
-  - Manuell: Two date fields (Von, Bis) with DD.MM.YYYY format
+  - Schnellwahl: Quick select buttons
+  - Manuell: DayPicker dialogs for Von/Bis selection
   - Validation: Von <= Bis
 -->
 <script lang="ts">
 	import { formatDate, parseDate } from '$lib/utils/date';
 	import Modal from './Modal.svelte';
+	import DayPicker from './DayPicker.svelte';
+	import { timeEntries } from '$lib/stores';
 
 	interface Props {
 		/** Current start date (ISO format YYYY-MM-DD) */
@@ -26,25 +28,28 @@
 
 	let { startDate, endDate, onsave, onclose }: Props = $props();
 
-	// Local state for editing
-	let startInput = $state('');
-	let endInput = $state('');
+	// Local state for editing (as Date objects)
+	let startDateObj = $state<Date>(new Date());
+	let endDateObj = $state<Date>(new Date());
 	let error = $state('');
 
-	// Initialize inputs from props
+	// DayPicker dialog states
+	let showStartPicker = $state(false);
+	let showEndPicker = $state(false);
+
+	// Initialize from props
 	$effect(() => {
 		const start = parseDate(startDate);
 		const end = parseDate(endDate);
-		if (start) startInput = formatDate(start, 'DE');
-		if (end) endInput = formatDate(end, 'DE');
+		if (start) startDateObj = start;
+		if (end) endDateObj = end;
 	});
 
 	// Quick select: current year
 	function selectCurrentYear() {
 		const now = new Date();
-		const yearStart = new Date(now.getFullYear(), 0, 1);
-		startInput = formatDate(yearStart, 'DE');
-		endInput = formatDate(now, 'DE');
+		startDateObj = new Date(now.getFullYear(), 0, 1);
+		endDateObj = now;
 		error = '';
 	}
 
@@ -52,54 +57,50 @@
 	function selectLastYear() {
 		const now = new Date();
 		const lastYear = now.getFullYear() - 1;
-		const yearStart = new Date(lastYear, 0, 1);
-		const yearEnd = new Date(lastYear, 11, 31);
-		startInput = formatDate(yearStart, 'DE');
-		endInput = formatDate(yearEnd, 'DE');
+		startDateObj = new Date(lastYear, 0, 1);
+		endDateObj = new Date(lastYear, 11, 31);
 		error = '';
 	}
 
 	// Quick select: current month (1st to today)
 	function selectCurrentMonth() {
 		const now = new Date();
-		const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-		startInput = formatDate(monthStart, 'DE');
-		endInput = formatDate(now, 'DE');
+		startDateObj = new Date(now.getFullYear(), now.getMonth(), 1);
+		endDateObj = now;
 		error = '';
 	}
 
 	// Quick select: last month (full month)
 	function selectLastMonth() {
 		const now = new Date();
-		const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0); // Last day of previous month
-		const lastMonthStart = new Date(lastMonthEnd.getFullYear(), lastMonthEnd.getMonth(), 1);
-		startInput = formatDate(lastMonthStart, 'DE');
-		endInput = formatDate(lastMonthEnd, 'DE');
+		const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0);
+		startDateObj = new Date(lastMonthEnd.getFullYear(), lastMonthEnd.getMonth(), 1);
+		endDateObj = lastMonthEnd;
+		error = '';
+	}
+
+	// DayPicker handlers
+	function handleStartSelect(date: Date) {
+		startDateObj = date;
+		showStartPicker = false;
+		error = '';
+	}
+
+	function handleEndSelect(date: Date) {
+		endDateObj = date;
+		showEndPicker = false;
 		error = '';
 	}
 
 	// Validate and save
 	function handleSave() {
-		const start = parseDate(startInput);
-		const end = parseDate(endInput);
-
-		if (!start) {
-			error = 'Ungültiges Startdatum (Format: TT.MM.JJJJ)';
-			return;
-		}
-
-		if (!end) {
-			error = 'Ungültiges Enddatum (Format: TT.MM.JJJJ)';
-			return;
-		}
-
-		if (start > end) {
+		if (startDateObj > endDateObj) {
 			error = 'Startdatum muss vor Enddatum liegen';
 			return;
 		}
 
 		error = '';
-		onsave?.(formatDate(start, 'ISO'), formatDate(end, 'ISO'));
+		onsave?.(formatDate(startDateObj, 'ISO'), formatDate(endDateObj, 'ISO'));
 	}
 
 	function handleClose() {
@@ -128,29 +129,29 @@
 			</div>
 		</div>
 
-		<!-- Manual Input -->
+		<!-- Date Selection with DayPicker -->
 		<div class="section">
-			<h3 class="section-title">Manuell</h3>
+			<h3 class="section-title">Zeitraum</h3>
 			<div class="date-fields">
 				<div class="field">
-					<label for="range-start">Von:</label>
-					<input
-						type="text"
-						id="range-start"
-						bind:value={startInput}
-						placeholder="TT.MM.JJJJ"
-						class="date-input"
-					/>
+					<span class="field-label">Von:</span>
+					<button
+						type="button"
+						class="tt-date-selector-button tt-interactive-card"
+						onclick={() => (showStartPicker = true)}
+					>
+						<span class="tt-date-selector-button__date">{formatDate(startDateObj, 'DE')}</span>
+					</button>
 				</div>
 				<div class="field">
-					<label for="range-end">Bis:</label>
-					<input
-						type="text"
-						id="range-end"
-						bind:value={endInput}
-						placeholder="TT.MM.JJJJ"
-						class="date-input"
-					/>
+					<span class="field-label">Bis:</span>
+					<button
+						type="button"
+						class="tt-date-selector-button tt-interactive-card"
+						onclick={() => (showEndPicker = true)}
+					>
+						<span class="tt-date-selector-button__date">{formatDate(endDateObj, 'DE')}</span>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -167,6 +168,26 @@
 		</div>
 	</div>
 </Modal>
+
+<!-- Start Date Picker Dialog -->
+{#if showStartPicker}
+	<DayPicker
+		currentDate={startDateObj}
+		timeEntries={$timeEntries}
+		onselect={handleStartSelect}
+		onclose={() => (showStartPicker = false)}
+	/>
+{/if}
+
+<!-- End Date Picker Dialog -->
+{#if showEndPicker}
+	<DayPicker
+		currentDate={endDateObj}
+		timeEntries={$timeEntries}
+		onselect={handleEndSelect}
+		onclose={() => (showEndPicker = false)}
+	/>
+{/if}
 
 <style>
 	.range-selector {
@@ -217,25 +238,10 @@
 		gap: var(--tt-space-4);
 	}
 
-	.field label {
+	.field-label {
 		font-size: var(--tt-font-size-body);
 		font-weight: 500;
 		color: var(--tt-text-primary);
-	}
-
-	.date-input {
-		padding: var(--tt-space-12);
-		border: 1px solid var(--tt-border-default);
-		border-radius: var(--tt-radius-input);
-		font-size: var(--tt-font-size-normal);
-		background: var(--tt-background-input);
-		color: var(--tt-text-primary);
-	}
-
-	.date-input:focus {
-		outline: none;
-		border-color: var(--tt-border-focus);
-		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
 	.error {

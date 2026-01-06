@@ -10,6 +10,7 @@
 -->
 <script lang="ts">
 	import type { TimeEntryCandidate } from '$lib/import/types';
+	import DateInput from '../DateInput.svelte';
 
 	interface Props {
 		candidate: TimeEntryCandidate;
@@ -120,7 +121,7 @@
 
 	<td class="col-date" ondblclick={() => startEdit('date', candidate.date)}>
 		{#if editingField === 'date'}
-			<input type="date" bind:value={editValue} onblur={saveEdit} onkeydown={handleKeydown} />
+			<DateInput bind:value={editValue} onchange={saveEdit} />
 		{:else}
 			{formatDate(candidate.date)}
 		{/if}
@@ -263,8 +264,7 @@
 		width: 60px;
 	}
 
-	input[type='time'],
-	input[type='date'] {
+	input[type='time'] {
 		width: 100%;
 	}
 

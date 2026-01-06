@@ -36,7 +36,7 @@
 	import { downloadCategoriesFile } from '$lib/utils/categoryIO';
 	import { deleteAccount } from '$lib/api/auth';
 	import { clearSession } from '$lib/stores/auth';
-	import type { Category, WorkTimeModel, Employer } from '$lib/types';
+	import type { Category, WorkTimeModel, Employer, TimeEntry } from '$lib/types';
 	import CategoryDialog from '$lib/components/CategoryDialog.svelte';
 	import AddWorkTimeModelModal from '$lib/components/AddWorkTimeModelModal.svelte';
 	import ImportCategoriesModal from '$lib/components/ImportCategoriesModal.svelte';
@@ -45,7 +45,6 @@
 	import ExportDialog from '$lib/components/ExportDialog.svelte';
 	import PlanComparison from '$lib/components/PlanComparison.svelte';
 	import EmployerDialog from '$lib/components/EmployerDialog.svelte';
-	import StundenzettelExport from '$lib/components/StundenzettelExport.svelte';
 	import NameEditDialog from '$lib/components/NameEditDialog.svelte';
 	import EmailEditDialog from '$lib/components/EmailEditDialog.svelte';
 	import CustomDropdown from '$lib/components/CustomDropdown.svelte';
@@ -100,6 +99,49 @@
 		return employer?.name ?? 'Unbekannt';
 	}
 
+	// Compute time data range per employer
+	let timeDataRangePerEmployer = $derived(() => {
+		const ranges: {
+			employerId: string;
+			employerName: string;
+			earliest: string;
+			latest: string;
+			count: number;
+		}[] = [];
+
+		// Group entries by employer
+		const entriesByEmployer = new Map<string, { dates: string[]; count: number }>();
+
+		for (const entry of $timeEntries) {
+			const empId = entry.employerId ?? 'none';
+			if (!entriesByEmployer.has(empId)) {
+				entriesByEmployer.set(empId, { dates: [], count: 0 });
+			}
+			const data = entriesByEmployer.get(empId)!;
+			data.dates.push(entry.date);
+			data.count++;
+		}
+
+		// Calculate range for each employer
+		for (const [empId, data] of entriesByEmployer) {
+			if (data.dates.length === 0) continue;
+			const sorted = [...data.dates].sort();
+			const earliest = sorted[0];
+			const latest = sorted[sorted.length - 1];
+			const employer = employers.find((e) => e.id === empId);
+			ranges.push({
+				employerId: empId,
+				employerName: employer?.name ?? 'Ohne Arbeitgeber',
+				earliest,
+				latest,
+				count: data.count
+			});
+		}
+
+		// Sort by employer name
+		return ranges.sort((a, b) => a.employerName.localeCompare(b.employerName, 'de'));
+	});
+
 	let loading = $state(true);
 	let profileLoaded = $derived($userProfile !== null);
 	let appVersion = $state('');
@@ -110,7 +152,6 @@
 	let showImportCategories = $state(false);
 	let showImportExcel = $state(false);
 	let showExportDialog = $state(false);
-	let showStundenzettelExport = $state(false);
 	let showPlanComparison = $state(false);
 	let showDeleteConfirm = $state(false);
 	let showDeleteModelConfirm = $state(false);
@@ -133,10 +174,12 @@
 	let showDeleteAllTimeEntriesConfirm = $state(false);
 	let deleteAllInProgress = $state(false);
 	let expandedSections = $state({
+		konto: false,
 		employers: false,
 		workTimeModels: false,
 		abwesenheit: false,
 		arbeit: false,
+		zeitdaten: false,
 		entwicklung: false
 	});
 	let deleteAccountInProgress = $state(false);
@@ -253,6 +296,9 @@
 		workTimeModels.set(allModels);
 		employers = await getAllEmployers();
 		employersStore.set(employers);
+		// Load time entries for Zeitdaten summary
+		const allEntries = await getAll<TimeEntry>('timeEntries');
+		timeEntries.set(allEntries);
 		loading = false;
 
 		if (browser) {
@@ -402,7 +448,17 @@
 		<!-- Konto Section -->
 		<section class="section" data-testid="account-section">
 			<div class="section-header section-header-with-action">
-				<h2>Konto</h2>
+				<button
+					class="tt-section-toggle"
+					onclick={() => (expandedSections.konto = !expandedSections.konto)}
+					aria-expanded={expandedSections.konto}
+				>
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.konto}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Konto</h2>
+				</button>
 				<button class="logout-button tt-interactive" onclick={() => (showLogoutConfirm = true)}>
 					<svg
 						width="16"
@@ -421,83 +477,95 @@
 					Abmelden
 				</button>
 			</div>
-			<div class="tt-account-info">
-				<div class="account-row">
-					<span class="tt-account-label">Name</span>
-					<div class="account-value-with-edit">
-						<span class="tt-account-value" data-testid="account-name">
-							{$userFullName || 'Nicht festgelegt'}
-						</span>
-						<button
-							class="tt-symbol-button"
-							aria-label="Name bearbeiten"
-							onclick={() => (showNameEditDialog = true)}
-						>
-							<svg
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
+			{#if expandedSections.konto}
+				<div class="tt-account-info">
+					<div class="account-row">
+						<span class="tt-account-label">Name</span>
+						<div class="account-value-with-edit">
+							<span class="tt-account-value" data-testid="account-name">
+								{$userFullName || 'Nicht festgelegt'}
+							</span>
+							<button
+								class="tt-symbol-button"
+								aria-label="Name bearbeiten"
+								onclick={() => (showNameEditDialog = true)}
 							>
-								<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-								<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-							</svg>
-						</button>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+								</svg>
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="account-row">
-					<span class="tt-account-label">E-Mail</span>
-					<div class="account-value-with-edit">
-						<span class="tt-account-value" data-testid="account-email">
-							{$userProfile?.email ?? 'Nicht angemeldet'}
-						</span>
-						<button
-							class="tt-symbol-button"
-							aria-label="E-Mail bearbeiten"
-							onclick={() => (showEmailEditDialog = true)}
-						>
-							<svg
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
+					<div class="account-row">
+						<span class="tt-account-label">E-Mail</span>
+						<div class="account-value-with-edit">
+							<span class="tt-account-value" data-testid="account-email">
+								{$userProfile?.email ?? 'Nicht angemeldet'}
+							</span>
+							<button
+								class="tt-symbol-button"
+								aria-label="E-Mail bearbeiten"
+								onclick={() => (showEmailEditDialog = true)}
 							>
-								<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-								<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-							</svg>
-						</button>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+								</svg>
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="account-row">
-					<span class="tt-account-label">Plan</span>
-					<div class="account-value-with-edit">
-						<span
-							class="tt-account-value tt-plan-text"
-							class:pro={$userPlan === 'pro'}
-							data-testid="account-plan"
-						>
-							{$userPlan === 'pro' ? 'Pro' : 'Free'}
-						</span>
-						<button class="tt-symbol-button" aria-label="Plan ändern" onclick={handlePlanChange}>
-							<svg
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
+					<div class="account-row">
+						<span class="tt-account-label">Plan</span>
+						<div class="account-value-with-edit">
+							<span
+								class="tt-account-value tt-plan-text"
+								class:pro={$userPlan === 'pro'}
+								data-testid="account-plan"
 							>
-								<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-								<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-							</svg>
-						</button>
+								{$userPlan === 'pro' ? 'Pro' : 'Free'}
+							</span>
+							<button class="tt-symbol-button" aria-label="Plan ändern" onclick={handlePlanChange}>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+								</svg>
+							</button>
+						</div>
 					</div>
+					<button
+						class="tt-button-secondary tt-button-full"
+						onclick={() => (showDeleteAccountConfirm = true)}
+						disabled={deleteAccountInProgress}
+					>
+						{deleteAccountInProgress ? 'Wird gelöscht...' : 'Konto löschen'}
+					</button>
+					{#if deleteAccountError}
+						<span class="tt-delete-account-error">{deleteAccountError}</span>
+					{/if}
 				</div>
-			</div>
+			{/if}
 		</section>
 
 		<!-- Arbeitgeber Section -->
@@ -618,9 +686,9 @@
 								onclick={() => handleEditModel(model)}
 								onkeydown={(e) => e.key === 'Enter' && handleEditModel(model)}
 							>
-								<div class="tt-list-row__content">
+								<div class="tt-list-row__content work-time-model-row">
 									<span class="tt-list-row__title">{model.name}</span>
-									<span class="tt-list-row__detail">
+									<span class="tt-list-row__detail work-time-model-detail">
 										{calculateModelTotalHours(model)}h/Woche • {countModelWorkdays(model)} Tage • ab {model.validFrom}
 									</span>
 								</div>
@@ -813,7 +881,9 @@
 								<button
 									class="tt-dropdown-item tt-dropdown-item--interactive tt-interactive"
 									onclick={() => {
-										downloadCategoriesFile($categories);
+										const employerName = getEmployerName($selectedEmployerId);
+										const filename = `Backup-Tätigkeiten-${employerName}.txt`;
+										downloadCategoriesFile($categories, filename);
 										showCategoryMenu = false;
 									}}
 								>
@@ -920,41 +990,79 @@
 		<!-- Daten Section (Export/Import) -->
 		<section class="section" data-testid="data-section">
 			<div class="section-header">
-				<h2>Zeitdaten</h2>
-			</div>
-			<div class="data-actions">
 				<button
-					class="tt-button-primary tt-button-full"
-					onclick={() => (showExportDialog = true)}
-					data-testid="export-btn"
+					class="tt-section-toggle"
+					onclick={() => (expandedSections.zeitdaten = !expandedSections.zeitdaten)}
+					aria-expanded={expandedSections.zeitdaten}
 				>
-					Exportieren
-				</button>
-				<button
-					class="tt-button-primary tt-button-full"
-					onclick={() => (showStundenzettelExport = true)}
-					data-testid="stundenzettel-export-btn"
-				>
-					Stundenzettel
-				</button>
-				<button
-					class="tt-button-primary tt-button-full"
-					onclick={() => goto(resolve('/import'))}
-					data-testid="import-btn"
-				>
-					Importieren
-				</button>
-				<button class="tt-button-secondary tt-button-full" onclick={() => (showImportExcel = true)}>
-					Excel-Datei importieren
-				</button>
-				<button
-					class="tt-button-danger-outline tt-button-full"
-					onclick={() => (showDeleteAllTimeEntriesConfirm = true)}
-					disabled={deleteAllInProgress}
-				>
-					{deleteAllInProgress ? 'Wird gelöscht...' : 'Zeitdaten löschen'}
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.zeitdaten}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Zeitdaten</h2>
 				</button>
 			</div>
+			{#if expandedSections.zeitdaten}
+				<!-- Time data range preview per employer -->
+				{#if timeDataRangePerEmployer().length > 0}
+					<div class="time-data-preview">
+						{#each timeDataRangePerEmployer() as range}
+							<div class="time-data-preview__item">
+								<span class="time-data-preview__employer">{range.employerName}</span>
+								<span class="time-data-preview__range"
+									>{range.earliest.split('-').reverse().join('.')} – {range.latest
+										.split('-')
+										.reverse()
+										.join('.')}</span
+								>
+								<span class="time-data-preview__count">({range.count} Einträge)</span>
+							</div>
+						{/each}
+					</div>
+				{:else}
+					<div class="time-data-preview time-data-preview--empty">
+						<span class="tt-text-muted">Keine Zeitdaten vorhanden</span>
+					</div>
+				{/if}
+				<div class="data-actions">
+					<a
+						href="/stundenzettel"
+						class="tt-button-primary tt-button-full"
+						data-testid="stundenzettel-export-btn"
+					>
+						Stundenzettel herunterladen
+					</a>
+					<button
+						class="tt-button-secondary tt-button-full"
+						onclick={() => (showExportDialog = true)}
+						data-testid="export-btn"
+					>
+						Manuelles Backup
+					</button>
+					<button
+						class="tt-button-secondary tt-button-full"
+						onclick={() => goto(resolve('/import'))}
+						data-testid="import-btn"
+					>
+						Backup importieren
+					</button>
+					{#if $userProfile?.firstName === 'Friedemann' || $userProfile?.firstName === 'Samuel'}
+						<button
+							class="tt-button-secondary tt-button-full"
+							onclick={() => (showImportExcel = true)}
+						>
+							Excel-Datei importieren
+						</button>
+					{/if}
+					<button
+						class="tt-button-danger-outline tt-button-full"
+						onclick={() => (showDeleteAllTimeEntriesConfirm = true)}
+						disabled={deleteAllInProgress}
+					>
+						{deleteAllInProgress ? 'Wird gelöscht...' : 'Zeitdaten löschen'}
+					</button>
+				</div>
+			{/if}
 		</section>
 
 		<!-- Version Section -->
@@ -967,59 +1075,47 @@
 			</div>
 		</section>
 
-		<!-- Development Section (Color Scheme Switcher) -->
-		<section class="section">
-			<div class="section-header">
-				<button
-					class="tt-section-toggle"
-					onclick={() => (expandedSections.entwicklung = !expandedSections.entwicklung)}
-					aria-expanded={expandedSections.entwicklung}
-				>
-					<span
-						class="tt-section-toggle__icon"
-						class:tt-section-toggle__icon--expanded={expandedSections.entwicklung}>▶</span
+		<!-- Development Section (Color Scheme Switcher) - Only for Samuel -->
+		{#if $userProfile?.firstName === 'Samuel'}
+			<section class="section">
+				<div class="section-header">
+					<button
+						class="tt-section-toggle"
+						onclick={() => (expandedSections.entwicklung = !expandedSections.entwicklung)}
+						aria-expanded={expandedSections.entwicklung}
 					>
-					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Entwicklung</h2>
-				</button>
-			</div>
-			{#if expandedSections.entwicklung}
-				<div class="dev-settings">
-					<div class="tt-labeled-dropdown">
-						<span class="tt-labeled-dropdown__label">Farbschema</span>
-						<CustomDropdown
-							options={colorSchemeOptions}
-							value={$colorScheme}
-							onchange={handleColorSchemeChange}
-						/>
-					</div>
-					<div class="color-preview">
-						<div class="color-swatch primary" style="background: var(--tt-brand-primary-500);">
-							<span>Primary<br />{COLOR_SCHEMES[$colorScheme].primary}</span>
-						</div>
-						<div class="color-swatch secondary" style="background: var(--tt-brand-accent-300);">
-							<span>Secondary<br />{COLOR_SCHEMES[$colorScheme].secondary}</span>
-						</div>
-					</div>
-					<button class="reset-btn tt-interactive" onclick={resetColorScheme}>
-						Cache leeren & neu laden
+						<span
+							class="tt-section-toggle__icon"
+							class:tt-section-toggle__icon--expanded={expandedSections.entwicklung}>▶</span
+						>
+						<h2 class="tt-section-toggle__title tt-settings-section-header__title">Entwicklung</h2>
 					</button>
 				</div>
-			{/if}
-		</section>
-
-		<!-- Delete Account Section -->
-		<section class="section delete-account-section">
-			<button
-				class="tt-button-danger tt-button-full"
-				onclick={() => (showDeleteAccountConfirm = true)}
-				disabled={deleteAccountInProgress}
-			>
-				{deleteAccountInProgress ? 'Wird gelöscht...' : 'Konto löschen'}
-			</button>
-			{#if deleteAccountError}
-				<span class="tt-delete-account-error">{deleteAccountError}</span>
-			{/if}
-		</section>
+				{#if expandedSections.entwicklung}
+					<div class="dev-settings">
+						<div class="tt-labeled-dropdown">
+							<span class="tt-labeled-dropdown__label">Farbschema</span>
+							<CustomDropdown
+								options={colorSchemeOptions}
+								value={$colorScheme}
+								onchange={handleColorSchemeChange}
+							/>
+						</div>
+						<div class="color-preview">
+							<div class="color-swatch primary" style="background: var(--tt-brand-primary-500);">
+								<span>Primary<br />{COLOR_SCHEMES[$colorScheme].primary}</span>
+							</div>
+							<div class="color-swatch secondary" style="background: var(--tt-brand-accent-300);">
+								<span>Secondary<br />{COLOR_SCHEMES[$colorScheme].secondary}</span>
+							</div>
+						</div>
+						<button class="reset-btn tt-interactive" onclick={resetColorScheme}>
+							Cache leeren & neu laden
+						</button>
+					</div>
+				{/if}
+			</section>
+		{/if}
 	{/if}
 </div>
 
@@ -1064,9 +1160,11 @@
 
 <!-- Delete Category Confirmation -->
 {#if showDeleteConfirm && categoryToDelete}
+	{@const isAbsence = !categoryToDelete.countsAsWorkTime}
+	{@const typeLabel = isAbsence ? 'Abwesenheit' : 'Tätigkeit'}
 	<ConfirmDialog
-		title="Kategorie löschen"
-		message={`Kategorie "${categoryToDelete.name}" wirklich löschen?`}
+		title="{typeLabel} löschen"
+		message={`${typeLabel} "${categoryToDelete.name}" wirklich löschen?`}
 		confirmLabel="Löschen"
 		confirmStyle="danger"
 		onconfirm={confirmDeleteCategory}
@@ -1112,17 +1210,6 @@
 <!-- Export Dialog -->
 {#if showExportDialog}
 	<ExportDialog onclose={() => (showExportDialog = false)} />
-{/if}
-
-<!-- Stundenzettel Export Dialog -->
-{#if showStundenzettelExport}
-	<StundenzettelExport
-		onclose={() => (showStundenzettelExport = false)}
-		onexport={(data) => {
-			console.log('[Settings] Stundenzettel export data:', data);
-			showStundenzettelExport = false;
-		}}
-	/>
 {/if}
 
 <!-- Plan Comparison Modal -->
@@ -1262,6 +1349,20 @@
 		gap: var(--tt-space-8);
 	}
 
+	.work-time-model-row {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		flex: 1;
+		min-width: 0;
+	}
+
+	.work-time-model-detail {
+		margin-left: auto;
+		text-align: right;
+	}
+
 	.row-right-section {
 		display: flex;
 		align-items: center;
@@ -1289,12 +1390,6 @@
 
 	/* Version info uses .tt-version-label and .tt-build-time from design system */
 
-	.delete-account-section {
-		margin-top: 2rem;
-		padding-top: 1rem;
-		border-top: 1px solid var(--tt-border-default);
-	}
-
 	.tt-delete-account-error {
 		display: block;
 		margin-top: 0.5rem;
@@ -1304,6 +1399,43 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--tt-space-8);
+	}
+
+	/* Time data preview per employer */
+	.time-data-preview {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tt-space-4);
+		padding: var(--tt-space-12);
+		background: var(--tt-background-card-hover);
+		border-radius: var(--tt-radius-card);
+		margin-bottom: var(--tt-space-12);
+	}
+
+	.time-data-preview--empty {
+		text-align: center;
+	}
+
+	.time-data-preview__item {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--tt-space-8);
+		align-items: baseline;
+		font-size: var(--tt-font-size-small);
+	}
+
+	.time-data-preview__employer {
+		font-weight: var(--tt-font-weight-semibold);
+		color: var(--tt-text-primary);
+	}
+
+	.time-data-preview__range {
+		color: var(--tt-text-secondary);
+	}
+
+	.time-data-preview__count {
+		color: var(--tt-text-muted);
+		font-size: var(--tt-font-size-tiny);
 	}
 
 	/* Dropdown danger item uses .tt-dropdown-item--danger from design system */

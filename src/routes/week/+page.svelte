@@ -45,7 +45,7 @@
 	import type { Category, DayType, DayTypeValue, TimeEntry, WorkTimeModel } from '$lib/types';
 	import InlineSummary from '$lib/components/InlineSummary.svelte';
 	import WeekTypeSelector from '$lib/components/WeekTypeSelector.svelte';
-	import WeekYearPicker from '$lib/components/WeekYearPicker.svelte';
+	import WeekPicker from '$lib/components/WeekPicker.svelte';
 
 	const PREF_KEY = 'week-selected-date';
 	let loading = $state(true);
@@ -332,11 +332,13 @@
 				{#each activeDays as date (formatDate(date, 'ISO'))}
 					{@const dayIst = getDayIst(date)}
 					{@const daySoll = getDaySoll(date)}
-					<button class="tt-list-row-clickable" type="button" onclick={() => navigateToDay(date)}>
-						<div class="tt-list-row__content">
-							<span class="tt-list-row__title">{formatShortDate(date)}</span>
-						</div>
-						<span class="tt-list-row__detail">{getDayTypeLabel(date)}</span>
+					<button
+						class="tt-list-row-clickable day-row"
+						type="button"
+						onclick={() => navigateToDay(date)}
+					>
+						<span class="day-row__date">{formatShortDate(date)}</span>
+						<span class="day-row__type">{getDayTypeLabel(date)}</span>
 						<div class="day-hours">
 							<span class="day-hours__ist">{dayIst.toFixed(1).replace('.', ',')}</span>
 							<span class="day-hours__separator">/</span>
@@ -358,9 +360,9 @@
 	{/if}
 </div>
 
-<!-- Week Year Picker Modal -->
+<!-- Week Picker Modal -->
 {#if showWeekPicker}
-	<WeekYearPicker
+	<WeekPicker
 		currentDate={$currentDate}
 		timeEntries={$timeEntries}
 		onselect={handleWeekSelect}
@@ -414,6 +416,33 @@
 		text-align: center;
 		color: var(--tt-text-muted);
 		padding: var(--tt-space-32);
+	}
+
+	/* Day row layout - date and type as aligned columns */
+	.day-row {
+		display: grid;
+		grid-template-columns: 5.5rem auto 1fr;
+		gap: var(--tt-space-8);
+		align-items: center;
+	}
+
+	.day-row__date {
+		font-weight: var(--tt-font-weight-semibold);
+		color: var(--tt-text-primary);
+		white-space: nowrap;
+	}
+
+	.day-row__type {
+		display: inline-flex;
+		align-items: center;
+		padding: var(--tt-space-4) var(--tt-space-8);
+		font-size: var(--tt-font-size-tiny);
+		font-weight: var(--tt-font-weight-medium);
+		color: var(--tt-text-muted);
+		background: var(--tt-background-card-pressed);
+		border-radius: var(--tt-radius-badge);
+		white-space: nowrap;
+		width: fit-content;
 	}
 
 	/* Day hours display - layout-only styles for right side */

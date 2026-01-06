@@ -44,6 +44,10 @@
 <style>
 	.tt-summary-label {
 		margin-right: auto;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		min-width: 0;
 	}
 
 	/* Layout override for narrow screens */

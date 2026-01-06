@@ -50,9 +50,17 @@
 	// Computed values for mode handling
 	let isCreateMode = $derived(mode === 'create');
 	let isSystemCategory = $derived(!isCreateMode && category?.type === 'system');
-	let dialogTitle = $derived(isCreateMode ? 'Tätigkeit erstellen' : 'Kategorie bearbeiten');
-	// Absence categories (countsAsWorkTime=false) should not have employer assignment
 	let isAbsenceCategory = $derived(isCreateMode ? !countsAsWorkTime : !category?.countsAsWorkTime);
+	let dialogTitle = $derived(
+		isCreateMode
+			? isAbsenceCategory
+				? 'Abwesenheit erstellen'
+				: 'Tätigkeit erstellen'
+			: isAbsenceCategory
+				? 'Abwesenheit bearbeiten'
+				: 'Tätigkeit bearbeiten'
+	);
+	// Absence categories (countsAsWorkTime=false) should not have employer assignment
 
 	// Form state - initialize based on mode
 	let name = $state(category?.name ?? '');
