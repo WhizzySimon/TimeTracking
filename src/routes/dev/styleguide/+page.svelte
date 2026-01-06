@@ -9,7 +9,11 @@
            <div class="tt-list-row-clickable"> (shorthand)
 -->
 <script lang="ts">
-	// No state needed - all demos are static
+	let selectedTab = $state('week');
+
+	function selectTab(tab: string) {
+		selectedTab = tab;
+	}
 </script>
 
 <div class="styleguide">
@@ -221,6 +225,64 @@
 			</ul>
 		</div>
 	</section>
+
+	<!-- Footer Button Gradient Experiment -->
+	<section class="section">
+		<h2>Footer Button Gradient Experiment - Phase 3</h2>
+		<p style="color: var(--tt-text-muted);">
+			Phase 3: Gradient from button's original color (bottom) to app background color (top).
+		</p>
+
+		<div class="footer-demo-container">
+			<div class="footer-demo">
+				<button
+					class="footer-btn footer-btn--plus"
+					onclick={() => selectTab('add')}
+					aria-current={selectedTab === 'add' ? 'page' : undefined}
+				>
+					+
+				</button>
+				<button
+					class="footer-btn footer-btn--day"
+					onclick={() => selectTab('day')}
+					aria-current={selectedTab === 'day' ? 'page' : undefined}
+				>
+					Tag
+				</button>
+				<button
+					class="footer-btn footer-btn--week"
+					onclick={() => selectTab('week')}
+					aria-current={selectedTab === 'week' ? 'page' : undefined}
+				>
+					Woche
+				</button>
+				<button
+					class="footer-btn footer-btn--month"
+					onclick={() => selectTab('month')}
+					aria-current={selectedTab === 'month' ? 'page' : undefined}
+				>
+					Monat
+				</button>
+				<button
+					class="footer-btn footer-btn--analysis"
+					onclick={() => selectTab('analysis')}
+					aria-current={selectedTab === 'analysis' ? 'page' : undefined}
+				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M3 3v18h18M7 16l4-4 4 4 6-6" />
+					</svg>
+				</button>
+			</div>
+		</div>
+
+		<div class="explanation-card" style="margin-top: 1rem;">
+			<p><strong>Current selection:</strong> {selectedTab}</p>
+			<p>
+				The button now has a gradient from its original color at the bottom to the app background
+				color at the top, creating a smooth visual blend.
+			</p>
+		</div>
+	</section>
 </div>
 
 <style>
@@ -343,5 +405,252 @@
 	.color-scale-item code {
 		font-size: 0.6rem;
 		opacity: 0.9;
+	}
+
+	/* Footer Button Experiment - Phase 2: Selected button extends upward */
+	.footer-demo-container {
+		background: var(--tt-brand-primary-500);
+		padding: var(--tt-space-8);
+		border-radius: var(--tt-radius-card) var(--tt-radius-card) 0 0;
+		margin-top: 1rem;
+		position: relative;
+		overflow: visible;
+	}
+
+	.footer-demo {
+		display: flex;
+		gap: var(--tt-space-4);
+		justify-content: stretch;
+	}
+
+	.footer-btn {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 38px;
+		padding: var(--tt-space-8) var(--tt-space-12);
+		border: none;
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
+		font-weight: var(--tt-font-weight-normal);
+		cursor: pointer;
+		transition: background 0.2s ease;
+	}
+
+	.footer-btn--plus {
+		font-size: 1.5rem;
+		font-weight: var(--tt-font-weight-bold);
+		background: var(--tt-brand-primary-600);
+		color: var(--tt-white);
+	}
+
+	.footer-btn--day {
+		background: var(--tt-brand-accent-100);
+		color: var(--tt-brand-primary-700);
+	}
+
+	.footer-btn--week {
+		background: var(--tt-brand-accent-200);
+		color: var(--tt-brand-primary-700);
+	}
+
+	.footer-btn--month {
+		background: var(--tt-brand-accent-300);
+		color: var(--tt-brand-primary-700);
+	}
+
+	.footer-btn--analysis {
+		background: var(--tt-brand-primary-600);
+		color: var(--tt-white);
+	}
+
+	.footer-btn svg {
+		width: 20px;
+		height: 20px;
+		stroke-width: 2;
+	}
+
+	/* Hover states */
+	@media (hover: hover) {
+		.footer-btn--plus:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-600));
+		}
+
+		.footer-btn--day:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100));
+		}
+
+		.footer-btn--week:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+		}
+
+		.footer-btn--month:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+		}
+
+		.footer-btn--analysis:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-600));
+		}
+	}
+
+	/* Pressed states */
+	.footer-btn--plus:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-600));
+	}
+
+	.footer-btn--day:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-100));
+	}
+
+	.footer-btn--week:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
+	}
+
+	.footer-btn--month:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300));
+	}
+
+	.footer-btn--analysis:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-600));
+	}
+
+	/* Selected state - gradient from original color to app background */
+	.footer-btn[aria-current='page'] {
+		color: var(--tt-brand-primary-700);
+		font-weight: var(--tt-font-weight-bold);
+		position: relative;
+		overflow: visible;
+		border-radius: 0 0 var(--tt-radius-button) var(--tt-radius-button);
+	}
+
+	/* Day button gradient: accent-100 to page background */
+	.footer-btn--day[aria-current='page'] {
+		background: linear-gradient(
+			to top,
+			var(--tt-brand-accent-100) 0%,
+			var(--tt-background-page) 100%
+		) !important;
+	}
+
+	/* Week button gradient: accent-200 to page background */
+	.footer-btn--week[aria-current='page'] {
+		background: linear-gradient(
+			to top,
+			var(--tt-brand-accent-200) 0%,
+			var(--tt-background-page) 100%
+		) !important;
+	}
+
+	/* Month button gradient: accent-300 to page background */
+	.footer-btn--month[aria-current='page'] {
+		background: linear-gradient(
+			to top,
+			var(--tt-brand-accent-300) 0%,
+			var(--tt-background-page) 100%
+		) !important;
+	}
+
+	/* Plus and Analysis buttons: primary-600 to page background */
+	.footer-btn--plus[aria-current='page'],
+	.footer-btn--analysis[aria-current='page'] {
+		background: linear-gradient(
+			to top,
+			var(--tt-brand-primary-600) 0%,
+			var(--tt-background-page) 100%
+		) !important;
+		color: var(--tt-white);
+	}
+
+	/* Extension above button to blend into app background */
+	.footer-btn[aria-current='page']::before {
+		content: '';
+		position: absolute;
+		top: -20px;
+		left: 0;
+		right: 0;
+		height: 20px;
+		background: var(--tt-background-page);
+		border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
+		z-index: 1;
+	}
+
+	/* Ensure button text stays above the extension */
+	.footer-btn[aria-current='page'] {
+		z-index: 2;
+	}
+
+	.footer-btn[aria-current='page'] svg {
+		stroke-width: 3;
+	}
+
+	/* Selected hover - use same gradient with slight darkening */
+	@media (hover: hover) {
+		.footer-btn--day[aria-current='page']:hover {
+			background: linear-gradient(
+				to top,
+				color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100)) 0%,
+				var(--tt-background-page) 100%
+			) !important;
+		}
+
+		.footer-btn--week[aria-current='page']:hover {
+			background: linear-gradient(
+				to top,
+				color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200)) 0%,
+				var(--tt-background-page) 100%
+			) !important;
+		}
+
+		.footer-btn--month[aria-current='page']:hover {
+			background: linear-gradient(
+				to top,
+				color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300)) 0%,
+				var(--tt-background-page) 100%
+			) !important;
+		}
+
+		.footer-btn--plus[aria-current='page']:hover,
+		.footer-btn--analysis[aria-current='page']:hover {
+			background: linear-gradient(
+				to top,
+				color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-600)) 0%,
+				var(--tt-background-page) 100%
+			) !important;
+		}
+	}
+
+	/* Selected pressed - use same gradient with more darkening */
+	.footer-btn--day[aria-current='page']:active {
+		background: linear-gradient(
+			to top,
+			color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-100)) 0%,
+			var(--tt-background-page) 100%
+		) !important;
+	}
+
+	.footer-btn--week[aria-current='page']:active {
+		background: linear-gradient(
+			to top,
+			color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200)) 0%,
+			var(--tt-background-page) 100%
+		) !important;
+	}
+
+	.footer-btn--month[aria-current='page']:active {
+		background: linear-gradient(
+			to top,
+			color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300)) 0%,
+			var(--tt-background-page) 100%
+		) !important;
+	}
+
+	.footer-btn--plus[aria-current='page']:active,
+	.footer-btn--analysis[aria-current='page']:active {
+		background: linear-gradient(
+			to top,
+			color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-600)) 0%,
+			var(--tt-background-page) 100%
+		) !important;
 	}
 </style>
