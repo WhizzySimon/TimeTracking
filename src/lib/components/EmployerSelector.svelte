@@ -136,6 +136,16 @@
 		min-width: 160px;
 	}
 
+	@media (hover: hover) {
+		.selector-button:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+		}
+	}
+
+	.selector-button:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300));
+	}
+
 	.compact .selector-button {
 		padding: 0.375rem 0.5rem;
 		font-size: var(--tt-font-size-small);
@@ -173,7 +183,7 @@
 		min-width: 100%;
 		max-height: 240px;
 		overflow-y: auto;
-		background: var(--tt-background-card);
+		background: var(--tt-brand-accent-200);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
 		box-shadow: var(--tt-shadow-modal);
@@ -187,10 +197,21 @@
 		padding: 0.5rem 0.75rem;
 		text-align: left;
 		border: none;
-		background: none;
-		color: var(--tt-text-primary);
+		background: transparent;
+		color: var(--tt-brand-primary-700);
 		cursor: pointer;
 		font-size: var(--tt-font-size-body);
+		transition: background 0.15s ease;
+	}
+
+	@media (hover: hover) {
+		.option:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+		}
+	}
+
+	.option:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
 	}
 
 	.compact .option {

@@ -67,9 +67,7 @@
 					stroke-linecap="round"
 					stroke-linejoin="round"
 				>
-					<line x1="18" y1="20" x2="18" y2="10"></line>
-					<line x1="12" y1="20" x2="12" y2="4"></line>
-					<line x1="6" y1="20" x2="6" y2="14"></line>
+					<path d="M3 3v18h18M7 16l4-4 4 4 6-6" />
 				</svg>
 			{:else}
 				{tab.label}

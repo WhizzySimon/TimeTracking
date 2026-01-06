@@ -1862,7 +1862,19 @@ textarea {
 }
 
 .tt-footer-tab--plus[aria-current='page'] {
+	background: color-mix(in srgb, var(--tt-white) 50%, var(--tt-brand-primary-600)) !important;
+	color: var(--tt-white);
 	font-weight: var(--tt-font-weight-bold);
+}
+
+@media (hover: hover) {
+	.tt-footer-tab--plus[aria-current='page']:hover {
+		background: color-mix(in srgb, var(--tt-white) 58%, var(--tt-brand-primary-600)) !important;
+	}
+}
+
+.tt-footer-tab--plus[aria-current='page']:active {
+	background: color-mix(in srgb, var(--tt-white) 65%, var(--tt-brand-primary-600)) !important;
 }
 
 /* Analysis tab: same color as Plus tab */
@@ -1877,6 +1889,22 @@ textarea {
 
 .tt-footer-tab--analysis:active {
 	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-footer-plus-bg));
+}
+
+.tt-footer-tab--analysis[aria-current='page'] {
+	background: color-mix(in srgb, var(--tt-white) 50%, var(--tt-brand-primary-600)) !important;
+	color: var(--tt-white);
+	font-weight: var(--tt-font-weight-bold);
+}
+
+@media (hover: hover) {
+	.tt-footer-tab--analysis[aria-current='page']:hover {
+		background: color-mix(in srgb, var(--tt-white) 58%, var(--tt-brand-primary-600)) !important;
+	}
+}
+
+.tt-footer-tab--analysis[aria-current='page']:active {
+	background: color-mix(in srgb, var(--tt-white) 65%, var(--tt-brand-primary-600)) !important;
 }
 
 /* Individual tab colors - gradient from light to dark (100/200/300) */
