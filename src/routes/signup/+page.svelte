@@ -41,8 +41,10 @@
 		success = '';
 
 		try {
-			const { signup } = await import('$lib/api/auth');
+			const { signup, getCurrentUserId } = await import('$lib/api/auth');
 			const { saveSession } = await import('$lib/stores/auth');
+			const { loadUserProfile } = await import('$lib/api/profile');
+			const { setUserProfile } = await import('$lib/stores/user');
 
 			const response = await signup(email, password);
 
@@ -53,6 +55,13 @@
 				createdAt: Date.now()
 			};
 			await saveSession(session);
+
+			// Load user profile after signup (profile should be created by Supabase trigger)
+			const userId = await getCurrentUserId();
+			if (userId) {
+				const profile = await loadUserProfile(userId);
+				setUserProfile(profile);
+			}
 
 			goto(resolve('/day'));
 		} catch (e) {

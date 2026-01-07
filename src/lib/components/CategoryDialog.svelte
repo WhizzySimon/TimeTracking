@@ -163,7 +163,7 @@
 			/>
 		</div>
 
-		{#if !isAbsenceCategory}
+		{#if !isAbsenceCategory && employers.length > 1}
 			<div class="tt-form-field">
 				<label for="category-employer" class="tt-form-field__label">Arbeitgeber:</label>
 				<CustomDropdown

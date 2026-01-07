@@ -10,7 +10,7 @@
 -->
 <script lang="ts">
 	let selectedTab = $state('week');
-	let selectedTab2 = $state('week');
+	let selectedTab2 = $state('');
 	let selectedEmployer = $state<string | null>(null);
 	let selectedEmployerGradient = $state<string | null>(null);
 
@@ -617,6 +617,124 @@
 			</p>
 		</div>
 	</section>
+
+	<!-- Footer Button Experiment v2 - Floating Buttons -->
+	<section class="section">
+		<h2>Footer Button Experiment v2 - Floating Buttons</h2>
+		<p style="color: var(--tt-text-muted);">
+			Transparent footer background with floating buttons. Left and right buttons use brand primary
+			500 color.
+		</p>
+
+		<div class="footer-demo-container-v2-floating">
+			<div class="footer-demo-v2-floating">
+				<button
+					class="footer-btn-v2-floating footer-btn-v2-floating--plus"
+					onclick={() => selectTab2('add')}
+					aria-current={selectedTab2 === 'add' ? 'page' : undefined}
+				>
+					+
+				</button>
+				<button
+					class="footer-btn-v2-floating footer-btn-v2-floating--day"
+					onclick={() => selectTab2('day')}
+					aria-current={selectedTab2 === 'day' ? 'page' : undefined}
+				>
+					Tag
+				</button>
+				<button
+					class="footer-btn-v2-floating footer-btn-v2-floating--week"
+					onclick={() => selectTab2('week')}
+					aria-current={selectedTab2 === 'week' ? 'page' : undefined}
+				>
+					Woche
+				</button>
+				<button
+					class="footer-btn-v2-floating footer-btn-v2-floating--month"
+					onclick={() => selectTab2('month')}
+					aria-current={selectedTab2 === 'month' ? 'page' : undefined}
+				>
+					Monat
+				</button>
+				<button
+					class="footer-btn-v2-floating footer-btn-v2-floating--analysis"
+					onclick={() => selectTab2('analysis')}
+					aria-current={selectedTab2 === 'analysis' ? 'page' : undefined}
+				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M3 3v18h18M7 16l4-4 4 4 6-6" />
+					</svg>
+				</button>
+			</div>
+		</div>
+
+		<div class="explanation-card" style="margin-top: 1rem;">
+			<p><strong>Current selection:</strong> {selectedTab2}</p>
+			<p>
+				Floating buttons on transparent background. Plus and Analysis buttons use brand primary 500
+				color.
+			</p>
+		</div>
+	</section>
+
+	<!-- Footer Button Experiment v3 - Floating Buttons -->
+	<section class="section">
+		<h2>Footer Button Experiment v3 - Floating Buttons</h2>
+		<p style="color: var(--tt-text-muted);">
+			Transparent footer background with floating buttons. Left and right buttons use brand primary
+			500 color.
+		</p>
+
+		<div class="footer-demo-container-v3">
+			<div class="footer-demo-v3">
+				<button
+					class="footer-btn-v3 footer-btn-v3--plus"
+					onclick={() => selectTab2('add')}
+					aria-current={selectedTab2 === 'add' ? 'page' : undefined}
+				>
+					+
+				</button>
+				<button
+					class="footer-btn-v3 footer-btn-v3--day"
+					onclick={() => selectTab2('day')}
+					aria-current={selectedTab2 === 'day' ? 'page' : undefined}
+				>
+					Tag
+				</button>
+				<button
+					class="footer-btn-v3 footer-btn-v3--week"
+					onclick={() => selectTab2('week')}
+					aria-current={selectedTab2 === 'week' ? 'page' : undefined}
+				>
+					Woche
+				</button>
+				<button
+					class="footer-btn-v3 footer-btn-v3--month"
+					onclick={() => selectTab2('month')}
+					aria-current={selectedTab2 === 'month' ? 'page' : undefined}
+				>
+					Monat
+				</button>
+				<button
+					class="footer-btn-v3 footer-btn-v3--analysis"
+					onclick={() => selectTab2('analysis')}
+					aria-current={selectedTab2 === 'analysis' ? 'page' : undefined}
+				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M3 3v18h18M7 16l4-4 4 4 6-6" />
+					</svg>
+				</button>
+			</div>
+		</div>
+
+		<div class="explanation-card" style="margin-top: 1rem;">
+			<p><strong>Current selection:</strong> {selectedTab2}</p>
+			<p>
+				Floating buttons on transparent background. Plus and Analysis buttons use brand primary 500
+				color.
+			</p>
+		</div>
+	</section>
 </div>
 
 <style>
@@ -1141,6 +1259,367 @@
 	.footer-btn-v2--plus[aria-current='page']:active,
 	.footer-btn-v2--analysis[aria-current='page']:active {
 		background: color-mix(in srgb, var(--tt-white) 62%, var(--tt-brand-primary-600)) !important;
+	}
+
+	/* Footer Button Experiment v2 - Floating Buttons */
+	.footer-demo-container-v2-floating {
+		background: transparent;
+		padding: var(--tt-space-8);
+		border-radius: var(--tt-radius-card) var(--tt-radius-card) 0 0;
+		position: relative;
+		overflow: visible;
+	}
+
+	.footer-demo-v2-floating {
+		display: flex;
+		gap: var(--tt-space-4);
+		justify-content: stretch;
+	}
+
+	.footer-btn-v2-floating {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 38px;
+		padding: var(--tt-space-8) var(--tt-space-12);
+		border: none;
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
+		font-weight: var(--tt-font-weight-normal);
+		cursor: pointer;
+		transition: background 0.2s ease;
+	}
+
+	.footer-btn-v2-floating--plus {
+		font-size: 1.5rem;
+		font-weight: var(--tt-font-weight-bold);
+		background: var(--tt-brand-primary-500);
+		color: var(--tt-white);
+	}
+
+	.footer-btn-v2-floating--day {
+		background: var(--tt-brand-accent-100);
+		color: var(--tt-brand-primary-700);
+	}
+
+	.footer-btn-v2-floating--week {
+		background: var(--tt-brand-accent-200);
+		color: var(--tt-brand-primary-700);
+	}
+
+	.footer-btn-v2-floating--month {
+		background: var(--tt-brand-accent-300);
+		color: var(--tt-brand-primary-700);
+	}
+
+	.footer-btn-v2-floating--analysis {
+		background: var(--tt-brand-primary-500);
+		color: var(--tt-white);
+	}
+
+	.footer-btn-v2-floating svg {
+		width: 20px;
+		height: 20px;
+		stroke-width: 2;
+	}
+
+	/* Hover states */
+	@media (hover: hover) {
+		.footer-btn-v2-floating--plus:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
+		}
+
+		.footer-btn-v2-floating--day:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100));
+		}
+
+		.footer-btn-v2-floating--week:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+		}
+
+		.footer-btn-v2-floating--month:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+		}
+
+		.footer-btn-v2-floating--analysis:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
+		}
+	}
+
+	/* Pressed states */
+	.footer-btn-v2-floating--plus:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
+	}
+
+	.footer-btn-v2-floating--day:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-100));
+	}
+
+	.footer-btn-v2-floating--week:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
+	}
+
+	.footer-btn-v2-floating--month:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300));
+	}
+
+	.footer-btn-v2-floating--analysis:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
+	}
+
+	/* Selected state - keep normal colors, modify shape */
+	.footer-btn-v2-floating[aria-current='page'] {
+		font-weight: var(--tt-font-weight-bold);
+		border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
+		padding-bottom: calc(var(--tt-space-8) + 8px);
+		margin-bottom: -8px;
+	}
+
+	.footer-btn-v2-floating[aria-current='page'] svg {
+		stroke-width: 3;
+	}
+
+	/* Selected hover - keep normal hover behavior with slight darkening */
+	@media (hover: hover) {
+		.footer-btn-v2-floating--plus[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
+		}
+
+		.footer-btn-v2-floating--day[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100));
+		}
+
+		.footer-btn-v2-floating--week[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+		}
+
+		.footer-btn-v2-floating--month[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+		}
+
+		.footer-btn-v2-floating--analysis[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
+		}
+	}
+
+	/* Selected pressed - keep normal pressed behavior with slight darkening */
+	.footer-btn-v2-floating--plus[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
+	}
+
+	.footer-btn-v2-floating--day[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-100));
+	}
+
+	.footer-btn-v2-floating--week[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
+	}
+
+	.footer-btn-v2-floating--month[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300));
+	}
+
+	.footer-btn-v2-floating--analysis[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
+	}
+
+	/* Footer Button Experiment v3 - Floating Buttons */
+	.footer-demo-container-v3 {
+		background: transparent;
+		padding: var(--tt-space-8);
+		border-radius: var(--tt-radius-card) var(--tt-radius-card) 0 0;
+		position: relative;
+		overflow: visible;
+		/* Toggle variable: set to 1 to enable line, 0 to disable */
+		--footer-line-enabled: 1;
+	}
+
+	/* Line under buttons - positioned inside app area */
+	.footer-demo-container-v3::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: calc(4px * var(--footer-line-enabled));
+		background: transparent;
+		pointer-events: none;
+	}
+
+	/* Dynamic line colors based on selected button */
+	.footer-demo-container-v3:has(.footer-btn-v3--plus[aria-current='page'])::after {
+		background: var(--tt-brand-primary-500);
+	}
+
+	.footer-demo-container-v3:has(.footer-btn-v3--day[aria-current='page'])::after {
+		background: var(--tt-brand-accent-100);
+	}
+
+	.footer-demo-container-v3:has(.footer-btn-v3--week[aria-current='page'])::after {
+		background: var(--tt-brand-accent-200);
+	}
+
+	.footer-demo-container-v3:has(.footer-btn-v3--month[aria-current='page'])::after {
+		background: var(--tt-brand-accent-300);
+	}
+
+	.footer-demo-container-v3:has(.footer-btn-v3--analysis[aria-current='page'])::after {
+		background: var(--tt-brand-primary-500);
+	}
+
+	.footer-demo-v3 {
+		display: flex;
+		gap: var(--tt-space-4);
+		justify-content: stretch;
+	}
+
+	.footer-btn-v3 {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 38px;
+		padding: var(--tt-space-8) var(--tt-space-12);
+		border: none;
+		border-radius: var(--tt-radius-button);
+		font-size: var(--tt-font-size-small);
+		font-weight: var(--tt-font-weight-normal);
+		cursor: pointer;
+		transition: background 0.2s ease;
+	}
+
+	.footer-btn-v3--plus {
+		font-size: 1.5rem;
+		font-weight: var(--tt-font-weight-bold);
+		background: var(--tt-brand-primary-500);
+		color: var(--tt-white);
+	}
+
+	.footer-btn-v3--day {
+		background: var(--tt-brand-accent-100);
+		color: var(--tt-brand-primary-700);
+	}
+
+	.footer-btn-v3--week {
+		background: var(--tt-brand-accent-200);
+		color: var(--tt-brand-primary-700);
+	}
+
+	.footer-btn-v3--month {
+		background: var(--tt-brand-accent-300);
+		color: var(--tt-brand-primary-700);
+	}
+
+	.footer-btn-v3--analysis {
+		background: var(--tt-brand-primary-500);
+		color: var(--tt-white);
+	}
+
+	.footer-btn-v3 svg {
+		width: 20px;
+		height: 20px;
+		stroke-width: 2;
+	}
+
+	/* Hover states */
+	@media (hover: hover) {
+		.footer-btn-v3--plus:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
+		}
+
+		.footer-btn-v3--day:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100));
+		}
+
+		.footer-btn-v3--week:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+		}
+
+		.footer-btn-v3--month:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+		}
+
+		.footer-btn-v3--analysis:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
+		}
+	}
+
+	/* Pressed states */
+	.footer-btn-v3--plus:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
+	}
+
+	.footer-btn-v3--day:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-100));
+	}
+
+	.footer-btn-v3--week:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
+	}
+
+	.footer-btn-v3--month:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300));
+	}
+
+	.footer-btn-v3--analysis:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
+	}
+
+	/* Selected state - keep normal colors, modify shape */
+	.footer-btn-v3[aria-current='page'] {
+		font-weight: var(--tt-font-weight-bold);
+		border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
+		padding-bottom: calc(var(--tt-space-8) + 8px);
+		margin-bottom: -8px;
+	}
+
+	.footer-btn-v3[aria-current='page'] svg {
+		stroke-width: 3;
+	}
+
+	/* Selected hover - keep normal hover behavior with slight darkening */
+	@media (hover: hover) {
+		.footer-btn-v3--plus[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
+		}
+
+		.footer-btn-v3--day[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100));
+		}
+
+		.footer-btn-v3--week[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+		}
+
+		.footer-btn-v3--month[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+		}
+
+		.footer-btn-v3--analysis[aria-current='page']:hover {
+			background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
+		}
+	}
+
+	/* Selected pressed - keep normal pressed behavior with slight darkening */
+	.footer-btn-v3--plus[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
+	}
+
+	.footer-btn-v3--day[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-100));
+	}
+
+	.footer-btn-v3--week[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
+	}
+
+	.footer-btn-v3--month[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300));
+	}
+
+	.footer-btn-v3--analysis[aria-current='page']:active {
+		background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
 	}
 
 	/* Title Bar Experiment v1 */

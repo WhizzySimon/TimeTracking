@@ -265,7 +265,7 @@
 			{/if}
 		</div>
 
-		<!-- Employer Selection -->
+		<!-- Employer Selection (hidden when only 1 employer) -->
 		{#if employers.length === 0}
 			<div class="field">
 				<label for="employer-select">Arbeitgeber:</label>
@@ -273,7 +273,7 @@
 					Keine Arbeitgeber vorhanden. Erstelle zuerst einen Arbeitgeber in den Einstellungen.
 				</p>
 			</div>
-		{:else}
+		{:else if employers.length > 1}
 			<div class="tt-labeled-dropdown">
 				<span class="tt-labeled-dropdown__label">Arbeitgeber</span>
 				<CustomDropdown

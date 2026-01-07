@@ -31,9 +31,41 @@ export const isFree = derived(userPlan, ($plan) => $plan === 'free');
 
 /**
  * Set user profile (called after loading from Supabase).
+ * If profile is null, attempts to restore plan from cache.
  */
 export function setUserProfile(profile: UserProfile | null): void {
+	if (profile === null) {
+		// Profile load failed - try to restore from cache
+		const cachedPlan = getCachedPlanFromStorage();
+		if (cachedPlan !== 'free') {
+			console.log('[User] Profile load failed, restoring from cache:', cachedPlan);
+			// Create minimal profile with cached plan
+			userProfile.set({
+				id: '',
+				email: '',
+				plan: cachedPlan,
+				createdAt: '',
+				updatedAt: ''
+			});
+			return;
+		}
+	}
 	userProfile.set(profile);
+}
+
+/**
+ * Get cached plan from localStorage.
+ * Returns 'free' if no cache exists.
+ */
+function getCachedPlanFromStorage(): 'free' | 'pro' | 'premium' {
+	if (typeof localStorage === 'undefined') return 'free';
+	try {
+		const cached = localStorage.getItem('userPlan');
+		if (cached === 'pro' || cached === 'premium') return cached;
+	} catch {
+		// localStorage may be unavailable
+	}
+	return 'free';
 }
 
 /**
@@ -44,10 +76,10 @@ export function clearUserProfile(): void {
 }
 
 /**
- * Update plan in store and persist to localStorage.
- * Used for local upgrade (payment system coming later).
+ * Update plan in store, persist to localStorage, and sync to Supabase.
+ * This ensures the plan survives app reinstalls.
  */
-export function setUserPlanLocal(plan: UserPlan): void {
+export async function setUserPlanLocal(plan: UserPlan): Promise<void> {
 	userProfile.update((profile) => {
 		if (profile) {
 			return { ...profile, plan };
@@ -56,6 +88,13 @@ export function setUserPlanLocal(plan: UserPlan): void {
 	});
 	if (typeof localStorage !== 'undefined') {
 		localStorage.setItem('timetracker_user_plan', plan);
+	}
+	// Also update in Supabase so it persists across reinstalls
+	try {
+		const { updateUserPlanInDatabase } = await import('$lib/api/profile');
+		await updateUserPlanInDatabase(plan);
+	} catch (err) {
+		console.error('[User] Failed to sync plan to database:', err);
 	}
 }
 

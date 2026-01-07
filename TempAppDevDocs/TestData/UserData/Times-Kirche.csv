@@ -1,0 +1,226 @@
+date,start_time,end_time,category,description,duration_minutes
+2025-09-02,09:00,11:20,Gottesdienst / Predigt,,140
+2025-09-02,11:40,14:00,GD-/Predigtvorbereitung,,140
+2025-09-02,14:20,16:20,Seelsorge,,120
+2025-09-03,09:00,11:20,Trauung,,140
+2025-09-03,11:40,14:00,Taufe,,140
+2025-09-03,14:20,16:20,Konfirmandenunterricht,,120
+2025-09-04,09:00,11:20,Jugendarbeit,,140
+2025-09-04,11:40,14:00,Gruppen und Kreise,,140
+2025-09-04,14:20,16:20,Besuchsdienst,,120
+2025-09-05,09:00,11:20,Andacht / Veranstaltung,,140
+2025-09-05,11:40,14:00,Ausschuss Finanzen,,140
+2025-09-05,14:20,16:20,Ausschuss Bau,,120
+2025-09-06,09:00,11:20,Sitzung / Konvent,,140
+2025-09-06,11:40,14:00,Supervision,,140
+2025-09-06,14:20,16:20,Fortbildung,,120
+2025-09-07,09:00,11:20,Verwaltung,,140
+2025-09-07,11:40,14:00,Öffentlichkeitsarbeit,,140
+2025-09-07,14:20,16:20,Diakonisches,,120
+2025-09-09,09:00,11:20,Fahrt,,140
+2025-09-09,11:40,14:00,Sonstiges,,140
+2025-09-09,14:20,16:20,Gottesdienst / Predigt,,120
+2025-09-10,09:00,11:20,GD-/Predigtvorbereitung,,140
+2025-09-10,11:40,14:00,Seelsorge,,140
+2025-09-10,14:20,16:20,Trauung,,120
+2025-09-11,09:00,11:20,Taufe,,140
+2025-09-11,11:40,14:00,Konfirmandenunterricht,,140
+2025-09-11,14:20,16:20,Jugendarbeit,,120
+2025-09-12,09:00,11:20,Gruppen und Kreise,,140
+2025-09-12,11:40,14:00,Besuchsdienst,,140
+2025-09-12,14:20,16:20,Andacht / Veranstaltung,,120
+2025-09-13,09:00,11:20,Ausschuss Finanzen,,140
+2025-09-13,11:40,14:00,Ausschuss Bau,,140
+2025-09-13,14:20,16:20,Sitzung / Konvent,,120
+2025-09-14,09:00,11:20,Supervision,,140
+2025-09-14,11:40,14:00,Fortbildung,,140
+2025-09-14,14:20,16:20,Verwaltung,,120
+2025-09-16,09:00,11:20,Öffentlichkeitsarbeit,,140
+2025-09-16,11:40,14:00,Diakonisches,,140
+2025-09-16,14:20,16:20,Fahrt,,120
+2025-09-17,09:00,11:20,Sonstiges,,140
+2025-09-17,11:40,14:00,Gottesdienst / Predigt,,140
+2025-09-17,14:20,16:20,GD-/Predigtvorbereitung,,120
+2025-09-18,09:00,11:20,Seelsorge,,140
+2025-09-18,11:40,14:00,Trauung,,140
+2025-09-18,14:20,16:20,Taufe,,120
+2025-09-19,09:00,11:20,Konfirmandenunterricht,,140
+2025-09-19,11:40,14:00,Jugendarbeit,,140
+2025-09-19,14:20,16:20,Gruppen und Kreise,,120
+2025-09-20,09:00,11:20,Besuchsdienst,,140
+2025-09-20,11:40,14:00,Andacht / Veranstaltung,,140
+2025-09-20,14:20,16:20,Ausschuss Finanzen,,120
+2025-09-21,09:00,11:20,Ausschuss Bau,,140
+2025-09-21,11:40,14:00,Sitzung / Konvent,,140
+2025-09-21,14:20,16:20,Supervision,,120
+2025-09-23,09:00,11:20,Fortbildung,,140
+2025-09-23,11:40,14:00,Verwaltung,,140
+2025-09-23,14:20,16:20,Öffentlichkeitsarbeit,,120
+2025-09-24,09:00,11:20,Diakonisches,,140
+2025-09-24,11:40,14:00,Fahrt,,140
+2025-09-24,14:20,16:20,Sonstiges,,120
+2025-09-25,09:00,11:20,Gottesdienst / Predigt,,140
+2025-09-25,11:40,14:00,GD-/Predigtvorbereitung,,140
+2025-09-25,14:20,16:20,Seelsorge,,120
+2025-09-26,09:00,11:20,Trauung,,140
+2025-09-26,11:40,14:00,Taufe,,140
+2025-09-26,14:20,16:20,Konfirmandenunterricht,,120
+2025-09-27,09:00,11:20,Jugendarbeit,,140
+2025-09-27,11:40,14:00,Gruppen und Kreise,,140
+2025-09-27,14:20,16:20,Besuchsdienst,,120
+2025-09-28,09:00,11:20,Andacht / Veranstaltung,,140
+2025-09-28,11:40,14:00,Ausschuss Finanzen,,140
+2025-09-28,14:20,16:20,Ausschuss Bau,,120
+2025-09-30,09:00,15:40,Urlaub,,400
+2025-10-01,09:00,15:40,Urlaub,,400
+2025-10-02,09:00,15:40,Urlaub,,400
+2025-10-03,09:00,15:40,Feiertag,Sachsen-Feiertag,400
+2025-10-04,09:00,11:20,Sitzung / Konvent,,140
+2025-10-04,11:40,14:00,Supervision,,140
+2025-10-04,14:20,16:20,Fortbildung,,120
+2025-10-05,09:00,11:20,Verwaltung,,140
+2025-10-05,11:40,14:00,Öffentlichkeitsarbeit,,140
+2025-10-05,14:20,16:20,Diakonisches,,120
+2025-10-07,09:00,11:20,Fahrt,,140
+2025-10-07,11:40,14:00,Sonstiges,,140
+2025-10-07,14:20,16:20,Gottesdienst / Predigt,,120
+2025-10-08,09:00,11:20,GD-/Predigtvorbereitung,,140
+2025-10-08,11:40,14:00,Seelsorge,,140
+2025-10-08,14:20,16:20,Trauung,,120
+2025-10-09,09:00,11:20,Taufe,,140
+2025-10-09,11:40,14:00,Konfirmandenunterricht,,140
+2025-10-09,14:20,16:20,Jugendarbeit,,120
+2025-10-10,09:00,11:20,Gruppen und Kreise,,140
+2025-10-10,11:40,14:00,Besuchsdienst,,140
+2025-10-10,14:20,16:20,Andacht / Veranstaltung,,120
+2025-10-11,09:00,11:20,Ausschuss Finanzen,,140
+2025-10-11,11:40,14:00,Ausschuss Bau,,140
+2025-10-11,14:20,16:20,Sitzung / Konvent,,120
+2025-10-12,09:00,11:20,Supervision,,140
+2025-10-12,11:40,14:00,Fortbildung,,140
+2025-10-12,14:20,16:20,Verwaltung,,120
+2025-10-14,09:00,15:40,Urlaub,,400
+2025-10-15,09:00,15:40,Urlaub,,400
+2025-10-16,09:00,15:40,Urlaub,,400
+2025-10-17,09:00,15:40,Urlaub,,400
+2025-10-18,09:00,15:40,Urlaub,,400
+2025-10-19,09:00,15:40,Urlaub,,400
+2025-10-21,09:00,15:40,Urlaub,,400
+2025-10-22,09:00,15:40,Urlaub,,400
+2025-10-23,09:00,15:40,Urlaub,,400
+2025-10-24,09:00,15:40,Urlaub,,400
+2025-10-25,09:00,15:40,Urlaub,,400
+2025-10-26,09:00,15:40,Urlaub,,400
+2025-10-28,09:00,11:20,Öffentlichkeitsarbeit,,140
+2025-10-28,11:40,14:00,Diakonisches,,140
+2025-10-28,14:20,16:20,Fahrt,,120
+2025-10-29,09:00,11:20,Sonstiges,,140
+2025-10-29,11:40,14:00,Gottesdienst / Predigt,,140
+2025-10-29,14:20,16:20,GD-/Predigtvorbereitung,,120
+2025-10-30,09:00,11:20,Seelsorge,,140
+2025-10-30,11:40,14:00,Trauung,,140
+2025-10-30,14:20,16:20,Taufe,,120
+2025-10-31,09:00,15:40,Feiertag,Sachsen-Feiertag,400
+2025-11-01,09:00,11:30,Konfirmandenunterricht,,150
+2025-11-01,12:00,14:30,Jugendarbeit,,150
+2025-11-02,09:00,11:30,Gruppen und Kreise,,150
+2025-11-02,12:00,14:30,Besuchsdienst,,150
+2025-11-04,09:00,11:30,Andacht / Veranstaltung,,150
+2025-11-04,12:00,14:30,Ausschuss Finanzen,,150
+2025-11-05,09:00,11:30,Ausschuss Bau,,150
+2025-11-05,12:00,14:30,Sitzung / Konvent,,150
+2025-11-06,09:00,11:30,Supervision,,150
+2025-11-06,12:00,14:30,Fortbildung,,150
+2025-11-07,09:00,11:30,Verwaltung,,150
+2025-11-07,12:00,14:30,Öffentlichkeitsarbeit,,150
+2025-11-08,09:00,11:30,Diakonisches,,150
+2025-11-08,12:00,14:30,Fahrt,,150
+2025-11-09,09:00,11:30,Sonstiges,,150
+2025-11-09,12:00,14:30,Gottesdienst / Predigt,,150
+2025-11-11,09:00,14:00,Krank,,300
+2025-11-12,09:00,14:00,Krank,,300
+2025-11-13,09:00,14:00,Krank,,300
+2025-11-14,09:00,14:00,Krank,,300
+2025-11-15,09:00,14:00,Krank,,300
+2025-11-16,09:00,11:30,GD-/Predigtvorbereitung,,150
+2025-11-16,12:00,14:30,Seelsorge,,150
+2025-11-18,09:00,11:30,Trauung,,150
+2025-11-18,12:00,14:30,Taufe,,150
+2025-11-19,09:00,14:00,Feiertag,Sachsen-Feiertag,300
+2025-11-20,09:00,11:30,Konfirmandenunterricht,,150
+2025-11-20,12:00,14:30,Jugendarbeit,,150
+2025-11-21,09:00,11:30,Gruppen und Kreise,,150
+2025-11-21,12:00,14:30,Besuchsdienst,,150
+2025-11-22,09:00,11:30,Andacht / Veranstaltung,,150
+2025-11-22,12:00,14:30,Ausschuss Finanzen,,150
+2025-11-23,09:00,11:30,Ausschuss Bau,,150
+2025-11-23,12:00,14:30,Sitzung / Konvent,,150
+2025-11-25,09:00,11:30,Supervision,,150
+2025-11-25,12:00,14:30,Fortbildung,,150
+2025-11-26,09:00,11:30,Verwaltung,,150
+2025-11-26,12:00,14:30,Öffentlichkeitsarbeit,,150
+2025-11-27,09:00,11:30,Diakonisches,,150
+2025-11-27,12:00,14:30,Fahrt,,150
+2025-11-28,09:00,11:30,Sonstiges,,150
+2025-11-28,12:00,14:30,Gottesdienst / Predigt,,150
+2025-11-29,09:00,11:30,GD-/Predigtvorbereitung,,150
+2025-11-29,12:00,14:30,Seelsorge,,150
+2025-11-30,09:00,11:30,Trauung,,150
+2025-11-30,12:00,14:30,Taufe,,150
+2025-12-02,06:45,07:00,Joggen,15min (custom Abwesenheit),15
+2025-12-02,09:00,10:00,Konfirmandenunterricht,KW49 sample day,60
+2025-12-02,10:10,11:10,Jugendarbeit,KW49 sample day,60
+2025-12-02,11:20,12:20,Gruppen und Kreise,KW49 sample day,60
+2025-12-02,13:00,14:00,Besuchsdienst,KW49 sample day,60
+2025-12-02,14:10,15:10,Andacht / Veranstaltung,KW49 sample day,60
+2025-12-03,09:00,10:00,Ausschuss Finanzen,KW49 sample day,60
+2025-12-03,10:10,11:10,Ausschuss Bau,KW49 sample day,60
+2025-12-03,11:20,12:20,Sitzung / Konvent,KW49 sample day,60
+2025-12-03,13:00,14:00,Supervision,KW49 sample day,60
+2025-12-03,14:10,15:10,Fortbildung,KW49 sample day,60
+2025-12-04,09:00,11:30,Verwaltung,,150
+2025-12-04,12:00,14:30,Öffentlichkeitsarbeit,,150
+2025-12-05,09:00,11:30,Diakonisches,,150
+2025-12-05,12:00,14:30,Fahrt,,150
+2025-12-06,09:00,11:30,Sonstiges,,150
+2025-12-06,12:00,14:30,Gottesdienst / Predigt,,150
+2025-12-07,09:00,11:30,GD-/Predigtvorbereitung,,150
+2025-12-07,12:00,14:30,Seelsorge,,150
+2025-12-09,09:00,11:30,Trauung,,150
+2025-12-09,12:00,14:30,Taufe,,150
+2025-12-10,09:00,11:30,Konfirmandenunterricht,,150
+2025-12-10,12:00,14:30,Jugendarbeit,,150
+2025-12-11,09:00,11:30,Gruppen und Kreise,,150
+2025-12-11,12:00,14:30,Besuchsdienst,,150
+2025-12-12,09:00,11:30,Andacht / Veranstaltung,,150
+2025-12-12,12:00,14:30,Ausschuss Finanzen,,150
+2025-12-13,09:00,11:30,Ausschuss Bau,,150
+2025-12-13,12:00,14:30,Sitzung / Konvent,,150
+2025-12-14,09:00,11:30,Supervision,,150
+2025-12-14,12:00,14:30,Fortbildung,,150
+2025-12-16,09:00,11:30,Verwaltung,,150
+2025-12-16,12:00,14:30,Öffentlichkeitsarbeit,,150
+2025-12-17,09:00,11:30,Diakonisches,,150
+2025-12-17,12:00,14:30,Fahrt,,150
+2025-12-18,09:00,11:30,Sonstiges,,150
+2025-12-18,12:00,14:30,Gottesdienst / Predigt,,150
+2025-12-19,09:00,11:30,GD-/Predigtvorbereitung,,150
+2025-12-19,12:00,14:30,Seelsorge,,150
+2025-12-20,09:00,11:30,Trauung,,150
+2025-12-20,12:00,14:30,Taufe,,150
+2025-12-21,09:00,11:30,Konfirmandenunterricht,,150
+2025-12-21,12:00,14:30,Jugendarbeit,,150
+2025-12-23,09:00,11:30,Gruppen und Kreise,,150
+2025-12-23,12:00,14:30,Besuchsdienst,,150
+2025-12-24,09:00,11:30,Andacht / Veranstaltung,,150
+2025-12-24,12:00,14:30,Ausschuss Finanzen,,150
+2025-12-25,09:00,14:00,Feiertag,Sachsen-Feiertag,300
+2025-12-26,09:00,14:00,Feiertag,Sachsen-Feiertag,300
+2025-12-27,09:00,11:30,Ausschuss Bau,,150
+2025-12-27,12:00,14:30,Sitzung / Konvent,,150
+2025-12-28,09:00,11:30,Supervision,,150
+2025-12-28,12:00,14:30,Fortbildung,,150
+2025-12-30,09:00,11:30,Verwaltung,,150
+2025-12-30,12:00,14:30,Öffentlichkeitsarbeit,,150
+2025-12-31,09:00,11:30,Diakonisches,,150
+2025-12-31,12:00,14:30,Fahrt,,150

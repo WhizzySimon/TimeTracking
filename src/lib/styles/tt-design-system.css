@@ -322,6 +322,23 @@ html[data-color-scheme='scheme-3'] {
 }
 
 /* ============================================================================
+   RESPONSIVE SCALING FOR VERY NARROW SCREENS
+   Below 350px, scale down the root font size to prevent overflow issues.
+   All rem-based values (fonts, spacing, etc.) will shrink proportionally.
+   ============================================================================ */
+@media (max-width: 350px) {
+	html {
+		font-size: 14px; /* Default is 16px, this reduces everything by ~12.5% */
+	}
+}
+
+@media (max-width: 300px) {
+	html {
+		font-size: 13px; /* Further reduction for extremely narrow screens */
+	}
+}
+
+/* ============================================================================
    GLOBAL FONT RESET
    Force all elements to inherit the design system font
    ============================================================================ */
@@ -490,7 +507,7 @@ textarea {
 	font-size: var(--tt-font-size-tiny);
 	font-weight: var(--tt-font-weight-medium);
 	color: var(--tt-text-muted);
-	background: var(--tt-background-card-pressed);
+	background: var(--tt-background-page);
 	border-radius: var(--tt-radius-badge);
 	white-space: nowrap;
 }
@@ -546,13 +563,13 @@ textarea {
 
 /* Employer Label - Shows which employer an entry belongs to */
 .tt-inline-label-employer {
-	background: var(--tt-border-subtle);
+	background: var(--tt-background-page);
 	color: var(--tt-text-secondary);
 }
 
 /* No-Work Label - Shows "Keine Arbeitszeit" */
 .tt-inline-label-no-work {
-	background: var(--tt-border-subtle);
+	background: var(--tt-background-page);
 	color: var(--tt-text-muted);
 }
 
@@ -888,15 +905,29 @@ textarea {
 	width: 40px;
 	height: 40px;
 	padding: 0;
-	border: 1px solid var(--tt-header-border);
+	border: none;
+	background: transparent;
 	color: var(--tt-header-text);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
+	transition:
+		background 0.15s,
+		opacity 0.15s;
 }
 
 .tt-header-nav-button:disabled {
 	opacity: 0.3;
 	cursor: not-allowed;
+}
+
+@media (hover: hover) {
+	.tt-header-nav-button:hover:not(:disabled) {
+		background: rgba(255, 255, 255, 0.12);
+	}
+}
+
+.tt-header-nav-button:active:not(:disabled) {
+	background: rgba(255, 255, 255, 0.2);
 }
 
 .tt-header-nav-button__icon {
@@ -958,7 +989,8 @@ textarea {
  */
 .tt-form-actions {
 	display: flex;
-	gap: var(--tt-space-12);
+	flex-wrap: wrap;
+	gap: var(--tt-space-8) var(--tt-space-12);
 	justify-content: flex-end;
 	padding-top: var(--tt-space-8);
 	border-top: 1px solid var(--tt-border-default);
@@ -1791,12 +1823,47 @@ textarea {
 	display: flex;
 	flex-wrap: nowrap;
 	justify-content: stretch;
-	background: var(--tt-footer-bg);
-	border-top: 1px solid var(--tt-footer-tab-border);
+	background: transparent;
+	border-top: none;
 	border-radius: var(--tt-radius-card) var(--tt-radius-card) 0 0;
 	padding: var(--tt-space-8);
 	gap: var(--tt-space-4);
 	box-sizing: border-box;
+	/* Toggle variable: set to 1 to enable line, 0 to disable */
+	--footer-line-enabled: 1;
+}
+
+/* Line under buttons - positioned inside footer area */
+.tt-footer-nav::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: calc(4px * var(--footer-line-enabled));
+	background: transparent;
+	pointer-events: none;
+}
+
+/* Dynamic line colors based on selected tab */
+.tt-footer-nav:has(.tt-footer-tab--plus[aria-current='page'])::after {
+	background: var(--tt-brand-primary-500);
+}
+
+.tt-footer-nav:has(.tt-footer-tab--day[aria-current='page'])::after {
+	background: var(--tt-brand-accent-100);
+}
+
+.tt-footer-nav:has(.tt-footer-tab--week[aria-current='page'])::after {
+	background: var(--tt-brand-accent-200);
+}
+
+.tt-footer-nav:has(.tt-footer-tab--month[aria-current='page'])::after {
+	background: var(--tt-brand-accent-300);
+}
+
+.tt-footer-nav:has(.tt-footer-tab--analysis[aria-current='page'])::after {
+	background: var(--tt-brand-primary-500);
 }
 
 .tt-footer-tab {
@@ -1818,38 +1885,31 @@ textarea {
 	transition:
 		border-color var(--tt-transition-fast),
 		font-weight var(--tt-transition-fast),
-		filter var(--tt-transition-fast);
+		background var(--tt-transition-fast);
 }
 
-/* Hover state: Material Design 3 state layer (white overlay on colored bg) */
-@media (hover: hover) {
-	.tt-footer-tab:hover {
-		background: color-mix(in srgb, currentColor 8%, var(--tt-footer-tab-bg, transparent));
-	}
-}
-
-/* Pressed/Active state: stronger state layer */
-.tt-footer-tab:active {
-	background: color-mix(in srgb, currentColor 12%, var(--tt-footer-tab-bg, transparent));
-}
-
-/* Current tab: persistent selected state - white background + dark text */
+/* Current tab: keep normal colors, modify shape - extends down to touch the line */
 .tt-footer-tab[aria-current='page'] {
-	background: var(--tt-white) !important;
-	color: var(--tt-brand-primary-700);
 	font-weight: var(--tt-font-weight-bold);
+	border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
+	padding-bottom: calc(var(--tt-space-8) + 4px);
+	margin-bottom: -4px;
+	/* Active tab extends 4px into the 8px bottom padding, leaving 4px gap to line top */
 }
 
-/* Current tab hover: subtle state layer on white */
-@media (hover: hover) {
-	.tt-footer-tab[aria-current='page']:hover {
-		background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-white)) !important;
+/* Narrow screens: maintain aspect ratio as buttons get narrower */
+@media (max-width: 500px) {
+	.tt-footer-tab {
+		min-height: unset;
+		max-height: 38px; /* Cap at normal height to prevent jump */
+		aspect-ratio: 1.5 / 1; /* Width:Height ratio - buttons stay proportional */
+		padding: var(--tt-space-4);
 	}
-}
-
-/* Current tab pressed: stronger state layer on white */
-.tt-footer-tab[aria-current='page']:active {
-	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-white)) !important;
+	
+	/* Active tab extension must match mobile padding */
+	.tt-footer-tab[aria-current='page'] {
+		padding-bottom: calc(var(--tt-space-4) + 4px);
+	}
 }
 
 .tt-footer-tab svg {
@@ -1863,99 +1923,87 @@ textarea {
 	stroke-width: 3;
 }
 
-/* Plus tab variant: larger text, darker background */
+/* ==========================================================================
+   FOOTER TAB COLORS - Material UI 3 State Layers
+   - Normal: base color
+   - Hover: 8% dark overlay (primary-700 for light bg, white for dark bg)
+   - Active/Pressed: 12% dark overlay
+   - Selected: same as normal (shape changes, not color)
+   ========================================================================== */
+
+/* Plus tab (Add button): brand primary 500 */
 .tt-footer-tab--plus {
 	font-size: 1.5rem;
 	font-weight: var(--tt-font-weight-bold);
-	background: var(--tt-footer-plus-bg);
-	color: var(--tt-footer-plus-text);
+	background: var(--tt-brand-primary-500);
+	color: var(--tt-white);
 }
 
-.tt-footer-tab--plus:hover {
-	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-footer-plus-bg));
+@media (hover: hover) {
+	.tt-footer-tab--plus:hover {
+		background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
+	}
 }
 
 .tt-footer-tab--plus:active {
-	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-footer-plus-bg));
+	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
 }
 
-.tt-footer-tab--plus[aria-current='page'] {
-	background: color-mix(in srgb, var(--tt-white) 50%, var(--tt-brand-primary-600)) !important;
+/* Analysis tab: brand primary 500 (same as Plus) */
+.tt-footer-tab--analysis {
+	background: var(--tt-brand-primary-500);
 	color: var(--tt-white);
-	font-weight: var(--tt-font-weight-bold);
 }
 
 @media (hover: hover) {
-	.tt-footer-tab--plus[aria-current='page']:hover {
-		background: color-mix(in srgb, var(--tt-white) 58%, var(--tt-brand-primary-600)) !important;
+	.tt-footer-tab--analysis:hover {
+		background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
 	}
-}
-
-.tt-footer-tab--plus[aria-current='page']:active {
-	background: color-mix(in srgb, var(--tt-white) 65%, var(--tt-brand-primary-600)) !important;
-}
-
-/* Analysis tab: same color as Plus tab */
-.tt-footer-tab--analysis {
-	background: var(--tt-footer-plus-bg);
-	color: var(--tt-footer-plus-text);
-}
-
-.tt-footer-tab--analysis:hover {
-	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-footer-plus-bg));
 }
 
 .tt-footer-tab--analysis:active {
-	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-footer-plus-bg));
+	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
 }
 
-.tt-footer-tab--analysis[aria-current='page'] {
-	background: color-mix(in srgb, var(--tt-white) 50%, var(--tt-brand-primary-600)) !important;
-	color: var(--tt-white);
-	font-weight: var(--tt-font-weight-bold);
-}
-
-@media (hover: hover) {
-	.tt-footer-tab--analysis[aria-current='page']:hover {
-		background: color-mix(in srgb, var(--tt-white) 58%, var(--tt-brand-primary-600)) !important;
-	}
-}
-
-.tt-footer-tab--analysis[aria-current='page']:active {
-	background: color-mix(in srgb, var(--tt-white) 65%, var(--tt-brand-primary-600)) !important;
-}
-
-/* Individual tab colors - gradient from light to dark (100/200/300) */
+/* Day tab (Tag): brand accent 100 */
 .tt-footer-tab--day {
 	background: var(--tt-brand-accent-100);
 }
 
-.tt-footer-tab--day:hover {
-	background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100));
+@media (hover: hover) {
+	.tt-footer-tab--day:hover {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100));
+	}
 }
 
 .tt-footer-tab--day:active {
 	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-100));
 }
 
+/* Week tab (Woche): brand accent 200 */
 .tt-footer-tab--week {
 	background: var(--tt-brand-accent-200);
 }
 
-.tt-footer-tab--week:hover {
-	background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+@media (hover: hover) {
+	.tt-footer-tab--week:hover {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+	}
 }
 
 .tt-footer-tab--week:active {
 	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
 }
 
+/* Month tab (Monat): brand accent 300 */
 .tt-footer-tab--month {
 	background: var(--tt-brand-accent-300);
 }
 
-.tt-footer-tab--month:hover {
-	background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+@media (hover: hover) {
+	.tt-footer-tab--month:hover {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
+	}
 }
 
 .tt-footer-tab--month:active {
@@ -2235,7 +2283,7 @@ textarea {
 }
 
 .tt-badge--no-work {
-	background: var(--tt-border-subtle);
+	background: var(--tt-background-page);
 	color: var(--tt-text-muted);
 }
 

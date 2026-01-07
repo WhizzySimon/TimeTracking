@@ -1,69 +1,156 @@
 <!--
   SyncIndicator.svelte
   
-  Displays sync status indicator in the app.
-  Shows icon based on syncStatus store.
+  Displays sync status indicator button in the header.
+  Shows SVG icon based on sync state props.
   
   States:
-  - synced: ✅ Green - all data backed up
-  - pending: ⚠️ Yellow - changes not yet backed up
-  - syncing: 🔄 Blue - sync in progress
-  - error: ❌ Red - sync failed
-  
-  Spec refs:
-  - technical-guideline-v1.md Section 4.6 (Planned UI Feedback)
-  - Task 4.5 (Create sync status indicator component)
+  - synced: Bluish-gray - all data backed up
+  - pending: Yellow - changes not yet backed up
+  - syncing: Bluish (animated) - sync in progress
+  - error: Red - sync failed
 -->
 <script lang="ts">
-	import { syncStatus } from '$lib/stores';
+	import { syncInProgress } from '$lib/stores';
 
-	const statusConfig = {
-		synced: {
-			icon: '✓',
-			label: 'Gesichert',
-			color: 'var(--tt-status-success-500)',
-			bgColor: 'var(--tt-status-success-50)'
-		},
-		pending: {
-			icon: '!',
-			label: 'Nicht gesichert',
-			color: 'var(--tt-status-warning-500)',
-			bgColor: 'var(--tt-status-warning-50)'
-		},
-		syncing: {
-			icon: '↻',
-			label: 'Synchronisiere...',
-			color: 'var(--tt-status-info)',
-			bgColor: 'var(--tt-status-info-faded)'
-		},
-		error: {
-			icon: '✕',
-			label: 'Sync-Fehler',
-			color: 'var(--tt-status-danger-500)',
-			bgColor: 'var(--tt-status-danger-50)'
-		}
-	} as const;
+	interface Props {
+		syncNeeded: boolean;
+		syncError: string | null;
+		onclick: () => void;
+	}
 
-	let config = $derived(statusConfig[$syncStatus]);
+	let { syncNeeded, syncError, onclick }: Props = $props();
+
+	// Determine current state
+	let state = $derived.by(() => {
+		if (syncError) return 'error';
+		if ($syncInProgress) return 'syncing';
+		if (syncNeeded) return 'pending';
+		return 'synced';
+	});
+
+	// Determine title text
+	let title = $derived.by(() => {
+		if (syncError) return 'Synchronisierungsfehler';
+		if ($syncInProgress) return 'Synchronisiere...';
+		if (syncNeeded) return 'Synchronisierung ausstehend';
+		return 'Synchronisiert';
+	});
 </script>
 
-<div
-	class="tt-sync-indicator"
-	style="--indicator-color: {config.color}; --indicator-bg: {config.bgColor}"
-	title={config.label}
-	role="status"
-	aria-label={config.label}
-	data-testid="sync-indicator"
-	data-sync-status={$syncStatus}
+<button
+	class="sync-indicator tt-interactive-dark"
+	class:synced={state === 'synced'}
+	class:syncing={state === 'syncing'}
+	class:conflict={state === 'error'}
+	class:out-of-sync={state === 'pending'}
+	{onclick}
+	{title}
+	aria-label="Synchronisierung"
 >
-	<span
-		class="tt-sync-indicator__icon"
-		class:tt-sync-indicator__icon--spinning={$syncStatus === 'syncing'}>{config.icon}</span
+	<svg
+		width="20"
+		height="20"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
 	>
-	<span class="tt-sync-indicator__label">{config.label}</span>
-</div>
+		<polyline points="23 4 23 10 17 10"></polyline>
+		<polyline points="1 20 1 14 7 14"></polyline>
+		<path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+	</svg>
+</button>
 
 <style>
-	/* Visual styles use design system classes: .tt-sync-indicator, .tt-sync-indicator__icon, .tt-sync-indicator__icon--spinning, .tt-sync-indicator__label */
-	/* Media queries and animations are in design system */
+	.sync-indicator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		border-radius: var(--tt-radius-button);
+		transition:
+			background 0.15s,
+			color 0.15s;
+	}
+
+	.sync-indicator svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	@media (max-width: 350px) {
+		.sync-indicator {
+			width: 36px;
+			height: 36px;
+		}
+
+		.sync-indicator svg {
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	@media (max-width: 300px) {
+		.sync-indicator {
+			width: 32px;
+			height: 32px;
+		}
+
+		.sync-indicator svg {
+			width: 16px;
+			height: 16px;
+		}
+	}
+
+	/* Hover state for header buttons (white overlay on dark bg) */
+	@media (hover: hover) {
+		.sync-indicator:hover {
+			background: rgba(255, 255, 255, 0.12);
+		}
+	}
+
+	.sync-indicator:active {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	.sync-indicator.out-of-sync {
+		color: var(--tt-status-warning-500);
+		opacity: 1;
+	}
+
+	.sync-indicator.syncing {
+		color: var(--tt-brand-primary-300);
+		opacity: 1;
+		cursor: default;
+	}
+
+	.sync-indicator.syncing svg {
+		animation: rotate 1.5s linear infinite;
+	}
+
+	.sync-indicator.synced {
+		color: var(--tt-brand-primary-300);
+		opacity: 1;
+	}
+
+	.sync-indicator.conflict {
+		color: var(--tt-status-danger-500);
+		opacity: 1;
+	}
+
+	@keyframes rotate {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
 </style>

@@ -160,15 +160,17 @@
 
 <Modal title="Excel-Import" onclose={handleClose}>
 	<div class="import-modal">
-		<!-- Employer Selection -->
-		<div class="employer-section">
-			<label for="import-employer">Arbeitgeber für importierte Zeitdaten:</label>
-			<CustomDropdown
-				options={employerOptions}
-				value={selectedEmployerId}
-				onchange={(id) => (selectedEmployerId = id)}
-			/>
-		</div>
+		<!-- Employer Selection (hidden when only 1 employer) -->
+		{#if employers.length > 1}
+			<div class="employer-section">
+				<label for="import-employer">Arbeitgeber für importierte Zeitdaten:</label>
+				<CustomDropdown
+					options={employerOptions}
+					value={selectedEmployerId}
+					onchange={(id) => (selectedEmployerId = id)}
+				/>
+			</div>
+		{/if}
 
 		<!-- File Upload -->
 		<div class="upload-section">

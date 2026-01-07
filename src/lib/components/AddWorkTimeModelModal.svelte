@@ -274,17 +274,19 @@
 			/>
 		</div>
 
-		<!-- Employer -->
-		<div class="tt-form-field">
-			<label for="model-employer" class="tt-form-field__label">Arbeitgeber:</label>
-			<CustomDropdown
-				options={employerOptions}
-				value={selectedEmployerId}
-				onchange={(id) => (selectedEmployerId = id)}
-				disabled={saving}
-				placeholder="Arbeitgeber auswählen..."
-			/>
-		</div>
+		<!-- Employer (hidden when only 1 employer) -->
+		{#if employers.length > 1}
+			<div class="tt-form-field">
+				<label for="model-employer" class="tt-form-field__label">Arbeitgeber:</label>
+				<CustomDropdown
+					options={employerOptions}
+					value={selectedEmployerId}
+					onchange={(id) => (selectedEmployerId = id)}
+					disabled={saving}
+					placeholder="Arbeitgeber auswählen..."
+				/>
+			</div>
+		{/if}
 
 		<!-- Total Summary -->
 		<div class="total-summary">
@@ -449,11 +451,13 @@
 	.total-summary {
 		display: flex;
 		align-items: center;
-		gap: var(--tt-space-8);
-		padding: var(--tt-space-12);
+		flex-wrap: wrap;
+		gap: var(--tt-space-4) var(--tt-space-8);
+		padding: var(--tt-space-8) var(--tt-space-12);
 		background: var(--tt-status-info-faded);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-card);
+		font-size: var(--tt-font-size-small);
 	}
 
 	.total-label {
@@ -486,8 +490,8 @@
 
 	.weekday-header {
 		display: grid;
-		grid-template-columns: 2.5rem 5rem 1fr;
-		gap: var(--tt-space-8);
+		grid-template-columns: 2rem 4.5rem 3rem;
+		gap: var(--tt-space-4);
 		padding: var(--tt-space-4) 0;
 		font-size: var(--tt-font-size-tiny);
 		font-weight: 600;
@@ -507,8 +511,8 @@
 
 	.weekday-row {
 		display: grid;
-		grid-template-columns: 2.5rem 5rem 1fr;
-		gap: var(--tt-space-8);
+		grid-template-columns: 2rem 4.5rem 3rem;
+		gap: var(--tt-space-4);
 		align-items: center;
 	}
 
@@ -527,10 +531,11 @@
 
 	.hours-input {
 		width: 100%;
-		padding: var(--tt-space-8);
+		max-width: 3rem;
+		padding: var(--tt-space-4);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);
-		font-size: var(--tt-font-size-body);
+		font-size: var(--tt-font-size-small);
 		text-align: center;
 		background: var(--tt-background-card);
 		color: var(--tt-text-primary);

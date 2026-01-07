@@ -1,7 +1,7 @@
 <!--
   PlanGrid.svelte
   
-  Reusable plan selection grid showing Free, Pro, and Premium plans.
+  Reusable plan selection grid showing Free and Pro plans.
   Used in both PlanComparison dialog and Paywall component.
 -->
 <script lang="ts">
@@ -24,8 +24,7 @@
 				{ name: 'Lokale Speicherung', included: true },
 				{ name: 'Cloud Backup', included: false },
 				{ name: 'Export (JSON, CSV, PDF)', included: false },
-				{ name: 'Import', included: false },
-				{ name: 'AI Import', included: false }
+				{ name: 'Import', included: false }
 			]
 		},
 		{
@@ -37,28 +36,13 @@
 				{ name: 'Lokale Speicherung', included: true },
 				{ name: 'Cloud Backup', included: true },
 				{ name: 'Export (JSON, CSV, PDF)', included: true },
-				{ name: 'Import', included: true },
-				{ name: 'AI Import', included: false }
-			]
-		},
-		{
-			name: 'Premium',
-			price: 'Kommt bald',
-			comingSoon: true,
-			features: [
-				{ name: 'Tag, Woche, Monat Ansichten', included: true },
-				{ name: 'Auswertung', included: true },
-				{ name: 'Lokale Speicherung', included: true },
-				{ name: 'Cloud Backup', included: true },
-				{ name: 'Export (JSON, CSV, PDF)', included: true },
-				{ name: 'Import', included: true },
-				{ name: 'AI Import', included: true }
+				{ name: 'Import', included: true }
 			]
 		}
 	];
 
-	function handleSelectPlan(planName: string) {
-		setUserPlanLocal(planName.toLowerCase() as 'free' | 'pro');
+	async function handleSelectPlan(planName: string) {
+		await setUserPlanLocal(planName.toLowerCase() as 'free' | 'pro');
 		onselect(planName);
 	}
 </script>
@@ -68,15 +52,11 @@
 		<div
 			class="plan-card"
 			class:current={showCurrentBadge && $userPlan === plan.name.toLowerCase()}
-			class:coming-soon={plan.comingSoon}
 		>
 			<div class="plan-header">
 				<h3 class="plan-name">{plan.name}</h3>
 				{#if showCurrentBadge && $userPlan === plan.name.toLowerCase()}
 					<span class="current-badge">Aktuell</span>
-				{/if}
-				{#if plan.comingSoon}
-					<span class="coming-soon-badge">Kommt bald</span>
 				{/if}
 			</div>
 			<div class="plan-price">{plan.price}</div>
@@ -88,7 +68,7 @@
 					</li>
 				{/each}
 			</ul>
-			{#if !plan.comingSoon && $userPlan !== plan.name.toLowerCase()}
+			{#if $userPlan !== plan.name.toLowerCase()}
 				<button class="select-plan-btn" onclick={() => handleSelectPlan(plan.name)}>
 					{plan.name} wählen
 				</button>
@@ -116,10 +96,6 @@
 		box-shadow: 0 0 0 2px var(--tt-brand-primary-800);
 	}
 
-	.plan-card.coming-soon {
-		opacity: 0.7;
-	}
-
 	.plan-header {
 		display: flex;
 		align-items: center;
@@ -136,14 +112,6 @@
 	.current-badge {
 		font-size: var(--tt-font-size-tiny);
 		background: var(--tt-brand-primary-500);
-		color: white;
-		padding: 2px 8px;
-		border-radius: var(--tt-radius-modal);
-	}
-
-	.coming-soon-badge {
-		font-size: var(--tt-font-size-tiny);
-		background: var(--tt-text-muted);
 		color: white;
 		padding: 2px 8px;
 		border-radius: var(--tt-radius-modal);

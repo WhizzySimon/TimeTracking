@@ -224,10 +224,10 @@
 
 		// 6. Ø/Woche denominator
 		const workDays = countWorkDaysInRange();
-		const effectiveWeeks = calculateEffectiveWeeks();
+		const debugEffectiveWeeks = calculateEffectiveWeeks(totalSoll);
 		console.log('Ø/Woche denominator:', {
 			workDaysInRange: workDays,
-			effectiveWeeks: effectiveWeeks.toFixed(2)
+			effectiveWeeks: debugEffectiveWeeks.toFixed(2)
 		});
 
 		// 7. Missing employerId counts (should be 0 after migration)
@@ -286,20 +286,40 @@
 		while (current <= end) {
 			const dateKey = formatDate(current, 'ISO');
 			const dayType = dayTypesCache.get(dateKey) ?? 'arbeitstag';
-			const model = getActiveModelForDate(current);
-			total += calculateSoll(current, dayType, model);
+			// Sum Soll from all active models (important for "Alle Arbeitgeber")
+			const models = getActiveModelsForDate(current);
+			for (const model of models) {
+				total += calculateSoll(current, dayType, model);
+			}
 			current = addDays(current, 1);
 		}
 		return total;
 	}
 
 	// Get active work time model for a specific date, respecting employer filter
-	function getActiveModelForDate(date: Date): WorkTimeModel | null {
+	// When "Alle Arbeitgeber" is selected, returns ALL active models (one per employer)
+	function getActiveModelsForDate(date: Date): WorkTimeModel[] {
 		const dateStr = formatDate(date, 'ISO');
-		const validModels = $filteredModels
-			.filter((model) => model.validFrom <= dateStr)
-			.sort((a, b) => b.validFrom.localeCompare(a.validFrom));
-		return validModels[0] ?? null;
+
+		// Group models by employer, then get the most recent valid one per employer
+		const modelsByEmployer = new Map<string, WorkTimeModel>();
+
+		for (const model of $filteredModels) {
+			if (model.validFrom <= dateStr && model.employerId) {
+				const existing = modelsByEmployer.get(model.employerId);
+				if (!existing || model.validFrom > existing.validFrom) {
+					modelsByEmployer.set(model.employerId, model);
+				}
+			}
+		}
+
+		return Array.from(modelsByEmployer.values());
+	}
+
+	// Legacy function for single model (kept for backwards compatibility if needed)
+	function getActiveModelForDate(date: Date): WorkTimeModel | null {
+		const models = getActiveModelsForDate(date);
+		return models[0] ?? null;
 	}
 
 	// Determine grouping: weeks if range <= 60 days, months otherwise
@@ -433,24 +453,97 @@
 		return workDays;
 	}
 
-	// Calculate effective weeks based on work days and work days per week from model
-	// This handles multiple WorkTimeModels across the date range by using weighted average
-	function calculateEffectiveWeeks(): number {
-		const workDays = countWorkDaysInRange();
-		if (workDays === 0) return 0;
+	// Calculate weekly target from active models (sum of all employers' weekly hours)
+	function calculateWeeklyTarget(): number {
+		// Sample a few dates to get the average weekly target
+		// We use dates where models are active to get a representative weekly target
+		let current = parseDate(rangeStartStr);
+		const end = parseDate(rangeEndStr);
+		if (!current || !end) return 40; // Fallback
 
-		// Get the predominant model (model active for most days in range)
-		// For simplicity, use the model at range start - could be enhanced for multi-model ranges
-		const startDate = parseDate(rangeStartStr);
-		if (!startDate) return workDays / 5;
+		let totalWeeklyHours = 0;
+		let weeksWithModels = 0;
+		let lastWeekKey = '';
 
-		const model = getActiveModelForDate(startDate);
-		const daysPerWeek = getWorkDaysPerWeekFromModel(model);
+		while (current <= end) {
+			const weekKey = `${current.getFullYear()}-W${getWeekNumber(current)}`;
 
-		return workDays / daysPerWeek;
+			// Only calculate once per week (on Monday or first day of range in that week)
+			if (weekKey !== lastWeekKey) {
+				const models = getActiveModelsForDate(current);
+				if (models.length > 0) {
+					let weekHours = 0;
+					for (const model of models) {
+						weekHours +=
+							(model.monday ?? 0) +
+							(model.tuesday ?? 0) +
+							(model.wednesday ?? 0) +
+							(model.thursday ?? 0) +
+							(model.friday ?? 0) +
+							(model.saturday ?? 0) +
+							(model.sunday ?? 0);
+					}
+					if (weekHours > 0) {
+						totalWeeklyHours += weekHours;
+						weeksWithModels++;
+					}
+				}
+				lastWeekKey = weekKey;
+			}
+			current = addDays(current, 1);
+		}
+
+		return weeksWithModels > 0 ? totalWeeklyHours / weeksWithModels : 40;
 	}
 
-	let effectiveWeeks = $derived(calculateEffectiveWeeks());
+	// Calculate effective weeks - ensures Ø/Woche is consistent with Soll
+	// For "Alle Arbeitgeber": derive from Soll / weeklyTarget (same basis as Soll calculation)
+	// For single employer: model-based (work days / days per week)
+	function calculateEffectiveWeeks(sollValue: number): number {
+		// For "Alle Arbeitgeber", derive from Soll to ensure consistency
+		// If Haben is positive, Ø/Woche will be > weekly target (as expected)
+		if ($selectedEmployerId === null) {
+			const weeklyTarget = calculateWeeklyTarget();
+			if (weeklyTarget <= 0 || sollValue <= 0) return 1; // Avoid division by zero
+			return sollValue / weeklyTarget;
+		}
+
+		// For single employer: model-based calculation (work days / days per week)
+		let current = parseDate(rangeStartStr);
+		const end = parseDate(rangeEndStr);
+		if (!current || !end) return 0;
+
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local variable in non-reactive function
+		const workDaysByDaysPerWeek = new Map<number, number>();
+
+		while (current <= end) {
+			const dateKey = formatDate(current, 'ISO');
+			const dayType = dayTypesCache.get(dateKey) ?? 'arbeitstag';
+			const isWorkDay = dayType === 'arbeitstag';
+
+			if (!isWorkDay) {
+				current = addDays(current, 1);
+				continue;
+			}
+
+			const model = getActiveModelForDate(current);
+			if (model && isWeekdayActiveInModel(current, model)) {
+				const daysPerWeek = getWorkDaysPerWeekFromModel(model);
+				workDaysByDaysPerWeek.set(daysPerWeek, (workDaysByDaysPerWeek.get(daysPerWeek) ?? 0) + 1);
+			}
+			current = addDays(current, 1);
+		}
+
+		// Calculate effective weeks by summing (workDays / daysPerWeek)
+		let totalEffectiveWeeks = 0;
+		for (const [daysPerWeek, workDays] of workDaysByDaysPerWeek) {
+			totalEffectiveWeeks += workDays / daysPerWeek;
+		}
+
+		return totalEffectiveWeeks;
+	}
+
+	let effectiveWeeks = $derived(calculateEffectiveWeeks(totalSoll));
 
 	function calculateCategoryBreakdown(): CategoryBreakdown[] {
 		// Group entries by category and sum hours
@@ -554,8 +647,11 @@
 				const date = parseDate(dateStr);
 				if (!date) continue;
 				const dayType = dayTypesCache.get(dateStr) ?? 'arbeitstag';
-				const model = getActiveModelForDate(date);
-				soll += calculateSoll(date, dayType, model);
+				// Sum Soll from all active models (important for "Alle Arbeitgeber")
+				const models = getActiveModelsForDate(date);
+				for (const model of models) {
+					soll += calculateSoll(date, dayType, model);
+				}
 			}
 
 			const label = getPeriodLabel(key, byMonth);
@@ -802,12 +898,11 @@
 
 	/* Loading uses .tt-loading-text from design system */
 
-	/* Date Range Selector - right-aligned with auto-width */
+	/* Date Range Selector - centered with no extra padding */
 	.range-selector-row {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: var(--tt-space-12) 0;
 	}
 
 	.tt-range-button {

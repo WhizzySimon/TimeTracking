@@ -6,6 +6,54 @@ Tracks each execution of the self-learning & self-improvement workflow.
 
 ---
 
+## 2026-01-07 21:47 — UI Polish: Responsive Icons, Footer Spacing, iOS PWA Zoom
+
+| Step                 | Result       | Notes                                                    |
+| -------------------- | ------------ | -------------------------------------------------------- |
+| 0: Scope check       | first commit | No previous checklist in chat                            |
+| A1: Capture feedback | none         | No actionable behavioral feedback                        |
+| B1: Repeated errors  | 1 detected   | Footer spacing calculations adjusted multiple times      |
+| B2: File churn       | 1 file       | tt-design-system.css edited multiple times (footer work) |
+| B3: Scope drift      | no plan      | Ad-hoc UI polish session                                 |
+| B4: Session duration | ~1h          | normal                                                   |
+| C1: Promotions       | none         | No items meet promotion criteria                         |
+| C2: Read LEARNINGS   | ✓ read       | 12 items                                                 |
+| C3: Hard Rule → JIT  | none         | No new Hard Rules proposed                               |
+
+---
+
+## 2026-01-07 13:50 — Responsive Design Fixes & Employer Dropdown Hide
+
+| Step                 | Result      | Notes                                              |
+| -------------------- | ----------- | -------------------------------------------------- |
+| 0: Scope check       | incremental | Previous checklist exists in chat                  |
+| A1: Capture feedback | none        | No actionable behavioral feedback                  |
+| B1: Repeated errors  | none        | No errors repeated 3+ times                        |
+| B2: File churn       | 1 file      | AddWorkTimeModelModal.svelte edited multiple times |
+| B3: Scope drift      | no plan     | Ad-hoc responsive design session                   |
+| B4: Session duration | ~1h         | normal                                             |
+| C1: Promotions       | none        | No items meet promotion criteria                   |
+| C2: Read LEARNINGS   | ✓ read      | 12 items                                           |
+| C3: Hard Rule → JIT  | none        | No new Hard Rules proposed                         |
+
+---
+
+## 2026-01-07 10:55 — Footer v3 Implementation & Employer Dropdown Hide
+
+| Step                 | Result       | Notes                                                    |
+| -------------------- | ------------ | -------------------------------------------------------- |
+| 0: Scope check       | first commit | No previous checklist in chat                            |
+| A1: Capture feedback | none         | No actionable behavioral feedback                        |
+| B1: Repeated errors  | none         | No errors repeated 3+ times                              |
+| B2: File churn       | 1 file       | tt-design-system.css edited multiple times (footer work) |
+| B3: Scope drift      | no plan      | Ad-hoc UI polish session                                 |
+| B4: Session duration | ~30m         | normal                                                   |
+| C1: Promotions       | none         | No items meet promotion criteria                         |
+| C2: Read LEARNINGS   | ✓ read       | 12 items                                                 |
+| C3: Hard Rule → JIT  | none         | No new Hard Rules proposed                               |
+
+---
+
 ## 2026-01-06 19:33 — UI Polish: Employer Dropdown, Week Notifications, Current Row Highlighting
 
 | Step                 | Result       | Notes                                        |

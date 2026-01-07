@@ -95,3 +95,41 @@ export function clearCachedPlan(): void {
 		// localStorage may be unavailable
 	}
 }
+
+/**
+ * Update user plan in Supabase database.
+ * This persists the plan server-side so it survives reinstalls.
+ */
+export async function updateUserPlanInDatabase(plan: UserPlan): Promise<boolean> {
+	if (!isSupabaseConfigured()) {
+		console.warn('[Profile] Supabase not configured, cannot update plan');
+		return false;
+	}
+
+	try {
+		const supabase = getSupabase();
+		const { data: authData } = await supabase.auth.getUser();
+		const userId = authData?.user?.id;
+
+		if (!userId) {
+			console.warn('[Profile] No user ID, cannot update plan');
+			return false;
+		}
+
+		const { error } = await supabase
+			.from('profiles')
+			.update({ plan, updated_at: new Date().toISOString() })
+			.eq('id', userId);
+
+		if (error) {
+			console.error('[Profile] Failed to update plan in database:', error.message);
+			return false;
+		}
+
+		console.log('[Profile] Updated plan in database:', plan);
+		return true;
+	} catch (error) {
+		console.error('[Profile] Unexpected error updating plan:', error);
+		return false;
+	}
+}

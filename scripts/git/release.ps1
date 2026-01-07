@@ -29,7 +29,9 @@
 #>
 
 param(
-    [switch]$Force
+    [switch]$Force,
+    [ValidateSet('major', 'minor', 'patch')]
+    [string]$BumpType
 )
 
 $ErrorActionPreference = 'Stop'
@@ -67,9 +69,13 @@ function Invoke-Command-Safe {
 
 function Get-CurrentVersion {
     try {
-        $tag = git describe --tags --abbrev=0 2>$null
-        if ($tag -match '^v?(\d+\.\d+\.\d+)$') {
-            return $Matches[1]
+        # Get all tags sorted by version, pick the latest
+        $tags = git tag --sort=-version:refname
+        if ($tags) {
+            $tag = $tags | Select-Object -First 1
+            if ($tag -match '^v?(\d+\.\d+\.\d+)$') {
+                return $Matches[1]
+            }
         }
     } catch {
         # No tags found

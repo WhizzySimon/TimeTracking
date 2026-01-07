@@ -162,20 +162,23 @@
 	// Calculate month totals (respects employer filter)
 	let monthIst = $derived(calculateIst(monthEntriesUpToToday, $filteredCategories));
 
-	let monthSoll = $derived(() => {
+	let totalSoll = $derived.by(() => {
 		let total = 0;
 		for (const date of monthDates) {
 			if (isFutureDay(date)) continue;
 			if (!isDayActiveInModel(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-			const model = getActiveModelForDate(date);
-			total += calculateSoll(date, dayType, model);
+			// Sum Soll from all active models (important for "Alle Arbeitgeber")
+			const models = getActiveModelsForDate(date);
+			for (const model of models) {
+				total += calculateSoll(date, dayType, model);
+			}
 		}
 		return total;
 	});
 
-	let monthSaldo = $derived(calculateSaldo(monthIst, monthSoll()));
+	let monthSaldo = $derived(calculateSaldo(monthIst, totalSoll));
 
 	// Load day types when month changes
 	$effect(() => {
@@ -224,13 +227,30 @@
 		}
 	}
 
-	// Get active work time model for a specific date (respects employer filter)
-	function getActiveModelForDate(date: Date): WorkTimeModel | null {
+	// Get active work time models for a specific date (respects employer filter)
+	// When "Alle Arbeitgeber" is selected, returns ALL active models (one per employer)
+	function getActiveModelsForDate(date: Date): WorkTimeModel[] {
 		const dateStr = formatDate(date, 'ISO');
-		const validModels = $filteredModels
-			.filter((model) => model.validFrom <= dateStr)
-			.sort((a, b) => b.validFrom.localeCompare(a.validFrom));
-		return validModels[0] ?? null;
+
+		// Group models by employer, then get the most recent valid one per employer
+		const modelsByEmployer = new Map<string, WorkTimeModel>();
+
+		for (const model of $filteredModels) {
+			if (model.validFrom <= dateStr && model.employerId) {
+				const existing = modelsByEmployer.get(model.employerId);
+				if (!existing || model.validFrom > existing.validFrom) {
+					modelsByEmployer.set(model.employerId, model);
+				}
+			}
+		}
+
+		return Array.from(modelsByEmployer.values());
+	}
+
+	// Legacy function for single model (kept for backwards compatibility)
+	function getActiveModelForDate(date: Date): WorkTimeModel | null {
+		const models = getActiveModelsForDate(date);
+		return models[0] ?? null;
 	}
 
 	// Check if a day is active in the work time model (respects employer filter)
@@ -262,8 +282,11 @@
 			if (!isDayActiveInModel(date)) continue;
 			const dateKey = formatDate(date, 'ISO');
 			const dayType = dayTypes.get(dateKey) ?? 'arbeitstag';
-			const model = getActiveModelForDate(date);
-			total += calculateSoll(date, dayType, model);
+			// Sum Soll from all active models (important for "Alle Arbeitgeber")
+			const models = getActiveModelsForDate(date);
+			for (const model of models) {
+				total += calculateSoll(date, dayType, model);
+			}
 		}
 		return total;
 	}
@@ -387,7 +410,7 @@
 		</header>
 
 		<!-- Inline Summary -->
-		<InlineSummary ist={monthIst} soll={monthSoll()} saldo={monthSaldo} />
+		<InlineSummary ist={monthIst} soll={totalSoll} saldo={monthSaldo} />
 
 		<!-- Week List -->
 		<div class="week-list">
@@ -489,8 +512,6 @@
 	}
 
 	.week-row__title {
-		font-weight: var(--tt-font-weight-normal);
-		color: var(--tt-text-primary);
 		white-space: nowrap;
 	}
 
@@ -501,7 +522,7 @@
 		font-size: var(--tt-font-size-tiny);
 		font-weight: var(--tt-font-weight-medium);
 		color: var(--tt-text-muted);
-		background: var(--tt-background-card-pressed);
+		background: var(--tt-background-page);
 		border-radius: var(--tt-radius-badge);
 		white-space: nowrap;
 		width: fit-content;
@@ -514,7 +535,7 @@
 		font-size: var(--tt-font-size-tiny);
 		font-weight: var(--tt-font-weight-medium);
 		color: var(--tt-text-muted);
-		background: var(--tt-background-card-pressed);
+		background: var(--tt-background-page);
 		border-radius: var(--tt-radius-badge);
 		white-space: nowrap;
 		width: fit-content;

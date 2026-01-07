@@ -10,6 +10,7 @@
 	import BackButton from '$lib/components/BackButton.svelte';
 	import ForwardButton from '$lib/components/ForwardButton.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+	import SyncIndicator from '$lib/components/SyncIndicator.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import {
 		isOnline,
@@ -63,6 +64,7 @@
 	let hasUpdate = $state(false);
 	let syncNeeded = $state(true);
 	let showProPaywall = $state(false);
+	let installBannerDismissed = $state(false);
 
 	// Conflict resolution state
 	let pendingCloudSnapshot = $state<DatabaseSnapshot | null>(null);
@@ -95,6 +97,11 @@
 		clearUserProfile();
 		clearCachedPlan();
 		goto(resolve('/login') + '?logout=1');
+	}
+
+	function dismissInstallBanner() {
+		installBannerDismissed = true;
+		localStorage.setItem('installBannerDismissed', 'true');
 	}
 
 	function handleRunningTaskClick() {
@@ -298,6 +305,10 @@
 			canInstall = state.canInstall && !state.isInstalled;
 		});
 
+		// Load install banner dismissal state
+		const dismissed = localStorage.getItem('installBannerDismissed');
+		installBannerDismissed = dismissed === 'true';
+
 		// Setup SW update detection
 		setupUpdateDetection();
 		updateAvailable.subscribe((available) => {
@@ -404,45 +415,17 @@
 				<ForwardButton />
 			</div>
 			<div class="header-center">
-				<EmployerSelector
-					employers={$employers}
-					value={$selectedEmployerId}
-					onchange={(id) => selectedEmployerId.set(id)}
-					compact
-				/>
+				{#if $employers.filter((e) => e.isActive).length > 1}
+					<EmployerSelector
+						employers={$employers}
+						value={$selectedEmployerId}
+						onchange={(id) => selectedEmployerId.set(id)}
+						compact
+					/>
+				{/if}
 			</div>
 			<div class="header-right">
-				<button
-					class="sync-indicator tt-interactive-dark"
-					class:synced={!syncNeeded && !$syncInProgress && !syncError}
-					class:syncing={$syncInProgress}
-					class:conflict={!!syncError}
-					class:out-of-sync={syncNeeded && !$syncInProgress && !syncError}
-					onclick={handleSyncClick}
-					title={syncError
-						? 'Synchronisierungsfehler'
-						: !syncNeeded && !$syncInProgress
-							? 'Synchronisiert'
-							: syncNeeded
-								? 'Synchronisierung ausstehend'
-								: 'Synchronisiere...'}
-					aria-label="Synchronisierung"
-				>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<polyline points="23 4 23 10 17 10"></polyline>
-						<polyline points="1 20 1 14 7 14"></polyline>
-						<path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-					</svg>
-				</button>
+				<SyncIndicator {syncNeeded} {syncError} onclick={handleSyncClick} />
 				<a
 					href={resolve('/settings')}
 					class="sync-indicator tt-interactive-dark"
@@ -480,9 +463,27 @@
 			<div class="update-banner">
 				<button class="update-btn" onclick={applyUpdate}> Update verfügbar – neu laden </button>
 			</div>
-		{:else if canInstall}
+		{:else if canInstall && (!installBannerDismissed || $page.url.pathname === '/settings')}
 			<div class="install-banner">
 				<button class="install-btn" onclick={triggerInstall}> App installieren </button>
+				{#if $page.url.pathname !== '/settings'}
+					<button class="close-btn" onclick={dismissInstallBanner} aria-label="Banner schließen">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
+					</button>
+				{/if}
 			</div>
 		{/if}
 		{#if $runningEntry}
@@ -640,63 +641,61 @@
 		justify-content: center;
 	}
 
-	.sync-indicator {
+	/* Settings icon button - reuse sync-indicator class for consistency */
+	.header-right a {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 40px;
-		height: 40px;
-		padding: 0;
-		border: 1px solid var(--tt-header-border);
-		border-radius: var(--tt-radius-button);
+		width: 44px;
+		height: 44px;
+		border: none;
 		background: transparent;
+		cursor: pointer;
+		border-radius: var(--tt-radius-button);
 		color: var(--tt-header-text);
 		opacity: 0.7;
-		cursor: pointer;
 		transition:
-			background var(--tt-transition-fast),
-			opacity var(--tt-transition-fast);
+			background 0.15s,
+			opacity 0.15s;
 	}
 
-	/* Hover state for header buttons (white overlay on dark bg) */
+	.header-right a svg {
+		width: 24px;
+		height: 24px;
+	}
+
 	@media (hover: hover) {
-		.sync-indicator:hover {
+		.header-right a:hover {
 			background: rgba(255, 255, 255, 0.12);
+			opacity: 1;
 		}
 	}
 
-	.sync-indicator:active {
+	.header-right a:active {
 		background: rgba(255, 255, 255, 0.2);
 	}
 
-	.sync-indicator.out-of-sync {
-		color: var(--tt-gray-400);
-		opacity: 0.7;
-	}
-
-	.sync-indicator.syncing {
-		color: var(--tt-brand-accent-300);
-		opacity: 1;
-		animation: rotate 1.5s linear infinite;
-		cursor: default;
-	}
-
-	.sync-indicator.synced {
-		color: var(--tt-brand-accent-300);
-		opacity: 1;
-	}
-
-	.sync-indicator.conflict {
-		color: var(--tt-status-warning-500);
-		opacity: 1;
-	}
-
-	@keyframes rotate {
-		from {
-			transform: rotate(0deg);
+	@media (max-width: 350px) {
+		.header-right a {
+			width: 36px;
+			height: 36px;
 		}
-		to {
-			transform: rotate(360deg);
+
+		.header-right a svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	@media (max-width: 300px) {
+		.header-right a {
+			width: 32px;
+			height: 32px;
+		}
+
+		.header-right a svg {
+			width: 18px;
+			height: 18px;
 		}
 	}
 
@@ -713,9 +712,10 @@
 		background: var(--tt-header-bg);
 		padding: var(--tt-space-8) var(--tt-space-12);
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
 		border-radius: var(--tt-radius-card);
+		gap: var(--tt-space-12);
 	}
 
 	.install-btn {
@@ -727,12 +727,33 @@
 		font-size: var(--tt-font-size-body);
 		font-weight: 600;
 		cursor: pointer;
-		width: 100%;
+		flex: 1;
 		max-width: 300px;
+		margin: 0 auto;
 	}
 
 	.install-btn:hover {
 		opacity: 0.9;
+	}
+
+	.close-btn {
+		background: transparent;
+		border: none;
+		color: white;
+		cursor: pointer;
+		padding: var(--tt-space-4);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--tt-radius-button);
+		transition: all 0.2s;
+		flex-shrink: 0;
+		opacity: 0.8;
+	}
+
+	.close-btn:hover {
+		background: rgba(255, 255, 255, 0.1);
+		opacity: 1;
 	}
 
 	.running-task-header {
