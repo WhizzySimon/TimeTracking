@@ -31,9 +31,41 @@ export const isFree = derived(userPlan, ($plan) => $plan === 'free');
 
 /**
  * Set user profile (called after loading from Supabase).
+ * If profile is null, attempts to restore plan from cache.
  */
 export function setUserProfile(profile: UserProfile | null): void {
+	if (profile === null) {
+		// Profile load failed - try to restore from cache
+		const cachedPlan = getCachedPlanFromStorage();
+		if (cachedPlan !== 'free') {
+			console.log('[User] Profile load failed, restoring from cache:', cachedPlan);
+			// Create minimal profile with cached plan
+			userProfile.set({
+				id: '',
+				email: '',
+				plan: cachedPlan,
+				createdAt: '',
+				updatedAt: ''
+			});
+			return;
+		}
+	}
 	userProfile.set(profile);
+}
+
+/**
+ * Get cached plan from localStorage.
+ * Returns 'free' if no cache exists.
+ */
+function getCachedPlanFromStorage(): 'free' | 'pro' | 'premium' {
+	if (typeof localStorage === 'undefined') return 'free';
+	try {
+		const cached = localStorage.getItem('userPlan');
+		if (cached === 'pro' || cached === 'premium') return cached;
+	} catch {
+		// localStorage may be unavailable
+	}
+	return 'free';
 }
 
 /**
