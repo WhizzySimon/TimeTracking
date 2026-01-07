@@ -41,8 +41,8 @@
 		}
 	];
 
-	function handleSelectPlan(planName: string) {
-		setUserPlanLocal(planName.toLowerCase() as 'free' | 'pro');
+	async function handleSelectPlan(planName: string) {
+		await setUserPlanLocal(planName.toLowerCase() as 'free' | 'pro');
 		onselect(planName);
 	}
 </script>

@@ -76,10 +76,10 @@ export function clearUserProfile(): void {
 }
 
 /**
- * Update plan in store and persist to localStorage.
- * Used for local upgrade (payment system coming later).
+ * Update plan in store, persist to localStorage, and sync to Supabase.
+ * This ensures the plan survives app reinstalls.
  */
-export function setUserPlanLocal(plan: UserPlan): void {
+export async function setUserPlanLocal(plan: UserPlan): Promise<void> {
 	userProfile.update((profile) => {
 		if (profile) {
 			return { ...profile, plan };
@@ -88,6 +88,13 @@ export function setUserPlanLocal(plan: UserPlan): void {
 	});
 	if (typeof localStorage !== 'undefined') {
 		localStorage.setItem('timetracker_user_plan', plan);
+	}
+	// Also update in Supabase so it persists across reinstalls
+	try {
+		const { updateUserPlanInDatabase } = await import('$lib/api/profile');
+		await updateUserPlanInDatabase(plan);
+	} catch (err) {
+		console.error('[User] Failed to sync plan to database:', err);
 	}
 }
 
