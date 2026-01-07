@@ -80,6 +80,35 @@
 			color 0.15s;
 	}
 
+	.sync-indicator svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	@media (max-width: 350px) {
+		.sync-indicator {
+			width: 36px;
+			height: 36px;
+		}
+
+		.sync-indicator svg {
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	@media (max-width: 300px) {
+		.sync-indicator {
+			width: 32px;
+			height: 32px;
+		}
+
+		.sync-indicator svg {
+			width: 16px;
+			height: 16px;
+		}
+	}
+
 	/* Hover state for header buttons (white overlay on dark bg) */
 	@media (hover: hover) {
 		.sync-indicator:hover {

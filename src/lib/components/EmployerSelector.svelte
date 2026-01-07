@@ -165,6 +165,23 @@
 		white-space: nowrap;
 	}
 
+	/* Allow text wrapping on very narrow screens to prevent overflow */
+	@media (max-width: 350px) {
+		.selected-text {
+			white-space: normal;
+			word-break: break-word;
+			line-height: 1.2;
+		}
+
+		.selector-button {
+			min-width: 100px;
+		}
+
+		.compact .selector-button {
+			min-width: 80px;
+		}
+	}
+
 	.chevron {
 		flex-shrink: 0;
 		transition: transform 0.15s ease;
@@ -197,11 +214,16 @@
 		padding: 0.5rem 0.75rem;
 		text-align: left;
 		border: none;
+		border-bottom: 1px solid color-mix(in srgb, var(--tt-brand-primary-700) 12%, transparent);
 		background: transparent;
 		color: var(--tt-brand-primary-700);
 		cursor: pointer;
 		font-size: var(--tt-font-size-body);
 		transition: background 0.15s ease;
+	}
+
+	.option:last-child {
+		border-bottom: none;
 	}
 
 	@media (hover: hover) {

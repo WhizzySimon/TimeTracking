@@ -641,6 +641,63 @@
 		justify-content: center;
 	}
 
+	/* Settings icon button - reuse sync-indicator class for consistency */
+	.header-right a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		border-radius: var(--tt-radius-button);
+		color: var(--tt-header-text);
+		opacity: 0.7;
+		transition:
+			background 0.15s,
+			opacity 0.15s;
+	}
+
+	.header-right a svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	@media (hover: hover) {
+		.header-right a:hover {
+			background: rgba(255, 255, 255, 0.12);
+			opacity: 1;
+		}
+	}
+
+	.header-right a:active {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	@media (max-width: 350px) {
+		.header-right a {
+			width: 36px;
+			height: 36px;
+		}
+
+		.header-right a svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	@media (max-width: 300px) {
+		.header-right a {
+			width: 32px;
+			height: 32px;
+		}
+
+		.header-right a svg {
+			width: 18px;
+			height: 18px;
+		}
+	}
 
 	.main-content {
 		flex: 1;

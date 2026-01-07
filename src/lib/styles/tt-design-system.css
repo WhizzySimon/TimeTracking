@@ -905,15 +905,29 @@ textarea {
 	width: 40px;
 	height: 40px;
 	padding: 0;
-	border: 1px solid var(--tt-header-border);
+	border: none;
+	background: transparent;
 	color: var(--tt-header-text);
 	border-radius: var(--tt-radius-button);
 	cursor: pointer;
+	transition:
+		background 0.15s,
+		opacity 0.15s;
 }
 
 .tt-header-nav-button:disabled {
 	opacity: 0.3;
 	cursor: not-allowed;
+}
+
+@media (hover: hover) {
+	.tt-header-nav-button:hover:not(:disabled) {
+		background: rgba(255, 255, 255, 0.12);
+	}
+}
+
+.tt-header-nav-button:active:not(:disabled) {
+	background: rgba(255, 255, 255, 0.2);
 }
 
 .tt-header-nav-button__icon {
@@ -1812,7 +1826,7 @@ textarea {
 	background: transparent;
 	border-top: none;
 	border-radius: var(--tt-radius-card) var(--tt-radius-card) 0 0;
-	padding: var(--tt-space-8);
+	padding: var(--tt-space-4) var(--tt-space-8) var(--tt-space-8);
 	gap: var(--tt-space-4);
 	box-sizing: border-box;
 	/* Toggle variable: set to 1 to enable line, 0 to disable */
@@ -1888,10 +1902,8 @@ textarea {
 .tt-footer-tab[aria-current='page'] {
 	font-weight: var(--tt-font-weight-bold);
 	border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
-	padding-bottom: calc(var(--tt-space-8) + 8px);
-	margin-bottom: -8px;
-	/* Ensure consistent height by offsetting the extra padding */
-	padding-top: 0;
+	padding-bottom: calc(var(--tt-space-8) + 4px);
+	margin-bottom: -4px;
 }
 
 .tt-footer-tab svg {
