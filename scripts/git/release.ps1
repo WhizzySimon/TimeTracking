@@ -29,7 +29,9 @@
 #>
 
 param(
-    [switch]$Force
+    [switch]$Force,
+    [ValidateSet('major', 'minor', 'patch')]
+    [string]$BumpType
 )
 
 $ErrorActionPreference = 'Stop'
