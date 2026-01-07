@@ -10,6 +10,7 @@
 	import BackButton from '$lib/components/BackButton.svelte';
 	import ForwardButton from '$lib/components/ForwardButton.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+	import SyncIndicator from '$lib/components/SyncIndicator.svelte';
 	import { syncNow, checkSyncStatus } from '$lib/sync/engine';
 	import {
 		isOnline,
@@ -424,37 +425,7 @@
 				{/if}
 			</div>
 			<div class="header-right">
-				<button
-					class="sync-indicator tt-interactive-dark"
-					class:synced={!syncNeeded && !$syncInProgress && !syncError}
-					class:syncing={$syncInProgress}
-					class:conflict={!!syncError}
-					class:out-of-sync={syncNeeded && !$syncInProgress && !syncError}
-					onclick={handleSyncClick}
-					title={syncError
-						? 'Synchronisierungsfehler'
-						: !syncNeeded && !$syncInProgress
-							? 'Synchronisiert'
-							: syncNeeded
-								? 'Synchronisierung ausstehend'
-								: 'Synchronisiere...'}
-					aria-label="Synchronisierung"
-				>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<polyline points="23 4 23 10 17 10"></polyline>
-						<polyline points="1 20 1 14 7 14"></polyline>
-						<path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-					</svg>
-				</button>
+				<SyncIndicator {syncNeeded} {syncError} onclick={handleSyncClick} />
 				<a
 					href={resolve('/settings')}
 					class="sync-indicator tt-interactive-dark"
@@ -670,65 +641,6 @@
 		justify-content: center;
 	}
 
-	.sync-indicator {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 40px;
-		height: 40px;
-		padding: 0;
-		border: 1px solid var(--tt-header-border);
-		border-radius: var(--tt-radius-button);
-		background: transparent;
-		color: var(--tt-header-text);
-		opacity: 0.7;
-		cursor: pointer;
-		transition:
-			background var(--tt-transition-fast),
-			opacity var(--tt-transition-fast);
-	}
-
-	/* Hover state for header buttons (white overlay on dark bg) */
-	@media (hover: hover) {
-		.sync-indicator:hover {
-			background: rgba(255, 255, 255, 0.12);
-		}
-	}
-
-	.sync-indicator:active {
-		background: rgba(255, 255, 255, 0.2);
-	}
-
-	.sync-indicator.out-of-sync {
-		color: var(--tt-gray-400);
-		opacity: 0.7;
-	}
-
-	.sync-indicator.syncing {
-		color: var(--tt-brand-accent-300);
-		opacity: 1;
-		animation: rotate 1.5s linear infinite;
-		cursor: default;
-	}
-
-	.sync-indicator.synced {
-		color: var(--tt-brand-accent-300);
-		opacity: 1;
-	}
-
-	.sync-indicator.conflict {
-		color: var(--tt-status-warning-500);
-		opacity: 1;
-	}
-
-	@keyframes rotate {
-		from {
-			transform: rotate(0deg);
-		}
-		to {
-			transform: rotate(360deg);
-		}
-	}
 
 	.main-content {
 		flex: 1;

@@ -447,7 +447,7 @@
 		font-size: var(--tt-font-size-tiny);
 		font-weight: var(--tt-font-weight-medium);
 		color: var(--tt-text-muted);
-		background: var(--tt-background-card-pressed);
+		background: var(--tt-background-page);
 		border-radius: var(--tt-radius-badge);
 		white-space: nowrap;
 		width: fit-content;

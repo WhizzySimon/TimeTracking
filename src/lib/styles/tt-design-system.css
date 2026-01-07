@@ -507,7 +507,7 @@ textarea {
 	font-size: var(--tt-font-size-tiny);
 	font-weight: var(--tt-font-weight-medium);
 	color: var(--tt-text-muted);
-	background: var(--tt-background-card-pressed);
+	background: var(--tt-background-page);
 	border-radius: var(--tt-radius-badge);
 	white-space: nowrap;
 }
@@ -563,13 +563,13 @@ textarea {
 
 /* Employer Label - Shows which employer an entry belongs to */
 .tt-inline-label-employer {
-	background: var(--tt-border-subtle);
+	background: var(--tt-background-page);
 	color: var(--tt-text-secondary);
 }
 
 /* No-Work Label - Shows "Keine Arbeitszeit" */
 .tt-inline-label-no-work {
-	background: var(--tt-border-subtle);
+	background: var(--tt-background-page);
 	color: var(--tt-text-muted);
 }
 
@@ -2265,7 +2265,7 @@ textarea {
 }
 
 .tt-badge--no-work {
-	background: var(--tt-border-subtle);
+	background: var(--tt-background-page);
 	color: var(--tt-text-muted);
 }
 
