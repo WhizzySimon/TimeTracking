@@ -67,7 +67,8 @@ function Invoke-Command-Safe {
 
 function Get-CurrentVersion {
     try {
-        $tag = git describe --tags --abbrev=0 2>$null
+        # Get all tags sorted by version, pick the latest
+        $tag = git tag --sort=-version:refname | Select-Object -First 1
         if ($tag -match '^v?(\d+\.\d+\.\d+)$') {
             return $Matches[1]
         }
