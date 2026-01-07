@@ -1,0 +1,80 @@
+Generate test data for Tasks (Tätigkeiten) and Times (Zeitdaten) that i can import as csv for the following Arbeitgeber (AG) and Arbeitsmodell (AM) sets. 
+- Zeitdaten komplett bis 31.12.2025
+- alle Arten von Abwesenheiten enthalten sollen: 2 Wochen + Tage Urlaub + 5 Tage krank + alle Feiertage für Sachsen für die Zeitdaten.
+- inklusive 1 custom Abwesenheit "Joggen" (15 min), die ich manuell anlegen werde, (nicht AG gebunden ist), in beiden Zeitdaten (für beide AG) enthalten ist. 
+
+Setup:
+AG 1: Kirche
+AM 1: Kirche 40h/Woche Di-So Start 1.9.2025
+AM 2: Kirche 30h/Woche Di-So Start 1.11.2025
+AG 2: Orgelbau
+AM 3: Orgelbau 10h/Woche  Di-Mi Start 1.11.2025
+
+The tasks for an employer contain all tasks that are mentioned in times for each model (AM) for that employer.
+The times match the criteria:
+	- start time of the AM, specified working days, amount of hours per week
+	- to test the analysis, the hours per week may vary by a few hours more or less, but total hours match in average.
+Tasks-Kirche.csv
+	- 20 tasks (Tätigkeiten)
+Times-Kirche.csv
+	- from 1.9.2025 40 h / week
+	- from 1.11.2025 30 h / week
+Tasks-Orgelbau.csv
+	- 5 tasks (Tätigkeiten)
+Times-Orgelbau.csv
+	- from 1.11.2025 10 h / week
+	
+Return what to expect in Results.md
+Im Auswertungs-Tab: für die Zeiten Sept - Dez - Summe + Tätigkeiten (Gesamt, Durchschnitt/Woche)
+Im Monats-Tab: für Dez - Summe + alle Wochen 
+Im Wochen-Tab: für KW 49 - Summe + Alle Tage
+Im Tages-Tab: für Di, 2.12. + Mi, 3.12. - Summe + Alle Tätigkeiten
+
+Safe it in Docs/Testdata/UserData/
+
+
+Contents (inside Docs/Testdata/UserData/):
+
+Tasks-Kirche.csv (20 Tätigkeiten; one per line, no header; importable via Kategorien-Import)
+
+Times-Kirche.csv (CSV with headers: date,start_time,end_time,category,description,duration_minutes; 01.09.2025–31.12.2025)
+
+AM1 (40h/Woche Di–So) active until 31.10.2025
+
+AM2 (30h/Woche Di–So) active from 01.11.2025
+
+Includes Abwesenheiten as time entries using system categories: Urlaub, Krank, Feiertag
+
+Includes Joggen 15 min entries (weekly on Tuesdays) — requires you to create category “Joggen” before import
+
+Tasks-Orgelbau.csv (5 Tätigkeiten; names chosen to avoid collisions with Kirche task names)
+
+Times-Orgelbau.csv (CSV headers as above; 01.11.2025–31.12.2025)
+
+AM3 (10h/Woche Di–Mi) from 01.11.2025
+
+Includes Joggen 15 min entries (weekly on Tuesdays)
+
+Includes Saxony holiday Buß- und Bettag (19.11.2025) as Feiertag entry
+
+DayTypes.md
+
+Lists the dates you should set as Urlaub/Krank/Feiertag in the UI so that Soll=0 on those days (otherwise Soll remains >0 and Saldo becomes negative).
+
+Results.md
+
+Expected values for:
+
+Auswertung-Tab: Sept–Dez + Summe + Tätigkeiten (Gesamt, Ø/Woche)
+
+Monats-Tab: Dez (Summe + alle Wochen inkl. KW1/2026 for 29–31 Dec)
+
+Wochen-Tab: KW 49/2025
+
+Tages-Tab: Di 02.12.2025 + Mi 03.12.2025 (Summe + alle Tätigkeiten)
+
+Notes (important for matching Results.md):
+
+Create category Joggen manually before importing times, and set countsAsWorkTime = false.
+
+Urlaub/Krank/Feiertag are system categories (already present) and don’t count as work time (Ist=0), but Soll becomes 0 only if you set DayTypes (listed in DayTypes.md).

@@ -224,10 +224,10 @@
 
 		// 6. Ø/Woche denominator
 		const workDays = countWorkDaysInRange();
-		const effectiveWeeks = calculateEffectiveWeeks();
+		const debugEffectiveWeeks = calculateEffectiveWeeks(totalSoll);
 		console.log('Ø/Woche denominator:', {
 			workDaysInRange: workDays,
-			effectiveWeeks: effectiveWeeks.toFixed(2)
+			effectiveWeeks: debugEffectiveWeeks.toFixed(2)
 		});
 
 		// 7. Missing employerId counts (should be 0 after migration)
@@ -403,6 +403,28 @@
 		return typeof hours === 'number' && hours > 0;
 	}
 
+	// Count work days per week in a WorkTimeModel
+	function getWorkDaysPerWeekFromModel(model: WorkTimeModel | null): number {
+		if (!model) return 5; // Default fallback
+		let count = 0;
+		const days: (keyof WorkTimeModel)[] = [
+			'monday',
+			'tuesday',
+			'wednesday',
+			'thursday',
+			'friday',
+			'saturday',
+			'sunday'
+		];
+		for (const day of days) {
+			const hours = model[day];
+			if (typeof hours === 'number' && hours > 0) {
+				count++;
+			}
+		}
+		return count || 5; // Fallback to 5 if no days configured
+	}
+
 	// Count actual work days in range, considering:
 	// 1. WorkTimeModel (which weekdays are active)
 	// 2. DayTypes (urlaub, krank, feiertag exclude the day)
@@ -431,28 +453,95 @@
 		return workDays;
 	}
 
-	// Calculate effective weeks based on calendar weeks with actual entries
-	// This gives a meaningful average: total hours / weeks with actual work
-	function calculateEffectiveWeeks(): number {
-		// Track which calendar weeks have at least one entry
-		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local variable in non-reactive function
-		const weeksWithEntries = new Set<string>();
+	// Calculate weekly target from active models (sum of all employers' weekly hours)
+	function calculateWeeklyTarget(): number {
+		// Sample a few dates to get the average weekly target
+		// We use dates where models are active to get a representative weekly target
+		let current = parseDate(rangeStartStr);
+		const end = parseDate(rangeEndStr);
+		if (!current || !end) return 40; // Fallback
 		
-		for (const entry of rangeEntries) {
-			const entryDate = parseDate(entry.date);
-			if (!entryDate) continue;
+		let totalWeeklyHours = 0;
+		let weeksWithModels = 0;
+		let lastWeekKey = '';
+		
+		while (current <= end) {
+			const weekKey = `${current.getFullYear()}-W${getWeekNumber(current)}`;
 			
-			// Only count completed entries (with end time)
-			if (!entry.endTime) continue;
-			
-			const weekKey = `${entryDate.getFullYear()}-W${getWeekNumber(entryDate)}`;
-			weeksWithEntries.add(weekKey);
+			// Only calculate once per week (on Monday or first day of range in that week)
+			if (weekKey !== lastWeekKey) {
+				const models = getActiveModelsForDate(current);
+				if (models.length > 0) {
+					let weekHours = 0;
+					for (const model of models) {
+						weekHours += (model.monday ?? 0) + (model.tuesday ?? 0) + 
+							(model.wednesday ?? 0) + (model.thursday ?? 0) + 
+							(model.friday ?? 0) + (model.saturday ?? 0) + (model.sunday ?? 0);
+					}
+					if (weekHours > 0) {
+						totalWeeklyHours += weekHours;
+						weeksWithModels++;
+					}
+				}
+				lastWeekKey = weekKey;
+			}
+			current = addDays(current, 1);
 		}
 		
-		return weeksWithEntries.size;
+		return weeksWithModels > 0 ? totalWeeklyHours / weeksWithModels : 40;
 	}
 
-	let effectiveWeeks = $derived(calculateEffectiveWeeks());
+	// Calculate effective weeks - ensures Ø/Woche is consistent with Soll
+	// For "Alle Arbeitgeber": derive from Soll / weeklyTarget (same basis as Soll calculation)
+	// For single employer: model-based (work days / days per week)
+	function calculateEffectiveWeeks(sollValue: number): number {
+		// For "Alle Arbeitgeber", derive from Soll to ensure consistency
+		// If Haben is positive, Ø/Woche will be > weekly target (as expected)
+		if ($selectedEmployerId === null) {
+			const weeklyTarget = calculateWeeklyTarget();
+			if (weeklyTarget <= 0 || sollValue <= 0) return 1; // Avoid division by zero
+			return sollValue / weeklyTarget;
+		}
+		
+		// For single employer: model-based calculation (work days / days per week)
+		let current = parseDate(rangeStartStr);
+		const end = parseDate(rangeEndStr);
+		if (!current || !end) return 0;
+		
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local variable in non-reactive function
+		const workDaysByDaysPerWeek = new Map<number, number>();
+		
+		while (current <= end) {
+			const dateKey = formatDate(current, 'ISO');
+			const dayType = dayTypesCache.get(dateKey) ?? 'arbeitstag';
+			const isWorkDay = dayType === 'arbeitstag';
+			
+			if (!isWorkDay) {
+				current = addDays(current, 1);
+				continue;
+			}
+			
+			const model = getActiveModelForDate(current);
+			if (model && isWeekdayActiveInModel(current, model)) {
+				const daysPerWeek = getWorkDaysPerWeekFromModel(model);
+				workDaysByDaysPerWeek.set(
+					daysPerWeek,
+					(workDaysByDaysPerWeek.get(daysPerWeek) ?? 0) + 1
+				);
+			}
+			current = addDays(current, 1);
+		}
+		
+		// Calculate effective weeks by summing (workDays / daysPerWeek)
+		let totalEffectiveWeeks = 0;
+		for (const [daysPerWeek, workDays] of workDaysByDaysPerWeek) {
+			totalEffectiveWeeks += workDays / daysPerWeek;
+		}
+		
+		return totalEffectiveWeeks;
+	}
+
+	let effectiveWeeks = $derived(calculateEffectiveWeeks(totalSoll));
 
 	function calculateCategoryBreakdown(): CategoryBreakdown[] {
 		// Group entries by category and sum hours
