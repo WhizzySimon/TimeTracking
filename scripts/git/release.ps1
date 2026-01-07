@@ -176,10 +176,10 @@ function Main {
     Invoke-Command-Safe "git pull origin main" | Out-Null
 
     # Try fast-forward first, fall back to regular merge if needed
-    try {
-        Invoke-Command-Safe "git merge dev --ff-only" | Out-Null
+    $ffResult = Invoke-Command-Safe "git merge dev --ff-only" -IgnoreError
+    if ($LASTEXITCODE -eq 0) {
         Write-Host "  Merged (fast-forward)" -ForegroundColor Green
-    } catch {
+    } else {
         Write-Host "  Fast-forward not possible, performing regular merge..." -ForegroundColor Yellow
         Invoke-Command-Safe "git merge dev --no-ff -m `"Merge dev into main for release $tag`"" | Out-Null
         Write-Host "  Merged (no fast-forward)" -ForegroundColor Green
