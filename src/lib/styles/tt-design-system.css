@@ -322,6 +322,23 @@ html[data-color-scheme='scheme-3'] {
 }
 
 /* ============================================================================
+   RESPONSIVE SCALING FOR VERY NARROW SCREENS
+   Below 350px, scale down the root font size to prevent overflow issues.
+   All rem-based values (fonts, spacing, etc.) will shrink proportionally.
+   ============================================================================ */
+@media (max-width: 350px) {
+	html {
+		font-size: 14px; /* Default is 16px, this reduces everything by ~12.5% */
+	}
+}
+
+@media (max-width: 300px) {
+	html {
+		font-size: 13px; /* Further reduction for extremely narrow screens */
+	}
+}
+
+/* ============================================================================
    GLOBAL FONT RESET
    Force all elements to inherit the design system font
    ============================================================================ */
@@ -958,7 +975,8 @@ textarea {
  */
 .tt-form-actions {
 	display: flex;
-	gap: var(--tt-space-12);
+	flex-wrap: wrap;
+	gap: var(--tt-space-8) var(--tt-space-12);
 	justify-content: flex-end;
 	padding-top: var(--tt-space-8);
 	border-top: 1px solid var(--tt-border-default);
@@ -1854,6 +1872,16 @@ textarea {
 		border-color var(--tt-transition-fast),
 		font-weight var(--tt-transition-fast),
 		background var(--tt-transition-fast);
+}
+
+/* Narrow screens: maintain aspect ratio as buttons get narrower */
+@media (max-width: 500px) {
+	.tt-footer-tab {
+		min-height: unset;
+		max-height: 38px; /* Cap at normal height to prevent jump */
+		aspect-ratio: 1.5 / 1; /* Width:Height ratio - buttons stay proportional */
+		padding: var(--tt-space-4);
+	}
 }
 
 /* Current tab: keep normal colors, modify shape */

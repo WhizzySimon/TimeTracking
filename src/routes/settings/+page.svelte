@@ -1361,6 +1361,8 @@
 	.work-time-model-detail {
 		margin-left: auto;
 		text-align: right;
+		white-space: normal; /* Allow text to wrap */
+		word-break: break-word; /* Break long words if needed */
 	}
 
 	.row-right-section {
