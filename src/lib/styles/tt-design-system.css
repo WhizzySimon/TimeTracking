@@ -1888,6 +1888,15 @@ textarea {
 		background var(--tt-transition-fast);
 }
 
+/* Current tab: keep normal colors, modify shape - extends down to touch the line */
+.tt-footer-tab[aria-current='page'] {
+	font-weight: var(--tt-font-weight-bold);
+	border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
+	padding-bottom: calc(var(--tt-space-8) + 4px);
+	margin-bottom: -4px;
+	/* Active tab extends 4px into the 8px bottom padding, leaving 4px gap to line top */
+}
+
 /* Narrow screens: maintain aspect ratio as buttons get narrower */
 @media (max-width: 500px) {
 	.tt-footer-tab {
@@ -1896,15 +1905,11 @@ textarea {
 		aspect-ratio: 1.5 / 1; /* Width:Height ratio - buttons stay proportional */
 		padding: var(--tt-space-4);
 	}
-}
-
-/* Current tab: keep normal colors, modify shape - extends down to touch the line */
-.tt-footer-tab[aria-current='page'] {
-	font-weight: var(--tt-font-weight-bold);
-	border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
-	padding-bottom: calc(var(--tt-space-8) + 4px);
-	margin-bottom: -4px;
-	/* Active tab extends 4px into the 8px bottom padding, leaving 4px gap to line top */
+	
+	/* Active tab extension must match mobile padding */
+	.tt-footer-tab[aria-current='page'] {
+		padding-bottom: calc(var(--tt-space-4) + 4px);
+	}
 }
 
 .tt-footer-tab svg {
