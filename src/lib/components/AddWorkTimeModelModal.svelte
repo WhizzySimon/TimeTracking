@@ -490,7 +490,7 @@
 
 	.weekday-header {
 		display: grid;
-		grid-template-columns: 2rem 3rem 2.5rem;
+		grid-template-columns: 2rem 4.5rem 3rem;
 		gap: var(--tt-space-4);
 		padding: var(--tt-space-4) 0;
 		font-size: var(--tt-font-size-tiny);
@@ -511,7 +511,7 @@
 
 	.weekday-row {
 		display: grid;
-		grid-template-columns: 2rem 3rem 2.5rem;
+		grid-template-columns: 2rem 4.5rem 3rem;
 		gap: var(--tt-space-4);
 		align-items: center;
 	}
@@ -531,7 +531,7 @@
 
 	.hours-input {
 		width: 100%;
-		max-width: 2.5rem;
+		max-width: 3rem;
 		padding: var(--tt-space-4);
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-input);

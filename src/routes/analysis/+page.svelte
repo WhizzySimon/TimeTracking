@@ -286,20 +286,40 @@
 		while (current <= end) {
 			const dateKey = formatDate(current, 'ISO');
 			const dayType = dayTypesCache.get(dateKey) ?? 'arbeitstag';
-			const model = getActiveModelForDate(current);
-			total += calculateSoll(current, dayType, model);
+			// Sum Soll from all active models (important for "Alle Arbeitgeber")
+			const models = getActiveModelsForDate(current);
+			for (const model of models) {
+				total += calculateSoll(current, dayType, model);
+			}
 			current = addDays(current, 1);
 		}
 		return total;
 	}
 
 	// Get active work time model for a specific date, respecting employer filter
-	function getActiveModelForDate(date: Date): WorkTimeModel | null {
+	// When "Alle Arbeitgeber" is selected, returns ALL active models (one per employer)
+	function getActiveModelsForDate(date: Date): WorkTimeModel[] {
 		const dateStr = formatDate(date, 'ISO');
-		const validModels = $filteredModels
-			.filter((model) => model.validFrom <= dateStr)
-			.sort((a, b) => b.validFrom.localeCompare(a.validFrom));
-		return validModels[0] ?? null;
+		
+		// Group models by employer, then get the most recent valid one per employer
+		const modelsByEmployer = new Map<string, WorkTimeModel>();
+		
+		for (const model of $filteredModels) {
+			if (model.validFrom <= dateStr && model.employerId) {
+				const existing = modelsByEmployer.get(model.employerId);
+				if (!existing || model.validFrom > existing.validFrom) {
+					modelsByEmployer.set(model.employerId, model);
+				}
+			}
+		}
+		
+		return Array.from(modelsByEmployer.values());
+	}
+	
+	// Legacy function for single model (kept for backwards compatibility if needed)
+	function getActiveModelForDate(date: Date): WorkTimeModel | null {
+		const models = getActiveModelsForDate(date);
+		return models[0] ?? null;
 	}
 
 	// Determine grouping: weeks if range <= 60 days, months otherwise
@@ -383,28 +403,6 @@
 		return typeof hours === 'number' && hours > 0;
 	}
 
-	// Count work days per week in a WorkTimeModel
-	function getWorkDaysPerWeekFromModel(model: WorkTimeModel | null): number {
-		if (!model) return 5; // Default fallback
-		let count = 0;
-		const days: (keyof WorkTimeModel)[] = [
-			'monday',
-			'tuesday',
-			'wednesday',
-			'thursday',
-			'friday',
-			'saturday',
-			'sunday'
-		];
-		for (const day of days) {
-			const hours = model[day];
-			if (typeof hours === 'number' && hours > 0) {
-				count++;
-			}
-		}
-		return count || 5; // Fallback to 5 if no days configured
-	}
-
 	// Count actual work days in range, considering:
 	// 1. WorkTimeModel (which weekdays are active)
 	// 2. DayTypes (urlaub, krank, feiertag exclude the day)
@@ -433,21 +431,25 @@
 		return workDays;
 	}
 
-	// Calculate effective weeks based on work days and work days per week from model
-	// This handles multiple WorkTimeModels across the date range by using weighted average
+	// Calculate effective weeks based on calendar weeks with actual entries
+	// This gives a meaningful average: total hours / weeks with actual work
 	function calculateEffectiveWeeks(): number {
-		const workDays = countWorkDaysInRange();
-		if (workDays === 0) return 0;
-
-		// Get the predominant model (model active for most days in range)
-		// For simplicity, use the model at range start - could be enhanced for multi-model ranges
-		const startDate = parseDate(rangeStartStr);
-		if (!startDate) return workDays / 5;
-
-		const model = getActiveModelForDate(startDate);
-		const daysPerWeek = getWorkDaysPerWeekFromModel(model);
-
-		return workDays / daysPerWeek;
+		// Track which calendar weeks have at least one entry
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local variable in non-reactive function
+		const weeksWithEntries = new Set<string>();
+		
+		for (const entry of rangeEntries) {
+			const entryDate = parseDate(entry.date);
+			if (!entryDate) continue;
+			
+			// Only count completed entries (with end time)
+			if (!entry.endTime) continue;
+			
+			const weekKey = `${entryDate.getFullYear()}-W${getWeekNumber(entryDate)}`;
+			weeksWithEntries.add(weekKey);
+		}
+		
+		return weeksWithEntries.size;
 	}
 
 	let effectiveWeeks = $derived(calculateEffectiveWeeks());
@@ -554,8 +556,11 @@
 				const date = parseDate(dateStr);
 				if (!date) continue;
 				const dayType = dayTypesCache.get(dateStr) ?? 'arbeitstag';
-				const model = getActiveModelForDate(date);
-				soll += calculateSoll(date, dayType, model);
+				// Sum Soll from all active models (important for "Alle Arbeitgeber")
+				const models = getActiveModelsForDate(date);
+				for (const model of models) {
+					soll += calculateSoll(date, dayType, model);
+				}
 			}
 
 			const label = getPeriodLabel(key, byMonth);
@@ -802,12 +807,11 @@
 
 	/* Loading uses .tt-loading-text from design system */
 
-	/* Date Range Selector - right-aligned with auto-width */
+	/* Date Range Selector - centered with no extra padding */
 	.range-selector-row {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: var(--tt-space-12) 0;
 	}
 
 	.tt-range-button {

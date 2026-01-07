@@ -117,4 +117,27 @@
 		margin-left: auto;
 		margin-right: var(--tt-space-8);
 	}
+
+	/* Responsive: Stack content vertically on narrow screens */
+	@media (max-width: 350px) {
+		:global(.tt-list-row-clickable) {
+			flex-wrap: wrap;
+		}
+
+		:global(.tt-list-row__content-compact) {
+			flex-basis: 100%;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--tt-space-4);
+		}
+
+		:global(.tt-list-row__separator) {
+			display: none;
+		}
+
+		.employer-label-container {
+			margin-left: 0;
+			margin-right: auto;
+		}
+	}
 </style>

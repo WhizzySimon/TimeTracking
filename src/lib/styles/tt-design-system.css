@@ -1890,6 +1890,8 @@ textarea {
 	border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
 	padding-bottom: calc(var(--tt-space-8) + 8px);
 	margin-bottom: -8px;
+	/* Ensure consistent height by offsetting the extra padding */
+	padding-top: 0;
 }
 
 .tt-footer-tab svg {
