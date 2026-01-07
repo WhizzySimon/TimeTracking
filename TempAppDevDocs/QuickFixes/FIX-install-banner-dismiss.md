@@ -17,6 +17,7 @@ The install banner appears at the top of the app with "App installieren" button 
 ## Analysis
 
 Current implementation in `src/routes/+layout.svelte`:
+
 - Banner shows when `canInstall` is true (lines 483-486)
 - No dismissal logic exists
 - Need to add:
@@ -35,6 +36,10 @@ Current implementation in `src/routes/+layout.svelte`:
   4. Added X button with SVG icon (only shown on non-settings pages)
   5. Added localStorage loading in onMount
   6. Added CSS for close button with hover effects
+  7. Updated layout: changed `justify-content: center` to `space-between` for right alignment
+  8. Updated install button: changed `width: 100%` to `flex: 1` with `margin: 0 auto` for centering
+  9. Updated close button: changed color to `white` with `opacity: 0.8` for better visibility
+  10. Updated close button hover: added white background overlay `rgba(255, 255, 255, 0.1)` with full opacity
 
 ## QA Checklist
 

@@ -414,12 +414,14 @@
 				<ForwardButton />
 			</div>
 			<div class="header-center">
-				<EmployerSelector
-					employers={$employers}
-					value={$selectedEmployerId}
-					onchange={(id) => selectedEmployerId.set(id)}
-					compact
-				/>
+				{#if $employers.filter((e) => e.isActive).length > 1}
+					<EmployerSelector
+						employers={$employers}
+						value={$selectedEmployerId}
+						onchange={(id) => selectedEmployerId.set(id)}
+						compact
+					/>
+				{/if}
 			</div>
 			<div class="header-right">
 				<button
@@ -741,10 +743,9 @@
 		background: var(--tt-header-bg);
 		padding: var(--tt-space-8) var(--tt-space-12);
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
 		border-radius: var(--tt-radius-card);
-		position: relative;
 		gap: var(--tt-space-12);
 	}
 
@@ -757,8 +758,9 @@
 		font-size: var(--tt-font-size-body);
 		font-weight: 600;
 		cursor: pointer;
-		width: 100%;
+		flex: 1;
 		max-width: 300px;
+		margin: 0 auto;
 	}
 
 	.install-btn:hover {
@@ -768,20 +770,21 @@
 	.close-btn {
 		background: transparent;
 		border: none;
-		color: var(--tt-text-secondary);
+		color: white;
 		cursor: pointer;
 		padding: var(--tt-space-4);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		border-radius: var(--tt-radius-button);
-		transition: background-color 0.2s;
+		transition: all 0.2s;
 		flex-shrink: 0;
+		opacity: 0.8;
 	}
 
 	.close-btn:hover {
-		background: var(--tt-bg-secondary);
-		color: var(--tt-text-primary);
+		background: rgba(255, 255, 255, 0.1);
+		opacity: 1;
 	}
 
 	.running-task-header {

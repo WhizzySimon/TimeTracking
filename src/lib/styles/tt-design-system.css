@@ -1791,12 +1791,47 @@ textarea {
 	display: flex;
 	flex-wrap: nowrap;
 	justify-content: stretch;
-	background: var(--tt-footer-bg);
-	border-top: 1px solid var(--tt-footer-tab-border);
+	background: transparent;
+	border-top: none;
 	border-radius: var(--tt-radius-card) var(--tt-radius-card) 0 0;
 	padding: var(--tt-space-8);
 	gap: var(--tt-space-4);
 	box-sizing: border-box;
+	/* Toggle variable: set to 1 to enable line, 0 to disable */
+	--footer-line-enabled: 1;
+}
+
+/* Line under buttons - positioned inside footer area */
+.tt-footer-nav::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: calc(6px * var(--footer-line-enabled));
+	background: transparent;
+	pointer-events: none;
+}
+
+/* Dynamic line colors based on selected tab */
+.tt-footer-nav:has(.tt-footer-tab--plus[aria-current='page'])::after {
+	background: var(--tt-brand-primary-500);
+}
+
+.tt-footer-nav:has(.tt-footer-tab--day[aria-current='page'])::after {
+	background: var(--tt-brand-accent-100);
+}
+
+.tt-footer-nav:has(.tt-footer-tab--week[aria-current='page'])::after {
+	background: var(--tt-brand-accent-200);
+}
+
+.tt-footer-nav:has(.tt-footer-tab--month[aria-current='page'])::after {
+	background: var(--tt-brand-accent-300);
+}
+
+.tt-footer-nav:has(.tt-footer-tab--analysis[aria-current='page'])::after {
+	background: var(--tt-brand-primary-500);
 }
 
 .tt-footer-tab {
@@ -1823,33 +1858,50 @@ textarea {
 
 /* Hover state: Material Design 3 state layer (white overlay on colored bg) */
 @media (hover: hover) {
-	.tt-footer-tab:hover {
+	.tt-footer-tab:not([aria-current='page']):hover {
 		background: color-mix(in srgb, currentColor 8%, var(--tt-footer-tab-bg, transparent));
 	}
 }
 
 /* Pressed/Active state: stronger state layer */
-.tt-footer-tab:active {
+.tt-footer-tab:not([aria-current='page']):active {
 	background: color-mix(in srgb, currentColor 12%, var(--tt-footer-tab-bg, transparent));
 }
 
-/* Current tab: persistent selected state - white background + dark text */
+/* Current tab: keep normal colors, modify shape */
 .tt-footer-tab[aria-current='page'] {
-	background: var(--tt-white) !important;
-	color: var(--tt-brand-primary-700);
 	font-weight: var(--tt-font-weight-bold);
+	border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
+	padding-bottom: calc(var(--tt-space-8) + 8px);
+	margin-bottom: -8px;
 }
 
-/* Current tab hover: subtle state layer on white */
+/* Current tab hover: keep normal hover with slight darkening */
 @media (hover: hover) {
-	.tt-footer-tab[aria-current='page']:hover {
-		background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-white)) !important;
+	.tt-footer-tab--day[aria-current='page']:hover {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-100));
+	}
+
+	.tt-footer-tab--week[aria-current='page']:hover {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-200));
+	}
+
+	.tt-footer-tab--month[aria-current='page']:hover {
+		background: color-mix(in srgb, var(--tt-brand-primary-700) 8%, var(--tt-brand-accent-300));
 	}
 }
 
-/* Current tab pressed: stronger state layer on white */
-.tt-footer-tab[aria-current='page']:active {
-	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-white)) !important;
+/* Current tab pressed: keep normal pressed with slight darkening */
+.tt-footer-tab--day[aria-current='page']:active {
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-100));
+}
+
+.tt-footer-tab--week[aria-current='page']:active {
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-200));
+}
+
+.tt-footer-tab--month[aria-current='page']:active {
+	background: color-mix(in srgb, var(--tt-brand-primary-700) 12%, var(--tt-brand-accent-300));
 }
 
 .tt-footer-tab svg {
@@ -1863,66 +1915,50 @@ textarea {
 	stroke-width: 3;
 }
 
-/* Plus tab variant: larger text, darker background */
+/* Plus tab variant: larger text, brand primary 500 background */
 .tt-footer-tab--plus {
 	font-size: 1.5rem;
 	font-weight: var(--tt-font-weight-bold);
-	background: var(--tt-footer-plus-bg);
-	color: var(--tt-footer-plus-text);
+	background: var(--tt-brand-primary-500);
+	color: var(--tt-white);
 }
 
 .tt-footer-tab--plus:hover {
-	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-footer-plus-bg));
+	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
 }
 
 .tt-footer-tab--plus:active {
-	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-footer-plus-bg));
+	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
 }
 
-.tt-footer-tab--plus[aria-current='page'] {
-	background: color-mix(in srgb, var(--tt-white) 50%, var(--tt-brand-primary-600)) !important;
-	color: var(--tt-white);
-	font-weight: var(--tt-font-weight-bold);
-}
-
-@media (hover: hover) {
-	.tt-footer-tab--plus[aria-current='page']:hover {
-		background: color-mix(in srgb, var(--tt-white) 58%, var(--tt-brand-primary-600)) !important;
-	}
+.tt-footer-tab--plus[aria-current='page']:hover {
+	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
 }
 
 .tt-footer-tab--plus[aria-current='page']:active {
-	background: color-mix(in srgb, var(--tt-white) 65%, var(--tt-brand-primary-600)) !important;
+	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
 }
 
-/* Analysis tab: same color as Plus tab */
+/* Analysis tab: same color as Plus tab (brand primary 500) */
 .tt-footer-tab--analysis {
-	background: var(--tt-footer-plus-bg);
-	color: var(--tt-footer-plus-text);
+	background: var(--tt-brand-primary-500);
+	color: var(--tt-white);
 }
 
 .tt-footer-tab--analysis:hover {
-	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-footer-plus-bg));
+	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
 }
 
 .tt-footer-tab--analysis:active {
-	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-footer-plus-bg));
+	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
 }
 
-.tt-footer-tab--analysis[aria-current='page'] {
-	background: color-mix(in srgb, var(--tt-white) 50%, var(--tt-brand-primary-600)) !important;
-	color: var(--tt-white);
-	font-weight: var(--tt-font-weight-bold);
-}
-
-@media (hover: hover) {
-	.tt-footer-tab--analysis[aria-current='page']:hover {
-		background: color-mix(in srgb, var(--tt-white) 58%, var(--tt-brand-primary-600)) !important;
-	}
+.tt-footer-tab--analysis[aria-current='page']:hover {
+	background: color-mix(in srgb, var(--tt-white) 8%, var(--tt-brand-primary-500));
 }
 
 .tt-footer-tab--analysis[aria-current='page']:active {
-	background: color-mix(in srgb, var(--tt-white) 65%, var(--tt-brand-primary-600)) !important;
+	background: color-mix(in srgb, var(--tt-white) 12%, var(--tt-brand-primary-500));
 }
 
 /* Individual tab colors - gradient from light to dark (100/200/300) */
