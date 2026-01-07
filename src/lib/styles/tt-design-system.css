@@ -1826,7 +1826,7 @@ textarea {
 	background: transparent;
 	border-top: none;
 	border-radius: var(--tt-radius-card) var(--tt-radius-card) 0 0;
-	padding: var(--tt-space-4) var(--tt-space-8) var(--tt-space-8);
+	padding: var(--tt-space-8);
 	gap: var(--tt-space-4);
 	box-sizing: border-box;
 	/* Toggle variable: set to 1 to enable line, 0 to disable */
@@ -1840,7 +1840,7 @@ textarea {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: calc(6px * var(--footer-line-enabled));
+	height: calc(4px * var(--footer-line-enabled));
 	background: transparent;
 	pointer-events: none;
 }
@@ -1898,12 +1898,13 @@ textarea {
 	}
 }
 
-/* Current tab: keep normal colors, modify shape */
+/* Current tab: keep normal colors, modify shape - extends down to touch the line */
 .tt-footer-tab[aria-current='page'] {
 	font-weight: var(--tt-font-weight-bold);
 	border-radius: var(--tt-radius-button) var(--tt-radius-button) 0 0;
 	padding-bottom: calc(var(--tt-space-8) + 4px);
 	margin-bottom: -4px;
+	/* Active tab extends 4px into the 8px bottom padding, leaving 4px gap to line top */
 }
 
 .tt-footer-tab svg {

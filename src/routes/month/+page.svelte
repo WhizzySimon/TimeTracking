@@ -231,10 +231,10 @@
 	// When "Alle Arbeitgeber" is selected, returns ALL active models (one per employer)
 	function getActiveModelsForDate(date: Date): WorkTimeModel[] {
 		const dateStr = formatDate(date, 'ISO');
-		
+
 		// Group models by employer, then get the most recent valid one per employer
 		const modelsByEmployer = new Map<string, WorkTimeModel>();
-		
+
 		for (const model of $filteredModels) {
 			if (model.validFrom <= dateStr && model.employerId) {
 				const existing = modelsByEmployer.get(model.employerId);
@@ -243,10 +243,10 @@
 				}
 			}
 		}
-		
+
 		return Array.from(modelsByEmployer.values());
 	}
-	
+
 	// Legacy function for single model (kept for backwards compatibility)
 	function getActiveModelForDate(date: Date): WorkTimeModel | null {
 		const models = getActiveModelsForDate(date);

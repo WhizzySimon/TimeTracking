@@ -45,7 +45,7 @@
 	class:conflict={state === 'error'}
 	class:out-of-sync={state === 'pending'}
 	{onclick}
-	title={title}
+	{title}
 	aria-label="Synchronisierung"
 >
 	<svg
