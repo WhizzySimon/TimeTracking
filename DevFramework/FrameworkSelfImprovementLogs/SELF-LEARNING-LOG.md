@@ -6,6 +6,22 @@ Tracks each execution of the self-learning & self-improvement workflow.
 
 ---
 
+## 2026-01-08 10:13 — UI Improvement: Remove Days Label + Capture UI Reasoning System
+
+| Step                 | Result       | Notes                                                                                                    |
+| -------------------- | ------------ | -------------------------------------------------------------------------------------------------------- |
+| 0: Scope check       | first commit | No previous checklist in chat                                                                            |
+| A1: Capture feedback | 1 item       | UI improvement reasoning captured - user explained WHY to remove days count label                        |
+| B1: Repeated errors  | none         | No repeated errors                                                                                       |
+| B2: File churn       | none         | month/+page.svelte edited once                                                                           |
+| B3: Scope drift      | no plan      | Ad-hoc UI improvement + framework enhancement                                                            |
+| B4: Session duration | ~35m         | normal                                                                                                   |
+| C1: Promotions       | none         | Principle added directly to frontend-ux-standards.md                                                     |
+| C2: Read LEARNINGS   | ✓ read       | 12 items                                                                                                 |
+| C3: Hard Rule → JIT  | done         | Added UI reasoning capture to self-learning-system.md Step A1 (no approval needed - process improvement) |
+
+---
+
 ## 2026-01-07 21:47 — UI Polish: Responsive Icons, Footer Spacing, iOS PWA Zoom
 
 | Step                 | Result       | Notes                                                    |

@@ -1905,7 +1905,7 @@ textarea {
 		aspect-ratio: 1.5 / 1; /* Width:Height ratio - buttons stay proportional */
 		padding: var(--tt-space-4);
 	}
-	
+
 	/* Active tab extension must match mobile padding */
 	.tt-footer-tab[aria-current='page'] {
 		padding-bottom: calc(var(--tt-space-4) + 4px);

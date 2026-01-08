@@ -275,6 +275,37 @@ async function handleConfirm() {
 
 ---
 
+## Information Density and Signal-to-Noise (SHOULD)
+
+### Remove Elements That Don't Add Value
+
+**If information is already conveyed through other means, remove redundant elements.**
+
+- Every UI element should justify its existence
+- Ask: "What value does this add that isn't already clear?"
+- Prefer fewer, clearer elements over more, redundant ones
+- Less visual noise = faster scanning and comprehension
+
+### Examples
+
+| Redundant Element                                | Why It's Redundant                | Better Approach                      |
+| ------------------------------------------------ | --------------------------------- | ------------------------------------ |
+| Days count "(5 Tage)" next to date range "1.–7." | Date range already shows the span | Remove the count label               |
+| "Save successful" dialog after every save        | User expects saves to work        | Silent save with subtle indicator    |
+| Duplicate category name in badge and title       | Same information twice            | Show once in most prominent location |
+
+### When to Keep Seemingly Redundant Info
+
+Keep elements that:
+
+- Provide **different context** (e.g., relative time "2 hours ago" + absolute time "14:30")
+- Serve **different user needs** (e.g., icon for quick scanning + text for clarity)
+- Prevent **user errors** (e.g., confirmation of destructive action)
+
+**Principle:** Every pixel should earn its place. If removing an element doesn't reduce clarity, remove it.
+
+---
+
 ## Layout Stability (MUST)
 
 ### No Jumping Elements

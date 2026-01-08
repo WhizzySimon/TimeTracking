@@ -57,6 +57,11 @@ Review the chat for user feedback **within the determined scope (Step 0)**. Add 
 - **Corrective:** "Don't do X", "Always do Y instead", mistakes to avoid
 - **Positive (specific only):** "Good job on X", "I like how you did Y" — where X/Y is identifiable behavior
   - Skip vague praise: "ok", "good", "thanks", "well done" (no actionable content)
+- **UI Improvement Reasoning:** When user explains WHY a UI element should be changed/removed/added (not just WHAT)
+  - Capture the underlying principle, not just the specific change
+  - Check if principle exists in `frontend-ui-standards.md` or `frontend-ux-standards.md`
+  - If new principle: add to appropriate guideline file with example
+  - Log the example in LEARNINGS-INBOX.md
 
 **Log:** `| A1: Capture feedback | X items added | or "none" |`
 
