@@ -22,18 +22,37 @@ function getVersion() {
 			encoding: 'utf-8',
 			stdio: ['pipe', 'pipe', 'pipe']
 		});
+		console.log('[version] Unshallowed repository');
 	} catch {
 		// Ignore - fails if already unshallow (local dev) or no network
 	}
 
-	// Fetch tags (in case they weren't included in initial clone)
+	// Fetch ALL tags explicitly from origin (Netlify shallow clones may not include tags)
 	try {
-		execSync('git fetch --tags', {
+		execSync('git fetch origin "refs/tags/*:refs/tags/*"', {
 			encoding: 'utf-8',
 			stdio: ['pipe', 'pipe', 'pipe']
 		});
+		console.log('[version] Fetched tags from origin');
 	} catch {
-		// Ignore fetch errors
+		// Fallback to simple fetch --tags
+		try {
+			execSync('git fetch --tags --force', {
+				encoding: 'utf-8',
+				stdio: ['pipe', 'pipe', 'pipe']
+			});
+			console.log('[version] Fetched tags (fallback)');
+		} catch {
+			console.log('[version] Warning: Could not fetch tags');
+		}
+	}
+
+	// Log available tags for debugging
+	try {
+		const tags = execSync('git tag -l', { encoding: 'utf-8' }).trim();
+		console.log('[version] Available tags:', tags || '(none)');
+	} catch {
+		console.log('[version] Could not list tags');
 	}
 
 	try {
