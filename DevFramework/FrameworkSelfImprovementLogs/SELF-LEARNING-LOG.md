@@ -6,6 +6,22 @@ Tracks each execution of the self-learning & self-improvement workflow.
 
 ---
 
+## 2026-01-08 12:30 — Settings UI Improvements & Work Time Model Dialog Enhancements
+
+| Step                 | Result       | Notes                                                                                |
+| -------------------- | ------------ | ------------------------------------------------------------------------------------ |
+| 0: Scope check       | first commit | No previous checklist in chat                                                        |
+| A1: Capture feedback | none         | No corrective feedback or new principles                                             |
+| B1: Repeated errors  | none         | No repeated errors                                                                   |
+| B2: File churn       | none         | Multiple files edited once each (settings page, modal, categories.ts, design system) |
+| B3: Scope drift      | no plan      | Ad-hoc UI improvements session                                                       |
+| B4: Session duration | ~45m         | normal                                                                               |
+| C1: Promotions       | none         | No items met promotion criteria                                                      |
+| C2: Read LEARNINGS   | ✓ read       | 12 items                                                                             |
+| C3: Hard Rule → JIT  | none         | No hard rules to promote                                                             |
+
+---
+
 ## 2026-01-08 10:13 — UI Improvement: Remove Days Label + Capture UI Reasoning System
 
 | Step                 | Result       | Notes                                                                                                    |

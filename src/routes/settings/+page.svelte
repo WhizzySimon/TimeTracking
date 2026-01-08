@@ -131,7 +131,7 @@
 			const employer = employers.find((e) => e.id === empId);
 			ranges.push({
 				employerId: empId,
-				employerName: employer?.name ?? 'Ohne Arbeitgeber',
+				employerName: employer?.name ?? 'Abwesenheit', // Changed from 'Ohne Arbeitgeber' for Zeitdaten summary
 				earliest,
 				latest,
 				count: data.count
@@ -445,129 +445,6 @@
 			<p>Laden...</p>
 		</div>
 	{:else}
-		<!-- Konto Section -->
-		<section class="section" data-testid="account-section">
-			<div class="section-header section-header-with-action">
-				<button
-					class="tt-section-toggle"
-					onclick={() => (expandedSections.konto = !expandedSections.konto)}
-					aria-expanded={expandedSections.konto}
-				>
-					<span
-						class="tt-section-toggle__icon"
-						class:tt-section-toggle__icon--expanded={expandedSections.konto}>▶</span
-					>
-					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Konto</h2>
-				</button>
-				<button class="logout-button tt-interactive" onclick={() => (showLogoutConfirm = true)}>
-					<svg
-						width="16"
-						height="16"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-						<polyline points="16 17 21 12 16 7"></polyline>
-						<line x1="21" y1="12" x2="9" y2="12"></line>
-					</svg>
-					Abmelden
-				</button>
-			</div>
-			{#if expandedSections.konto}
-				<div class="tt-account-info">
-					<div class="account-row">
-						<span class="tt-account-label">Name</span>
-						<div class="account-value-with-edit">
-							<span class="tt-account-value" data-testid="account-name">
-								{$userFullName || 'Nicht festgelegt'}
-							</span>
-							<button
-								class="tt-symbol-button"
-								aria-label="Name bearbeiten"
-								onclick={() => (showNameEditDialog = true)}
-							>
-								<svg
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-								</svg>
-							</button>
-						</div>
-					</div>
-					<div class="account-row">
-						<span class="tt-account-label">E-Mail</span>
-						<div class="account-value-with-edit">
-							<span class="tt-account-value" data-testid="account-email">
-								{$userProfile?.email ?? 'Nicht angemeldet'}
-							</span>
-							<button
-								class="tt-symbol-button"
-								aria-label="E-Mail bearbeiten"
-								onclick={() => (showEmailEditDialog = true)}
-							>
-								<svg
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-								</svg>
-							</button>
-						</div>
-					</div>
-					<div class="account-row">
-						<span class="tt-account-label">Plan</span>
-						<div class="account-value-with-edit">
-							<span
-								class="tt-account-value tt-plan-text"
-								class:pro={$userPlan === 'pro'}
-								data-testid="account-plan"
-							>
-								{$userPlan === 'pro' ? 'Pro' : 'Free'}
-							</span>
-							<button class="tt-symbol-button" aria-label="Plan ändern" onclick={handlePlanChange}>
-								<svg
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-								</svg>
-							</button>
-						</div>
-					</div>
-					<button
-						class="tt-button-secondary tt-button-full"
-						onclick={() => (showDeleteAccountConfirm = true)}
-						disabled={deleteAccountInProgress}
-					>
-						{deleteAccountInProgress ? 'Wird gelöscht...' : 'Konto löschen'}
-					</button>
-					{#if deleteAccountError}
-						<span class="tt-delete-account-error">{deleteAccountError}</span>
-					{/if}
-				</div>
-			{/if}
-		</section>
-
 		<!-- Arbeitgeber Section -->
 		<section class="section" data-testid="employer-section">
 			<div class="section-header tt-settings-section-header">
@@ -1065,6 +942,132 @@
 			{/if}
 		</section>
 
+		<!-- Konto Section -->
+		<section class="section" data-testid="account-section">
+			<div class="section-header section-header-with-action">
+				<button
+					class="tt-section-toggle"
+					onclick={() => (expandedSections.konto = !expandedSections.konto)}
+					aria-expanded={expandedSections.konto}
+				>
+					<span
+						class="tt-section-toggle__icon"
+						class:tt-section-toggle__icon--expanded={expandedSections.konto}>▶</span
+					>
+					<h2 class="tt-section-toggle__title tt-settings-section-header__title">Konto</h2>
+				</button>
+				<button
+					class="logout-button tt-interactive-card"
+					onclick={() => (showLogoutConfirm = true)}
+				>
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+						<polyline points="16 17 21 12 16 7"></polyline>
+						<line x1="21" y1="12" x2="9" y2="12"></line>
+					</svg>
+					Abmelden
+				</button>
+			</div>
+			{#if expandedSections.konto}
+				<div class="tt-account-info">
+					<div class="account-row">
+						<span class="tt-account-label">Name</span>
+						<div class="account-value-with-edit">
+							<span class="tt-account-value" data-testid="account-name">
+								{$userFullName || 'Nicht festgelegt'}
+							</span>
+							<button
+								class="tt-symbol-button"
+								aria-label="Name bearbeiten"
+								onclick={() => (showNameEditDialog = true)}
+							>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+								</svg>
+							</button>
+						</div>
+					</div>
+					<div class="account-row">
+						<span class="tt-account-label">E-Mail</span>
+						<div class="account-value-with-edit">
+							<span class="tt-account-value" data-testid="account-email">
+								{$userProfile?.email ?? 'Nicht angemeldet'}
+							</span>
+							<button
+								class="tt-symbol-button"
+								aria-label="E-Mail bearbeiten"
+								onclick={() => (showEmailEditDialog = true)}
+							>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+								</svg>
+							</button>
+						</div>
+					</div>
+					<div class="account-row">
+						<span class="tt-account-label">Plan</span>
+						<div class="account-value-with-edit">
+							<span
+								class="tt-account-value tt-plan-text"
+								class:pro={$userPlan === 'pro'}
+								data-testid="account-plan"
+							>
+								{$userPlan === 'pro' ? 'Pro' : 'Free'}
+							</span>
+							<button class="tt-symbol-button" aria-label="Plan ändern" onclick={handlePlanChange}>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+									<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+								</svg>
+							</button>
+						</div>
+					</div>
+					<button
+						class="tt-button-secondary tt-button-full"
+						onclick={() => (showDeleteAccountConfirm = true)}
+						disabled={deleteAccountInProgress}
+					>
+						{deleteAccountInProgress ? 'Wird gelöscht...' : 'Konto löschen'}
+					</button>
+					{#if deleteAccountError}
+						<span class="tt-delete-account-error">{deleteAccountError}</span>
+					{/if}
+				</div>
+			{/if}
+		</section>
+
 		<!-- Version Section -->
 		<section class="section version-section">
 			<div class="version-info">
@@ -1356,6 +1359,7 @@
 		justify-content: space-between;
 		flex: 1;
 		min-width: 0;
+		gap: var(--tt-space-16); /* Space between model name and details */
 	}
 
 	.work-time-model-detail {
@@ -1375,7 +1379,6 @@
 	/* Empty list uses .tt-empty-list from design system */
 
 	.version-section {
-		margin-top: 1rem;
 		padding-top: 1rem;
 		border-top: 1px solid var(--tt-border-default);
 		font-family: var(--tt-font-family);
@@ -1452,6 +1455,14 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		gap: var(--tt-space-16);
+	}
+
+	/* Account labels: min-width to prevent wrapping on small screens */
+	.account-row .tt-account-label {
+		min-width: 4rem;
+		padding-right: var(--tt-space-12);
+		flex-shrink: 0;
 	}
 
 	/* Account labels and values use .tt-account-label and .tt-account-value from design system */
@@ -1460,6 +1471,15 @@
 		display: flex;
 		align-items: center;
 		gap: var(--tt-space-8);
+		flex: 1;
+		min-width: 0; /* Allow flex item to shrink below content size */
+	}
+
+	.account-value-with-edit .tt-account-value {
+		word-break: break-word;
+		overflow-wrap: break-word;
+		flex: 1;
+		min-width: 0;
 	}
 
 	/* Plan text uses .tt-plan-text from design system */
@@ -1476,13 +1496,12 @@
 		align-items: center;
 		gap: var(--tt-space-8);
 		padding: var(--tt-space-8) var(--tt-space-12);
-		background: transparent;
+		/* No background - tt-interactive-card handles it */
 		border: 1px solid var(--tt-border-default);
 		border-radius: var(--tt-radius-button);
 		color: var(--tt-text-secondary);
 		font-size: var(--tt-font-size-small);
 		cursor: pointer;
-		transition: background var(--tt-transition-fast);
 	}
 
 	/* Development section styles */

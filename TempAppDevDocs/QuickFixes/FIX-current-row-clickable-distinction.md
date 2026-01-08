@@ -34,15 +34,16 @@
 
 - File: `src/lib/styles/tt-design-system.css`
 - Change 1: `.tt-current-row` background → `var(--tt-brand-primary-50)` (light blue tint)
-- Change 2: `--tt-border-touchable-color` → `var(--tt-gray-500)` (was gray-400, darker for better visibility)
+- Change 2: `--tt-border-touchable-color` → `var(--tt-gray-400)` (subtle border, not too intense)
 - Change 3: `.tt-list-row-static` border → `none` (removed entirely)
 - Change 4: `.tt-list-row-static` background → `var(--tt-gray-50)` (subtle tint provides distinction)
 
 **Impact:**
 
-- Clickable elements: 1px darker gray border (clear affordance)
-- Non-clickable elements: No border, gray-50 background (visually recedes)
+- Clickable elements: 1px subtle gray border (not too intense)
+- Non-clickable elements: No border, gray-50 background (visually recedes, looks inactive)
 - Current row: Light blue tint (clearly visible)
+- Distinction primarily through background contrast, not border darkness
 
 ## QA Checklist
 

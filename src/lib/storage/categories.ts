@@ -5,7 +5,7 @@
  * Spec refs: TT-FR (categories), TT-IG (system categories immutable)
  */
 
-import type { Category, WorkTimeModel } from '$lib/types';
+import type { Category } from '$lib/types';
 import { getAll, getByKey, put } from './db';
 import { saveUserCategory, deleteUserCategoryWithSync } from './operations';
 
@@ -67,47 +67,47 @@ export async function initializeCategories(): Promise<void> {
 		return;
 	}
 
-	// Seed default work time model (no default user categories per spec)
-	await seedDefaultWorkTimeModel();
+	// No default work time model seeding - users create via dialog with auto-naming
+	// (Removed to prevent duplicate models and let users create as needed)
 
 	// Mark as seeded
 	await put(META_STORE, { key: SEEDED_KEY, value: true });
 }
 
 /**
- * Seed default work time model "Vollzeit 40h" on first run.
- * Mon-Fri: 8.0h, Sat-Sun: 0.0h
- * Spec ref: ui-logic-spec-v1.md Section 12
+ * REMOVED: Seed default work time model "Vollzeit 40h" on first run.
+ * Reason: Dialog now provides good defaults with auto-naming, preventing duplicate models.
+ * Users can easily create models via the improved dialog interface.
  */
-async function seedDefaultWorkTimeModel(): Promise<void> {
-	try {
-		const existingModels = await getAll<WorkTimeModel>('workTimeModels');
-		if (existingModels.length > 0) {
-			// Already has models, don't seed
-			return;
-		}
-
-		const now = Date.now();
-		const defaultModel: WorkTimeModel = {
-			id: `model-${crypto.randomUUID()}`,
-			name: 'Vollzeit 40h',
-			validFrom: '2020-01-01',
-			monday: 8.0,
-			tuesday: 8.0,
-			wednesday: 8.0,
-			thursday: 8.0,
-			friday: 8.0,
-			saturday: 0.0,
-			sunday: 0.0,
-			createdAt: now,
-			updatedAt: now
-		};
-		await put('workTimeModels', defaultModel);
-		console.log('[Init] Seeded default work time model: Vollzeit 40h');
-	} catch (error) {
-		console.error('Error seeding default work time model:', error);
-	}
-}
+// async function seedDefaultWorkTimeModel(): Promise<void> {
+// 	try {
+// 		const existingModels = await getAll<WorkTimeModel>('workTimeModels');
+// 		if (existingModels.length > 0) {
+// 			// Already has models, don't seed
+// 			return;
+// 		}
+//
+// 		const now = Date.now();
+// 		const defaultModel: WorkTimeModel = {
+// 			id: `model-${crypto.randomUUID()}`,
+// 			name: 'Vollzeit 40h',
+// 			validFrom: '2020-01-01',
+// 			monday: 8.0,
+// 			tuesday: 8.0,
+// 			wednesday: 8.0,
+// 			thursday: 8.0,
+// 			friday: 8.0,
+// 			saturday: 0.0,
+// 			sunday: 0.0,
+// 			createdAt: now,
+// 			updatedAt: now
+// 		};
+// 		await put('workTimeModels', defaultModel);
+// 		console.log('[Init] Seeded default work time model: Vollzeit 40h');
+// 	} catch (error) {
+// 		console.error('Error seeding default work time model:', error);
+// 	}
+// }
 
 /**
  * Get all categories (system + user).

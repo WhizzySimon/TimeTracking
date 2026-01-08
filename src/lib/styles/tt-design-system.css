@@ -199,8 +199,8 @@ html[data-color-scheme='scheme-3'] {
 	/* Rule: Every touchable element has a visible border */
 	--tt-border-touchable-width: 1px;
 	--tt-border-touchable-color: var(
-		--tt-gray-500
-	); /* Darker than default gray-400 for better visibility */
+		--tt-gray-400
+	); /* Subtle border - distinction via gray-50 bg on static elements */
 
 	/* ---- STATE LAYERS (Material Design 3 inspired) ---- */
 	/* Opacity-based overlays that work on any background color */
