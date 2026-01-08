@@ -198,7 +198,9 @@ html[data-color-scheme='scheme-3'] {
 	/* ---- TOUCHABLE AFFORDANCE ---- */
 	/* Rule: Every touchable element has a visible border */
 	--tt-border-touchable-width: 1px;
-	--tt-border-touchable-color: var(--tt-gray-400); /* Slightly darker than default for visibility */
+	--tt-border-touchable-color: var(
+		--tt-gray-500
+	); /* Darker than default gray-400 for better visibility */
 
 	/* ---- STATE LAYERS (Material Design 3 inspired) ---- */
 	/* Opacity-based overlays that work on any background color */
@@ -417,7 +419,7 @@ textarea {
 
 /* Current row highlight - for today's day or current week */
 .tt-current-row {
-	background: var(--tt-background-card-hover);
+	background: var(--tt-brand-primary-50);
 }
 
 .tt-current-row:hover {
@@ -442,8 +444,8 @@ textarea {
 	gap: var(--tt-space-12);
 	padding: var(--tt-space-12) var(--tt-space-16);
 	min-height: 44px;
-	background: var(--tt-background-card);
-	border: 1px solid var(--tt-border-subtle);
+	background: var(--tt-gray-50); /* Subtle tint to distinguish from clickable rows */
+	border: none; /* No border - background contrast provides distinction */
 	border-radius: var(--tt-radius-card);
 	font-size: var(--tt-font-size-normal);
 	color: var(--tt-text-secondary);

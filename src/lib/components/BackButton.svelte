@@ -35,26 +35,24 @@
 	}
 </script>
 
-{#if canGoBack}
-	<button
-		class="tt-header-nav-button tt-interactive-dark"
-		onclick={handleBack}
-		disabled={!canGoBack}
-		aria-label="Zurück"
+<button
+	class="tt-header-nav-button tt-interactive-dark"
+	onclick={handleBack}
+	disabled={!canGoBack}
+	aria-label="Zurück"
+>
+	<svg
+		class="tt-header-nav-button__icon"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
 	>
-		<svg
-			class="tt-header-nav-button__icon"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		>
-			<polyline points="15 18 9 12 15 6"></polyline>
-		</svg>
-	</button>
-{/if}
+		<polyline points="15 18 9 12 15 6"></polyline>
+	</svg>
+</button>
 
 <style>
 	/* Visual styles use design system classes: .tt-header-nav-button, .tt-header-nav-button:disabled, .tt-header-nav-button__icon */
