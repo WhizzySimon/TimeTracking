@@ -176,19 +176,23 @@ function Main {
     }
     Write-Host "  OK - Remote is up to date" -ForegroundColor Green
 
-    # Step 5: Switch to main and merge
+    # Step 5: Switch to main and merge (fast-forward only)
     Write-Host "`n[ 4 / 8 ] Merging dev into main..." -ForegroundColor Yellow
     Invoke-Command-Safe "git checkout main" | Out-Null
     Invoke-Command-Safe "git pull origin main" | Out-Null
 
-    # Try fast-forward first, fall back to regular merge if needed
-    $ffResult = Invoke-Command-Safe "git merge dev --ff-only" -IgnoreError
-    if ($LASTEXITCODE -eq 0) {
+    # Enforce fast-forward only - fail if branches have diverged
+    try {
+        Invoke-Command-Safe "git merge dev --ff-only" | Out-Null
         Write-Host "  Merged (fast-forward)" -ForegroundColor Green
-    } else {
-        Write-Host "  Fast-forward not possible, performing regular merge..." -ForegroundColor Yellow
-        Invoke-Command-Safe "git merge dev --no-ff -m `"Merge dev into main for release $tag`"" | Out-Null
-        Write-Host "  Merged (no fast-forward)" -ForegroundColor Green
+    } catch {
+        Write-Host "`n  ERROR: Fast-forward merge not possible." -ForegroundColor Red
+        Write-Host "  Main and dev have diverged. To fix this:" -ForegroundColor Yellow
+        Write-Host "    1. Ensure main is always behind or equal to dev" -ForegroundColor Gray
+        Write-Host "    2. Never commit directly to main" -ForegroundColor Gray
+        Write-Host "    3. If main is ahead, merge main into dev first" -ForegroundColor Gray
+        Invoke-Command-Safe "git checkout dev" | Out-Null
+        exit 1
     }
 
     # Step 6: Create version tag ON MAIN (not on dev!)
