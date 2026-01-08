@@ -200,11 +200,12 @@ function Main {
     Invoke-Command-Safe "git tag -a $tag -m `"Release $newVersion`"" | Out-Null
     Write-Host "  Created tag: $tag" -ForegroundColor Green
 
-    # Step 7: Push to GitHub
+    # Step 7: Push to GitHub (tag first, then main)
     Write-Host "`n[ 6 / 8 ] Pushing to GitHub..." -ForegroundColor Yellow
-    Invoke-Command-Safe "git push origin main" -Live
+    # Push tag BEFORE main so Netlify build has the tag available
     Invoke-Command-Safe "git push origin $tag" -Live
-    Write-Host "  Pushed main and tag $tag" -ForegroundColor Green
+    Invoke-Command-Safe "git push origin main" -Live
+    Write-Host "  Pushed tag $tag and main" -ForegroundColor Green
 
     # Step 8: Create GitHub release
     Write-Host "`n[ 7 / 8 ] Creating GitHub release..." -ForegroundColor Yellow
