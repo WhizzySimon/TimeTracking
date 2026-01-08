@@ -301,11 +301,6 @@
 		return `${firstDay}.–${lastDay}.`;
 	}
 
-	// Count active work days in week
-	function getActiveWorkDays(dates: Date[]): number {
-		return dates.filter((d) => isDayActiveInModel(d)).length;
-	}
-
 	// Load saved date from IndexedDB (only on page refresh, not on in-app navigation)
 	async function loadSavedDate() {
 		// Check if we navigated here from another page (e.g., Analysis)
@@ -418,7 +413,6 @@
 				{@const weekIst = getWeekIst(week.dates)}
 				{@const weekSoll = getWeekSoll(week.dates)}
 				{@const weekSaldo = weekIst - weekSoll}
-				{@const activeDays = getActiveWorkDays(week.dates)}
 				{@const now = new Date()}
 				{@const currentWeekNum = getWeekNumber(now)}
 				{@const isCurrentWeek =
@@ -431,7 +425,6 @@
 				>
 					<span class="week-row__title">KW {week.weekNumber}</span>
 					<span class="week-row__range">{formatWeekRange(week.dates)}</span>
-					<span class="week-row__days">({activeDays} Tage)</span>
 					<div class="week-hours">
 						<span class="week-hours__ist">{weekIst.toFixed(1).replace('.', ',')}</span>
 						<span class="week-hours__separator">/</span>
@@ -506,7 +499,7 @@
 	/* Week row layout - aligned columns like day rows in week page */
 	.week-row {
 		display: grid;
-		grid-template-columns: 4rem auto auto 1fr;
+		grid-template-columns: 4rem auto 1fr;
 		gap: var(--tt-space-8);
 		align-items: center;
 	}
@@ -516,19 +509,6 @@
 	}
 
 	.week-row__range {
-		display: inline-flex;
-		align-items: center;
-		padding: var(--tt-space-4) var(--tt-space-8);
-		font-size: var(--tt-font-size-tiny);
-		font-weight: var(--tt-font-weight-medium);
-		color: var(--tt-text-muted);
-		background: var(--tt-background-page);
-		border-radius: var(--tt-radius-badge);
-		white-space: nowrap;
-		width: fit-content;
-	}
-
-	.week-row__days {
 		display: inline-flex;
 		align-items: center;
 		padding: var(--tt-space-4) var(--tt-space-8);
