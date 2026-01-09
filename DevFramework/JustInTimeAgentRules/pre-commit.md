@@ -14,8 +14,10 @@
 
 ## Formatting (required before commit)
 
-1. Run `npm run format` to format all files
-2. Run `git add -A` to stage all changes (including formatted files)
+1. Run `npm run format:staged` to format staged files (fast)
+2. Run `git add -A` to stage formatting changes
+
+**Note:** Use `npm run format` for full repo formatting (rare, e.g., after Prettier config changes)
 
 **Note:** Audit bundles are created at **task-file completion**, not per-commit. See task file template for audit trigger.
 

@@ -12,6 +12,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
+		"format:staged": "powershell -Command \"git diff --cached --name-only --diff-filter=ACMR | Where-Object { $_ -match '\\.(js|ts|svelte|json|md|css|html)$' } | ForEach-Object { prettier --write $_ }\"",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest run",
 		"test:unit:watch": "vitest",
