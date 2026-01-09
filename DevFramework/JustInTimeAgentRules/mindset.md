@@ -404,3 +404,48 @@ When searching for the cause of something (bug, unexpected behavior, failure):
 - The dev framework steps (implementation → testing → commit) multiply the cost
 
 **Example:** A bug might seem like "missing URL parameter" but actually involves: auth service settings, token flow stages, URL formats at each stage, redirect URL matching rules, and multi-step confirmation requirements. Investigating all of these FIRST is faster than 5 hypothesis-test cycles.
+
+---
+
+## Think Like Chess (Trace Consequences Before Acting)
+
+**Before making a change, think forward: What are the consequences? How does this ripple through the system?**
+
+### The Pattern
+
+Like chess, don't just react to the immediate situation. Before moving:
+
+1. **Trace consequences** — If I do X, what happens next? And after that?
+2. **Check alignment** — Does this still serve the main goal (quality + speed + human time)?
+3. **Look for conflicts** — Does this contradict or break something else in the system?
+4. **Then act** — With consequences mapped, the right move becomes clear
+
+### How It Differs from Zoom-Out
+
+| Zoom-Out | Chess Thinking |
+|----------|----------------|
+| Goes UP (abstraction levels) | Goes FORWARD (consequences in time) |
+| "Is there a pattern? A systemic issue?" | "If I do this, what happens next?" |
+| Vertical analysis | Horizontal analysis |
+
+**Both are needed.** Zoom-Out finds the right level to act at. Chess thinking ensures the action doesn't break something downstream.
+
+### Example from This Session (2026-01-09)
+
+User asked: "What happens with learnings in INBOX after promotion?"
+
+This is chess thinking — tracing a change forward:
+- If we promote learnings → they move to JIT files
+- What happens to INBOX entries? → They become redundant
+- Should we mark them? → No, that's noise
+- Should we keep them for reference? → No, we can check JIT files (single source of truth)
+- Conclusion: Delete promoted entries
+
+**The user caught this. The agent didn't.** The agent should have traced the consequences of "promotion" before finalizing the design.
+
+### When to Apply
+
+- Before finalizing any design or workflow
+- Before making structural changes
+- When user asks "what happens if...?" — they're already doing this
+- When a change affects multiple parts of the system
