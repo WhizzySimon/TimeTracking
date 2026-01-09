@@ -49,7 +49,7 @@
 3. **DECISIONS.md** — If decision was made, add entry
 4. **IMPLEMENTATION_PROGRESS.md** — If tasks added/changed/completed, update tracker
 5. **Spec/Plan/Tasks sync** — If Spec changed, check Plan; if Plan changed, check Tasks
-6. **Process pattern check** — Detect issues (see below), log to LEARNINGS-INBOX.md if found
+6. **Process pattern check** — Detect issues (see below), note for `/capture-learnings` at chat-close
 
 **Note:** Learning capture (behavioral, UI, technical) is done via `/capture-learnings` workflow at chat-close, not at pre-commit.
 
@@ -59,7 +59,7 @@
 
 ## Process Pattern Detection
 
-Check for these issues and log to LEARNINGS-INBOX.md if found:
+Check for these issues and note for `/capture-learnings` workflow:
 
 | Pattern         | Threshold                  | Action                                    |
 | --------------- | -------------------------- | ----------------------------------------- |

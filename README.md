@@ -6,38 +6,86 @@ Offline-first time tracking app (SvelteKit PWA).
 
 This project uses a **Just-in-Time (JIT) rule system** for AI-assisted development with Windsurf/Cascade.
 
-**How it works:**
+### The Problem This Solves
+
+AI agents have a fundamental limitation: **rules loaded as context don't automatically get applied mid-task.** Even with rules in the system prompt, memories, and always-on files, the agent focuses on the immediate task and doesn't reliably consult rules at decision points.
+
+### The Solution: `/next` Workflow
+
+The `/next` workflow makes rule-loading part of the **TASK itself** (not just background context):
+
+```
+/next [your task description]
+    │
+    ▼
+Step 1: Read JIT rule map → Identify which rules apply
+    │
+    ▼
+Step 2: Load rules → Output [RULE-LOADED] markers
+    │
+    ▼
+Step 3: Execute task with rules in active consideration
+    │
+    ▼
+Step 4: Output MANDATORY Rule Compliance section
+        - Rules loaded
+        - Decision points
+        - Rules applied
+        - Rules missed (honest reflection)
+```
+
+**Why this works:**
+- Rules become TASK (Step 1), not just context
+- Output requirement forces active consideration
+- "Rules missed" section builds in honesty check
+- User can verify if agent is actually following rules
+
+### System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  .windsurf/rules/always-on.md   ← THE ONLY always-on rule  │
+│  .windsurf/rules/always-on.md   ← Points to JIT rule map   │
 │         │                                                   │
 │         ▼                                                   │
-│  DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md       │
+│  DevFramework/JustInTimeAgentRules/_entrypoint-jit-rule-map.md │
 │         │                                                   │
-│         ├──► session-start.md, code-quality.md             │
-│         ├──► command-execution.md, pre-commit.md           │
-│         └──► ... (10 JIT rules with canary markers)        │
+│         ├──► mindset.md (core behavior: Be Honest, etc.)   │
+│         ├──► code-quality.md, pre-commit.md                │
+│         ├──► frontend-*.md, debugging.md                   │
+│         └──► ... (20+ JIT rules with canary markers)       │
 │                                                             │
 │  .windsurf/workflows/                                       │
-│         ├── entrypoints/  (/new-task, /continue-work, ...) │
-│         └── helpers/      (rules-read-all, read-governance) │
+│         ├── next.md          ← Universal entry point       │
+│         ├── capture-learnings.md                           │
+│         ├── new-task.md, new-feature.md                    │
+│         └── commit.md, audit.md, test-app.md               │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**Key files:**
+### Key Design Decisions
 
-- **DevFramework/JustInTimeAgentRules/\_entrypoint-jit-rule-map.md** — When to read which rule
+| Decision | Reasoning |
+|----------|-----------|
+| JIT rules (not always-on) | Reduce context bloat; load only what's needed |
+| Canary markers | Proof that rule was actually read |
+| `/next` as entry point | Makes rule-loading part of task, not context |
+| Mandatory compliance output | Forces agent to actively consider rules |
+| Direct-to-JIT learnings | Skip INBOX; faster evolution after approval |
+| Goal-tracing in capture | Every learning must connect to: quality + speed + human time |
 
-**Trigger points:** session-start, writing code, executing commands, pre-commit, session-end, etc.
+### Self-Learning System
 
-Each rule file has a **canary marker** — Cascade outputs it to prove the rule was read.
+Learnings are captured via `/capture-learnings` workflow at chat-close:
+
+1. **Analysis** — Deep reasoning with goal-tracing (not surface extraction)
+2. **Approval** — User reviews before adding to rules
+3. **Integration** — Added directly to JIT rule files as examples
+
+No intermediate INBOX — analysis quality is high enough to go directly to rules.
 
 ## Start a new Cascade session
 
-**Step 1:** Open two integrated terminals:
-
-Terminal 1 - Dev Server:
+**Step 1:** Start dev server:
 
 ```
 npm run dev
@@ -46,10 +94,10 @@ npm run dev
 **Step 2:** Start a new chat with:
 
 ```
-/new-task
+/next [describe your task]
 ```
 
-**Step 3:** Describe your task. Cascade will read docs and begin working.
+The agent will read the JIT rule map, load applicable rules, and include a Rule Compliance section in responses.
 
 ## Git Workflow
 

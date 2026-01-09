@@ -174,10 +174,10 @@ When you notice yourself improving the system:
 
 This framework should evolve through use:
 
-1. **Learnings** captured in LEARNINGS-INBOX.md
-2. **Proven patterns** promoted to LEARNINGS.md
-3. **Hard rules** escalated to JIT rules
-4. **Structural changes** made when patterns emerge
+1. **Learnings** captured via `/capture-learnings` workflow at chat-close
+2. **Analysis** with goal-tracing (trace to quality + speed + human time)
+3. **Approval** by user before adding to JIT rules
+4. **Integration** directly into JIT rule files as examples
 
 The framework teaches itself — which is the ultimate form of self-documentation.
 

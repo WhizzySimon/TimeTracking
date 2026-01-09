@@ -105,6 +105,6 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | Find framework spec | `DevFramework/FrameworkFeatureSpecs/<feature>.md`                                 |
 | Log a change        | `DevFramework/FrameworkSelfImprovementLogs/AllProjectChangesLoggedAtPreCommit.md` |
 | Log a decision      | `DevFramework/FrameworkSelfImprovementLogs/DECISIONS.md`                          |
-| Capture feedback    | `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`                    |
+| Capture learnings   | Run `/capture-learnings` workflow at chat-close                                   |
 
 ---
