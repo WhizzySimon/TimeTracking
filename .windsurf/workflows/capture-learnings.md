@@ -12,11 +12,11 @@ description: Capture learnings from chat - unified workflow for all learning cat
 
 ## Model Recommendation
 
-**Recommended:** Sonnet 4.5 (2x credits)
+**Recommended:** Opus 4 Thinking (5x credits)
 
-**Why:** Chat analysis and pattern extraction require good reasoning but not complex code generation. Sonnet excels at reading conversation history, categorizing learnings, and extracting principles.
+**Why:** Proper learning capture requires deep reasoning — tracing chains to the main goal, distinguishing verified facts from speculation, finding mid-level principles rather than surface-level extractions. Sonnet tends to stop at first plausible abstraction.
 
-**Upgrade to Opus 4 Thinking (5x):** Only if the chat is extremely long (>100 messages) or contains complex architectural discussions requiring deep analysis.
+**Downgrade to Sonnet 4.5 (2x):** Only for very short chats with obvious, already-documented patterns.
 
 ---
 
@@ -40,6 +40,50 @@ description: Capture learnings from chat - unified workflow for all learning cat
 ## Step 2: Scan for Reasoning Patterns
 
 **Focus:** Capture HOW the user thinks, not just WHAT we did.
+
+### The Goal-Tracing Requirement
+
+**Don't stop at the first abstraction.** Keep asking "why?" until you reach the main goal (quality + speed + human time).
+
+```
+Observation → Why? → Why that? → Why that? → Main goal
+```
+
+**Example:**
+
+- Observation: User says "delete promoted entries from INBOX"
+- Why? → Promoted items don't belong in pending storage
+- Why does that matter? → Reduces noise, maintains clarity
+- Why does THAT matter? → No confusion, no maintenance overhead
+- Connection to goal: → Quality + speed + human time saved
+
+**The principle is the MID-LEVEL connection, not the task-specific detail.**
+
+### Find Existing Rules, Don't Create New Low-Level Ones
+
+Before creating a new rule, ask: Does an existing mid-level rule cover this?
+
+**Structure for learnings:**
+
+```
+Mid-level rule:     [existing rule in JIT file, e.g., "Single Source of Truth"]
+                           ↑
+Lower-level example: [specific instance from this chat]
+                           ↓
+Chain to goal:      [how this serves quality + speed + human time]
+```
+
+**Add examples to existing rules rather than creating rule bloat.**
+
+### Honesty Check
+
+Before capturing any learning:
+
+- Is this verified or speculation? Label accordingly.
+- Am I taking user's words as law, or tracing what's behind them?
+- Am I stopping at first plausible abstraction, or tracing to goal?
+
+---
 
 **Only capture learnings that pass the generalizability test:**
 
@@ -216,10 +260,35 @@ Output a summary block:
 
 ## Notes
 
-- **Capture HOW the user thinks, not WHAT we did**
-- Focus on **reasoning patterns** that reveal principles
-- Principles must be **transferable** (different domain test)
-- **Verify against existing JIT rules** before adding to INBOX
-- Examples anchor principles — one good example > detailed instructions
-- Web research adds industry context before promotion
-- User approval required before adding to JIT files
+### Core Principles
+
+- **Be honest** — Only claim what you can verify. Label speculation as speculation.
+- **Trace to goal** — Keep asking "why?" until you reach quality + speed + human time
+- **Mid-level, not low-level** — Find existing rules and add examples, don't create rule bloat
+- **Verify user input** — User's words are data, not law. Trace what's behind them.
+
+### Quality Checks
+
+- **Different domain test** — Would this apply to a cooking/banking/game app?
+- **Goal connection test** — Can you trace this to quality + speed + human time?
+- **Existing rule test** — Does a mid-level rule already cover this?
+- **Speculation test** — Is this verified or hypothesis?
+
+### What NOT to Capture
+
+- ❌ Task documentation ("we did X")
+- ❌ Low-level details that should be examples under existing rules
+- ❌ Speculation presented as fact
+- ❌ First-abstraction principles without goal connection
+
+### Hierarchy for Learnings
+
+```
+Main goal:        Quality + Speed + Human time
+                         ↑
+Mid-level rule:   [existing JIT rule]
+                         ↑
+Lower-level:      [example from this chat]
+```
+
+Add examples to rules. Don't create new low-level rules.
