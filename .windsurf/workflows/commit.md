@@ -8,6 +8,16 @@ description: Commit workflow - runs pre-commit checklist then commits and pushes
 
 ---
 
+## Model Recommendation
+
+**Recommended:** Sonnet 4.5 (2x credits)
+
+**Why:** Pre-commit checklist execution is straightforward — verify docs, run commands, format output. No complex reasoning needed.
+
+**Use current model:** This workflow doesn't require model switching.
+
+---
+
 ## Step 0 — Setup
 
 1. Read `.windsurf/rules/always-on.md` (loads JIT rule map)

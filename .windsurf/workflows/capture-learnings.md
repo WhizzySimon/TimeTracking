@@ -10,6 +10,16 @@ description: Capture learnings from chat - unified workflow for all learning cat
 
 ---
 
+## Model Recommendation
+
+**Recommended:** Sonnet 4.5 (2x credits)
+
+**Why:** Chat analysis and pattern extraction require good reasoning but not complex code generation. Sonnet excels at reading conversation history, categorizing learnings, and extracting principles.
+
+**Upgrade to Opus 4 Thinking (5x):** Only if the chat is extremely long (>100 messages) or contains complex architectural discussions requiring deep analysis.
+
+---
+
 ## Usage
 
 - `/capture-learnings` — Scan all categories

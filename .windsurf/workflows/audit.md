@@ -6,6 +6,16 @@ description: Deterministic audit on a frozen staged snapshot (git diff --staged 
 
 **NON-INTERACTIVE:** This workflow asks no questions. If preconditions fail, output FAIL + remediation and STOP.
 
+## Model Recommendation
+
+**Recommended:** Opus 4 Thinking (5x credits)
+
+**Why:** Audit requires thorough analysis of staged changes, evidence verification, and critical assessment. Thinking mode provides transparency in reasoning and catches edge cases.
+
+**Alternative:** Opus 4 (4x) for smaller audits with clear evidence.
+
+---
+
 ## Config
 
 - **Flag location:** `DevFramework/JustInTimeAgentRules/ai-config.json`

@@ -2,6 +2,18 @@
 description: Continue work on TimeTracker - reads all context and finds next task automatically
 ---
 
+# Continue Work
+
+## Model Recommendation
+
+**Recommended:** Sonnet 4.5 (2x credits)
+
+**Why:** Reading progress tracker and finding next task is routine work. Sonnet handles context loading and task identification well.
+
+**Upgrade after task selection:** If the next task is complex (architectural, debugging), switch to Opus 4 or Opus 4 Thinking before implementation.
+
+---
+
 ## User Setup (before starting)
 
 Tell the user to run: `npm run dev`

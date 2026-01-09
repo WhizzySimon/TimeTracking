@@ -8,6 +8,16 @@ For verifying the app works correctly before/after changes. Creates temporary te
 
 ---
 
+## Model Recommendation
+
+**Recommended:** Opus 4 (4x credits)
+
+**Why:** E2E testing requires good judgment for test case design, handling async operations, and debugging test failures. Opus provides better reliability for Playwright interactions.
+
+**Upgrade to Opus 4 Thinking (5x):** If tests fail unexpectedly and root cause is unclear.
+
+---
+
 ## When to Use
 
 - **Before major changes:** Baseline what works
