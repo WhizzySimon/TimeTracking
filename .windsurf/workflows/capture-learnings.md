@@ -183,51 +183,45 @@ For each reasoning pattern found:
    - Does this principle already exist?
    - If yes → Skip (don't duplicate)
    - If similar but different → Note the nuance
-4. **Determine destination** (which JIT file)
-5. **Check LEARNINGS-INBOX.md** for similar entries
+4. **Determine destination** (which JIT file and which existing rule)
 
 ---
 
-## Step 4: Check for Promotion
+## Step 4: Present for Approval
 
-If 2+ similar entries exist in LEARNINGS-INBOX.md:
+For each learning found, present to user:
 
-### 4a: Web Research
+- **Observation:** What user said/did
+- **Mid-level rule:** Which existing JIT rule this belongs to
+- **Example to add:** The specific instance from this chat
+- **Goal connection:** How this serves quality + speed + human time
+- **Confidence:** High/Medium/Low (based on analysis depth)
 
-Before proposing promotion, research best practices:
+### Format
 
+```markdown
+## Learning [N]: [Title]
+
+**Observation:** [what happened in chat]
+**Attach to rule:** [existing rule in JIT file]
+**Example:** [specific instance]
+**Chain to goal:** [connection to quality/speed/time]
+**Confidence:** [High/Medium/Low]
 ```
-Search: "[topic] best practices" OR "[pattern] industry standard"
-```
 
-Summarize findings (3-5 bullet points).
-
-### 4b: Present Both
-
-Present to user:
-
-- **Your learning:** [extracted principle]
-- **Industry best practices:** [research summary]
-- **Proposed rule:** [combined/refined rule]
-- **Target file:** [JIT file path]
-
-### 4c: Wait for Approval
-
-**Do NOT add to JIT file without explicit user approval.**
+**Wait for user approval before adding to JIT files.**
 
 ---
 
-## Step 5: Add to INBOX or JIT
+## Step 5: Add to JIT Files
 
-**If new learning (no similar entries):**
+**If approved:**
+- Add example to the appropriate JIT rule
+- Include the goal connection chain
+- Update the JIT file
 
-- Add to `LEARNINGS-INBOX.md` with category tag
-
-**If approved for promotion:**
-
-- Add to appropriate JIT file
-- **Delete the promoted entries from LEARNINGS-INBOX.md** — the INBOX should only contain pending items
-- The JIT file is now the permanent home for the learning
+**If rejected:**
+- Discard (no INBOX needed)
 
 ---
 
@@ -238,27 +232,11 @@ Output a summary block:
 ```markdown
 ## Capture Learnings Summary
 
-**Scope:** [first commit / incremental after X]
-**Categories scanned:** [all / specific]
-
-| Category   | Learnings Found | Action                              |
-| ---------- | --------------- | ----------------------------------- |
-| Behavioral | 0               | —                                   |
-| UI/UX      | 1               | Added to INBOX                      |
-| Backend    | 1               | Proposed promotion (2nd occurrence) |
-| ...        | ...             | ...                                 |
-
-**Promotions proposed:** X
-**Awaiting approval:** [list if any]
-```
-
----
-
-## LEARNINGS-INBOX.md Entry Format
-
-```markdown
-| Date | Reasoning Pattern | User's Question/Correction | Principle Extracted | Destination | Status |
-| YYYY-MM-DD | [thinks ahead / questions assumptions / etc.] | [what user said/asked] | [transferable principle + example] | [target file] | Pending |
+**Scope:** [entire chat / incremental after X]
+**Learnings found:** X
+**Presented for approval:** X
+**Approved and added:** X (after user confirmation)
+**Rejected:** X
 ```
 
 ---

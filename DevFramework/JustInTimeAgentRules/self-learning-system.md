@@ -37,26 +37,32 @@ The self-learning system has two parts:
 
 ---
 
-## Promotion Flow
+## Learning Flow (Direct to JIT)
 
 ```
-LEARNINGS-INBOX.md
-    ↓ (2+ similar entries OR high-impact)
+Chat session
     ↓
-Web research on topic best practices
+/capture-learnings workflow
     ↓
-Present: [Your learning] + [Industry best practices summary]
+Deep analysis (goal-tracing, mid-level rules, honesty checks)
+    ↓
+Present findings with:
+  - Observation from chat
+  - Existing rule to attach to
+  - Example to add
+  - Chain to goal
+  - Confidence level
     ↓
 User approval (REQUIRED)
     ↓
-Add to appropriate JIT rule file
-    ↓ (if cross-cutting/foundational)
-Optionally add to LEARNINGS.md (curated top 30)
+Add example directly to JIT rule file
 ```
 
-### Promotion with Web Research
+**No INBOX step** — Analysis quality is high enough to go directly from chat to JIT rules after approval.
 
-Before proposing promotion to a JIT file:
+### Optional: Web Research
+
+For complex or unfamiliar topics, research best practices before presenting:
 
 1. **Search** for best practices on the topic
 2. **Summarize** industry standards (3-5 bullet points)

@@ -1,4 +1,12 @@
-# Learnings Inbox
+# Learnings Inbox (DEPRECATED)
+
+**Status:** This file is no longer actively used as of 2026-01-09.
+
+**New flow:** Learnings go directly from `/capture-learnings` analysis to JIT rule files after user approval. No intermediate INBOX step.
+
+**Reason:** Analysis quality (goal-tracing, mid-level rules, honesty checks) is sufficient to skip the holding pen. Faster evolution, less overhead.
+
+**Historical entries below are preserved for reference.**
 
 Raw capture of feedback and lessons. Review periodically for promotion to LEARNINGS.md.
 
