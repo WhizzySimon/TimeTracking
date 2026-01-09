@@ -37,182 +37,105 @@ description: Capture learnings from chat - unified workflow for all learning cat
 
 ---
 
-## Step 2: Scan Categories
+## Step 2: Scan for Reasoning Patterns
 
-For each category (or specified category), scan the chat for learnings.
+**Focus:** Capture HOW the user thinks, not just WHAT we did.
 
-### Category 0: Disagreements & Alternative Suggestions (→ appropriate JIT file)
+**Only capture learnings that pass the generalizability test:**
 
-**Scan for:**
+- Would this principle apply to a completely different app (cooking, banking, game)?
+- Does it explain "why it works" not just "what we did"?
+- If it's just task documentation (file names, specific timing, one-time decisions) → Skip it.
 
-- Moments where user disagreed with agent's suggestion
-- Moments where user proposed a different approach
-- Moments where user corrected agent's direction
+---
 
-**For each disagreement found:**
+### Look for moments where the user:
 
-1. Identify WHAT the user preferred
-2. Ask one level higher: **What higher principle or reason is behind that decision?**
-3. Extract the underlying principle (not just the specific choice)
-4. Route to appropriate JIT file based on the principle's domain
+**1. Thinks ahead:**
 
-**Triggers:** "no", "instead", "I prefer", "let's do X instead", "actually", "not quite", "I disagree"
+- "What happens if...?"
+- "What about edge case X?"
+- Catches consequences you missed
 
 **Example:**
 
-- Agent suggests: "Create separate workflow for each topic"
-- User says: "Let's do one workflow for all, categorized inside"
-- Higher principle: "Consolidation over fragmentation when the core process is the same"
-- Route to: `framework-principles.md` or relevant workflow file
+- User: "What happens with learnings in INBOX after promotion?"
+- Principle: **Think ahead — trace the full lifecycle before finalizing a design**
+- Applies to: Any system design, database schemas, workflow planning
+
+**2. Questions assumptions:**
+
+- "Why not...?"
+- "Have you considered...?"
+- Challenges your approach
+- Reveals redundancy or inefficiency
+
+**Example:**
+
+- User: "If learnings go to JIT files, why duplicate in LEARNINGS.md?"
+- Principle: **Challenge every piece of storage — does it serve a unique purpose?**
+- Applies to: Database design, file systems, caching strategies
+
+**3. Reveals decision criteria:**
+
+- Explains WHY they prefer X over Y
+- Shows trade-offs they consider
+- Demonstrates consistent principles
+
+**Example:**
+
+- User: "Let's do one workflow for all, categorized inside"
+- Principle: **Consolidation over fragmentation when core process is the same**
+- Applies to: Code architecture, API design, workflow design
+
+**4. Corrects your thinking:**
+
+- Not just the solution, but HOW to think about it
+- Mental models you were missing
+- Patterns you should recognize
+
+**Example:**
+
+- User: "See how fast that was? I give you one good example and you immediately get the whole idea"
+- Principle: **Examples anchor principles instantly — show the pattern once, AI extracts the rule**
+- Applies to: Documentation, teaching, onboarding, API design
+
+**5. Provides examples that clarify instantly:**
+
+- One good example that makes everything click
+- Analogies to different domains
+- Concrete instances of abstract principles
+
+**Example:**
+
+- User: "Would this apply to a cooking app? A banking app?"
+- Principle: **Different domain test — if it doesn't transfer, it's not a rule**
+- Applies to: Any abstraction, documentation, teaching
 
 ---
 
-### Category 1: Behavioral (→ mindset.md)
+### Skip these (not learnings):
 
-**Scan for:**
-
-- Corrections: "Don't do X", "Always do Y", "You should have..."
-- Positive feedback on specific behavior (not vague praise)
-- Agent disposition improvements
-- Proactive behavior examples
-
-**Triggers:** User frustration, explicit correction, behavioral praise
+- ❌ Implementation details (file names, paths, timing)
+- ❌ Task documentation ("we moved X to Y")
+- ❌ One-time decisions specific to this project
+- ❌ Solutions without the reasoning behind them
 
 ---
 
-### Category 2: UI/UX Principles (→ frontend-ui-standards.md / frontend-ux-standards.md)
+## Step 3: Extract & Verify
 
-**Scan for:**
+For each reasoning pattern found:
 
-- WHY behind visual decisions (not just WHAT changed)
-- Layout, spacing, typography reasoning
-- Interaction pattern reasoning
-- Accessibility insights
-- Responsive design patterns
-
-**Triggers:** "because", "the reason is", "users expect", "it looks better when"
-
----
-
-### Category 3: Code Quality (→ code-quality.md)
-
-**Scan for:**
-
-- Code style insights
-- Architecture patterns
-- Component design principles
-- Error handling patterns
-- Performance considerations
-
-**Triggers:** "cleaner way", "better pattern", "should always", "anti-pattern"
-
----
-
-### Category 4: Backend Patterns (→ backend-patterns.md)
-
-**Scan for:**
-
-- API design patterns
-- Auth flow patterns (Supabase, tokens, sessions)
-- Data sync strategies
-- External service integration
-- Error handling for async operations
-
-**Triggers:** "Supabase", "API", "auth", "sync", "token", "endpoint"
-
----
-
-### Category 5: State & Data (→ state-data-patterns.md)
-
-**Scan for:**
-
-- State management patterns (Svelte stores)
-- Caching strategies
-- Persistence patterns (IndexedDB, localStorage)
-- Offline-first patterns
-- Data flow insights
-
-**Triggers:** "store", "cache", "persist", "offline", "IndexedDB", "localStorage"
-
----
-
-### Category 6: Testing (→ ProjectSpecific/testing.md)
-
-**Scan for:**
-
-- E2E test strategies
-- Test organization patterns
-- Test data management
-- Playwright patterns
-- Test reliability insights
-
-**Triggers:** "test", "E2E", "Playwright", "assertion", "fixture"
-
----
-
-### Category 7: Debugging (→ debugging.md)
-
-**Scan for:**
-
-- Root cause analysis techniques
-- Debugging strategies that worked
-- Tools or approaches that helped
-- Anti-patterns in debugging
-
-**Triggers:** "root cause", "found the issue", "the problem was", "debugging"
-
----
-
-### Category 8: Framework Meta (→ framework-principles.md)
-
-**Scan for:**
-
-- What made the framework/workflow better
-- Rule effectiveness insights
-- Workflow improvements
-- Agent behavior patterns that worked
-- Meta-observations about the development process
-
-**Triggers:** "the framework should", "this workflow", "the rule", "meta", "process improvement"
-
----
-
-### Category 9: Process (→ workflow files or implementation.md)
-
-**Scan for:**
-
-- Workflow refinements
-- Checklist additions
-- Process improvements
-- Efficiency gains
-
-**Triggers:** "workflow", "checklist", "step", "process", "before/after"
-
----
-
-### Category 10: Task-Type Patterns (→ TaskTypeRules/\*.md)
-
-**Scan for:**
-
-- New failure patterns discovered (add to "Common Failure Patterns")
-- New prevention strategies
-- Discipline rules that worked
-- Task-specific insights
-
-**Match to task type:** bugfix, feature, ui-ux, refactor, research-decision, infra-build
-
-**Triggers:** Task type keywords, "pattern", "always fails when", "worked because"
-
----
-
-## Step 3: Extract Learnings
-
-For each learning found:
-
-1. **Identify the principle** (app-independent rule)
-2. **Note the example** (app-specific instance)
-3. **Determine destination** (which JIT file)
-4. **Check LEARNINGS-INBOX.md** for similar entries
+1. **Extract the principle** (app-independent, transferable)
+2. **Note the example** (specific instance from this chat)
+3. **Verify against existing JIT rules:**
+   - Check relevant JIT files (mindset.md, framework-principles.md, debugging.md, etc.)
+   - Does this principle already exist?
+   - If yes → Skip (don't duplicate)
+   - If similar but different → Note the nuance
+4. **Determine destination** (which JIT file)
+5. **Check LEARNINGS-INBOX.md** for similar entries
 
 ---
 
@@ -285,16 +208,18 @@ Output a summary block:
 ## LEARNINGS-INBOX.md Entry Format
 
 ```markdown
-| Date | Category | Context | Learning | Destination | Status |
-| YYYY-MM-DD | [category] | [brief context] | [principle + example] | [target file] | Pending / Promoted |
+| Date | Reasoning Pattern | User's Question/Correction | Principle Extracted | Destination | Status |
+| YYYY-MM-DD | [thinks ahead / questions assumptions / etc.] | [what user said/asked] | [transferable principle + example] | [target file] | Pending |
 ```
 
 ---
 
 ## Notes
 
-- This workflow captures **reasoning**, not just changes
-- Focus on **transferable principles**, not one-off fixes
-- Keep principles **app-independent** with **app-specific examples**
-- Web research adds industry context to learnings
+- **Capture HOW the user thinks, not WHAT we did**
+- Focus on **reasoning patterns** that reveal principles
+- Principles must be **transferable** (different domain test)
+- **Verify against existing JIT rules** before adding to INBOX
+- Examples anchor principles — one good example > detailed instructions
+- Web research adds industry context before promotion
 - User approval required before adding to JIT files
