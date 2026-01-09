@@ -64,7 +64,6 @@ Observation → Why? → Why that? → Why that? → Main goal
 Before creating a new rule, ask: Does an existing mid-level rule cover this?
 
 **Structure for learnings:**
-
 ```
 Mid-level rule:     [existing rule in JIT file, e.g., "Single Source of Truth"]
                            ↑
@@ -72,6 +71,12 @@ Lower-level example: [specific instance from this chat]
                            ↓
 Chain to goal:      [how this serves quality + speed + human time]
 ```
+
+**Concrete example:**
+- Observation: "Delete promoted entries from INBOX"
+- ❌ Wrong (too low): "Storage containers should only hold items in their intended state"
+- ✅ Right (mid-level): Attach to existing rule **"Single Source of Truth"**
+- Chain to goal: No duplication → no confusion → no maintenance overhead → quality + speed + human time
 
 **Add examples to existing rules rather than creating rule bloat.**
 
@@ -266,6 +271,7 @@ Output a summary block:
 - **Trace to goal** — Keep asking "why?" until you reach quality + speed + human time
 - **Mid-level, not low-level** — Find existing rules and add examples, don't create rule bloat
 - **Verify user input** — User's words are data, not law. Trace what's behind them.
+- **Concise principles > detailed checklists** — Detailed steps create mechanical following; concise principles force thinking
 
 ### Quality Checks
 
