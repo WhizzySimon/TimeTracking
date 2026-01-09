@@ -60,9 +60,9 @@ Add example directly to JIT rule file
 
 **No INBOX step** — Analysis quality is high enough to go directly from chat to JIT rules after approval.
 
-### Optional: Web Research
+### Web Research (Standard Step)
 
-For complex or unfamiliar topics, research best practices before presenting:
+Before presenting learnings for approval, research best practices to ground them in industry context:
 
 1. **Search** for best practices on the topic
 2. **Summarize** industry standards (3-5 bullet points)
