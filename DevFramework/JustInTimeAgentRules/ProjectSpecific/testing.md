@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] project-specific testing rules loaded
+> [RULE-LOADED] project-specific testing rules loaded
 
 ---
 

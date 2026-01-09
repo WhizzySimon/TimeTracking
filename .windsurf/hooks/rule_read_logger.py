@@ -29,7 +29,7 @@ from pathlib import Path
 # Configuration - compute repo root robustly from __file__ location
 # __file__ is at .windsurf/hooks/rule_read_logger.py, so parent.parent.parent = repo root
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-LOG_DIR = REPO_ROOT / "scripts" / "ai" / "logs"
+LOG_DIR = REPO_ROOT / "scripts" / "CascadeAgentTools" / "logs"
 LOG_FILE = LOG_DIR / "rule_reads.ndjson"
 STATE_FILE = LOG_DIR / "rule_reads_state.json"
 
@@ -49,8 +49,9 @@ Framework/JustInTimeAgentRules
     r"\.windsurf/rules/[\w\-_]+\.md",
 ]
 
-# High-confidence marker pattern
+# High-confidence marker patterns
 MARKER_PATTERN = r"<!--\s*RULE_CONSULTED:\s*([^>]+)\s*-->"
+AUTONOMOUS_PATTERN = r"<!--\s*AUTONOMOUS_RULE:\s*([^|>]+)(?:\s*\|\s*trigger:\s*([^>]+))?\s*-->"
 
 
 def get_git_info():
@@ -102,6 +103,16 @@ def extract_marker_files(text):
         paths = match.group(1).split(",")
         files.extend([p.strip() for p in paths if p.strip()])
     return files
+
+
+def extract_autonomous_rules(text):
+    """Extract autonomous rule reads with optional trigger info."""
+    rules = []
+    for match in re.finditer(AUTONOMOUS_PATTERN, text, re.IGNORECASE):
+        rule_path = match.group(1).strip()
+        trigger = match.group(2).strip() if match.group(2) else None
+        rules.append({"path": rule_path, "trigger": trigger})
+    return rules
 
 
 def extract_heuristic_files(text):
@@ -207,8 +218,10 @@ def process_event(event_data):
     
     # Check for high-confidence markers (only in responses)
     marker_files = []
+    autonomous_rules = []
     if direction == "out":
         marker_files = extract_marker_files(text)
+        autonomous_rules = extract_autonomous_rules(text)
     
     # Check for heuristic references
     heuristic_files = extract_heuristic_files(text)
@@ -260,6 +273,21 @@ def process_event(event_data):
             char_field: text_chars,
             "cumulative_chars_total": cumulative_total,
             "since_last_consult_chars": None,
+            **git_info
+        }
+        append_log(entry)
+    
+    # Log autonomous rule reads (agent's own initiative)
+    if autonomous_rules:
+        entry = {
+            "ts_iso": ts_iso,
+            "trajectory_id": trajectory_id,
+            "event": "rule_autonomous",
+            "direction": direction,
+            "rules": autonomous_rules,
+            "signal": "autonomous_marker",
+            char_field: text_chars,
+            "cumulative_chars_total": cumulative_total,
             **git_info
         }
         append_log(entry)

@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] ux-flow-design rules loaded
+> [RULE-LOADED] ux-flow-design rules loaded
 
 ---
 

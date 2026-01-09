@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] sync-check rules loaded
+> [RULE-LOADED] sync-check rules loaded
 
 ---
 

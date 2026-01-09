@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] agent-loop-recovery loaded
+> [RULE-LOADED] agent-loop-recovery loaded
 
 ---
 

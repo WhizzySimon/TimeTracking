@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] debugging rules loaded
+> [RULE-LOADED] debugging rules loaded
 
 ---
 
@@ -107,5 +107,27 @@ When the bug involves external services (Supabase, Stripe, APIs):
 - **Network tab** — See actual requests and responses
 - **Documentation** — Read official docs for external services
 - **Dashboard/Settings** — Check service configurations
+
+---
+
+## Understand, Don't Avoid
+
+**Principle:** When something fails, understand WHY instead of adding avoidance rules. Avoidance rules accumulate without understanding; understanding prevents root issues.
+
+**Anti-pattern:** "Don't click X" rules that avoid symptoms without understanding cause.
+
+**Best practice:** Use 5 Whys technique — ask "why" repeatedly until you reach an actionable root cause. Fix the source, not the symptom.
+
+**Example:** If a button causes an error, don't add "never click that button" — investigate why the error occurs and fix the underlying issue.
+
+---
+
+## Upstream Over Downstream
+
+**Principle:** Prefer minimal upstream fixes over downstream workarounds. Fix where the problem originates, not where symptoms appear.
+
+**Why:** Downstream workarounds accumulate technical debt. Upstream fixes prevent repeat issues and keep the codebase clean.
+
+**Example (TimeTracker):** If a component receives bad data, fix the data source — don't add validation in every consumer.
 
 ---

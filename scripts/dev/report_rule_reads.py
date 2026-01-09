@@ -54,6 +54,8 @@ def analyze_entries(entries):
     rule_read_count = defaultdict(int)  # Evidence-based from post_read_code
     consulted_count = defaultdict(int)
     reference_count = defaultdict(int)
+    autonomous_count = defaultdict(int)  # Agent's own initiative
+    autonomous_by_trigger = defaultdict(lambda: defaultdict(int))  # trigger -> file -> count
     
     # Re-read tracking: per file, list of (timestamp, cumulative_chars)
     consult_history = defaultdict(list)
@@ -102,11 +104,22 @@ def analyze_entries(entries):
         elif event == "rule_reference":
             for f in files:
                 reference_count[f] += 1
+        
+        elif event == "rule_autonomous":
+            rules = entry.get("rules", [])
+            for rule_info in rules:
+                rule_path = rule_info.get("path", "")
+                trigger = rule_info.get("trigger", "(no trigger specified)")
+                if rule_path:
+                    autonomous_count[rule_path] += 1
+                    autonomous_by_trigger[trigger][rule_path] += 1
     
     return {
         "rule_read": dict(rule_read_count),
         "consulted": dict(consulted_count),
         "reference": dict(reference_count),
+        "autonomous": dict(autonomous_count),
+        "autonomous_by_trigger": {k: dict(v) for k, v in autonomous_by_trigger.items()},
         "rereads_time": dict(rereads_time),
         "rereads_chars": dict(rereads_chars),
     }
@@ -149,6 +162,28 @@ def print_report(stats):
             print(f"  {count:4d}  {f}")
     else:
         print("  (no data)")
+    print()
+    
+    # Autonomous rule reads
+    print("## Autonomous Rule Reads (agent's own initiative)")
+    print()
+    if stats["autonomous"]:
+        sorted_auto = sorted(stats["autonomous"].items(), key=lambda x: -x[1])
+        for f, count in sorted_auto:
+            print(f"  {count:4d}  {f}")
+        print()
+        print("### By Trigger")
+        print()
+        for trigger, files in sorted(stats["autonomous_by_trigger"].items()):
+            print(f"  **{trigger}**")
+            for f, count in sorted(files.items(), key=lambda x: -x[1]):
+                print(f"    {count:4d}  {f}")
+            print()
+    else:
+        print("  (no autonomous reads detected)")
+        print()
+        print("  This means the agent only read rules when explicitly instructed.")
+        print("  Consider: Is the JIT trigger system working? Does the agent recognize triggers?")
     print()
     
     # Re-reads
@@ -194,8 +229,21 @@ def print_report(stats):
     total_reads = sum(stats["rule_read"].values())
     total_consults = sum(stats["consulted"].values())
     total_refs = sum(stats["reference"].values())
+    total_autonomous = sum(stats["autonomous"].values())
     total_rereads = sum(combined_rereads.values())
-    print(f"SUMMARY: {total_reads} reads, {total_consults} consultations, {total_refs} references, {total_rereads} re-reads")
+    
+    print(f"SUMMARY: {total_reads} reads, {total_consults} consultations, {total_refs} references")
+    print(f"         {total_autonomous} autonomous reads, {total_rereads} re-reads")
+    
+    # Calculate autonomous rate
+    if total_reads > 0:
+        autonomous_rate = (total_autonomous / total_reads) * 100
+        print(f"\nAutonomous Rate: {autonomous_rate:.1f}% of reads were agent-initiated")
+        if autonomous_rate < 20:
+            print("  ⚠️  Low autonomous rate - agent may not be recognizing JIT triggers")
+        elif autonomous_rate > 60:
+            print("  ✓  Good autonomous rate - agent is self-directing rule reads")
+    
     print("=" * 60)
 
 

@@ -24,11 +24,11 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] jit-rule-map loaded
+> [RULE-LOADED] jit-rule-map loaded
 
 ---
 
@@ -50,11 +50,14 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | **Debugging/troubleshooting**                  | `debugging.md`, `mindset.md`                                                         |
 | **Stuck in a loop**                            | `AgentLoopRecovery.md`                                                               |
 | **Running Playwright tests**                   | `ProjectSpecific/testing.md`                                                         |
+| **Working on API/auth/sync**                   | `backend-patterns.md`                                                                |
+| **Working on state/caching/persistence**       | `state-data-patterns.md`                                                             |
 | **Framework decisions**                        | `framework-principles.md`                                                            |
 | **Before marking complete**                    | Follow Task N in task file (E2E regression + audit) — simple tasks: just commit      |
 | **Before git commit**                          | `pre-commit.md`, `mindset.md` (reminder)                                             |
 | **Before commit (detours)**                    | `sync-check.md`                                                                      |
 | **Starting a task**                            | `TaskTypeRules/<task-type>.md`                                                       |
+| **Closing a chat**                             | Run `/capture-learnings` workflow                                                    |
 
 **Each file has a canary marker. Output it to prove you read it.**
 
@@ -69,7 +72,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 
 ### Logging Rules
 
-1. **Visible canary** (`> [CANARY] ...`) — Output for ALL reads (proves the rule was read)
+1. **Visible marker** (`> [RULE-LOADED] ...`) — Output for ALL reads (proves the rule was read)
 
 2. **Autonomous read marker** — ONLY emit when you autonomously recognized a trigger:
 
@@ -103,6 +106,5 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | Log a change        | `DevFramework/FrameworkSelfImprovementLogs/AllProjectChangesLoggedAtPreCommit.md` |
 | Log a decision      | `DevFramework/FrameworkSelfImprovementLogs/DECISIONS.md`                          |
 | Capture feedback    | `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`                    |
-| Check learnings     | `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS.md`                          |
 
 ---

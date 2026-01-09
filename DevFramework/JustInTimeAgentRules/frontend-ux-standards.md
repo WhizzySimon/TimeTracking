@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] frontend-ux-standards loaded
+> [RULE-LOADED] frontend-ux-standards loaded
 
 ---
 
@@ -303,6 +303,65 @@ Keep elements that:
 - Prevent **user errors** (e.g., confirmation of destructive action)
 
 **Principle:** Every pixel should earn its place. If removing an element doesn't reduce clarity, remove it.
+
+---
+
+## Dropdown Alternatives for Long Lists (SHOULD)
+
+### Avoid Long Dropdowns
+
+**Dropdowns with >12 options create poor UX. Use alternative UI patterns instead.**
+
+### Problems with Long Dropdowns
+
+- Users must scroll through many options
+- Scrollbars appear within the dropdown
+- Dialog/container may jump or resize when opened
+- Difficult to scan and find the desired option
+
+### Alternative Patterns
+
+| Use Case       | Options Count | Better Pattern                        | Example                           |
+| -------------- | ------------- | ------------------------------------- | --------------------------------- |
+| **Months**     | 12            | Grid of buttons (3×4 or 4×3)          | Month picker with Jan-Dec buttons |
+| **Weeks**      | 50+           | Number input with validation          | Week number input (1-53)          |
+| **Years**      | 10-20         | Dropdown acceptable                   | Year selector                     |
+| **Categories** | 20+           | Searchable list or grouped menu       | Category picker with search       |
+| **Countries**  | 100+          | Searchable dropdown with autocomplete | Country selector                  |
+
+### When Dropdown is Still OK
+
+- **≤12 options** - Dropdown is fine
+- **Familiar ordered list** - Years, months (if using dropdown)
+- **No better alternative** - Some cases genuinely need dropdowns
+
+### Implementation Example: Month Grid
+
+```svelte
+<div class="month-grid">
+	{#each monthNames as monthName, index}
+		<button
+			class="month-btn tt-interactive"
+			class:selected={selectedMonth === index}
+			class:disabled={!availableMonths.includes(index)}
+			disabled={!availableMonths.includes(index)}
+			onclick={() => (selectedMonth = index)}
+		>
+			{monthName.substring(0, 3)}
+		</button>
+	{/each}
+</div>
+
+<style>
+	.month-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--tt-space-8);
+	}
+</style>
+```
+
+**Why:** Long dropdowns force scrolling, create visual instability, and slow down selection. Alternative patterns provide better scanning and selection UX.
 
 ---
 

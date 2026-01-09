@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] command-execution rules loaded
+> [RULE-LOADED] command-execution rules loaded
 
 ---
 

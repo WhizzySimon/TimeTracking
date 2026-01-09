@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] code-quality rules loaded
+> [RULE-LOADED] code-quality rules loaded
 
 ---
 

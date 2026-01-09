@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] framework-principles loaded
+> [RULE-LOADED] framework-principles loaded
 
 ---
 

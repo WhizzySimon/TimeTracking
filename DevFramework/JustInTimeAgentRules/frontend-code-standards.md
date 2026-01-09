@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] frontend-code-standards loaded
+> [RULE-LOADED] frontend-code-standards loaded
 
 ---
 

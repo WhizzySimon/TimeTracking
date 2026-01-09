@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] naming-conventions rules loaded
+> [RULE-LOADED] naming-conventions rules loaded
 
 ---
 
@@ -73,6 +73,23 @@ Pattern: `.tt-{component}-{variant}` or `.tt-{component}__{element}`
 2. **Describe behavior, not implementation** — `clickable` not `nav` (nav implies chevron)
 3. **Category prefix** — All TimeTracker CSS uses `tt-` prefix
 4. **Element names describe purpose** — `__actions` not `__end`, `__time` not `__title`
+
+---
+
+## Self-Documenting Systems
+
+**Principle:** Systems should be self-documenting through naming and structure. Documentation ABOUT systems goes stale; the system itself is the source of truth.
+
+**Why:** In the AI age, live analysis replaces static docs. Names and structure that explain themselves don't need external documentation.
+
+**Apply to:**
+
+- File/folder names that explain contents
+- Function names that describe behavior
+- UI labels that explain purpose
+- Code structure that reveals architecture
+
+**Example (TimeTracker):** `LEARNINGS-INBOX.md` is self-documenting — the name explains it's an inbox for learnings, no external doc needed.
 
 ---
 

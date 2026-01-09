@@ -22,7 +22,7 @@ If required info is missing, STOP and propose an update to the relevant doc (spe
 ## Memory Policy
 
 - **Do NOT use `create_memory` tool** — this project uses file-based documentation
-- All learnings handled via `self-learning-system.md` at pre-commit
+- All learnings captured via `/capture-learnings` workflow at chat-close
 - All rules go to `DevFramework/JustInTimeAgentRules/` or `.windsurf/rules/`
 - IDE-independent system — no reliance on Cascade memories
 

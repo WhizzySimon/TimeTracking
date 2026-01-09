@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] pre-commit rules loaded
+> [RULE-LOADED] pre-commit rules loaded
 
 ---
 
@@ -23,11 +23,6 @@
 
 ## STOP — Complete This Checklist First
 
-> **⚠️ Multiple Commits in One Chat?**
->
-> - **User reminder:** Prefer one commit per chat to avoid duplicate self-learning entries
-> - **Agent rule:** If a "Pre-Commit Checklist" block already exists in this chat, skip self-learning steps (A1, B1-B4) — they were already captured
-
 **If session had detours or you're unsure what was completed:** Read `sync-check.md` first.
 
 **EXECUTE IN ORDER — do not skip ahead.**
@@ -38,23 +33,38 @@
 ## Pre-Commit Checklist
 
 [x] 1. Sync check — Not needed (no detours) / Ran sync-check.md
-[x] 2. Self-learning & improvement — Followed self-learning-system.md
-[x] 3. AllProjectChangesLoggedAtPreCommit.md — Added entry for <task>
-[N/A] 4. DECISIONS.md — No decisions / Added entry
-[x] 5. IMPLEMENTATION_PROGRESS.md — Updated <task> status
-[N/A] 6. Spec/Plan/Tasks sync — No changes / Synced
+[x] 2. AllProjectChangesLoggedAtPreCommit.md — Added entry for <task>
+[N/A] 3. DECISIONS.md — No decisions / Added entry
+[x] 4. IMPLEMENTATION_PROGRESS.md — Updated <task> status
+[N/A] 5. Spec/Plan/Tasks sync — No changes / Synced
+[x] 6. Process pattern check — No issues / Logged to INBOX
 ```
 
 **Steps:**
 
 1. **Sync check** — If needed, run sync-check.md to verify what was done
-2. **Self-learning & improvement** — Follow self-learning-system.md (Parts A, B, C)
-3. **AllProjectChangesLoggedAtPreCommit.md** — Add one-line entry for this work
-4. **DECISIONS.md** — If decision was made, add entry
-5. **IMPLEMENTATION_PROGRESS.md** — If tasks added/changed/completed, update tracker
-6. **Spec/Plan/Tasks sync** — If Spec changed, check Plan; if Plan changed, check Tasks
+2. **AllProjectChangesLoggedAtPreCommit.md** — Add one-line entry for this work
+3. **DECISIONS.md** — If decision was made, add entry
+4. **IMPLEMENTATION_PROGRESS.md** — If tasks added/changed/completed, update tracker
+5. **Spec/Plan/Tasks sync** — If Spec changed, check Plan; if Plan changed, check Tasks
+6. **Process pattern check** — Detect issues (see below), log to LEARNINGS-INBOX.md if found
+
+**Note:** Learning capture (behavioral, UI, technical) is done via `/capture-learnings` workflow at chat-close, not at pre-commit.
 
 **This is not optional.** Show your work.
+
+---
+
+## Process Pattern Detection
+
+Check for these issues and log to LEARNINGS-INBOX.md if found:
+
+| Pattern         | Threshold                  | Action                                    |
+| --------------- | -------------------------- | ----------------------------------------- |
+| Repeated errors | Same error 3+ times        | Log with root cause                       |
+| File churn      | Same file edited 5+ times  | Log, consider refactoring approach        |
+| Scope drift     | Files touched outside plan | Log, verify intentional                   |
+| Long session    | >2 hours on single task    | Log, consider breaking into smaller tasks |
 
 ---
 
@@ -69,11 +79,11 @@
 
 ## Pre-Commit Checklist
 [x] 1. Sync check — <status>
-[x] 2. Self-learning — <status>
-[x] 3. AllProjectChangesLoggedAtPreCommit.md — <status>
-[x] 4. DECISIONS.md — <status>
-[x] 5. IMPLEMENTATION_PROGRESS.md — <status>
-[x] 6. Spec/Plan/Tasks sync — <status>
+[x] 2. AllProjectChangesLoggedAtPreCommit.md — <status>
+[x] 3. DECISIONS.md — <status>
+[x] 4. IMPLEMENTATION_PROGRESS.md — <status>
+[x] 5. Spec/Plan/Tasks sync — <status>
+[x] 6. Process pattern check — <status>
 
 ## Verification Commands Run
 - npm run verify: <result>

@@ -4,11 +4,11 @@
 
 ---
 
-## Canary
+## Rule-Loaded Marker
 
 **When you read this file, output exactly:**
 
-> [CANARY] frontend-ui-standards loaded
+> [RULE-LOADED] frontend-ui-standards loaded
 
 ---
 
@@ -140,6 +140,50 @@ Every interactive component must define these states with progressive visual fee
 
 ### Background Progression Rules
 
+**Material Design 3 State Layers (Preferred):**
+
+Use `color-mix()` to create state layer overlays instead of predefined color variants:
+
+```css
+/* Light backgrounds - dark overlay */
+.element {
+	background: var(--tt-background-card);
+}
+
+@media (hover: hover) {
+	.element:hover {
+		background: color-mix(in srgb, var(--tt-text-primary) 8%, var(--tt-background-card));
+	}
+}
+
+.element:active {
+	background: color-mix(in srgb, var(--tt-text-primary) 12%, var(--tt-background-card));
+}
+
+/* Dark backgrounds - white overlay */
+.dark-element {
+	background: var(--tt-brand-primary-500);
+}
+
+@media (hover: hover) {
+	.dark-element:hover {
+		background: color-mix(in srgb, white 8%, var(--tt-brand-primary-500));
+	}
+}
+
+.dark-element:active {
+	background: color-mix(in srgb, white 12%, var(--tt-brand-primary-500));
+}
+```
+
+**Overlay percentages:**
+
+- Hover: 8% overlay
+- Pressed: 12% overlay
+- Selected: Use distinct background (e.g., white on colored tabs, or inverted color)
+
+**Legacy approach (if color-mix not supported):**
+
 **Light backgrounds (white, light gray):**
 
 - States become **progressively darker**
@@ -151,6 +195,8 @@ Every interactive component must define these states with progressive visual fee
 - States become **progressively lighter**
 - Normal → Hover (slightly lighter) → Selected (lighter) → Pressed (lightest)
 - Example: `#2526a9` → `#3334b8` → `#4a4bc5` → `#5c5dd0`
+
+**Why Material Design 3 approach:** State layers with `color-mix()` provide consistent, predictable feedback without needing to define multiple color variants. The overlay percentage is constant (8%/12%), making the system more maintainable.
 
 ### Contrast Verification (MUST)
 
@@ -271,6 +317,48 @@ This is the "panic button" - users need an immediate, obvious way to close any d
 ---
 
 ## Form Controls (MUST)
+
+### Use Custom Components Over Native Controls
+
+**Replace native form controls with custom components for consistency.**
+
+Native HTML controls (`<select>`, `<input type="date">`, etc.) have browser-specific styling that varies across platforms:
+
+- Chevron position and styling differs
+- Colors and borders are inconsistent
+- Touch targets may be too small
+- Dark mode support is unpredictable
+
+**Solution:** Use custom Svelte components that implement consistent styling:
+
+```svelte
+<!-- ✗ WRONG - native select has inconsistent styling -->
+<select bind:value={selectedYear}>
+	{#each years as year}
+		<option value={year}>{year}</option>
+	{/each}
+</select>
+
+<!-- ✓ CORRECT - CustomDropdown has consistent styling -->
+<CustomDropdown
+	options={yearOptions}
+	value={String(selectedYear)}
+	onchange={(value) => (selectedYear = parseInt(value))}
+/>
+```
+
+**Available custom components:**
+
+- `CustomDropdown.svelte` - Replaces `<select>`
+- `ConfirmDialog.svelte` - Replaces `window.confirm()`
+- `Modal.svelte` - Base modal component
+- Check `src/lib/components/` for more
+
+**When to use native controls:**
+
+- Text inputs (`<input type="text">`) - styling is consistent enough
+- Checkboxes/radio buttons - if styled with custom CSS
+- File uploads - no good alternative exists
 
 ### Dropdowns (Select)
 
