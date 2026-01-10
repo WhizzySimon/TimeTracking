@@ -27,4 +27,17 @@ Before moving to planning:
 
 ---
 
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Create Spec from Template, Quick Checklist
+- **Important:** All template sections filled
+- **Standard:** Template format details
+
+---
+
 **Next:** When spec is approved → Read `DevFramework/JustInTimeAgentRules/planning.md`

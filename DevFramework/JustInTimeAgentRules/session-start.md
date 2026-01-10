@@ -28,6 +28,19 @@ If required info is missing, STOP and propose an update to the relevant doc (spe
 
 ---
 
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Workflow (git branch check), Memory Policy (no create_memory)
+- **Important:** Mandatory Doc Loading
+- **Standard:** Next steps guidance
+
+---
+
 **Next:** After session start, proceed to appropriate trigger:
 
 - Creating spec? → Read `DevFramework/JustInTimeAgentRules/spec-writing.md`

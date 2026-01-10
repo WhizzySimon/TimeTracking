@@ -131,3 +131,14 @@ When the bug involves external services (Supabase, Stripe, APIs):
 **Example (TimeTracker):** If a component receives bad data, fix the data source — don't add validation in every consumer.
 
 ---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Map Before You Act, Investigation Checklist
+- **Important:** When to Stop Investigating, Debugging External Services, Upstream Over Downstream
+- **Standard:** Anti-Pattern: Trial-and-Error Loops, Tools for Investigation, Understand Don't Avoid

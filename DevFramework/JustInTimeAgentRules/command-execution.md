@@ -55,3 +55,16 @@ run_command with:
 If `run_command` fails consistently, inform user and wait for fix.
 
 **Rationale:** Proceeding without working commands leads to unverified work and silent failures.
+
+---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Verify Commands Worked
+- **Important:** Primary Method (run_command)
+- **Standard:** If Terminal Doesn't Work

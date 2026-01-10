@@ -137,3 +137,16 @@ When a state/data pattern is learned and approved, add it following the format:
 
 **Example (TimeTracker):** [Specific implementation]
 ```
+
+---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** State Architecture, Persistence Pattern
+- **Important:** Caching Pattern, Migration Pattern
+- **Standard:** Common Anti-Patterns, Add New Patterns template

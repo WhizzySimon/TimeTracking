@@ -404,3 +404,14 @@ Keep elements that:
 ```
 
 ---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Mobile-First Approach, Touch Target Sizes, Error Handling UX
+- **Important:** Feedback Patterns, Loading States, Form UX
+- **Standard:** Animation Guidelines, Visual Hierarchy, Layout Shift Prevention

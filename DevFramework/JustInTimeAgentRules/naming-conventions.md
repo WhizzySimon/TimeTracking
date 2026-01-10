@@ -93,6 +93,19 @@ Pattern: `.tt-{component}-{variant}` or `.tt-{component}__{element}`
 
 ---
 
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Core Principle (self-explanatory names)
+- **Important:** Folder & File Naming, CSS Naming Conventions
+- **Standard:** Self-Documenting Systems
+
+---
+
 ## Note
 
 This JIT rule is the single source of truth for naming conventions. No separate reference document exists.

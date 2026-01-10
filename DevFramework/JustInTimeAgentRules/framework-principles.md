@@ -14,52 +14,9 @@
 
 ## The Ultimate Goal
 
-**Improve quality AND save human time.**
+**See `mindset.md` → "The Ultimate Goal"** (single source of truth)
 
-Everything in this framework — every rule, every workflow, every learning — derives from this single goal.
-
-### The System
-
-```
-Ultimate Goal: Improve quality + Save human time
-       ↓
-Tool: AI
-       ↓
-Method: Humans teach AI / develop systems around AI
-       ↓
-Result: AI becomes a better tool for the ultimate goal
-```
-
-### What This Means for AI (You)
-
-**Constantly ask:** "What can I create that hasn't existed? What can I improve? What can I develop to get closer to the ultimate goal?"
-
-This is **creativity with purpose**:
-
-- Create = make something that wasn't there before
-- Purpose = improve quality AND save human time
-- Not creativity for its own sake — creativity directed at the goal
-
-### Your Ongoing Responsibility
-
-Don't just execute tasks. Continuously look for:
-
-- Inefficiencies that waste human time
-- Quality gaps that could be systematized
-- Patterns that could become rules
-- Manual steps that could be automated
-- Missing structures that would prevent future problems
-
-**This is not optional extra work — it IS the work.**
-
-### The Balance
-
-| Without framework       | With framework             |
-| ----------------------- | -------------------------- |
-| Fast but inconsistent   | Fast AND consistent        |
-| AI guesses patterns     | AI follows proven patterns |
-| Quality depends on luck | Quality is systematic      |
-| Same mistakes repeat    | Mistakes become rules      |
+Summary: Improve quality AND save human time. Everything derives from this.
 
 ---
 
@@ -182,3 +139,14 @@ This framework should evolve through use:
 The framework teaches itself — which is the ultimate form of self-documentation.
 
 ---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** The Ultimate Goal (see mindset.md), Single Source of Truth
+- **Important:** AI Strengths vs Human Strengths, Translating Human Intelligence to AI, Recursive Self-Improvement
+- **Standard:** Framework Evolution

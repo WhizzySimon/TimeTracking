@@ -113,3 +113,16 @@ When a backend pattern is learned and approved, add it following the format:
 
 **Example (TimeTracker):** [Specific implementation]
 ```
+
+---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Auth Flow Pattern, Error Handling Pattern
+- **Important:** Sync Pattern, API Interaction Pattern
+- **Standard:** Common Anti-Patterns, Add New Patterns template

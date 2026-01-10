@@ -83,4 +83,17 @@ When reporting completion:
 
 ---
 
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Refactoring Rules (preserve behavior), Pre-Implementation Gates
+- **Important:** Implementation Rules, Verification, Definition of Done
+- **Standard:** Coding Rules, PWA/Platform Constraints, Command Execution
+
+---
+
 **Next:** Before committing → Read `DevFramework/JustInTimeAgentRules/pre-commit.md`

@@ -252,3 +252,14 @@ setTimeout(fn, DEBOUNCE_MS);
 - Use JSDoc for complex functions (>5 args, complex returns)
 
 ---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Reactivity Rules, Store Pattern (writableValue)
+- **Important:** Component Structure, Accessibility, Keyboard Event Handlers
+- **Standard:** Patterns Examples, Documentation

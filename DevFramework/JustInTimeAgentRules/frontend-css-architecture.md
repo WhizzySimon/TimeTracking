@@ -535,3 +535,14 @@ After each change:
 - `TempAppDevDocs/QuickFixes/CSS-Phase2-Visual-Reference.md` - Visual baseline reference
 
 ---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Design System Architecture, Token Categories, Scoped CSS Rules
+- **Important:** Refactoring Workflow, Visual Verification Checklist
+- **Standard:** Common Mistakes, Debugging CSS

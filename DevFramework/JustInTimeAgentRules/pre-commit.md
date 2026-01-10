@@ -167,3 +167,16 @@ If not UI-related, omit the "How to test" section.
 - `refactor:` — Code restructuring without behavior change
 - `chore:` — Maintenance, dependencies, config
 - `test:` — Test additions or fixes
+
+---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Pre-Commit Checklist, Final Verification Gate, Push is mandatory
+- **Important:** Process Pattern Detection, Git Workflow, Post-Push Verification
+- **Standard:** Formatting, Commit Message Format, Post-Push Success Message

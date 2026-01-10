@@ -94,3 +94,16 @@ Output:
 ## Ready to Commit
 Yes — all docs in sync, work complete.
 ```
+
+---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** When to Run, Cross-Reference Chat vs Docs
+- **Important:** Steps 1-5 (the full sync process)
+- **Standard:** Example Output format

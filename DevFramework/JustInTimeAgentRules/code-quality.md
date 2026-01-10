@@ -196,3 +196,16 @@ BAD:
 GOOD:
 
 - Small functions, early returns, explicit names, minimal abstraction, fixed warnings, externalized config
+
+---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Warnings Policy, Lint Error Resolution, No Hardcoded Values
+- **Important:** Code Naming, Code Generation Principles, Imports
+- **Standard:** Documentation Principles, Structured Logging, Function Style, Singular/Plural

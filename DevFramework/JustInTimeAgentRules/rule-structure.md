@@ -52,22 +52,29 @@ Example:          [specific application]
 
 ---
 
-## Priority Sections (Optional Structure)
+## Priority Sections
 
-For larger rule files, organize by priority:
+All rule files use priority sections. When adding a new rule, decide which section it belongs to:
+
+### How to Decide Priority
+
+| Priority | Question to Ask | Examples |
+|----------|-----------------|----------|
+| **Critical** | "Would skipping this cause immediate harm or major quality loss?" | Be Honest, The Ultimate Goal, Verify Commands |
+| **Important** | "Does this apply when context matches, but not always?" | Zoom-Out Pattern, Map Before You Act |
+| **Standard** | "Is this a good practice that improves quality but isn't urgent?" | Transparency in Actions, Pattern Recognition |
+
+### Template for Each File
+
+At the **bottom** of each rule file, add this priority guide:
 
 ```markdown
-## Critical (Always Apply)
-[Rules that must fire on every decision]
+---
+## Priority Guide
 
-## Important (Context-Dependent)
-[Rules that apply in specific situations]
-
-## Standard
-[Good practices, lower priority]
-
-## See Also
-[Link to FactsToUnderstand.md for background knowledge]
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
 ```
 
 ---

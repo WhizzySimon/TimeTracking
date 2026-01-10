@@ -150,3 +150,16 @@ Log to `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md` if the lea
 
 ❌ **Don't:** Keep trying the same thing  
 ✅ **Do:** After 2 failures of same approach, switch approaches
+
+---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** When to Use (triggers), The 5-Step Protocol
+- **Important:** Step 4 (Smallest Discriminating Experiment), Step 5 (Log Decision)
+- **Standard:** Anti-Patterns

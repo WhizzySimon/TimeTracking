@@ -117,3 +117,16 @@ Add to LEARNINGS-INBOX.md (Medium/Low confidence)
 - Prune items not referenced in 10+ sessions
 - No ephemeral mood — store actionable guidance only
 - Prefer routing to specific JIT files over adding to LEARNINGS.md
+
+---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Promotion Flow (user approval required), INBOX for hypothesis testing
+- **Important:** Destination Mapping, Web research reference
+- **Standard:** Anti-Bloat Rules

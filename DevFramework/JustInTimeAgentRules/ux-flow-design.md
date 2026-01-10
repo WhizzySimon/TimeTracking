@@ -120,3 +120,14 @@ Flow design is complete when:
 - [ ] Flow documented in feature spec
 
 ---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** When to Use, User Approval Required
+- **Important:** Flow Documentation Steps, Screen-by-Screen Format
+- **Standard:** HTML Mockup Method, Checklist

@@ -449,3 +449,16 @@ This is chess thinking — tracing a change forward:
 - Before making structural changes
 - When user asks "what happens if...?" — they're already doing this
 - When a change affects multiple parts of the system
+
+---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** The Ultimate Goal, Be Honest, Automatic Sense-Check
+- **Important:** Core Disposition, Zoom-Out Pattern, Think Like Chess, Don't Stop at First Plausible Cause
+- **Standard:** Transparency in Proactive Actions, Continuous Pattern Recognition, Translate Human Concepts, Inconsistency Detection, Anti-patterns

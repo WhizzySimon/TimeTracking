@@ -564,3 +564,14 @@ For unique elements where creating a design system class isn't worth it, use Sve
 See `src/lib/styles/tt-design-system.css` section "INTERACTIVE STATE CLASSES" for full documentation.
 
 ---
+
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Design System Foundation, Token Usage, Interactive State Pattern
+- **Important:** Component Patterns, Color Usage, Spacing Rules
+- **Standard:** Complex Component Patterns, Edge Case Handling

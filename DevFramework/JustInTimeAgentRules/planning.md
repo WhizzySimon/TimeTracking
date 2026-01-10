@@ -53,4 +53,17 @@ Template: `TempAppDevDocs/Features/Tasks/_template.md` or `DevFramework/Framewor
 
 ---
 
+## Priority Guide
+
+- **Critical:** Check at EVERY decision point. Never skip.
+- **Important:** Check when context matches.
+- **Standard:** Good practices. Can be deprioritized under time pressure.
+
+**This file's priority breakdown:**
+- **Critical:** Checkpoint to Proceed (both phases)
+- **Important:** Required Sections (Plan), Task Rules
+- **Standard:** Location/Template references
+
+---
+
 **Next:** When tasks are defined → Read `DevFramework/JustInTimeAgentRules/implementation.md`
