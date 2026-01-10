@@ -12,7 +12,9 @@
 
 ---
 
-## Formatting (required before commit)
+# Standard (Good Practices)
+
+## Formatting
 
 1. Run `npm run format:staged` to format staged files (fast)
 2. Run `git add -A` to stage formatting changes
@@ -22,6 +24,8 @@
 **Note:** Audit bundles are created at **task-file completion**, not per-commit. See task file template for audit trigger.
 
 ---
+
+# Critical (Always Apply)
 
 ## STOP — Complete This Checklist First
 
@@ -103,6 +107,8 @@ Check for these issues and note for `/capture-learnings` workflow:
 3. Only proceed to commit if ALL items show success status
 
 ---
+
+# Important (Context-Dependent)
 
 ## Git Workflow
 

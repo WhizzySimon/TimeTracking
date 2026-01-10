@@ -12,7 +12,9 @@
 
 ---
 
-## Self-Documenting UI Principle (MUST)
+# Critical (Always Apply)
+
+## Self-Documenting UI Principle
 
 **The UI must be self-explanatory. Users should understand what to do without reading documentation.**
 

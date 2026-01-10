@@ -12,7 +12,9 @@
 
 ---
 
-## Design System Foundation (MUST)
+# Critical (Always Apply)
+
+## Design System Foundation
 
 **Trigger:** New project setup OR adding new UI component patterns
 

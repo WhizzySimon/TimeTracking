@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## Core Principles
 
 - **Respect lint rules** — never suppress them, fix the root cause
@@ -30,7 +32,7 @@ When encountering framework or language warnings:
 2. **Fix the root cause** instead
 3. **Verify with linter/checker** that warnings are resolved (0 errors, 0 warnings)
 
-## Lint Error Resolution (required)
+## Lint Error Resolution
 
 **When a lint fix attempt fails, STOP and analyze before trying again.**
 
@@ -63,97 +65,7 @@ Solution: Use pushState() for temporary navigation state
 
 **Key insight:** Lint rules often reveal design problems, not just syntax issues.
 
-## Code Naming (required)
-
-Names must be **self-explanatory** — no comment needed to understand purpose.
-
-1. **Functions** — name explains what it does: `calculateTotalHours()` not `calc()`
-2. **Variables** — name explains what it contains: `activeTimeEntries` not `entries`
-3. **Booleans** — prefix with is/has/can/should: `isRunning`, `hasUnsavedChanges`
-4. **Max 4-5 words** — `getUserActiveTimeEntries` ✓, `getTheCurrentlyActiveUserTimeEntryRecords` ✗
-5. **No abbreviations** — `category` not `cat`, `configuration` not `cfg`
-6. **No single-letter names** — except `i`, `j`, `k` for loop indices
-   - **Includes arrow function parameters:** `.filter((e) => ...)` ✗ → `.filter((emp) => ...)` ✓
-
-### Examples
-
-| ❌ Unclear | ✓ Self-Explanatory   |
-| ---------- | -------------------- |
-| `proc()`   | `processTimeEntry()` |
-| `data`     | `userSettings`       |
-| `temp`     | `unsavedDraft`       |
-| `flag`     | `isTimerRunning`     |
-
----
-
-## Code Generation Principles (required)
-
-- **Do not rename existing symbols** unless explicitly asked
-- **Analyze existing codebase first** — re-use existing patterns, naming conventions, formatting, design philosophy, logging style
-- **Check for existing helpers** before implementing new ones
-- **Principle of Least Surprise** — prefer simple, idiomatic code over clever or magical solutions
-- **Optimize for readability and maintainability**, not micro-optimizations
-- **Prefer standard library** over third-party packages; add dependencies only if a helper would be unreasonably complex
-- **No emojis in code or logging** — UI exceptions: checkmark/X/warning icons for status
-
-## Imports (required)
-
-- All imports at top of file
-- No local imports inside functions
-- Group imports: standard library -> third-party -> internal modules
-- Prefer importing all needed names from a module in a single line
-
-## Documentation Principles (required)
-
-- **Avoid comments that restate obvious code** — comment intent, edge cases, non-obvious behavior
-- **No docstrings/JSDoc for small single-purpose functions** with self-explanatory names and arguments
-- Use a single comment above such functions if intent or types need clarification
-- Use docstrings/JSDoc only for complex functions (>5 args, multiple responsibilities, complex return types)
-- Use ASCII quotes ("..." or '...'), not typographic quotes
-
-## Structured Logging (required)
-
-- Indent sub-actions with 2 spaces
-- Log action description **before** executing it
-- Use status keywords on separate indented line: OK, WARNING, ERROR, FAIL
-- Surround file paths, names, IDs with single quotes
-- Iterations: [ x / n ] prefix at line start
-- Retries: ( x / n ) inline
-
-Examples:
-
-- [ 1 / 4 ] Parsing devlog index...
-- OK.
-- [ 2 / 4 ] Validating workflow field...
-- WARNING: Missing workflow field, defaulting to NONE
-- [ 3 / 4 ] Running npm verify...
-- ERROR: TypeScript check failed
-- [ 4 / 4 ] Retrying ( 1 / 3 )...
-- OK.
-
-## Function Style (required)
-
-- Small functions, early returns, explicit names, minimal abstraction
-- If a statement is short and single-intention, keep it on one line (including simple conditionals)
-- One empty line between functions
-- Full function signature on one line; body starts on next line
-
-## Function Grouping Markers (optional)
-
-Use markers to group related functions:
-
-- // --------- START: Topic ---------
-- // --------- END: Topic ---------
-
-## Singular/Plural Rule (required)
-
-Always use correct grammar:
-
-- 0 items, 1 item, 2 items
-
-Avoid: "1 item(s)"
-
-## No Hardcoded Values (required)
+## No Hardcoded Values
 
 LLMs often generate hardcoded values that should be configurable. Enforce these rules:
 
@@ -186,6 +98,100 @@ LLMs often generate hardcoded values that should be configurable. Enforce these 
 | `setTimeout(fn, 5000)`                       | `setTimeout(fn, DEBOUNCE_MS)` with `const DEBOUNCE_MS = 5000` |
 
 ---
+
+# Important (Context-Dependent)
+
+## Code Naming
+
+Names must be **self-explanatory** — no comment needed to understand purpose.
+
+1. **Functions** — name explains what it does: `calculateTotalHours()` not `calc()`
+2. **Variables** — name explains what it contains: `activeTimeEntries` not `entries`
+3. **Booleans** — prefix with is/has/can/should: `isRunning`, `hasUnsavedChanges`
+4. **Max 4-5 words** — `getUserActiveTimeEntries` ✓, `getTheCurrentlyActiveUserTimeEntryRecords` ✗
+5. **No abbreviations** — `category` not `cat`, `configuration` not `cfg`
+6. **No single-letter names** — except `i`, `j`, `k` for loop indices
+   - **Includes arrow function parameters:** `.filter((e) => ...)` ✗ → `.filter((emp) => ...)` ✓
+
+### Examples
+
+| ❌ Unclear | ✓ Self-Explanatory   |
+| ---------- | -------------------- |
+| `proc()`   | `processTimeEntry()` |
+| `data`     | `userSettings`       |
+| `temp`     | `unsavedDraft`       |
+| `flag`     | `isTimerRunning`     |
+
+---
+
+## Code Generation Principles
+
+- **Do not rename existing symbols** unless explicitly asked
+- **Analyze existing codebase first** — re-use existing patterns, naming conventions, formatting, design philosophy, logging style
+- **Check for existing helpers** before implementing new ones
+- **Principle of Least Surprise** — prefer simple, idiomatic code over clever or magical solutions
+- **Optimize for readability and maintainability**, not micro-optimizations
+- **Prefer standard library** over third-party packages; add dependencies only if a helper would be unreasonably complex
+- **No emojis in code or logging** — UI exceptions: checkmark/X/warning icons for status
+
+## Imports
+
+- All imports at top of file
+- No local imports inside functions
+- Group imports: standard library -> third-party -> internal modules
+- Prefer importing all needed names from a module in a single line
+
+# Standard (Good Practices)
+
+## Documentation Principles
+
+- **Avoid comments that restate obvious code** — comment intent, edge cases, non-obvious behavior
+- **No docstrings/JSDoc for small single-purpose functions** with self-explanatory names and arguments
+- Use a single comment above such functions if intent or types need clarification
+- Use docstrings/JSDoc only for complex functions (>5 args, multiple responsibilities, complex return types)
+- Use ASCII quotes ("..." or '...'), not typographic quotes
+
+## Structured Logging
+
+- Indent sub-actions with 2 spaces
+- Log action description **before** executing it
+- Use status keywords on separate indented line: OK, WARNING, ERROR, FAIL
+- Surround file paths, names, IDs with single quotes
+- Iterations: [ x / n ] prefix at line start
+- Retries: ( x / n ) inline
+
+Examples:
+
+- [ 1 / 4 ] Parsing devlog index...
+- OK.
+- [ 2 / 4 ] Validating workflow field...
+- WARNING: Missing workflow field, defaulting to NONE
+- [ 3 / 4 ] Running npm verify...
+- ERROR: TypeScript check failed
+- [ 4 / 4 ] Retrying ( 1 / 3 )...
+- OK.
+
+## Function Style
+
+- Small functions, early returns, explicit names, minimal abstraction
+- If a statement is short and single-intention, keep it on one line (including simple conditionals)
+- One empty line between functions
+- Full function signature on one line; body starts on next line
+
+## Function Grouping Markers (optional)
+
+Use markers to group related functions:
+
+- // --------- START: Topic ---------
+- // --------- END: Topic ---------
+
+## Singular/Plural Rule
+
+Always use correct grammar:
+
+- 0 items, 1 item, 2 items
+
+Avoid: "1 item(s)"
 
 ## BAD/GOOD Pattern
 

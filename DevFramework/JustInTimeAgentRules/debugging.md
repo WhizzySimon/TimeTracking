@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## Core Principle: Map Before You Act
 
 **Don't stop at the first plausible cause.**
@@ -38,6 +40,8 @@ Before implementing any fix:
 
 ---
 
+# Important (Context-Dependent)
+
 ## When to Stop Investigating
 
 You've investigated enough when:
@@ -48,6 +52,8 @@ You've investigated enough when:
 4. Your proposed fix addresses the root cause, not a symptom
 
 ---
+
+# Standard (Good Practices)
 
 ## Anti-Pattern: Trial-and-Error Loops
 

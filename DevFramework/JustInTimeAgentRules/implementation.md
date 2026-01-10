@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## Refactoring Rules
 
 - **When refactoring or migrating code:** Always notify if any functionality is NOT being copied
@@ -33,6 +35,8 @@ If any gate fails, update the spec/plan/tasks first.
 
 ---
 
+# Important (Context-Dependent)
+
 ## Implementation Rules
 
 - Implement tasks strictly in order unless the tasks doc is updated first
@@ -40,6 +44,8 @@ If any gate fails, update the spec/plan/tasks first.
 - Do not introduce new dependencies unless the plan explicitly calls for it
 - Preserve existing working behavior unless the spec explicitly changes it
 - If something is unclear during coding, STOP and update the spec/plan/tasks first
+
+# Standard (Good Practices)
 
 ## Coding Rules
 

@@ -12,7 +12,9 @@
 
 ---
 
-## 1. Design System Architecture (GENERAL)
+# Critical (Always Apply)
+
+## 1. Design System Architecture
 
 ### 1.1 Three-Layer Architecture
 

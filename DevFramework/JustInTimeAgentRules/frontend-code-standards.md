@@ -12,7 +12,9 @@
 
 ---
 
-## TypeScript Strictness (MUST)
+# Critical (Always Apply)
+
+## TypeScript Strictness
 
 ### No New `any` Without Justification
 
@@ -74,7 +76,9 @@ $: {
 
 ---
 
-## State Discipline (SHOULD)
+# Important (Context-Dependent)
+
+## State Discipline
 
 ### Avoid Redundant State
 
@@ -244,7 +248,9 @@ setTimeout(fn, DEBOUNCE_MS);
 
 ---
 
-## Documentation (SHOULD)
+# Standard (Good Practices)
+
+## Documentation
 
 - Avoid comments that restate obvious code
 - Comment intent, edge cases, non-obvious behavior
