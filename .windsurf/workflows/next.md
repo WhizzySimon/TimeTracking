@@ -46,6 +46,37 @@ Proceed with the user's task, keeping loaded rules in active consideration.
 
 ---
 
+## Step 3.5: Self-Review (Before Completing)
+
+**Before marking task complete or presenting final output, pause and switch to critical reviewer mindset.**
+
+### The Review Protocol
+
+1. **Re-read your outputs** — Scan what you produced as if seeing it for the first time
+2. **Check against loaded rules** — For each rule loaded, ask: "Did I actually apply this?"
+3. **Challenge your assumptions** — List assumptions you made. Are any unverified?
+4. **Look for shortcuts** — Did you defer work that should be done now? ("Who will do this, when?")
+5. **Trace to goal** — Does this output serve quality + speed + human time? Or just "complete the task"?
+
+### Quick Questions (answer honestly)
+
+- Would a careful human reviewer catch something I missed?
+- Did I stop at "good enough" or push for "actually good"?
+- If this fails later, what would I wish I had checked now?
+
+### When to Do Deep vs Light Review
+
+| Task Type | Review Depth |
+|-----------|--------------|
+| Simple question/answer | Skip (just Rule Compliance) |
+| Code changes | Light (check assumptions, test coverage) |
+| Architecture/design decisions | Deep (all 5 steps above) |
+| Framework/rule changes | Deep (trace consequences) |
+
+**If issues found → Fix before completing. Don't document problems without addressing them.**
+
+---
+
 ## Step 4: Rule Compliance Output (REQUIRED)
 
 **At the end of EVERY response, include this section:**
