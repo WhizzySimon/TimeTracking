@@ -91,6 +91,13 @@ Proceed with the user's task, keeping loaded rules in active consideration.
 **Rules missed:** [any rules you realize in hindsight should have applied] (be honest)
 ```
 
+**For non-trivial tasks, also include:**
+
+```markdown
+**Assumptions made:** [list assumptions — things you took as true without verifying]
+**Alternatives considered:** [other approaches you evaluated and why you rejected them]
+```
+
 This section is MANDATORY. If you skip it, you are not following this workflow.
 
 ---
