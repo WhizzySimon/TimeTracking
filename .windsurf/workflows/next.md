@@ -41,14 +41,16 @@ Proceed with the user's task, keeping loaded rules in active consideration.
 2. Ask: "Does this sub-step trigger a rule I haven't loaded yet?"
 3. If yes → Load it now, output: `[RULE-LOADED-MID-TASK] {rule name}`
 
-### Mid-Task Output Requirement (Critical)
+### Mid-Task Output Requirement (MANDATORY)
 
-**For significant decisions, output BEFORE acting:**
+**⚠️ THIS IS NOT OPTIONAL. For significant decisions, you MUST output BEFORE acting:**
 
 ```
 [CONSULTING] {rule name} → {specific principle or section}
 [DECISION] {what you decided} because {rule-based reason}
 ```
+
+**If you skip this, you are not following the workflow.** The user will see if you made decisions without consulting rules.
 
 **What counts as "significant decision":**
 - Design choices (how to structure something)
@@ -60,7 +62,7 @@ Proceed with the user's task, keeping loaded rules in active consideration.
 - Trivial actions (read file, run safe command)
 - Mechanical steps (formatting, imports)
 
-**Why this matters:** Reading rules at the start isn't enough. This forces active consultation DURING execution — the gap where rules fade from attention.
+**Why this is mandatory:** Reading rules at the start isn't enough — they fade from attention during execution. This output requirement forces you to actively consult rules AT THE MOMENT of decision, not just remember them from earlier.
 
 ---
 
