@@ -37,3 +37,13 @@
 **Why this matters:** This is the core insight behind the `/next` workflow design.
 
 ---
+
+## AI Cannot Introspect Itself
+
+**Fact:** AI agents cannot introspect their own training, mechanisms, or internal processes. The agent is a "black box" to itself.
+
+**Implication:** Claims about "why I did X" or "my training causes Y" are speculation, not fact.
+
+**Why this matters:** This is why the "Be Honest" rule requires labeling speculation as speculation — the agent genuinely cannot know its own mechanisms.
+
+---

@@ -53,6 +53,7 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
 | **Working on API/auth/sync**                   | `backend-patterns.md`                                                                |
 | **Working on state/caching/persistence**       | `state-data-patterns.md`                                                             |
 | **Framework decisions**                        | `framework-principles.md`                                                            |
+| **Working on rule files (JIT rules)**          | `rule-structure.md`                                                                  |
 | **Before marking complete**                    | Follow Task N in task file (E2E regression + audit) — simple tasks: just commit      |
 | **Before git commit**                          | `pre-commit.md`, `mindset.md` (reminder)                                             |
 | **Before commit (detours)**                    | `sync-check.md`                                                                      |

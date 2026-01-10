@@ -274,6 +274,8 @@ Output a summary block:
 
 ## Notes
 
+**Full rule-structure guidelines:** See `DevFramework/JustInTimeAgentRules/rule-structure.md`
+
 ### Core Principles
 
 - **Be honest** — Only claim what you can verify. Label speculation as speculation.
