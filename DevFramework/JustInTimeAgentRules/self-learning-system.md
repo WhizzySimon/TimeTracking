@@ -55,12 +55,16 @@ Present findings with:
     ↓
 User approval (REQUIRED)
     ↓
-Add example directly to JIT rule file
+Add example directly to JIT rule file (High confidence)
+    OR
+Add to LEARNINGS-INBOX.md (Medium/Low confidence)
 ```
 
-**No INBOX step** — Analysis quality is high enough to go directly from chat to JIT rules after approval.
+**INBOX for hypothesis testing:** Medium/Low confidence learnings go to `LEARNINGS-INBOX.md` and wait for 2-3 occurrences before promotion.
 
 **Web research** is part of the `/capture-learnings` workflow (Step 3.5).
+
+**Background knowledge:** See `FactsToUnderstand.md` for contextual facts (not rules).
 
 ---
 

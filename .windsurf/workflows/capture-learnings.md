@@ -241,15 +241,18 @@ For each learning found, present to user:
 
 ---
 
-## Step 5: Add to JIT Files
+## Step 5: Add to JIT Files or INBOX
 
-**If approved:**
-- Add example to the appropriate JIT rule
+**High confidence + approved:**
+- Add example directly to the appropriate JIT rule
 - Include the goal connection chain
-- Update the JIT file
 
-**If rejected:**
-- Discard (no INBOX needed)
+**Medium/Low confidence + approved:**
+- Add to `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md`
+- Wait for 2+ occurrences (Medium) or 3+ occurrences (Low) before promoting to JIT
+
+**Rejected:**
+- Discard
 
 ---
 
