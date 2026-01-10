@@ -12,13 +12,13 @@
 
 ---
 
-# Critical (Always Apply)
-
 ## Purpose
 
 This file contains patterns for backend/API work. Rules are **app-independent** with **app-specific examples**.
 
 ---
+
+# Critical (Always Apply)
 
 ## API Design Patterns
 
@@ -56,6 +56,8 @@ This file contains patterns for backend/API work. Rules are **app-independent** 
 
 ---
 
+# Important (Context-Dependent)
+
 ## Data Sync Patterns
 
 ### Pattern: Last-Write-Wins (LWW) Merge
@@ -91,6 +93,8 @@ This file contains patterns for backend/API work. Rules are **app-independent** 
 **Example (TimeTracker):** `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env` files.
 
 ---
+
+# Standard (Good Practices)
 
 ## Common Failure Patterns
 

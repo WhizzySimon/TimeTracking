@@ -22,6 +22,8 @@
 
 ---
 
+# Important (Context-Dependent)
+
 ## Steps
 
 ### 1. Summarize This Chat Session
@@ -75,6 +77,8 @@ Output:
 3. **Ready to commit**: Yes/No with reason
 
 ---
+
+# Standard (Good Practices)
 
 ## Example Output
 

@@ -30,6 +30,8 @@
 
 ---
 
+# Important (Context-Dependent)
+
 ## Primary Method: Integrated Terminal (run_command)
 
 **Use the `run_command` tool** for all command execution. The integrated PowerShell terminal works directly.
@@ -51,6 +53,8 @@ run_command with:
 ```
 
 ---
+
+# Standard (Good Practices)
 
 ## If Terminal Doesn't Work
 

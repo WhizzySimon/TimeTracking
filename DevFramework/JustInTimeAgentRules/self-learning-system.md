@@ -70,6 +70,8 @@ Add to LEARNINGS-INBOX.md (Medium/Low confidence)
 
 ---
 
+# Important (Context-Dependent)
+
 ## Destination Mapping
 
 | Learning Type      | Destination JIT File                     |
@@ -111,6 +113,8 @@ Add to LEARNINGS-INBOX.md (Medium/Low confidence)
 - "Top 30 things to remember" quick reference at session-start
 
 ---
+
+# Standard (Good Practices)
 
 ## Anti-Bloat Rules
 

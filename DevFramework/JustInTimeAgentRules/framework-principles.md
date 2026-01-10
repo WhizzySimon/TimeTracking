@@ -22,6 +22,8 @@ Summary: Improve quality AND save human time. Everything derives from this.
 
 ---
 
+# Important (Context-Dependent)
+
 ## AI Strengths vs Human Strengths
 
 ### AI Strengths (leverage these)
@@ -128,6 +130,8 @@ When you notice yourself improving the system:
 | Separate API docs               | Code + types are the docs       |
 
 ---
+
+# Standard (Good Practices)
 
 ## Framework Evolution
 

@@ -124,6 +124,8 @@ Log to `DevFramework/FrameworkSelfImprovementLogs/LEARNINGS-INBOX.md` if the lea
 
 ---
 
+# Standard (Good Practices)
+
 ## Quick Reference Card
 
 | Step | Action     | Output                             |

@@ -13,6 +13,8 @@
 
 (Rules are loaded automatically via `.windsurf/rules/always-on.md` → JIT rule map)
 
+# Important (Context-Dependent)
+
 ## Mandatory Doc Loading
 
 Before planning or coding, ALWAYS:
@@ -29,6 +31,8 @@ If required info is missing, STOP and propose an update to the relevant doc (spe
 - IDE-independent system — no reliance on Cascade memories
 
 ---
+
+# Standard (Good Practices)
 
 ## Priority Guide
 

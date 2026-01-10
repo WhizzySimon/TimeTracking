@@ -24,6 +24,8 @@
 
 ---
 
+# Important (Context-Dependent)
+
 ## Approach: Text-Based Flow Design
 
 **Focus on FLOW, not visuals.** Use text descriptions instead of wireframes.
@@ -68,6 +70,8 @@ For each screen, list relevant states:
 - **Success:** Action completed
 
 ---
+
+# Standard (Good Practices)
 
 ## Optional: Quick HTML Mockup
 

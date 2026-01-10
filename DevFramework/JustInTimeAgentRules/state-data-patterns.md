@@ -46,6 +46,8 @@ This file contains patterns for state management and data persistence. Rules are
 
 ---
 
+# Important (Context-Dependent)
+
 ## Caching Patterns
 
 ### Pattern: Cache with Invalidation Strategy
@@ -115,6 +117,8 @@ This file contains patterns for state management and data persistence. Rules are
 **Example (TimeTracker):** LWW (Last-Write-Wins) at entry level using `updatedAt` timestamp.
 
 ---
+
+# Standard (Good Practices)
 
 ## Common Failure Patterns
 

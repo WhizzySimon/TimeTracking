@@ -30,6 +30,8 @@ All names must be **self-explanatory without opening the item**.
 
 ---
 
+# Important (Context-Dependent)
+
 ## Examples
 
 | ❌ Generic | ✓ Self-Explanatory                              |
@@ -77,6 +79,8 @@ Pattern: `.tt-{component}-{variant}` or `.tt-{component}__{element}`
 4. **Element names describe purpose** — `__actions` not `__end`, `__time` not `__title`
 
 ---
+
+# Standard (Good Practices)
 
 ## Self-Documenting Systems
 

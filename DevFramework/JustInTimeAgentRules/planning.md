@@ -32,6 +32,8 @@ Each plan MUST contain:
 
 ---
 
+# Important (Context-Dependent)
+
 ## Phase 3: Tasks (small, verifiable steps)
 
 Goal: Break plan into reviewable, independently testable units.
@@ -54,6 +56,8 @@ Template: `TempAppDevDocs/Features/Tasks/_template.md` or `DevFramework/Framewor
 - [ ] No task depends on "figure it out while coding"
 
 ---
+
+# Standard (Good Practices)
 
 ## Priority Guide
 
