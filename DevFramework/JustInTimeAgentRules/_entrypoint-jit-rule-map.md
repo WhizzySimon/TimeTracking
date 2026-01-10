@@ -95,17 +95,3 @@ If a NEW trigger fires that you didn't anticipate, read that rule file before th
    ```
 
 ---
-
-## Quick Reference
-
-| Need to...          | Location                                                                          |
-| ------------------- | --------------------------------------------------------------------------------- |
-| Find app spec       | `TempAppDevDocs/Features/Specs/<feature>.md`                                      |
-| Find app plan       | `TempAppDevDocs/Features/Plans/<feature>.md`                                      |
-| Find app tasks      | `TempAppDevDocs/Features/Tasks/<feature>.md`                                      |
-| Find framework spec | `DevFramework/FrameworkFeatureSpecs/<feature>.md`                                 |
-| Log a change        | `DevFramework/FrameworkSelfImprovementLogs/AllProjectChangesLoggedAtPreCommit.md` |
-| Log a decision      | `DevFramework/FrameworkSelfImprovementLogs/DECISIONS.md`                          |
-| Capture learnings   | Run `/capture-learnings` workflow at chat-close                                   |
-
----
