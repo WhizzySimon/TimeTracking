@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## When to Run
 
 - Session had bug fixes or detours from original task

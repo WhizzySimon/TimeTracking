@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## Purpose
 
 This file contains patterns for state management and data persistence. Rules are **app-independent** with **app-specific examples**.

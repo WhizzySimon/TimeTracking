@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## Core Principle
 
 All names must be **self-explanatory without opening the item**.

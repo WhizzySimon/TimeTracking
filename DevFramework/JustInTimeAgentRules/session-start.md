@@ -4,6 +4,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## Workflow
 
 1. Check you're on `dev` branch: `git branch --show-current`

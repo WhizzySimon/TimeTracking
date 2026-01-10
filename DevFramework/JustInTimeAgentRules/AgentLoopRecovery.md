@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## When to Use
 
 - Same error appears 3+ times

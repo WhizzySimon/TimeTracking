@@ -4,6 +4,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## Phase 2: Plan (how)
 
 Goal: Choose architecture/approach and write it down before code.

@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## Purpose
 
 This file contains patterns for backend/API work. Rules are **app-independent** with **app-specific examples**.

@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## The Ultimate Goal
 
 **See `mindset.md` → "The Ultimate Goal"** (single source of truth)

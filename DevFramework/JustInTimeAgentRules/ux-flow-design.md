@@ -12,6 +12,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## When to Use
 
 - Before implementing a feature with **multiple screens or states**

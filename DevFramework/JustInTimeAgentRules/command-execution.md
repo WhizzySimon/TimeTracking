@@ -12,7 +12,9 @@
 
 ---
 
-## CRITICAL: Verify Commands Worked
+# Critical (Always Apply)
+
+## Verify Commands Worked
 
 **After ANY command that modifies files or state:**
 

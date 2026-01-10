@@ -4,6 +4,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## Create Spec from Template
 
 For any non-trivial change, create a spec file from template:

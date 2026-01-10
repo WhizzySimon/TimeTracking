@@ -7,6 +7,8 @@
 
 ---
 
+# Critical (Always Apply)
+
 ## System Overview
 
 The self-learning system has two parts:
