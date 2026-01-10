@@ -60,18 +60,7 @@ Add example directly to JIT rule file
 
 **No INBOX step** — Analysis quality is high enough to go directly from chat to JIT rules after approval.
 
-### Web Research (Standard Step)
-
-Before presenting learnings for approval, research best practices to ground them in industry context:
-
-1. **Search** for best practices on the topic
-2. **Summarize** industry standards (3-5 bullet points)
-3. **Present both** to user:
-   - Your learning from the session
-   - Industry best practices
-   - Proposed rule (combined/refined)
-   - Target JIT file
-4. **Wait for approval** before adding to JIT file
+**Web research** is part of the `/capture-learnings` workflow (Step 3.5).
 
 ---
 

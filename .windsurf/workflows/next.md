@@ -36,7 +36,12 @@ If no specific rules triggered, load at minimum:
 
 Proceed with the user's task, keeping loaded rules in active consideration.
 
-**Key question to ask yourself at decision points:**
+**Before each sub-step or decision point:**
+1. Re-scan the JIT rule map triggers
+2. Ask: "Does this sub-step trigger a rule I haven't loaded yet?"
+3. If yes → Load it now, output: `[RULE-LOADED-MID-TASK] {rule name}`
+
+**Key question at decision points:**
 > "Which of my loaded rules applies to this decision?"
 
 ---

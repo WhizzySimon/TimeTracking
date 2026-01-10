@@ -183,7 +183,33 @@ For each reasoning pattern found:
    - Does this principle already exist?
    - If yes → Skip (don't duplicate)
    - If similar but different → Note the nuance
-4. **Determine destination** (which JIT file and which existing rule)
+4. **Decide: New rule or example?**
+   - Does an existing mid-level rule cover this? → **Add as example** to that rule
+   - Is this a genuinely new principle not covered? → **Create new rule**
+   - Default to example — new rules should be rare
+5. **Check example value:**
+   - Is this example different enough from existing examples?
+   - Does it illustrate a distinct aspect of the rule?
+   - If too similar to existing examples → Skip (reduce noise)
+6. **Determine destination** (which JIT file and which existing rule)
+
+---
+
+## Step 3.5: Web Research (Standard Step)
+
+Before presenting learnings for approval, research best practices:
+
+1. **Search** for industry best practices on the topic
+2. **Summarize** findings (3-5 bullet points)
+3. **Compare** your learning vs industry standards
+
+Present comparison table to user:
+
+| Aspect | Our Learning | Industry Best Practice | Aligned? |
+|--------|--------------|------------------------|----------|
+| ... | ... | ... | ✅/❌ |
+
+This grounds learnings in external validation and helps decide if we're on the right track or need adjustment.
 
 ---
 
@@ -192,10 +218,11 @@ For each reasoning pattern found:
 For each learning found, present to user:
 
 - **Observation:** What user said/did
-- **Mid-level rule:** Which existing JIT rule this belongs to
-- **Example to add:** The specific instance from this chat
+- **Type:** New rule OR Example (to which existing rule?)
+- **Proposed addition:** The specific text to add (framed as question when possible — questions trigger thinking better than statements)
 - **Goal connection:** How this serves quality + speed + human time
-- **Confidence:** High/Medium/Low (based on analysis depth)
+- **Confidence:** High/Medium/Low (affects weight/placement)
+- **Industry context:** What web research found (if applicable)
 
 ### Format
 
@@ -203,10 +230,11 @@ For each learning found, present to user:
 ## Learning [N]: [Title]
 
 **Observation:** [what happened in chat]
-**Attach to rule:** [existing rule in JIT file]
-**Example:** [specific instance]
+**Type:** [New rule / Example to: {existing rule}]
+**Proposed text:** [the actual text to add, preferably as a question]
 **Chain to goal:** [connection to quality/speed/time]
 **Confidence:** [High/Medium/Low]
+**Industry context:** [web research findings, if done]
 ```
 
 **Wait for user approval before adding to JIT files.**
@@ -264,6 +292,7 @@ Output a summary block:
 - ❌ Low-level details that should be examples under existing rules
 - ❌ Speculation presented as fact
 - ❌ First-abstraction principles without goal connection
+- ❌ Rules for things agent already does correctly — only add rules for behaviors that FAIL without the rule
 
 ### Hierarchy for Learnings
 
