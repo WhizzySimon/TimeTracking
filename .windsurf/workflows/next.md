@@ -41,8 +41,26 @@ Proceed with the user's task, keeping loaded rules in active consideration.
 2. Ask: "Does this sub-step trigger a rule I haven't loaded yet?"
 3. If yes → Load it now, output: `[RULE-LOADED-MID-TASK] {rule name}`
 
-**Key question at decision points:**
-> "Which of my loaded rules applies to this decision?"
+### Mid-Task Output Requirement (Critical)
+
+**For significant decisions, output BEFORE acting:**
+
+```
+[CONSULTING] {rule name} → {specific principle or section}
+[DECISION] {what you decided} because {rule-based reason}
+```
+
+**What counts as "significant decision":**
+- Design choices (how to structure something)
+- Behavioral choices (how something should work)
+- Trade-off choices (option A vs B)
+- Anything you'd explain to a code reviewer
+
+**NOT required for:**
+- Trivial actions (read file, run safe command)
+- Mechanical steps (formatting, imports)
+
+**Why this matters:** Reading rules at the start isn't enough. This forces active consultation DURING execution — the gap where rules fade from attention.
 
 ---
 
