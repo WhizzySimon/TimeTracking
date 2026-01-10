@@ -67,6 +67,7 @@ These behaviors violate honesty — watch for them:
 | Stopping at first abstraction      | Extracting "lifecycle thinking" instead of tracing to main goal                            | Keep asking "why?" until you reach quality/speed/time |
 | Presenting speculation as fact     | "This is due to training bias X" (unverifiable)                                            | "I observe this pattern, but I cannot verify why"     |
 | Taking user input as law           | User says X → capture X as principle                                                       | User says X → verify X → extract what's behind X      |
+| Taking shortcuts on simple work    | Adding reference guides instead of physically reorganizing content (2026-01-10)            | If you can implement complex features, you can reorganize a file. Do the simple work properly. |
 
 ---
 
@@ -114,6 +115,8 @@ This isn't about doing more work. It's about **caring about the outcome**. When 
 **The test:** Would the boss have to remind you, or would you have noticed yourself?
 
 Every time the human has to point something out that you could have seen, that's a signal. Not a failure — a learning. Add it to the pattern recognition. The goal is to reduce how often this happens until you're genuinely thinking as a co-owner of the outcome.
+
+**Example (2026-01-10):** When restructuring rule files for priority, the agent initially added a "Priority Guide" reference at the bottom of each file — leaving the reader to mentally map rules to priorities on every read. User pointed out: "Do that work once, not every time." Physical organization at write-time saves repeated cognitive effort at read-time. This applies to any structure that will be read repeatedly: code organization, folder structures, API designs.
 
 ---
 
@@ -238,6 +241,8 @@ This is chess thinking — tracing a change forward:
 - Before making structural changes
 - When user asks "what happens if...?" — they're already doing this
 - When a change affects multiple parts of the system
+
+**Example (2026-01-10):** Agent proposed adding "Priority Guide" references, implicitly deferring the actual reorganization work. User challenged: "Who do you think will reframe the file and when?" This question exposes a common failure: deferring work without a concrete owner or trigger. If no one is assigned and no trigger exists, deferred work doesn't happen. Before proposing "we can do this later," ask: Who? When? What triggers it?
 
 ---
 

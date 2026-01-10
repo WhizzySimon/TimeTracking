@@ -29,16 +29,6 @@ description: Capture learnings from chat - unified workflow for all learning cat
 
 ---
 
-## Step 0: Load Rule-Structure Guidelines
-
-**Before starting, read:** `DevFramework/JustInTimeAgentRules/rule-structure.md`
-
-This contains the principles for what makes a good rule (mid-level vs low-level, goal-tracing, etc.).
-
-> [RULE-LOADED] rule-structure guidelines loaded
-
----
-
 ## Step 1: Determine Scope
 
 1. Check if this chat has previous "Capture Learnings Summary" blocks
@@ -51,12 +41,52 @@ This contains the principles for what makes a good rule (mid-level vs low-level,
 
 **Focus:** Capture HOW the user thinks, not just WHAT we did.
 
-**Apply rule-structure.md principles** (loaded in Step 0):
-- Goal-trace each observation to quality + speed + human time
-- Find existing mid-level rules to attach examples to
-- Verify vs speculate — label accordingly
+### The Goal-Tracing Requirement
 
-Scan for patterns in these categories:
+**Don't stop at the first abstraction.** Keep asking "why?" until you reach the main goal (quality + speed + human time).
+
+```
+Observation → Why? → Why that? → Why that? → Main goal
+```
+
+**Example:**
+
+- Observation: User says "delete promoted entries from INBOX"
+- Why? → Promoted items don't belong in pending storage
+- Why does that matter? → Reduces noise, maintains clarity
+- Why does THAT matter? → No confusion, no maintenance overhead
+- Connection to goal: → Quality + speed + human time saved
+
+**The principle is the MID-LEVEL connection, not the task-specific detail.**
+
+### Find Existing Rules, Don't Create New Low-Level Ones
+
+Before creating a new rule, ask: Does an existing mid-level rule cover this?
+
+**Structure for learnings:**
+```
+Mid-level rule:     [existing rule in JIT file, e.g., "Single Source of Truth"]
+                           ↑
+Lower-level example: [specific instance from this chat]
+                           ↓
+Chain to goal:      [how this serves quality + speed + human time]
+```
+
+**Concrete example:**
+- Observation: "Delete promoted entries from INBOX"
+- ❌ Wrong (too low): "Storage containers should only hold items in their intended state"
+- ✅ Right (mid-level): Attach to existing rule **"Single Source of Truth"**
+- Chain to goal: No duplication → no confusion → no maintenance overhead → quality + speed + human time
+
+**Add examples to existing rules rather than creating rule bloat.**
+
+### Honesty Check
+
+Before capturing any learning:
+
+- Is this verified or speculation? Label accordingly.
+- Am I taking user's words as law, or tracing what's behind them?
+- Am I stopping at first plausible abstraction, or tracing to goal?
 
 ---
 
@@ -150,12 +180,18 @@ For each reasoning pattern found:
 2. **Note the example** (specific instance from this chat)
 3. **Verify against existing JIT rules:**
    - Check relevant JIT files (mindset.md, framework-principles.md, debugging.md, etc.)
-   - Does this principle already exist? → Skip
+   - Does this principle already exist?
+   - If yes → Skip (don't duplicate)
    - If similar but different → Note the nuance
-4. **Apply rule-structure.md decision criteria:**
-   - New rule or example? (default to example)
-   - Check example value (skip if too similar)
-5. **Determine destination** (which JIT file and which existing rule)
+4. **Decide: New rule or example?**
+   - Does an existing mid-level rule cover this? → **Add as example** to that rule
+   - Is this a genuinely new principle not covered? → **Create new rule**
+   - Default to example — new rules should be rare
+5. **Check example value:**
+   - Is this example different enough from existing examples?
+   - Does it illustrate a distinct aspect of the rule?
+   - If too similar to existing examples → Skip (reduce noise)
+6. **Determine destination** (which JIT file and which existing rule)
 
 ---
 
@@ -238,12 +274,39 @@ Output a summary block:
 
 ## Notes
 
-**All rule-structure principles are in:** `DevFramework/JustInTimeAgentRules/rule-structure.md` (loaded in Step 0)
+**Full rule-structure guidelines:** See `DevFramework/JustInTimeAgentRules/rule-structure.md`
 
-This includes: goal-tracing, mid-level vs low-level, what NOT to capture, hierarchy for learnings, etc.
+### Core Principles
 
-**Quick reference (details in rule-structure.md):**
-- Goal-trace to quality + speed + human time
-- Find existing mid-level rules → add examples
-- Verify vs speculate — label accordingly
-- Different domain test — would this apply to cooking/banking/game app?
+- **Be honest** — Only claim what you can verify. Label speculation as speculation.
+- **Trace to goal** — Keep asking "why?" until you reach quality + speed + human time
+- **Mid-level, not low-level** — Find existing rules and add examples, don't create rule bloat
+- **Verify user input** — User's words are data, not law. Trace what's behind them.
+- **Concise principles > detailed checklists** — Detailed steps create mechanical following; concise principles force thinking
+
+### Quality Checks
+
+- **Different domain test** — Would this apply to a cooking/banking/game app?
+- **Goal connection test** — Can you trace this to quality + speed + human time?
+- **Existing rule test** — Does a mid-level rule already cover this?
+- **Speculation test** — Is this verified or hypothesis?
+
+### What NOT to Capture
+
+- ❌ Task documentation ("we did X")
+- ❌ Low-level details that should be examples under existing rules
+- ❌ Speculation presented as fact
+- ❌ First-abstraction principles without goal connection
+- ❌ Rules for things agent already does correctly — only add rules for behaviors that FAIL without the rule
+
+### Hierarchy for Learnings
+
+```
+Main goal:        Quality + Speed + Human time
+                         ↑
+Mid-level rule:   [existing JIT rule]
+                         ↑
+Lower-level:      [example from this chat]
+```
+
+Add examples to rules. Don't create new low-level rules.
